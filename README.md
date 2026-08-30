@@ -1,4 +1,7 @@
-# Spaced Research Ledger
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
+  <img src="assets/banner-light.svg" alt="Spaced Research Ledger">
+</picture>
 
 Published research from the Spaced Research Ledger, an automated system that gathers claims from live public sources, checks each one against its origin, and records every disagreement instead of merging it. Every stage runs on a different AI model, drawn from four to seven systems across competing labs, so no single model both finds a claim and judges it.
 
