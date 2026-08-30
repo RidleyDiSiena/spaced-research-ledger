@@ -1,0 +1,23 @@
+# Spaced Research Ledger
+
+Published research from the Spaced Research Ledger, an automated system that gathers claims from live public sources, checks each one against its origin, and records every disagreement instead of merging it. Every stage runs on a different AI model, drawn from four to seven systems across competing labs, so no single model both finds a claim and judges it.
+
+These reports state what their sources say, with every statement cited. They take no editorial position, represent no government, company, or other organization, and endorse no product. The project has no sponsor and no commercial interest in anything it covers. It is published for anyone who finds it useful.
+
+The Spaced Research Ledger is designed and maintained by Ridley DiSiena.
+
+## Research Topics
+
+| Topic | Description | Last updated |
+|---|---|---|
+| [Post-Quantum Cryptography Migration](post-quantum-cryptography/) | A nineteen-part survey of the replacement of the public-key cryptography that secures nearly all digital communication, from silicon to government policy. | 2026-08-29 |
+
+## How This Repository Is Organized
+
+Each topic has its own folder with the same shape:
+
+- **`latest/`** holds the current final reports as PDFs. This is always the newest complete edition.
+- **`diffs/`** holds change reports covering what moved since the previous edition. When all recent findings have been folded into the latest edition and no newer sweep has run, this folder is empty and past change reports live in the archive.
+- **`archive/`** holds superseded editions and past change reports, in folders named by date.
+
+Only finished PDFs are published here. The research pipeline, its data, and intermediate formats are maintained separately.
