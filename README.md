@@ -15,6 +15,7 @@ The Spaced Research Ledger is designed and maintained by Ridley DiSiena.
 |---|---|---|
 | [Post-Quantum Cryptography Migration](post-quantum-cryptography/) | A nineteen-part survey of the replacement of the public-key cryptography that secures nearly all digital communication, from silicon to government policy. | 2026-08-29 |
 | [Quantum Computing](quantum-computing/) | A ten-part survey of the machines themselves: the five competing hardware approaches, the error correction every one of them depends on, and the money, theory and contested claims around them. | 2026-08-30 |
+| [Post-Quantum Mathematics](post-quantum-mathematics/) | A five-part survey of the layer underneath the migration: who is standardizing which algorithms, the national tracks that diverge from NIST, the alternatives held in reserve, and what is being broken. | 2026-08-31 |
 
 ## How This Repository Is Organized
 
