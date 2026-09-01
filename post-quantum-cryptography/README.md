@@ -6,7 +6,7 @@ The collection has nineteen parts plus a reading guide, ordered by dependency: h
 
 **Start with the [Reading Guide](latest/00-reading-guide.pdf).** It explains the structure and summarizes every part.
 
-Last updated: 2026-08-29
+Last updated: 2026-08-31
 
 ## Latest Edition
 
