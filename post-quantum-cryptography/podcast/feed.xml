@@ -10,6 +10,62 @@
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="https://raw.githubusercontent.com/RidleyDiSiena/spaced-research-ledger/main/assets/social-preview-full.png" />
     <item>
+      <title>Part 19 - Finding &amp; Governing It: Governance, Mandates &amp; Timelines</title>
+      <description>Every earlier part of this collection describes technology. This one describes the deadlines. Governments have converted post-quantum guidance into dates with consequences, and the dates now drive vendor roadmaps more than the physics does.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/19-governance-mandates.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:19:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/19-governance-mandates.mp3" length="9192279" type="audio/mpeg" />
+      <itunes:duration>0:19:09</itunes:duration>
+    </item>
+    <item>
+      <title>Part 18 - Finding &amp; Governing It: Developer &amp; Migration Tooling</title>
+      <description>Before an organization can migrate anything, it has to find its cryptography, and almost none can. Asking which systems use RSA is a question most enterprises cannot answer in minutes, or at all. The tools that fix that, inventories, scanners, validators, and test rigs, are this report's subject.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/18-migration-tooling.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:18:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/18-migration-tooling.mp3" length="6551700" type="audio/mpeg" />
+      <itunes:duration>0:13:39</itunes:duration>
+    </item>
+    <item>
+      <title>Part 17 - Edges &amp; Sectors: Financial Messaging &amp; Sector Rails</title>
+      <description>The world's money moves through a small set of rails: SWIFT messages between banks, central-bank settlement systems, and the card networks. Their cryptography is old, their message formats are tight, and a successful quantum attack on any of them would be a macroeconomic event. One study put a theoretical attack on the U.S. settlement system at a 10 to 17 percent hit to GDP.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/17-financial-sector-rails.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:17:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/17-financial-sector-rails.mp3" length="5415250" type="audio/mpeg" />
+      <itunes:duration>0:11:17</itunes:duration>
+    </item>
+    <item>
+      <title>Part 16 - Edges &amp; Sectors: Enterprise IoT &amp; OT</title>
+      <description>The physical world runs on devices that live for decades: grid controllers, payment cards, cars, satellites, smart meters. They are the hardest things to migrate and the last to move, which makes this report a map of gaps as much as progress.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/16-iot-ot.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:16:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/16-iot-ot.mp3" length="12829507" type="audio/mpeg" />
+      <itunes:duration>0:26:44</itunes:duration>
+    </item>
+    <item>
+      <title>Part 15 - Where It Runs: Email &amp; Messaging</title>
+      <description>Messages are the purest harvest-now-decrypt-later target: personal, durable, and often archived by the recipient for years. That has made the secure messengers the most advanced post-quantum deployments anywhere, while email, the older medium, mostly waits on the layers beneath it.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/15-email-messaging.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:15:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/15-email-messaging.mp3" length="4401471" type="audio/mpeg" />
+      <itunes:duration>0:09:10</itunes:duration>
+    </item>
+    <item>
+      <title>Part 14 - Where It Runs: Enterprise Applications &amp; Delivery</title>
+      <description>The applications businesses actually live in, the ERP system, the video call, the remote desktop, are the last stop of the migration. Everything beneath them has to work first, and their vendors mostly move by inheriting the layers below.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/14-enterprise-applications.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:14:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/14-enterprise-applications.mp3" length="5146832" type="audio/mpeg" />
+      <itunes:duration>0:10:43</itunes:duration>
+    </item>
+    <item>
+      <title>Part 13 - Where It Runs: Enterprise Infrastructure &amp; Storage</title>
+      <description>The machines that run and store enterprise data live longer than almost anything else in computing. A storage array, a tape cartridge, or a server management chip bought today will still be in service when quantum computers are far closer. That makes this hardware's cryptography a decision with a decade-long tail.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/13-enterprise-infra-storage.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:13:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/13-enterprise-infra-storage.mp3" length="6432849" type="audio/mpeg" />
+      <itunes:duration>0:13:24</itunes:duration>
+    </item>
+    <item>
       <title>Part 12 - Where It Runs: Security &amp; Network Appliances</title>
       <description>The boxes that guard networks, firewalls, load balancers, routers, and encryptors, have become one of the migration's busiest fronts. Every major vendor now ships or roadmaps post-quantum features, and some sell hardware designed around the new algorithms from the silicon up.</description>
       <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/12-security-appliances.mp3</guid>

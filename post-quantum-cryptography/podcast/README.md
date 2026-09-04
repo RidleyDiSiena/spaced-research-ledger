@@ -8,6 +8,13 @@ Episodes are hosted as release assets; the links below download the mp3 directly
 
 | Episode | Length | Published |
 |---|---|---|
+| [Part 19 - Finding & Governing It: Governance, Mandates & Timelines](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/19-governance-mandates.mp3) | 0:19:09 | 2026-08-31 |
+| [Part 18 - Finding & Governing It: Developer & Migration Tooling](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/18-migration-tooling.mp3) | 0:13:39 | 2026-08-31 |
+| [Part 17 - Edges & Sectors: Financial Messaging & Sector Rails](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/17-financial-sector-rails.mp3) | 0:11:17 | 2026-08-31 |
+| [Part 16 - Edges & Sectors: Enterprise IoT & OT](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/16-iot-ot.mp3) | 0:26:44 | 2026-08-31 |
+| [Part 15 - Where It Runs: Email & Messaging](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/15-email-messaging.mp3) | 0:09:10 | 2026-08-31 |
+| [Part 14 - Where It Runs: Enterprise Applications & Delivery](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/14-enterprise-applications.mp3) | 0:10:43 | 2026-08-31 |
+| [Part 13 - Where It Runs: Enterprise Infrastructure & Storage](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/13-enterprise-infra-storage.mp3) | 0:13:24 | 2026-08-31 |
 | [Part 12 - Where It Runs: Security & Network Appliances](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/12-security-appliances.mp3) | 0:20:24 | 2026-08-31 |
 | [Part 11 - Where It Runs: Cloud Infrastructure](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/11-cloud-infrastructure.mp3) | 0:17:49 | 2026-08-31 |
 | [Part 10 - Building & Shipping Software: Containers, Orchestration, Service Mesh](https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/10-containers-orchestration.mp3) | 0:07:38 | 2026-08-31 |
