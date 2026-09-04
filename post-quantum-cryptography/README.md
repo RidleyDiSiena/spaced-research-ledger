@@ -8,6 +8,8 @@ The collection has nineteen parts plus a reading guide, ordered by dependency: h
 
 Last updated: 2026-08-31
 
+**Listen:** [podcast episodes and feed](podcast/) -- every part, read aloud.
+
 ## Latest Edition
 
 | Part | Report |

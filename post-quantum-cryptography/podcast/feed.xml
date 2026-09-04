@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title>Spaced Research Ledger: Post-Quantum Cryptography Migration</title>
+    <link>https://github.com/RidleyDiSiena/spaced-research-ledger/tree/main/post-quantum-cryptography</link>
+    <description>A nineteen-part survey of the replacement of the public-key cryptography that secures nearly all digital communication, from silicon to government policy.</description>
+    <language>en-gb</language>
+    <itunes:author>Spaced Research Ledger</itunes:author>
+    <itunes:subtitle>Post-Quantum Cryptography Migration</itunes:subtitle>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://raw.githubusercontent.com/RidleyDiSiena/spaced-research-ledger/main/assets/social-preview-full.png" />
+    <item>
+      <title>Part 12 - Where It Runs: Security &amp; Network Appliances</title>
+      <description>The boxes that guard networks, firewalls, load balancers, routers, and encryptors, have become one of the migration's busiest fronts. Every major vendor now ships or roadmaps post-quantum features, and some sell hardware designed around the new algorithms from the silicon up.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/12-security-appliances.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:12:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/12-security-appliances.mp3" length="9795339" type="audio/mpeg" />
+      <itunes:duration>0:20:24</itunes:duration>
+    </item>
+    <item>
+      <title>Part 11 - Where It Runs: Cloud Infrastructure</title>
+      <description>Most of the world's computing now runs in a handful of clouds, so a single provider decision moves more traffic to post-quantum than a thousand enterprise projects. The providers know it, and they have turned the migration into a competitive race with published roadmaps and dated milestones.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/11-cloud-infrastructure.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:11:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/11-cloud-infrastructure.mp3" length="8555778" type="audio/mpeg" />
+      <itunes:duration>0:17:49</itunes:duration>
+    </item>
+    <item>
+      <title>Part 10 - Building &amp; Shipping Software: Containers, Orchestration, Service Mesh</title>
+      <description>Cloud-native infrastructure got much of its post-quantum protection by accident. Kubernetes, containerd, and their neighbors are written in Go, and when Go turned hybrid key exchange on by default, whole clusters started negotiating it with no announcement and no planning.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/10-containers-orchestration.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:10:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/10-containers-orchestration.mp3" length="3665956" type="audio/mpeg" />
+      <itunes:duration>0:07:38</itunes:duration>
+    </item>
+    <item>
+      <title>Part 9 - Building &amp; Shipping Software: Software Supply Chain</title>
+      <description>Every piece of software you install was vouched for by a signature: the package manager checked it, the app store checked it, the container runtime checked it. Those signatures are almost all classical, and unlike a TLS session they must stay valid for years. Forging one retroactively would poison the supply chain at its source.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/09-software-supply-chain.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:09:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/09-software-supply-chain.mp3" length="9209360" type="audio/mpeg" />
+      <itunes:duration>0:19:11</itunes:duration>
+    </item>
+    <item>
+      <title>Part 8 - Building &amp; Shipping Software: Application Dev Stacks &amp; Languages</title>
+      <description>The software that developers actually build with, web servers, language runtimes, database drivers, and browsers, mostly does not implement cryptography. It inherits it. When OpenSSL, Go, or the operating system's TLS stack turns post-quantum on, thousands of products above them change behavior at once.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/08-app-dev-stacks.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:08:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/08-app-dev-stacks.mp3" length="6945885" type="audio/mpeg" />
+      <itunes:duration>0:14:28</itunes:duration>
+    </item>
+    <item>
+      <title>Part 7 - Protocols &amp; Trust: PKI, Certificates, Identity &amp; Authentication</title>
+      <description>Everything that proves identity on the internet runs on certificates and signatures, and none of it is quantum-safe yet. Encryption moved first because recorded traffic is at risk today. Signatures can wait until a large quantum computer exists, but the systems that issue, distribute, and validate them take a decade to change. This is the migration's long pole.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/07-pki-identity.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:07:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/07-pki-identity.mp3" length="18614876" type="audio/mpeg" />
+      <itunes:duration>0:38:47</itunes:duration>
+    </item>
+    <item>
+      <title>Part 6 - Protocols &amp; Trust: Network &amp; Transport Protocols</title>
+      <description>The protocols that move data across networks are where post-quantum cryptography first became real. Every encrypted connection made today can be recorded and decrypted later by a quantum computer, so key exchange had to move first, years ahead of signatures.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/06-network-transport.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:06:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/06-network-transport.mp3" length="11783501" type="audio/mpeg" />
+      <itunes:duration>0:24:33</itunes:duration>
+    </item>
+    <item>
+      <title>Part 5 - Cryptographic Foundations: HSMs, KMS &amp; Key Management</title>
+      <description>Hardware security modules, key managers, and the standards around them are where organizations keep their most sensitive cryptographic keys. This layer has to adopt post-quantum algorithms before much else can. A certificate authority or a payments network can only move to a new algorithm once the hardware beneath it supports that algorithm and auditors accept the result.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/05-hsm-kms.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:05:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/05-hsm-kms.mp3" length="9746770" type="audio/mpeg" />
+      <itunes:duration>0:20:18</itunes:duration>
+    </item>
+    <item>
+      <title>Part 4 - Cryptographic Foundations: Crypto Libraries &amp; Providers</title>
+      <description>Almost no application implements cryptography itself. It calls a library. A few dozen libraries therefore decide when the world's software actually becomes quantum-resistant, whatever the standards say.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/04-crypto-libraries.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:04:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/04-crypto-libraries.mp3" length="11945364" type="audio/mpeg" />
+      <itunes:duration>0:24:53</itunes:duration>
+    </item>
+    <item>
+      <title>Part 3 - Operating Systems: Operating Systems &amp; Endpoints</title>
+      <description>Operating systems are where post-quantum cryptography meets ordinary users. When an OS ships the new algorithms, every application on it can use them. When it turns them on by default, every user gets them without knowing.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/03-operating-systems.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:03:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/03-operating-systems.mp3" length="10928141" type="audio/mpeg" />
+      <itunes:duration>0:22:46</itunes:duration>
+    </item>
+    <item>
+      <title>Part 2 - Silicon &amp; Firmware: Firmware &amp; Root of Trust</title>
+      <description>Every computer decides what software to trust before the operating system even starts. That decision rests on cryptographic signatures burned into firmware, boot chains, and security chips. These are the hardest components to fix after they ship, so they carry the earliest post-quantum deadlines in the whole migration.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/02-firmware-root-of-trust.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:02:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/02-firmware-root-of-trust.mp3" length="10707721" type="audio/mpeg" />
+      <itunes:duration>0:22:18</itunes:duration>
+    </item>
+    <item>
+      <title>Part 1 - Silicon &amp; Firmware: Hardware Acceleration &amp; Silicon</title>
+      <description>The new post-quantum algorithms are only useful if hardware can run them fast. This report covers that problem in three sections. Section 1 follows the tuned code that makes the new math fast on ordinary processors. Section 2 follows the dedicated accelerator cards built for heavy connection loads. Section 3 follows the ready-made circuit blocks that put the algorithms into future chips.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/01-hardware-acceleration.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:01:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/01-hardware-acceleration.mp3" length="8760080" type="audio/mpeg" />
+      <itunes:duration>0:18:15</itunes:duration>
+    </item>
+    <item>
+      <title>Reading Guide</title>
+      <description>Post-Quantum Cryptography Migration is a survey of one large, slow-moving event: the replacement of the public-key cryptography that secures nearly all digital communication. Quantum computers, once large enough, will break the algorithms in use today. Standards bodies have chosen replacements, and deploying them now touches every layer of computing, from silicon to government policy.</description>
+      <guid isPermaLink="false">https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/00-reading-guide.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:00:00 +0000</pubDate>
+      <enclosure url="https://github.com/RidleyDiSiena/spaced-research-ledger/releases/download/podcast-post-quantum-cryptography-2026-08-31-v3/00-reading-guide.mp3" length="3770145" type="audio/mpeg" />
+      <itunes:duration>0:07:51</itunes:duration>
+    </item>
+  </channel>
+</rss>
