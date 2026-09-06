@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
-    <title>Spaced Research Ledger: Post-Quantum Cryptography Migration</title>
-    <link>https://github.com/RidleyDiSiena/spaced-research-ledger/tree/main/post-quantum-cryptography</link>
-    <description>A nineteen-part survey of the replacement of the public-key cryptography that secures nearly all digital communication, from silicon to government policy.</description>
+    <title>SRL-Pod: Post Quantum</title>
+    <link>https://github.com/RidleyDiSiena/spaced-research-ledger/tree/main/post-quantum-cryptography/podcast</link>
+    <description>Post-quantum cryptography and the subjects around it, read aloud from the Spaced Research Ledger: the migration itself, the mathematics behind the new algorithms, quantum computing, and the standards bodies that shape all of it. Every claim traced to a live public source.</description>
     <language>en-gb</language>
-    <itunes:author>Spaced Research Ledger</itunes:author>
-    <itunes:subtitle>Post-Quantum Cryptography Migration</itunes:subtitle>
+    <itunes:author>Spaced Research Ledger (SRL)</itunes:author>
+    <itunes:subtitle>SRL-Pod: Post Quantum</itunes:subtitle>
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="https://research.perikron.com/pqc/podcast/cover.jpg" />
     <item>
@@ -130,12 +130,28 @@
       <itunes:duration>0:20:58</itunes:duration>
     </item>
     <item>
+      <title>PQC Mathematics: Part 5 - Primitives &amp; Cryptanalysis: Cryptanalysis of Candidate &amp; Non-Ratified Schemes</title>
+      <description>This part covers attacks on algorithms that are not yet standards. That distinction matters, because an attack on a candidate is how the process is supposed to work. A scheme that fails during evaluation has done its job by failing early.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:05:00 +0000</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3" length="4328542" type="audio/mpeg" />
+      <itunes:duration>0:09:01</itunes:duration>
+    </item>
+    <item>
       <title>Part 4 - Cryptographic Foundations: Crypto Libraries &amp; Providers</title>
       <description>Almost no application implements cryptography itself. It calls a library. A few dozen libraries therefore decide when the world's software actually becomes quantum-resistant, whatever the standards say.</description>
       <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/2026-08-31-v3/04-crypto-libraries.mp3</guid>
       <pubDate>Mon, 31 Aug 2026 09:04:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqc/podcast/2026-08-31-v3/04-crypto-libraries.mp3" length="12233940" type="audio/mpeg" />
       <itunes:duration>0:25:29</itunes:duration>
+    </item>
+    <item>
+      <title>PQC Mathematics: Part 4 - Primitives &amp; Cryptanalysis: Symmetric &amp; Hash-Based Research</title>
+      <description>The usual summary of quantum computing's effect on cryptography is that public-key algorithms break and symmetric ones merely need longer keys. That summary is right about AES and wrong about almost everything built on top of it.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:04:00 +0000</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3" length="5286220" type="audio/mpeg" />
+      <itunes:duration>0:11:01</itunes:duration>
     </item>
     <item>
       <title>Part 3 - Operating Systems: Operating Systems &amp; Endpoints</title>
@@ -146,12 +162,28 @@
       <itunes:duration>0:23:30</itunes:duration>
     </item>
     <item>
+      <title>PQC Mathematics: Part 3 - Standards Tracks &amp; Candidates: Candidate Asymmetric Algorithms</title>
+      <description>This part covers the algorithms NIST did not choose. Some lost a competition. Some were never entered. Two have been standardized anyway, by other bodies, which is why they matter more than the word "candidate" suggests.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:03:00 +0000</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3" length="4818703" type="audio/mpeg" />
+      <itunes:duration>0:10:02</itunes:duration>
+    </item>
+    <item>
       <title>Part 2 - Silicon &amp; Firmware: Firmware &amp; Root of Trust</title>
       <description>Every computer decides what software to trust before the operating system even starts. That decision rests on cryptographic signatures burned into firmware, boot chains, and security chips. These are the hardest components to fix after they ship, so they carry the earliest post-quantum deadlines in the whole migration.</description>
       <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/2026-08-31-v3/02-firmware-root-of-trust.mp3</guid>
       <pubDate>Mon, 31 Aug 2026 09:02:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqc/podcast/2026-08-31-v3/02-firmware-root-of-trust.mp3" length="10805833" type="audio/mpeg" />
       <itunes:duration>0:22:31</itunes:duration>
+    </item>
+    <item>
+      <title>PQC Mathematics: Part 2 - Standards Tracks &amp; Candidates: Non-NIST National &amp; Regional Standards Tracks</title>
+      <description>NIST is not the only body choosing post-quantum algorithms. South Korea ran its own competition and picked its own winners. China is running a second one and has said openly that it intends to shape international norms rather than adopt American standards. Germany and France endorse algorithms NIST did not select, and require them in combination rather than alone.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:02:00 +0000</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3" length="5874909" type="audio/mpeg" />
+      <itunes:duration>0:12:14</itunes:duration>
     </item>
     <item>
       <title>Part 1 - Silicon &amp; Firmware: Hardware Acceleration &amp; Silicon</title>
@@ -162,12 +194,28 @@
       <itunes:duration>0:18:49</itunes:duration>
     </item>
     <item>
+      <title>PQC Mathematics: Part 1 - Standards Tracks &amp; Candidates: NIST Standards Track</title>
+      <description>NIST runs the process that decides which post-quantum algorithms the world will actually use. Its choices are not binding on anyone outside the US federal government, but in practice they set the direction for browsers, cloud providers, hardware vendors and most other standards bodies.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:01:00 +0000</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.mp3" length="6372548" type="audio/mpeg" />
+      <itunes:duration>0:13:17</itunes:duration>
+    </item>
+    <item>
       <title>Reading Guide</title>
       <description>Post-Quantum Cryptography Migration is a survey of one large, slow-moving event: the replacement of the public-key cryptography that secures nearly all digital communication. Quantum computers, once large enough, will break the algorithms in use today. Standards bodies have chosen replacements, and deploying them now touches every layer of computing, from silicon to government policy.</description>
       <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/2026-08-31-v3/00-reading-guide.mp3</guid>
       <pubDate>Mon, 31 Aug 2026 09:00:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqc/podcast/2026-08-31-v3/00-reading-guide.mp3" length="3912801" type="audio/mpeg" />
       <itunes:duration>0:08:09</itunes:duration>
+    </item>
+    <item>
+      <title>PQC Mathematics: Reading Guide</title>
+      <description>Post-Quantum Mathematics covers the layer underneath the migration. A companion collection, Post-Quantum Cryptography Migration, covers the deployment of the new algorithms across real systems. This one covers where those algorithms come from, who is choosing them, what the alternatives are, and what is being broken.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3</guid>
+      <pubDate>Mon, 31 Aug 2026 09:00:00 +0000</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3" length="2730453" type="audio/mpeg" />
+      <itunes:duration>0:05:41</itunes:duration>
     </item>
   </channel>
 </rss>
