@@ -8,12 +8,6 @@ One feed for every topic in the quantum group; each episode title starts with it
 
 | Episode | Length | Published |
 |---|---|---|
-| [CAB-Forum Watch: Reading Guide](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3) | 0:05:35 | 2026-09-01 |
-| [CAB-Forum Watch: Part 1 - Server Certificate Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.mp3) | 0:10:53 | 2026-09-01 |
-| [CAB-Forum Watch: Part 2 - Code Signing Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.mp3) | 0:04:21 | 2026-09-01 |
-| [CAB-Forum Watch: Part 3 - S/MIME Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.mp3) | 0:05:52 | 2026-09-01 |
-| [CAB-Forum Watch: Part 4 - Public Trust Programs](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.mp3) | 0:10:33 | 2026-09-01 |
-| [CAB-Forum Watch: Part 5 - Revocation & Transparency](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.mp3) | 0:08:37 | 2026-09-01 |
 | [PQC Migration: Reading Guide](https://research.perikron.com/pqc/podcast/2026-08-31-v3/00-reading-guide.mp3) | 0:08:10 | 2026-08-31 |
 | [PQC Migration: Part 1 - Silicon & Firmware: Hardware Acceleration & Silicon](https://research.perikron.com/pqc/podcast/2026-08-31-v3/01-hardware-acceleration.mp3) | 0:18:50 | 2026-08-31 |
 | [PQC Migration: Part 2 - Silicon & Firmware: Firmware & Root of Trust](https://research.perikron.com/pqc/podcast/2026-08-31-v3/02-firmware-root-of-trust.mp3) | 0:23:09 | 2026-08-31 |
@@ -40,3 +34,9 @@ One feed for every topic in the quantum group; each episode title starts with it
 | [PQC Mathematics: Part 3 - Standards Tracks & Candidates: Candidate Asymmetric Algorithms](https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3) | 0:10:02 | 2026-08-31 |
 | [PQC Mathematics: Part 4 - Primitives & Cryptanalysis: Symmetric & Hash-Based Research](https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3) | 0:11:01 | 2026-08-31 |
 | [PQC Mathematics: Part 5 - Primitives & Cryptanalysis: Cryptanalysis of Candidate & Non-Ratified Schemes](https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3) | 0:09:01 | 2026-08-31 |
+| [CAB-Forum Watch: Reading Guide](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3) | 0:05:35 | 2026-09-01 |
+| [CAB-Forum Watch: Part 1 - Server Certificate Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.mp3) | 0:10:53 | 2026-09-01 |
+| [CAB-Forum Watch: Part 2 - Code Signing Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.mp3) | 0:04:21 | 2026-09-01 |
+| [CAB-Forum Watch: Part 3 - S/MIME Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.mp3) | 0:05:52 | 2026-09-01 |
+| [CAB-Forum Watch: Part 4 - Public Trust Programs](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.mp3) | 0:10:33 | 2026-09-01 |
+| [CAB-Forum Watch: Part 5 - Revocation & Transparency](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.mp3) | 0:08:37 | 2026-09-01 |

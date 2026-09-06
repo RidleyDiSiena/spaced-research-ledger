@@ -18,60 +18,6 @@
       <itunes:category text="Mathematics" />
     </itunes:category>
     <item>
-      <title>CAB-Forum Watch: Reading Guide</title>
-      <description>The CA/Browser Forum decides what a publicly trusted certificate may contain, how its holder must be checked, and how long it may live. Its decisions reach almost every encrypted connection on the internet, and they are made in public by a body most people have never heard of. This collection follows that body and the browser root programs that enforce its rules.</description>
-      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3</guid>
-      <pubDate>Sun, 06 Sep 2026 09:00:00 -0400</pubDate>
-      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3" length="2682837" type="audio/mpeg" />
-      <itunes:duration>0:05:35</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>CAB-Forum Watch: Part 1 - Server Certificate Working Group</title>
-      <description>The Server Certificate Working Group writes the rules for the certificates that secure the public web. It is the busiest of the Forum's groups, and it published seven versions of its Baseline Requirements between November 2025 and August 2026.</description>
-      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.mp3</guid>
-      <pubDate>Sun, 06 Sep 2026 08:59:00 -0400</pubDate>
-      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.mp3" length="5222257" type="audio/mpeg" />
-      <itunes:duration>0:10:53</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>CAB-Forum Watch: Part 2 - Code Signing Working Group</title>
-      <description>The Code Signing Working Group writes the rules for the certificates that sign software. It is a smaller and slower group than the one governing web server certificates, and its recent record contains a useful lesson about reading a standards body correctly. Section 1 covers the published requirements and the ballots that produced them. Section 2 covers the work now in progress.</description>
-      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.mp3</guid>
-      <pubDate>Sun, 06 Sep 2026 08:58:00 -0400</pubDate>
-      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.mp3" length="2088235" type="audio/mpeg" />
-      <itunes:duration>0:04:21</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>CAB-Forum Watch: Part 3 - S/MIME Working Group</title>
-      <description>The S/MIME Working Group writes the rules for certificates that sign and encrypt email. Its Baseline Requirements are the youngest of the Forum's documents, adopted at the start of 2023, and the group has issued fifteen revisions since. Section 1 covers the current requirements and the version history behind them. Section 2 covers the RSA key size transition, whose first deadline falls two weeks after this report.</description>
-      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.mp3</guid>
-      <pubDate>Sun, 06 Sep 2026 08:57:00 -0400</pubDate>
-      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.mp3" length="2812645" type="audio/mpeg" />
-      <itunes:duration>0:05:52</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>CAB-Forum Watch: Part 4 - Public Trust Programs</title>
-      <description>The Forum writes the rules, and the root programs decide who is trusted. That division matters because a root program can and does impose requirements the Baseline Requirements do not, often a year or more ahead of them. This part covers both halves of that enforcement layer. Section 1 covers the four browser and operating system root store policies. Section 2 covers the Common CA Database and the incident and distrust record that runs through it.</description>
-      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.mp3</guid>
-      <pubDate>Sun, 06 Sep 2026 08:56:00 -0400</pubDate>
-      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.mp3" length="5062502" type="audio/mpeg" />
-      <itunes:duration>0:10:33</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>CAB-Forum Watch: Part 5 - Revocation &amp; Transparency</title>
-      <description>Revocation and transparency are the two mechanisms that let the web recover from a certificate that should not exist. Revocation withdraws trust from a certificate already issued. Transparency makes every issued certificate publicly visible, so that a bad one can be found at all. Section 1 covers revocation, where the industry's answer has shifted from fixing the mechanism to routing around it. Section 2 covers Certificate Transparency, which is undergoing its first architectural change since it was standardized.</description>
-      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.mp3</guid>
-      <pubDate>Sun, 06 Sep 2026 08:55:00 -0400</pubDate>
-      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.mp3" length="4134186" type="audio/mpeg" />
-      <itunes:duration>0:08:37</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.vtt" type="text/vtt" />
-    </item>
-    <item>
       <title>PQC Migration: Reading Guide</title>
       <description>Post-Quantum Cryptography Migration is a survey of one large, slow-moving event: the replacement of the public-key cryptography that secures nearly all digital communication. Quantum computers, once large enough, will break the algorithms in use today. Standards bodies have chosen replacements, and deploying them now touches every layer of computing, from silicon to government policy.</description>
       <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/2026-08-31-v3/00-reading-guide.mp3</guid>
@@ -304,6 +250,60 @@
       <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3" length="4328542" type="audio/mpeg" />
       <itunes:duration>0:09:01</itunes:duration>
       <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>CAB-Forum Watch: Reading Guide</title>
+      <description>The CA/Browser Forum decides what a publicly trusted certificate may contain, how its holder must be checked, and how long it may live. Its decisions reach almost every encrypted connection on the internet, and they are made in public by a body most people have never heard of. This collection follows that body and the browser root programs that enforce its rules.</description>
+      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 08:00:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3" length="2682837" type="audio/mpeg" />
+      <itunes:duration>0:05:35</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>CAB-Forum Watch: Part 1 - Server Certificate Working Group</title>
+      <description>The Server Certificate Working Group writes the rules for the certificates that secure the public web. It is the busiest of the Forum's groups, and it published seven versions of its Baseline Requirements between November 2025 and August 2026.</description>
+      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 07:59:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.mp3" length="5222257" type="audio/mpeg" />
+      <itunes:duration>0:10:53</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>CAB-Forum Watch: Part 2 - Code Signing Working Group</title>
+      <description>The Code Signing Working Group writes the rules for the certificates that sign software. It is a smaller and slower group than the one governing web server certificates, and its recent record contains a useful lesson about reading a standards body correctly. Section 1 covers the published requirements and the ballots that produced them. Section 2 covers the work now in progress.</description>
+      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 07:58:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.mp3" length="2088235" type="audio/mpeg" />
+      <itunes:duration>0:04:21</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>CAB-Forum Watch: Part 3 - S/MIME Working Group</title>
+      <description>The S/MIME Working Group writes the rules for certificates that sign and encrypt email. Its Baseline Requirements are the youngest of the Forum's documents, adopted at the start of 2023, and the group has issued fifteen revisions since. Section 1 covers the current requirements and the version history behind them. Section 2 covers the RSA key size transition, whose first deadline falls two weeks after this report.</description>
+      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 07:57:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.mp3" length="2812645" type="audio/mpeg" />
+      <itunes:duration>0:05:52</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>CAB-Forum Watch: Part 4 - Public Trust Programs</title>
+      <description>The Forum writes the rules, and the root programs decide who is trusted. That division matters because a root program can and does impose requirements the Baseline Requirements do not, often a year or more ahead of them. This part covers both halves of that enforcement layer. Section 1 covers the four browser and operating system root store policies. Section 2 covers the Common CA Database and the incident and distrust record that runs through it.</description>
+      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 07:56:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.mp3" length="5062502" type="audio/mpeg" />
+      <itunes:duration>0:10:33</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>CAB-Forum Watch: Part 5 - Revocation &amp; Transparency</title>
+      <description>Revocation and transparency are the two mechanisms that let the web recover from a certificate that should not exist. Revocation withdraws trust from a certificate already issued. Transparency makes every issued certificate publicly visible, so that a bad one can be found at all. Section 1 covers revocation, where the industry's answer has shifted from fixing the mechanism to routing around it. Section 2 covers Certificate Transparency, which is undergoing its first architectural change since it was standardized.</description>
+      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 07:55:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.mp3" length="4134186" type="audio/mpeg" />
+      <itunes:duration>0:08:37</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.vtt" type="text/vtt" />
     </item>
   </channel>
 </rss>
