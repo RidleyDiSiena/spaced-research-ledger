@@ -9,6 +9,19 @@ These reports state what their sources say, with every statement cited. They tak
 
 The Spaced Research Ledger is designed and maintained by Ridley DiSiena.
 
+<!-- podcast:start -->
+## Listen
+
+<a href="https://podcasts.apple.com/podcast/id6809122100"><img src="https://research.perikron.com/pqc/podcast/cover.jpg" alt="SRL-Pod: Post Quantum" width="160" align="right"></a>
+
+**SRL-Pod: Post Quantum** reads every part of the quantum group aloud: PQC Migration, PQC Mathematics, CAB-Forum Watch, Quantum Computing, and PQC & Digital Assets. 49 episodes, each with a transcript.
+
+- [Apple Podcasts](https://podcasts.apple.com/podcast/id6809122100)
+- RSS feed, for any podcast app: `https://research.perikron.com/pqc/podcast/feed.xml`
+- [Episode list and direct downloads](post-quantum-cryptography/podcast/)
+<br clear="all">
+<!-- podcast:end -->
+
 <!-- research-topics:start -->
 
 ## Quantum and Crypto: Research Topics
