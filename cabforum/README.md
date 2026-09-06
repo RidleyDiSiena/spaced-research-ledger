@@ -10,6 +10,8 @@ Every statement carries a numbered citation to a public source, and the sources 
 
 Last updated: 2026-09-01
 
+**Listen:** [podcast episodes and feed](../post-quantum-cryptography/podcast/) -- every part, read aloud.
+
 ## Latest Edition
 
 | Part | Report |
