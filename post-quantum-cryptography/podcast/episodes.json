@@ -25,7 +25,7 @@
     "pub_date": "2026-08-31T09:00:00Z",
     "kind": "part",
     "date": "2026-08-31",
-    "transcript": null
+    "transcript": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/01-hardware-acceleration.mp3",
@@ -53,7 +53,7 @@
     "pub_date": "2026-08-31T09:01:00Z",
     "kind": "part",
     "date": "2026-08-31",
-    "transcript": null
+    "transcript": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/02-firmware-root-of-trust.mp3",
@@ -81,7 +81,7 @@
     "pub_date": "2026-08-31T09:02:00Z",
     "kind": "part",
     "date": "2026-08-31",
-    "transcript": null
+    "transcript": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/03-operating-systems.mp3",
@@ -109,7 +109,7 @@
     "pub_date": "2026-08-31T09:03:00Z",
     "kind": "part",
     "date": "2026-08-31",
-    "transcript": null
+    "transcript": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/04-crypto-libraries.mp3",
@@ -137,7 +137,7 @@
     "pub_date": "2026-08-31T09:04:00Z",
     "kind": "part",
     "date": "2026-08-31",
-    "transcript": null
+    "transcript": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/05-hsm-kms.mp3",
@@ -165,7 +165,7 @@
     "pub_date": "2026-08-31T09:05:00Z",
     "kind": "part",
     "date": "2026-08-31",
-    "transcript": null
+    "transcript": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/06-network-transport.mp3",

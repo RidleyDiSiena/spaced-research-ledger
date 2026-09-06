@@ -151,6 +151,7 @@
       <pubDate>Mon, 31 Aug 2026 09:05:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3" length="4328542" type="audio/mpeg" />
       <itunes:duration>0:09:01</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.vtt" type="text/vtt" />
     </item>
     <item>
       <title>PQC Migration: Part 4 - Cryptographic Foundations: Crypto Libraries &amp; Providers</title>
@@ -168,6 +169,7 @@
       <pubDate>Mon, 31 Aug 2026 09:04:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3" length="5286220" type="audio/mpeg" />
       <itunes:duration>0:11:01</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.vtt" type="text/vtt" />
     </item>
     <item>
       <title>PQC Migration: Part 3 - Operating Systems: Operating Systems &amp; Endpoints</title>
@@ -185,6 +187,7 @@
       <pubDate>Mon, 31 Aug 2026 09:03:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3" length="4818703" type="audio/mpeg" />
       <itunes:duration>0:10:02</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.vtt" type="text/vtt" />
     </item>
     <item>
       <title>PQC Migration: Part 2 - Silicon &amp; Firmware: Firmware &amp; Root of Trust</title>
@@ -202,6 +205,7 @@
       <pubDate>Mon, 31 Aug 2026 09:02:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3" length="5874909" type="audio/mpeg" />
       <itunes:duration>0:12:14</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.vtt" type="text/vtt" />
     </item>
     <item>
       <title>PQC Migration: Part 1 - Silicon &amp; Firmware: Hardware Acceleration &amp; Silicon</title>
@@ -219,6 +223,7 @@
       <pubDate>Mon, 31 Aug 2026 09:01:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.mp3" length="6372548" type="audio/mpeg" />
       <itunes:duration>0:13:17</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.vtt" type="text/vtt" />
     </item>
     <item>
       <title>PQC Migration: Reading Guide</title>
@@ -236,6 +241,7 @@
       <pubDate>Mon, 31 Aug 2026 09:00:00 +0000</pubDate>
       <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3" length="2730453" type="audio/mpeg" />
       <itunes:duration>0:05:41</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.vtt" type="text/vtt" />
     </item>
   </channel>
 </rss>
