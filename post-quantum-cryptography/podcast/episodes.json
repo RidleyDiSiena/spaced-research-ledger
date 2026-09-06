@@ -3,14 +3,15 @@
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/00-reading-guide.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "00-reading-guide.mp3",
-    "title": "Reading Guide",
+    "title": "PQC Migration: Reading Guide",
     "description": "Post-Quantum Cryptography Migration is a survey of one large, slow-moving event: the replacement of the public-key cryptography that secures nearly all digital communication. Quantum computers, once large enough, will break the algorithms in use today. Standards bodies have chosen replacements, and deploying them now touches every layer of computing, from silicon to government policy.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/00-reading-guide.mp3",
-    "size": 3912801,
-    "duration_s": 489,
+    "size": 3916065,
+    "duration_s": 490,
     "pub_date": "2026-08-31T09:00:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/00-reading-guide.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3",
@@ -23,20 +24,22 @@
     "duration_s": 341,
     "pub_date": "2026-08-31T09:00:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": null
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/01-hardware-acceleration.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "01-hardware-acceleration.mp3",
-    "title": "Part 1 - Silicon & Firmware: Hardware Acceleration & Silicon",
+    "title": "PQC Migration: Part 1 - Silicon & Firmware: Hardware Acceleration & Silicon",
     "description": "The new post-quantum algorithms are only useful if hardware can run them fast. This report covers that problem in three sections. Section 1 follows the tuned code that makes the new math fast on ordinary processors. Section 2 follows the dedicated accelerator cards built for heavy connection loads. Section 3 follows the ready-made circuit blocks that put the algorithms into future chips.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/01-hardware-acceleration.mp3",
-    "size": 9035408,
-    "duration_s": 1129,
+    "size": 9041360,
+    "duration_s": 1130,
     "pub_date": "2026-08-31T09:01:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/01-hardware-acceleration.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.mp3",
@@ -49,20 +52,22 @@
     "duration_s": 797,
     "pub_date": "2026-08-31T09:01:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": null
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/02-firmware-root-of-trust.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "02-firmware-root-of-trust.mp3",
-    "title": "Part 2 - Silicon & Firmware: Firmware & Root of Trust",
+    "title": "PQC Migration: Part 2 - Silicon & Firmware: Firmware & Root of Trust",
     "description": "Every computer decides what software to trust before the operating system even starts. That decision rests on cryptographic signatures burned into firmware, boot chains, and security chips. These are the hardest components to fix after they ship, so they carry the earliest post-quantum deadlines in the whole migration.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/02-firmware-root-of-trust.mp3",
-    "size": 10805833,
-    "duration_s": 1351,
+    "size": 11109769,
+    "duration_s": 1389,
     "pub_date": "2026-08-31T09:02:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/02-firmware-root-of-trust.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3",
@@ -75,20 +80,22 @@
     "duration_s": 734,
     "pub_date": "2026-08-31T09:02:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": null
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/03-operating-systems.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "03-operating-systems.mp3",
-    "title": "Part 3 - Operating Systems: Operating Systems & Endpoints",
+    "title": "PQC Migration: Part 3 - Operating Systems: Operating Systems & Endpoints",
     "description": "Operating systems are where post-quantum cryptography meets ordinary users. When an OS ships the new algorithms, every application on it can use them. When it turns them on by default, every user gets them without knowing.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/03-operating-systems.mp3",
-    "size": 11279309,
-    "duration_s": 1410,
+    "size": 11601677,
+    "duration_s": 1450,
     "pub_date": "2026-08-31T09:03:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/03-operating-systems.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3",
@@ -101,20 +108,22 @@
     "duration_s": 602,
     "pub_date": "2026-08-31T09:03:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": null
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/04-crypto-libraries.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "04-crypto-libraries.mp3",
-    "title": "Part 4 - Cryptographic Foundations: Crypto Libraries & Providers",
+    "title": "PQC Migration: Part 4 - Cryptographic Foundations: Crypto Libraries & Providers",
     "description": "Almost no application implements cryptography itself. It calls a library. A few dozen libraries therefore decide when the world's software actually becomes quantum-resistant, whatever the standards say.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/04-crypto-libraries.mp3",
-    "size": 12233940,
-    "duration_s": 1529,
+    "size": 12538068,
+    "duration_s": 1567,
     "pub_date": "2026-08-31T09:04:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/04-crypto-libraries.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3",
@@ -127,20 +136,22 @@
     "duration_s": 661,
     "pub_date": "2026-08-31T09:04:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": null
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/05-hsm-kms.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "05-hsm-kms.mp3",
-    "title": "Part 5 - Cryptographic Foundations: HSMs, KMS & Key Management",
+    "title": "PQC Migration: Part 5 - Cryptographic Foundations: HSMs, KMS & Key Management",
     "description": "Hardware security modules, key managers, and the standards around them are where organizations keep their most sensitive cryptographic keys. This layer has to adopt post-quantum algorithms before much else can. A certificate authority or a payments network can only move to a new algorithm once the hardware beneath it supports that algorithm and auditors accept the result.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/05-hsm-kms.mp3",
-    "size": 10066642,
-    "duration_s": 1258,
+    "size": 10298002,
+    "duration_s": 1287,
     "pub_date": "2026-08-31T09:05:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/05-hsm-kms.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3",
@@ -153,188 +164,203 @@
     "duration_s": 541,
     "pub_date": "2026-08-31T09:05:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": null
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/06-network-transport.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "06-network-transport.mp3",
-    "title": "Part 6 - Protocols & Trust: Network & Transport Protocols",
+    "title": "PQC Migration: Part 6 - Protocols & Trust: Network & Transport Protocols",
     "description": "The protocols that move data across networks are where post-quantum cryptography first became real. Every encrypted connection made today can be recorded and decrypted later by a quantum computer, so key exchange had to move first, years ahead of signatures.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/06-network-transport.mp3",
-    "size": 12150989,
-    "duration_s": 1519,
+    "size": 12505037,
+    "duration_s": 1563,
     "pub_date": "2026-08-31T09:06:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/06-network-transport.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/07-pki-identity.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "07-pki-identity.mp3",
-    "title": "Part 7 - Protocols & Trust: PKI, Certificates, Identity & Authentication",
+    "title": "PQC Migration: Part 7 - Protocols & Trust: PKI, Certificates, Identity & Authentication",
     "description": "Everything that proves identity on the internet runs on certificates and signatures, and none of it is quantum-safe yet. Encryption moved first because recorded traffic is at risk today. Signatures can wait until a large quantum computer exists, but the systems that issue, distribute, and validate them take a decade to change. This is the migration's long pole.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/07-pki-identity.mp3",
-    "size": 18941276,
-    "duration_s": 2368,
+    "size": 19543196,
+    "duration_s": 2443,
     "pub_date": "2026-08-31T09:07:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/07-pki-identity.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/08-app-dev-stacks.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "08-app-dev-stacks.mp3",
-    "title": "Part 8 - Building & Shipping Software: Application Dev Stacks & Languages",
+    "title": "PQC Migration: Part 8 - Building & Shipping Software: Application Dev Stacks & Languages",
     "description": "The software that developers actually build with, web servers, language runtimes, database drivers, and browsers, mostly does not implement cryptography. It inherits it. When OpenSSL, Go, or the operating system's TLS stack turns post-quantum on, thousands of products above them change behavior at once.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/08-app-dev-stacks.mp3",
-    "size": 7156701,
-    "duration_s": 895,
+    "size": 7345821,
+    "duration_s": 918,
     "pub_date": "2026-08-31T09:08:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/08-app-dev-stacks.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/09-software-supply-chain.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "09-software-supply-chain.mp3",
-    "title": "Part 9 - Building & Shipping Software: Software Supply Chain",
+    "title": "PQC Migration: Part 9 - Building & Shipping Software: Software Supply Chain",
     "description": "Every piece of software you install was vouched for by a signature: the package manager checked it, the app store checked it, the container runtime checked it. Those signatures are almost all classical, and unlike a TLS session they must stay valid for years. Forging one retroactively would poison the supply chain at its source.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/09-software-supply-chain.mp3",
-    "size": 9504848,
-    "duration_s": 1188,
+    "size": 9697424,
+    "duration_s": 1212,
     "pub_date": "2026-08-31T09:09:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/09-software-supply-chain.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/10-containers-orchestration.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "10-containers-orchestration.mp3",
-    "title": "Part 10 - Building & Shipping Software: Containers, Orchestration, Service Mesh",
+    "title": "PQC Migration: Part 10 - Building & Shipping Software: Containers, Orchestration, Service Mesh",
     "description": "Cloud-native infrastructure got much of its post-quantum protection by accident. Kubernetes, containerd, and their neighbors are written in Go, and when Go turned hybrid key exchange on by default, whole clusters started negotiating it with no announcement and no planning.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/10-containers-orchestration.mp3",
-    "size": 3966436,
-    "duration_s": 496,
+    "size": 4033828,
+    "duration_s": 504,
     "pub_date": "2026-08-31T09:10:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/10-containers-orchestration.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/11-cloud-infrastructure.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "11-cloud-infrastructure.mp3",
-    "title": "Part 11 - Where It Runs: Cloud Infrastructure",
+    "title": "PQC Migration: Part 11 - Where It Runs: Cloud Infrastructure",
     "description": "Most of the world's computing now runs in a handful of clouds, so a single provider decision moves more traffic to post-quantum than a thousand enterprise projects. The providers know it, and they have turned the migration into a competitive race with published roadmaps and dated milestones.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/11-cloud-infrastructure.mp3",
-    "size": 8929986,
-    "duration_s": 1116,
+    "size": 9242178,
+    "duration_s": 1155,
     "pub_date": "2026-08-31T09:11:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/11-cloud-infrastructure.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/12-security-appliances.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "12-security-appliances.mp3",
-    "title": "Part 12 - Where It Runs: Security & Network Appliances",
+    "title": "PQC Migration: Part 12 - Where It Runs: Security & Network Appliances",
     "description": "The boxes that guard networks, firewalls, load balancers, routers, and encryptors, have become one of the migration's busiest fronts. Every major vendor now ships or roadmaps post-quantum features, and some sell hardware designed around the new algorithms from the silicon up.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/12-security-appliances.mp3",
-    "size": 10146699,
-    "duration_s": 1268,
+    "size": 10451211,
+    "duration_s": 1306,
     "pub_date": "2026-08-31T09:12:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/12-security-appliances.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/13-enterprise-infra-storage.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "13-enterprise-infra-storage.mp3",
-    "title": "Part 13 - Where It Runs: Enterprise Infrastructure & Storage",
+    "title": "PQC Migration: Part 13 - Where It Runs: Enterprise Infrastructure & Storage",
     "description": "The machines that run and store enterprise data live longer than almost anything else in computing. A storage array, a tape cartridge, or a server management chip bought today will still be in service when quantum computers are far closer. That makes this hardware's cryptography a decision with a decade-long tail.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/13-enterprise-infra-storage.mp3",
-    "size": 6710481,
-    "duration_s": 839,
+    "size": 6885777,
+    "duration_s": 861,
     "pub_date": "2026-08-31T09:13:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/13-enterprise-infra-storage.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/14-enterprise-applications.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "14-enterprise-applications.mp3",
-    "title": "Part 14 - Where It Runs: Enterprise Applications & Delivery",
+    "title": "PQC Migration: Part 14 - Where It Runs: Enterprise Applications & Delivery",
     "description": "The applications businesses actually live in, the ERP system, the video call, the remote desktop, are the last stop of the migration. Everything beneath them has to work first, and their vendors mostly move by inheriting the layers below.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/14-enterprise-applications.mp3",
-    "size": 5327120,
-    "duration_s": 666,
+    "size": 5534864,
+    "duration_s": 692,
     "pub_date": "2026-08-31T09:14:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/14-enterprise-applications.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/15-email-messaging.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "15-email-messaging.mp3",
-    "title": "Part 15 - Where It Runs: Email & Messaging",
+    "title": "PQC Migration: Part 15 - Where It Runs: Email & Messaging",
     "description": "Messages are the purest harvest-now-decrypt-later target: personal, durable, and often archived by the recipient for years. That has made the secure messengers the most advanced post-quantum deployments anywhere, while email, the older medium, mostly waits on the layers beneath it.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/15-email-messaging.mp3",
-    "size": 4579647,
-    "duration_s": 572,
+    "size": 4662783,
+    "duration_s": 583,
     "pub_date": "2026-08-31T09:15:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/15-email-messaging.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/16-iot-ot.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "16-iot-ot.mp3",
-    "title": "Part 16 - Edges & Sectors: Enterprise IoT & OT",
+    "title": "PQC Migration: Part 16 - Edges & Sectors: Enterprise IoT & OT",
     "description": "The physical world runs on devices that live for decades: grid controllers, payment cards, cars, satellites, smart meters. They are the hardest things to migrate and the last to move, which makes this report a map of gaps as much as progress.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/16-iot-ot.mp3",
-    "size": 13248835,
-    "duration_s": 1656,
+    "size": 13810819,
+    "duration_s": 1726,
     "pub_date": "2026-08-31T09:16:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/16-iot-ot.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/17-financial-sector-rails.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "17-financial-sector-rails.mp3",
-    "title": "Part 17 - Edges & Sectors: Financial Messaging & Sector Rails",
+    "title": "PQC Migration: Part 17 - Edges & Sectors: Financial Messaging & Sector Rails",
     "description": "The world's money moves through a small set of rails: SWIFT messages between banks, central-bank settlement systems, and the card networks. Their cryptography is old, their message formats are tight, and a successful quantum attack on any of them would be a macroeconomic event. One study put a theoretical attack on the U.S. settlement system at a 10 to 17 percent hit to GDP.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/17-financial-sector-rails.mp3",
-    "size": 5599378,
-    "duration_s": 700,
+    "size": 5712274,
+    "duration_s": 714,
     "pub_date": "2026-08-31T09:17:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/17-financial-sector-rails.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/18-migration-tooling.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "18-migration-tooling.mp3",
-    "title": "Part 18 - Finding & Governing It: Developer & Migration Tooling",
+    "title": "PQC Migration: Part 18 - Finding & Governing It: Developer & Migration Tooling",
     "description": "Before an organization can migrate anything, it has to find its cryptography, and almost none can. Asking which systems use RSA is a question most enterprises cannot answer in minutes, or at all. The tools that fix that, inventories, scanners, validators, and test rigs, are this report's subject.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/18-migration-tooling.mp3",
-    "size": 6780372,
-    "duration_s": 848,
+    "size": 7084884,
+    "duration_s": 886,
     "pub_date": "2026-08-31T09:18:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/18-migration-tooling.vtt"
   },
   {
     "guid": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/19-governance-mandates.mp3",
     "tag": "podcast-post-quantum-cryptography-2026-08-31-v3",
     "file": "19-governance-mandates.mp3",
-    "title": "Part 19 - Finding & Governing It: Governance, Mandates & Timelines",
+    "title": "PQC Migration: Part 19 - Finding & Governing It: Governance, Mandates & Timelines",
     "description": "Every earlier part of this collection describes technology. This one describes the deadlines. Governments have converted post-quantum guidance into dates with consequences, and the dates now drive vendor roadmaps more than the physics does.",
     "url": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/19-governance-mandates.mp3",
-    "size": 9488151,
-    "duration_s": 1186,
+    "size": 9779799,
+    "duration_s": 1222,
     "pub_date": "2026-08-31T09:19:00Z",
     "kind": "part",
-    "date": "2026-08-31"
+    "date": "2026-08-31",
+    "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/19-governance-mandates.vtt"
   }
 ]
