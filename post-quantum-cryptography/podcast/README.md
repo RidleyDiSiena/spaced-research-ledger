@@ -34,6 +34,17 @@ One feed for every topic in the quantum group; each episode title starts with it
 | [PQC Mathematics: Part 3 - Standards Tracks & Candidates: Candidate Asymmetric Algorithms](https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3) | 0:10:02 | 2026-08-31 |
 | [PQC Mathematics: Part 4 - Primitives & Cryptanalysis: Symmetric & Hash-Based Research](https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3) | 0:11:01 | 2026-08-31 |
 | [PQC Mathematics: Part 5 - Primitives & Cryptanalysis: Cryptanalysis of Candidate & Non-Ratified Schemes](https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3) | 0:09:01 | 2026-08-31 |
+| [Quantum Computing: Reading Guide](https://research.perikron.com/quantum/podcast/2026-08-30-v1/00-reading-guide.mp3) | 0:07:01 | 2026-08-30 |
+| [Quantum Computing: Part 1 - Hardware by Modality: Superconducting Qubits](https://research.perikron.com/quantum/podcast/2026-08-30-v1/01-superconducting-qubits.mp3) | 0:14:22 | 2026-08-30 |
+| [Quantum Computing: Part 2 - Hardware by Modality: Trapped Ion Qubits](https://research.perikron.com/quantum/podcast/2026-08-30-v1/02-trapped-ion-qubits.mp3) | 0:13:15 | 2026-08-30 |
+| [Quantum Computing: Part 3 - Hardware by Modality: Neutral Atom Qubits](https://research.perikron.com/quantum/podcast/2026-08-30-v1/03-neutral-atom-qubits.mp3) | 0:13:26 | 2026-08-30 |
+| [Quantum Computing: Part 4 - Hardware by Modality: Photonic Quantum Computing](https://research.perikron.com/quantum/podcast/2026-08-30-v1/04-photonic-quantum-computing.mp3) | 0:13:34 | 2026-08-30 |
+| [Quantum Computing: Part 5 - Hardware by Modality: Spin Qubits](https://research.perikron.com/quantum/podcast/2026-08-30-v1/05-spin-qubits.mp3) | 0:15:48 | 2026-08-30 |
+| [Quantum Computing: Part 6 - Error Correction & Logical Qubits](https://research.perikron.com/quantum/podcast/2026-08-30-v1/06-error-correction-logical-qubits.mp3) | 0:19:05 | 2026-08-30 |
+| [Quantum Computing: Part 7 - Industry, Academia & Claims: Industry & Funding Moves](https://research.perikron.com/quantum/podcast/2026-08-30-v1/07-industry-funding-moves.mp3) | 0:15:25 | 2026-08-30 |
+| [Quantum Computing: Part 8 - Industry, Academia & Claims: SPAC Mergers & Public Listings](https://research.perikron.com/quantum/podcast/2026-08-30-v1/08-spac-mergers-public-listings.mp3) | 0:19:27 | 2026-08-30 |
+| [Quantum Computing: Part 9 - Industry, Academia & Claims: Academic & Theoretical](https://research.perikron.com/quantum/podcast/2026-08-30-v1/09-academic-theoretical.mp3) | 0:14:51 | 2026-08-30 |
+| [Quantum Computing: Part 10 - Industry, Academia & Claims: Applications & Benchmarking Claims](https://research.perikron.com/quantum/podcast/2026-08-30-v1/10-applications-benchmarking-claims.mp3) | 0:18:01 | 2026-08-30 |
 | [CAB-Forum Watch: Reading Guide](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3) | 0:05:35 | 2026-09-01 |
 | [CAB-Forum Watch: Part 1 - Server Certificate Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.mp3) | 0:10:53 | 2026-09-01 |
 | [CAB-Forum Watch: Part 2 - Code Signing Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.mp3) | 0:04:21 | 2026-09-01 |

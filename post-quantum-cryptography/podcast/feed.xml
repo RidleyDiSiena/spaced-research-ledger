@@ -252,6 +252,105 @@
       <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.vtt" type="text/vtt" />
     </item>
     <item>
+      <title>Quantum Computing: Reading Guide</title>
+      <description>Quantum Computing is a survey of an industry at an awkward moment. The central scientific question of the last decade has been answered. The machines still cannot do anything commercially useful. Billions of dollars of public and private money moved into the field during 2026 anyway. This collection covers all three of those facts and the tension between them.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/00-reading-guide.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 11:00:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/00-reading-guide.mp3" length="3367503" type="audio/mpeg" />
+      <itunes:duration>0:07:01</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/00-reading-guide.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 1 - Hardware by Modality: Superconducting Qubits</title>
+      <description>Superconducting qubits are tiny circuits, cooled to near absolute zero, that behave like artificial atoms. They are the most widely deployed way to build a quantum computer, and the approach behind most of the machines the public has heard of. They are fast, they are manufacturable using methods borrowed from the chip industry, and they lose their information quickly. Everything in this part follows from that last trade.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/01-superconducting-qubits.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:59:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/01-superconducting-qubits.mp3" length="6896887" type="audio/mpeg" />
+      <itunes:duration>0:14:22</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/01-superconducting-qubits.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 2 - Hardware by Modality: Trapped Ion Qubits</title>
+      <description>A trapped-ion quantum computer uses individual charged atoms, held in place by electric fields inside a vacuum chamber, as its qubits. Every ion of a given element is identical, which removes the manufacturing variation that troubles the chips in Part 1. Ions also hold their state far longer, and any ion in a chain can interact with any other rather than only its neighbours.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/02-trapped-ion-qubits.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:58:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/02-trapped-ion-qubits.mp3" length="6361587" type="audio/mpeg" />
+      <itunes:duration>0:13:15</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/02-trapped-ion-qubits.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 3 - Hardware by Modality: Neutral Atom Qubits</title>
+      <description>Neutral atom machines hold uncharged atoms in place with focused laser beams called optical tweezers, and make them interact by exciting them into large, puffed-up states known as Rydberg states. The atoms are identical by nature, like the ions in Part 2. They are not electrically charged, so they can be packed far more densely without pushing each other apart.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/03-neutral-atom-qubits.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:57:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/03-neutral-atom-qubits.mp3" length="6448180" type="audio/mpeg" />
+      <itunes:duration>0:13:26</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/03-neutral-atom-qubits.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 4 - Hardware by Modality: Photonic Quantum Computing</title>
+      <description>Photonic quantum computers use particles of light as their qubits. Light does not need to be cooled, and does not pick up noise from its surroundings the way matter does. It travels through ordinary optical fibre, so a photonic machine can be spread across several racks or even several rooms. Most of the systems in this part run at room temperature apart from their detectors.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/04-photonic-quantum-computing.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:56:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/04-photonic-quantum-computing.mp3" length="6508283" type="audio/mpeg" />
+      <itunes:duration>0:13:34</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/04-photonic-quantum-computing.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 5 - Hardware by Modality: Spin Qubits</title>
+      <description>A spin qubit stores information in the magnetic orientation of a single electron, held inside a silicon structure called a quantum dot. The qubits are roughly a hundred nanometres across, which makes them thousands of times smaller than the superconducting circuits in Part 1.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/05-spin-qubits.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:55:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/05-spin-qubits.mp3" length="7581164" type="audio/mpeg" />
+      <itunes:duration>0:15:48</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/05-spin-qubits.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 6 - Error Correction &amp; Logical Qubits</title>
+      <description>A quantum computer's parts are unreliable in a way ordinary computer parts are not. Error correction is the engineering answer, and it works by spreading one unit of protected information across many unreliable physical ones. The protected unit is called a logical qubit, and the number of physical qubits it costs is the field's central price.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/06-error-correction-logical-qubits.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:54:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/06-error-correction-logical-qubits.mp3" length="9160940" type="audio/mpeg" />
+      <itunes:duration>0:19:05</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/06-error-correction-logical-qubits.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 7 - Industry, Academia &amp; Claims: Industry &amp; Funding Moves</title>
+      <description>This part covers the money and the organizations rather than the science. It records who is paying for quantum computing, what governments have committed, which machines national laboratories have actually bought, and what companies have promised to deliver and by when.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/07-industry-funding-moves.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:53:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/07-industry-funding-moves.mp3" length="7397248" type="audio/mpeg" />
+      <itunes:duration>0:15:25</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/07-industry-funding-moves.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 8 - Industry, Academia &amp; Claims: SPAC Mergers &amp; Public Listings</title>
+      <description>Between February and August 2026, six quantum computing companies became publicly traded. Five did it by merging with a special purpose acquisition company, usually shortened to SPAC. A SPAC is a listed shell company holding cash and looking for a business to combine with. The sixth ran a conventional initial public offering.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/08-spac-mergers-public-listings.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:52:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/08-spac-mergers-public-listings.mp3" length="9334726" type="audio/mpeg" />
+      <itunes:duration>0:19:27</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/08-spac-mergers-public-listings.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 9 - Industry, Academia &amp; Claims: Academic &amp; Theoretical</title>
+      <description>This part covers theory rather than machines. It records new algorithms and proofs about what quantum computers can and cannot do faster than classical ones. It also records the steady work of showing that some claimed quantum advantages were never real.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/09-academic-theoretical.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:51:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/09-academic-theoretical.mp3" length="7129982" type="audio/mpeg" />
+      <itunes:duration>0:14:51</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/09-academic-theoretical.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>Quantum Computing: Part 10 - Industry, Academia &amp; Claims: Applications &amp; Benchmarking Claims</title>
+      <description>This part records claims that quantum computers have done something useful, together with the rebuttals those claims attracted. The two belong in the same document. A quantum advantage claim and its classical refutation are usually separated by months and reported by different outlets, and reading either alone gives a false picture.</description>
+      <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/2026-08-30-v1/10-applications-benchmarking-claims.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 10:50:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/10-applications-benchmarking-claims.mp3" length="8645452" type="audio/mpeg" />
+      <itunes:duration>0:18:01</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/quantum/podcast/2026-08-30-v1/10-applications-benchmarking-claims.vtt" type="text/vtt" />
+    </item>
+    <item>
       <title>CAB-Forum Watch: Reading Guide</title>
       <description>The CA/Browser Forum decides what a publicly trusted certificate may contain, how its holder must be checked, and how long it may live. Its decisions reach almost every encrypted connection on the internet, and they are made in public by a body most people have never heard of. This collection follows that body and the browser root programs that enforce its rules.</description>
       <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3</guid>
