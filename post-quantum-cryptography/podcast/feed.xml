@@ -9,6 +9,14 @@
     <itunes:subtitle>SRL-Pod: Post Quantum</itunes:subtitle>
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="https://research.perikron.com/pqc/podcast/cover.jpg" />
+    <itunes:owner>
+      <itunes:name>Spaced Research Ledger (SRL)</itunes:name>
+      <itunes:email>podcast@perikron.com</itunes:email>
+    </itunes:owner>
+    <itunes:category text="Technology" />
+    <itunes:category text="Science">
+      <itunes:category text="Mathematics" />
+    </itunes:category>
     <item>
       <title>PQC Migration: Part 19 - Finding &amp; Governing It: Governance, Mandates &amp; Timelines</title>
       <description>Every earlier part of this collection describes technology. This one describes the deadlines. Governments have converted post-quantum guidance into dates with consequences, and the dates now drive vendor roadmaps more than the physics does.</description>
