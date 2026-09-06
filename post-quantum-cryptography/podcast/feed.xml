@@ -198,58 +198,58 @@
       <podcast:transcript url="https://research.perikron.com/pqc/podcast/2026-08-31-v3/19-governance-mandates.vtt" type="text/vtt" />
     </item>
     <item>
-      <title>PQC Mathematics: Part 5 - Primitives &amp; Cryptanalysis: Cryptanalysis of Candidate &amp; Non-Ratified Schemes</title>
-      <description>This part covers attacks on algorithms that are not yet standards. That distinction matters, because an attack on a candidate is how the process is supposed to work. A scheme that fails during evaluation has done its job by failing early.</description>
-      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3</guid>
-      <pubDate>Mon, 31 Aug 2026 09:05:00 +0000</pubDate>
-      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3" length="4328542" type="audio/mpeg" />
-      <itunes:duration>0:09:01</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>PQC Mathematics: Part 4 - Primitives &amp; Cryptanalysis: Symmetric &amp; Hash-Based Research</title>
-      <description>The usual summary of quantum computing's effect on cryptography is that public-key algorithms break and symmetric ones merely need longer keys. That summary is right about AES and wrong about almost everything built on top of it.</description>
-      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3</guid>
-      <pubDate>Mon, 31 Aug 2026 09:04:00 +0000</pubDate>
-      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3" length="5286220" type="audio/mpeg" />
-      <itunes:duration>0:11:01</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>PQC Mathematics: Part 3 - Standards Tracks &amp; Candidates: Candidate Asymmetric Algorithms</title>
-      <description>This part covers the algorithms NIST did not choose. Some lost a competition. Some were never entered. Two have been standardized anyway, by other bodies, which is why they matter more than the word "candidate" suggests.</description>
-      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3</guid>
-      <pubDate>Mon, 31 Aug 2026 09:03:00 +0000</pubDate>
-      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3" length="4818703" type="audio/mpeg" />
-      <itunes:duration>0:10:02</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>PQC Mathematics: Part 2 - Standards Tracks &amp; Candidates: Non-NIST National &amp; Regional Standards Tracks</title>
-      <description>NIST is not the only body choosing post-quantum algorithms. South Korea ran its own competition and picked its own winners. China is running a second one and has said openly that it intends to shape international norms rather than adopt American standards. Germany and France endorse algorithms NIST did not select, and require them in combination rather than alone.</description>
-      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3</guid>
-      <pubDate>Mon, 31 Aug 2026 09:02:00 +0000</pubDate>
-      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3" length="5874909" type="audio/mpeg" />
-      <itunes:duration>0:12:14</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.vtt" type="text/vtt" />
+      <title>PQC Mathematics: Reading Guide</title>
+      <description>Post-Quantum Mathematics covers the layer underneath the migration. A companion collection, Post-Quantum Cryptography Migration, covers the deployment of the new algorithms across real systems. This one covers where those algorithms come from, who is choosing them, what the alternatives are, and what is being broken.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 15:00:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3" length="2730453" type="audio/mpeg" />
+      <itunes:duration>0:05:41</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.vtt" type="text/vtt" />
     </item>
     <item>
       <title>PQC Mathematics: Part 1 - Standards Tracks &amp; Candidates: NIST Standards Track</title>
       <description>NIST runs the process that decides which post-quantum algorithms the world will actually use. Its choices are not binding on anyone outside the US federal government, but in practice they set the direction for browsers, cloud providers, hardware vendors and most other standards bodies.</description>
       <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.mp3</guid>
-      <pubDate>Mon, 31 Aug 2026 09:01:00 +0000</pubDate>
+      <pubDate>Sat, 05 Sep 2026 14:59:00 -0400</pubDate>
       <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.mp3" length="6372548" type="audio/mpeg" />
       <itunes:duration>0:13:17</itunes:duration>
       <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.vtt" type="text/vtt" />
     </item>
     <item>
-      <title>PQC Mathematics: Reading Guide</title>
-      <description>Post-Quantum Mathematics covers the layer underneath the migration. A companion collection, Post-Quantum Cryptography Migration, covers the deployment of the new algorithms across real systems. This one covers where those algorithms come from, who is choosing them, what the alternatives are, and what is being broken.</description>
-      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3</guid>
-      <pubDate>Mon, 31 Aug 2026 09:00:00 +0000</pubDate>
-      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3" length="2730453" type="audio/mpeg" />
-      <itunes:duration>0:05:41</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.vtt" type="text/vtt" />
+      <title>PQC Mathematics: Part 2 - Standards Tracks &amp; Candidates: Non-NIST National &amp; Regional Standards Tracks</title>
+      <description>NIST is not the only body choosing post-quantum algorithms. South Korea ran its own competition and picked its own winners. China is running a second one and has said openly that it intends to shape international norms rather than adopt American standards. Germany and France endorse algorithms NIST did not select, and require them in combination rather than alone.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 14:58:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3" length="5874909" type="audio/mpeg" />
+      <itunes:duration>0:12:14</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC Mathematics: Part 3 - Standards Tracks &amp; Candidates: Candidate Asymmetric Algorithms</title>
+      <description>This part covers the algorithms NIST did not choose. Some lost a competition. Some were never entered. Two have been standardized anyway, by other bodies, which is why they matter more than the word "candidate" suggests.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 14:57:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3" length="4818703" type="audio/mpeg" />
+      <itunes:duration>0:10:02</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC Mathematics: Part 4 - Primitives &amp; Cryptanalysis: Symmetric &amp; Hash-Based Research</title>
+      <description>The usual summary of quantum computing's effect on cryptography is that public-key algorithms break and symmetric ones merely need longer keys. That summary is right about AES and wrong about almost everything built on top of it.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 14:56:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3" length="5286220" type="audio/mpeg" />
+      <itunes:duration>0:11:01</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC Mathematics: Part 5 - Primitives &amp; Cryptanalysis: Cryptanalysis of Candidate &amp; Non-Ratified Schemes</title>
+      <description>This part covers attacks on algorithms that are not yet standards. That distinction matters, because an attack on a candidate is how the process is supposed to work. A scheme that fails during evaluation has done its job by failing early.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 14:55:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3" length="4328542" type="audio/mpeg" />
+      <itunes:duration>0:09:01</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.vtt" type="text/vtt" />
     </item>
   </channel>
 </rss>
