@@ -404,5 +404,59 @@
       <itunes:duration>0:08:37</itunes:duration>
       <podcast:transcript url="https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.vtt" type="text/vtt" />
     </item>
+    <item>
+      <title>PQC &amp; Digital Assets: Reading Guide</title>
+      <description>Digital Asset Cryptography is a survey of a threat that has not arrived and of an industry deciding what to do about it anyway. No quantum computer capable of breaking a deployed cryptographic key exists. Several million bitcoin would be exposed if one did. Between those two facts sits everything in this collection: contested demonstrations, rival hardware estimates, draft protocol changes, custody products and the beginnings of regulatory pressure.</description>
+      <guid isPermaLink="false">https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/00-reading-guide.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 05:00:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/00-reading-guide.mp3" length="2272535" type="audio/mpeg" />
+      <itunes:duration>0:04:44</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/00-reading-guide.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC &amp; Digital Assets: Part 1 - Asset-Specific Threat Signals: ECC Attack Demonstrations &amp; Resource Estimates</title>
+      <description>Nobody has broken a real cryptographic key with a quantum computer. Everything in this part sits against that fact. What exists instead is a contested prize demonstration and two rival estimates of the hardware a real attack would need. Alongside them sits a piece of arithmetic about how fast such an attack would have to run.</description>
+      <guid isPermaLink="false">https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/01-ecc-attack-demonstrations-resource-estimates.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 04:59:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/01-ecc-attack-demonstrations-resource-estimates.mp3" length="5218272" type="audio/mpeg" />
+      <itunes:duration>0:10:52</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/01-ecc-attack-demonstrations-resource-estimates.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC &amp; Digital Assets: Part 2 - Bitcoin: Exposure &amp; Migration Analytics</title>
+      <description>Somewhere between 1.6 million and 7 million bitcoin are exposed to a future quantum attacker, depending on who is counting and what they count. That spread is the central finding of this part, and it is a definitional dispute rather than a measurement one. The analytics firms broadly agree on the underlying blockchain data. They disagree about whether coins that owners could protect today belong in the same total as coins that cannot be protected at all. No headline exposure figure from this subject means anything without its definition attached.</description>
+      <guid isPermaLink="false">https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/02-exposure-migration-analytics.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 04:58:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/02-exposure-migration-analytics.mp3" length="5150650" type="audio/mpeg" />
+      <itunes:duration>0:10:44</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/02-exposure-migration-analytics.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC &amp; Digital Assets: Part 3 - Bitcoin: Protocol Proposals &amp; Activation Politics</title>
+      <description>Bitcoin has no quantum-resistant way to hold coins today, and no activation scheduled to create one. What it has is a set of draft proposals at different levels of ambition. Add to that a live demonstration of how hard activating anything has become, and one workaround that needs no permission at all.</description>
+      <guid isPermaLink="false">https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/03-protocol-proposals-activation-politics.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 04:57:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/03-protocol-proposals-activation-politics.mp3" length="5841092" type="audio/mpeg" />
+      <itunes:duration>0:12:10</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/03-protocol-proposals-activation-politics.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC &amp; Digital Assets: Part 4 - Ethereum &amp; L2s: Protocol Quantum Roadmap</title>
+      <description>Ethereum is the only major chain with a staffed team, a published roadmap and running test networks devoted to post-quantum migration. The work began in earnest in January 2026 and Vitalik Buterin has publicly confirmed the timeline. The strategy differs from Bitcoin's proposals in Part 3 in a basic way. Instead of a deadline that sunsets old signatures, Ethereum plans to let each account switch to new cryptography on its own schedule.</description>
+      <guid isPermaLink="false">https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/04-protocol-quantum-roadmap.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 04:56:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/04-protocol-quantum-roadmap.mp3" length="5548667" type="audio/mpeg" />
+      <itunes:duration>0:11:34</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/04-protocol-quantum-roadmap.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC &amp; Digital Assets: Part 5 - Custody &amp; Wallets: Institutional Custody &amp; Exchanges</title>
+      <description>The institutions holding other people's bitcoin cannot wait for the protocol debates in Part 3 to resolve. Their clients, insurers and regulators are starting to ask for dated post-quantum plans now. This part covers what the custodians have actually done, which is less than the press releases suggest and more than nothing.</description>
+      <guid isPermaLink="false">https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/05-institutional-custody-exchanges.mp3</guid>
+      <pubDate>Sat, 05 Sep 2026 04:55:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/05-institutional-custody-exchanges.mp3" length="5718215" type="audio/mpeg" />
+      <itunes:duration>0:11:55</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/05-institutional-custody-exchanges.vtt" type="text/vtt" />
+    </item>
   </channel>
 </rss>

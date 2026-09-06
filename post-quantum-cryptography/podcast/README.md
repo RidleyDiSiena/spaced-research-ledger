@@ -51,3 +51,9 @@ One feed for every topic in the quantum group; each episode title starts with it
 | [CAB-Forum Watch: Part 3 - S/MIME Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.mp3) | 0:05:52 | 2026-09-01 |
 | [CAB-Forum Watch: Part 4 - Public Trust Programs](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.mp3) | 0:10:33 | 2026-09-01 |
 | [CAB-Forum Watch: Part 5 - Revocation & Transparency](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.mp3) | 0:08:37 | 2026-09-01 |
+| [PQC & Digital Assets: Reading Guide](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/00-reading-guide.mp3) | 0:04:44 | 2026-08-31 |
+| [PQC & Digital Assets: Part 1 - Asset-Specific Threat Signals: ECC Attack Demonstrations & Resource Estimates](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/01-ecc-attack-demonstrations-resource-estimates.mp3) | 0:10:52 | 2026-08-31 |
+| [PQC & Digital Assets: Part 2 - Bitcoin: Exposure & Migration Analytics](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/02-exposure-migration-analytics.mp3) | 0:10:44 | 2026-08-31 |
+| [PQC & Digital Assets: Part 3 - Bitcoin: Protocol Proposals & Activation Politics](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/03-protocol-proposals-activation-politics.mp3) | 0:12:10 | 2026-08-31 |
+| [PQC & Digital Assets: Part 4 - Ethereum & L2s: Protocol Quantum Roadmap](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/04-protocol-quantum-roadmap.mp3) | 0:11:34 | 2026-08-31 |
+| [PQC & Digital Assets: Part 5 - Custody & Wallets: Institutional Custody & Exchanges](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/05-institutional-custody-exchanges.mp3) | 0:11:55 | 2026-08-31 |

@@ -14,6 +14,8 @@ The collection has five parts plus a reading guide. Every part stands on its own
 
 Last updated: 2026-08-31
 
+**Listen:** [podcast episodes and feed](../post-quantum-cryptography/podcast/) -- every part, read aloud.
+
 ## Latest Edition
 
 | Part | Report |
