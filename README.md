@@ -18,6 +18,7 @@ The Spaced Research Ledger is designed and maintained by Ridley DiSiena.
 
 - [Apple Podcasts](https://podcasts.apple.com/podcast/id6809122100)
 - [Spotify](https://open.spotify.com/show/6a11V387TOHMV24xxl3p8v)
+- [Amazon Music](https://music.amazon.com/podcasts/d85e7079-bd78-4e57-a12c-af19fcf97252/srlpod-post-quantum)
 - RSS feed, for any podcast app: `https://research.perikron.com/pqc/podcast/feed.xml`
 - [Episode list and direct downloads](post-quantum-cryptography/podcast/)
 <br clear="all">
