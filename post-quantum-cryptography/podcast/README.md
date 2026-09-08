@@ -8,7 +8,6 @@ One feed for every topic in the quantum group; each episode title starts with it
 
 | Episode | Length | Published |
 |---|---|---|
-| [PQC Migration: Reading Guide](https://research.perikron.com/pqc/podcast/2026-08-31-v3/00-reading-guide.mp3) | 0:08:10 | 2026-08-31 |
 | [PQC Migration: Part 1 - Silicon & Firmware: Hardware Acceleration & Silicon](https://research.perikron.com/pqc/podcast/2026-08-31-v3/01-hardware-acceleration.mp3) | 0:18:50 | 2026-08-31 |
 | [PQC Migration: Part 2 - Silicon & Firmware: Firmware & Root of Trust](https://research.perikron.com/pqc/podcast/2026-08-31-v3/02-firmware-root-of-trust.mp3) | 0:23:09 | 2026-08-31 |
 | [PQC Migration: Part 3 - Operating Systems: Operating Systems & Endpoints](https://research.perikron.com/pqc/podcast/2026-08-31-v3/03-operating-systems.mp3) | 0:24:10 | 2026-08-31 |
@@ -28,13 +27,11 @@ One feed for every topic in the quantum group; each episode title starts with it
 | [PQC Migration: Part 17 - Edges & Sectors: Financial Messaging & Sector Rails](https://research.perikron.com/pqc/podcast/2026-08-31-v3/17-financial-sector-rails.mp3) | 0:11:54 | 2026-08-31 |
 | [PQC Migration: Part 18 - Finding & Governing It: Developer & Migration Tooling](https://research.perikron.com/pqc/podcast/2026-08-31-v3/18-migration-tooling.mp3) | 0:14:46 | 2026-08-31 |
 | [PQC Migration: Part 19 - Finding & Governing It: Governance, Mandates & Timelines](https://research.perikron.com/pqc/podcast/2026-08-31-v3/19-governance-mandates.mp3) | 0:20:22 | 2026-08-31 |
-| [PQC Mathematics: Reading Guide](https://research.perikron.com/pqm/podcast/2026-08-31-v1/00-reading-guide.mp3) | 0:05:41 | 2026-08-31 |
 | [PQC Mathematics: Part 1 - Standards Tracks & Candidates: NIST Standards Track](https://research.perikron.com/pqm/podcast/2026-08-31-v1/01-nist-standards-track.mp3) | 0:13:17 | 2026-08-31 |
 | [PQC Mathematics: Part 2 - Standards Tracks & Candidates: Non-NIST National & Regional Standards Tracks](https://research.perikron.com/pqm/podcast/2026-08-31-v1/02-non-nist-national-regional-standards-tracks.mp3) | 0:12:14 | 2026-08-31 |
 | [PQC Mathematics: Part 3 - Standards Tracks & Candidates: Candidate Asymmetric Algorithms](https://research.perikron.com/pqm/podcast/2026-08-31-v1/03-candidate-asymmetric-algorithms.mp3) | 0:10:02 | 2026-08-31 |
 | [PQC Mathematics: Part 4 - Primitives & Cryptanalysis: Symmetric & Hash-Based Research](https://research.perikron.com/pqm/podcast/2026-08-31-v1/04-symmetric-hash-based-research.mp3) | 0:11:01 | 2026-08-31 |
 | [PQC Mathematics: Part 5 - Primitives & Cryptanalysis: Cryptanalysis of Candidate & Non-Ratified Schemes](https://research.perikron.com/pqm/podcast/2026-08-31-v1/05-cryptanalysis-of-candidate-non-ratified-schemes.mp3) | 0:09:01 | 2026-08-31 |
-| [Quantum Computing: Reading Guide](https://research.perikron.com/quantum/podcast/2026-08-30-v1/00-reading-guide.mp3) | 0:07:01 | 2026-08-30 |
 | [Quantum Computing: Part 1 - Hardware by Modality: Superconducting Qubits](https://research.perikron.com/quantum/podcast/2026-08-30-v1/01-superconducting-qubits.mp3) | 0:14:22 | 2026-08-30 |
 | [Quantum Computing: Part 2 - Hardware by Modality: Trapped Ion Qubits](https://research.perikron.com/quantum/podcast/2026-08-30-v1/02-trapped-ion-qubits.mp3) | 0:13:15 | 2026-08-30 |
 | [Quantum Computing: Part 3 - Hardware by Modality: Neutral Atom Qubits](https://research.perikron.com/quantum/podcast/2026-08-30-v1/03-neutral-atom-qubits.mp3) | 0:13:26 | 2026-08-30 |
@@ -45,13 +42,11 @@ One feed for every topic in the quantum group; each episode title starts with it
 | [Quantum Computing: Part 8 - Industry, Academia & Claims: SPAC Mergers & Public Listings](https://research.perikron.com/quantum/podcast/2026-08-30-v1/08-spac-mergers-public-listings.mp3) | 0:19:27 | 2026-08-30 |
 | [Quantum Computing: Part 9 - Industry, Academia & Claims: Academic & Theoretical](https://research.perikron.com/quantum/podcast/2026-08-30-v1/09-academic-theoretical.mp3) | 0:14:51 | 2026-08-30 |
 | [Quantum Computing: Part 10 - Industry, Academia & Claims: Applications & Benchmarking Claims](https://research.perikron.com/quantum/podcast/2026-08-30-v1/10-applications-benchmarking-claims.mp3) | 0:18:01 | 2026-08-30 |
-| [CAB-Forum Watch: Reading Guide](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/00-reading-guide.mp3) | 0:05:35 | 2026-09-01 |
 | [CAB-Forum Watch: Part 1 - Server Certificate Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/01-server-certificate-working-group.mp3) | 0:10:53 | 2026-09-01 |
 | [CAB-Forum Watch: Part 2 - Code Signing Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/02-code-signing-working-group.mp3) | 0:04:21 | 2026-09-01 |
 | [CAB-Forum Watch: Part 3 - S/MIME Working Group](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/03-smime-working-group.mp3) | 0:05:52 | 2026-09-01 |
 | [CAB-Forum Watch: Part 4 - Public Trust Programs](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/04-public-trust-programs.mp3) | 0:10:33 | 2026-09-01 |
 | [CAB-Forum Watch: Part 5 - Revocation & Transparency](https://research.perikron.com/cabforum/podcast/2026-09-01-v1/05-revocation-and-transparency.mp3) | 0:08:37 | 2026-09-01 |
-| [PQC & Digital Assets: Reading Guide](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/00-reading-guide.mp3) | 0:04:44 | 2026-08-31 |
 | [PQC & Digital Assets: Part 1 - Asset-Specific Threat Signals: ECC Attack Demonstrations & Resource Estimates](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/01-ecc-attack-demonstrations-resource-estimates.mp3) | 0:10:52 | 2026-08-31 |
 | [PQC & Digital Assets: Part 2 - Bitcoin: Exposure & Migration Analytics](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/02-exposure-migration-analytics.mp3) | 0:10:44 | 2026-08-31 |
 | [PQC & Digital Assets: Part 3 - Bitcoin: Protocol Proposals & Activation Politics](https://research.perikron.com/digital-assets/podcast/2026-08-31-v1/03-protocol-proposals-activation-politics.mp3) | 0:12:10 | 2026-08-31 |
