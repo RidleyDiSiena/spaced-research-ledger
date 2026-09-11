@@ -536,3 +536,11 @@ a:focus-visible {
   text-transform: uppercase;
   vertical-align: 0.18em;
 }
+
+.group-intro {
+  max-width: 34rem;
+  margin: 0.5rem 0 1.5rem;
+  color: var(--ink-3);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
