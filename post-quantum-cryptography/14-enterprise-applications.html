@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 14 - Enterprise Applications & Delivery | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 14: Enterprise Applications & Delivery.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 14</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 14</p>
+    <h1>Enterprise Applications &amp; Delivery</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/14-enterprise-applications.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#erp-business-platforms" id="toc-erp-business-platforms">1.
+ERP &amp; Business Platforms</a></li>
+<li><a href="#collaboration-unified-comms"
+id="toc-collaboration-unified-comms">2. Collaboration &amp; Unified
+Comms</a></li>
+<li><a href="#vdi-remote-access" id="toc-vdi-remote-access">3. VDI &amp;
+Remote Access</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The applications businesses actually live in, the ERP system, the
+video call, the remote desktop, are the last stop of the migration.
+Everything beneath them has to work first, and their vendors mostly move
+by inheriting the layers below.</p>
+<p>This report covers three application families. Section 1 covers the
+ERP and business platforms, Section 2 collaboration and unified
+communications, and Section 3 virtual desktops and remote access.</p>
+<p>The business platforms are further along than their reputation
+suggests. Oracle put the algorithms into the database itself, SAP ships
+quantum-safe TLS through its cryptographic library with a 2029 readiness
+target, and Workday published a dated migration program through 2028.
+The pattern is inheritance done deliberately, with published clocks.</p>
+<p>Video went earliest and strangest. Zoom shipped post-quantum
+end-to-end encryption back in 2024, before some operating systems had
+the algorithms at all, while its competitors’ end-to-end modes remain
+classical. And remote access shows the migration’s rough edges plainly:
+assigning a post-quantum certificate to a Windows remote-desktop
+listener currently breaks the connection outright.</p>
+<h2 id="erp-business-platforms">1. ERP &amp; Business Platforms</h2>
+<p><em>The systems of record, ERP, HR, CRM, and ticketing, hold the data
+with the longest confidentiality requirements in any company. Their
+vendors control deep stacks, from database drivers to their own
+cryptographic libraries. This section covers who has shipped, who has
+published a clock, and who is still writing prerequisites.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The version gates are now specific. Oracle’s documentation confirms
+the post-quantum algorithms work only under its next-generation
+provider, in non-FIPS or FIPS 140-3 mode, never the legacy FIPS mode
+[1]. E-Business Suite certified on the 26ai database gains hybrid ML-KEM
+that older database lines lack [2]. The 19c line’s release update 19.32
+supports phased migration, new clients on TLS 1.3 while old ones stay
+behind [3].</p>
+<p>SAP updated its Common Cryptographic Library with post-quantum
+capabilities for its product teams [4]. It supports post-quantum root
+CAs on its cloud platform, atop the quantum-safe TLS already in its ABAP
+systems [5]. Salesforce is retiring static RSA key exchange as a
+prerequisite step [6], and ServiceNow made a cryptographic-asset
+compliance product generally available, covering discovery through
+migration planning [7].</p>
+<h3 id="current-state">Current State</h3>
+<p>Oracle’s database is the concrete anchor. Post-quantum support
+requires the new provider explicitly [1], covering ML-KEM for key
+exchange, ML-DSA for TLS signatures, and SLH-DSA for non-TLS signing
+only [1][1]. The FIPS-mode boundary is firm [1], the version gate is
+19.32 [8], and the default remains the legacy provider, making
+everything an opt-in switch run by script [9][9]. FIPS 140-3 for the 19c
+line lands during 2026, retiring 3DES with it [9].</p>
+<p>The strategy above the database is hybrid establishment across TLS,
+SSH, and IKEv2, designed to need no new certificates [10]. TLS 1.3 is
+named as the prerequisite [10], and hybrid mode arrived in the 26ai
+track [11].</p>
+<p>SAP runs on a published clock. The company targets post-quantum
+readiness by 2029 across products and infrastructure [4]. Its
+cryptographic library already performs hybrid ML-KEM key agreement for
+TLS 1.3 on NetWeaver systems [12], with a FIPS 140-3 certified kernel
+[12].</p>
+<p>The SaaS vendors differ mostly in specificity. Workday published the
+most detailed program: hybrid deployment beginning in 2026, full
+migration targeted by 2028 [13]. The stages run from discovery through
+hybrid TLS with anti-rollback, then internal federation and code
+signing, then automated agility [13]. Salesforce documents its
+harvest-now-decrypt-later posture [14], scoped to named service brands
+rather than a uniform platform timeline [14]. ServiceNow shipped a
+quantum-resistant key-management architecture that avoids asymmetric
+algorithms entirely [15].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="collaboration-unified-comms">2. Collaboration &amp; Unified
+Comms</h2>
+<p><em>Every video call is encrypted twice over: hop by hop to the
+vendor’s servers, and, when offered, end to end between participants.
+The second kind is where quantum matters most, because a recorded call
+is a harvest-now-decrypt-later target. This section covers the one
+vendor that moved and the standard machinery everyone else still
+runs.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Webex joined the post-quantum tier. Its TLS 1.3 now supports a hybrid
+ML-KEM key agreement, and the same mechanism is integrated into the
+group-messaging security layer of its zero-trust end-to-end encrypted
+meetings [16].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Zoom holds the head start. It made post-quantum end-to-end encryption
+globally available for meetings in May 2024, using Kyber-768, claiming a
+first among communications providers [17]. The parameter targets
+security roughly equivalent to AES-192 [18], and coverage extended
+beyond meetings afterward [17]. The design keeps keys off Zoom’s servers
+[19], building on classical end-to-end encryption shipped years earlier
+[17].</p>
+<p>The rest of the market runs classical end-to-end modes on strong
+plumbing. Teams derives one-to-one call keys over DTLS, opaque to
+Microsoft [20], verified by spoken security codes [21], with everything
+baseline-encrypted regardless [20]. Its meeting mode negotiates group
+keys over TLS 1.3 with premium licensing and feature tradeoffs,
+recording and captions among them [20][20], and its signaling remains
+TLS 1.2 [22]. Google Meet encrypts in transit by default without
+client-side end-to-end [23][24]. Its client-side encryption lets
+organizations hold the keys at the cost of server-processed features
+[23][25], extended to meeting-room hardware [26] and, separately, to
+personal accounts [27].</p>
+<p>Webex encrypts standard meetings hop by hop, its servers holding keys
+for interoperability [28]. Its zero-trust mode builds keys on
+participants’ devices, downgrading transparently when a legacy endpoint
+joins [29][16]. Its calling upgrades to end-to-end opportunistically
+[30], the app rides TLS and strong media ciphers [31], and its
+end-to-end lineage dates to 2008 [32]. Interoperating devices negotiate
+the standard cipher menu [28].</p>
+<p>The underlying standards are the fixed layer. The DTLS extension
+keying secure media dates to 2010 and remains the baseline [33], scoped
+to two-party sessions [34], implemented by Meet [23] and mandated by
+WebRTC for browser media [35]. The companion framework carries
+certificate fingerprints through call signaling [36], protectable by
+identity signatures [33]. Secure media transport itself is symmetric
+[37], with session keys exchanged over the TLS signaling channel [37],
+required end to end on certified trunks [35]. All of it inherits its
+quantum future from the TLS beneath.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="vdi-remote-access">3. VDI &amp; Remote Access</h2>
+<p><em>Remote desktops and virtual-desktop gateways carry keystrokes,
+screens, and credentials across the internet, a harvest target as good
+as any. Their post-quantum story is the Windows TLS story plus a
+delivery-controller race, with one sharp incompatibility already on
+record. This section covers what works, what breaks, and what to
+configure.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The protocol layer arrived with the July Windows update. Hybrid
+post-quantum key exchange shipped into Schannel for Windows 11 and
+Windows Server 2025, moving from developer API to protocol [38]. Three
+hybrid groups pair ML-KEM with classical curves [38].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Citrix’s delivery controller leads the category. NetScaler ships
+production hybrid post-quantum key exchange, browser-compatible [39],
+first as an early-access preview in April 2025, then generally available
+that August [40][40]. It sits on the defense procurement list [40],
+released alongside the virtual-desktop suite’s new long-term cadence
+[41], and is framed squarely against harvest-now-decrypt-later [41]. The
+interoperability warning comes from a competitor’s stack: Omnissa
+Horizon’s gateway times out when a current Safari forces post-quantum
+key negotiation the landing page cannot handle [42].</p>
+<p>Windows remote access is configurable but sharp-edged. None of the
+new hybrid groups activate automatically, and TLS 1.2 environments get
+nothing [38]. Enablement runs through Group Policy’s curve ordering
+[43], atop the API primitives shipped in November 2025 [44]. The
+certificate side lags dangerously.</p>
+<p>Assigning an ML-DSA certificate to a remote-desktop listener
+currently makes clients fail to connect outright [45], and the broader
+certificate support is explicitly limited beyond evaluation [45].
+Self-hosted gateways can enable the hybrids once clients are confirmed
+capable [43], with the rollout path documented since the Insider
+previews [46].</p>
+<p>The category guidance is consistent. Hybrid post-quantum in SSH and
+IPsec, the protocols under VPN-based access, keeps gaining operational
+adoption [47]. Migration frameworks tell enterprises to inventory VPN
+and remote-access key exchange as its own category [48] and to
+prioritize remote-access systems in roadmaps [49]. They warn of long
+hybrid coexistence at federation boundaries where partners migrate on
+their own clocks [50]. And they advise reading cloud responsibility
+models carefully, since some protections arrive transparently and others
+need opting in [51].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Post-Quantum Cryptography in Oracle Database - <a
+href="https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/post-quantum-cryptography-reference.html"
+class="uri">https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/post-quantum-cryptography-reference.html</a>
+- as of 2026-08-25</li>
+<li>Oracle EBS 19c vs 23c vs 26ai: What Changes for Oracle EBS Customers
+- <a
+href="https://www.itconvergence.com/blog/oracle-ebs-19c-vs-23c-vs-26ai-what-changes-for-oracle-ebs-customers/"
+class="uri">https://www.itconvergence.com/blog/oracle-ebs-19c-vs-23c-vs-26ai-what-changes-for-oracle-ebs-customers/</a>
+- as of 2026-06-19</li>
+<li>Oracle Database 19c Now Supports TLS 1.3, Post-Quantum Cryptography,
+and FIPS 140-3 Mode - <a
+href="https://blogs.oracle.com/database/database-19c-now-supports-tls-1-3-post-quantum-cryptography"
+class="uri">https://blogs.oracle.com/database/database-19c-now-supports-tls-1-3-post-quantum-cryptography</a>
+- as of 2026-08-03</li>
+<li>Leading the Way for Post-Quantum Cryptography - <a
+href="https://community.sap.com/t5/security-and-compliance-blog-posts/leading-the-way-for-post-quantum-cryptography/ba-p/14439479"
+class="uri">https://community.sap.com/t5/security-and-compliance-blog-posts/leading-the-way-for-post-quantum-cryptography/ba-p/14439479</a>
+- as of 2026-07-13</li>
+<li>Vendor PQC Timeline - When Will Your Stack Be Quantum-Safe? | PQC
+Consultancy - <a
+href="https://pqcconsultancy.com/vendor-pqc-timeline.html"
+class="uri">https://pqcconsultancy.com/vendor-pqc-timeline.html</a> - as
+of 2026-07-21</li>
+<li>Strengthen Security: Transition Away from RSA Key Exchanges for
+Salesforce TLS Connections | Salesforce Help - <a
+href="https://help.salesforce.com/s/articleView?id=002472175&amp;language=en_US&amp;type=1"
+class="uri">https://help.salesforce.com/s/articleView?id=002472175&amp;language=en_US&amp;type=1</a>
+- as of 2026-06-16</li>
+<li>Cryptography asset compliance - ServiceNow Community - <a
+href="https://www.servicenow.com/community/itom-blog/cryptography-asset-compliance-is-generally-available-zero/ba-p/3585192"
+class="uri">https://www.servicenow.com/community/itom-blog/cryptography-asset-compliance-is-generally-available-zero/ba-p/3585192</a>
+- as of 2026-08-10</li>
+<li>Oracle Database 19c Now Supports TLS 1.3, Post-Quantum Cryptography,
+and FIPS 140-3 Mode | database - <a
+href="https://blogs.oracle.com/database/database-19c-now-supports-tls-1-3-post-quantum-cryptography"
+class="uri">https://blogs.oracle.com/database/database-19c-now-supports-tls-1-3-post-quantum-cryptography</a></li>
+<li>Changes in Oracle Database Security 19c - <a
+href="https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/changes-oracle-database-security-19c.html"
+class="uri">https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/changes-oracle-database-security-19c.html</a>
+- as of 2026-01-01</li>
+<li>Preparing for Post Quantum Cryptography | security - <a
+href="https://blogs.oracle.com/security/post-quantum-cryptography"
+class="uri">https://blogs.oracle.com/security/post-quantum-cryptography</a></li>
+<li>Oracle AI Database cryptographic roadmap - <a
+href="https://www.oracle.com/security/database-security/crypto-roadmap/"
+class="uri">https://www.oracle.com/security/database-security/crypto-roadmap/</a></li>
+<li>New version 8.6 of the SAP Cryptographic Library with quantum-safe
+cryptography and FIPS 140-3 mode - <a
+href="https://community.sap.com/t5/technology-blog-posts-by-sap/new-version-8-6-of-the-sap-cryptographic-library-with-quantum-safe/ba-p/14280039"
+class="uri">https://community.sap.com/t5/technology-blog-posts-by-sap/new-version-8-6-of-the-sap-cryptographic-library-with-quantum-safe/ba-p/14280039</a>
+- as of 2025-12-12</li>
+<li>Workday’s Post-Quantum Cryptography Migration: How We’re Securing
+Your Data for the Future - <a
+href="https://medium.com/workday-engineering/workdays-post-quantum-cryptography-migration-how-we-re-securing-your-data-for-the-future-a9106e593c5c"
+class="uri">https://medium.com/workday-engineering/workdays-post-quantum-cryptography-migration-how-we-re-securing-your-data-for-the-future-a9106e593c5c</a></li>
+<li>Salesforce Post-Quantum Cryptography - Salesforce Compliance Site -
+<a
+href="https://compliance.salesforce.com/en/documents/a00Kd00000z7HMjIAM"
+class="uri">https://compliance.salesforce.com/en/documents/a00Kd00000z7HMjIAM</a>
+- as of 2026-03-18</li>
+<li>Preparing for Post-Quantum Computing: What you can be doing to
+prepare - <a
+href="https://www.servicenow.com/community/platform-privacy-security-blog/preparing-for-post-quantum-computing-what-you-can-be-doing-to/ba-p/3541526"
+class="uri">https://www.servicenow.com/community/platform-privacy-security-blog/preparing-for-post-quantum-computing-what-you-can-be-doing-to/ba-p/3541526</a>
+- as of 2026-05-12</li>
+<li>Webex Suite Meetings Security technical paper - <a
+href="https://help.webex.com/en-us/article/nhxkyce/Webex-Suite-Meetings-Security-technical-paper"
+class="uri">https://help.webex.com/en-us/article/nhxkyce/Webex-Suite-Meetings-Security-technical-paper</a>
+- as of 2026-07-14</li>
+<li>Your guide to post-quantum end-to-end encryption and how Zoom can
+help | Zoom - <a
+href="https://www.zoom.com/en/blog/guide-to-post-quantum-end-to-end-encryption/"
+class="uri">https://www.zoom.com/en/blog/guide-to-post-quantum-end-to-end-encryption/</a>
+- as of 2024-05-21</li>
+<li>Zoom Adopts NIST-Approved Post-Quantum End-to-End Encryption for
+Meetings - <a
+href="https://thehackernews.com/2024/05/zoom-adopts-nist-approved-post-quantum.html"
+class="uri">https://thehackernews.com/2024/05/zoom-adopts-nist-approved-post-quantum.html</a>
+- as of 2024-05-22</li>
+<li>Zoom adds post-quantum end-to-end encryption to video meetings - <a
+href="https://www.bleepingcomputer.com/news/security/zoom-adds-post-quantum-end-to-end-encryption-to-video-meetings/"
+class="uri">https://www.bleepingcomputer.com/news/security/zoom-adds-post-quantum-end-to-end-encryption-to-video-meetings/</a></li>
+<li>Encryption in Microsoft Teams - Microsoft Teams | Microsoft Learn -
+<a
+href="https://learn.microsoft.com/en-us/microsoftteams/teams-encryption"
+class="uri">https://learn.microsoft.com/en-us/microsoftteams/teams-encryption</a></li>
+<li>Organizations Can Now Try Out End-to-End Encrypted Microsoft Teams
+Calls - SecurityWeek - <a
+href="https://www.securityweek.com/organizations-can-now-try-out-end-end-encrypted-microsoft-teams-calls/"
+class="uri">https://www.securityweek.com/organizations-can-now-try-out-end-end-encrypted-microsoft-teams-calls/</a></li>
+<li>Security guide for Microsoft Teams overview - Microsoft Teams |
+Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/microsoftteams/teams-security-guide"
+class="uri">https://learn.microsoft.com/en-us/microsoftteams/teams-security-guide</a></li>
+<li>Google Meet security &amp; privacy for IT admins - Google Workspace
+Admin Help - <a href="https://support.google.com/a/answer/7582940?hl=en"
+class="uri">https://support.google.com/a/answer/7582940?hl=en</a></li>
+<li>Is Google Meet Encrypted? Full Guide (2025) - <a
+href="https://tactiq.io/learn/is-google-meet-encrypted"
+class="uri">https://tactiq.io/learn/is-google-meet-encrypted</a></li>
+<li>Google Workspace Updates: Improving data privacy with Client-side
+encryption for Google Meet - <a
+href="https://workspaceupdates.googleblog.com/2022/08/client-side-encryption-for-google-meet.html"
+class="uri">https://workspaceupdates.googleblog.com/2022/08/client-side-encryption-for-google-meet.html</a>
+- as of 2022-08-09</li>
+<li>Google Workspace Updates: Join a client-side encrypted meeting from
+a Google Meet Hardware device - <a
+href="https://workspaceupdates.googleblog.com/2025/07/join-client-side-encrypted-meetings-from-google-meet-hardware.html"
+class="uri">https://workspaceupdates.googleblog.com/2025/07/join-client-side-encrypted-meetings-from-google-meet-hardware.html</a>
+- as of 2025-07-02</li>
+<li>Learn about call &amp; meeting encryption in Google Meet - Google
+Meet Help - <a
+href="https://support.google.com/meet/answer/12387251?hl=en"
+class="uri">https://support.google.com/meet/answer/12387251?hl=en</a></li>
+<li>Cisco Webex Meetings - Cisco Webex Meetings Security White Paper -
+<a
+href="https://www.cisco.com/c/en/us/products/collateral/conferencing/webex-meeting-center/white-paper-c11-737588.html"
+class="uri">https://www.cisco.com/c/en/us/products/collateral/conferencing/webex-meeting-center/white-paper-c11-737588.html</a></li>
+<li>Zero Trust Security Based End-to-End Encryption for Webex Meetings
+Sample Clauses | Law Insider - <a
+href="https://www.lawinsider.com/clause/zero-trust-security-based-end-to-end-encryption-for-webex-meetings"
+class="uri">https://www.lawinsider.com/clause/zero-trust-security-based-end-to-end-encryption-for-webex-meetings</a></li>
+<li>End-to-end encryption for Webex Meetings and Webex Calling - <a
+href="https://help.webex.com/en-US/article/5h5d8ab/End-to-end-encryption-with-identity-verification-for-Webex-meetings"
+class="uri">https://help.webex.com/en-US/article/5h5d8ab/End-to-end-encryption-with-identity-verification-for-Webex-meetings</a></li>
+<li>Webex App | App Security - <a
+href="https://help.webex.com/en-us/article/vf2yaz/Cisco-Webex-Teams-App-Security"
+class="uri">https://help.webex.com/en-us/article/vf2yaz/Cisco-Webex-Teams-App-Security</a></li>
+<li>Secure by default - Cisco Webex - <a
+href="https://www.nts.eu/en/news/secure-by-default/"
+class="uri">https://www.nts.eu/en/news/secure-by-default/</a></li>
+<li>RFC 5764: Datagram Transport Layer Security (DTLS) Extension to
+Establish Keys for the Secure Real-time Transport Protocol (SRTP) | RFC
+Editor - <a href="https://www.rfc-editor.org/info/rfc5764/"
+class="uri">https://www.rfc-editor.org/info/rfc5764/</a> - as of
+2010-05-01</li>
+<li>RFC 5764: Datagram Transport Layer Security (DTLS) Extension to
+Establish Keys for the Secure Real-time Transport Protocol (SRTP) - <a
+href="https://www.rfc-editor.org/rfc/rfc5764.html"
+class="uri">https://www.rfc-editor.org/rfc/rfc5764.html</a></li>
+<li>What is SRTP? Secure Real-Time Transport Protocol Explained -
+TelcoBridges - <a
+href="https://telcobridges.com/learning/voip-security/what-is-srtp/"
+class="uri">https://telcobridges.com/learning/voip-security/what-is-srtp/</a></li>
+<li>RFC 5763 - Framework for Establishing a Secure Real-time Transport
+Protocol (SRTP) Security Context Using Datagram Transport Layer Security
+(DTLS) - <a href="https://datatracker.ietf.org/doc/html/rfc5763"
+class="uri">https://datatracker.ietf.org/doc/html/rfc5763</a> - as of
+2010-05-01</li>
+<li>Encryption for SharePoint and OneDrive, Microsoft Teams, and
+Exchange - Microsoft Service Assurance | Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/compliance/assurance/assurance-encryption-for-microsoft-365-services"
+class="uri">https://learn.microsoft.com/en-us/compliance/assurance/assurance-encryption-for-microsoft-365-services</a></li>
+<li>ASP.NET, Kestrel and Schannel GA with TLS 1.3 Post-Quantum
+Cryptography (Microsoft) - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
+- as of 2026-07-14</li>
+<li>Citrix delivers new tools for quantum-ready, anywhere work - Help
+Net Security - <a
+href="https://www.helpnetsecurity.com/2025/07/31/citrix-pqc-cvad-2507/"
+class="uri">https://www.helpnetsecurity.com/2025/07/31/citrix-pqc-cvad-2507/</a></li>
+<li>Leading the quantum-ready transition: How NetScaler helps prevent a
+silent data breach decades in the making – Citrix Blogs - <a
+href="https://www.citrix.com/blogs/2025/07/30/leading-the-quantum-ready-transition/"
+class="uri">https://www.citrix.com/blogs/2025/07/30/leading-the-quantum-ready-transition/</a>
+- as of 2025-08-01</li>
+<li>Citrix adds post-quantum cryptography to boost enterprise data
+security - SDxCentral - <a
+href="https://www.sdxcentral.com/news/citrix-adds-post-quantum-cryptography-to-boost-enterprise-data-security/"
+class="uri">https://www.sdxcentral.com/news/citrix-adds-post-quantum-cryptography-to-boost-enterprise-data-security/</a>
+- as of 2025-07-31</li>
+<li>MacOS- Post Quantumn Cryptography (Kyber) Support (Tahoe and 15.7.x)
+- Horizon 8 - Omnissa Community - <a
+href="https://community.omnissa.com/forums/topic/71139-macos-post-quantumn-cryptography-kyber-support-tahoe-and-157x/"
+class="uri">https://community.omnissa.com/forums/topic/71139-macos-post-quantumn-cryptography-kyber-support-tahoe-and-157x/</a>
+- as of 2025-10-07</li>
+<li>Microsoft Delivers Post-Quantum TLS to Windows, But Activation Is on
+You - Windows News - <a
+href="https://windowsnews.ai/article/microsoft-delivers-post-quantum-tls-to-windows-but-activation-is-on-you.438638"
+class="uri">https://windowsnews.ai/article/microsoft-delivers-post-quantum-tls-to-windows-but-activation-is-on-you.438638</a></li>
+<li>Post-Quantum Cryptography APIs Now Generally Available on Microsoft
+Platforms | Microsoft Community Hub - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093</a>
+- as of 2025-11-18</li>
+<li>Microsoft AD CS Adds Post-Quantum Cryptography Support with ML-DSA |
+Richard M. Hicks Consulting, Inc. - <a
+href="https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/"
+class="uri">https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/</a>
+- as of 2026-05-18</li>
+<li>Companion guide: Transitioning to post-quantum cryptography |
+Microsoft Community Hub - <a
+href="https://techcommunity.microsoft.com/discussions/windows-security/companion-guide-transitioning-to-post-quantum-cryptography/4504853"
+class="uri">https://techcommunity.microsoft.com/discussions/windows-security/companion-guide-transitioning-to-post-quantum-cryptography/4504853</a></li>
+<li>Current Landscape of Post-Quantum Cryptography Migration |
+Encryption Consulting - <a
+href="https://www.encryptionconsulting.com/current-landscape-of-post-quantum-cryptography-migration/"
+class="uri">https://www.encryptionconsulting.com/current-landscape-of-post-quantum-cryptography-migration/</a></li>
+<li>Post Quantum Cryptography Migration Roadmap for Enterprises - <a
+href="https://www.ampcuscyber.com/blogs/how-to-build-post-quantum-cryptography/"
+class="uri">https://www.ampcuscyber.com/blogs/how-to-build-post-quantum-cryptography/</a></li>
+<li>NIST PQC Migration Strategies: Steps, Standards &amp; Tips - Palo
+Alto Networks - <a
+href="https://www.paloaltonetworks.com/cyberpedia/nist-pqc-migration-strategies-steps-standards-and-tips"
+class="uri">https://www.paloaltonetworks.com/cyberpedia/nist-pqc-migration-strategies-steps-standards-and-tips</a></li>
+<li>Enterprise Migration to Post-Quantum Cryptography: Timeline Analysis
+and Strategic Frameworks - <a
+href="https://www.mdpi.com/2073-431X/15/1/9"
+class="uri">https://www.mdpi.com/2073-431X/15/1/9</a></li>
+<li>Migration to Post-Quantum Cryptography - Amazon Web Services - <a
+href="https://aws.amazon.com/security/post-quantum-cryptography/migrating-to-post-quantum-cryptography/"
+class="uri">https://aws.amazon.com/security/post-quantum-cryptography/migrating-to-post-quantum-cryptography/</a></li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="13-enterprise-infra-storage.html"><span>Previous</span>Part 13 - Enterprise Infrastructure &amp; Storage</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="15-email-messaging.html"><span>Next</span>Part 15 - Email &amp; Messaging</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/14-enterprise-applications.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 15 - Email & Messaging | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 15: Email & Messaging.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 15</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 15</p>
+    <h1>Email &amp; Messaging</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/15-email-messaging.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#email-security" id="toc-email-security">1. Email
+Security</a></li>
+<li><a href="#secure-messaging-protocols"
+id="toc-secure-messaging-protocols">2. Secure Messaging
+Protocols</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Messages are the purest harvest-now-decrypt-later target: personal,
+durable, and often archived by the recipient for years. That has made
+the secure messengers the most advanced post-quantum deployments
+anywhere, while email, the older medium, mostly waits on the layers
+beneath it.</p>
+<p>This report covers both worlds. Section 1 covers email security, from
+transport policy to encrypted mail standards. Section 2 covers the
+secure messaging protocols, where the state of the art now lives.</p>
+<p>Email’s milestone is a standard, not a deployment. RFC 9980 brought
+post-quantum algorithms into OpenPGP in June 2026, defining composite
+encryption and signatures. The immediate complication is that GnuPG, the
+most widely deployed implementation, follows an incompatible
+specification instead.</p>
+<p>Messaging’s milestone is engineering. Signal extended post-quantum
+protection from session setup into the ongoing message ratchet itself,
+Apple’s iMessage has run continuous post-quantum rekeying since 2024,
+and both protocols carry machine-checked security proofs. Nowhere else
+in this collection is the migration this far along.</p>
+<h2 id="email-security">1. Email Security</h2>
+<p><em>Email security is layered: transport policies decide whether mail
+travels over TLS at all, and end-to-end standards like OpenPGP and
+S/MIME encrypt the message itself. The transport layers inherit their
+quantum future from TLS and DNSSEC. The message formats needed new
+standards, and 2026 delivered them.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>OpenPGP crossed the standards line. RFC 9980 published in June as a
+Standards Track extension defining post-quantum public-key algorithms
+for the protocol [1]. It specifies composite encryption pairing ML-KEM
+with elliptic curves, composite signatures pairing ML-DSA with EdDSA,
+and standalone SLH-DSA [1]. The immediate fracture: GnuPG does not
+implement it, following the incompatible LibrePGP specification instead
+[2].</p>
+<p>S/MIME’s machinery is close behind. The composite-KEM conventions for
+CMS entered Last Call [3], and the underlying composite draft keeps
+revising [4]. A formal analysis showed the sharp edge: a message
+encrypted to many recipients is only post-quantum confidential if every
+path to the content key is post-quantum [5]. A validation framework is
+proposed to check exactly that [5].</p>
+<p>The transport policies, by design, have no post-quantum extensions of
+their own. MTA-STS inherits from the TLS stack [6], and DANE inherits
+from DNSSEC signing plus TLS [7].</p>
+<h3 id="current-state">Current State</h3>
+<p>The transport layer is a deployment story, not a cryptography one.
+DANE authenticates mail servers through DNS records instead of
+certificate authorities [7], and depends entirely on DNSSEC integrity
+[8]. Gmail validates it and Postfix has long supported it [9], with
+Microsoft’s inbound support arriving in 2024 [10]. Adoption concentrates
+in Europe [8], monitored through the standard TLS reporting mechanism
+[9].</p>
+<p>MTA-STS, standardized in 2018 [6], remains rare: under 2 percent of
+analyzed U.S. domains implement it against near-universal adoption of
+the sender-authentication standards [11], and under 1 percent of the top
+million domains, though growth has doubled in two years [12]. Deployment
+practice runs testing mode before enforcement [13].</p>
+<p>OpenPGP’s post-quantum work is reaching real software. The
+specification makes X25519 mandatory for the composite combinations
+[14]. The project began at the IETF in 2022 [15], and implementations
+are underway in Thunderbird under German government funding and in
+Proton’s open-source libraries [15]. The multi-recipient caveat applies
+here too: confidentiality is only post-quantum when every recipient key
+supports it [1].</p>
+<p>S/MIME’s composite path is built for insurance. Composite ML-KEM
+targets exactly the applications using X.509 and CMS that want
+protection against a catastrophic ML-KEM break [16], with strict
+key-usage separation [17]. The plain path is already ratified: RFC 9936
+specifies ML-KEM in CMS through the standard recipient mechanism
+[18].</p>
+<p>One healthcare-specific ecosystem now sits on this map with nothing
+to show. Direct Secure Messaging, the certificate-anchored network US
+healthcare uses to move sensitive records, encrypts with digital
+certificates and a public key infrastructure [40]. That is exactly the
+kind of PKI a post-quantum migration eventually reaches. Its steward,
+DirectTrust, has published no post-quantum migration artifact at all: no
+certificate-policy update, no standards work item, a gap confirmed by
+repeated targeted searching. The artifact to watch for is a certificate
+policy or trust-anchor update naming the NIST algorithms.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="secure-messaging-protocols">2. Secure Messaging Protocols</h2>
+<p><em>The secure messengers invented modern end-to-end encryption, and
+they are inventing its post-quantum form too. The problem is harder than
+TLS: sessions last years, devices go offline, and every key update must
+survive lost messages. This section covers Signal’s new ratchet, Apple’s
+PQ3, and the group-messaging standard behind enterprise chat.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The group-messaging standard tightened its options. The MLS
+post-quantum cipher-suite draft dropped its X-Wing hybrid options,
+focusing on ML-KEM hybrids and pure ML-KEM suites [19].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Signal moved the frontier twice. Its PQXDH key agreement, deployed
+since 2023, computes session secrets from both X25519 and Kyber so an
+attacker must break both [20]. It is formally analyzed with tools that
+refined the specification itself [21], stands at its third revision
+[22], and runs in every current client [20]. Its authentication remains
+classical for now [23]. The 2025 step is the Sparse Post-Quantum
+Ratchet, mixed with the existing Double Ratchet into what Signal calls
+the Triple Ratchet [24].</p>
+<p>It extends post-quantum protection to the ongoing message lifecycle
+using ML-KEM-768 [25] and rolls out transparently with backward
+compatibility [26]. The kilobyte-plus key material travels through
+chunking and erasure coding [25]. The design was built and verified with
+outside researchers [25], the specification now documents the combined
+protocol [27], and Signal plans eventually to force all conversations
+onto it [28].</p>
+<p>Apple’s PQ3 got there earlier on one axis. It combines Kyber-derived
+keys with elliptic curves and extends a ratchet for post-quantum
+post-compromise security [29], rolling out with the early-2024 OS
+releases [29]. Apple classes it at its highest security level, covering
+initial establishment and ongoing exchange [29]. It mixed fresh
+post-quantum keys into derivation every fifty epochs, ongoing rekeying
+that predated Signal’s equivalent [30], and carries machine-checked
+proofs over both ratchets [31].</p>
+<p>The tradeoffs are documented. There is no cryptographic deniability,
+since every message is signed [32]. Most exchanges still use classical
+key agreement by default, with full post-quantum exchanges triggered
+heuristically to save bandwidth [32].</p>
+<p>The rest of the field inherits or waits. WhatsApp builds on the
+Signal Protocol [33] and inherits its post-quantum upgrades rather than
+engineering its own [34], inside Meta’s company-wide migration framework
+[35]. Matrix plans to resume its post-quantum work in November [36].
+MLS, the IETF’s group-messaging standard, has registered post-quantum
+cipher suites in draft [37].</p>
+<p>They provide post-quantum confidentiality while most suites keep
+classical signatures [37], and remain an active draft rather than an RFC
+[37]. A companion draft amortizes the cost by combining a classical
+session with a post-quantum one [38], superseding the expired
+pre-standard hybrid [39].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>RFC 9980 - Post-Quantum Cryptography in OpenPGP - <a
+href="https://datatracker.ietf.org/doc/rfc9980/"
+class="uri">https://datatracker.ietf.org/doc/rfc9980/</a> - as of
+2026-06-01</li>
+<li>Post-Quantum OpenPGP: RFC 9980 Standard Explained - <a
+href="https://postquantum.com/security-pqc/post-quantum-openpgp-rfc-9980/"
+class="uri">https://postquantum.com/security-pqc/post-quantum-openpgp-rfc-9980/</a>
+- as of 2026-07-05</li>
+<li>draft-ietf-lamps-cms-composite-kem-01 - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-composite-kem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-composite-kem/</a>
+- as of 2026-08-06</li>
+<li>draft-ietf-lamps-pq-composite-kem-19 - Composite ML-KEM for use in
+X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/</a>
+- as of 2026-08-14</li>
+<li>Analysing the Post-Quantum Security of S/MIME - <a
+href="https://eprint.iacr.org/2026/1374"
+class="uri">https://eprint.iacr.org/2026/1374</a> - as of
+2026-07-04</li>
+<li>RFC 8461: SMTP MTA Strict Transport Security (MTA-STS) - <a
+href="https://www.rfc-editor.org/rfc/rfc8461.html"
+class="uri">https://www.rfc-editor.org/rfc/rfc8461.html</a> - as of
+2026-08-15</li>
+<li>How SMTP DNS-based Authentication of Named Entities (DANE) works |
+Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/purview/how-smtp-dane-works"
+class="uri">https://learn.microsoft.com/en-us/purview/how-smtp-dane-works</a>
+- as of 2026-08-15</li>
+<li>What is DANE? DNS-Based Authentication of Named Entities Explained
+(2026) - <a
+href="https://securityboulevard.com/2026/04/what-is-dane-dns-based-authentication-of-named-entities-explained-2026/"
+class="uri">https://securityboulevard.com/2026/04/what-is-dane-dns-based-authentication-of-named-entities-explained-2026/</a></li>
+<li>DANE/TLSA: the complete guide to DNS-based email certificate
+authentication - <a
+href="https://www.captaindns.com/en/blog/dane-tlsa-complete-guide"
+class="uri">https://www.captaindns.com/en/blog/dane-tlsa-complete-guide</a></li>
+<li>DANE for Microsoft 365 and Exchange Online: complete guide - <a
+href="https://www.captaindns.com/en/blog/dane-tlsa-microsoft-365-exchange"
+class="uri">https://www.captaindns.com/en/blog/dane-tlsa-microsoft-365-exchange</a>
+- as of 2024-03-01</li>
+<li>PowerDMARC Releases United States DMARC &amp; MTA-STS Adoption
+Report 2026 - <a
+href="https://www.barchart.com/story/news/37303214/powerdmarc-releases-united-states-dmarc-mta-sts-adoption-report-2026"
+class="uri">https://www.barchart.com/story/news/37303214/powerdmarc-releases-united-states-dmarc-mta-sts-adoption-report-2026</a>
+- as of 2026-01-29</li>
+<li>MTA-STS adoption: three years of steady growth - <a
+href="https://www.uriports.com/blog/mta-sts-survey-update-2026/"
+class="uri">https://www.uriports.com/blog/mta-sts-survey-update-2026/</a>
+- as of 2026-01-06</li>
+<li>Learn about MTA-STS and TLS - <a
+href="https://redsift.com/guides/email-protocol-configuration-guide/learn-more-about-mta-sts-and-tls"
+class="uri">https://redsift.com/guides/email-protocol-configuration-guide/learn-more-about-mta-sts-and-tls</a></li>
+<li>Post-Quantum cryptography in OpenPGP NIST Fifth PQC Standardization
+Conference - <a href="https://www.wussler.it/NIST5thPQC.pdf"
+class="uri">https://www.wussler.it/NIST5thPQC.pdf</a></li>
+<li>Post-Quantum Cryptography in OpenPGP - FOSDEM 2025 - <a
+href="https://archive.fosdem.org/2025/events/attachments/fosdem-2025-5992-post-quantum-cryptography-in-openpgp/slides/238257/PQC_in_Op_AcmguXM.pdf"
+class="uri">https://archive.fosdem.org/2025/events/attachments/fosdem-2025-5992-post-quantum-cryptography-in-openpgp/slides/238257/PQC_in_Op_AcmguXM.pdf</a>
+- as of 2022-03-01</li>
+<li>draft-ietf-lamps-pq-composite-kem-06 - <a
+href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-06"
+class="uri">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-06</a></li>
+<li>draft-ietf-lamps-pq-composite-kem-06 - Composite ML-KEM for use in
+X.509 Public Key Infrastructure and CMS - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/06/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/06/</a></li>
+<li>RFC 9936 - Use of ML-KEM in the Cryptographic Message Syntax (CMS) -
+<a href="https://datatracker.ietf.org/doc/html/rfc9936"
+class="uri">https://datatracker.ietf.org/doc/html/rfc9936</a> - as of
+2026-03-01</li>
+<li>draft-ietf-mls-pq-ciphersuites-06 - ML-KEM and Hybrid Cipher Suites
+for Messaging Layer Security - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-mls-pq-ciphersuites/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-mls-pq-ciphersuites/</a>
+- as of 2026-07-21</li>
+<li>Signal &gt;&gt; Blog &gt;&gt; Quantum Resistance and the Signal
+Protocol - <a href="https://signal.org/blog/pqxdh/"
+class="uri">https://signal.org/blog/pqxdh/</a> - as of 2023-09-19</li>
+<li>Cryspen | An Analysis of Signal’s PQXDH - <a
+href="https://cryspen.com/post/pqxdh/"
+class="uri">https://cryspen.com/post/pqxdh/</a> - as of 2023-10-20</li>
+<li>PQXDH - Signal Wiki - <a
+href="https://signal.miraheze.org/wiki/PQXDH"
+class="uri">https://signal.miraheze.org/wiki/PQXDH</a> - as of
+2024-01-23</li>
+<li>Signal &gt;&gt; Specifications &gt;&gt; The PQXDH Key Agreement
+Protocol - <a href="https://signal.org/docs/specifications/pqxdh/"
+class="uri">https://signal.org/docs/specifications/pqxdh/</a> - as of
+2024-01-23</li>
+<li>Signal &gt;&gt; Blog &gt;&gt; Signal Protocol and Post-Quantum
+Ratchets - <a href="https://signal.org/blog/spqr/"
+class="uri">https://signal.org/blog/spqr/</a> - as of 2025-10-02</li>
+<li>Signal Adds Post-Quantum “Triple Ratchet” Protocol for Stronger
+Security - <a
+href="https://cyberinsider.com/signal-adds-post-quantum-triple-ratchet-protocol-for-stronger-security/"
+class="uri">https://cyberinsider.com/signal-adds-post-quantum-triple-ratchet-protocol-for-stronger-security/</a></li>
+<li>Signal Implements Hybrid Post-Quantum Ratchet to Mitigate Quantum
+Computing Risks - <a
+href="https://cyberpress.org/signal-implements-hybrid/"
+class="uri">https://cyberpress.org/signal-implements-hybrid/</a></li>
+<li>Signal &gt;&gt; Specifications &gt;&gt; The Double Ratchet Algorithm
+- <a href="https://signal.org/docs/specifications/doubleratchet"
+class="uri">https://signal.org/docs/specifications/doubleratchet</a></li>
+<li>Signal Adds Post-Quantum “Triple Ratchet” Protocol for Stronger
+Security - <a
+href="https://cyberinsider.com/signal-adds-post-quantum-triple-ratchet-protocol-for-stronger-security/"
+class="uri">https://cyberinsider.com/signal-adds-post-quantum-triple-ratchet-protocol-for-stronger-security/</a>
+- as of 2025-10-03</li>
+<li>iMessage with PQ3: The new state of the art in quantum-secure
+messaging at scale - Apple Security Research - <a
+href="https://security.apple.com/blog/imessage-pq3/"
+class="uri">https://security.apple.com/blog/imessage-pq3/</a> - as of
+2024-02-21</li>
+<li>Apple’s New iMessage, Signal, &amp; Post-Quantum Crypto | CSA - <a
+href="https://cloudsecurityalliance.org/blog/2024/05/17/apple-s-new-imessage-signal-and-post-quantum-cryptography"
+class="uri">https://cloudsecurityalliance.org/blog/2024/05/17/apple-s-new-imessage-signal-and-post-quantum-cryptography</a></li>
+<li>A Formal Analysis of Apple’s iMessage PQ3 Protocol - <a
+href="https://eprint.iacr.org/2024/1395"
+class="uri">https://eprint.iacr.org/2024/1395</a></li>
+<li>Post-quantum messaging: examining Apple’s new PQ3 protocol |
+PQShield - <a
+href="https://pqshield.com/post-quantum-messaging-examining-apples-new-pq3-protocol/"
+class="uri">https://pqshield.com/post-quantum-messaging-examining-apples-new-pq3-protocol/</a></li>
+<li>A Post-Quantum End-to-End Encryption Protocol | IEEE Conference
+Publication | IEEE Xplore - <a
+href="https://ieeexplore.ieee.org/document/10469296/"
+class="uri">https://ieeexplore.ieee.org/document/10469296/</a></li>
+<li>Is WhatsApp Prepared for Post-Quantum Security? | Post-Quantum
+Security Center - <a
+href="https://www.gopher.security/post-quantum/is-whatsapp-prepared-for-post-quantum-security"
+class="uri">https://www.gopher.security/post-quantum/is-whatsapp-prepared-for-post-quantum-security</a></li>
+<li>Post-Quantum Cryptography Migration at Meta: Framework, Lessons, and
+Takeaways - <a
+href="https://engineering.fb.com/2026/04/16/security/post-quantum-cryptography-migration-at-meta-framework-lessons-and-takeaways/"
+class="uri">https://engineering.fb.com/2026/04/16/security/post-quantum-cryptography-migration-at-meta-framework-lessons-and-takeaways/</a>
+- as of 2026-04-16</li>
+<li>Matrix slides (2025) - <a
+href="https://2025.matrix.org/slides/slides_8PEMJB.pdf"
+class="uri">https://2025.matrix.org/slides/slides_8PEMJB.pdf</a></li>
+<li>ML-KEM and Hybrid Cipher Suites for Messaging Layer Security - <a
+href="https://messaginglayersecurity.rocks/mls-pq-ciphersuites/draft-ietf-mls-pq-ciphersuites.html"
+class="uri">https://messaginglayersecurity.rocks/mls-pq-ciphersuites/draft-ietf-mls-pq-ciphersuites.html</a></li>
+<li>Amortized PQ MLS Combiner - <a
+href="https://messaginglayersecurity.rocks/mls-combiner/draft-ietf-mls-combiner.html"
+class="uri">https://messaginglayersecurity.rocks/mls-combiner/draft-ietf-mls-combiner.html</a>
+- as of 2026-04-09</li>
+<li>draft mahy mls x25519kyber768draft00 00 - <a
+href="https://www.ietf.org/archive/id/draft-mahy-mls-x25519kyber768draft00-00.txt"
+class="uri">https://www.ietf.org/archive/id/draft-mahy-mls-x25519kyber768draft00-00.txt</a>
+- as of 2023-07-10</li>
+<li>Direct Secure Messaging - DirectTrust - <a
+href="https://directtrust.org/what-we-do/direct-secure-messaging"
+class="uri">https://directtrust.org/what-we-do/direct-secure-messaging</a></li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="14-enterprise-applications.html"><span>Previous</span>Part 14 - Enterprise Applications &amp; Delivery</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="16-iot-ot.html"><span>Next</span>Part 16 - Enterprise IoT &amp; OT</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/15-email-messaging.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

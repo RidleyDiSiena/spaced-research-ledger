@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 5 - Spin Qubits | Quantum Computing</title>
+  <meta name="description" content="Quantum Computing, Part 5: Spin Qubits.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Quantum Computing</a><span class="sep">/</span>Part 5</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Quantum Computing &middot; Part 5</p>
+    <h1>Spin Qubits</h1>
+    <p class="updated">Last updated: 2026-08-30</p>
+    <p class="actions"><a class="pdf" href="latest/05-spin-qubits.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#intel" id="toc-intel">1. Intel</a></li>
+<li><a href="#diraq" id="toc-diraq">2. Diraq</a></li>
+<li><a href="#imec" id="toc-imec">3. imec</a></li>
+<li><a href="#quantum-motion" id="toc-quantum-motion">4. Quantum
+Motion</a></li>
+<li><a href="#germanium-spin-qubits" id="toc-germanium-spin-qubits">5.
+Germanium Spin Qubits</a></li>
+<li><a href="#donor-qubits-at-unsw" id="toc-donor-qubits-at-unsw">6.
+Donor Qubits at UNSW</a></li>
+<li><a href="#riken" id="toc-riken">7. RIKEN</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>A spin qubit stores information in the magnetic orientation of a
+single electron, held inside a silicon structure called a quantum dot.
+The qubits are roughly a hundred nanometres across, which makes them
+thousands of times smaller than the superconducting circuits in Part
+1.</p>
+<p>Size is not the real argument for them. The argument is the factory.
+These devices are made on the same 300-millimetre wafer lines, with the
+same lithography, that produce ordinary computer chips. No other
+modality in this collection can be manufactured by an existing
+semiconductor industry without inventing a new process for it.</p>
+<p>Two words recur below and are worth settling now. CMOS is the
+standard manufacturing process behind nearly all commercial chips. EUV,
+or extreme ultraviolet lithography, is the light source that patterns
+the finest features on those chips. When a result in this part cites
+both, the claim is that quantum devices came off a production line
+rather than a laboratory bench.</p>
+<p>Section 1 covers Intel, Section 2 Diraq, Section 3 imec, and Section
+4 Quantum Motion. Section 5 covers germanium, a competing material.
+Sections 6 and 7 cover the two groups holding the fidelity records, at
+UNSW and RIKEN.</p>
+<h2 id="intel">1. Intel</h2>
+<p><em>Intel’s contribution is manufacturing data rather than machines.
+It measures spin qubits across whole wafers using its own production
+tooling, which produces the kind of yield and uniformity statistics no
+laboratory can generate.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>Intel demonstrated tune-up of a 12-quantum-dot spin-qubit device,
+known as Tunnel Falls [1]. It is the largest reported qubit count in a
+single spin-qubit device fabricated on a 300-millimetre semiconductor
+line using extreme ultraviolet and high-volume manufacturing
+processes.</p>
+<h3 id="current-state">Current State</h3>
+<p>Intel published a Nature paper in May 2024 demonstrating uniformity,
+fidelity and measurement statistics for CMOS-fabricated spin qubits,
+using a 300-millimetre cryogenic wafer-probing process [2].
+Single-electron devices from those wafers achieved 99.9% gate fidelity,
+the highest reported for qubits made entirely with CMOS industry
+manufacturing [2].</p>
+<p>The fabrication details carry the argument. Devices were made using
+extreme ultraviolet lithography on 300-millimetre wafers, with qubit
+feature sizes of about 100 nanometres, while remaining compatible with
+high-volume CMOS manufacturing [2].</p>
+<p>The probing process is the quieter contribution. Intel’s
+high-throughput cryogenic probing generated far more device data than
+earlier methods, allowing analysis of qubit uniformity and yield across
+whole wafers [2]. Knowing what fraction of a wafer works is a
+manufacturing question, and nobody asks it of the machines in Parts 2
+through 4.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="diraq">2. Diraq</h2>
+<p><em>Diraq’s results answer the question that matters most for this
+modality. Its high fidelities come from randomly chosen devices at more
+than one foundry, which makes them a statement about a process rather
+than about a chip.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Diraq’s eight-qubit silicon spin-qubit array, fabricated on a
+300-millimetre silicon MOS foundry process, was published in Nature
+Communications [3].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The reproducibility result is the important one. Diraq-designed,
+imec-fabricated two-qubit devices, made with standard 300-millimetre
+foundry tooling, achieved single- and two-qubit control fidelities above
+99% for all four tested devices [4]. State preparation and measurement
+fidelities reached 99.9%, confirmed by gate set tomography in a
+peer-reviewed Nature paper.</p>
+<p>Those devices were randomly selected rather than curated [5]. Picking
+the best chip from a batch is normal practice in research and tells you
+nothing about yield. Measuring randomly chosen devices demonstrates that
+high fidelity is reproducible across foundry-fabricated silicon spin
+qubits.</p>
+<p>Temperature is the other advantage. Diraq reported a hot-qubit result
+of 99.85% single-qubit fidelity and 98.92% two-qubit fidelity operating
+at 1 kelvin [6]. That is roughly ten times warmer than the
+15-millikelvin environment superconducting platforms need. Cooling to 1
+kelvin is enormously cheaper, and it frees room in the refrigerator for
+control electronics.</p>
+<p>Diraq is a Sydney-based spinout from the University of New South
+Wales, founded by Andrew Dzurak and Tuomo Tanttu in 2022 [6]. It builds
+on standard CMOS processes at both GlobalFoundries and imec, and has
+demonstrated high-fidelity qubits on 300-millimetre wafers at both [6].
+Working at two foundries indicates the process is not tied to one
+supplier.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="imec">3. imec</h2>
+<p><em>imec is the shared research foundry behind several results in
+this part, including Diraq’s. Its own contribution is lithography, and
+it has now put quantum dots through the most advanced patterning tools
+the chip industry has.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>imec presented the first quantum dot qubit device fabricated using
+High NA extreme ultraviolet lithography [8]. It patterned gaps as small
+as 6 nanometres between plunger and barrier gates on a working qubit
+array. High NA machines are the newest and most expensive lithography
+tools in the semiconductor industry, and this is their first appearance
+in a qubit device.</p>
+<p>Separately, silicon MOS quantum-dot spin qubits were demonstrated
+with high fidelity and uniformity using single-exposure 0.33 NA extreme
+ultraviolet lithography in a 300-millimetre flow [7].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>At the IEDM conference in December 2025, imec used single-print 0.33
+NA extreme ultraviolet lithography to pattern all three gate layers of
+its overlapping-gate quantum-dot architecture [9]. It was the first time
+that had been done on 300-millimetre wafers. First measurements of those
+devices showed a room-temperature yield of 90% across the wafer, with
+back-end functionality confirmed on dedicated test structures [9].</p>
+<p>A 90% wafer yield is the kind of number that separates this modality
+from the rest of this collection.</p>
+<p>The change in method explains the result. Switching to
+single-patterning extreme ultraviolet lithography, replacing a slower
+electron-beam writer previously used for the three gate layers, gives
+higher overlay accuracy and better qubit quality [9]. It also allows
+full 300-millimetre wafers to be printed with high yield and process
+control.</p>
+<p>imec’s 300-millimetre flow, using isotopically enriched silicon,
+produced the Diraq two-qubit devices described in Section 2, and is
+credited as the low-noise environment behind those fidelities [5]. In a
+separate collaboration, KIT and imec fabricated spin qubits in a
+natural, non-enriched silicon-germanium heterostructure, processed
+entirely on an industrial 300-millimetre line from crystal growth
+through micromagnet integration [10].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="quantum-motion">4. Quantum Motion</h2>
+<p><em>Quantum Motion built the first complete quantum computer out of
+standard silicon CMOS and installed it in a national facility. Its
+architecture is designed to be copied across a chip rather than
+assembled qubit by qubit.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Quantum Motion demonstrated a fast spin-qubit readout method reaching
+8-microsecond performance with signal amplification, in a 300-millimetre
+industrial silicon process [11]. Readout speed limits how quickly error
+correction can run, which connects this result to Part 6.</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The company delivered the industry’s first full-stack quantum
+computer built with standard 300-millimetre silicon CMOS fabrication,
+installed at the UK National Quantum Computing Centre in September 2025
+[12]. The system pairs a silicon spin-qubit processor with a control
+stack compatible with Qiskit and Cirq, in a three-rack,
+data-centre-friendly footprint designed for upgrades [12].</p>
+<p>The processor uses a tile architecture that integrates compute,
+readout and control into a dense array which can be printed repeatedly
+onto a chip [13]. The intent is expansion toward millions of qubits per
+processor. Repeating a proven tile is the same scaling logic the Fujitsu
+and RIKEN unit cell follows in Part 1.</p>
+<p>Ahead of that delivery, Quantum Motion reported validating a
+1,024-quantum-dot array in under five minutes [6]. Speed of
+characterization matters when a chip holds thousands of dots.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="germanium-spin-qubits">5. Germanium Spin Qubits</h2>
+<p><em>Germanium is the main alternative to silicon in this modality.
+Its qubits are faster and easier to control, and its manufacturing is
+markedly less mature, so it trades industrial readiness for
+physics.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>Groove Quantum demonstrated simultaneous operation of an 18-qubit
+modular array in germanium, built on an extendable architecture [14]. It
+reported a single-qubit error rate of around 0.2% in a preprint, ahead
+of peer review [17].</p>
+<p>QuTech demonstrated a planar 10-qubit germanium processor in a 3-4-3
+layout on a germanium heterostructure, with uniform high-fidelity
+control [15]. The layout is two-dimensional, so central qubits connect
+to four neighbours rather than two. Two-dimensional connectivity is what
+the error-correcting codes in Part 6 assume.</p>
+<h3 id="current-state-4">Current State</h3>
+<p>QuTech’s germanium hole-spin work has produced two-qubit gate
+fidelities above 99.5%, cited as the benchmark for this platform
+[16].</p>
+<p>Groove Quantum is a 2024 spinout from QuTech in Delft, building
+germanium quantum-dot qubits [17]. The germanium approach offers
+stronger spin-orbit coupling and faster gate operations than silicon
+[6]. Its manufacturing process is less mature than the enriched-silicon
+CMOS path that Intel, Diraq, Quobly and Quantum Motion follow.</p>
+<p>One announced figure should not be read as a result. QuTech
+researchers developed a 23×23 tile chip architecture on a germanium
+heterostructure, with a stated design capacity to host up to 1,058
+hole-spin qubits [18]. That is an architecture’s capacity on paper, not
+a demonstrated qubit count or a fidelity measurement.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="donor-qubits-at-unsw">6. Donor Qubits at UNSW</h2>
+<p><em>Silicon Quantum Computing takes a different approach from every
+other group in this part. Rather than trapping an electron in a
+fabricated dot, it places individual phosphorus atoms into silicon with
+atomic precision.</em></p>
+<h3 id="current-state-5">Current State</h3>
+<p>The company published a Nature paper in December 2025 demonstrating
+an 11-qubit atom processor [19]. It uses precision-placed phosphorus
+donor atoms in isotopically purified silicon, arranged into two
+multi-nuclear spin registers linked by electron exchange. The processor
+achieved single-qubit fidelities above 99% and two-qubit gate fidelities
+up to 99.9% [19].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Two figures circulate for the same December 2025 result and they do
+not agree. The primary report gives two-qubit gate fidelities up to
+99.9% for the 11-qubit processor [19]. A secondary source reports
+Silicon Quantum Computing reaching 99.99% two-qubit fidelity in December
+2025, matching a record previously set by trapped-ion platforms [6]. The
+difference is a factor of ten in error rate, which is the difference
+between competitive and record-setting. The primary Nature-derived
+report is the stronger source, but the discrepancy is recorded rather
+than resolved.</p>
+<p>The company restating the figure with its measurement method would
+settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="riken">7. RIKEN</h2>
+<p><em>RIKEN holds the highest single-qubit fidelities in this part. Its
+recent work addresses a problem that appears only once qubits are packed
+together, which is operating many of them at once without
+interference.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>RIKEN demonstrated simultaneous high-fidelity single-qubit gates
+across a spin-qubit array [20]. Primitive π/2 gate fidelities were well
+above 99.99% for each qubit individually, with some approaching 99.999%.
+The method used tailored control pulses on a shared control line
+together with pairwise phase calibrations.</p>
+<p>Sharing one control line across many qubits is how this modality
+avoids needing one wire per qubit. Doing it without losing fidelity is
+the result.</p>
+<h3 id="current-state-6">Current State</h3>
+<p>The work uses a silicon-germanium heterostructure with isotopically
+enriched silicon, and demonstrates simultaneous operation across the
+array rather than one qubit at a time [20].</p>
+<p>RIKEN’s Tarucha group separately reported a 5-qubit silicon system
+with a single-qubit error rate below 0.01%, in a preprint that has not
+been peer-reviewed [17].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>12-spin-qubit arrays fabricated on a 300 mm semiconductor
+manufacturing line - <a href="https://arxiv.org/html/2410.16583v1"
+class="uri">https://arxiv.org/html/2410.16583v1</a> (as of
+2026-08-24)</li>
+<li>Intel Takes Next Step Toward Building Scalable Silicon-Based Quantum
+Processors - <a
+href="https://www.intc.com/news-events/press-releases/detail/1693/intel-takes-next-step-toward-building-scalable"
+class="uri">https://www.intc.com/news-events/press-releases/detail/1693/intel-takes-next-step-toward-building-scalable</a>
+(as of 2024-05-01)</li>
+<li>Eight-qubit operation of a 300 mm SiMOS foundry-fabricated device -
+<a href="https://www.nature.com/articles/s41467-026-74597-6"
+class="uri">https://www.nature.com/articles/s41467-026-74597-6</a> (as
+of 2026-07-09)</li>
+<li>Industry-compatible silicon spin-qubit unit cells exceeding 99%
+fidelity - <a href="https://www.nature.com/articles/s41586-025-09531-9"
+class="uri">https://www.nature.com/articles/s41586-025-09531-9</a> (as
+of 2025-09-24)</li>
+<li>Path to utility scale for Diraq’s quantum chips - <a
+href="https://www.imec-int.com/en/press/imec-technology-lights-path-utility-scale-diraqs-quantum-chips"
+class="uri">https://www.imec-int.com/en/press/imec-technology-lights-path-utility-scale-diraqs-quantum-chips</a>
+(as of 2025-09-24)</li>
+<li>Top Silicon Spin Quantum Computing Companies: Complete 2026 Guide -
+<a
+href="https://quantumzeitgeist.com/top-silicon-spin-quantum-computing-companies/"
+class="uri">https://quantumzeitgeist.com/top-silicon-spin-quantum-computing-companies/</a>
+(as of 2025-12-01)</li>
+<li>SiMOS quantum-dot spin qubits enabled by extreme-ultraviolet
+lithography - <a href="https://arxiv.org/html/2607.13121v1"
+class="uri">https://arxiv.org/html/2607.13121v1</a> (as of
+2026-07-14)</li>
+<li>World first: imec presents quantum dot qubit device using High NA
+EUV lithography - <a
+href="https://www.imec-int.com/en/press/world-first-imec-presents-quantum-dot-qubit-device-using-high-na-euv-lithography"
+class="uri">https://www.imec-int.com/en/press/world-first-imec-presents-quantum-dot-qubit-device-using-high-na-euv-lithography</a>
+(as of 2026-05-19)</li>
+<li>Si MOS quantum dot spin qubits: roads to upscaling - <a
+href="https://www.imec-int.com/en/articles/si-mos-quantum-dot-spin-qubits-roads-upscaling"
+class="uri">https://www.imec-int.com/en/articles/si-mos-quantum-dot-spin-qubits-roads-upscaling</a>
+(as of 2025-12-01)</li>
+<li>Industrial 300 mm wafer processed spin qubits in natural
+silicon/silicon-germanium - <a href="https://arxiv.org/pdf/2409.12731"
+class="uri">https://arxiv.org/pdf/2409.12731</a> (as of 2024-09-23)</li>
+<li>Research - Quantum Motion - <a
+href="https://quantummotion.com/research/"
+class="uri">https://quantummotion.com/research/</a> (as of
+2026-07-07)</li>
+<li>Quantum Motion delivers the industry’s first full-stack silicon CMOS
+quantum computer - <a
+href="https://quantummotion.com/quantum-motion-delivers-the-industrys-first-full-stack-silicon-cmos-quantum-computer/"
+class="uri">https://quantummotion.com/quantum-motion-delivers-the-industrys-first-full-stack-silicon-cmos-quantum-computer/</a>
+(as of 2025-09-15)</li>
+<li>IP Group portfolio news - <a
+href="https://www.ipgroupplc.com/news-and-events/portfolio-news/2025/2025-09-15"
+class="uri">https://www.ipgroupplc.com/news-and-events/portfolio-news/2025/2025-09-15</a>
+(as of 2025-09-15)</li>
+<li>Simultaneous operation of an 18-qubit modular array in germanium -
+<a href="https://arxiv.org/html/2604.01063v1"
+class="uri">https://arxiv.org/html/2604.01063v1</a> (as of
+2026-04-01)</li>
+<li>From Complexity to Control: a 10-spin qubit array in germanium - <a
+href="https://qutech.nl/2025/11/27/from-complexity-to-control-a-10-spin-qubit-array-in-germanium/"
+class="uri">https://qutech.nl/2025/11/27/from-complexity-to-control-a-10-spin-qubit-array-in-germanium/</a>
+(as of 2025-11-27)</li>
+<li>Silicon Spin Qubits: The Semiconductor Path to Quantum Computing -
+<a
+href="https://www.gordostuff.com/2026/03/silicon-spin-qubits-semiconductor-path.html"
+class="uri">https://www.gordostuff.com/2026/03/silicon-spin-qubits-semiconductor-path.html</a>
+(undated)</li>
+<li>Underdog spin qubits leap forward in race to a useful quantum
+computer - <a href="https://www.nature.com/articles/d41586-026-02357-z"
+class="uri">https://www.nature.com/articles/d41586-026-02357-z</a>
+(undated)</li>
+<li>QuTech tile architecture announcement - <a
+href="https://www.eurekalert.org/news-releases/1116077"
+class="uri">https://www.eurekalert.org/news-releases/1116077</a>
+(undated)</li>
+<li>Silicon atom processor links 11 qubits with more than 99% fidelity -
+<a
+href="https://phys.org/news/2025-12-silicon-atom-processor-links-qubits.html"
+class="uri">https://phys.org/news/2025-12-silicon-atom-processor-links-qubits.html</a>
+(as of 2025-12-18)</li>
+<li>Simultaneous High-Fidelity Single-Qubit Gates in a Spin Qubit Array
+- <a href="https://arxiv.org/html/2507.11918"
+class="uri">https://arxiv.org/html/2507.11918</a> (as of
+2026-07-15)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="04-photonic-quantum-computing.html"><span>Previous</span>Part 4 - Photonic Quantum Computing</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Quantum Computing</a>
+    <a class="pager-next" href="06-error-correction-logical-qubits.html"><span>Next</span>Part 6 - Error Correction &amp; Logical Qubits</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/05-spin-qubits.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

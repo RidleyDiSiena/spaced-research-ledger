@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-Assisted Production Tools - AI-Assisted Production Tools | AI Music Creation</title>
+  <meta name="description" content="AI Music Creation, AI-Assisted Production Tools: AI-Assisted Production Tools.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">AI Music Creation</a><span class="sep">/</span>AI-Assisted Production Tools</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">AI Music Creation &middot; AI-Assisted Production Tools</p>
+    <h1>AI-Assisted Production Tools</h1>
+    <p class="updated">Last updated: 2026-09-01</p>
+    <p class="actions"><a class="pdf" href="latest/01-ai-assisted-production-tools.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#in-daw-assistants-and-generators"
+id="toc-in-daw-assistants-and-generators">1. In-DAW Assistants and
+Generators</a></li>
+<li><a href="#stem-separation" id="toc-stem-separation">2. Stem
+Separation</a></li>
+<li><a href="#mastering" id="toc-mastering">3. Mastering</a></li>
+<li><a href="#governance-and-industry-framing"
+id="toc-governance-and-industry-framing">4. Governance and Industry
+Framing</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>AI features are now standard equipment in music production software.
+The four largest desktop workstations each shipped a significant one in
+the past year. This report covers what has actually been released, taken
+from the documentation of the companies that released it.</p>
+<p>Section 1 covers the assistants and generators built into the
+workstations themselves. Section 2 covers stem separation, the
+technology that pulls a finished recording back apart into its
+instruments. Section 3 covers mastering, the final processing stage
+before release. Section 4 covers the industry agreements shaping how
+these vendors describe their own tools.</p>
+<p>A note on sourcing belongs at the front of this one. Consumer music
+software is heavily covered by search-optimised review articles, and
+those articles are unusually unreliable on this subject.</p>
+<p>During preparation, three claims carried by dated 2026 review
+articles turned out to be false. One attributed a feature to the wrong
+company. One described a product that does not exist. One listed a
+service that shut down in 2025 as a current market leader.</p>
+<p>Every factual statement below is therefore cited to the company that
+ships the product, to the paper that published the result, or to the
+platform that sets the specification.</p>
+<h2 id="in-daw-assistants-and-generators">1. In-DAW Assistants and
+Generators</h2>
+<p><em>The assistant built into the workstation is now a product
+category of its own. It differs from a plugin in that it can see and
+change the session around it.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>Apple released Logic Pro 12 for Mac and iPad in January 2026, as part
+of the Apple Creator Studio launch [1]. Two features lead it. Synth
+Player is a fourth AI Session Player, joining Drummer, Bass Player and
+Keyboard Player. It generates chordal and synth bass performances under
+controls for complexity and intensity, in styles including 808 Bass,
+Pump Bass and Sequenced Bass [2]. Chord ID analyses harmonic content
+from an audio or MIDI region and fills in the project chord track
+automatically [1].</p>
+<p>The two features connect. Because the chord track drives every AI
+Session Player, a progression identified by Chord ID can then be
+performed by any of them [1]. Logic Pro 12 is also the first version to
+drop Intel Mac support, requiring Apple silicon [2]. Apple updated the
+Creator Studio collection again in June 2026 [3].</p>
+<p>Image-Line released FL Studio 2026 on 7 July 2026, free to existing
+owners under its lifetime updates policy [4]. Its assistant, Gopher,
+changed character in that release. Gopher first shipped in FL Studio
+2025 answering production questions. In FL Studio 2026 it gained the
+ability to act inside a project, organising tracks, setting levels,
+routing audio, and generating Piano roll and VFX scripts on request [4].
+Image-Line describes the control capability as experimental [4].</p>
+<p>The same release rebuilt the FLEX plugin and expanded FL Cloud with
+an improved Loop Starter, automatic project backup and further premium
+plugins [4].</p>
+<p>Fender shipped Studio Pro 8.1 on 9 June 2026, the rebranded former
+PreSonus Studio One [5]. It added Studio Assistant, a natural-language
+help agent that answers questions inside the session. That agent is a
+public beta for Studio Pro+ subscribers, and it arrived alongside a
+native pitch-correction plugin with formant shifting [5].</p>
+<p>Suno announced Suno Studio on 25 September 2025, a generative audio
+workstation that combines AI generation with multitrack editing [6].
+Users can generate stem variations, work from uploaded audio, edit on a
+timeline with tempo and pitch control, and export both audio and MIDI
+[6].</p>
+<h3 id="current-state">Current State</h3>
+<p>The assistants divide cleanly by what they are allowed to touch.
+Fender’s Studio Assistant answers questions about the software [5].
+Apple’s Session Players generate performances into tracks [2].
+Image-Line’s Gopher does both, and reaches furthest into the session by
+routing audio and setting levels directly [4].</p>
+<p>Logic Pro also carries smaller AI integrations. Apple Intelligence
+Writing Tools, backed by ChatGPT, are available in the project and track
+notepads for summarising and organising notes [7].</p>
+<p>Third-party assistants target the same space across multiple
+workstations. LIA is a natural-language assistant that creates tracks,
+sets tempo, routes sends and automates filters inside a running session.
+It is currently released only for Ableton Live, with versions for eight
+other workstations listed as in development [8]. MIDI Agent is a
+cross-platform plugin that generates melodies, chord progressions,
+basslines and drum patterns from text prompts, and lets the user choose
+which underlying model performs the generation [9].</p>
+<p>One attribution deserves stating plainly, because review coverage
+frequently gets it wrong. Session Players are an Apple Logic Pro
+feature, documented by Apple. Ableton Live ships nothing under that name
+[10].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="stem-separation">2. Stem Separation</h2>
+<p><em>Stem separation takes a finished stereo recording and
+reconstructs the individual instrument parts. It moved from a specialist
+service to a standard workstation feature during this period, and the
+research underneath it moved faster than the products.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Ableton released Live 12.4 in May 2026 as a free update, ahead of
+Superbooth 2026 [11]. It improved Stem Separation in four ways. Only the
+audible portion of a file is now processed, and a selected portion of a
+clip can be separated in Arrangement View instead of the whole file.
+Separated stems can be merged back into a single track. Progress is
+reported by one unified bar rather than per stem [12].</p>
+<p>LALAL.AI moved its separation from the cloud onto the user’s machine
+over the course of 2026. Its first plugin arrived in February 2026 with
+a two-way vocal and instrumental split, running a new model called Lyra
+built for local processing [13]. By 21 May 2026 the plugin reached seven
+stems, covering vocals, instrumental, drums, bass, acoustic guitar,
+electric guitar and piano, with all processing performed locally [14].
+Lyra uses GPU and NPU acceleration, ships as VST3 for Windows, macOS and
+Linux with AU in beta, and runs fully offline after activation apart
+from occasional subscription checks [15].</p>
+<p>The company’s cloud models advanced in parallel. Andromeda arrived in
+May 2026 with four-stem separation and improved bass handling [16], and
+gained a combined guitars stem and a rebuilt piano model in August 2026
+[17].</p>
+<p>LANDR upgraded its Stems plugin in April 2026 with AudioShake’s
+next-generation models, adding dedicated piano and guitar separation
+alongside vocals, drums, bass and other [18].</p>
+<p>Fender Studio Pro 8.1 integrated Moises directly into the workstation
+in June 2026 [19]. Both companies describe it as the first native
+integration of Moises separation, voice transformation and backing-track
+generation inside a major workstation [20]. Users on the free Moises
+tier receive 10 audio separations, 120 stem generation credits amounting
+to about 60 minutes, and 5 voice conversions per month [21].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Ableton’s implementation splits a clip into vocals, drums, bass and
+other, is available in Suite only, and is powered by algorithms from
+Music AI, the company behind Moises [22]. It offers a High Speed and a
+High Quality mode, and uses the GPU on Apple silicon while Intel Macs
+and Windows machines process on the CPU [23].</p>
+<p>Apple’s Stem Splitter separates into six parts, adding guitar and
+piano to the same four, having gained those two in the Logic Pro 11.2
+update of May 2025 [24] [25]. It runs entirely on-device with no network
+connection and requires Apple silicon [25]. It has since gained
+tempo-data preservation and one-click preset combinations such as
+acapella and instrumental [2].</p>
+<p>The research layer sits ahead of the products. BS-RoFormer is a
+band-split transformer using rotary position embedding. It won the music
+separation track of the Sound Demixing Challenge 2023, and reaches 9.80
+dB average signal-to-distortion ratio on the MUSDB18HQ benchmark without
+extra training data [26]. Mel-RoFormer maps frequency bins into
+overlapping mel-scale subbands rather than the non-overlapping bands of
+its predecessor, and outperforms it on vocals, drums and other stems
+[27]. A March 2026 paper extends BS-RoFormer to eight stems using a
+multi-stage curriculum and low-rank fine-tuning from four-stem
+checkpoints [28].</p>
+<p>The open baseline remains Demucs. Meta’s original repository is no
+longer maintained and work continues in the author’s fork. There,
+htdemucs is the first hybrid transformer generation, and htdemucs_ft is
+a fine-tuned variant that takes about four times as long to run [29].
+Ultimate Vocal Remover packages three separate architectures in one free
+application, each from different authors: the VR Architecture from
+tsurumeso, MDX-Net from Kuielab and Woosung Choi, and Demucs itself
+[30].</p>
+<p>Commercial pricing spans a wide range. LALAL.AI bills in processing
+minutes, and a separation multiplies file length by the number of stem
+types requested, so a four-stem split costs roughly four times a
+vocal-only one [31]. Its Orion network currently supports seven stems,
+and the company states it is expanding toward ten. The older Phoenix
+network covers piano, drums, bass, both guitars, synthesizer, and wind
+and string instruments [32].</p>
+<p>Moises sells an annual subscription aimed at practising musicians,
+adding pitch and tempo control and chord detection on top of separation
+[33]. RipX DAW costs $99 and RipX DAW PRO $198 as one-time purchases,
+and allows editing individual notes inside a separated stem [34].
+iZotope’s RX 12 provides Music Rebalance for post-production work
+[35].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>The most common comparative claim about separation quality has no
+published basis. Review articles state that Demucs outperforms
+LALAL.AI’s commercial model by a specific percentage on standardised
+benchmarks. No such comparison exists. The public leaderboards evaluate
+research models on MUSDB18HQ, and LALAL.AI does not publish a comparable
+figure for its own models. Settling it would require either vendor
+submitting to a public benchmark, which none of the commercial
+separation companies currently does.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="mastering">3. Mastering</h2>
+<p><em>Mastering is the last processing stage before release. Two
+distinct product shapes compete here, and one of them lost a member
+during this period.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>iZotope announced Ozone 12 on 2 September 2025 [36]. It added three
+modules, Stem EQ, Bass Control and an Unlimiter, alongside a reworked
+Master Assistant and a new IRC 5 limiting algorithm for the Maximizer
+[37]. The Custom Master Assistant flow lets the user choose which
+modules run, set loudness targets and apply genre modifiers. Stem EQ
+applies equalisation separately to vocals, drums, bass and instruments
+within a stereo file [38]. The current shipping version is 12.1.0,
+released December 2025 [39].</p>
+<p>CloudBounce ceased trading on 1 April 2025 [40]. Its parent,
+Image-Line, carried the underlying technology into FL Studio’s mastering
+and FL Cloud, and offered former customers a perpetual FL Studio Fruity
+Edition licence [40]. CD Baby had already ended its CloudBounce
+partnership in February 2025, with previously mastered files available
+to customers only through February 2026 [41]. Any current listing of
+CloudBounce as an available service is out of date.</p>
+<p>Splice released three generative AI tools on 15 April 2026,
+Variations, Craft and Magic Fit, all of which manipulate samples rather
+than master recordings [42]. Each compensates the original sample
+creator when a sound is used as a source or a variation is downloaded
+[42]. Splice’s involvement in mastering is a marketplace one, renting
+iZotope’s Ozone and LANDR’s plugin on a rent-to-own basis rather than
+operating a mastering engine [43].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Automated mastering began as a web service. LANDR launched the first
+commercial one in 2014 out of Montreal, having spun out of MixGenius,
+and established the pattern of uploading a mix and receiving a finished
+master [44]. It did not move into a workstation plugin until 2023,
+before which it was browser-only [45]. That plugin sells for $299 and
+brings the cloud-trained engine into the session with adjustable presets
+[45]. LANDR’s own pricing page lists unlimited masters at $9.99 per
+month, with the bundle adding samples and distribution starting at
+$12.50 [46].</p>
+<p>Ozone 12 comes in three editions, all of which include the Master
+Assistant. Advanced carries 20 editable modules that also load
+individually in a workstation, three add-on plugins and the Stem Focus
+workflow. Standard carries 14 modules that load only inside the main
+plugin. Elements carries Master Assistant with no individual module
+access [38]. Ozone 12 supports the current versions of every major
+workstation and requires macOS Ventura or later [39] [49].</p>
+<p>Apple ships a Mastering Assistant inside Logic Pro at no additional
+cost, inserted on the stereo output, which analyses the mix and proposes
+a starting chain [47]. eMastered’s reference mastering analyses an
+uploaded reference recording, then applies its loudness, balance and
+compression characteristics to the user’s track. Reference Amount and
+Reference Intensity are exposed as expert controls, and settings can be
+saved as presets [48].</p>
+<p>Delivery targets constrain all of this. Spotify normalises playback
+to -14 LUFS following the ITU-R BS.1770 methodology, and reserves about
+1 dB of headroom for lossy encoding. A track with a higher true-peak
+maximum is therefore turned down less than one with more headroom
+[50].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>Two figures in the current record disagree and neither side is
+obviously wrong. iZotope describes Ozone 12 Advanced as 20 editable
+modules plus three add-on plugins, while its own marketing has been read
+as 21 individual plugins [38]. The difference is a counting convention
+rather than a factual dispute, and iZotope stating a single number in
+one place would settle it. Separately, Fender’s Moises allotment of 120
+stem generation credits has been reported both as 120 minutes and as
+roughly 60 minutes [19] [21]. Fender’s own integration page gives the
+credit figure and the minute equivalent together, which favours the
+shorter reading.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="governance-and-industry-framing">4. Governance and Industry
+Framing</h2>
+<p><em>Vendors in this segment describe their tools through a shared
+vocabulary, and that vocabulary comes from a specific
+agreement.</em></p>
+<h3 id="current-state-3">Current State</h3>
+<p>Universal Music Group and Roland Corporation published the Principles
+for Music Creation with AI in March 2024, a set of seven principles on
+responsible use [51]. A coalition of more than 50 music technology
+organisations subsequently signed on. Those include LANDR, Splice,
+Native Instruments, Focusrite, Output, Waves, Eventide, BandLab
+Technologies, Beatport and the National Association of Music Merchants
+[51]. The initiative maintains a standing public presence rather than
+existing only as a launch announcement [52].</p>
+<p>Individual vendors have added their own commitments. Image-Line
+paired the FL Studio 2026 Gopher release with an explicit statement that
+neither cloud projects nor Gopher sessions are used to train AI models
+[53].</p>
+<h3 id="unresolved-conflicts-2">Unresolved Conflicts</h3>
+<p>Whether separating a copyrighted commercial recording is itself
+lawful remains unsettled. Vendors and comparison sites commonly describe
+personal and educational use as permissible while treating commercial
+distribution of extracted stems without clearance as infringement. That
+position is asserted rather than adjudicated. No court ruling specific
+to AI stem-separation tools was located, so the distinction rests on
+general copyright reasoning rather than on any decision about these
+tools. A ruling, or a licensing framework agreed between rights holders
+and separation vendors, would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four systems across competing labs, so no
+single model both finds a claim and judges it. The Spaced Research
+Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Introducing Apple Creator Studio, an inspiring collection of
+creative apps — Apple Newsroom. <a
+href="https://www.apple.com/newsroom/2026/01/introducing-apple-creator-studio-an-inspiring-collection-of-creative-apps/"
+class="uri">https://www.apple.com/newsroom/2026/01/introducing-apple-creator-studio-an-inspiring-collection-of-creative-apps/</a>
+(2026-01-30)</li>
+<li>Logic Pro for Mac release notes — Apple Support. <a
+href="https://support.apple.com/en-us/109503"
+class="uri">https://support.apple.com/en-us/109503</a> (2026-01-30)</li>
+<li>Apple Creator Studio gets smarter, faster, and more connected —
+Apple Newsroom. <a
+href="https://www.apple.com/newsroom/2026/06/apple-creator-studio-gets-smarter-faster-and-more-connected/"
+class="uri">https://www.apple.com/newsroom/2026/06/apple-creator-studio-gets-smarter-faster-and-more-connected/</a>
+(2026-06-30)</li>
+<li>What’s new in FL Studio 2026 — Image-Line. <a
+href="https://www.image-line.com/fl-studio/release/2026"
+class="uri">https://www.image-line.com/fl-studio/release/2026</a>
+(2026-07-07)</li>
+<li>Fender Studio Pro 8.1 — Fender Newsroom. <a
+href="https://spotlight.fender.com/newsroom/news/1017"
+class="uri">https://spotlight.fender.com/newsroom/news/1017</a>
+(2026-06-10)</li>
+<li>Suno introduces Suno Studio, a generative audio workstation — Suno
+via PR Newswire. <a
+href="https://www.prnewswire.com/news-releases/suno-introduces-suno-studio-a-generative-audio-workstation-built-for-all-creatives-from-seasoned-pros-to-aspiring-artists-302567486.html"
+class="uri">https://www.prnewswire.com/news-releases/suno-introduces-suno-studio-a-generative-audio-workstation-built-for-all-creatives-from-seasoned-pros-to-aspiring-artists-302567486.html</a>
+(2025-09-25)</li>
+<li>Add track notes in the Mixer in Logic Pro for Mac — Apple Support.
+<a
+href="https://support.apple.com/guide/logicpro/add-track-notes-lgcp8e9c3ab8/mac"
+class="uri">https://support.apple.com/guide/logicpro/add-track-notes-lgcp8e9c3ab8/mac</a>
+(2025-05-28)</li>
+<li>AI for Any DAW: LIA Works Across Every Major Workstation — LIA. <a
+href="https://liaplugin.com/daw/"
+class="uri">https://liaplugin.com/daw/</a> (2026-08-12)</li>
+<li>AI MIDI Plugin for Ableton, FL Studio, and Logic Pro — MIDI Agent.
+<a
+href="https://www.midiagent.com/blog/ai-midi-plugin-for-ableton-fl-studio-logic-pro-how-midi-agent-works-in-2026"
+class="uri">https://www.midiagent.com/blog/ai-midi-plugin-for-ableton-fl-studio-logic-pro-how-midi-agent-works-in-2026</a>
+(2026-08-12)</li>
+<li>Session Players overview in Logic Pro for Mac — Apple Support. <a
+href="https://support.apple.com/guide/logicpro/session-players-overview-lgcpbf624405/mac"
+class="uri">https://support.apple.com/guide/logicpro/session-players-overview-lgcpbf624405/mac</a>
+(2026-09-01)</li>
+<li>Live 12.4 is out now — with Link Audio, updated devices and more —
+Ableton. <a href="https://www.ableton.com/en/blog/live-12-4-is-out-now/"
+class="uri">https://www.ableton.com/en/blog/live-12-4-is-out-now/</a>
+(2026-05-06)</li>
+<li>What’s new in Live 12.4 — Ableton Help. <a
+href="https://help.ableton.com/hc/en-us/articles/26963870210076-What-s-new-in-Live-12-4"
+class="uri">https://help.ableton.com/hc/en-us/articles/26963870210076-What-s-new-in-Live-12-4</a>
+(2026-05-06)</li>
+<li>LALAL.AI brings its stem separation into your DAW with its first
+plugin — MusicTech. <a
+href="https://musictech.com/news/gear/lalal-ai-first-stem-splitting-vst-plugin/"
+class="uri">https://musictech.com/news/gear/lalal-ai-first-stem-splitting-vst-plugin/</a>
+(2026-02-03)</li>
+<li>New: 7-Stem VST Plugin and Local Processing in the Desktop App —
+LALAL.AI. <a
+href="https://www.lalal.ai/blog/lalal-ai-releases-six-stem-vst-plugin-and-local-processing-in-the-desktop-app/"
+class="uri">https://www.lalal.ai/blog/lalal-ai-releases-six-stem-vst-plugin-and-local-processing-in-the-desktop-app/</a>
+(2026-05-21)</li>
+<li>LALAL.AI Lyra: Neural Network for Local Audio Processing — LALAL.AI.
+<a
+href="https://www.lalal.ai/blog/lyra-local-stem-separation-in-lalalai-desktop-app-and-vst-plugin/"
+class="uri">https://www.lalal.ai/blog/lyra-local-stem-separation-in-lalalai-desktop-app-and-vst-plugin/</a>
+(2026-05-21)</li>
+<li>Meet LALAL.AI Andromeda: Next Gen of Audio Source Separation —
+LALAL.AI. <a
+href="https://www.lalal.ai/blog/andromeda-audio-transformer-neural-network/"
+class="uri">https://www.lalal.ai/blog/andromeda-audio-transformer-neural-network/</a>
+(2026-05-04)</li>
+<li>LALAL.AI blog — Andromeda guitars and piano models. <a
+href="https://www.lalal.ai/blog/"
+class="uri">https://www.lalal.ai/blog/</a> (2026-08-27)</li>
+<li>LANDR upgrades its Stems plugin with AudioShake’s next-generation
+separation — AudioShake. <a
+href="https://www.audioshake.ai/post/landr-upgrades-its-stems-plugin-with-audioshakes-next-generation-separation----now-featuring-piano-and-guitar"
+class="uri">https://www.audioshake.ai/post/landr-upgrades-its-stems-plugin-with-audioshakes-next-generation-separation----now-featuring-piano-and-guitar</a>
+(2026-04-15)</li>
+<li>Fender Studio Pro 8.1 adds Studio Assistant, Moises integration and
+native vocal tuning — Production Expert. <a
+href="https://www.production-expert.com/production-expert-1/fender-studio-pro-81-adds-studio-assistant-moises-integration-and-native-vocal-tuning"
+class="uri">https://www.production-expert.com/production-expert-1/fender-studio-pro-81-adds-studio-assistant-moises-integration-and-native-vocal-tuning</a>
+(2026-06-30)</li>
+<li>Moises and Fender Studio launch first-of-its-kind integration —
+Moises Newsroom. <a
+href="https://moises.ai/newsroom/partnerships/moises-fender-studio-launch-integration-studio-pro/"
+class="uri">https://moises.ai/newsroom/partnerships/moises-fender-studio-launch-integration-studio-pro/</a>
+(2026-06-09)</li>
+<li>Fender Studio Pro Integrations — Fender. <a
+href="https://www.fender.com/pages/fender-studio-pro-integrations"
+class="uri">https://www.fender.com/pages/fender-studio-pro-integrations</a>
+(2026-06-09)</li>
+<li>Stem Separation — Ableton Reference Manual Version 12. <a
+href="https://www.ableton.com/en/live-manual/12/stem-separation/"
+class="uri">https://www.ableton.com/en/live-manual/12/stem-separation/</a>
+(2026-09-01)</li>
+<li>Stem Separation in Ableton Live FAQ — Ableton Help. <a
+href="https://help.ableton.com/hc/en-us/articles/23730994755996-Stem-Separation-in-Ableton-Live-FAQ"
+class="uri">https://help.ableton.com/hc/en-us/articles/23730994755996-Stem-Separation-in-Ableton-Live-FAQ</a>
+(2026-09-01)</li>
+<li>Logic Pro amplifies beat making on Mac and iPad with advanced new
+capabilities — Apple Newsroom. <a
+href="https://www.apple.com/newsroom/2025/05/logic-pro-amplifies-beat-making-on-mac-and-ipad-with-advanced-new-capabilities/"
+class="uri">https://www.apple.com/newsroom/2025/05/logic-pro-amplifies-beat-making-on-mac-and-ipad-with-advanced-new-capabilities/</a>
+(2025-05-28)</li>
+<li>Extract vocal and instrumental stems with Stem Splitter in Logic Pro
+for Mac — Apple Support. <a
+href="https://support.apple.com/guide/logicpro/extract-vocal-instrumental-stems-stem-lgcp61bae908/mac"
+class="uri">https://support.apple.com/guide/logicpro/extract-vocal-instrumental-stems-stem-lgcp61bae908/mac</a>
+(2025-05-01)</li>
+<li>Music Source Separation with Band-Split RoPE Transformer —
+arXiv:2309.02612. <a href="https://arxiv.org/abs/2309.02612"
+class="uri">https://arxiv.org/abs/2309.02612</a> (2023-09-06)</li>
+<li>Mel-Band RoFormer for Music Source Separation — arXiv:2310.01809. <a
+href="https://arxiv.org/abs/2310.01809"
+class="uri">https://arxiv.org/abs/2310.01809</a> (2023-10-03)</li>
+<li>Multi-stage curriculum for eight-stem separation — arXiv:2603.04032.
+<a href="https://arxiv.org/html/2603.04032v1"
+class="uri">https://arxiv.org/html/2603.04032v1</a> (2026-03-04)</li>
+<li>adefossez/demucs — Hybrid Spectrogram and Waveform Source
+Separation. <a href="https://github.com/adefossez/demucs"
+class="uri">https://github.com/adefossez/demucs</a> (2026-09-01)</li>
+<li>Anjok07/ultimatevocalremovergui — Ultimate Vocal Remover GUI. <a
+href="https://github.com/Anjok07/ultimatevocalremovergui"
+class="uri">https://github.com/Anjok07/ultimatevocalremovergui</a>
+(2026-09-01)</li>
+<li>LALAL.AI FAQ. <a href="https://www.lalal.ai/guides/faq/"
+class="uri">https://www.lalal.ai/guides/faq/</a> (2026-09-01)</li>
+<li>LALAL.AI Orion: Next-Gen AI for Next-Level Stem Splitting Results —
+LALAL.AI. <a href="https://www.lalal.ai/blog/orion-new-neural-network/"
+class="uri">https://www.lalal.ai/blog/orion-new-neural-network/</a>
+(2026-09-01)</li>
+<li>Pricing — Moises Studio. <a
+href="https://studio.moises.ai/billing/pricing"
+class="uri">https://studio.moises.ai/billing/pricing</a>
+(2026-09-01)</li>
+<li>Buy RipX DAW and RipX DAW PRO — Hit’n’Mix. <a
+href="https://buy.hitnmix.com/" class="uri">https://buy.hitnmix.com/</a>
+(2026-09-01)</li>
+<li>RX 12 Advanced — audio repair and post production — iZotope. <a
+href="https://www.izotope.com/products/rx-advanced"
+class="uri">https://www.izotope.com/products/rx-advanced</a>
+(2026-09-01)</li>
+<li>Ozone 12 goes beyond the limits of mastering — Native Instruments
+press room. <a
+href="https://native-instruments.prowly.com/421600-ozone-12-goes-beyond-the-limits-of-mastering"
+class="uri">https://native-instruments.prowly.com/421600-ozone-12-goes-beyond-the-limits-of-mastering</a>
+(2025-09-03)</li>
+<li>iZotope Ozone 12 Release — AudioTechnology. <a
+href="https://www.audiotechnology.com/by-brand/izotope/izotope-ozone-12-release"
+class="uri">https://www.audiotechnology.com/by-brand/izotope/izotope-ozone-12-release</a>
+(2025-09-03)</li>
+<li>Ozone 12 Advanced — iZotope. <a
+href="https://www.izotope.com/products/ozone-advanced"
+class="uri">https://www.izotope.com/products/ozone-advanced</a>
+(2026-09-01)</li>
+<li>Ozone 12 Advanced Release Notes — iZotope. <a
+href="https://www.izotope.com/pages/release-notes/ozone-advanced"
+class="uri">https://www.izotope.com/pages/release-notes/ozone-advanced</a>
+(2026-09-01)</li>
+<li>CloudBounce have stopped trading — YourVST. <a
+href="https://www.yourvst.com/cloudbounce-have-stopped-trading/"
+class="uri">https://www.yourvst.com/cloudbounce-have-stopped-trading/</a>
+(2025-04-01)</li>
+<li>CloudBounce Audio Mastering (Legacy) — CD Baby Support. <a
+href="https://support.cdbaby.com/hc/en-us/articles/360027082911-CloudBounce-Audio-Mastering-Legacy"
+class="uri">https://support.cdbaby.com/hc/en-us/articles/360027082911-CloudBounce-Audio-Mastering-Legacy</a>
+(2025-02-27)</li>
+<li>Splice launches AI tools that compensate sample creators when their
+sounds are used — Music Business Worldwide. <a
+href="https://www.musicbusinessworldwide.com/splice-launches-ai-tools-that-compensate-sample-creators-when-their-sounds-are-used/"
+class="uri">https://www.musicbusinessworldwide.com/splice-launches-ai-tools-that-compensate-sample-creators-when-their-sounds-are-used/</a>
+(2026-04-15)</li>
+<li>LANDR on Splice — LANDR press. <a
+href="https://www.landr.com/press-landr-on-splice"
+class="uri">https://www.landr.com/press-landr-on-splice</a>
+(2026-09-01)</li>
+<li>LANDR Mastering Plugin review — Sound On Sound. <a
+href="https://www.soundonsound.com/reviews/landr-mastering-plugin"
+class="uri">https://www.soundonsound.com/reviews/landr-mastering-plugin</a>
+(2023-11-23)</li>
+<li>LANDR launches AI-powered mastering plugin — DJ Mag. <a
+href="https://djmag.com/tech/landr-launches-ai-powered-mastering-plugin"
+class="uri">https://djmag.com/tech/landr-launches-ai-powered-mastering-plugin</a>
+(2023-11-03)</li>
+<li>LANDR Mastering Pricing — LANDR. <a
+href="https://www.landr.com/pricing/master"
+class="uri">https://www.landr.com/pricing/master</a> (2026-09-01)</li>
+<li>Mastering Assistant overview in Logic Pro for Mac — Apple Support.
+<a
+href="https://support.apple.com/guide/logicpro/mastering-assistant-overview-lgcp7f94da0b/mac"
+class="uri">https://support.apple.com/guide/logicpro/mastering-assistant-overview-lgcp7f94da0b/mac</a>
+(2026-09-01)</li>
+<li>Reference Mastering — eMastered Help. <a
+href="https://help.emastered.com/hc/en-us/sections/5572626314637-Reference-Mastering"
+class="uri">https://help.emastered.com/hc/en-us/sections/5572626314637-Reference-Mastering</a>
+(2026-09-01)</li>
+<li>Ozone 12 Standard Release Notes — iZotope. <a
+href="https://www.izotope.com/pages/release-notes/ozone-standard"
+class="uri">https://www.izotope.com/pages/release-notes/ozone-standard</a>
+(2026-09-01)</li>
+<li>Loudness normalization on Spotify — Spotify for Artists. <a
+href="https://support.spotify.com/us/artists/article/loudness-normalization/"
+class="uri">https://support.spotify.com/us/artists/article/loudness-normalization/</a>
+(2026-09-01)</li>
+<li>Over 50 music companies join Roland and Universal in campaign to
+promote musicians amid generative AI growth — Music Business Worldwide.
+<a
+href="https://www.musicbusinessworldwide.com/over-50-music-companies-join-roland-and-universal-in-campaign-to-promote-musicians-amid-generative-ai-growth/"
+class="uri">https://www.musicbusinessworldwide.com/over-50-music-companies-join-roland-and-universal-in-campaign-to-promote-musicians-amid-generative-ai-growth/</a>
+(2024-06-25)</li>
+<li>AI For Music. <a href="https://aiformusic.info/"
+class="uri">https://aiformusic.info/</a> (2026-09-01)</li>
+<li>What’s new in FL Studio 2026, AI training commitment — Image-Line.
+<a href="https://www.image-line.com/fl-studio/release/2026"
+class="uri">https://www.image-line.com/fl-studio/release/2026</a>
+(2026-07-07)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>AI Music Creation</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/01-ai-assisted-production-tools.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 6 - Error Correction & Logical Qubits | Quantum Computing</title>
+  <meta name="description" content="Quantum Computing, Part 6: Error Correction & Logical Qubits.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Quantum Computing</a><span class="sep">/</span>Part 6</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Quantum Computing &middot; Part 6</p>
+    <h1>Error Correction &amp; Logical Qubits</h1>
+    <p class="updated">Last updated: 2026-08-30</p>
+    <p class="actions"><a class="pdf" href="latest/06-error-correction-logical-qubits.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#surface-codes" id="toc-surface-codes">1. Surface
+Codes</a></li>
+<li><a href="#high-rate-codes" id="toc-high-rate-codes">2. High-Rate
+Codes</a></li>
+<li><a href="#cat-qubits-and-bosonic-encodings"
+id="toc-cat-qubits-and-bosonic-encodings">3. Cat Qubits and Bosonic
+Encodings</a></li>
+<li><a href="#magic-states" id="toc-magic-states">4. Magic
+States</a></li>
+<li><a href="#real-time-decoding" id="toc-real-time-decoding">5.
+Real-Time Decoding</a></li>
+<li><a href="#below-threshold-and-break-even-milestones"
+id="toc-below-threshold-and-break-even-milestones">6. Below-Threshold
+and Break-Even Milestones</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>A quantum computer’s parts are unreliable in a way ordinary computer
+parts are not. Error correction is the engineering answer, and it works
+by spreading one unit of protected information across many unreliable
+physical ones. The protected unit is called a logical qubit, and the
+number of physical qubits it costs is the field’s central price.</p>
+<p>Two years ago the open question was whether this worked at all. That
+question is now settled, and the field has moved on to harder ones.</p>
+<p>Section 1 covers surface codes, the leading scheme and the one that
+proved the principle. Section 2 covers the newer high-rate codes that
+cut the price by an order of magnitude. Section 3 covers cat qubits,
+which attack the problem from the hardware side instead. Section 4
+covers magic states, the missing ingredient for useful computation.</p>
+<p>Section 5 covers decoding, the classical computing problem hiding
+inside the quantum one. Section 6 covers the milestones themselves.</p>
+<h2 id="surface-codes">1. Surface Codes</h2>
+<p><em>The surface code arranges physical qubits in a flat grid and
+repeatedly measures their neighbours to detect errors without disturbing
+the stored information. Its code distance is the width of that grid, and
+a larger distance corrects more errors. It is the most thoroughly
+demonstrated scheme in the field, and the one that first crossed the
+threshold where error correction starts helping rather than
+hurting.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The most recent work has moved from storing a protected qubit to
+operating on one. A team realized the full set of surface-code logical
+operations on a 107-qubit superconducting processor, including merge and
+split operations, a CNOT gate, a Hadamard gate, and phase gates [1]. The
+work used distance-3 rotated surface-code patches, multi-round syndrome
+extraction, and a neural-network decoder. Storage was the earlier
+milestone. Computation on stored logical qubits is the harder one, and
+this is a direct demonstration of it.</p>
+<p>Google’s landmark below-threshold result also received two
+refinements. The underlying paper was issued an author correction in
+April 2026 [2]. Its real-time decoder now reports an average latency of
+63 microseconds at distance 5, sustained across up to a million
+cycles.</p>
+<h3 id="current-state">Current State</h3>
+<p>The result that settled the field’s central question came from
+Google’s Willow processor. It demonstrated the first quantum memory
+operating below the surface-code threshold, running a distance-7 code
+and a distance-5 code across chip configurations of 105 and 72 physical
+qubits [2]. The distance-7 memory used 101 physical qubits and reached a
+logical error rate per correction cycle of 0.143% ± 0.003% [3].</p>
+<p>The number that matters most is not the error rate but how it changed
+with size. Moving from distance 5 to distance 7 suppressed the logical
+error rate by a factor of Λ = 2.14 ± 0.02 [2]. That ratio is called
+lambda, and a lambda above 1 is the definition of operating below
+threshold. It means adding more physical qubits makes the logical qubit
+better rather than worse. Every scaling argument in the field rests on
+that being true.</p>
+<p>Two further properties of the same experiment matter for practical
+machines. The distance-7 memory outlived its best individual physical
+qubit by a factor of 2.4 ± 0.3, which is the break-even point [2]. It
+also held below-threshold performance while decoding in real time, not
+only when analyzing results afterward [2]. The work was peer-reviewed
+and published in Nature in 2025, having first appeared as a preprint in
+August 2024 [4].</p>
+<p>Google has since shown that the surface code’s layout is not
+fixed.</p>
+<p>Dynamic surface codes on Willow alternate between different tilings
+using hexagonal, walking, and iSWAP circuits [5]. They reached an error
+suppression factor of 2.15 from distance 3 to distance 5, using only
+three couplers per qubit. They also cut leakage-induced correlations by
+more than a factor of ten. The work was published in Nature Physics,
+which gives the hexagonal-lattice scheme peer-reviewed standing [6].</p>
+<p>It also allows dropout avoidance, meaning the code can route around
+qubits that have failed. Fixed schemes cannot do that.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="high-rate-codes">2. High-Rate Codes</h2>
+<p><em>A quantum low-density parity-check code, usually shortened to
+qLDPC, protects information using far fewer physical qubits than a
+surface code. It does this by letting its error checks connect distant
+qubits rather than only neighbours. The cost is harder wiring. The
+benefit is a much better ratio of physical qubits to logical ones, which
+is the single largest term in what a useful machine will cost to
+build.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The efficiency claims made in this area during 2026 are large. IQM
+reported that its directional tile qLDPC codes cut the per-logical,
+per-round error rate by a factor of 1,000 against surface codes, running
+on its existing Crystal hardware [7].</p>
+<p>A trapped-ion demonstration reached break-even with a qLDPC code,
+encoding 4 logical qubits into 18 physical qubits [8]. Its logical error
+rates ran up to 9 times better than earlier superconducting
+demonstrations, and its logical qubits matched or outlived the physical
+qubits underneath them.</p>
+<p>The most striking number came from a QuEra, Harvard, and MIT
+preprint. It reported a code encoding 1,156 logical qubits into 2,304
+physical qubits, a ratio of roughly two to one [9]. The simulated error
+rate per logical qubit per round was near 1.3 × 10⁻¹³, at a physical
+error rate of 0.1%. That range is sometimes called the teraquop
+regime.</p>
+<p>Two qualifications belong with it. The result is a simulation
+establishing a quantum-memory baseline, not a hardware demonstration. It
+also does not yet cover the fault-tolerant logical gates that universal
+computation requires.</p>
+<h3 id="current-state-1">Current State</h3>
+<p>IBM’s bivariate bicycle code, known as the gross code, is the
+established reference point. It encodes 12 logical qubits using 288
+physical qubits, split evenly between 144 data qubits and 144 check
+qubits, for a ratio of 24 to 1 [10]. A standard surface code would need
+close to 3,000 physical qubits for equivalent protection, roughly ten
+times as many [10]. The saving comes from letting error checks connect
+qubits that are far apart, using long-range couplers to imitate
+three-dimensional connectivity on a flat chip [11].</p>
+<p>IBM has also addressed the classical side of the problem. It built a
+decoder for qLDPC codes that runs in real time on ordinary classical
+hardware, without needing a high-performance computing system sitting
+next to the quantum machine [12].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="cat-qubits-and-bosonic-encodings">3. Cat Qubits and Bosonic
+Encodings</h2>
+<p><em>A cat qubit stores information in an oscillator rather than a
+two-level system. It shapes that oscillator so one of the two error
+types becomes physically rare rather than merely corrected. Bit-flip
+errors are suppressed by the hardware itself, which hands a simpler
+correction problem to the code above it. The approach trades generality
+for a large head start on one specific failure mode.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>Alice &amp; Bob reported bit-flip lifetimes of 33 to more than 60
+minutes on its Galvanic Cat architecture, the design used in its Helium
+2 chip [13]. That range overlaps an earlier figure from the same company
+rather than clearly replacing it, and Section 3’s conflict note below
+covers the disagreement.</p>
+<h3 id="current-state-2">Current State</h3>
+<p>The proof that the approach scales came from AWS. Its Ocelot chip,
+published in Nature in February 2025, is the first integrated
+multi-cat-qubit chip to combine cat-qubit stabilization with
+repetition-code error correction on a scalable superconducting platform
+[14]. AWS reports bit-flip times on Ocelot approaching one second, at a
+logical error rate near 1.65% at distance 5 [14]. A standard transmon
+qubit’s lifetime is 50 to 100 microseconds. The bit-flip figure is
+roughly four orders of magnitude better than the conventional device it
+replaces.</p>
+<p>Alice &amp; Bob has pushed the same idea further with squeezed cat
+qubits. The approach applies a parametric squeezing drive that narrows
+the cat state’s distribution in phase space. It reported a 160-fold
+improvement in bit-flip lifetime over earlier cat qubits on the same
+chip [15]. The company separately reported bit-flip stability exceeding
+one hour on its Galvanic Cat architecture in September 2025, against
+roughly 7 minutes on its earlier Boson 4 chip [14].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Alice &amp; Bob’s own reported bit-flip lifetime for the Galvanic Cat
+architecture is inconsistent across sources. One report puts it above
+one hour, measured against roughly 7 minutes on the company’s previous
+chip [14]. Another gives a range of 33 to more than 60 minutes for the
+same architecture [13]. The two overlap rather than one clearly
+superseding the other, so both stand on record. A dated measurement from
+the company naming the specific chip and test conditions would settle
+it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="magic-states">4. Magic States</h2>
+<p><em>Error-corrected qubits can only perform a restricted set of
+operations cheaply, and that set is not enough for general computation.
+The missing operations run on specially prepared states called magic
+states, which are consumed in the process. Producing them at sufficient
+quality is expected to dominate the running cost of a fault-tolerant
+machine, which is why the production techniques below matter as much as
+the codes themselves.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Silicon Quantum Co, working with the Centre of Excellence for Quantum
+Computation, announced a magic-state cultivation technique it calls
+Magic Scroll [16]. It reports magic-state fidelities with error rates as
+low as 10⁻⁹, using colour and bilayer codes in 6.6.6 and 4.8.8
+configurations on two-qubit registers. The method exploits biased noise
+to reduce hook errors.</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The field’s first experimental demonstration of magic-state
+distillation performed entirely on logical qubits came from QuEra,
+Harvard, and MIT, using a neutral-atom machine and published in Nature
+in 2025 [17]. The experiment used a dynamically reconfigurable
+architecture to encode and operate on many logical qubits in parallel
+during distillation [17]. In one configuration only 8 physical qubits in
+an error-detecting circuit were needed to distill a magic state of
+acceptable fidelity [18]. The team projected that roughly 40 qubits
+would push the fidelity further.</p>
+<p>Two other demonstrations fill in the picture. A trapped-ion
+experiment produced logical magic states through code switching, using
+up to 15 qubits [18]. Its logical gate error rate beat the physical
+error rate underneath it. The work was published in Physical Review X in
+2025. Rosenfeld and colleagues demonstrated magic-state cultivation on a
+superconducting processor in a December 2025 preprint, putting into
+hardware a low-overhead protocol that had existed only on paper
+[19].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="real-time-decoding">5. Real-Time Decoding</h2>
+<p><em>Every round of error correction produces measurement data that a
+classical computer must interpret before the quantum machine can act on
+it. That interpretation is called decoding, and it has to finish faster
+than errors accumulate. A decoder that is accurate but slow is useless,
+which makes this a classical engineering problem sitting in the middle
+of a quantum one.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The most consequential recent result is about what decoding no longer
+requires. IonQ demonstrated a real-time decoding pipeline running on a
+single Apple M4 Max processor, handling workloads of up to 408 logical
+qubits and more than a million T gates [20]. It added under 0.3%
+computational stretch at a two-qubit gate error rate of 10⁻⁴. The
+significance is the absence of special hardware. A laptop-class
+processor kept pace with a machine at a scale the field has been
+treating as a hardware problem.</p>
+<p>Custom hardware still sets the latency record. An FPGA-based
+neural-network decoder built into a superconducting processor performed
+real-time distance-3 surface-code correction with a deterministic
+closed-loop latency of 550 nanoseconds, of which 124 nanoseconds was
+decoding [21]. Its accuracy matched offline minimum-weight
+perfect-matching decoding, the usual quality benchmark.</p>
+<p>Google approached the problem from the control side instead. It
+published a reinforcement-learning scheme in Nature in July 2026 that
+unifies calibration and computation on Willow [22]. The scheme reports a
+3.5-fold improvement in logical stability and a 20% cut in logical error
+rate.</p>
+<h3 id="current-state-4">Current State</h3>
+<p>Decoding integrated directly into processor control systems is now
+established. A June 2026 Nature Communications paper demonstrated
+real-time, low-latency correction using a scalable FPGA decoder built
+into a superconducting processor’s control system [23].</p>
+<p>Riverlane has taken the hardware decoder furthest toward deployment.
+Its Local Clustering Decoder was published in Nature Communications in
+December 2025 as a hardware decoder delivering real-time, scalable
+surface-code correction [24]. Implemented on FPGA hardware, it decodes a
+round in under a microsecond while staying accurate and adapting to
+changing noise [25]. It is described as the first hardware decoder to
+combine all three properties at once.</p>
+<p>The decoder is deployed rather than demonstrated. Riverlane’s
+Deltaflow stack runs across Infleqtion, Oxford Quantum Circuits, Rigetti
+Computing, and Oak Ridge National Laboratory, spanning superconducting,
+spin, trapped-ion, and neutral-atom platforms [25]. Deltaflow 2 went
+into a UK commercial data centre in July 2025, co-located with Oxford
+Quantum Circuits’ machine [26]. It introduced streaming quantum memory,
+which protects information continuously during a computation rather than
+only between correction rounds.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="below-threshold-and-break-even-milestones">6. Below-Threshold
+and Break-Even Milestones</h2>
+<p><em>This section collects the results whose importance is the
+milestone itself rather than the method. Break-even means a protected
+qubit outlives the physical qubits it is built from. Below threshold
+means adding more physical qubits improves rather than degrades the
+logical one. Both are thresholds in the ordinary sense, and crossing
+them changes what is worth attempting next.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>A joint team from the University of Innsbruck, RWTH Aachen,
+Forschungszentrum Jülich, and AQT ran a complete fault-tolerant
+algorithm end to end [27]. The algorithm was Grover’s search on three
+logical qubits encoded across eight physical qubits, executed on a
+trapped-ion processor. It ran without mid-circuit measurements, using
+feed-forward control instead. Previous fault-tolerant demonstrations
+have generally been components rather than whole algorithms.</p>
+<p>Quantinuum reported the largest count of protected qubits to date.
+Its 98-physical-qubit Helios processor ran computations using up to 94
+error-detected logical qubits and 48 error-corrected ones, at a
+two-to-one encoding ratio achieved through code concatenation [28].
+State preparation and measurement fidelity was 99.99%. The company
+describes the result as beyond break-even, with logical error rates at
+least ten times lower than the matching physical-qubit operations.</p>
+<h3 id="current-state-5">Current State</h3>
+<p>A 2026 experiment reached below-threshold correction on a distance-7
+surface code using all-microwave leakage suppression [29]. It reported
+an error suppression factor of Λ = 1.40(6), and cut average leakage
+population by a factor of 72 after 40 correction cycles. Leakage is the
+failure mode where a qubit drifts out of its two working states
+entirely, and ordinary error correction does not address it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Surface code logical operations on a superconducting quantum
+processor - <a href="https://arxiv.org/abs/2607.01473"
+class="uri">https://arxiv.org/abs/2607.01473</a> (as of 2026-07-01)</li>
+<li>Quantum error correction below the surface code threshold, Nature -
+<a href="https://www.nature.com/articles/s41586-024-08449-y"
+class="uri">https://www.nature.com/articles/s41586-024-08449-y</a> (as
+of 2024-08-27, correction 2026-04-01)</li>
+<li>Quantum error correction below the surface code threshold, preprint
+- <a href="https://arxiv.org/pdf/2408.13687"
+class="uri">https://arxiv.org/pdf/2408.13687</a> (as of 2024-08-27)</li>
+<li>Awesome Quantum Computing Experiments: Benchmarking Experimental
+Progress Towards Fault-Tolerant Quantum Computation - <a
+href="https://arxiv.org/pdf/2507.03678"
+class="uri">https://arxiv.org/pdf/2507.03678</a> (as of 2025-02-01)</li>
+<li>Dynamic surface codes open new avenues for quantum error correction
+- <a
+href="https://research.google/blog/dynamic-surface-codes-open-new-avenues-for-quantum-error-correction/"
+class="uri">https://research.google/blog/dynamic-surface-codes-open-new-avenues-for-quantum-error-correction/</a>
+(as of 2026-01-13)</li>
+<li>Demonstration of dynamic surface codes - <a
+href="https://www.nature.com/articles/s41567-025-03070-w"
+class="uri">https://www.nature.com/articles/s41567-025-03070-w</a> (as
+of 2026-01-13)</li>
+<li>IQM approach reduces qubit overhead 1000 times - <a
+href="https://interestingengineering.com/innovation/iqm-approach-reduces-qubit-overhead-1000-times"
+class="uri">https://interestingengineering.com/innovation/iqm-approach-reduces-qubit-overhead-1000-times</a>
+(as of 2026-06-24)</li>
+<li>Breakeven demonstration of quantum low-density parity-check codes -
+<a href="https://arxiv.org/abs/2606.06455"
+class="uri">https://arxiv.org/abs/2606.06455</a> (as of 2026-06-04)</li>
+<li>QuEra qLDPC 2 to 1 physical logical qubit ratio - <a
+href="https://postquantum.com/quantum-research/quera-qldpc-2-to-1-physical-logical-qubit-ratio/"
+class="uri">https://postquantum.com/quantum-research/quera-qldpc-2-to-1-physical-logical-qubit-ratio/</a>
+(as of 2026-04-01)</li>
+<li>Landmark IBM error correction paper on Nature cover - <a
+href="https://www.ibm.com/quantum/blog/nature-qldpc-error-correction"
+class="uri">https://www.ibm.com/quantum/blog/nature-qldpc-error-correction</a>
+(as of 2024-03-01)</li>
+<li>IBM - <a
+href="https://postquantum.com/quantum-computing-companies/ibm/"
+class="uri">https://postquantum.com/quantum-computing-companies/ibm/</a>
+(as of 2024-03-01)</li>
+<li>Real-time decoding of the gross code memory with FPGAs
+(arXiv:2510.21600) - <a href="https://arxiv.org/abs/2510.21600"
+class="uri">https://arxiv.org/abs/2510.21600</a> (undated)</li>
+<li>Alice &amp; Bob: how cat qubits are rewriting the rules of
+fault-tolerant quantum computing - <a
+href="https://www.quantumway.org/post/alice-bob-how-cat-qubits-are-rewriting-the-rules-of-fault-tolerant-quantum-computing"
+class="uri">https://www.quantumway.org/post/alice-bob-how-cat-qubits-are-rewriting-the-rules-of-fault-tolerant-quantum-computing</a>
+(undated)</li>
+<li>Cat Qubits: Built-In Error Protection for Quantum Computing - <a
+href="https://postquantum.com/quantum-modalities/superconducting-cat-qubits/"
+class="uri">https://postquantum.com/quantum-modalities/superconducting-cat-qubits/</a>
+(as of 2025-09-01)</li>
+<li>Alice &amp; Bob Improves Error Suppression in Quantum Computers by
+Squeezing Cat Qubits - <a
+href="https://alice-bob.com/newsroom/squeezed-cat-qubit/"
+class="uri">https://alice-bob.com/newsroom/squeezed-cat-qubit/</a> (as
+of 2025-03-11)</li>
+<li>Silicon quantum cultivation volumes boost threefold - <a
+href="https://quantumzeitgeist.com/silicon-quantum-cultivation-volumes-boost-threefold/"
+class="uri">https://quantumzeitgeist.com/silicon-quantum-cultivation-volumes-boost-threefold/</a>
+(as of 2026-08-25)</li>
+<li>Experimental demonstration of logical magic state distillation,
+Nature - <a href="https://www.nature.com/articles/s41586-025-09367-3"
+class="uri">https://www.nature.com/articles/s41586-025-09367-3</a> (as
+of 2025-07-14)</li>
+<li>Capability C.2: Magic State Production and Injection (Non-Clifford
+Gates) - <a href="https://postquantum.com/post-quantum/magic-state/"
+class="uri">https://postquantum.com/post-quantum/magic-state/</a> (as of
+2025-07-14)</li>
+<li>What are magic states? PennyLane Demos - <a
+href="https://pennylane.ai/demos/tutorial_magic_states"
+class="uri">https://pennylane.ai/demos/tutorial_magic_states</a> (as of
+2025-12-01)</li>
+<li>Real-time decoder for a MegaQuOp quantum computer using a single CPU
+- <a href="https://arxiv.org/abs/2608.25027"
+class="uri">https://arxiv.org/abs/2608.25027</a> (as of 2026-08-25)</li>
+<li>Real-time Surface-Code Error Correction Using an FPGA-based
+Neural-Network Decoder - <a href="https://arxiv.org/abs/2605.04892"
+class="uri">https://arxiv.org/abs/2605.04892</a> (as of 2026-08-24)</li>
+<li>Towards a quantum computer that learns from its errors (Google
+Research) - <a
+href="https://research.google/blog/towards-a-quantum-computer-that-learns-from-its-errors/"
+class="uri">https://research.google/blog/towards-a-quantum-computer-that-learns-from-its-errors/</a>
+(as of 2026-07-08)</li>
+<li>Demonstrating real-time and low-latency quantum error correction
+with superconducting qubits - <a
+href="https://www.nature.com/articles/s41467-026-73331-6"
+class="uri">https://www.nature.com/articles/s41467-026-73331-6</a> (as
+of 2026-06-01)</li>
+<li>Riverlane Publishes Hardware-Based Quantum Error Decoder in Nature
+Communications - <a
+href="https://www.hpcwire.com/off-the-wire/riverlane-publishes-hardware-based-quantum-error-decoder-in-nature-communications/"
+class="uri">https://www.hpcwire.com/off-the-wire/riverlane-publishes-hardware-based-quantum-error-decoder-in-nature-communications/</a>
+(as of 2025-12-18)</li>
+<li>Riverlane unveils first hardware decoder to deliver real-time,
+scalable quantum error correction - <a
+href="https://www.riverlane.com/news/riverlane-unveils-first-hardware-decoder-to-deliver-real-time-scalable-quantum-error-correction"
+class="uri">https://www.riverlane.com/news/riverlane-unveils-first-hardware-decoder-to-deliver-real-time-scalable-quantum-error-correction</a>
+(as of 2025-12-18)</li>
+<li>Riverlane and OQC Move Toward Fault-Tolerant Quantum Computing with
+QEC Integration - <a
+href="https://www.riverlane.com/press-release/riverlane-and-oqc-move-toward-ftqc-with-qec-integration"
+class="uri">https://www.riverlane.com/press-release/riverlane-and-oqc-move-toward-ftqc-with-qec-integration</a>
+(as of 2025-07-22)</li>
+<li>Quantum computing without interruptions - <a
+href="https://www.uibk.ac.at/en/newsroom/2026/quantum-computing-without-interruptions/"
+class="uri">https://www.uibk.ac.at/en/newsroom/2026/quantum-computing-without-interruptions/</a>
+(as of 2026-04-01)</li>
+<li>Skinny Logic: Quantum Codes Go on a Diet (Quantinuum) - <a
+href="https://www.quantinuum.com/blog/skinny-logic-quantum-codes-go-on-a-diet"
+class="uri">https://www.quantinuum.com/blog/skinny-logic-quantum-codes-go-on-a-diet</a>
+(as of 2026-03-10)</li>
+<li>Experimental Quantum Error Correction below the Surface Code
+Threshold via All-Microwave Leakage Suppression - <a
+href="https://link.aps.org/doi/10.1103/rqkg-dw31"
+class="uri">https://link.aps.org/doi/10.1103/rqkg-dw31</a> (as of
+2025-12-22)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="05-spin-qubits.html"><span>Previous</span>Part 5 - Spin Qubits</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Quantum Computing</a>
+    <a class="pager-next" href="07-industry-funding-moves.html"><span>Next</span>Part 7 - Industry &amp; Funding Moves</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/06-error-correction-logical-qubits.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

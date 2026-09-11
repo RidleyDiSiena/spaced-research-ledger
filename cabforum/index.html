@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CA/Browser Forum Tracker | Spaced Research Ledger</title>
+  <meta name="description" content="A five-part survey of the body that decides what a publicly trusted certificate may contain and how long it may live: the ballots of each working group, the browser root programs that enforce them, and the revocation and transparency mechanisms underneath. Tracks the five states a rule passes through, because a ballot that passes its vote is not yet a requirement.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span>CA/Browser Forum Tracker</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">Research Topic</p>
+    <h1>CA/Browser Forum Tracker</h1>
+    <p class="standfirst">A five-part survey of the body that decides what a publicly trusted certificate may contain and how long it may live: the ballots of each working group, the browser root programs that enforce them, and the revocation and transparency mechanisms underneath. Tracks the five states a rule passes through, because a ballot that passes its vote is not yet a requirement.</p>
+    <p class="updated">Last updated: 2026-09-01</p>
+  </div>
+
+<ul class="cards">
+  <li class="card">
+    <p class="card-title"><a href="01-server-certificate-working-group.html">Part 1 &mdash; Server Certificate Working Group</a></p>
+    <p class="card-meta"><a href="latest/01-server-certificate-working-group.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+  </li>
+  <li class="card">
+    <p class="card-title"><a href="02-code-signing-working-group.html">Part 2 &mdash; Code Signing Working Group</a></p>
+    <p class="card-meta"><a href="latest/02-code-signing-working-group.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+  </li>
+  <li class="card">
+    <p class="card-title"><a href="03-smime-working-group.html">Part 3 &mdash; S/MIME Working Group</a></p>
+    <p class="card-meta"><a href="latest/03-smime-working-group.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+  </li>
+  <li class="card">
+    <p class="card-title"><a href="04-public-trust-programs.html">Part 4 &mdash; Public Trust Programs</a></p>
+    <p class="card-meta"><a href="latest/04-public-trust-programs.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+  </li>
+  <li class="card">
+    <p class="card-title"><a href="05-revocation-and-transparency.html">Part 5 &mdash; Revocation &amp; Transparency</a></p>
+    <p class="card-meta"><a href="latest/05-revocation-and-transparency.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+  </li>
+</ul>
+
+  <article class="prose">
+<p>The CA/Browser Forum decides what a publicly trusted certificate may
+contain, how its holder must be checked, and how long it may live. Its
+decisions reach almost every encrypted connection on the internet, and
+they are made in public by a body most people have never heard of. This
+collection follows that body and the browser root programs that enforce
+its rules [1].</p>
+<p>The collection has five parts. Every part stands on its own, and
+every statement carries a numbered citation to a public source. Where
+two sources disagree, the disagreement is reported rather than
+resolved.</p>
+<h2 id="how-to-read-a-forum-decision">1. How To Read a Forum
+Decision</h2>
+<p><em>One distinction governs this whole subject, and getting it wrong
+is the most common error in reporting on the Forum.</em></p>
+<p>A ballot that passes its vote is not yet a rule. The Forum’s
+decisions move through five states, and only the last two bind
+anyone.</p>
+<p>A ballot is first <strong>proposed</strong>, drafted and argued in a
+discussion period of at least seven days. It then enters a
+<strong>voting</strong> period of seven days. If it passes it is
+<strong>adopted</strong>, which starts a 30-day intellectual property
+review. Only after that review does the text <strong>publish</strong>
+into a numbered version of a guideline. A separate effective date
+decides when it is <strong>in force</strong>, and that date is often a
+year or more after publication.</p>
+<p>The practical consequence is that three different true statements can
+be made about the same ballot, and only one of them means certificate
+authorities must do anything. This collection states the stage every
+time. Where a requirement has a future effective date, that date is
+given.</p>
+<p>The unit that carries through all of it is the ballot identifier.
+Those identifiers are stable and prefixed by working group, so SC is the
+Server Certificate group, CSC is Code Signing, SMC is S/MIME, and FORUM
+is Forum-level governance [2].</p>
+<h2 id="the-parts">2. The Parts</h2>
+<p><em>Each part covers one working group or one enforcement
+layer.</em></p>
+<p><strong>Part 1, Server Certificate Working Group.</strong> The
+busiest group, governing the certificates that secure websites. It
+covers the ballots and document versions, domain control validation, and
+certificate profiles including the schedule that is cutting certificate
+lifetimes toward 47 days by 2029. This is the part to read first if you
+only read one.</p>
+<p><strong>Part 2, Code Signing Working Group.</strong> The rules for
+certificates that sign software. A smaller group, and the source of a
+useful warning about reading a standards body correctly, because two of
+the Forum’s own pages disagree about which version is current.</p>
+<p><strong>Part 3, S/MIME Working Group.</strong> The rules for
+certificates that sign and encrypt email. The youngest document set, and
+the one place in the Forum where post-quantum algorithms are already
+permitted in published requirements.</p>
+<p><strong>Part 4, Public Trust Programs.</strong> The enforcement
+layer. Mozilla, Google, Microsoft and Apple each decide who is actually
+trusted, and their policies routinely demand more than the Forum does,
+earlier. This part also covers the incident and distrust record.</p>
+<p><strong>Part 5, Revocation and Transparency.</strong> The two
+mechanisms for recovering from a certificate that should not exist.
+Revocation is being replaced rather than repaired, and transparency is
+undergoing its first architectural change since it was standardized.</p>
+<h2 id="what-this-collection-does-not-cover">3. What This Collection
+Does Not Cover</h2>
+<p><em>Scope boundaries, stated so that an absence is not read as a
+finding.</em></p>
+<p>Post-quantum algorithm standardization belongs to a separate
+collection. This collection records what the Forum permits in a
+certificate, not how the underlying algorithms are chosen or
+specified.</p>
+<p>Three of the Forum’s areas are configured but not yet researched, so
+they carry no content here. Those are the Network Security Working
+Group, Forum governance including bylaws and intellectual property
+policy, and the referenced standards and audit regimes that the
+guidelines depend on. They will join the collection when they are
+activated and carry data.</p>
+<p>Several named gaps sit inside the parts that do exist. The Validation
+Subcommittee’s own minutes were not read for Part 1. Timestamping and
+key protection requirements were not covered in Part 2. The text of the
+post-quantum ballot was not read for Part 3. Each part records its own
+gaps in the relevant section, rather than leaving them silent.</p>
+<h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to four systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li>CA/Browser Forum. <a href="https://cabforum.org/"
+class="uri">https://cabforum.org/</a> (2026-09-01)</li>
+<li>All CA/Browser Forum Ballots. <a
+href="https://cabforum.org/ballots/"
+class="uri">https://cabforum.org/ballots/</a> (2026-09-01)</li>
+</ol>
+  </article>
+
+  <p class="actions actions-end"><a class="pdf" href="latest/00-reading-guide.pdf">Download the Reading Guide (PDF)</a></p>
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="../index.html"><span>Up</span>All research topics</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 5 - HSMs, KMS & Key Management | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 5: HSMs, KMS & Key Management.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 5</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 5</p>
+    <h1>HSMs, KMS &amp; Key Management</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/05-hsm-kms.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#hsm-vendors" id="toc-hsm-vendors">1. HSM Vendors</a></li>
+<li><a href="#key-management-interop" id="toc-key-management-interop">2.
+Key Management Interop</a></li>
+<li><a href="#fips-140-3-validation-status"
+id="toc-fips-140-3-validation-status">3. FIPS 140-3 Validation
+Status</a></li>
+<li><a href="#qrng-qkd-adjacency" id="toc-qrng-qkd-adjacency">4. QRNG
+&amp; QKD Adjacency</a></li>
+<li><a href="#key-escrow-archive-re-encryption"
+id="toc-key-escrow-archive-re-encryption">5. Key Escrow, Archive &amp;
+Re-encryption</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Hardware security modules, key managers, and the standards around
+them are where organizations keep their most sensitive cryptographic
+keys. This layer has to adopt post-quantum algorithms before much else
+can. A certificate authority or a payments network can only move to a
+new algorithm once the hardware beneath it supports that algorithm and
+auditors accept the result.</p>
+<p>This report covers the layer in five sections. Section 1 covers the
+HSM vendors, Section 2 the key-management interoperability standard, and
+Section 3 the government validation pipeline that gates procurement.
+Section 4 covers the adjacent quantum-hardware market, and Section 5 the
+problem of keys and archives that must survive the transition.</p>
+<p>The most important shift this summer is that validated post-quantum
+hardware finally exists. As late as December 2025, no HSM held a FIPS
+140-3 Level 3 validation that included the new algorithms. By August
+2026 several had crossed that line, though two vendors’ competing claims
+to being first remain unreconciled, and Section 3 records the
+dispute.</p>
+<p>Products and protocols are moving with the validations. Thales
+launched its Luna 8 line built for post-quantum performance. KMIP, the
+protocol key managers use to interoperate, is nearing a 3.0 release that
+adds the new algorithms directly, with a three-vendor interoperability
+test already passed. Cloud key services are moving too. Quantum key
+distribution and quantum random numbers remain a separate, adjacent
+market: real hardware, heavy marketing, and no substitute for the
+algorithm migration itself.</p>
+<h2 id="hsm-vendors">1. HSM Vendors</h2>
+<p><em>A hardware security module is a tamper-resistant device that
+generates and guards cryptographic keys so they never leave protected
+hardware. Banks, governments, and cloud providers anchor their trust
+chains in these devices. Post-quantum migration starts here: an
+organization cannot issue quantum-safe certificates or signatures until
+its HSMs can hold and use the new keys.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>Validated post-quantum HSMs arrived this summer. Thales TCT’s Luna
+T-Series achieved FIPS 140-3 Level 3 validation in August 2026 [1]. It
+is described as the first post-quantum HSM made in the United States to
+reach that level [1]. It is also called the first of any origin to
+include the full NSA CNSA 2.0 suite in one validation [1].</p>
+<p>Entrust’s nShield 5s PCIe modules hold the same validation level with
+native, hardware-accelerated ML-DSA, ML-KEM, and SLH-DSA [2]. Entrust
+publishes concrete signing performance and support for eighteen SLH-DSA
+variants in its datasheets [3].</p>
+<p>New hardware followed the validations. Thales launched the Luna 8
+Network HSM in August 2026, three models with a custom cryptographic
+processor claiming up to 100x faster post-quantum performance [4]. The
+upgradeable architecture is now under FIPS and Common Criteria
+evaluation [4]. Utimaco’s Quantum Protect algorithms passed NIST
+validation with specific certificate references [5].</p>
+<h3 id="current-state">Current State</h3>
+<p>Thales built to this point in stages. It shipped a FIPS-compliant HSM
+generating quantum-enhanced keys in 2021, added pre-standardization
+algorithm support from 2023, and has sat in the NIST migration project
+since 2022 [6]. Luna firmware 7.9.0 folded ML-KEM and ML-DSA directly
+into the firmware, ending the need for separate add-on modules [7], with
+LMS support arriving separately [8]. Its network encryptors support all
+three NIST algorithms and integrate with quantum key distribution links
+[9].</p>
+<p>Entrust’s line is fully validated at the algorithm level. Firmware
+13.8.0 provides native ML-DSA, ML-KEM, and SLH-DSA [10] and holds NIST
+algorithm validation for them [10]. An industry capability matrix,
+updated by the vendor in March 2025, still showed the hash-based schemes
+as unsupported at that point [11].</p>
+<p>Utimaco packaged its migration as a field upgrade. Quantum Protect,
+launched April 2025, activates ML-KEM, ML-DSA, LMS, and XMSS on existing
+hardware, with a patented state-management approach for the stateful
+schemes and a free simulator [12]. NXP is a named customer, using it to
+sign firmware updates with ML-DSA [13]. The Se-Series hardware gained a
+FIPS 140-3 Level 3 certificate in May 2026 [14], and SLH-DSA sits on the
+roadmap [15].</p>
+<p>The cloud-facing vendors trail. Marvell’s LiquidSecurity hardware
+behind Azure’s HSM services was designed field-upgradable in 2022
+without claiming any specific algorithm [16]. A July 2026 analysis found
+ML-KEM and ML-DSA still unsupported there [17]. AWS CloudHSM long
+treated post-quantum keys as opaque storage [17], though AWS’s own
+migration page now lists ML-DSA generation and signing in preview on
+that hardware [18].</p>
+<p>Yubico remains at the prototype stage: its post-quantum hardware key
+demonstration was explicitly not a shipment announcement, since the
+algorithms do not fit today’s keys [19]. Its protocol work adds
+forward-looking plumbing while noting no standard post-quantum
+attestation formats exist [20], and its recent FIPS validations cover
+classical cryptography [21].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Utimaco’s validation status is inconsistent across its own materials.
+One product page calls the Se-Series FIPS 140-2 certified, another says
+FIPS 140-3 validated, and a third lists the newer series as in progress
+[13]. A later press release claims a definitive Level 3 certification
+with a hedged certificate number without resolving the inconsistency
+[14]. A NIST certificate lookup would settle it. Separately, one Utimaco
+source says SLH-DSA is already supported via the package [5],
+contradicting the roadmap status reconfirmed elsewhere [15].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="key-management-interop">2. Key Management Interop</h2>
+<p><em>Key managers are the systems that distribute and rotate an
+organization’s encryption keys. KMIP is the shared protocol that lets
+key-management products from different vendors work together. If the
+protocol cannot describe a post-quantum key, no compliant product can
+manage one. That makes this quiet standards work a gating item for
+enterprise migration.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>KMIP 3.0 entered its final public stretch. OASIS opened comment
+periods on the specification and profiles ending August 13, 2026 [22],
+and on the usage guide ending two days later [23]. The usage guide
+carries a dedicated post-quantum section [24]. The profiles define
+Quantum Safe client and server conformance levels requiring specific
+algorithms, hybrid KEMs, and quantum-safe TLS [25]. Cryptsoft’s C and
+Java SDKs now include the post-quantum algorithms by default [26].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The ratified standard still predates the algorithms. KMIP 2.1,
+approved in 2020, defines no post-quantum object types, while 3.0
+remains a committee draft [27]. The draft’s additions are concrete:
+normative references to the three FIPS standards, a KEM enumeration, and
+new Encapsulate and Decapsulate operations [27]. A client can then run
+key encapsulation through the key manager itself [27].</p>
+<p>One useful feature already shipped. A Quantum Safe attribute, present
+since version 2.0, lets deployed key managers tag and query
+quantum-vulnerable keys today [27]. That makes them working inventory
+tools ahead of the migration [27].</p>
+<p>Implementations are ahead of ratification. A March 2025
+interoperability test ran three vendors through the full 1,452-test
+post-quantum set, exchanging over a million messages and verifying
+hybrid TLS [28]. Entrust’s KMIP vault creates quantum-safe objects and
+performs the new operations [29], and Cryptsoft’s server SDK covers KMIP
+3.0 with the NIST algorithms and hybrid TLS [30].</p>
+<p>Buyers should ask two separate questions: which KMIP versions a
+product speaks, and what protects the session itself [31]. KMIP mandates
+mutual TLS, whose quantum-safety depends on the server’s own TLS stack
+[31]. Thales’s CipherTrust release notes illustrate the distinction,
+documenting post-quantum transport protection without confirming the new
+managed-key object types [32].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="fips-140-3-validation-status">3. FIPS 140-3 Validation
+Status</h2>
+<p><em>FIPS 140-3 is the U.S. and Canadian government standard for
+certifying that a cryptographic product does what it claims. Federal
+agencies and many regulated industries may only buy validated products.
+Until post-quantum algorithms appear inside these certificates, large
+buyers cannot deploy them. That makes the validation queue a real
+bottleneck for the whole migration.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The dam broke in August 2026. Crypto4A’s QASM module achieved FIPS
+140-3 Level 3 validation supporting the full NIST post-quantum suite
+[33], and DigiCert promptly integrated it into its signing platform
+[34]. Sansec’s HSM received certificate #5503, the first Chinese module
+supporting the NIST algorithms at that level [35].</p>
+<p>The program’s rulebook is being updated in step. August guidance
+added self-test requirements for the three FIPS standards and permitted
+internal algorithm self-testing [36], clarified key-generation checks
+[36], and added a new section on hybrid modules [37]. The in-process
+list shows the queue behind the pioneers, with SafeLogic in review and
+other post-quantum libraries cycling through resubmission [38].
+PQShield’s core library sits in lab comment resolution [39], and fresh
+algorithm certificates keep landing [40].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Validation runs as a two-stage pipeline: algorithm validation first,
+then the full module [41]. Modules then progress through published
+in-process phases before a certificate issues [42]. AWS-LC illustrates
+the cadence, with certificates in 2023 and 2024 and a third version
+entering the queue in December 2024 as the first open-source module with
+ML-KEM in scope [43]. SafeLogic’s provider completed algorithm
+validation and entered the module queue in May 2026, expecting full
+validation by year end [44].</p>
+<p>Capacity is the structural problem. The program has validated over
+5,000 modules in its history [45]. Every remaining FIPS 140-2
+certificate moves to the historical list in September 2026, compounding
+demand exactly as post-quantum submissions surge [45]. FIPS 140-3 went
+from 3 percent of certificates in 2023 to 45 percent in early 2024 [46].
+NIST’s answer is automation: a draft practice guide aims to close the
+capacity gap, alongside interim-validation options already in effect
+[47].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>Two vendors claim the same first. Thales TCT’s August validation is
+described as the first FIPS 140-3 Level 3 for a post-quantum HSM made in
+the United States, with the full CNSA 2.0 suite [1]. Crypto4A’s is
+described as the first quantum-safe HSM at that level outright [33]. The
+claims are worded to coexist, but coverage treats each as the milestone.
+Certificate dates on the NIST registry would settle the order.</p>
+<p>Both postdate the December 2025 assessment that no vendor had yet
+combined Level 3 validation with post-quantum support [48].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="qrng-qkd-adjacency">4. QRNG &amp; QKD Adjacency</h2>
+<p><em>Quantum key distribution and quantum random number generation are
+hardware technologies that use quantum physics itself, unlike
+post-quantum cryptography, which is ordinary software math. QKD ships
+encryption keys over dedicated optical links. QRNG produces high-quality
+randomness. Both are real and growing, but neither replaces the
+algorithm migration, so this section covers them as neighbors rather
+than substitutes.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>The QKD demonstrations keep scaling. Researchers ran a
+side-channel-secure protocol over 200 kilometers of fiber with measured
+key rates [49], and an Italian team generated keys across an
+18-kilometer hybrid air-and-fiber link [50]. New York State lit the
+first U.S. free-space quantum link, 13 miles between two labs on a
+161-mile network [51]. Chinese researchers demonstrated
+device-independent QKD over 11 kilometers using entangled atoms
+[52].</p>
+<p>India’s defense research agency completed military field trials of an
+indigenous fiber system [53].</p>
+<p>The commercial ecosystem is organizing. ID Quantique, now under IonQ,
+released a product multiplexing quantum keys with data traffic on
+existing metropolitan fiber [54]. A European consortium launched a
+four-year project to certify industrial continuous-variable QKD [55]. SK
+Telecom won European funding for a next-generation system [56], and
+ESA’s QKD satellite is slated for 2026 [57].</p>
+<p>On the randomness side, labs pushed generation rates to tens of
+gigabits per second [58][59], a self-testing chip was published [60],
+and a rack-mounted certified system launched [61]. NIST demonstrated
+certifiably random bits from a Bell test [62]. One vendor submitted an
+entropy module for NIST validation [63], and a chipmaker won an
+innovation award for the smallest QRNG [64]. One project is integrating
+QKD and QRNG onto a single photonic chip [65].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The technologies are neighbors, not substitutes. Post-quantum
+cryptography is new math on classical hardware, QKD is photons on
+dedicated optics, and QRNG is an entropy source that feeds either [66].
+Industry guidance says to migrate algorithms first and evaluate QKD
+selectively for the most sensitive links [66]. The consolidation trend
+shows layering rather than competition, with China’s carrier deploying
+hybrid QKD-plus-PQC systems in production [66].</p>
+<p>Deployment is regional and government-led. China linked Beijing to
+South Africa on its Micius-derived network [67], Singapore’s national
+program is trialing Southeast Asia’s first quantum-secure network [68],
+and IonQ plans a satellite QKD constellation [67]. Patent filing
+patterns suggest movement toward carrier-grade integration [69].
+Germany’s telecom demonstrated quantum teleportation over live
+commercial fiber [57].</p>
+<p>The market numbers deserve skepticism. QKD estimates put 2026 at
+about $1.6 billion with aggressive growth projections, with the sources
+themselves cautioning about promotional tendencies [68]. QRNG
+forecasting has been worse: a 2021 report projected $7.2 billion by
+2026, while actual 2026 figures cluster around half a billion [70]. One
+commentary describes a gold-rush phase with over 120 companies and
+marketing filling the gap where the physics offers little
+differentiation [71]. Real engineering continues underneath, including
+Toshiba’s fully chip-integrated QRNG [72], national investment programs
+across dozens of countries [73].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="key-escrow-archive-re-encryption">5. Key Escrow, Archive &amp;
+Re-encryption</h2>
+<p><em>Encrypted data that must stay readable for decades, such as
+backups, archives, and escrowed keys, is the most exposed part of any
+organization to harvest-now-decrypt-later attacks. An adversary can copy
+ciphertext today and wait for a quantum computer. The defense is
+re-wrapping stored keys under quantum-safe algorithms, which turns out
+to be far cheaper than re-encrypting the data itself.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The cloud providers moved on key import and transport. Google Cloud
+KMS previewed quantum-safe key import, wrapping imported key material
+with post-quantum encryption in transit [74]. Veeam’s backup platform
+added hybrid post-quantum options on its key transport paths, aimed
+squarely at harvest-now-decrypt-later exposure for long-lived backups
+[75]. NIST finalized the update to its crypto-agility white paper [76],
+and the Trusted Computing Group’s new guidance defines quantum-ready
+hardware categories for key custody [77]. Thales’s Luna 8 targets the
+same custody market with its upgradeable architecture [78].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The central insight is that re-wrapping beats re-encrypting. Database
+migrations replace only the key-wrapping layer, moving the
+key-encryption key to ML-KEM while the bulk data stays under its
+existing symmetric encryption [79]. The procedure is mechanical:
+generate a new post-quantum wrapping key, re-wrap the data keys, retire
+the old key, never touch the data files [79]. Academic constructions
+formalize the same pattern [80], and Microsoft’s database encryption
+already versions its ciphertext for exactly this kind of graceful
+transition [81]. Research prototypes go further, layering QKD and proxy
+re-encryption for cloud storage [82].</p>
+<p>Government guidance frames the deadline. NIST’s transition report
+starts deprecating quantum-vulnerable public-key algorithms after 2030,
+with broader disallowance after 2035, defining the window for
+re-wrapping archives [83]. Its crypto-agility paper treats agility as an
+architectural property, not a one-time migration [83], and standing
+advice is to rotate or re-encrypt before algorithms break, not after
+[84]. The key-management guidelines are being revised to incorporate the
+new algorithms [85], and the KEM recommendation adds operational rules,
+including that an ephemeral private key be used exactly once [86]. The
+transition framing designates ML-KEM as the successor to both classical
+key-establishment families [87].</p>
+<p>The cloud key services are the furthest along in practice. AWS KMS
+combines hybrid post-quantum TLS to its endpoints with ML-DSA signing
+operations [88], built on the first open-source FIPS module with ML-KEM
+[89]. It swapped its earlier pre-standard Kyber support for ML-KEM
+across services [90]. It is extending ML-DSA into its certificate
+services for quantum-resistant roots of trust [89], and uses key
+combiners merging classical and post-quantum KEMs for wrapping [88].</p>
+<p>Its public certificates remain classical while browser support lags
+[91]. Google’s KMS supports the full algorithm set for generation,
+encapsulation, and signatures [88].</p>
+<p>The hardware custody chain moves slowest. HSM firmware gained the
+algorithms in late 2024, but critical-infrastructure deployments run on
+decade-plus replacement cycles [92], and the validation gap only closed
+this August, as Section 3 records [48]. Escrow is the research frontier.
+Prototype post-quantum escrow systems exist for lawful-access scenarios
+[93], motivated by the quantum vulnerability of the classical escrow
+protocols [94]. At least one IETF draft already mandates ML-DSA for
+escrow operations [95].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>intelligencecommunitynews.com — thales tcts post quantum hsm
+achieves fips 140 3 level 3 - <a
+href="https://intelligencecommunitynews.com/thales-tcts-post-quantum-hsm-achieves-fips-140-3-level-3/"
+class="uri">https://intelligencecommunitynews.com/thales-tcts-post-quantum-hsm-achieves-fips-140-3-level-3/</a>
+- as of 2026-07-29</li>
+<li>nShield 5s PCIe HSM | Entrust - <a
+href="https://www.entrust.com/products/hsm/nshield-5s"
+class="uri">https://www.entrust.com/products/hsm/nshield-5s</a> - as of
+2026-08-27</li>
+<li>nShield 5s HSM datasheet - <a
+href="https://www.entrust.com/sites/default/files/documentation/datasheets/dps-entrust-nshield-5s-ds.pdf"
+class="uri">https://www.entrust.com/sites/default/files/documentation/datasheets/dps-entrust-nshield-5s-ds.pdf</a>
+- as of 2026-06-08</li>
+<li>Introducing Luna 8: Our Fastest HSM Ever, Built for the Post-Quantum
+Era - <a
+href="https://data-protection-updates.gemalto.com/2026/08/04/introducing-luna-8-our-fastest-hsm-ever-built-for-the-post-quantum-era/"
+class="uri">https://data-protection-updates.gemalto.com/2026/08/04/introducing-luna-8-our-fastest-hsm-ever-built-for-the-post-quantum-era/</a>
+- as of 2026-08-04</li>
+<li>Utimacos Nist Validated PQC Algorithms Setting Standard - <a
+href="https://utimaco.com/news/blog-posts/utimacos-nist-validated-pqc-algorithms-setting-standard-future-data-security"
+class="uri">https://utimaco.com/news/blog-posts/utimacos-nist-validated-pqc-algorithms-setting-standard-future-data-security</a>
+- as of 2026-07-31</li>
+<li>thalestct.com — hsm fips140 3 validation - <a
+href="https://www.thalestct.com/hsm-fips140-3-validation/"
+class="uri">https://www.thalestct.com/hsm-fips140-3-validation/</a> - as
+of 2026-08-04</li>
+<li>cpl.thalesgroup.com — luna hsm pqc quantum safe encryption - <a
+href="https://cpl.thalesgroup.com/blog/encryption/luna-hsm-pqc-quantum-safe-encryption"
+class="uri">https://cpl.thalesgroup.com/blog/encryption/luna-hsm-pqc-quantum-safe-encryption</a>
+- as of 2025-07-29</li>
+<li>thalesdocs.com — post quantum algorithms - <a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm</a>
+- as of 2026-04-07</li>
+<li>cpl.thalesgroup.com — post quantum crypto agility - <a
+href="https://cpl.thalesgroup.com/encryption/post-quantum-crypto-agility"
+class="uri">https://cpl.thalesgroup.com/encryption/post-quantum-crypto-agility</a></li>
+<li>Entrust nShield HSMs Post-Quantum Cryptography … - <a
+href="https://www.entrust.com/company/newsroom/entrust-nshield-hsms-achieve-validation-from-nist-cryptographic-algorithm-validation-program"
+class="uri">https://www.entrust.com/company/newsroom/entrust-nshield-hsms-achieve-validation-from-nist-cryptographic-algorithm-validation-program</a>
+- as of 2025-09-10</li>
+<li>pkic.org — pqccm - <a href="https://pkic.org/wg/pqc/pqccm/"
+class="uri">https://pkic.org/wg/pqc/pqccm/</a> - as of 2025-03-01</li>
+<li>Utimaco launches Quantum Protect solution and free PQC simulator -
+<a
+href="https://utimaco.com/news/press-releases/utimaco-launches-quantum-protect-solution-and-free-pqc-simulator"
+class="uri">https://utimaco.com/news/press-releases/utimaco-launches-quantum-protect-solution-and-free-pqc-simulator</a>
+- as of 2025-04-03</li>
+<li>utimaco.com — utrust general purpose hsm - <a
+href="https://utimaco.com/data-protection/gp-hsm/utrust-general-purpose-hsm"
+class="uri">https://utimaco.com/data-protection/gp-hsm/utrust-general-purpose-hsm</a></li>
+<li>Utimaco Vendor Offer FIPS 140-3 Certification Hardware - <a
+href="https://utimaco.com/news/press-releases/utimaco-only-vendor-offer-full-fips-140-3-certification-its-hardware-security"
+class="uri">https://utimaco.com/news/press-releases/utimaco-only-vendor-offer-full-fips-140-3-certification-its-hardware-security</a>
+- as of 2026-05-12</li>
+<li>The 2029 Post-Quantum Deadline: Can Your HSMs Make the Migration? -
+<a
+href="https://utimaco.com/news/blog-posts/post-quantum-hsm-migration-2029"
+class="uri">https://utimaco.com/news/blog-posts/post-quantum-hsm-migration-2029</a>
+- as of 2026-04-22</li>
+<li>marvell.com — marvell liquidSecurity2 hardware security multi cloud
+era - <a
+href="https://www.marvell.com/company/newsroom/marvell-liquidSecurity2-hardware-security-multi-cloud-era.html"
+class="uri">https://www.marvell.com/company/newsroom/marvell-liquidSecurity2-hardware-security-multi-cloud-era.html</a>
+- as of 2022-09-14</li>
+<li>quantumsecuritydefence.com — cloud kms pqc readiness aws azure gcp -
+<a
+href="https://quantumsecuritydefence.com/insights/cloud-kms-pqc-readiness-aws-azure-gcp/"
+class="uri">https://quantumsecuritydefence.com/insights/cloud-kms-pqc-readiness-aws-azure-gcp/</a>
+- as of 2026-07-13</li>
+<li>aws.amazon.com — migrating to post quantum cryptography - <a
+href="https://aws.amazon.com/security/post-quantum-cryptography/migrating-to-post-quantum-cryptography/"
+class="uri">https://aws.amazon.com/security/post-quantum-cryptography/migrating-to-post-quantum-cryptography/</a></li>
+<li>yubico.com — future proofing authentication a look at the future of
+post quantum cryptography - <a
+href="https://www.yubico.com/blog/future-proofing-authentication-a-look-at-the-future-of-post-quantum-cryptography/"
+class="uri">https://www.yubico.com/blog/future-proofing-authentication-a-look-at-the-future-of-post-quantum-cryptography/</a>
+- as of 2026-01-14</li>
+<li>docs.yubico.com — yk5 apps fido - <a
+href="https://docs.yubico.com/hardware/yubikey/yk-tech-manual/yk5-apps-fido.html"
+class="uri">https://docs.yubico.com/hardware/yubikey/yk-tech-manual/yk5-apps-fido.html</a></li>
+<li>yubico.com — leading yubico forward q2 reflections and securing the
+ai frontier - <a
+href="https://www.yubico.com/blog/leading-yubico-forward-q2-reflections-and-securing-the-ai-frontier/"
+class="uri">https://www.yubico.com/blog/leading-yubico-forward-q2-reflections-and-securing-the-ai-frontier/</a></li>
+<li>Invitation to comment on KMIP Specification v3.0 and … - <a
+href="https://www.oasis-open.org/2026/07/14/invitation-to-comment-on-kmip-specification-v3-0-and-kmip-profiles-v3-0-ends-13-august-2026/"
+class="uri">https://www.oasis-open.org/2026/07/14/invitation-to-comment-on-kmip-specification-v3-0-and-kmip-profiles-v3-0-ends-13-august-2026/</a>
+- as of 2026-07-14</li>
+<li>Invitation to comment on KMIP Usage Guide v3.0 - <a
+href="https://www.oasis-open.org/2026/07/16/invitation-to-comment-on-kmip-usage-guide-v3-0-ends-15-august-2026/"
+class="uri">https://www.oasis-open.org/2026/07/16/invitation-to-comment-on-kmip-usage-guide-v3-0-ends-15-august-2026/</a>
+- as of 2026-07-16</li>
+<li>Key Management Interoperability Protocol Usage Guide Version 3.0 -
+<a
+href="https://docs.oasis-open.org/kmip/kmip-ug/v3.0/cnd01/kmip-ug-v3.0-cnd01.pdf"
+class="uri">https://docs.oasis-open.org/kmip/kmip-ug/v3.0/cnd01/kmip-ug-v3.0-cnd01.pdf</a>
+- as of 2026-06-18</li>
+<li>Key Management Interoperability Protocol Profiles Version 3.0 - <a
+href="https://docs.oasis-open.org/kmip/kmip-profiles/v3.0/kmip-profiles-v3.0.pdf"
+class="uri">https://docs.oasis-open.org/kmip/kmip-profiles/v3.0/kmip-profiles-v3.0.pdf</a>
+- as of 2026-07-13</li>
+<li>Post-quantum, by default: PQC in every Cryptsoft SDK - <a
+href="https://cryptsoft.com/blog-pqc-by-default.html"
+class="uri">https://cryptsoft.com/blog-pqc-by-default.html</a> - as of
+2026-07-01</li>
+<li>encryptionconsulting.com — kmip - <a
+href="https://www.encryptionconsulting.com/education-center/kmip/"
+class="uri">https://www.encryptionconsulting.com/education-center/kmip/</a></li>
+<li>Cryptsoft KMIP Server - KMIP Interop - <a
+href="https://kmip-interop.org/background.html"
+class="uri">https://kmip-interop.org/background.html</a> - as of
+2025-03-07</li>
+<li>Post Quantum Support in the Cryptographic Security Platform Vault
+for KMIP - <a
+href="https://docs.hytrust.com/CryptographicSecurityPlatformVault/Online/Content/Books/Admin-Guide/KIMP-Vault/PQ-in-KMIP-Vault.html"
+class="uri">https://docs.hytrust.com/CryptographicSecurityPlatformVault/Online/Content/Books/Admin-Guide/KIMP-Vault/PQ-in-KMIP-Vault.html</a>
+- as of 2026-03-17</li>
+<li>KMIP C Server SDK - Cryptsoft - <a
+href="https://cryptsoft.com/product-kmipc_server.html"
+class="uri">https://cryptsoft.com/product-kmipc_server.html</a> - as of
+2026-04-27</li>
+<li>qcecuring.com — kmip protocol explained - <a
+href="https://www.qcecuring.com/blog/kmip-protocol-explained"
+class="uri">https://www.qcecuring.com/blog/kmip-protocol-explained</a> -
+as of 2026-05-11</li>
+<li>data-protection-updates.gemalto.com — ciphertrust manager 2 - <a
+href="https://data-protection-updates.gemalto.com/category/ciphertrust-manager-2/"
+class="uri">https://data-protection-updates.gemalto.com/category/ciphertrust-manager-2/</a>
+- as of 2026-03-30</li>
+<li>Crypto4A Achieves World-First FIPS 140-3 Level 3 Validation for
+Quantum-Safe HSM Module - <a
+href="https://quantumcomputingreport.com/crypto4a-achieves-world-first-fips-140-3-level-3-validation-for-quantum-safe-hsm-module/"
+class="uri">https://quantumcomputingreport.com/crypto4a-achieves-world-first-fips-140-3-level-3-validation-for-quantum-safe-hsm-module/</a>
+- as of 2026-08-20</li>
+<li>Crypto4A Sets Global Benchmark with FIPS 140-3 Level 3 Validation
+for Quantum-Safe HSM Technology - <a
+href="https://www.prnewswire.com/news-releases/canadian-cybersecurity-company-crypto4a-sets-global-benchmark-with-fips-140-3-level-3-validation-for-next-generation-quantum-safe-hsm-technology-302855762.html"
+class="uri">https://www.prnewswire.com/news-releases/canadian-cybersecurity-company-crypto4a-sets-global-benchmark-with-fips-140-3-level-3-validation-for-next-generation-quantum-safe-hsm-technology-302855762.html</a>
+- as of 2026-08-21</li>
+<li>三未信安取得FIPS 140-3 Level 3认证，全球化布局再落关键一子 - <a
+href="https://www.stcn.com/article/detail/4138697.html"
+class="uri">https://www.stcn.com/article/detail/4138697.html</a> - as of
+2026-08-27</li>
+<li>FIPS 140-3 IG and RFG Announcements - <a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-ig-announcements"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-ig-announcements</a>
+- as of 2026-08-14</li>
+<li>Cryptographic Module Validation Program CMVP - FIPS 140-3 IG and RFG
+Announcements - <a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-ig-announcements"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-ig-announcements</a>
+- as of 2026-08-19</li>
+<li>Cryptographic Module Validation Program CMVP - Modules In Process
+List - <a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/modules-in-process/modules-in-process-list"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/modules-in-process/modules-in-process-list</a>
+- as of 2026-08-14</li>
+<li>Cryptographic Module Validation Program CMVP - Modules In Process
+List - <a
+href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
+class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
+- as of 2026-08-26</li>
+<li>PQCryptoLib-Core 3.5.1 achieves CAVP certification - <a
+href="https://semiwiki.com/forum/threads/pqcryptolib-core-3-5-1-achieves-cavp-certification.25718/"
+class="uri">https://semiwiki.com/forum/threads/pqcryptolib-core-3-5-1-achieves-cavp-certification.25718/</a>
+- as of 2026-08-17</li>
+<li>businesswire.com — en - <a
+href="https://www.businesswire.com/news/home/20250910020412/en"
+class="uri">https://www.businesswire.com/news/home/20250910020412/en</a></li>
+<li>support.apple.com — web - <a
+href="https://support.apple.com/guide/certifications/cryptographic-module-validation-status-apc33ea4bd77/web"
+class="uri">https://support.apple.com/guide/certifications/cryptographic-module-validation-status-apc33ea4bd77/web</a>
+- as of 2022-12-01</li>
+<li>aws.amazon.com — aws lc fips 3 0 first cryptographic library to
+include ml kem in fips 140 3 validation - <a
+href="https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation/"
+class="uri">https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation/</a>
+- as of 2024-12-10</li>
+<li>safelogic.com — cryptocomply 140 3 fips provider with pqc enters
+cmvp queue - <a
+href="https://www.safelogic.com/blog/cryptocomply-140-3-fips-provider-with-pqc-enters-cmvp-queue"
+class="uri">https://www.safelogic.com/blog/cryptocomply-140-3-fips-provider-with-pqc-enters-cmvp-queue</a>
+- as of 2026-05-28</li>
+<li>csrc.nist.gov — cryptographic module validation program - <a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program</a></li>
+<li>safelogic.com — fips 140 3 - <a
+href="https://www.safelogic.com/fips-140-3"
+class="uri">https://www.safelogic.com/fips-140-3</a> - as of
+2023-06-14</li>
+<li>industrialcyber.co — nist advances cmvp modernization to close gap
+between cryptographic innovation and validation capacity - <a
+href="https://industrialcyber.co/nist/nist-advances-cmvp-modernization-to-close-gap-between-cryptographic-innovation-and-validation-capacity/"
+class="uri">https://industrialcyber.co/nist/nist-advances-cmvp-modernization-to-close-gap-between-cryptographic-innovation-and-validation-capacity/</a>
+- as of 2026-04-17</li>
+<li>PQC HSM: How Hardware Security Modules Fit In PQC Migration | QNu
+Labs - <a href="https://www.qnulabs.com/blog/pqc-hsm"
+class="uri">https://www.qnulabs.com/blog/pqc-hsm</a> - as of
+2025-12-01</li>
+<li>Proof-of-principle experimental demonstration of side-channel-secure
+quantum key distribution over 200 km - <a
+href="https://www.nature.com/articles/s41534-026-01346-4"
+class="uri">https://www.nature.com/articles/s41534-026-01346-4</a> - as
+of 2026-08-11</li>
+<li>Intermodal quantum key distribution over an 18 km free-space channel
+with adaptive optics - <a href="https://arxiv.org/abs/2602.16680"
+class="uri">https://arxiv.org/abs/2602.16680</a> - as of 2026-08-26</li>
+<li>Governor Hochul Announces Milestone in Expansion of New York State’s
+Quantum Communications Network - <a
+href="https://www.governor.ny.gov/news/governor-hochul-announces-milestone-expansion-new-york-states-quantum-communications-network"
+class="uri">https://www.governor.ny.gov/news/governor-hochul-announces-milestone-expansion-new-york-states-quantum-communications-network</a>
+- as of 2026-08-21</li>
+<li>A hack-proof internet? Quantum encryption could be the key - <a
+href="https://www.science.org/content/article/hack-proof-internet-quantum-encryption-could-be-key"
+class="uri">https://www.science.org/content/article/hack-proof-internet-quantum-encryption-could-be-key</a>
+- as of 2026-08-21</li>
+<li>DRDO Successfully Completes Military Field Trials of Indigenous
+Fiber-Based Quantum Key Distribution System - <a
+href="https://www.thedefensenews.com/DRDO-Successfully-Completes-Military-Field-Trials-of-Indigenous-Fiber-Based-Quantum-Key-Distribution-System/"
+class="uri">https://www.thedefensenews.com/DRDO-Successfully-Completes-Military-Field-Trials-of-Indigenous-Fiber-Based-Quantum-Key-Distribution-System/</a>
+- as of 2026-07-15</li>
+<li>ID Quantique and IonQ Introduce Clavis XG Multiplex to Deploy
+Quantum Key Distribution Over Metro Networks - <a
+href="https://quantumcomputingreport.com/id-quantique-and-ionq-introduce-clavis-xg-multiplex-to-deploy-quantum-key-distribution-over-metro-networks/"
+class="uri">https://quantumcomputingreport.com/id-quantique-and-ionq-introduce-clavis-xg-multiplex-to-deploy-quantum-key-distribution-over-metro-networks/</a>
+- as of 2026-06-18</li>
+<li>European Consortium QUARTERNEXT Launches to Advance Certifiable
+Quantum-Key Distribution Systems - <a
+href="https://quantumcomputingreport.com/european-consortium-quarternext-launches-to-advance-certifiable-quantum-key-distribution-systems/"
+class="uri">https://quantumcomputingreport.com/european-consortium-quarternext-launches-to-advance-certifiable-quantum-key-distribution-systems/</a>
+- as of 2026-07-09</li>
+<li>SK Telecom Develops Next-Generation Quantum Cryptography Technology
+with EU Research Funding - <a href="https://news.sktelecom.com/en/3147"
+class="uri">https://news.sktelecom.com/en/3147</a> - as of
+2026-08-29</li>
+<li>Quantum Key Distribution (QKD) Companies 2026 | Directory - <a
+href="https://entangledfuture.com/qkd/"
+class="uri">https://entangledfuture.com/qkd/</a> - as of 2026-08-13</li>
+<li>Highly integrated broadband entropy source for quantum random number
+generators based on vacuum fluctuations - <a
+href="https://arxiv.org/html/2504.18795v1"
+class="uri">https://arxiv.org/html/2504.18795v1</a> - as of
+2026-08-24</li>
+<li>40Gbps Tri-type Quantum Random Number Generator - <a
+href="https://arxiv.org/html/2506.05627v1"
+class="uri">https://arxiv.org/html/2506.05627v1</a> - as of
+2026-08-24</li>
+<li>Researchers unveil self-testing quantum random chip - <a
+href="https://datacenternews.asia/story/researchers-unveil-self-testing-quantum-random-chip"
+class="uri">https://datacenternews.asia/story/researchers-unveil-self-testing-quantum-random-chip</a>
+- as of 2026-06-19</li>
+<li>Fraunhofer IPMS Launches 19-Inch Rack QRNG System - <a
+href="https://quantumzeitgeist.com/fraunhofer-ipms-19-inch-rack-qrng/"
+class="uri">https://quantumzeitgeist.com/fraunhofer-ipms-19-inch-rack-qrng/</a>
+- as of 2026-06-22</li>
+<li>New Quantum Method Generates Really Random Numbers - <a
+href="https://www.afcea.org/signal-media/technology/new-quantum-method-generates-really-random-numbers"
+class="uri">https://www.afcea.org/signal-media/technology/new-quantum-method-generates-really-random-numbers</a>
+- as of 2026-08-26</li>
+<li>Quantum eMotion’s Quantum Entropy Source Submitted for NIST
+Validation - <a
+href="https://thequantuminsider.com/2026/08/27/quantum-emotion-submits-quantum-entropy-module-for-nist-review/"
+class="uri">https://thequantuminsider.com/2026/08/27/quantum-emotion-submits-quantum-entropy-module-for-nist-review/</a>
+- as of 2026-08-27</li>
+<li>Elmos wins the 2026 German Innovation Award for the world’s smallest
+quantum random number generator (QRNG) - <a
+href="https://www.elmos.com/english/about-elmos/newsroom/press-releases/news/elmos-wins-the-2026-german-innovation-award-for-the-worlds-smallest-quantum-random-number-generator-qrng.html"
+class="uri">https://www.elmos.com/english/about-elmos/newsroom/press-releases/news/elmos-wins-the-2026-german-innovation-award-for-the-worlds-smallest-quantum-random-number-generator-qrng.html</a>
+- as of 2026-04-20</li>
+<li>ThinkQuantum Initiates Photonic Chip Miniaturization Program for
+Terrestrial and Space Cryptography - <a
+href="https://quantumcomputingreport.com/thinkquantum-initiates-photonic-chip-miniaturization-program-for-terrestrial-and-space-cryptography/"
+class="uri">https://quantumcomputingreport.com/thinkquantum-initiates-photonic-chip-miniaturization-program-for-terrestrial-and-space-cryptography/</a>
+- as of 2026-06-09</li>
+<li>thequantuminsider.com — 25 companies building the quantum
+cryptography communications markets - <a
+href="https://thequantuminsider.com/2026/03/25/25-companies-building-the-quantum-cryptography-communications-markets/"
+class="uri">https://thequantuminsider.com/2026/03/25/25-companies-building-the-quantum-cryptography-communications-markets/</a>
+- as of 2026-06-17</li>
+<li>coherentmarketinsights.com — quantum key distribution market 5971 -
+<a
+href="https://www.coherentmarketinsights.com/market-insight/quantum-key-distribution-market-5971"
+class="uri">https://www.coherentmarketinsights.com/market-insight/quantum-key-distribution-market-5971</a>
+- as of 2026-05-13</li>
+<li>sptel.com — quantum key distribution - <a
+href="https://sptel.com/quantum-key-distribution/"
+class="uri">https://sptel.com/quantum-key-distribution/</a> - as of
+2026-05-13</li>
+<li>patsnap.com — quantum key distribution networks 2026 patsnap eureka
+- <a
+href="https://www.patsnap.com/resources/blog/rd-blog/quantum-key-distribution-networks-2026-patsnap-eureka/"
+class="uri">https://www.patsnap.com/resources/blog/rd-blog/quantum-key-distribution-networks-2026-patsnap-eureka/</a>
+- as of 2026-04-29</li>
+<li>globenewswire.com — New IQT Research Report Quantum Random Number
+Generators will become a 7.2 Billion Market by 2026 - <a
+href="https://www.globenewswire.com/news-release/2021/01/26/2164365/0/en/New-IQT-Research-Report-Quantum-Random-Number-Generators-will-become-a-7-2-Billion-Market-by-2026.html"
+class="uri">https://www.globenewswire.com/news-release/2021/01/26/2164365/0/en/New-IQT-Research-Report-Quantum-Random-Number-Generators-will-become-a-7-2-Billion-Market-by-2026.html</a>
+- as of 2021-01-26</li>
+<li>postquantum.com — qrng buyers guide - <a
+href="https://postquantum.com/post-quantum/qrng-buyers-guide/"
+class="uri">https://postquantum.com/post-quantum/qrng-buyers-guide/</a>
+- as of 2026-05-29</li>
+<li>marketsandmarkets.com — quantum random number generator market
+208446014 - <a
+href="https://www.marketsandmarkets.com/Market-Reports/quantum-random-number-generator-market-208446014.html"
+class="uri">https://www.marketsandmarkets.com/Market-Reports/quantum-random-number-generator-market-208446014.html</a></li>
+<li>marketgrowthreports.com — quantum random number generator qrng chip
+market 113457 - <a
+href="https://www.marketgrowthreports.com/market-reports/quantum-random-number-generator-qrng-chip-market-113457"
+class="uri">https://www.marketgrowthreports.com/market-reports/quantum-random-number-generator-qrng-chip-market-113457</a>
+- as of 2026-01-13</li>
+<li>Announcing quantum-safe key import in Cloud KMS - <a
+href="https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-key-import-in-cloud-kms"
+class="uri">https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-key-import-in-cloud-kms</a>
+- as of 2026-08-20</li>
+<li>Post-Quantum Cryptography and Backup Readiness - <a
+href="https://www.veeam.com/blog/post-quantum-cryptography-backup.html"
+class="uri">https://www.veeam.com/blog/post-quantum-cryptography-backup.html</a>
+- as of 2026-06-18</li>
+<li>CSWP 39upd1, Considerations for Achieving Crypto Agility: Strategies
+and Practices - <a
+href="https://csrc.nist.gov/pubs/cswp/39/upd1/considerations-for-achieving-crypto-agility/final"
+class="uri">https://csrc.nist.gov/pubs/cswp/39/upd1/considerations-for-achieving-crypto-agility/final</a>
+- as of 2026-06-29</li>
+<li>New Guidance Helps Businesses Verify Quantum-Safe Hardware Claims -
+<a
+href="https://www.infosecurity-magazine.com/news/guidance-verify-quantum-safe/"
+class="uri">https://www.infosecurity-magazine.com/news/guidance-verify-quantum-safe/</a>
+- as of 2026-08-24</li>
+<li>Thales launches Luna 8 hardware security module in India, targeting
+post-quantum cryptography readiness for enterprises and government - <a
+href="https://www.91mobiles.com/updates/thales-launches-luna-8-hardware-security-module-in-india/"
+class="uri">https://www.91mobiles.com/updates/thales-launches-luna-8-hardware-security-module-in-india/</a>
+- as of 2026-08-29</li>
+<li>PQC at the Application Layer: Database Encryption Migration - <a
+href="https://quantumsecuritydefence.com/insights/pqc-application-layer-database-encryption-migration/"
+class="uri">https://quantumsecuritydefence.com/insights/pqc-application-layer-database-encryption-migration/</a>
+- as of 2026-07-06</li>
+<li>Seamless Post-Quantum Transition - <a
+href="https://www.scitepress.org/Papers/2025/136410/136410.pdf"
+class="uri">https://www.scitepress.org/Papers/2025/136410/136410.pdf</a></li>
+<li>NIST Defines Crypto-Agility As Key To PQC Resilience Says Microsoft
+- <a
+href="https://quantumzeitgeist.com/microsoft-nist-defines-crypto-agility-key/"
+class="uri">https://quantumzeitgeist.com/microsoft-nist-defines-crypto-agility-key/</a></li>
+<li>QuCloud : Enhancing cloud storage security by combining quantum key
+distribution, post-quantum cryptography, and custom proxy re-encryption
+- <a
+href="https://www.sciencedirect.com/science/article/abs/pii/S2214212626000797"
+class="uri">https://www.sciencedirect.com/science/article/abs/pii/S2214212626000797</a>
+- as of 2026-06-01</li>
+<li>Cryptographic Agility: Your First Line of Defense Against Quantum
+Risk - <a
+href="https://www.encryptionconsulting.com/cryptographic-agility-defense-against-quantum-risk/"
+class="uri">https://www.encryptionconsulting.com/cryptographic-agility-defense-against-quantum-risk/</a>
+- as of 2025-12-01</li>
+<li>Cryptographic Agility: The Key to Quantum Readiness - Palo Alto
+Networks - <a
+href="https://www.paloaltonetworks.com/cyberpedia/what-is-cryptographic-agility"
+class="uri">https://www.paloaltonetworks.com/cyberpedia/what-is-cryptographic-agility</a></li>
+<li>NIST Special Publication (SP) 800-57 Rev. 6 (Draft), Recommendation
+for Key Management: Part 1 – General - <a
+href="https://csrc.nist.gov/pubs/sp/800/57/pt1/r6/ipd"
+class="uri">https://csrc.nist.gov/pubs/sp/800/57/pt1/r6/ipd</a> - as of
+2025-12-05</li>
+<li>NIST SP 800-227: Recommendations for Key-Encapsulation Mechanisms -
+<a href="https://csrc.nist.gov/pubs/sp/800/227/final"
+class="uri">https://csrc.nist.gov/pubs/sp/800/227/final</a> - as of
+2025-09-01</li>
+<li>NIST IR 8547 initial public draft, Transition to Post-Quantum
+Cryptography Standards - <a
+href="https://nvlpubs.nist.gov/nistpubs/ir/2024/NIST.IR.8547.ipd.pdf"
+class="uri">https://nvlpubs.nist.gov/nistpubs/ir/2024/NIST.IR.8547.ipd.pdf</a></li>
+<li>Is the Public Cloud Ready for Post-Quantum Cryptography? | AWS in
+Plain English - <a
+href="https://aws.plainenglish.io/is-the-public-cloud-ready-for-post-quantum-cryptography-a035d82fd0e2?gi=18fdfaa9daec"
+class="uri">https://aws.plainenglish.io/is-the-public-cloud-ready-for-post-quantum-cryptography-a035d82fd0e2?gi=18fdfaa9daec</a></li>
+<li>Post-Quantum Cryptography - Amazon Web Services - <a
+href="https://aws.amazon.com/security/post-quantum-cryptography/"
+class="uri">https://aws.amazon.com/security/post-quantum-cryptography/</a></li>
+<li>AWS introduces post-quantum security with ML-KEM for TLS connections
+- Techzine Global - <a
+href="https://www.techzine.eu/news/security/130431/aws-introduces-post-quantum-security-with-ml-kem-for-tls-connections/"
+class="uri">https://www.techzine.eu/news/security/130431/aws-introduces-post-quantum-security-with-ml-kem-for-tls-connections/</a>
+- as of 2025-04-01</li>
+<li>AWS KMS Post-Quantum: ML-KEM &amp; ML-DSA in Production 2026 - <a
+href="https://www.factualminds.com/blog/aws-kms-post-quantum-cryptography-ml-kem-ml-dsa/"
+class="uri">https://www.factualminds.com/blog/aws-kms-post-quantum-cryptography-ml-kem-ml-dsa/</a></li>
+<li>Securing Cryptography in the Age of Quantum Computing and AI:
+Threats, Implementations, and Strategic Response - <a
+href="https://arxiv.org/pdf/2603.06969"
+class="uri">https://arxiv.org/pdf/2603.06969</a> - as of 2024-12-01</li>
+<li>Post-quantum Key Escrow for Supervised Secret Data Sharing on
+Consortium Blockchain | SpringerLink - <a
+href="https://link.springer.com/chapter/10.1007/978-3-030-94029-4_12"
+class="uri">https://link.springer.com/chapter/10.1007/978-3-030-94029-4_12</a></li>
+<li>Enhanced post-quantum key escrow system for supervised data conflict
+of interest based on consortium blockchain - PMC - <a
+href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10239057/"
+class="uri">https://pmc.ncbi.nlm.nih.gov/articles/PMC10239057/</a></li>
+<li>draft-ailex-vap-legal-ai-provenance-03 - <a
+href="https://datatracker.ietf.org/doc/draft-ailex-vap-legal-ai-provenance-03/"
+class="uri">https://datatracker.ietf.org/doc/draft-ailex-vap-legal-ai-provenance-03/</a>
+- as of 2026-03-01</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="04-crypto-libraries.html"><span>Previous</span>Part 4 - Crypto Libraries &amp; Providers</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="06-network-transport.html"><span>Next</span>Part 6 - Network &amp; Transport Protocols</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/05-hsm-kms.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

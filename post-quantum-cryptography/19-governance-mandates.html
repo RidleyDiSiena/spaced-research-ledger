@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 19 - Governance, Mandates & Timelines | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 19: Governance, Mandates & Timelines.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 19</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 19</p>
+    <h1>Governance, Mandates &amp; Timelines</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/19-governance-mandates.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#us-federal-mandates" id="toc-us-federal-mandates">1. US
+Federal Mandates</a></li>
+<li><a href="#eu-uk-guidance" id="toc-eu-uk-guidance">2. EU &amp; UK
+Guidance</a></li>
+<li><a href="#sector-compliance-regimes"
+id="toc-sector-compliance-regimes">3. Sector Compliance Regimes</a></li>
+<li><a href="#certification-schemes" id="toc-certification-schemes">4.
+Certification Schemes</a></li>
+<li><a href="#system-wide-crypto-policy-enforcement"
+id="toc-system-wide-crypto-policy-enforcement">5. System-Wide Crypto
+Policy Enforcement</a></li>
+<li><a href="#procurement-contract-language-audit"
+id="toc-procurement-contract-language-audit">6. Procurement, Contract
+Language &amp; Audit</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Every earlier part of this collection describes technology. This one
+describes the deadlines. Governments have converted post-quantum
+guidance into dates with consequences, and the dates now drive vendor
+roadmaps more than the physics does.</p>
+<p>Six sections cover the governance stack. Section 1 covers the U.S.
+federal mandates, Section 2 the European and British programs, and
+Section 3 the sector compliance regimes. Section 4 covers the
+certification schemes, Section 5 the operating-system policy switches
+that enforce it all, and Section 6 the procurement language reaching
+into contracts.</p>
+<p>The year’s pivot was June 22, 2026. Executive Order 14412 and the OMB
+memo that followed set a five-phase federal migration through 2035.
+Agency plans came due in months, with high-value assets on post-quantum
+key establishment by the end of 2030. France set the hardest commercial
+date anywhere: from 2027 its certification body stops certifying
+security products without quantum-resistant encryption, a market-access
+gate for critical infrastructure.</p>
+<p>The uncomfortable finding sits between jurisdictions. The U.S. suite
+prefers pure post-quantum, France mandates hybrids, and Germany
+recommends algorithms NIST did not standardize. No single implementation
+satisfies all three regimes, and vendors now build for divergence.</p>
+<h2 id="us-federal-mandates">1. US Federal Mandates</h2>
+<p><em>American policy runs on two tracks: national-security systems
+under NSA’s CNSA 2.0 suite, and civilian agencies under White House
+memoranda now backed by statute. Both tracks got their operative
+documents in 2026. This section covers the chain of authority from
+memoranda to deadlines.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The operative guidance finally landed. OMB Memorandum M-26-15,
+published two days after the June executive order, functionally
+supersedes the 2022 migration memo [1]. It establishes a five-phase
+2026-to-2035 timeline and requires agency migration plans within 120
+days [1]. It covers algorithm selection, hybrids, agility, and
+zero-trust integration, with the old inventory work folded into phase
+one [1].</p>
+<p>It resolved an awkward gap: whether the statutorily required guidance
+had ever been issued by its 2025 deadline was publicly unclear [2]. On
+the national-security track, the IETF profiles are being finalized, with
+a CNSA 2.0 TLS profile using ML-DSA-87 and ML-KEM-1024 [3] and a
+certificate profile in final review [4].</p>
+<h3 id="current-state">Current State</h3>
+<p>The chain of authority is now complete. National Security Memorandum
+8 directed the quantum-resistant update that became CNSA 2.0, with new
+national-security acquisitions compliant by January 2027 [5]. Its
+civilian twin directed annual inventories of quantum-vulnerable
+high-value assets and migration toward 2035 [5]. The 2022 OMB memo
+operationalized that, tying migration to zero trust, requiring
+inventories of classical key exchange, and, strikingly, prohibiting
+agency use of QKD for security functions without exception [6].</p>
+<p>Its nine per-system data items proved mostly unautomatable, with only
+three realistically collectable by tools [7]. The Preparedness Act then
+elevated the whole structure to statute [5].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="eu-uk-guidance">2. EU &amp; UK Guidance</h2>
+<p><em>Europe governs by roadmap and Britain by phases, and both have
+now attached dates that bind. France’s certification cutoff is the
+sharpest instrument in either jurisdiction. This section covers the
+continental machinery, the German technicalities, and the British
+capacity problem.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>France set the market gate. ANSSI will stop certifying security
+products lacking quantum-resistant encryption from 2027, expecting
+quantum-safe-only purchasing by 2030 [8]. The standards factories are
+producing. ETSI opened public enquiry on seventeen draft product
+standards under the Cyber Resilience Act [9], and its quantum-safe work
+program carries active drafts on signatures, PKI, and enterprise
+transport [10].</p>
+<p>A second European migration conference is set for March 2027 [11].
+Britain’s NCSC published its industry workshop report, stressing that no
+organization migrates alone [12], and launched a consultancy pilot for
+discovery and migration planning through March 2027 [13].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The EU built its program on law. The 2024 Commission Recommendation
+grounds the coordinated roadmap in treaty authority, linked explicitly
+to the network-security directive [14]. The roadmap’s milestones: member
+states begin by end-2026, critical infrastructure transitions no later
+than end-2030 [15], with full system-wide transition placed at 2035
+[16]. A proposed directive would write post-quantum policy directly into
+national cybersecurity strategies [17], and a Quantum Act is expected in
+2026 [18]. The Commission’s technology chief framed the roadmap as the
+entry into the quantum era [15].</p>
+<p>The technical posture is hybrid-by-default and risk-averse,
+preferring adjusted symmetric parameters and paired schemes [16], with
+practitioners noting comparable transitions have historically taken a
+decade [19]. Germany’s technical guideline supplies the dates
+underneath: classical key exchange recommended only through 2031,
+hybrids mandatory from 2032, and classical signatures alone only through
+2035 [20].</p>
+<p>Britain published the cleanest phases. Identification and planning by
+2028, highest-priority migrations by 2031, everything by 2035 [21],
+presented as the roadmap organizations asked for [21]. The annual review
+says the timelines now anchor plans across government and regulated
+sectors, while candidly admitting the country lacks enough qualified
+consultancies [22]. A secondary characterization calls the NCSC the
+first major regulator to endorse the NIST algorithms, unverified
+[23].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sector-compliance-regimes">3. Sector Compliance Regimes</h2>
+<p><em>Between government mandates and vendor products sit the
+compliance regimes that actually get audited: cloud authorization and
+payment-card rules. Neither yet requires post-quantum, and both now
+require knowing your cryptography. This section is short because the
+regimes are early.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>FedRAMP moved to visibility first. Its 2026 consolidated rules
+require cloud providers to document the cryptographic modules protecting
+federal data and their validation status [24]. Validated modules are
+encouraged rather than strictly required at moderate impact [25]. The
+OMB memo layers responsibility on top, requiring agencies to delineate
+migration duties with their cloud providers, with CISA and the defense
+department leading for shared services [26]. Analysts read the rules as
+compliance-plus-readiness scaffolding, not yet a post-quantum mandate
+[27].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>The payment-card standard got there by accident of timing. PCI DSS
+4.0’s future-dated controls became fully mandatory in March 2025 [28].
+Its required cryptographic inventory and deprecated-algorithm migration
+plan is the post-quantum planning artifact by another name [28].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="certification-schemes">4. Certification Schemes</h2>
+<p><em>Certification is where governance touches silicon: Common
+Criteria for chips, FIPS 140-3 for cryptographic modules. The first
+post-quantum certificates now exist on both tracks, and the schemes’
+calendars are forcing functions of their own. This section covers the
+firsts, the queue, and the divergence problem.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>The first certificates arrived in a cluster. France issued its first
+post-quantum Common Criteria certificates to Thales and Samsung in late
+2025 [29]. A high-assurance certificate for a composite product on a
+post-quantum smart-card platform followed [30]. Germany certified the
+world’s first smart card implementing a post-quantum algorithm [31].</p>
+<p>On the FIPS track, Crypto4A’s module achieved the first Level 3
+validation for a quantum-safe HSM with the full NIST suite [32].
+Sansec’s followed as the first Chinese module [33]. The calendar
+pressure is structural. FIPS 140-2 modules serve new systems only
+through September 21, 2026 [34], and the implementation guidance added
+post-quantum self-test requirements [35].</p>
+<p>The in-process list carries multiple post-quantum modules [36], and
+Europe’s certification cryptography guidance went to public review with
+hybridization recommendations [37].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>France’s gate has teeth and history. The 2027 announcement came at a
+national conference from a senior official [38], and certification is
+required for French government and critical-infrastructure deployment,
+making it market access, not advice [39]. The signaling ran for years
+through position papers and qualification FAQs before the public date
+[40]. The commissioned survey behind it found no surveyed organization
+with a transition plan [40], and commentary places it in a wider trend
+of guidance hardening into 2028-to-2030 obligations [40].</p>
+<p>The divergence is documented and unresolved. The U.S. suite prefers
+pure post-quantum, France mandates hybrids, and Germany mandates hybrids
+while recommending FrodoKEM and Classic McEliece over the NIST lattice
+choice, so no single implementation satisfies all three [40]. The chip
+certifications accumulate meanwhile: Infineon at the highest assurance
+level from Germany, Samsung from the Netherlands [41], three
+post-quantum HSM certifications across the two schemes [42].</p>
+<p>The bottleneck is paperwork as much as product, with one TPM vendor
+sampling hardware it cannot yet certify because the post-quantum
+protection profile awaits approval [43]. On the FIPS side, a validated
+post-quantum wolfCrypt module sits in submission [44].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="system-wide-crypto-policy-enforcement">5. System-Wide Crypto
+Policy Enforcement</h2>
+<p><em>Policy only matters where an operating system enforces it. Linux
+distributions, Windows, Java, and Apple’s platforms each expose the
+switches that turn post-quantum on, off, or mandatory across a whole
+estate. This section is the administrator’s map of where those switches
+live and what they actually do.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The defaults hardened. RHEL 10.1 enables post-quantum algorithms in
+every predefined policy, with a subpolicy to opt out [45]. RHEL 10’s
+FUTURE policy now refuses classical key exchange entirely, breaking
+connections to anything unready [46]. Windows shipped its hybrid groups
+into production Schannel in July, three configurable options, disabled
+by default, TLS 1.3 only [47][47], documented in the platform’s
+supported-groups reference [48]. Java’s hybrid exchange arrives with JDK
+27 and backports through 2027 [49], and Apple documented a diagnostic
+command for verifying quantum-secure connections [50].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>RHEL is the most complete policy machine. Four predefined levels
+govern the system through one tool [51], with a post-quantum subpolicy
+layerable on any base since RHEL 9.7 [52]. A legacy level trades
+security for compatibility [52], and services need restarts after
+changes [51]. The honest caveat: applications can override, making
+policy a default rather than an absolute boundary [53].</p>
+<p>The web console exposes it graphically [54]. The current state of the
+defaults: every predefined level prefers post-quantum in 10.1 [55], and
+FIPS mode gains hybrid SSH exchanges in 10.2 [56]. Red Hat turned
+hybrids on for its own update infrastructure [57]. FIPS mode itself
+tightened.</p>
+<p>The setup tool goes beyond the policy switch [58], and enforcement
+hinges on the kernel flag [58]. RHEL 10 removed post-install FIPS
+conversion entirely, install-time or reinstall [59], following
+long-standing advice to enable it from the start [60].</p>
+<p>Windows and Java put the switches where administrators already look.
+The hybrid groups configure through the existing curve-order Group
+Policy, device management, or PowerShell [61], deliberately requiring
+explicit action [62]. Fallback to classical is silent, with event-log
+confirmation of what actually negotiated [63]. Certificate issuance is a
+separate track, generally available since May, leaving existing
+hierarchies untouched [47].</p>
+<p>Java’s control plane is its security-properties file, disabling
+algorithms JVM-wide [64], inspectable at runtime [64]. The file moved
+location in JDK 9 [65], and algorithms re-enable by edit or API before
+the TLS subsystem initializes [66]. It is a security property, not a
+command-line flag [67], one of a family covering certificates, JARs, and
+curves [66], joined in JDK 26 by an API-level disablement property
+[68].</p>
+<p>Apple manages by profile and enforces by transport. Configuration
+profiles carry policy from device management, lockable on supervised
+devices [69], signed and CMS-encrypted [69]. The management channel’s
+own TLS requirements are strict and blocking, from minimum protocol
+versions to key sizes [70], applying to enrollment, profiles, apps, and
+updates alike [70]. And the endpoint default is already set, with
+quantum-secure key exchange on by default in the 26-generation
+networking APIs [71].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="procurement-contract-language-audit">6. Procurement, Contract
+Language &amp; Audit</h2>
+<p><em>The last mile of governance is a purchase order. Executive orders
+flow into acquisition regulations, vendor questionnaires, and eventually
+insurance premiums, which is how mandates reach companies that never
+read a NIST publication. This section covers the contract language
+taking shape and the audit posture forming behind it.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>The executive order started the acquisition clock. It begins moving
+federal contractors toward a governmentwide post-quantum compliance
+regime [72]. It directs the FAR Council to propose
+vulnerability-disclosure rules covering cryptographic flaws within 270
+days [73]. It also orders CISA and NIST to define the minimum elements
+of a cryptographic bill of materials for automated assessment [74]. The
+defense side moves in parallel, with the CMMC transition to the newer
+control revision offering a vehicle for post-quantum clauses ahead of
+rulemaking [75].</p>
+<p>The questionnaires are becoming standard artifacts. Australia
+released vendor-neutral post-quantum questions for procurement and
+vendor assurance [76], spanning dependencies, planning, and supplier
+communication [77], recommending vendors maintain a current CBOM down to
+embedded components [76]. A Navy solicitation seeks prototypes
+automating discovery and CBOM generation [78], and CISA’s quantum lead
+said agencies will write quantum-resistance into contract language [79].
+The defense department requested industry input on encryption aligned to
+the migration timelines [80], and Treasury’s new task force carries a
+dedicated vendor-readiness workstream [81]. One survey punctures the
+confidence: three-quarters of enterprises claim continuously updated
+inventories while nearly half have no single owner for the migration
+[82].</p>
+<h3 id="current-state-5">Current State</h3>
+<p>The contractual baseline is shifting under the analysis. As of the
+general assessments, post-quantum is not yet a federal contractual
+requirement [83]. The defense certification regime still rests on the
+older control revision [83], and cloud authorization awaits
+control-catalog updates and validated implementations expected no
+earlier than 2027 [83]. The executive order’s trajectory is explicit:
+proposed acquisition rules by December 2026, contractor compliance with
+the post-quantum FIPS standards by the end of 2030 [72][75], plus
+disclosure-program updates [84].</p>
+<p>The practical near-term effect is inventory obligations and
+vulnerability assessment for systems behind high-value assets [85]. CISA
+is compiling an approved cryptographic product list agencies will buy
+from [86], with agency leadership directed to prioritize
+harvest-now-decrypt-later exposure [86].</p>
+<p>The buyer-side toolkit is filling out. GSA’s buyer guide makes
+agility, secure-by-design, and interoperability the acquisition criteria
+[86]. The PKI Consortium’s maturity model gives procurement a six-level
+vendor yardstick [87]. Europe’s directives convert vendor assurance into
+obligation, with supply-chain security required under one and
+third-party ICT risk under the other, neither satisfied by
+self-certification [88].</p>
+<p>Canada recommends contract clauses requiring approved post-quantum
+algorithms by end-2026 [89], and the FAA’s request for information asked
+vendors directly for algorithm and transition detail [90]. The audit
+backstop is arriving through insurance, with underwriters folding
+quantum readiness into renewals [83] and weak transition plans risking
+premiums or exclusions [83]. Beneath it all, the inventory remains the
+non-negotiable baseline every policy document starts from [83], as
+NIST’s practice guide established with its industry collaborators
+[91][91].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>One agency got ahead of the analysis. The general claim that
+post-quantum is not yet a federal contractual requirement [83] collides
+with the USDA’s acquisition regulation, revised September 2025 [83].
+That regulation explicitly requires solicitations for CISA-listed
+product categories to demand post-quantum support [83]. The likeliest
+reading is an agency-specific exception to a true general rule, but the
+sources do not reconcile it. A governmentwide acquisition tracker would
+settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>OMB M-26-15: Execution of the Migration to Post-Quantum Cryptography
+- <a
+href="https://www.whitehouse.gov/wp-content/uploads/2026/06/M-26-15-Execution-of-the-Migration-to-Post-Quantum-Cryptography.pdf"
+class="uri">https://www.whitehouse.gov/wp-content/uploads/2026/06/M-26-15-Execution-of-the-Migration-to-Post-Quantum-Cryptography.pdf</a>
+- as of 2026-06-24</li>
+<li>postquantum.com — us pqc regulatory framework 2026 - <a
+href="https://postquantum.com/security-pqc/us-pqc-regulatory-framework-2026/"
+class="uri">https://postquantum.com/security-pqc/us-pqc-regulatory-framework-2026/</a>
+- as of 2026-06-25</li>
+<li>draft-becker-cnsa2-tls-profile-05 - <a
+href="https://ftp.funet.fi/pub/files/index/files/index/files/index/files/index/internet-drafts/draft-becker-cnsa2-tls-profile-05.txt"
+class="uri">https://ftp.funet.fi/pub/files/index/files/index/files/index/files/index/internet-drafts/draft-becker-cnsa2-tls-profile-05.txt</a>
+- as of 2026-07-19</li>
+<li>draft-jenkins-cnsa2-pkix-profile-05 - <a
+href="https://datatracker.ietf.org/doc/draft-jenkins-cnsa2-pkix-profile/"
+class="uri">https://datatracker.ietf.org/doc/draft-jenkins-cnsa2-pkix-profile/</a>
+- as of 2026-08-04</li>
+<li>pages.nist.gov — nccoe migration post quantum cryptography - <a
+href="https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/"
+class="uri">https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/</a></li>
+<li>whitehouse.gov — M 23 02 M Memo on Migrating to Post Quantum
+Cryptography.pdf - <a
+href="https://www.whitehouse.gov/wp-content/uploads/2022/11/M-23-02-M-Memo-on-Migrating-to-Post-Quantum-Cryptography.pdf"
+class="uri">https://www.whitehouse.gov/wp-content/uploads/2022/11/M-23-02-M-Memo-on-Migrating-to-Post-Quantum-Cryptography.pdf</a>
+- as of 2022-11-18</li>
+<li>cisa.gov — Strategy for Migrating to Automated PQC Discovery and
+Inventory Tools.pdf - <a
+href="https://www.cisa.gov/sites/default/files/2024-09/Strategy-for-Migrating-to-Automated-PQC-Discovery-and-Inventory-Tools.pdf"
+class="uri">https://www.cisa.gov/sites/default/files/2024-09/Strategy-for-Migrating-to-Automated-PQC-Discovery-and-Inventory-Tools.pdf</a>
+- as of 2024-09-26</li>
+<li>ANSSI Sets 2027 Deadline for Quantum-Safe Certification - <a
+href="https://postquantum.com/security-pqc/anssi-pqc-certification-2027/"
+class="uri">https://postquantum.com/security-pqc/anssi-pqc-certification-2027/</a>
+- as of 2026-06-17</li>
+<li>On 13 August 2026, ETSI Opened the Public Enquiry on 17 Draft CRA
+Product Standards · cyberresilienceact.eu - <a
+href="https://www.cyberresilienceact.eu/news/etsi-17-cra-product-standards-public-enquiry-13-august-2026.html"
+class="uri">https://www.cyberresilienceact.eu/news/etsi-17-cra-product-standards-public-enquiry-13-august-2026.html</a>
+- as of 2026-08-13</li>
+<li>Work Programme - Work Item Plan - <a
+href="https://portal.etsi.org/webapp/WorkProgram/WorkItemPlan.asp?titleType=all&amp;qSORT=HIGHVERSION&amp;qETSI_ALL=&amp;SearchPage=TRUE&amp;qTB_ID=856%3BCYBER+QSC&amp;qINCLUDE_SUB_TB=True&amp;qINCLUDE_MOVED_ON=&amp;qSTOP_FLG=N&amp;qKEYWORD_BOOLEAN=OR&amp;qCLUSTER_BOOLEAN=OR&amp;qFREQUENCIES_BOOLEAN=OR&amp;qSTOPPING_OUTDATED=&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;qREPORT_TYPE=SUMMARY&amp;optDisplay=ALL"
+class="uri">https://portal.etsi.org/webapp/WorkProgram/WorkItemPlan.asp?titleType=all&amp;qSORT=HIGHVERSION&amp;qETSI_ALL=&amp;SearchPage=TRUE&amp;qTB_ID=856%3BCYBER+QSC&amp;qINCLUDE_SUB_TB=True&amp;qINCLUDE_MOVED_ON=&amp;qSTOP_FLG=N&amp;qKEYWORD_BOOLEAN=OR&amp;qCLUSTER_BOOLEAN=OR&amp;qFREQUENCIES_BOOLEAN=OR&amp;qSTOPPING_OUTDATED=&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;qREPORT_TYPE=SUMMARY&amp;optDisplay=ALL</a>
+- as of 2026-07-28</li>
+<li>2nd European Conference on PQC Migration - <a
+href="https://pqc-conference.eu/"
+class="uri">https://pqc-conference.eu/</a> - as of 2026-08-15</li>
+<li>Post-quantum cryptography (PQC) migration workshop report - <a
+href="https://www.ncsc.gov.uk/blogs/post-quantum-cryptography-pqc-migration-workshop-report"
+class="uri">https://www.ncsc.gov.uk/blogs/post-quantum-cryptography-pqc-migration-workshop-report</a>
+- as of 2026-07-22</li>
+<li>Introduction | Post-quantum cryptography (PQC) pilot | National
+Cyber Security Centre - <a
+href="https://www.ncsc.gov.uk/schemes/assured-cyber-security-consultancy/pqc-pilot"
+class="uri">https://www.ncsc.gov.uk/schemes/assured-cyber-security-consultancy/pqc-pilot</a>
+- as of 2026-08-21</li>
+<li>eur-lex.europa.eu — oj - <a
+href="https://eur-lex.europa.eu/eli/reco/2024/1101/oj"
+class="uri">https://eur-lex.europa.eu/eli/reco/2024/1101/oj</a> - as of
+2024-04-12</li>
+<li>industrialcyber.co — eu begins coordinated effort for member states
+to switch critical infrastructure to quantum resistant encryption by
+2030 - <a
+href="https://industrialcyber.co/regulation-standards-and-compliance/eu-begins-coordinated-effort-for-member-states-to-switch-critical-infrastructure-to-quantum-resistant-encryption-by-2030/"
+class="uri">https://industrialcyber.co/regulation-standards-and-compliance/eu-begins-coordinated-effort-for-member-states-to-switch-critical-infrastructure-to-quantum-resistant-encryption-by-2030/</a>
+- as of 2025-06-24</li>
+<li>pqshield.com — pqc transition roadmaps and guidance - <a
+href="https://pqshield.com/pqc-transition-roadmaps-and-guidance/"
+class="uri">https://pqshield.com/pqc-transition-roadmaps-and-guidance/</a>
+- as of 2025-09-23</li>
+<li>The EU Just Proposed Including Post-Quantum Cryptography in NIS2 -
+<a href="https://postquantum.com/security-pqc/eu-pqc-nis2/"
+class="uri">https://postquantum.com/security-pqc/eu-pqc-nis2/</a> - as
+of 2026-02-13</li>
+<li>EU post-quantum cryptography roadmap: is a timeline alone
+sufficient? - <a
+href="https://www.telefonica.com/en/communication-room/blog/eu-post-quantum-cryptography-roadmap-timeline-sufficient/"
+class="uri">https://www.telefonica.com/en/communication-room/blog/eu-post-quantum-cryptography-roadmap-timeline-sufficient/</a>
+- as of 2025-12-05</li>
+<li>postquantum.com — eu pqc roadmap - <a
+href="https://postquantum.com/quantum-policy/eu-pqc-roadmap/"
+class="uri">https://postquantum.com/quantum-policy/eu-pqc-roadmap/</a> -
+as of 2025-10-05</li>
+<li>RSA &amp; ECC approaching end of life: Your PQC roadmap | SITS - <a
+href="https://sits.com/en/blog/rsa-ecc-nearing-the-finish-line-become-cryptoagile-now/"
+class="uri">https://sits.com/en/blog/rsa-ecc-nearing-the-finish-line-become-cryptoagile-now/</a>
+- as of 2026-01-01</li>
+<li>ncsc.gov.uk — pqc migration roadmap unveiled - <a
+href="https://www.ncsc.gov.uk/news/pqc-migration-roadmap-unveiled"
+class="uri">https://www.ncsc.gov.uk/news/pqc-migration-roadmap-unveiled</a></li>
+<li>ncsc.gov.uk — migrating to post quantum cryptography - <a
+href="https://www.ncsc.gov.uk/collection/ncsc-annual-review-2025/chapter-03-keeping-pace-with-evolving-technology/migrating-to-post-quantum-cryptography"
+class="uri">https://www.ncsc.gov.uk/collection/ncsc-annual-review-2025/chapter-03-keeping-pace-with-evolving-technology/migrating-to-post-quantum-cryptography</a></li>
+<li>qnulabs.com — uk ncsc national cyber security centre pqc migration
+roadmap - <a
+href="https://www.qnulabs.com/glossary/uk-ncsc-national-cyber-security-centre-pqc-migration-roadmap"
+class="uri">https://www.qnulabs.com/glossary/uk-ncsc-national-cyber-security-centre-pqc-migration-roadmap</a></li>
+<li>Cryptographic Module Use - FedRAMP Consolidated Rules for 2026 - <a
+href="https://fedramp.gov/2026/providers/20x/rules/cryptographic-module-use/"
+class="uri">https://fedramp.gov/2026/providers/20x/rules/cryptographic-module-use/</a>
+- as of 2026-06-24</li>
+<li>Using Cryptographic Modules - FedRAMP Consolidated Rules for 2026
+Public Preview - <a
+href="https://preview.fedramp.gov/2026/providers/20x/rules/using-cryptographic-modules/"
+class="uri">https://preview.fedramp.gov/2026/providers/20x/rules/using-cryptographic-modules/</a>
+- as of 2026-06-24</li>
+<li>OMB M-26-15: Execution of the Migration to Post-Quantum Cryptography
+- <a
+href="https://www.whitehouse.gov/wp-content/uploads/2026/06/M-26-15-Execution-of-the-Migration-to-Post-Quantum-Cryptography.pdf"
+class="uri">https://www.whitehouse.gov/wp-content/uploads/2026/06/M-26-15-Execution-of-the-Migration-to-Post-Quantum-Cryptography.pdf</a>
+- as of 2026-06-25</li>
+<li>FedRAMP CR26: Cryptography and PQC Readiness - <a
+href="https://www.safelogic.com/blog/fedramp-cr26-cryptography-and-pqc-readiness"
+class="uri">https://www.safelogic.com/blog/fedramp-cr26-cryptography-and-pqc-readiness</a>
+- as of 2026-08-14</li>
+<li>cryptomathic.com — 2025 compliance guide dora pci dss 4.0 pqc
+readiness - <a
+href="https://www.cryptomathic.com/blog/2025-compliance-guide-dora-pci-dss-4.0-pqc-readiness"
+class="uri">https://www.cryptomathic.com/blog/2025-compliance-guide-dora-pci-dss-4.0-pqc-readiness</a>
+- as of 2025-08-18</li>
+<li>France’s ANSSI Will Stop Certifying Non-Quantum-Safe Products in
+2027 - <a
+href="https://evertrust.io/blog/france-s-anssi-will-stop-certifying-non-quantum-safe-products-in-2027-here-s-what-that-means/"
+class="uri">https://evertrust.io/blog/france-s-anssi-will-stop-certifying-non-quantum-safe-products-in-2027-here-s-what-that-means/</a>
+- as of 2026-06-26</li>
+<li>Quantum IAS v1.0.0.A and MOC Server v3.1.1 on MultiApp V5.2 Premium
+PQC Security Target - <a
+href="https://messervices.cyber.gouv.fr/visas/ANSSI-CC-2026-03-cible.pdf"
+class="uri">https://messervices.cyber.gouv.fr/visas/ANSSI-CC-2026-03-cible.pdf</a>
+- as of 2026-08-12</li>
+<li>Security in focus - BSI Magazin - <a
+href="https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/Magazin/BSI-Magazin_2025_01.pdf?__blob=publicationFile&amp;v=4"
+class="uri">https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/Magazin/BSI-Magazin_2025_01.pdf?__blob=publicationFile&amp;v=4</a>
+- as of 2026-08-10</li>
+<li>Crypto4A Achieves World-First FIPS 140-3 Level 3 Validation for
+Quantum-Safe HSM Module - <a
+href="https://quantumcomputingreport.com/crypto4a-achieves-world-first-fips-140-3-level-3-validation-for-quantum-safe-hsm-module/"
+class="uri">https://quantumcomputingreport.com/crypto4a-achieves-world-first-fips-140-3-level-3-validation-for-quantum-safe-hsm-module/</a>
+- as of 2026-08-20</li>
+<li>三未信安取得FIPS 140-3 Level 3认证，全球化布局再落关键一子 - <a
+href="https://www.stcn.com/article/detail/4138697.html"
+class="uri">https://www.stcn.com/article/detail/4138697.html</a> - as of
+2026-08-27</li>
+<li>Cryptographic Module Validation Program - <a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program</a>
+- as of 2026-08-13</li>
+<li>FIPS 140-3 Implementation Guidance - <a
+href="https://csrc.nist.gov/csrc/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf"
+class="uri">https://csrc.nist.gov/csrc/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf</a>
+- as of 2026-08-19</li>
+<li>Cryptographic Module Validation Program IUT List - <a
+href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/IUT-List"
+class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/IUT-List</a>
+- as of 2026-08-26</li>
+<li>EUCC Guidelines on Cryptography - <a
+href="https://certification.enisa.europa.eu/publications/eucc-guidelines-cryptography_en"
+class="uri">https://certification.enisa.europa.eu/publications/eucc-guidelines-cryptography_en</a>
+- as of 2026-06-02</li>
+<li>cryptobriefing.com — france quantum safe encryption certification -
+<a
+href="https://cryptobriefing.com/france-quantum-safe-encryption-certification/"
+class="uri">https://cryptobriefing.com/france-quantum-safe-encryption-certification/</a>
+- as of 2026-06-17</li>
+<li>it.slashdot.org — france to stop certifying products without quantum
+safe encryption - <a
+href="https://it.slashdot.org/story/26/06/16/181236/france-to-stop-certifying-products-without-quantum-safe-encryption"
+class="uri">https://it.slashdot.org/story/26/06/16/181236/france-to-stop-certifying-products-without-quantum-safe-encryption</a>
+- as of 2026-06-17</li>
+<li>postquantum.com — anssi pqc certification 2027 - <a
+href="https://postquantum.com/security-pqc/anssi-pqc-certification-2027/"
+class="uri">https://postquantum.com/security-pqc/anssi-pqc-certification-2027/</a>
+- as of 2026-07-14</li>
+<li>Navigating Certification for Post-Quantum Cryptography - <a
+href="https://kudelskisecurity.com/modern-ciso-blog/quantum-proof-your-future-navigating-certification-for-post-quantum-cryptograph-uy2km"
+class="uri">https://kudelskisecurity.com/modern-ciso-blog/quantum-proof-your-future-navigating-certification-for-post-quantum-cryptograph-uy2km</a>
+- as of 2025-07-18</li>
+<li>Radar 2026 of Post-quantum Migration Solutions - <a
+href="https://www.riskinsight-wavestone.com/en/2026/03/radar-2026-of-post-quantum-migration-solutions/"
+class="uri">https://www.riskinsight-wavestone.com/en/2026/03/radar-2026-of-post-quantum-migration-solutions/</a>
+- as of 2026-03-01</li>
+<li>sealsq.com — physical ai requires quantum safe chips today sealsq
+common criteria certification will strengthen trust for tomorrow - <a
+href="https://www.sealsq.com/investors/news-releases/physical-ai-requires-quantum-safe-chips-today-sealsq-common-criteria-certification-will-strengthen-trust-for-tomorrow"
+class="uri">https://www.sealsq.com/investors/news-releases/physical-ai-requires-quantum-safe-chips-today-sealsq-common-criteria-certification-will-strengthen-trust-for-tomorrow</a></li>
+<li>wolfCrypt FIPS 140-3 with Post-Quantum Cryptography Available Now -
+<a
+href="https://www.wolfssl.com/wolfcrypt-fips-140-3-with-post-quantum-cryptography-available-now/"
+class="uri">https://www.wolfssl.com/wolfcrypt-fips-140-3-with-post-quantum-cryptography-available-now/</a>
+- as of 2026-02-10</li>
+<li>Chapter 2. Using system-wide cryptographic policies - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/security_hardening/using-system-wide-cryptographic-policies"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/security_hardening/using-system-wide-cryptographic-policies</a>
+- as of 2026-08-15</li>
+<li>Chapter 20. Security | Considerations in adopting RHEL 10 | Red Hat
+Enterprise Linux | 10 - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/considerations_in_adopting_rhel_10/security"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/considerations_in_adopting_rhel_10/security</a>
+- as of 2026-08-27</li>
+<li>KB5101650 Adds Windows 11 Hybrid ML-KEM TLS 1.3 Key Exchange - <a
+href="https://windowsforum.com/windows-news.4/kb5101650-adds-windows-11-hybrid-ml-kem-tls-1-3-key-exchange.438638/"
+class="uri">https://windowsforum.com/windows-news.4/kb5101650-adds-windows-11-hybrid-ml-kem-tls-1-3-key-exchange.438638/</a>
+- as of 2026-07-14</li>
+<li>TLS Supported Groups in Windows 11 versions 24H2, Windows Server
+2025, and later - <a
+href="https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later"
+class="uri">https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later</a>
+- as of 2026-08-05</li>
+<li>Post-Quantum Cryptography in Long-Term Support JDK Releases - <a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
+- as of 2026-08-06</li>
+<li>Prepare your network for quantum-secure encryption in TLS - <a
+href="https://support.apple.com/en-us/122756"
+class="uri">https://support.apple.com/en-us/122756</a> - as of
+2026-06-18</li>
+<li>System-wide cryptographic policies in RHEL - Red Hat Customer Portal
+- <a href="https://access.redhat.com/articles/3666211"
+class="uri">https://access.redhat.com/articles/3666211</a></li>
+<li>Chapter 4. Using system-wide cryptographic policies | Security
+hardening | Red Hat Enterprise Linux | 9 - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening</a></li>
+<li>How to View and Change System-Wide Crypto Policies on RHEL 9 - <a
+href="https://oneuptime.com/blog/post/2026-03-04-view-change-system-wide-crypto-policies-rhel-9/view"
+class="uri">https://oneuptime.com/blog/post/2026-03-04-view-change-system-wide-crypto-policies-rhel-9/view</a></li>
+<li>Chapter 3. Using system-wide cryptographic policies | Security
+hardening | Red Hat Enterprise Linux | 8 - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening</a></li>
+<li>What’s new in post-quantum cryptography in RHEL 10.1 - <a
+href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
+class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
+- as of 2026-02-04</li>
+<li>Advancing post-quantum capabilities of SSH in Red Hat Enterprise
+Linux - <a
+href="https://www.redhat.com/en/blog/advancing-post-quantum-capabilities-ssh-red-hat-enterprise-linux"
+class="uri">https://www.redhat.com/en/blog/advancing-post-quantum-capabilities-ssh-red-hat-enterprise-linux</a>
+- as of 2026-05-28</li>
+<li>Enabling Post-Quantum Encryption on subscription.rhsm.redhat.com and
+cdn.redhat.com - <a href="https://access.redhat.com/articles/7139604"
+class="uri">https://access.redhat.com/articles/7139604</a> - as of
+2026-05-28</li>
+<li>Chapter 3. Switching RHEL to FIPS mode | Security hardening | Red
+Hat Enterprise Linux | 9 - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/switching-rhel-to-fips-mode_security-hardening"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/switching-rhel-to-fips-mode_security-hardening</a></li>
+<li>Chapter 1. Switching RHEL to FIPS mode | Security hardening | Red
+Hat Enterprise Linux | 10 - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/security_hardening/switching-rhel-to-fips-mode"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/security_hardening/switching-rhel-to-fips-mode</a></li>
+<li>Chapter 2. Switching RHEL to FIPS mode | Security hardening | Red
+Hat Enterprise Linux | 8 - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/switching-rhel-to-fips-mode_security-hardening"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/switching-rhel-to-fips-mode_security-hardening</a></li>
+<li>Post-quantum cryptography comes to Windows TLS: Three ML-KEM groups
+now configurable - <a
+href="https://www.msn.com/en-us/technology/cybersecurity/post-quantum-cryptography-comes-to-windows-tls-three-ml-kem-groups-now-configurable/ar-AA27YDnL"
+class="uri">https://www.msn.com/en-us/technology/cybersecurity/post-quantum-cryptography-comes-to-windows-tls-three-ml-kem-groups-now-configurable/ar-AA27YDnL</a></li>
+<li>ASP.NET, Kestrel and Schannel GA with TLS 1.3 Post-Quantum
+Cryptography (Microsoft) - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a></li>
+<li>Microsoft Delivers Post-Quantum TLS to Windows, But Activation Is on
+You - <a
+href="https://windowsnews.ai/article/microsoft-delivers-post-quantum-tls-to-windows-but-activation-is-on-you.438638"
+class="uri">https://windowsnews.ai/article/microsoft-delivers-post-quantum-tls-to-windows-but-activation-is-on-you.438638</a></li>
+<li>4 JDK Providers Documentation - <a
+href="https://docs.oracle.com/en/java/javase/23/security/oracle-providers.html"
+class="uri">https://docs.oracle.com/en/java/javase/23/security/oracle-providers.html</a></li>
+<li>Configure Oracle’s JDK and JRE Cryptographic Algorithms - <a
+href="https://www.java.com/en/configure_crypto.html"
+class="uri">https://www.java.com/en/configure_crypto.html</a></li>
+<li>Disabling and Restricting Cryptographic Algorithms in the JDK - <a
+href="https://ops.java/security/articles/disabling-crypto-algorithms/"
+class="uri">https://ops.java/security/articles/disabling-crypto-algorithms/</a></li>
+<li>jdk.tls.disabledAlgorithms Java Security Property - <a
+href="https://system-properties.com/security/jdk.tls.disabledalgorithms/"
+class="uri">https://system-properties.com/security/jdk.tls.disabledalgorithms/</a></li>
+<li>JDK 26 Security Enhancements - <a
+href="https://seanjmullan.org/blog/2026/03/16/jdk26"
+class="uri">https://seanjmullan.org/blog/2026/03/16/jdk26</a> - as of
+2026-03-16</li>
+<li>Apple Platform Security: Configuration enforcement - <a
+href="https://support.apple.com/en-lamr/guide/security/secf6fb9f053/web"
+class="uri">https://support.apple.com/en-lamr/guide/security/secf6fb9f053/web</a></li>
+<li>Apple is about to enforce stricter TLS standards for MDM. Are you
+ready? - <a href="https://www.iru.com/blog/apple-mdm-tls-standards"
+class="uri">https://www.iru.com/blog/apple-mdm-tls-standards</a></li>
+<li>Get ahead with quantum-secure cryptography - WWDC25 - <a
+href="https://developer.apple.com/videos/play/wwdc2025/314/"
+class="uri">https://developer.apple.com/videos/play/wwdc2025/314/</a> -
+as of 2025-06-09</li>
+<li>CUI, FOCI, Quantum, and CMMC: The Federal Government Issues a Wave
+of Proposed Rules to Safeguard Government Information - <a
+href="https://governmentcontractsnavigator.com/2026/07/21/cui-foci-quantum-and-cmmc-the-federal-government-issues-a-wave-of-proposed-rules-to-safeguard-government-information/"
+class="uri">https://governmentcontractsnavigator.com/2026/07/21/cui-foci-quantum-and-cmmc-the-federal-government-issues-a-wave-of-proposed-rules-to-safeguard-government-information/</a>
+- as of 2026-06-01</li>
+<li>Executive Order 14412 - <a
+href="https://public-inspection.federalregister.gov/2026-12909.pdf"
+class="uri">https://public-inspection.federalregister.gov/2026-12909.pdf</a>
+- as of 2026-06-22</li>
+<li>Securing the Nation Against Advanced Cryptographic Attacks - <a
+href="https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/"
+class="uri">https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/</a>
+- as of 2026-06-22</li>
+<li>Post-Quantum Cryptography Now Has Deadlines · OpenSSL Corporation -
+<a
+href="https://openssl-corporation.org/blog/post-quantum-cryptography-now-has-deadlines.html"
+class="uri">https://openssl-corporation.org/blog/post-quantum-cryptography-now-has-deadlines.html</a>
+- as of 2026-07-01</li>
+<li>Post-Quantum Cryptography — ASD’s New Vendor Questions: What Buyers
+and Software Vendors Need to Know | Holistic Governance - <a
+href="https://hg-au.com/articles/asd-post-quantum-vendor-questions.html"
+class="uri">https://hg-au.com/articles/asd-post-quantum-vendor-questions.html</a>
+- as of 2026-07-16</li>
+<li>Post-quantum questions to ask your vendors | Cyber.gov.au - <a
+href="https://www.cyber.gov.au/business-government/secure-design/quantum/post-quantum-questions-to-ask-your-vendors"
+class="uri">https://www.cyber.gov.au/business-government/secure-design/quantum/post-quantum-questions-to-ask-your-vendors</a>
+- as of 2026-07-16</li>
+<li>Zero Trust Post Quantum Cryptography (PQC) Roadmap AOI 26-A006 - <a
+href="https://starbridge.ai/rfp/zero-trust-post-quantum-cryptography-pqc-roadmap"
+class="uri">https://starbridge.ai/rfp/zero-trust-post-quantum-cryptography-pqc-roadmap</a>
+- as of 2026-06-30</li>
+<li>Quantum security ‘drumbeat’ to grow louder in federal procurement -
+<a
+href="https://federalnewsnetwork.com/cybersecurity/2026/08/quantum-security-drumbeat-to-grow-louder-in-federal-procurement/"
+class="uri">https://federalnewsnetwork.com/cybersecurity/2026/08/quantum-security-drumbeat-to-grow-louder-in-federal-procurement/</a>
+- as of 2026-08-28</li>
+<li>DOD probes industry about software-defined encryption as U.S.
+scurries to get quantum-safe - <a
+href="https://defensescoop.com/2026/08/28/dod-software-defined-encryption-quantum/"
+class="uri">https://defensescoop.com/2026/08/28/dod-software-defined-encryption-quantum/</a>
+- as of 2026-08-28</li>
+<li>Treasury Announces the Quantum-Readiness Task Force - <a
+href="https://home.treasury.gov/news/press-releases/sb0615"
+class="uri">https://home.treasury.gov/news/press-releases/sb0615</a> -
+as of 2026-08-26</li>
+<li>Nearly half of enterprises have no one leading PQC migration - <a
+href="https://www.helpnetsecurity.com/2026/08/21/axiad-pqc-migration-readiness-gaps-report/"
+class="uri">https://www.helpnetsecurity.com/2026/08/21/axiad-pqc-migration-readiness-gaps-report/</a>
+- as of 2026-08-21</li>
+<li>The Complete US Post-Quantum Cryptography (PQC) Regulatory Framework
+in 2026 - <a
+href="https://postquantum.com/security-pqc/us-pqc-regulatory-framework-2026/"
+class="uri">https://postquantum.com/security-pqc/us-pqc-regulatory-framework-2026/</a>
+- as of 2025-11-10</li>
+<li>The White House’s post-quantum executive order is an important
+milestone. It’s time to get to work | Cloudflare Blog - <a
+href="https://blog.cloudflare.com/post-quantum-eo-2026/"
+class="uri">https://blog.cloudflare.com/post-quantum-eo-2026/</a></li>
+<li>CUI, FOCI, Quantum, and CMMC: The Federal Government Issues a Wave
+of Proposed Rules to Safeguard Government Information - <a
+href="https://natlawreview.com/article/cui-foci-quantum-and-cmmc-federal-government-issues-wave-proposed-rules-safeguard"
+class="uri">https://natlawreview.com/article/cui-foci-quantum-and-cmmc-federal-government-issues-wave-proposed-rules-safeguard</a></li>
+<li>Meeting U.S. Government Post-Quantum Cryptography (PQC) Requirements
+- <a
+href="https://www.igel.com/blog/post-quantum-cryptography-federal-requirements/"
+class="uri">https://www.igel.com/blog/post-quantum-cryptography-federal-requirements/</a></li>
+<li>PQC Maturity Model (PQCMM) | PKI Consortium - <a
+href="https://pkic.org/wg/pqc/pqcmm/"
+class="uri">https://pkic.org/wg/pqc/pqcmm/</a></li>
+<li>PQC Supply Chain Risk: Evaluating Vendor Quantum Readiness | Quantum
+Security Defence - <a
+href="https://quantumsecuritydefence.com/insights/supply-chain-pqc-vendor-readiness-evaluation/"
+class="uri">https://quantumsecuritydefence.com/insights/supply-chain-pqc-vendor-readiness-evaluation/</a></li>
+<li>Recommended Contract Clauses for Cryptography (ITSM.00.501) - <a
+href="https://www.cyber.gc.ca/sites/default/files/itsm.00.501-recommended-contract-clauses-cryptography.pdf"
+class="uri">https://www.cyber.gc.ca/sites/default/files/itsm.00.501-recommended-contract-clauses-cryptography.pdf</a>
+- as of 2025-09-22</li>
+<li>Request for Information: Post Quantum Cryptography Support for FAA
+Information Technology and National Air Space Systems - <a
+href="https://fedscoop.com/wp-content/uploads/sites/5/2026/03/PCQRFI697DCK-26-RFI-PQCFinal.pdf"
+class="uri">https://fedscoop.com/wp-content/uploads/sites/5/2026/03/PCQRFI697DCK-26-RFI-PQCFinal.pdf</a>
+- as of 2026-03-17</li>
+<li>Migration to Post-Quantum Cryptography - NIST SP 1800-38 Practice
+Guide - <a
+href="https://www.nccoe.nist.gov/publications/practice-guide/migration-post-quantum-cryptography-nist-sp-1800-38-practice-guide"
+class="uri">https://www.nccoe.nist.gov/publications/practice-guide/migration-post-quantum-cryptography-nist-sp-1800-38-practice-guide</a>
+- as of 2023-12-23</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="18-migration-tooling.html"><span>Previous</span>Part 18 - Developer &amp; Migration Tooling</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/19-governance-mandates.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

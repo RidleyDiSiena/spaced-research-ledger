@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 2 - Code Signing Working Group | CA/Browser Forum Tracker</title>
+  <meta name="description" content="CA/Browser Forum Tracker, Part 2: Code Signing Working Group.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">CA/Browser Forum Tracker</a><span class="sep">/</span>Part 2</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">CA/Browser Forum Tracker &middot; Part 2</p>
+    <h1>Code Signing Working Group</h1>
+    <p class="updated">Last updated: 2026-09-01</p>
+    <p class="actions"><a class="pdf" href="latest/02-code-signing-working-group.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#published-requirements-and-the-ballots-behind-them"
+id="toc-published-requirements-and-the-ballots-behind-them">1. Published
+Requirements and the Ballots Behind Them</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The Code Signing Working Group writes the rules for the certificates
+that sign software. It is a smaller and slower group than the one
+governing web server certificates, and its recent record contains a
+useful lesson about reading a standards body correctly. Section 1 covers
+the published requirements and the ballots that produced them. Section 2
+covers the work now in progress.</p>
+<p>A warning about sourcing belongs at the front of this part. The Forum
+publishes two pages for this working group, one listing ballots and one
+listing requirements, and during preparation they did not agree about
+which version is current. The ballots page presents version 3.8 from
+August 2024 as the most recent release. The requirements page correctly
+shows version 3.11.0. Anyone reading only the first page would conclude
+that nothing has shipped since 2024, and would be wrong by three
+releases.</p>
+<h2 id="published-requirements-and-the-ballots-behind-them">1. Published
+Requirements and the Ballots Behind Them</h2>
+<p><em>Every numbered version of the Code Signing Baseline Requirements
+comes from a ballot. The version history is the record of what the group
+has actually agreed, as distinct from what it has debated.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The current version is 3.11.0, adopted by Ballot CSC-32 on 16 June
+2026 [1]. It makes inclusion of a Reserved Policy OID mandatory for
+subscriber certificates, and its effective date is 15 September 2026
+[1]. That date is close, which makes this the most immediately
+operational item in this part.</p>
+<p>Version 3.10 came from Ballot CSC-31, titled Maximum Validity
+Reduction, which passed on 17 November 2025 and took effect on 7
+November 2025 [1] [2]. The group is therefore following the same
+direction of travel as the server certificate rules, shortening the
+period for which a signing certificate stays valid.</p>
+<p>Two earlier versions fill out the recent record. Version 3.9 came
+from Ballot CSC-26 and covered timestamping private key protection [1].
+Version 3.8 came from Ballot CSC-25 and imported the Extended Validation
+Code Signing Guidelines into the Baseline Requirements, consolidating
+two documents into one [1].</p>
+<h3 id="current-state">Current State</h3>
+<p>The group has rejected alignment with the server certificate rules
+twice. Ballot CSC-030, the June 2025 alignment ballot, failed [3].
+Ballot CSC-029, the March 2025 alignment ballot, failed before it [4].
+Two consecutive failures on the same kind of proposal is a signal about
+this group’s appetite for importing another group’s changes as a block,
+rather than a single unlucky vote.</p>
+<p>Work in progress points in two directions. The group reached
+consensus on 15 March 2027 as the effective date for both a linting
+requirement and weekly weak-key checks [5]. Separately, a ballot raising
+the minimum RSA key size for root and subordinate certificates is under
+way [5]. It mirrors the change the S/MIME group has already published,
+which Part 3 describes.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to four systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Code Signing Baseline Requirements, current version and history —
+CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/code-signing/requirements/"
+class="uri">https://cabforum.org/working-groups/code-signing/requirements/</a>
+(2026-09-01)</li>
+<li>Ballot CSC-31, Maximum Validity Reduction — CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/code-signing/ballots/"
+class="uri">https://cabforum.org/working-groups/code-signing/ballots/</a>
+(2025-11-17)</li>
+<li>Ballot CSC-030, 2025-06 SCWG alignment ballot — CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/code-signing/ballots/"
+class="uri">https://cabforum.org/working-groups/code-signing/ballots/</a>
+(2025-06-30)</li>
+<li>Ballot CSC-029, 2025-03 SCWG alignment ballot — CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/code-signing/ballots/"
+class="uri">https://cabforum.org/working-groups/code-signing/ballots/</a>
+(2025-03-31)</li>
+<li>Minutes of the Code Signing Certificate Working Group, 14 May 2026 —
+CA/Browser Forum. <a
+href="https://cabforum.org/2026/05/14/2026-05-14-minutes-of-the-code-signing-certificate-working-group/"
+class="uri">https://cabforum.org/2026/05/14/2026-05-14-minutes-of-the-code-signing-certificate-working-group/</a>
+(2026-05-14)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="01-server-certificate-working-group.html"><span>Previous</span>Part 1 - Server Certificate Working Group</a>
+    <a class="pager-up" href="index.html"><span>Up</span>CA/Browser Forum Tracker</a>
+    <a class="pager-next" href="03-smime-working-group.html"><span>Next</span>Part 3 - S/MIME Working Group</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/02-code-signing-working-group.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

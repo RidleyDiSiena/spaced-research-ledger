@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Post-Quantum Mathematics | Spaced Research Ledger</title>
+  <meta name="description" content="A five-part survey of the layer underneath the migration: who is standardizing which algorithms, the national tracks that diverge from NIST, the alternatives held in reserve, and what is being broken.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span>Post-Quantum Mathematics</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Research Topic</p>
+    <h1>Post-Quantum Mathematics</h1>
+    <p class="standfirst">A five-part survey of the layer underneath the migration: who is standardizing which algorithms, the national tracks that diverge from NIST, the alternatives held in reserve, and what is being broken.</p>
+    <p class="updated">Last updated: 2026-08-31</p>
+  </div>
+
+<ul class="cards">
+  <li class="card">
+    <p class="card-title"><a href="01-nist-standards-track.html">Part 1 &mdash; NIST Standards Track</a></p>
+    <p class="card-meta"><a href="latest/01-nist-standards-track.pdf">PDF</a> <span>Last updated: 2026-08-31</span></p>
+  </li>
+  <li class="card">
+    <p class="card-title"><a href="02-non-nist-national-regional-standards-tracks.html">Part 2 &mdash; Non-NIST National &amp; Regional Standards Tracks</a></p>
+    <p class="card-meta"><a href="latest/02-non-nist-national-regional-standards-tracks.pdf">PDF</a> <span>Last updated: 2026-08-31</span></p>
+  </li>
+  <li class="card">
+    <p class="card-title"><a href="03-candidate-asymmetric-algorithms.html">Part 3 &mdash; Candidate Asymmetric Algorithms</a></p>
+    <p class="card-meta"><a href="latest/03-candidate-asymmetric-algorithms.pdf">PDF</a> <span>Last updated: 2026-08-31</span></p>
+  </li>
+  <li class="card">
+    <p class="card-title"><a href="04-symmetric-hash-based-research.html">Part 4 &mdash; Symmetric &amp; Hash-Based Research</a></p>
+    <p class="card-meta"><a href="latest/04-symmetric-hash-based-research.pdf">PDF</a> <span>Last updated: 2026-08-31</span></p>
+  </li>
+  <li class="card">
+    <p class="card-title"><a href="05-cryptanalysis-of-candidate-non-ratified-schemes.html">Part 5 &mdash; Cryptanalysis of Candidate &amp; Non-Ratified Schemes</a></p>
+    <p class="card-meta"><a href="latest/05-cryptanalysis-of-candidate-non-ratified-schemes.pdf">PDF</a> <span>Last updated: 2026-08-31</span></p>
+  </li>
+</ul>
+
+  <article class="prose">
+<p>Post-Quantum Mathematics covers the layer underneath the migration. A
+companion collection, Post-Quantum Cryptography Migration, covers the
+deployment of the new algorithms across real systems. This one covers
+where those algorithms come from, who is choosing them, what the
+alternatives are, and what is being broken.</p>
+<p>The distinction is practical rather than academic. Anyone deploying
+the new cryptography needs to know that ML-KEM is the standard.</p>
+<p>Anyone deciding what to deploy for the next twenty years needs more.
+Two European governments recommend an algorithm NIST rejected. A fifth
+NIST algorithm was selected but never written up. One candidate
+signature scheme was withdrawn in July 2026, after an AI-assisted attack
+halved its security margin.</p>
+<p>Three things run through the whole collection.</p>
+<p>The first is concentration risk. The two algorithms the world is
+deploying both rest on the difficulty of problems over structured
+lattices. Every alternative in Part 3, and much of the policy in Part 2,
+exists because that is a single point of failure.</p>
+<p>The second is that standardization is plural. NIST is the most
+visible body, not the only one. South Korea picked its own winners.
+China is running its own process, with a stated intent to shape norms
+rather than follow them. ISO has standardized two schemes NIST
+declined.</p>
+<p>The third is that breaking things is the process working. Part 5
+reads like a list of failures. It is a list of candidates being tested
+before anyone depends on them, which is exactly what a standardization
+process is for.</p>
+<p>Every statement in every part carries a numbered citation to a public
+source, listed at the end of that part. When sources disagree, the
+disagreement is reported under its own heading rather than resolved by
+guesswork. Each part states when it was last updated.</p>
+<h2 id="how-to-read-this-collection">How to Read This Collection</h2>
+<p>Each part opens with a summary written for someone who reads nothing
+else. Numbered sections follow, and each begins with a short italic
+paragraph explaining in plain language what the thing is and why it
+matters. Inside each section, Recent Developments covers what changed
+lately and Current State covers what is durably true. Unresolved
+Conflicts, where present, records disagreements between sources with a
+note on what would settle each one.</p>
+<p>Technical terms are explained once, on first appearance, and then
+used normally. Security levels and attack costs are given in the
+notation the sources used, because in cryptography the exponent is the
+finding.</p>
+<p>Start with Part 1 if you want to know what is settled. Start with
+Part 5 if you want to know what is not.</p>
+<h2 id="the-parts">The Parts</h2>
+<h3 id="standards-tracks-and-candidates">Standards Tracks and
+Candidates</h3>
+<p><strong>Part 1 - NIST Standards Track.</strong> The three ratified
+standards and the errata now being applied to two of them. Also the
+signature standard still in review, the fifth algorithm selected but
+unpublished, and the nine candidates still competing. Also the IETF work
+that turns an algorithm into something a protocol can call.</p>
+<p><strong>Part 2 - Non-NIST National &amp; Regional Standards
+Tracks.</strong> South Korea’s own competition and its move into
+silicon, and China’s second process. Also Germany’s harder deadlines,
+France’s decision to tie product certification to quantum resistance,
+and Japan’s dual track. The algorithms are converging. The requirements
+around them are not.</p>
+<p><strong>Part 3 - Candidate Asymmetric Algorithms.</strong> The
+schemes NIST did not choose, two of which ISO standardized anyway.
+Covers the code-based family, with its 45-year unbroken record and its
+newly narrowed margin. Also the isogeny family that survived its own
+most famous break, and the conservative lattice alternatives two
+European governments prefer.</p>
+<h3 id="primitives-and-cryptanalysis">Primitives and Cryptanalysis</h3>
+<p><strong>Part 4 - Symmetric &amp; Hash-Based Research.</strong> Why
+the reassuring summary about symmetric cryptography is right about AES
+and wrong about many of the modes built on it. Covers Grover’s quadratic
+speedup and the exponential speedups that apply to specific
+constructions under a strong attacker model. Also which constructions
+now carry quantum-era security proofs, and the hash functions the
+ratified standards use internally.</p>
+<p><strong>Part 5 - Cryptanalysis of Candidate &amp; Non-Ratified
+Schemes.</strong> What is being attacked and how far the attacks have
+got. Includes the one withdrawal in this period, and the sustained
+pressure on the multivariate family that makes up four of the nine
+remaining candidates. Also two August 2026 results narrowing the margin
+on the oldest scheme here.</p>
+<h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+  </article>
+
+  <p class="actions actions-end"><a class="pdf" href="latest/00-reading-guide.pdf">Download the Reading Guide (PDF)</a></p>
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="../index.html"><span>Up</span>All research topics</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

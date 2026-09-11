@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 2 - Non-NIST National & Regional Standards Tracks | Post-Quantum Mathematics</title>
+  <meta name="description" content="Post-Quantum Mathematics, Part 2: Non-NIST National & Regional Standards Tracks.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Mathematics</a><span class="sep">/</span>Part 2</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Mathematics &middot; Part 2</p>
+    <h1>Non-NIST National &amp; Regional Standards Tracks</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/02-non-nist-national-regional-standards-tracks.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#south-korea" id="toc-south-korea">1. South Korea</a></li>
+<li><a href="#china" id="toc-china">2. China</a></li>
+<li><a href="#germany" id="toc-germany">3. Germany</a></li>
+<li><a href="#france-and-the-european-union"
+id="toc-france-and-the-european-union">4. France and the European
+Union</a></li>
+<li><a href="#japan" id="toc-japan">5. Japan</a></li>
+<li><a href="#etsi" id="toc-etsi">6. ETSI</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>NIST is not the only body choosing post-quantum algorithms. South
+Korea ran its own competition and picked its own winners. China is
+running a second one and has said openly that it intends to shape
+international norms rather than adopt American standards. Germany and
+France endorse algorithms NIST did not select, and require them in
+combination rather than alone.</p>
+<p>This matters for anyone building something that has to work in more
+than one country. The algorithms are converging, but the requirements
+around them are not. A product certified in France must use a hybrid
+construction. A product sold to the German government faces a 2030
+deadline for its most sensitive uses. A product intended for the Korean
+public sector will need algorithms that appear in no NIST document.</p>
+<p>One term recurs. A hybrid deployment runs a post-quantum algorithm
+alongside a classical one and combines the results, so that breaking the
+system requires breaking both. Several of the bodies below require this.
+NIST permits it but does not mandate it, and that is the single largest
+divergence in this part.</p>
+<p>Section 1 covers South Korea, Section 2 China, Section 3 Germany,
+Section 4 France and the wider EU, Section 5 Japan, and Section 6 the
+European standards institute ETSI.</p>
+<h2 id="south-korea">1. South Korea</h2>
+<p><em>South Korea ran a full national competition and selected four
+winners of its own. It is now moving them into silicon, which is further
+than any other non-NIST track in this part has gone.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>ICTK was selected in June 2026 to lead a national research project
+worth 7 billion won, running from April 2026 to December 2029 [12]. The
+work implements ML-KEM and ML-DSA alongside the Korean schemes SMAUG-T
+and HAETAE in a security chip, with Korean cryptographic module
+certification.</p>
+<p>That combination is the notable part. The chip carries both the NIST
+algorithms and the national ones, which is what practical divergence
+looks like in hardware.</p>
+<p>Official specification documents and reference code for HAETAE and
+SMAUG-T were published in January 2026 as part of finalizing the Korean
+selections [11].</p>
+<h3 id="current-state">Current State</h3>
+<p>The competition is run by South Korea’s National Intelligence Service
+with the National Security Research Institute [1]. It has run since
+2021, as part of the country’s 2023 post-quantum master plan.</p>
+<p>South Korea announced its final four winners in January 2025 [1]. For
+digital signatures it chose HAETAE and AIMer. For public-key encryption
+and key encapsulation it chose SMAUG-T and NTRU+. AIMer was developed
+jointly by Samsung SDS and the Korea Advanced Institute of Science and
+Technology, and won in the signature category [2].</p>
+<p>The algorithms are set for use in Korean government systems, with a
+transition roadmap targeting 2035, which the source describes as aligned
+with American and European timelines [1].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="china">2. China</h2>
+<p><em>China ran an early competition, set it aside, and started again
+with a new process open to the world. Its stated aim is to shape
+international norms rather than adopt NIST’s choices.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>China’s Institute of Commercial Cryptography Standards opened a
+submission window for public-key and hash algorithms running from
+October 2025 to June 2026 [13].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>That window belongs to a call launched in February 2025, open
+internationally rather than restricted to Chinese developers [4]. The
+restriction is what distinguishes it from the earlier effort.</p>
+<p>As of March 2026, China expects its own post-quantum standards within
+three years, implying roughly 2028 or 2029 [5]. No algorithm had been
+selected from the 2025 call as of this research. China is reported to be
+prioritizing the finance and energy sectors, and to be pursuing distinct
+technical approaches including unstructured lattice algorithms [5].
+Unstructured lattices are the same conservative choice Germany makes in
+Section 3, for the same reason: less algebraic structure means less for
+a future attack to exploit.</p>
+<p>One correction belongs in the record. An earlier competition did run
+from 2018 to 2019, restricted to Chinese developers, with 36 submissions
+[3]. There is no evidence that its candidates represent China’s current
+national direction, and the country’s approach has since moved to the
+separate process described above. The earlier competition is historical
+background only.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="germany">3. Germany</h2>
+<p><em>Germany’s federal security office publishes its own
+recommendations, and has done so since well before NIST finished. It
+endorses an algorithm NIST rejected, and it has set harder deadlines
+than the American ones.</em></p>
+<h3 id="current-state-2">Current State</h3>
+<p>The office published version 2026-01 of its technical guideline on
+cryptographic mechanisms, with post-quantum cryptography as a current
+focus [6].</p>
+<p>The endorsements diverge from NIST deliberately. The guideline backs
+ML-KEM and FrodoKEM for key exchange, and the stateful hash-based
+schemes XMSS and LMS for signatures [6]. Its recommendations for
+FrodoKEM and Classic McEliece date back to 2020, predating NIST’s own
+selections. Both of those schemes are covered in Part 3, and neither was
+chosen by NIST.</p>
+<p>The deadlines are firm. Sole use of classical key agreement is
+permitted only until 31 December 2031, and applications needing very
+high protection must complete migration by 31 December 2030 [6]. The
+office continues to recommend hybrid deployment throughout the
+transition.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="france-and-the-european-union">4. France and the European
+Union</h2>
+<p><em>France has attached post-quantum requirements to product
+certification, which converts guidance into a market condition. Its
+agency also reserves the right to certify algorithms NIST did not
+pick.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>France’s national cybersecurity agency announced in June 2026 that it
+will stop certifying security products lacking quantum-resistant
+encryption, starting in 2027 [17].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>Certification is not optional for the buyers who matter. It is a
+prerequisite for use across French government agencies and
+critical-infrastructure operators, and the agency separately expects
+businesses to be purchasing only quantum-safe products by 2030 [8].</p>
+<p>The technical requirements are stricter than NIST’s. The agency
+requires hybrid implementations generally, with limited exceptions for
+the hash-based signature schemes XMSS, LMS and SLH-DSA [7]. For key
+exchange it recommends ML-KEM combined with FrodoKEM, and for signatures
+it requires ML-DSA paired with a classical scheme. It has explicitly
+reserved the right to certify an algorithm set that does not match
+NIST’s, naming FrodoKEM as an acceptable alternative [8].</p>
+<p>The wider European timeline sits above all of this. France, Germany
+and the Netherlands jointly led the EU’s coordinated implementation
+roadmap, published in June 2025 [7]. It sets three milestones. National
+transition plans are due by the end of 2026, high-risk systems migrated
+by the end of 2030, and full migration by the end of 2035.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="japan">5. Japan</h2>
+<p><em>Japan added ML-KEM to its recommended ciphers list in 2026, and
+is pursuing post-quantum cryptography alongside quantum key distribution
+rather than instead of it.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>ML-KEM, in its 768 and 1024 parameter sets, was added to Japan’s
+recommended ciphers list in the March 2026 update [16].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>That listing followed an external evaluation. PQShield announced in
+April 2026 that it had delivered an ML-KEM evaluation to Japan’s
+cryptographic standardization body [9]. The evaluation supported the
+algorithm’s inclusion, and is described as removing a major barrier to
+adoption. The listing is described as the first clear official signal of
+Japanese government acceleration, ahead of a formal national roadmap
+expected by May 2027 [9].</p>
+<p>Japan is pursuing a dual-track strategy, running post-quantum
+cryptography alongside quantum key distribution, with a
+government-funded project from 2024 to 2026 advancing implementation
+across the technology supply chain [10]. No other country in this part
+is pursuing both tracks together in this way.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="etsi">6. ETSI</h2>
+<p><em>The European standards institute works on the layer NIST does not
+cover: how to implement these algorithms without introducing new
+weaknesses.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>ETSI published a technical report in May 2026 on secure
+implementation guidance for key encapsulation mechanisms and digital
+signature schemes [15].</p>
+<p>A new ETSI committee on quantum technologies held its first meeting
+in December 2025, with elected leadership [14]. Its initial work items
+cover mapping the quantum ecosystem and guidelines for quantum random
+number generators.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>South Korea announces winners of KpqC competition - <a
+href="https://pqshield.com/south-korea-announces-winners-of-kpqc-competition/"
+class="uri">https://pqshield.com/south-korea-announces-winners-of-kpqc-competition/</a>
+(as of 2025-01-31)</li>
+<li>Samsung SDS and KAIST develop AIMer - <a
+href="https://www.samsungsds.com/us/news/1287864_5933.html"
+class="uri">https://www.samsungsds.com/us/news/1287864_5933.html</a>
+(undated)</li>
+<li>CACR competition background - <a
+href="https://en.qapp.tech/help/cacr"
+class="uri">https://en.qapp.tech/help/cacr</a> (undated)</li>
+<li>China launches its own quantum-resistant encryption standard - <a
+href="https://thequantuminsider.com/2025/02/18/china-launches-its-own-quantum-resistant-encryption-standard-bypassing-us-efforts/"
+class="uri">https://thequantuminsider.com/2025/02/18/china-launches-its-own-quantum-resistant-encryption-standard-bypassing-us-efforts/</a>
+(as of 2025-02-01)</li>
+<li>China expects post-quantum cryptography standards within three years
+- <a
+href="https://thequantuminsider.com/2026/03/19/china-expects-post-quantum-cryptography-standards-within-three-years/"
+class="uri">https://thequantuminsider.com/2026/03/19/china-expects-post-quantum-cryptography-standards-within-three-years/</a>
+(as of 2026-03-19)</li>
+<li>BSI TR-02102-1, Cryptographic Mechanisms: Recommendations and Key
+Lengths - <a
+href="https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/TechGuidelines/TG02102/BSI-TR-02102-1.html"
+class="uri">https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/TechGuidelines/TG02102/BSI-TR-02102-1.html</a>
+(as of 2026-01-01)</li>
+<li>PQC migration deadlines by country - <a
+href="https://www.encryptionconsulting.com/pqc-migration-deadlines-by-country/"
+class="uri">https://www.encryptionconsulting.com/pqc-migration-deadlines-by-country/</a>
+(as of 2025-06-01)</li>
+<li>ANSSI PQC certification 2027 - <a
+href="https://postquantum.com/security-pqc/anssi-pqc-certification-2027/"
+class="uri">https://postquantum.com/security-pqc/anssi-pqc-certification-2027/</a>
+(undated)</li>
+<li>PQShield advances Japan’s quantum-safe security transition through
+CRYPTREC ML-KEM evaluation - <a
+href="https://www.prnewswire.co.uk/news-releases/pqshield-advances-japans-quantum-safe-security-transition-through-cryptrec-ml-kem-evaluation-302733085.html"
+class="uri">https://www.prnewswire.co.uk/news-releases/pqshield-advances-japans-quantum-safe-security-transition-through-cryptrec-ml-kem-evaluation-302733085.html</a>
+(as of 2026-04-01)</li>
+<li>PQShield joins NEDO program to implement post-quantum cryptography
+across Japan - <a
+href="https://quantumcomputingreport.com/pqshield-joins-nedo-program-to-implement-post-quantum-cryptography-across-japan/"
+class="uri">https://quantumcomputingreport.com/pqshield-joins-nedo-program-to-implement-post-quantum-cryptography-across-japan/</a>
+(undated)</li>
+<li>SMAUG-T and HAETAE specifications - <a
+href="https://kpqc.cryptolab.co.kr/"
+class="uri">https://kpqc.cryptolab.co.kr/</a> (as of 2026-01-01)</li>
+<li>ICTK Selected to Lead 7 Billion-Won Security SoC Project - <a
+href="https://www.thelec.net/news/articleView.html?idxno=11181"
+class="uri">https://www.thelec.net/news/articleView.html?idxno=11181</a>
+(as of 2026-06-09)</li>
+<li>Introduction to the Next-Generation Commercial Cryptographic
+Algorithms Program - <a
+href="https://datatracker.ietf.org/meeting/125/materials/slides-125-saag-introduction-to-the-next-generation-commercial-cryptographic-algorithms-program-01.pdf"
+class="uri">https://datatracker.ietf.org/meeting/125/materials/slides-125-saag-introduction-to-the-next-generation-commercial-cryptographic-algorithms-program-01.pdf</a>
+(as of 2025-10-09)</li>
+<li>ETSI Quantum Technologies Committee first meeting - <a
+href="https://www.etsi.org/newsroom/press-releases/2618-quantum-technologies-committee-kickoff/"
+class="uri">https://www.etsi.org/newsroom/press-releases/2618-quantum-technologies-committee-kickoff/</a>
+(as of 2025-12-09)</li>
+<li>ETSI Work Item RTR/CYBER-QSC-0032 - <a
+href="https://portal.etsi.org/webapp/workprogram/Report_WorkItem.asp?WKI_ID=78750"
+class="uri">https://portal.etsi.org/webapp/workprogram/Report_WorkItem.asp?WKI_ID=78750</a>
+(as of 2026-05-18)</li>
+<li>CRYPTREC cipher specifications - <a
+href="https://www.cryptrec.go.jp/method.html"
+class="uri">https://www.cryptrec.go.jp/method.html</a> (as of
+2026-03-30)</li>
+<li>France to stop certifying products without quantum-safe encryption -
+<a
+href="https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/"
+class="uri">https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/</a>
+(as of 2026-06-16)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="01-nist-standards-track.html"><span>Previous</span>Part 1 - NIST Standards Track</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Mathematics</a>
+    <a class="pager-next" href="03-candidate-asymmetric-algorithms.html"><span>Next</span>Part 3 - Candidate Asymmetric Algorithms</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/02-non-nist-national-regional-standards-tracks.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

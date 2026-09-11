@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 4 - Symmetric & Hash-Based Research | Post-Quantum Mathematics</title>
+  <meta name="description" content="Post-Quantum Mathematics, Part 4: Symmetric & Hash-Based Research.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Mathematics</a><span class="sep">/</span>Part 4</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Mathematics &middot; Part 4</p>
+    <h1>Symmetric &amp; Hash-Based Research</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/04-symmetric-hash-based-research.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#grover-and-the-aes-256-question"
+id="toc-grover-and-the-aes-256-question">1. Grover and the AES-256
+Question</a></li>
+<li><a href="#simons-algorithm-and-the-q2-model"
+id="toc-simons-algorithm-and-the-q2-model">2. Simon’s Algorithm and the
+Q2 Model</a></li>
+<li><a href="#quantum-security-proofs-for-block-ciphers-and-macs"
+id="toc-quantum-security-proofs-for-block-ciphers-and-macs">3. Quantum
+Security Proofs for Block Ciphers and MACs</a></li>
+<li><a href="#hash-based-signatures-beyond-slh-dsa"
+id="toc-hash-based-signatures-beyond-slh-dsa">4. Hash-Based Signatures
+Beyond SLH-DSA</a></li>
+<li><a href="#hash-function-margins" id="toc-hash-function-margins">5.
+Hash Function Margins</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The usual summary of quantum computing’s effect on cryptography is
+that public-key algorithms break and symmetric ones merely need longer
+keys. That summary is right about AES and wrong about almost everything
+built on top of it.</p>
+<p>Grover’s algorithm is the reason for the optimistic half. It searches
+an unstructured space quadratically faster than any classical method,
+which halves the effective strength of a symmetric key. Doubling the key
+restores the margin, and that is the whole of the standard advice.</p>
+<p>The complication is Simon’s algorithm, which gives an exponential
+rather than quadratic speedup against constructions with a particular
+hidden structure. Many standard modes of operation and message
+authentication codes turn out to have it. Whether that matters depends
+on a threat model this part has to name up front. The Q2 model assumes
+an attacker can query the cipher in quantum superposition, which
+requires access no realistic attacker has today. The results in Section
+2 are real mathematics about a setting that may never arrive.</p>
+<p>Section 1 covers Grover and the AES question. Section 2 covers the
+Simon’s-algorithm results. Section 3 covers which constructions now have
+quantum-era security proofs. Section 4 covers hash-based signatures
+beyond the ratified standard. Section 5 covers the hash functions the
+ratified standards depend on internally.</p>
+<h2 id="grover-and-the-aes-256-question">1. Grover and the AES-256
+Question</h2>
+<p><em>This section is short because the answer is settled. The
+interesting part is that the settled answer comes with a specific number
+attached.</em></p>
+<h3 id="current-state">Current State</h3>
+<p>Grover’s algorithm provides a quadratic speedup against symmetric-key
+search, halving effective key strength [1]. For AES-256, the classical
+search space of 2²⁵⁶ becomes roughly 2¹²⁸ against a quantum
+attacker.</p>
+<p>A cost of 2¹²⁸ operations remains considered completely infeasible
+[2]. The NSA’s current guidance requires 256-bit AES keys for all
+classification levels, and treats AES-256 as unchanged from its previous
+guidance [2]. It characterizes the resulting 128 bits of security
+against Grover as sufficient for the foreseeable quantum future.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="simons-algorithm-and-the-q2-model">2. Simon’s Algorithm and the
+Q2 Model</h2>
+<p><em>This is where the reassuring summary stops holding. Against
+certain constructions the speedup is exponential rather than quadratic,
+and the constructions affected are ones in wide use.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>An April 2026 paper demonstrates the first practical implementation
+of Simon’s algorithm for key recovery [13]. It ran on small Even-Mansour
+ciphers of three and four bits, on real quantum hardware.</p>
+<p>The scale is tiny and the significance is not. Until now these
+attacks existed only on paper. Running one on hardware, even at toy
+size, moves the work from theory to demonstration.</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Simon’s algorithm, applied in the quantum-query model where an
+attacker can query the cipher in superposition, recovers keys from
+certain symmetric constructions in a linear number of queries [3]. That
+is a genuine exponential speedup on those specific constructions, and a
+different thing entirely from Grover’s uniform quadratic one.</p>
+<p>A body of work has shown that many symmetric schemes and block-cipher
+constructions provide substantially less security than expected in this
+model [4]. They remain fully secure classically.</p>
+<p>A 2026 result extends the technique further. It combines an offline
+variant of Simon’s algorithm with a dedicated attack [5]. This breaks
+block-cipher constructions built from two parallel permutation-based
+functions, plus one message authentication construction.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="quantum-security-proofs-for-block-ciphers-and-macs">3. Quantum
+Security Proofs for Block Ciphers and MACs</h2>
+<p><em>A classical security proof does not automatically survive a
+quantum attacker. This section covers which constructions have been
+re-proved and which have been shown to fail.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>A 2026 paper provides the first post-quantum security proofs for a
+key-length extension scheme, two tweakable block cipher constructions,
+and most block cipher encryption and authentication modes [14].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>The failures came first. Block-cipher-based message authentication
+codes including CBC-MAC, GMAC, PMAC and GCM are provably secure
+classically up to 2^(n/2) queries [6]. All have been shown vulnerable to
+quantum forgery attacks using superposition queries. Their classical
+security proofs do not carry over.</p>
+<p>There are positive results too. A 2026 paper provides post-quantum
+justification for practical block-cipher-based correlation-resistant
+hashing, by reducing its security to the multi-key security of a
+tweakable block cipher [7].</p>
+<p>A 2026 survey catalogues which symmetric and block-cipher
+constructions have quantum-era security reductions and which remain only
+classically justified [6]. It is a map of the field rather than a new
+result, and the existence of such a map is itself a useful signal about
+how uneven the coverage is.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="hash-based-signatures-beyond-slh-dsa">4. Hash-Based Signatures
+Beyond SLH-DSA</h2>
+<p><em>Hash-based signatures rest on nothing but the security of a hash
+function, which makes them the most conservative signatures available.
+NIST ratified one stateless scheme and approves two stateful ones, and
+research continues on all three.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>A February 2026 paper presents a unified configurable hardware
+architecture supporting key generation and signing for both the stateful
+schemes and the stateless one [16]. It achieves up to 4.12 times and
+10.92 times lower area-time product for stateful signing compared with
+prior single-scheme designs.</p>
+<p>A May 2025 paper introduces new encodings applicable to these
+schemes, achieving a 20% to 40% improvement in verification cost at the
+same security level and signature size [15]. It works by mapping
+non-uniformly into larger hypercubes with controlled collisions.</p>
+<h3 id="current-state-3">Current State</h3>
+<p>NIST specifies two stateful hash-based signature algorithms in SP
+800-208: LMS and XMSS, along with their multi-tree variants [8]. Both
+remain the approved options for software and firmware signing under
+current guidance as of January 2026, with validation available.</p>
+<p>Stateful means the signer must remember which keys have been used,
+and reusing one destroys security. That burden is why these schemes are
+confined to signing tasks where a single controlled signer can be
+guaranteed.</p>
+<p>Both schemes offer multiple parameter sets, trading off signature
+size, public-key size, the total number of signatures a keypair can
+produce in its lifetime, and verification cost [9]. LMS is generally
+reported as faster for both signing and verification. A February 2025
+benchmark study published reference performance data across the
+parameter options to support that choice [10].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="hash-function-margins">5. Hash Function Margins</h2>
+<p><em>The ratified standards from Part 1 use SHA-3 internally. That
+makes SHA-3’s own quantum margin load-bearing for algorithms most people
+think of as lattice-based.</em></p>
+<h3 id="current-state-4">Current State</h3>
+<p>The extendable-output functions SHAKE128 and SHAKE256 are used inside
+both FIPS 203 and FIPS 204 [12]. Their quantum security margin is
+therefore directly load-bearing for two ratified standards, not merely a
+general-purpose hash concern.</p>
+<p>One recent result needs careful reading. A December 2025 paper
+applies Grover’s algorithm to a reduced-round variant of Keccak-256,
+using three rounds rather than the full twenty-four [11]. It reduces
+preimage-search complexity from a classical 2⁵⁷·⁸ to a theoretical
+quantum 2²⁸·⁹.</p>
+<p>The paper’s own resource estimate is the reason it is reassuring
+rather than alarming. It requires 3.2 million physical qubits and
+7.47×10¹³ two-qubit gates, with runtime from 43 days to over 2,300 years
+depending on hardware assumptions [11]. The authors conclude that full
+SHA-3 remains secure against foreseeable quantum attack, and the result
+does not apply to the full-round function actually deployed.</p>
+<p>Post-quantum algorithms using SHA-256 or SHAKE internally set their
+parameters with an internal margin [12]. The margin exists specifically
+so Grover’s speedup does not erode security below target levels.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Grover’s algorithm - <a
+href="https://postquantum.com/post-quantum/grovers-algorithm/"
+class="uri">https://postquantum.com/post-quantum/grovers-algorithm/</a>
+(undated)</li>
+<li>CSfC Post-Quantum Cryptography Guidance Addendum - <a
+href="https://www.nsa.gov/Portals/75/documents/resources/everyone/csfc/capability-packages/CSfC%20Post%20Quantum%20Cryptography%20Guidance%20Addendum%201_0%20Draft%20_5.pdf"
+class="uri">https://www.nsa.gov/Portals/75/documents/resources/everyone/csfc/capability-packages/CSfC%20Post%20Quantum%20Cryptography%20Guidance%20Addendum%201_0%20Draft%20_5.pdf</a>
+(as of 2025-04-04)</li>
+<li>Breaking symmetric cryptosystems using quantum period finding - <a
+href="https://who.rocq.inria.fr/Gaetan.Leurent/files/Simon_CR16.pdf"
+class="uri">https://who.rocq.inria.fr/Gaetan.Leurent/files/Simon_CR16.pdf</a>
+(undated)</li>
+<li>Breaking symmetric cryptosystems using quantum period finding,
+slides - <a
+href="https://who.paris.inria.fr/Gaetan.Leurent/files/Simon_CR16_slides.pdf"
+class="uri">https://who.paris.inria.fr/Gaetan.Leurent/files/Simon_CR16_slides.pdf</a>
+(undated)</li>
+<li>Offline dedicated quantum attacks on parallel permutation
+constructions - <a href="https://arxiv.org/pdf/2510.14475"
+class="uri">https://arxiv.org/pdf/2510.14475</a> (undated)</li>
+<li>A Survey on Security Reductions in Post-Quantum Cryptography - <a
+href="https://eprint.iacr.org/2026/846.pdf"
+class="uri">https://eprint.iacr.org/2026/846.pdf</a> (undated)</li>
+<li>Post-quantum security of block-cipher-based correlation-resistant
+hashing - <a href="https://eprint.iacr.org/2026/1064.pdf"
+class="uri">https://eprint.iacr.org/2026/1064.pdf</a> (undated)</li>
+<li>SP 800-208, Recommendation for Stateful Hash-Based Signature Schemes
+- <a href="https://csrc.nist.gov/pubs/sp/800/208/final"
+class="uri">https://csrc.nist.gov/pubs/sp/800/208/final</a> (as of
+2026-01-01)</li>
+<li>NIST SP 800-208: Recommendation for Stateful Hash-Based Signature
+Schemes - <a href="https://csrc.nist.gov/pubs/sp/800/208/final"
+class="uri">https://csrc.nist.gov/pubs/sp/800/208/final</a>
+(undated)</li>
+<li>Benchmarking LMS and XMSS parameter options - <a
+href="https://arxiv.org/pdf/2502.06033"
+class="uri">https://arxiv.org/pdf/2502.06033</a> (as of 2025-02-01)</li>
+<li>Quantum Resource Analysis of Low-Round Keccak/SHA-3 Preimage Attack
+- <a
+href="https://quantumzeitgeist.com/quantum-security-attack-reduces-keccak-sha-preimage-complexity-threatening/"
+class="uri">https://quantumzeitgeist.com/quantum-security-attack-reduces-keccak-sha-preimage-complexity-threatening/</a>
+(as of 2025-12-19)</li>
+<li>Grover’s algorithm and post-quantum parameter margins - <a
+href="https://synxcrypto.com/terms/grovers-algorithm.php"
+class="uri">https://synxcrypto.com/terms/grovers-algorithm.php</a>
+(undated)</li>
+<li>Simon’s Algorithm for the Even-Mansour Cipher on Quantum Hardware -
+<a href="https://arxiv.org/abs/2604.25509"
+class="uri">https://arxiv.org/abs/2604.25509</a> (as of 2026-04-28)</li>
+<li>Post-Quantum Security of Block Cipher Constructions - <a
+href="https://arxiv.org/abs/2510.08725"
+class="uri">https://arxiv.org/abs/2510.08725</a> (as of 2026-04-14)</li>
+<li>At the Top of the Hypercube: Better Size-Time Tradeoffs for
+Hash-Based Signatures - <a href="https://eprint.iacr.org/2025/889"
+class="uri">https://eprint.iacr.org/2025/889</a> (as of 2025-05-19)</li>
+<li>A Unified Hardware Architecture for Stateful and Stateless
+Hash-Based Key and Signature Generation - <a
+href="https://eprint.iacr.org/2026/194"
+class="uri">https://eprint.iacr.org/2026/194</a> (as of 2026-02-06)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="03-candidate-asymmetric-algorithms.html"><span>Previous</span>Part 3 - Candidate Asymmetric Algorithms</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Mathematics</a>
+    <a class="pager-next" href="05-cryptanalysis-of-candidate-non-ratified-schemes.html"><span>Next</span>Part 5 - Cryptanalysis of Candidate &amp; Non-Ratified Schemes</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/04-symmetric-hash-based-research.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

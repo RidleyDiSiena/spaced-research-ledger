@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 1 - Server Certificate Working Group | CA/Browser Forum Tracker</title>
+  <meta name="description" content="CA/Browser Forum Tracker, Part 1: Server Certificate Working Group.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">CA/Browser Forum Tracker</a><span class="sep">/</span>Part 1</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">CA/Browser Forum Tracker &middot; Part 1</p>
+    <h1>Server Certificate Working Group</h1>
+    <p class="updated">Last updated: 2026-09-01</p>
+    <p class="actions"><a class="pdf" href="latest/01-server-certificate-working-group.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#ballots-and-document-versions"
+id="toc-ballots-and-document-versions">1. Ballots and Document
+Versions</a></li>
+<li><a href="#domain-control-validation"
+id="toc-domain-control-validation">2. Domain Control Validation</a></li>
+<li><a href="#certificate-profiles-and-cryptography"
+id="toc-certificate-profiles-and-cryptography">3. Certificate Profiles
+and Cryptography</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The Server Certificate Working Group writes the rules for the
+certificates that secure the public web. It is the busiest of the
+Forum’s groups, and it published seven versions of its Baseline
+Requirements between November 2025 and August 2026.</p>
+<p>This part covers three strands of its work. Section 1 tracks the
+ballots and the document versions they produce. Section 2 covers domain
+control validation, where the rules are tightening fastest. Section 3
+covers certificate profiles and cryptography, including the validity
+schedule and the question of post-quantum keys.</p>
+<p>One distinction governs everything below and is easy to lose. A
+ballot that passes its vote is not yet a requirement. It enters a 30-day
+intellectual property review, and only after that does the text publish
+into a numbered version. A further date, the effective date, decides
+when certificate authorities must actually comply. This report separates
+those states throughout, because conflating them produces confident
+statements about rules that do not yet bind anyone.</p>
+<h2 id="ballots-and-document-versions">1. Ballots and Document
+Versions</h2>
+<p><em>The Baseline Requirements move by ballot. Each ballot that
+changes the text produces a numbered version, and the Forum publishes
+its own revision table, which is the authoritative record of what is in
+force.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The current published version is 2.2.9, adopted by Ballot SC101v2 on
+2 July 2026 and effective from 6 August 2026 [1]. It clarifies
+Authorization Domain Names [2]. The preceding versions arrived at a
+rapid pace. Version 2.2.8 came from Ballot SC098 and required processing
+of RFC 8657 CAA parameters [1]. Version 2.2.7 came from SC099 and
+improved how a certificate authority records which validation method it
+used [1].</p>
+<p>Earlier in 2026 the group cleared a backlog. Version 2.2.6 was a
+general clean-up adopted by SC095 in February and effective 31 March
+2026 [1]. Version 2.2.5, from Ballot SC097, sunsets all remaining use of
+SHA-1 signatures in certificates and revocation lists, with phased
+effective dates beginning 15 September 2026 [3]. Version 2.2.4, from
+SC096, created a carve-out for DNSSEC verification logging and took
+effect 17 February 2026 [1].</p>
+<p>Redlined and clean copies of each version are maintained in the
+Forum’s own repository alongside the published documents [4].</p>
+<h3 id="current-state">Current State</h3>
+<p>Four ballots sit in the pipeline at different stages. Ballot SC100,
+covering DNSSEC clarification and consolidation, passed its vote and is
+in intellectual property review from 6 August to 5 September 2026 [5].
+Ballot SC102, on EV domain reuse and validity alignment, also passed,
+with its review running from 14 July to 13 August 2026 [6].</p>
+<p>Ballot SC104, which would set the presence of the Authority
+Information Access extension to SHOULD for subscriber certificates, is
+in its voting period [7]. Ballot SC103, which would require Extended Key
+Usage extensions on cross-certified subordinate certificate authorities,
+remains in discussion with questions still open on the mailing list [7].
+A further draft, SC105, would remove High Risk language from the
+Baseline Requirements and the EV Guidelines, and has not yet been
+balloted [7].</p>
+<p>The voting margins on the two adopted ballots were decisive rather
+than close. SC100 drew 22 yes votes from certificate issuers with no
+votes against and none abstaining, alongside three yes votes from
+certificate consumers [5]. SC102 drew 19 yes votes from issuers and two
+from consumers, again with no opposition [6].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="domain-control-validation">2. Domain Control Validation</h2>
+<p><em>Domain control validation is how a certificate authority
+satisfies itself that the applicant controls the name being certified.
+Three separate mechanisms are converging on one goal, which is to make
+control of a single network path insufficient to obtain a
+certificate.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Multi-Perspective Issuance Corroboration became mandatory for all
+publicly trusted TLS certificates on 15 September 2025 under Ballot
+SC-067 [8]. It requires that domain validation and CAA checks be
+corroborated from geographically and topologically distinct network
+perspectives [8]. The purpose is to defeat attacks that manipulate one
+network path, including DNS response manipulation and route hijacking,
+by demanding the same answer from several vantage points [8].</p>
+<p>The requirement arrives in stages rather than at full strength. Two
+corroborating perspectives were required from September 2025, three from
+March 2026, and four from June 2026, with five due by December 2026 [9].
+That December step is the next one to land.</p>
+<p>Ballot SC100 consolidates DNSSEC rules that were scattered through
+the document into a new Section 4.2.2.2 [5]. It also settles how DNSSEC
+and multi-perspective validation interact, clarifying that DNSSEC
+validation may be performed on remote network perspectives but is
+required only on the primary one [5]. Because SC100 remains in review,
+that consolidated section is not yet published text [5].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The set of permitted validation methods is contracting. Ballot SC090,
+published as version 2.2.2 in November 2025, gradually sunsets the
+email-based and phone-based methods [1]. Version 2.2.3, from Ballot
+SC094, created a DNSSEC exception in the email methods that remain
+[1].</p>
+<p>Reuse periods are contracting alongside validity. Ballot SC102
+removes the WHOIS and RDAP same-registrant check from EV domain
+revalidation, and replaces hardcoded 398-day reuse values in the EV
+Guidelines with references to the Baseline Requirements [10]. The effect
+is that EV reuse now follows the general schedule automatically rather
+than needing its own amendment each time that schedule moves.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="certificate-profiles-and-cryptography">3. Certificate Profiles
+and Cryptography</h2>
+<p><em>This section holds the change with the widest operational reach,
+which is the staged reduction of certificate lifetimes. It also holds
+the question the industry is waiting on, which is when post-quantum keys
+become permissible.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>Ballot SC081v3 was published on 11 April 2025 and established a
+staged reduction of both certificate validity and data reuse periods
+rather than a single cutover [11]. Its first step is in force.
+Certificates issued on or after 15 March 2026 may not exceed 200 days,
+and domain validation reuse dropped to 200 days on the same date
+[11].</p>
+<p>Two further steps are scheduled and not yet binding. Maximum validity
+falls to 100 days on 15 March 2027 and to 47 days on 15 March 2029.
+Domain validation reuse falls to 100 days and then 10 days on those same
+two dates [12].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Post-quantum signatures are not yet permitted in publicly trusted TLS
+certificates. Draft text to allow ML-DSA public keys and signatures
+exists as a pull request against the Forum’s repository, covering the
+ML-DSA-44, ML-DSA-65 and ML-DSA-87 parameter sets [13]. It is draft text
+and has not entered any stage of the ballot lifecycle [13].</p>
+<p>As of May 2026 no merged Baseline Requirement permitted ML-DSA. No
+public root certificate authority had issued an ML-DSA root chaining
+into the Mozilla, Apple, Microsoft or Chrome trust stores [14]. The
+working group has recorded that post-quantum certificate authentication
+has two blocking dependencies, and only one of them belongs to the
+Forum. The Baseline Requirements must be amended to permit ML-DSA, and
+the IETF must finalize the object identifier and encoding standards for
+post-quantum algorithms in X.509 [14].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>The Forum’s own working groups are not moving together on
+post-quantum algorithms, and this section records only one side of that
+divergence. The Server Certificate group has draft text and no ballot.
+The S/MIME group published post-quantum algorithms into its requirements
+in August 2025, as Part 3 records.</p>
+<p>The two groups govern different certificate profiles and need not
+move in step. This is a real difference in pace rather than a
+contradiction in the record. What would settle the question here is a
+numbered SC ballot entering discussion, which has not happened.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to four systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Latest Baseline Requirements, revision table — CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/server/baseline-requirements/requirements/"
+class="uri">https://cabforum.org/working-groups/server/baseline-requirements/requirements/</a>
+(2026-08-06)</li>
+<li>Ballot SC101v2, Clarify Authorization Domain Names — CA/Browser
+Forum. <a
+href="https://cabforum.org/working-groups/server/baseline-requirements/requirements/"
+class="uri">https://cabforum.org/working-groups/server/baseline-requirements/requirements/</a>
+(2026-08-06)</li>
+<li>Ballot SC097, Sunset all remaining use of SHA-1 signatures —
+CA/Browser Forum. <a
+href="https://cabforum.org/2026/01/24/ballot-sc097-sunset-all-remaining-use-of-sha-1-signatures-in-certificates-and-crls/"
+class="uri">https://cabforum.org/2026/01/24/ballot-sc097-sunset-all-remaining-use-of-sha-1-signatures-in-certificates-and-crls/</a>
+(2026-02-24)</li>
+<li>cabforum/servercert repository, BR.md — CA/Browser Forum. <a
+href="https://raw.githubusercontent.com/cabforum/servercert/main/docs/BR.md"
+class="uri">https://raw.githubusercontent.com/cabforum/servercert/main/docs/BR.md</a>
+(2026-08-06)</li>
+<li>Ballot SC100, DNSSEC Clarification and Consolidation — CA/Browser
+Forum. <a
+href="https://cabforum.org/2026/08/06/ballot-sc100-dnssec-clarification-and-consolidation/"
+class="uri">https://cabforum.org/2026/08/06/ballot-sc100-dnssec-clarification-and-consolidation/</a>
+(2026-08-06)</li>
+<li>Ballot SC102, EV Domain Reuse and Validity Alignment — CA/Browser
+Forum. <a
+href="https://cabforum.org/2026/07/14/ballot-sc102-ev-domain-reuse-and-validity-alignment/"
+class="uri">https://cabforum.org/2026/07/14/ballot-sc102-ev-domain-reuse-and-validity-alignment/</a>
+(2026-07-14)</li>
+<li>Server Certificate Working Group Ballots index — CA/Browser Forum.
+<a href="https://cabforum.org/working-groups/server/ballots/"
+class="uri">https://cabforum.org/working-groups/server/ballots/</a>
+(2026-09-01)</li>
+<li>Pull request 487, SC-067 Require Multi-Perspective Issuance
+Corroboration — cabforum/servercert. <a
+href="https://github.com/cabforum/servercert/pull/487"
+class="uri">https://github.com/cabforum/servercert/pull/487</a>
+(2025-09-15)</li>
+<li>MPIC FAQ — Sectigo. <a href="https://www.sectigo.com/mpic-faq"
+class="uri">https://www.sectigo.com/mpic-faq</a> (2026-09-01)</li>
+<li>Ballot SC102 announcement — CA/Browser Forum. <a
+href="https://cabforum.org/2026/07/14/ballot-sc102-ev-domain-reuse-and-validity-alignment/"
+class="uri">https://cabforum.org/2026/07/14/ballot-sc102-ev-domain-reuse-and-validity-alignment/</a>
+(2026-07-14)</li>
+<li>Ballot SC081v3, Introduce Schedule of Reducing Validity and Data
+Reuse Periods — CA/Browser Forum. <a
+href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/"
+class="uri">https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/</a>
+(2025-04-11)</li>
+<li>Ballot SC081v3 schedule — CA/Browser Forum. <a
+href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/"
+class="uri">https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/</a>
+(2026-09-01)</li>
+<li>Pull request 662, permit ML-DSA public keys and signatures —
+cabforum/servercert. <a
+href="https://github.com/cabforum/servercert/pull/662"
+class="uri">https://github.com/cabforum/servercert/pull/662</a>
+(2026-09-01)</li>
+<li>Minutes of the Server Certificate Working Group, 21 May 2026 —
+CA/Browser Forum. <a
+href="https://cabforum.org/2026/05/21/2026-05-21-minutes-of-the-server-certificate-working-group/"
+class="uri">https://cabforum.org/2026/05/21/2026-05-21-minutes-of-the-server-certificate-working-group/</a>
+(2026-05-21)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>CA/Browser Forum Tracker</a>
+    <a class="pager-next" href="02-code-signing-working-group.html"><span>Next</span>Part 2 - Code Signing Working Group</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/01-server-certificate-working-group.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

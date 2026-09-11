@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 4 - Crypto Libraries & Providers | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 4: Crypto Libraries & Providers.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 4</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 4</p>
+    <h1>Crypto Libraries &amp; Providers</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/04-crypto-libraries.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#openssl-and-forks" id="toc-openssl-and-forks">1. OpenSSL
+and Forks</a></li>
+<li><a href="#pq-reference-implementations"
+id="toc-pq-reference-implementations">2. PQ Reference
+Implementations</a></li>
+<li><a href="#language-native-crypto-stacks"
+id="toc-language-native-crypto-stacks">3. Language-Native Crypto
+Stacks</a></li>
+<li><a href="#embedded-alternative-libraries"
+id="toc-embedded-alternative-libraries">4. Embedded &amp; Alternative
+Libraries</a></li>
+<li><a href="#pkcs11-and-provider-plumbing"
+id="toc-pkcs11-and-provider-plumbing">5. PKCS#11 and Provider
+Plumbing</a></li>
+<li><a href="#pq-implementation-vulns-cryptanalysis"
+id="toc-pq-implementation-vulns-cryptanalysis">6. PQ Implementation
+Vulns &amp; Cryptanalysis</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Almost no application implements cryptography itself. It calls a
+library. A few dozen libraries therefore decide when the world’s
+software actually becomes quantum-resistant, whatever the standards
+say.</p>
+<p>This report covers that layer in six sections. Section 1 covers
+OpenSSL and its forks, Section 2 the reference implementations
+everything borrows from, and Section 3 the language runtimes with their
+own stacks. Section 4 covers the embedded and alternative libraries,
+Section 5 the plumbing that connects libraries to hardware, and Section
+6 the first attacks on the new implementations.</p>
+<p>The center of gravity has shifted from add-ons to defaults. OpenSSL
+3.5 ships the three NIST algorithms natively and prefers hybrid
+post-quantum key exchange out of the box. Go, Java, and .NET now carry
+the algorithms in their standard libraries. The pioneering scaffolding
+is being retired on schedule, with the PQClean reference collection
+archived and wolfSSL dropping its last add-on dependency.</p>
+<p>The other shift is that attackers have arrived. Nobody has broken the
+standardized algorithms themselves. But 2026 brought the first practical
+attacks on implementations, including a demonstration recovering ML-DSA
+keys from buggy software in under a second. The new battleground is code
+quality, not mathematics.</p>
+<h2 id="openssl-and-forks">1. OpenSSL and Forks</h2>
+<p><em>OpenSSL is the default cryptography library of the internet’s
+server side, and its forks guard specific empires: BoringSSL inside
+Google and Chrome, AWS-LC and s2n-tls inside Amazon, LibreSSL inside
+OpenBSD. When these projects change a default, millions of servers
+change behavior on their next update. This section covers how each has
+taken up the new algorithms.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The forks are moving from key exchange into signatures and
+certification. AWS-LC holds multiple active FIPS 140-3 certificates with
+ML-KEM inside validated modules [1]. BoringSSL now supports ML-DSA
+signatures at all three parameter sets [2]. Amazon’s s2n-tls supports
+ML-DSA certificates for TLS 1.3 authentication and includes them in its
+post-quantum and CNSA policies [3], via a specific dated policy version
+[3].</p>
+<h3 id="current-state">Current State</h3>
+<p>OpenSSL itself crossed the line in April 2025. Version 3.5, a
+long-term-stable release, added native ML-KEM, ML-DSA, and SLH-DSA, and
+changed the default TLS group list to prefer hybrid post-quantum key
+exchange [4]. Support runs through April 2030 [5]. Distributions inherit
+it directly, with RHEL shipping the algorithms in its default provider
+[6].</p>
+<p>OpenSSL 3.6 added verification for the LMS hash-based scheme [7]. For
+what 3.5 does not natively offer in TLS, such as SLH-DSA, the
+third-party oqs-provider remains the bridge [8].</p>
+<p>Amazon’s stack is built for FIPS. AWS-LC implements ML-KEM and ML-DSA
+at every parameter set [9], imported the verified mlkem-native
+implementation into its FIPS module [10], and added ML-DSA as a TLS 1.3
+signature scheme [10]. Its FIPS 3.0 module was the first open-source
+cryptographic module to enter NIST’s validation pipeline with ML-KEM in
+scope [11]. One gap: the higher-level Rust binding had not fully
+stabilized ML-DSA as of February 2026, leaving downstream users on a
+separate crate [12].</p>
+<p>Above the library, s2n-tls implements the hybrid handshakes used
+across AWS service endpoints [13], with clients able to prefer hybrid
+while keeping classical fallback [13]. The hybrid suites are supported
+only on Linux [13]. A NIST presentation confirms the division of labor:
+AWS-LC provides the algorithms, s2n-tls the handshake, integrated into
+AWS’s load balancers [14].</p>
+<p>Google’s fork moved earliest. BoringSSL has carried the X25519 plus
+ML-KEM hybrid since 2023, under its pre-standard name at first [15].
+Chrome shipped the draft group by default in April 2024 and switched to
+the standardized codepoint that November [16]. Google plans to retire
+the enterprise escape hatch by Chrome 147, making hybrid key exchange
+effectively mandatory in that ecosystem [17].</p>
+<p>LibreSSL followed its own path, adding an ML-KEM API in late 2025 and
+the hybrid TLS keyshare in April 2026 [18]. All of this builds on NIST’s
+August 2024 finalization, which replaced the old Kyber and Dilithium
+names [19].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Two dating disputes stand. One source records BoringSSL adding ML-DSA
+support through specific commits in October 2025 [20], while another
+dates the addition to around April 2026 without superseding the earlier
+evidence [21]. The commit history is public, so a direct check settles
+it. Separately, a comparison piece frames AWS-LC and BoringSSL as
+diverging on default-on behavior [22]. It rests on an AWS-LC version
+claim that could not be verified against the project’s own release notes
+[22].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="pq-reference-implementations">2. PQ Reference
+Implementations</h2>
+<p><em>Before algorithms reach products, they live in reference
+implementations: carefully written, often formally verified code that
+libraries import rather than reimplement. A handful of projects fill
+this role, led by liboqs and the PQ Code Package. This section covers a
+generational handover, as the research-era scaffolding retires in favor
+of verified, production-grade successors.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The era’s most important cleanup happened on schedule. PQClean, the
+collection that made NIST reference code usable since 2019, was archived
+read-only on August 4, 2026 [23]. Downstream Rust crates wrapping its
+code are now marked unmaintained in the security advisory database,
+since no further patches will land upstream [24].</p>
+<p>liboqs consolidated in the same release cycle. Version 0.16.0 removed
+SPHINCS+, renamed its FrodoKEM variants, and fixed an out-of-bounds read
+and an uninitialized-pointer bug [25]. It moved HQC to the algorithm’s
+official upstream and enabled it by default [26], made mldsa-native the
+default ML-DSA [26], and updated mlkem-native to version 1.2.0 [26].
+That mlkem-native release added a PowerPC assembly backend, broadened
+portability, hardened RISC-V timing, and extended its formal proofs
+[27]. A matching oqs-provider release is pending in an open issue
+[28].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>PQClean’s retirement was orderly. Its README now redirects users to
+the PQ Code Package projects and liboqs [29]. The maintainers proposed
+retirement in January 2026 and confirmed the plan on the NIST mailing
+list [30]. They noted the project could never keep pace with the
+signature on-ramp or the finalized standards, with a lessons-learned
+paper on ePrint [31].</p>
+<p>Researchers already cite it at pinned commits as a frozen artifact
+[32]. liboqs is discussing the operational impact, since it relied on
+PQClean for several algorithms [33].</p>
+<p>The successors are verification-first. mlkem-native’s C code is
+proved memory-safe and type-safe, and its ARM and x86 assembly
+functionally correct and constant-time [34]. It became liboqs’s default
+ML-KEM in three variants [25], first shipping stable in liboqs 0.14.0
+[35]. Its own soundness notes are candid that verification is never
+absolute, with named coverage gaps [36].</p>
+<p>A version 2.0.0 introduced breaking API changes, with a
+long-term-support branch until February 2027 [37]. The signature
+sibling, mldsa-native, remains a production-ready alpha [38]. Apple
+evaluated both as prior art for its own verification effort and built a
+custom approach instead [39].</p>
+<p>liboqs itself keeps shedding pre-standard history. Version 0.15.0 was
+the last with SPHINCS+ and removed the pre-standardization Dilithium
+[40].</p>
+<p>An HQC timing vulnerability was fixed by disabling the offending
+compiler optimizations, with HQC off by default at the time [25]. The
+oqs-provider companion has kept pace. Recent releases added new
+signature candidates and Brainpool hybrids, and disabled overlapping
+algorithms when OpenSSL 3.5 is present [41]. Version 0.11.0 shipped at
+the end of 2025 [42], and the development branch re-instated HQC
+[43].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="language-native-crypto-stacks">3. Language-Native Crypto
+Stacks</h2>
+<p><em>Most developers never call a C library directly. They use
+whatever their language runtime provides. So the migration only reaches
+everyday software when Go, Java, .NET, and Rust ship the algorithms in
+their standard libraries. This section covers that arrival, which is now
+essentially complete for key exchange and well underway for
+signatures.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>Go completed its set in August. Go 1.27 adds a standard-library
+ML-DSA package at all three parameter sets, with ML-DSA keys and
+signatures in certificates and TLS [44]. The same release adds the
+ML-KEM-1024 key exchange [44].</p>
+<p>Java committed to its long-term releases. JDK 27 introduces hybrid
+post-quantum TLS key exchange, completing the core capabilities begun in
+JDK 24 [45]. Oracle plans backports of the algorithms and the hybrid
+exchange to JDK 25 in October 2026, with older long-term releases
+following in 2027 [45]. Bouncy Castle’s 1.85 release added hybrid
+certificates, post-quantum keys and signatures in X.509, and
+standards-based migration mechanisms [46]. In .NET, a breaking rename
+aligned the new algorithm APIs with the platform’s conventions [47].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Go made post-quantum the path of least resistance. Version 1.24
+enabled hybrid X25519 plus ML-KEM by default whenever an application
+does not set preferences [48]. The current default order runs three
+hybrid groups ahead of every classical curve [49]. Version 1.26 added
+standard hybrid public-key encryption, including the X-Wing construction
+[50].</p>
+<p>The default propagates transitively: Kubernetes gained post-quantum
+TLS simply by building with Go 1.24 [51]. One FIPS-mode inconsistency, a
+stale entry making the default hybrid unreachable under the strictest
+setting, is filed with a recommended fix [52].</p>
+<p>Java’s platform support arrived in JDK 24 as native engine classes
+for ML-KEM and ML-DSA [53]. JDK 26 extended ML-DSA to JAR signing and
+added hybrid public-key encryption APIs [54]. The key tool can generate
+ML-KEM certificates, though a KEM key still needs a separate signature
+algorithm to sign its certificate [55]. A private-key encoding change in
+recent patch releases breaks readability by older JDKs unless a property
+is set back [56].</p>
+<p>Bouncy Castle layered in earlier, with ML-KEM in 1.78, ML-DSA in
+1.79, and composite signatures needing 1.80 [22]. TLS support for ML-KEM
+suites came in 1.81 [57]. A FIPS-track library is in early access [58],
+and a specification page separates standardized algorithms from
+experimental candidates [59].</p>
+<p>.NET 10 shipped all three NIST standards plus composite ML-DSA in its
+standard cryptography namespace, with no extra packages [60]. The APIs
+need Windows with CNG support or Linux with OpenSSL 3.5, and explicitly
+exclude macOS [60]. The underlying Windows path came through SymCrypt
+and CNG [61], generally available since November 2025 [62], with
+certificate issuance following [61]. Some interoperability helpers
+remain experimental behind a warning [63].</p>
+<p>Rust’s mainstream TLS stack folded the work in. Since rustls 0.23.22,
+ML-KEM hybrid key exchange lives in the core crate behind a feature flag
+[64], superseding a separate crate still labeled experimental [65]. AWS
+documents enabling it as a one-line feature flag for its SDK users
+[66].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="embedded-alternative-libraries">4. Embedded &amp; Alternative
+Libraries</h2>
+<p><em>Outside the OpenSSL orbit sits a second ecosystem: the small,
+portable libraries that run on routers, industrial controllers, and
+anything with kilobytes rather than gigabytes. Here one vendor has
+sprinted ahead while some of the most widely deployed embedded libraries
+have barely started. This section covers both extremes.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>wolfSSL turned August into a product barrage. One announcement
+covered seven simultaneous developments, including a post-quantum FIPS
+module, kernel integration, quantum-ready WireGuard and Tailscale, and a
+satellite cryptographic module under NIST test [67]. The library
+finished removing liboqs entirely, going fully native for every
+algorithm it ships, FrodoKEM included [68]. Its implementations gained
+NIST algorithm validation [69].</p>
+<p>Around those, the same vendor shipped an OpenSSL provider bridge [70]
+and a release renaming Dilithium to ML-DSA with extended certificate
+support [71]. It also added post-quantum support in its PKCS#11 token
+[72], its Java providers [73], and curl integration [74].</p>
+<p>Botan stays current more quietly, with its latest stable release
+continuing broad coverage across the NIST algorithms, hash-based
+schemes, and hybrid TLS [75].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>wolfSSL’s standing position is early-adopter for embedded and
+government work. Its wolfCrypt engine has full TLS 1.3 support for
+ML-KEM and ML-DSA [76]. Its CNSA-compliant set spans the three standards
+plus LMS and XMSS, with assembly optimizations across architectures
+[77]. It implements the new TPM specification’s post-quantum commands
+[78], ships a firmware TPM validated against NIST test vectors [79], and
+has post-quantum algorithms on its Rust API roadmap [80].</p>
+<p>Botan earned an unusual credential: Germany’s federal cybersecurity
+agency confirmed a reviewed version contains every post-quantum scheme
+its national technical guideline recommends [81]. The library added the
+three NIST standards in release 3.6.0 and enabled hybrid key exchange by
+default in 3.7.0 [82], with seed-based key storage per the FIPS
+specifications [83].</p>
+<p>The middle of the field is uneven. GnuTLS added experimental hybrid
+key exchange [84], then experimental ML-DSA with an alternative backend
+[85], preferred for its seed-based key generation [86]. RHEL gates its
+GnuTLS post-quantum support behind a subpolicy [87]. Its current release
+added a key-derivation refinement [88], though the version claim itself
+comes from a secondary source [89].</p>
+<p>Mozilla’s NSS vendored a formally verified Rust ML-KEM early [90] and
+made the hybrid group default in late 2025 while adding ML-DSA
+interfaces [91]. Firefox inherits it [91], with the current version
+again cited from a secondary source [92].</p>
+<p>The laggards matter because of their reach. libsodium shipped nothing
+post-quantum through mid-2025 [93], then delivered its first primitive
+in April 2026: ML-KEM-768 plus the X-Wing hybrid, which its notes
+recommend for most applications [94]. Mbed TLS, the default on a huge
+share of embedded devices, still ships no finalized post-quantum
+algorithm [93]. Its roadmap schedules initial ML-DSA for mid-2026 and
+puts ML-KEM, the algorithm TLS needs most, in an unscheduled future
+bucket [95]. Community threads show the frustration persisting [96].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="pkcs11-and-provider-plumbing">5. PKCS#11 and Provider
+Plumbing</h2>
+<p><em>Between a library and a hardware security module sits plumbing:
+the PKCS#11 token interface, OpenSSL’s provider architecture, Windows
+key-storage providers, Java’s pass-through layer. Algorithms only reach
+protected hardware when this plumbing names them. This section covers
+the standard that finally did, and the vendors racing to implement
+it.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The standard arrived. OASIS ratified PKCS#11 version 3.2 in July
+2026, adding post-quantum mechanism support and the conformance profiles
+for interoperable implementations [97]. The specification defines
+concrete mechanisms and key types for ML-KEM, ML-DSA, and SLH-DSA, plus
+new encapsulation functions [98], with the full text published in June
+[99]. IBM announced its openCryptoki project already implements it, and
+Entrust welcomed the ratification [97].</p>
+<p>Vendors updated in step. Thales published ML-KEM and ML-DSA
+programming guides using proprietary extensions pending full
+standardization [100]. Securosys [101] and Fortanix [102] confirmed
+post-quantum support through their PKCS#11 providers. wolfSSL added the
+v3.2 algorithms to its token [103], Mastercard’s open-source tools now
+generate post-quantum keys and certificates by default [104], and
+oqs-provider development continues adding hybrid codepoints [105].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>Hardware tokens got there first. Thales Luna firmware 7.9.0
+integrated ML-KEM and ML-DSA natively through standard PKCS#11 [106].
+Extensions added quantum-resistant key wrapping and attestation [107],
+multi-module LMS state management [108], and a custom-silicon Luna 8
+line for throughput [109]. The open-source SoftHSMv2 grew build flags
+for both algorithms [110], answering a request opened in mid-2025
+[111].</p>
+<p>An independent software HSM project targets PKCS#11 users and DNSSEC
+operators directly [112]. Adjacent to the token world, AWS KMS signs
+with ML-DSA at all parameter sets [113].</p>
+<p>The standardization tail matters for compatibility. LMS entered
+PKCS#11 in v3.1, with the lattice algorithms slated for v3.2 [114]. The
+v3.2 drafts progressed through 2025 [115], and current integration
+documentation notes the ratified version omits the pre-hashed ML-DSA
+variant [116].</p>
+<p>On the software-provider side, OpenSSL 3.5’s native support [117]
+coexists with oqs-provider’s broader coverage [118]. That provider plugs
+in through OpenSSL’s provider API, not PKCS#11 [119]. On Linux, p11-kit
+aggregates multiple PKCS#11 modules behind one proxy [120].</p>
+<p>Windows and Java complete the map. Microsoft exposed the algorithms
+through CNG from Insider builds [121] to general availability [62], with
+certificate services issuing ML-DSA certificates from a newly built
+hierarchy [122].</p>
+<p>Production hardware-backed keys depend on each HSM vendor’s own
+key-storage provider [123]. The hybrid TLS groups shipped in July 2026,
+disabled by default [124], and architecture write-ups frame provider
+selection as the central practical decision [125]. Java’s SunPKCS11 is a
+pure conduit, exposing whatever the underlying vendor module advertises
+[126]. The JDK’s own providers carry ML-KEM and ML-DSA natively since
+JDK 24 [127], with measurable performance gains in JDK 25 [128].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="pq-implementation-vulns-cryptanalysis">6. PQ Implementation
+Vulns &amp; Cryptanalysis</h2>
+<p><em>A new algorithm can be mathematically sound and still fall to a
+bug in the code that runs it. Two years into deployment, that is exactly
+the pattern: the standards stand unbroken while researchers pick apart
+implementations. This section covers what has actually been attacked,
+what was fixed, and what remains theoretical.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>The implementation attacks got sharp in 2026. Daniel J. Bernstein
+published working attacks that recover ML-DSA secret keys from two
+classes of implementation bugs, in software including OpenSSL and
+mldsa-native [129]. The forgeries take under a second on one core
+[129].</p>
+<p>A cache-timing attack on the optimized HQC implementation, exploiting
+compiler-induced branches, achieved full key recovery and was presented
+at Crypto 2026 [130]. OpenSSL’s August 2026 advisory includes a moderate
+heap overflow in CMS key unwrapping reachable through ML-KEM
+decapsulation [131]. liboqs 0.16.0 shipped its own memory-safety fixes
+[132].</p>
+<p>The baselines stay clean where it matters most. No published
+cryptanalytic break of the ratified ML-KEM, ML-DSA, or SLH-DSA parameter
+sets has been found [133]. No CVE specific to BoringSSL’s post-quantum
+code exists [134], and none specific to Bouncy Castle’s [135].</p>
+<h3 id="current-state-5">Current State</h3>
+<p>The pattern established itself early: timing bugs, caught and fixed.
+KyberSlash exploited non-constant-time arithmetic in Kyber decapsulation
+and was patched in the reference code by December 2023 [133]. The
+Clangover finding showed compilers can reintroduce secret-dependent
+branches on their own, with liboqs’s HQC code leaking keys only when
+built with Clang at higher optimization [136]. liboqs fixed it in 0.14.0
+[137], noting the bug only hit users who explicitly enabled HQC
+[138].</p>
+<p>An earlier HQC decapsulation bug had already been fixed [137]. The
+same 0.14.0 release brought the formally verified mlkem-native in as the
+default, which is the structural answer to this bug class [138].</p>
+<p>HQC itself carries the one open design-level question. An advisory
+documents a theoretical flaw in its implicit-rejection mechanism, with
+no concrete attack known and no patch available [139]. The algorithm
+stays disabled by default pending an updated specification [139]. HQC is
+NIST’s backup KEM, not one of the three ratified standards [140].</p>
+<p>The big vendors’ incidents have been adjacent to, not inside, the
+post-quantum code. Three AWS-LC vulnerabilities fixed in early 2026
+involved certificate-chain validation bypasses and a timing leak [141],
+the worst skipping validation of all but the final signer [142]. Amazon
+reported no service impact [141].</p>
+<p>AWS-LC’s post-quantum footprint itself remains broad and on the FIPS
+validation track [143][144]. BoringSSL’s only recorded CVE predates its
+post-quantum work entirely [145], and its ML-KEM rollout through Chrome
+completed without incident [133].</p>
+<p>Bouncy Castle’s post-quantum line has been feature work [146][147],
+with one classical-adjacent fix: a non-constant-time comparison in
+FrodoKEM [148]. OpenSSL’s one recorded KEM advisory concerns classical
+RSA-KEM, not ML-KEM [149], while its 3.5 defaults [150] ride a support
+window to 2030 [151]. One ecosystem-wide argument continues: OpenSSL,
+Bouncy Castle, NSS, and Red Hat have jointly asked the IETF to
+reconsider the seed-only private-key format over FIPS-certification
+concerns [152].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Cryptographic Module Validation Program | CSRC - <a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4631"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4631</a>
+- as of 2026-08-25</li>
+<li>PQC support · Cloudflare SSL/TLS docs - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/</a>
+- as of 2026-06-24</li>
+<li>Post Quantum Support - <a
+href="https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html"
+class="uri">https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html</a>
+- as of 2026-06-15</li>
+<li>postquantum.com — openssl 3 5 pqc default - <a
+href="https://postquantum.com/security-pqc/openssl-3-5-pqc-default/"
+class="uri">https://postquantum.com/security-pqc/openssl-3-5-pqc-default/</a>
+- as of 2025-04-08</li>
+<li>openssl-corporation.org — post quantum - <a
+href="https://openssl-corporation.org/post-quantum.html"
+class="uri">https://openssl-corporation.org/post-quantum.html</a></li>
+<li>access.redhat.com — 7119430 - <a
+href="https://access.redhat.com/articles/7119430"
+class="uri">https://access.redhat.com/articles/7119430</a></li>
+<li>OpenSSL 3.6 Series Release Notes | OpenSSL Library - <a
+href="https://www.openssl.org/news/openssl-3.6-notes.html"
+class="uri">https://www.openssl.org/news/openssl-3.6-notes.html</a> - as
+of 2025-10-01</li>
+<li>github.com — oqs provider - <a
+href="https://github.com/open-quantum-safe/oqs-provider"
+class="uri">https://github.com/open-quantum-safe/oqs-provider</a></li>
+<li>github.com — PQREADME - <a
+href="https://github.com/aws/aws-lc/blob/main/crypto/fipsmodule/PQREADME.md"
+class="uri">https://github.com/aws/aws-lc/blob/main/crypto/fipsmodule/PQREADME.md</a></li>
+<li>github.com — releases - <a
+href="https://github.com/aws/aws-lc/releases"
+class="uri">https://github.com/aws/aws-lc/releases</a></li>
+<li>aws.amazon.com — aws lc fips 3 0 first cryptographic library to
+include ml kem in fips 140 3 validation - <a
+href="https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation"
+class="uri">https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation</a></li>
+<li>github.com — 17 - <a
+href="https://github.com/LatticeArc/latticearc/issues/17"
+class="uri">https://github.com/LatticeArc/latticearc/issues/17</a> - as
+of 2026-02-08</li>
+<li>docs.aws.amazon.com — pqtls - <a
+href="https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html"
+class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html</a></li>
+<li>csrc.nist.gov — buillding pw cloud services.pdf - <a
+href="https://csrc.nist.gov/csrc/media/Presentations/2025/building-post-quantum-cloud-services/images-media/buillding-pw-cloud-services.pdf"
+class="uri">https://csrc.nist.gov/csrc/media/Presentations/2025/building-post-quantum-cloud-services/images-media/buillding-pw-cloud-services.pdf</a></li>
+<li>quantumsecuritydefence.com — fips 203 205 implementation c rust
+libraries - <a
+href="https://quantumsecuritydefence.com/insights/fips-203-205-implementation-c-rust-libraries/"
+class="uri">https://quantumsecuritydefence.com/insights/fips-203-205-implementation-c-rust-libraries/</a></li>
+<li>netguardia.com — hybrid key exchange today why x25519 ml kem is the
+interim default - <a
+href="https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/"
+class="uri">https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/</a></li>
+<li>pbxscience.com — chromes quantum lock how ml kem changed the web -
+<a
+href="https://pbxscience.com/chromes-quantum-lock-how-ml-kem-changed-the-web/"
+class="uri">https://pbxscience.com/chromes-quantum-lock-how-ml-kem-changed-the-web/</a>
+- as of 2026-04-01</li>
+<li>ianix.com — pqcrypto deployment - <a
+href="https://ianix.com/pqcrypto/pqcrypto-deployment.html"
+class="uri">https://ianix.com/pqcrypto/pqcrypto-deployment.html</a> - as
+of 2026-04-18</li>
+<li>vucense.com — ml kem fips 203 implementation guide 2026 - <a
+href="https://vucense.com/privacy-sovereignty/post-quantum-cryptography/ml-kem-fips-203-implementation-guide-2026/"
+class="uri">https://vucense.com/privacy-sovereignty/post-quantum-cryptography/ml-kem-fips-203-implementation-guide-2026/</a></li>
+<li>BoringSSL upgrade for Post-Quantum Cryptography support - <a
+href="https://github.com/envoyproxy/envoy/issues/42893"
+class="uri">https://github.com/envoyproxy/envoy/issues/42893</a> - as of
+2026-01-07</li>
+<li>Cryptography | Noise - <a
+href="https://noise.getoto.net/tag/cryptography"
+class="uri">https://noise.getoto.net/tag/cryptography</a> - as of
+2026-04-01</li>
+<li>evertrust.io — hybrid post quantum certificates - <a
+href="https://evertrust.io/blog/hybrid-post-quantum-certificates/"
+class="uri">https://evertrust.io/blog/hybrid-post-quantum-certificates/</a>
+- as of 2026-06-03</li>
+<li>GitHub - PQClean/PQClean - <a
+href="https://github.com/pqclean/PQClean"
+class="uri">https://github.com/pqclean/PQClean</a> - as of
+2026-08-04</li>
+<li>rustsec.org — RUSTSEC 2026 0163 - <a
+href="https://rustsec.org/advisories/RUSTSEC-2026-0163"
+class="uri">https://rustsec.org/advisories/RUSTSEC-2026-0163</a> - as of
+2026-06-04</li>
+<li>github.com — releases - <a
+href="https://github.com/open-quantum-safe/liboqs/releases"
+class="uri">https://github.com/open-quantum-safe/liboqs/releases</a> -
+as of 2026-07-09</li>
+<li>liboqs/RELEASE.md - <a
+href="https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md"
+class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md</a>
+- as of 2026-07-09</li>
+<li>mlkem-native/RELEASE.md - <a
+href="https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md"
+class="uri">https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md</a>
+- as of 2026-08-10</li>
+<li>Release new oqs-provider version · Issue #797 - <a
+href="https://github.com/open-quantum-safe/oqs-provider/issues/797"
+class="uri">https://github.com/open-quantum-safe/oqs-provider/issues/797</a>
+- as of 2026-07-09</li>
+<li>github.com — PQClean - <a href="https://github.com/pqclean/PQClean"
+class="uri">https://github.com/pqclean/PQClean</a></li>
+<li>github.com — Z30 l8mTNRU - <a
+href="https://github.com/PQClean/PQClean/issues/604"
+class="uri">https://github.com/PQClean/PQClean/issues/604</a>,
+corroborated by <a
+href="https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/Z30-l8mTNRU"
+class="uri">https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/Z30-l8mTNRU</a>
+- as of 2026-01-08</li>
+<li>groups.google.com — Z30 l8mTNRU - <a
+href="https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/Z30-l8mTNRU"
+class="uri">https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/Z30-l8mTNRU</a></li>
+<li>arxiv.org — 2603.19340v1 - <a
+href="https://arxiv.org/html/2603.19340v1"
+class="uri">https://arxiv.org/html/2603.19340v1</a> - as of
+2026-03-19</li>
+<li>github.com — 2341 - <a
+href="https://github.com/open-quantum-safe/liboqs/issues/2341"
+class="uri">https://github.com/open-quantum-safe/liboqs/issues/2341</a>
+- as of 2026-01-08</li>
+<li>github.com — mlkem native - <a
+href="https://github.com/pq-code-package/mlkem-native"
+class="uri">https://github.com/pq-code-package/mlkem-native</a></li>
+<li>pqca.org — pqca announces release of liboqs version 0 14 0 from open
+quantum safe project - <a
+href="https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/"
+class="uri">https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/</a>
+- as of 2025-07-10</li>
+<li>github.com — SOUNDNESS - <a
+href="https://github.com/pq-code-package/mlkem-native/blob/main/SOUNDNESS.md"
+class="uri">https://github.com/pq-code-package/mlkem-native/blob/main/SOUNDNESS.md</a></li>
+<li>mlkem-native/RELEASE.md at main · pq-code-package/mlkem-native ·
+GitHub - <a
+href="https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md"
+class="uri">https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md</a></li>
+<li>pqca.org — issues - <a
+href="https://pqca.org/blog/2025/pqca-announces-alpha-release-of-mldsa-native/"
+class="uri">https://pqca.org/blog/2025/pqca-announces-alpha-release-of-mldsa-native/</a>,
+corroborated by <a
+href="https://github.com/pq-code-package/mldsa-native/issues"
+class="uri">https://github.com/pq-code-package/mldsa-native/issues</a> -
+as of 2025-11-25</li>
+<li>github.com — formal verification for apple corecrypto - <a
+href="https://github.com/apple/corecrypto/blob/2026-05/corecrypto_verify/technical_overview/formal-verification-for-apple-corecrypto.md"
+class="uri">https://github.com/apple/corecrypto/blob/2026-05/corecrypto_verify/technical_overview/formal-verification-for-apple-corecrypto.md</a></li>
+<li>github.com — RELEASE - <a
+href="https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md"
+class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md</a>
+- as of 2025-11-14</li>
+<li>github.com — RELEASE - <a
+href="https://github.com/open-quantum-safe/oqs-provider/blob/main/RELEASE.md"
+class="uri">https://github.com/open-quantum-safe/oqs-provider/blob/main/RELEASE.md</a></li>
+<li>Releases · open-quantum-safe/oqs-provider - <a
+href="https://github.com/open-quantum-safe/oqs-provider/releases"
+class="uri">https://github.com/open-quantum-safe/oqs-provider/releases</a>
+- as of 2025-12-24</li>
+<li>oqs-provider/RELEASE.md at main · open-quantum-safe/oqs-provider ·
+GitHub - <a
+href="https://github.com/open-quantum-safe/oqs-provider/blob/main/RELEASE.md"
+class="uri">https://github.com/open-quantum-safe/oqs-provider/blob/main/RELEASE.md</a></li>
+<li>Go 1.27 Release Notes - <a href="https://go.dev/doc/go1.27"
+class="uri">https://go.dev/doc/go1.27</a> - as of 2026-08-22</li>
+<li>Post-Quantum Cryptography in Long-Term Support JDK Releases - <a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
+- as of 2026-08-06</li>
+<li>New Release: Bouncy Castle Java 1.85 - <a
+href="https://www.bouncycastle.org/resources/new-release-bouncy-castle-java-1-85/"
+class="uri">https://www.bouncycastle.org/resources/new-release-bouncy-castle-java-1-85/</a>
+- as of 2026-07-28</li>
+<li>Breaking change - MLDsa and SlhDsa ‘SecretKey’ members renamed - <a
+href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptography/10.0/mldsa-slhdsa-secretkey-to-privatekey"
+class="uri">https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptography/10.0/mldsa-slhdsa-secretkey-to-privatekey</a>
+- as of 2026-07-31</li>
+<li>pkg.go.dev — tls - <a href="https://pkg.go.dev/crypto/tls"
+class="uri">https://pkg.go.dev/crypto/tls</a></li>
+<li>golang.bg — defaults.go - <a
+href="https://golang.bg/src/crypto/tls/defaults.go"
+class="uri">https://golang.bg/src/crypto/tls/defaults.go</a></li>
+<li>medium.com — go 1 26 new crypto packages security built for the post
+quantum era bfff794fd09a - <a
+href="https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a"
+class="uri">https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a</a>
+- as of 2026-02-19</li>
+<li>kubernetes.io — pqc in k8s - <a
+href="https://kubernetes.io/blog/2025/07/18/pqc-in-k8s/"
+class="uri">https://kubernetes.io/blog/2025/07/18/pqc-in-k8s/</a></li>
+<li>github.com — 78178 - <a
+href="https://github.com/golang/go/issues/78178"
+class="uri">https://github.com/golang/go/issues/78178</a> - as of
+2026-03-16</li>
+<li>baeldung.com — jdk security enhancements - <a
+href="https://www.baeldung.com/jdk-security-enhancements"
+class="uri">https://www.baeldung.com/jdk-security-enhancements</a> - as
+of 2026-06-05</li>
+<li>seanjmullan.org — jdk26 - <a
+href="https://seanjmullan.org/blog/2026/03/16/jdk26"
+class="uri">https://seanjmullan.org/blog/2026/03/16/jdk26</a> - as of
+2026-03-16</li>
+<li>neatguycoding.com — 2026 05 18 javaone 2026 java and post quantum
+cryptography - <a
+href="https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quantum-cryptography/"
+class="uri">https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quantum-cryptography/</a>
+- as of 2026-05-18</li>
+<li>oracle.com — 26 0 2 relnotes - <a
+href="https://www.oracle.com/java/technologies/javase/26-0-2-relnotes.html"
+class="uri">https://www.oracle.com/java/technologies/javase/26-0-2-relnotes.html</a></li>
+<li>Bouncy Castle Releases Java 1.81 and C# .NET 2.6.1 - <a
+href="https://www.bouncycastle.org/resources/bouncy-castle-releases-java-1-81-and-c-net-2-6-1/"
+class="uri">https://www.bouncycastle.org/resources/bouncy-castle-releases-java-1-81-and-c-net-2-6-1/</a>
+- as of 2025-06-09</li>
+<li>bouncycastle.org — roadmap - <a
+href="https://www.bouncycastle.org/download/bouncy-castle-java-fips/roadmap/"
+class="uri">https://www.bouncycastle.org/download/bouncy-castle-java-fips/roadmap/</a></li>
+<li>bouncycastle.org — specification interoperability - <a
+href="https://www.bouncycastle.org/documentation/specification_interoperability/"
+class="uri">https://www.bouncycastle.org/documentation/specification_interoperability/</a>
+- as of 2026-03-10</li>
+<li>duendesoftware.com — 20260514 post quantum cryptography in dotnet 10
+- <a
+href="https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10"
+class="uri">https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10</a>
+- as of 2026-05-14</li>
+<li>kryptus.com — appnote adcs ml dsa knet en.pdf - <a
+href="https://kryptus.com/wp-content/uploads/2026/06/appnote-adcs-ml-dsa-knet-en.pdf"
+class="uri">https://kryptus.com/wp-content/uploads/2026/06/appnote-adcs-ml-dsa-knet-en.pdf</a></li>
+<li>techcommunity.microsoft.com — 4469093 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093</a>
+- as of 2025-11-18</li>
+<li>medium.com — post quantum cryptography in net 10 4da2779dcd2a - <a
+href="https://medium.com/@anderson.buenogod/post-quantum-cryptography-in-net-10-4da2779dcd2a"
+class="uri">https://medium.com/@anderson.buenogod/post-quantum-cryptography-in-net-10-4da2779dcd2a</a>
+- as of 2026-01-12</li>
+<li>docs.rs — rustls post quantum - <a
+href="https://docs.rs/rustls-post-quantum/latest/rustls_post_quantum/"
+class="uri">https://docs.rs/rustls-post-quantum/latest/rustls_post_quantum/</a></li>
+<li>lib.rs — rustls post quantum - <a
+href="https://lib.rs/crates/rustls-post-quantum"
+class="uri">https://lib.rs/crates/rustls-post-quantum</a></li>
+<li>aws.amazon.com — ml kem post quantum tls now supported in aws kms
+acm and secrets manager - <a
+href="https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/"
+class="uri">https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/</a>
+- as of 2025-04-07</li>
+<li>prweb.com — wolfssl advances post quantum encryption and fips 140 3
+across embedded and enterprise systems to facilitate cnsa 2 0 compliance
+302840890 - <a
+href="https://www.prweb.com/releases/wolfssl-advances-post-quantum-encryption-and-fips-140-3-across-embedded-and-enterprise-systems-to-facilitate-cnsa-2-0-compliance-302840890.html"
+class="uri">https://www.prweb.com/releases/wolfssl-advances-post-quantum-encryption-and-fips-140-3-across-embedded-and-enterprise-systems-to-facilitate-cnsa-2-0-compliance-302840890.html</a>
+- as of 2026-08-04</li>
+<li>wolfCrypt Retires liboqs as Native Post-Quantum Support Expands - <a
+href="https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/"
+class="uri">https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/</a>
+- as of 2026-08-19</li>
+<li>Post-Quantum - wolfSSL - <a
+href="https://www.wolfssl.com/category/post-quantum/"
+class="uri">https://www.wolfssl.com/category/post-quantum/</a> - as of
+2026-08-13</li>
+<li>wolfProvider Post-Quantum Cryptography: ML-KEM and ML-DSA - wolfSSL
+- <a
+href="https://www.wolfssl.com/wolfprovider-post-quantum-cryptography-ml-kem-and-ml-dsa/"
+class="uri">https://www.wolfssl.com/wolfprovider-post-quantum-cryptography-ml-kem-and-ml-dsa/</a>
+- as of 2026-07-02</li>
+<li>wolfSSL 5.9.2 release blog - wolfSSL - <a
+href="https://www.wolfssl.com/wolfssl-5-9-2-release-blog/"
+class="uri">https://www.wolfssl.com/wolfssl-5-9-2-release-blog/</a> - as
+of 2026-06-30</li>
+<li>wolfPKCS11 2.1.0 is out! (X post) - <a
+href="https://x.com/wolfSSL/status/2072742269816369452"
+class="uri">https://x.com/wolfSSL/status/2072742269816369452</a> - as of
+2026-07-02</li>
+<li>Java is now #PostQuantum ready with wolfSSL! (X post) - <a
+href="https://x.com/wolfSSL/status/2087299324380135712"
+class="uri">https://x.com/wolfSSL/status/2087299324380135712</a> - as of
+2026-08-11</li>
+<li>Post-Quantum Cryptography in curl - wolfSSL - <a
+href="https://www.wolfssl.com/post-quantum-cryptography-in-curl/"
+class="uri">https://www.wolfssl.com/post-quantum-cryptography-in-curl/</a>
+- as of 2026-06-16</li>
+<li>Botan - <a href="https://botan.randombit.net/"
+class="uri">https://botan.randombit.net/</a> - as of 2026-08-13</li>
+<li>wolfssl.com — support for the official post quantum standards ml kem
+and ml dsa - <a
+href="https://www.wolfssl.com/support-for-the-official-post-quantum-standards-ml-kem-and-ml-dsa/"
+class="uri">https://www.wolfssl.com/support-for-the-official-post-quantum-standards-ml-kem-and-ml-dsa/</a></li>
+<li>wolfssl.com — wolfcrypt post quantum - <a
+href="https://www.wolfssl.com/products/wolfcrypt-post-quantum/"
+class="uri">https://www.wolfssl.com/products/wolfcrypt-post-quantum/</a>
+- as of 2026-05-05</li>
+<li>wolfssl.com — wolftpm add tpm 2 0 v1 85 pqc post quantum support -
+<a
+href="https://www.wolfssl.com/wolftpm-add-tpm-2-0-v1-85-pqc-post-quantum-support/"
+class="uri">https://www.wolfssl.com/wolftpm-add-tpm-2-0-v1-85-pqc-post-quantum-support/</a>
+- as of 2026-01-15</li>
+<li>wolfssl.com — the first firmware tpm with post quantum cryptography
+- <a
+href="https://www.wolfssl.com/the-first-firmware-tpm-with-post-quantum-cryptography/"
+class="uri">https://www.wolfssl.com/the-first-firmware-tpm-with-post-quantum-cryptography/</a>
+- as of 2026-04-29</li>
+<li>wolfssl.com — rust support for post quantum cryptography - <a
+href="https://www.wolfssl.com/rust-support-for-post-quantum-cryptography/"
+class="uri">https://www.wolfssl.com/rust-support-for-post-quantum-cryptography/</a>
+- as of 2026-03-12</li>
+<li>bsi.bund.de — kryptobibliothek botan dvl - <a
+href="https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Kryptografie/Kryptobibliothek-Botan/kryptobibliothek-botan_dvl.html"
+class="uri">https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Kryptografie/Kryptobibliothek-Botan/kryptobibliothek-botan_dvl.html</a>
+- as of 2025-06-02</li>
+<li>botan.randombit.net — news - <a
+href="https://botan.randombit.net/news.html"
+class="uri">https://botan.randombit.net/news.html</a> - as of
+2025-02-04</li>
+<li>botan.randombit.net — pubkey - <a
+href="https://botan.randombit.net/handbook/api_ref/pubkey.html"
+class="uri">https://botan.randombit.net/handbook/api_ref/pubkey.html</a></li>
+<li>patchwork.ipfire.org — 20241109173814.1058040 4 <a
+href="mailto:adolf.belka@ipfire.org"
+class="email">adolf.belka@ipfire.org</a> - <a
+href="https://patchwork.ipfire.org/project/ipfire/patch/20241109173814.1058040-4-adolf.belka@ipfire.org/"
+class="uri">https://patchwork.ipfire.org/project/ipfire/patch/20241109173814.1058040-4-adolf.belka@ipfire.org/</a></li>
+<li>patchwork.yoctoproject.org — 20250217192141.1383722 1 <a
+href="mailto:peter.marko@siemens.com"
+class="email">peter.marko@siemens.com</a> - <a
+href="https://patchwork.yoctoproject.org/project/oe-core/patch/20250217192141.1383722-1-peter.marko@siemens.com/"
+class="uri">https://patchwork.yoctoproject.org/project/oe-core/patch/20250217192141.1383722-1-peter.marko@siemens.com/</a>
+- as of 2025-02-07</li>
+<li>gitlab.com — 1925 - <a
+href="https://gitlab.com/gnutls/gnutls/-/merge_requests/1925"
+class="uri">https://gitlab.com/gnutls/gnutls/-/merge_requests/1925</a></li>
+<li>docs.redhat.com — new features - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/9.8_release_notes/new-features"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/9.8_release_notes/new-features</a></li>
+<li>Blame · NEWS · master · gnutls / GnuTLS · GitLab - <a
+href="https://gitlab.com/gnutls/gnutls/-/blame/master/NEWS"
+class="uri">https://gitlab.com/gnutls/gnutls/-/blame/master/NEWS</a> -
+as of 2026-04-29</li>
+<li>en.wikipedia.org — GnuTLS - <a
+href="https://en.wikipedia.org/wiki/GnuTLS"
+class="uri">https://en.wikipedia.org/wiki/GnuTLS</a> - as of
+2026-04-29</li>
+<li>firefox-source-docs.mozilla.org — nss 3 105 - <a
+href="https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_105.html"
+class="uri">https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_105.html</a>
+- as of 2024-09-26</li>
+<li>firefox-source-docs.mozilla.org — nss 3 118 - <a
+href="https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html"
+class="uri">https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html</a>
+- as of 2025-11-18</li>
+<li>en.wikipedia.org — Network Security Services - <a
+href="https://en.wikipedia.org/wiki/Network_Security_Services"
+class="uri">https://en.wikipedia.org/wiki/Network_Security_Services</a>
+- as of 2026-05-15</li>
+<li>arxiv.org — 2508.16078v1 - <a
+href="https://arxiv.org/html/2508.16078v1"
+class="uri">https://arxiv.org/html/2508.16078v1</a> - as of
+2025-08-22</li>
+<li>github.com — 1.0.22 RELEASE - <a
+href="https://github.com/jedisct1/libsodium/releases/tag/1.0.22-RELEASE"
+class="uri">https://github.com/jedisct1/libsodium/releases/tag/1.0.22-RELEASE</a>
+- as of 2026-04-09</li>
+<li>mbed-tls.readthedocs.io — roadmap - <a
+href="https://mbed-tls.readthedocs.io/en/latest/project/roadmap/"
+class="uri">https://mbed-tls.readthedocs.io/en/latest/project/roadmap/</a></li>
+<li>lists.trustedfirmware.org — D73QWEQBW5LHMFMG35S3IPV62NTKR4SO - <a
+href="https://lists.trustedfirmware.org/archives/list/mbed-tls@lists.trustedfirmware.org/thread/D73QWEQBW5LHMFMG35S3IPV62NTKR4SO/"
+class="uri">https://lists.trustedfirmware.org/archives/list/mbed-tls@lists.trustedfirmware.org/thread/D73QWEQBW5LHMFMG35S3IPV62NTKR4SO/</a></li>
+<li>oasis-open.org — oasis approves two public key cryptography
+standards - <a
+href="https://www.oasis-open.org/2026/07/15/oasis-approves-two-public-key-cryptography-standards/"
+class="uri">https://www.oasis-open.org/2026/07/15/oasis-approves-two-public-key-cryptography-standards/</a>
+- as of 2026-07-15</li>
+<li>PQC Reference Library — Standards, Research Papers &amp; Guides |
+PQC Today - <a href="https://www.pqctoday.com/library"
+class="uri">https://www.pqctoday.com/library</a> - as of 2026-06-03</li>
+<li>docs.oasis-open.org — pkcs11 spec v3.2 - <a
+href="https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.2/pkcs11-spec-v3.2.html"
+class="uri">https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.2/pkcs11-spec-v3.2.html</a>
+- as of 2026-06-03</li>
+<li>ML-KEM Programming Guide - <a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/ML-KEM_programming_guide.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/ML-KEM_programming_guide.htm</a>
+- as of 2026-07-17</li>
+<li>Primus PKCS#11 API Provider - <a
+href="https://docs.securosys.com/pkcs/overview/"
+class="uri">https://docs.securosys.com/pkcs/overview/</a> - as of
+2026-08-04</li>
+<li>PKCS#11 Library - <a
+href="https://support.fortanix.com/docs/fortanix-dsm-clients-pkcs11-library"
+class="uri">https://support.fortanix.com/docs/fortanix-dsm-clients-pkcs11-library</a>
+- as of 2026-07-24</li>
+<li>Post-Quantum Cryptography in PKCS#11: ML-KEM and ML-DSA in wolfSSL
+and wolfPKCS11 - <a
+href="https://www.wolfssl.com/post-quantum-cryptography-in-pkcs11-ml-kem-and-ml-dsa-in-wolfssl-and-wolfpkcs11/"
+class="uri">https://www.wolfssl.com/post-quantum-cryptography-in-pkcs11-ml-kem-and-ml-dsa-in-wolfssl-and-wolfpkcs11/</a>
+- as of 2026-07-10</li>
+<li>Mastercard/pkcs11-tools - <a
+href="https://github.com/Mastercard/pkcs11-tools"
+class="uri">https://github.com/Mastercard/pkcs11-tools</a> - as of
+2026-08-22</li>
+<li>github.com — pulls - <a
+href="https://github.com/open-quantum-safe/oqs-provider/pulls"
+class="uri">https://github.com/open-quantum-safe/oqs-provider/pulls</a>
+- as of 2026-08-04</li>
+<li>cpl.thalesgroup.com — luna hsm pqc quantum safe encryption - <a
+href="https://cpl.thalesgroup.com/blog/encryption/luna-hsm-pqc-quantum-safe-encryption"
+class="uri">https://cpl.thalesgroup.com/blog/encryption/luna-hsm-pqc-quantum-safe-encryption</a>
+- as of 2025-07-29</li>
+<li>data-protection-updates.gemalto.com — new luna pqc enhancements luna
+hsm firmware v7 9 1 and universal client v10 9 now available - <a
+href="https://data-protection-updates.gemalto.com/2025/09/24/new-luna-pqc-enhancements-luna-hsm-firmware-v7-9-1-and-universal-client-v10-9-now-available/"
+class="uri">https://data-protection-updates.gemalto.com/2025/09/24/new-luna-pqc-enhancements-luna-hsm-firmware-v7-9-1-and-universal-client-v10-9-now-available/</a>
+- as of 2025-09-24</li>
+<li>thalestct.com — luna t series hardware security module 7 15 0
+release announcement - <a
+href="https://www.thalestct.com/luna-t-series-hardware-security-module-7-15-0-release-announcement/"
+class="uri">https://www.thalestct.com/luna-t-series-hardware-security-module-7-15-0-release-announcement/</a>
+- as of 2025-09-17</li>
+<li>cpl.thalesgroup.com — network hsms - <a
+href="https://cpl.thalesgroup.com/encryption/hardware-security-modules/network-hsms"
+class="uri">https://cpl.thalesgroup.com/encryption/hardware-security-modules/network-hsms</a></li>
+<li>github.com — SoftHSMv2 - <a
+href="https://github.com/softhsm/SoftHSMv2"
+class="uri">https://github.com/softhsm/SoftHSMv2</a></li>
+<li>github.com — 800 - <a
+href="https://github.com/softhsm/SoftHSMv2/issues/800"
+class="uri">https://github.com/softhsm/SoftHSMv2/issues/800</a> - as of
+2025-07-22</li>
+<li>dev.to — post quantum cryptography through pkcs11 in a software hsm
+45if - <a
+href="https://dev.to/victorcraton/post-quantum-cryptography-through-pkcs11-in-a-software-hsm-45if"
+class="uri">https://dev.to/victorcraton/post-quantum-cryptography-through-pkcs11-in-a-software-hsm-45if</a>
+- as of 2026-03-24</li>
+<li>aws.amazon.com — aws kms post quantum ml dsa digital signatures - <a
+href="https://aws.amazon.com/about-aws/whats-new/2025/06/aws-kms-post-quantum-ml-dsa-digital-signatures"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2025/06/aws-kms-post-quantum-ml-dsa-digital-signatures</a>
+- as of 2025-06-13</li>
+<li>docs.keyfactor.com — post quantum cryptography keys and signatures -
+<a
+href="https://docs.keyfactor.com/ejbca/9.1.1/post-quantum-cryptography-keys-and-signatures"
+class="uri">https://docs.keyfactor.com/ejbca/9.1.1/post-quantum-cryptography-keys-and-signatures</a></li>
+<li>oasis-open.org — pkcs 11 specification version 3 2 - <a
+href="https://www.oasis-open.org/standard/pkcs-11-specification-version-3-2/"
+class="uri">https://www.oasis-open.org/standard/pkcs-11-specification-version-3-2/</a>
+- as of 2025-11-14</li>
+<li>docs.keyfactor.com — post quantum cryptography keys and signatures -
+<a
+href="https://docs.keyfactor.com/ejbca/latest/post-quantum-cryptography-keys-and-signatures"
+class="uri">https://docs.keyfactor.com/ejbca/latest/post-quantum-cryptography-keys-and-signatures</a></li>
+<li>openssl-library.org — 2025 04 08 openssl 35 final release - <a
+href="https://openssl-library.org/post/2025-04-08-openssl-35-final-release/"
+class="uri">https://openssl-library.org/post/2025-04-08-openssl-35-final-release/</a>
+- as of 2025-04-08</li>
+<li>openquantumsafe.org — tls - <a
+href="https://openquantumsafe.org/applications/tls.html"
+class="uri">https://openquantumsafe.org/applications/tls.html</a></li>
+<li>github.com — oqs provider entrust - <a
+href="https://github.com/openca/oqs-provider-entrust"
+class="uri">https://github.com/openca/oqs-provider-entrust</a></li>
+<li>p11-glue.github.io — sharing - <a
+href="https://p11-glue.github.io/p11-glue/p11-kit/manual/sharing.html"
+class="uri">https://p11-glue.github.io/p11-glue/p11-kit/manual/sharing.html</a></li>
+<li>Post-Quantum Cryptography Comes to Windows Insiders and Linux
+(Microsoft) - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-comes-to-windows-insiders-and-linux/4413803"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-comes-to-windows-insiders-and-linux/4413803</a>
+- as of 2025-05-21</li>
+<li>directaccess.richardhicks.com — microsoft ad cs adds post quantum
+cryptography support with ml dsa - <a
+href="https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/"
+class="uri">https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/</a>
+- as of 2026-05-18</li>
+<li>encryptionconsulting.com — ml dsa support for your microsoft pki -
+<a
+href="https://www.encryptionconsulting.com/ml-dsa-support-for-your-microsoft-pki/"
+class="uri">https://www.encryptionconsulting.com/ml-dsa-support-for-your-microsoft-pki/</a>
+- as of 2026-06-30</li>
+<li>windowsforum.com — kb5101650 adds windows 11 hybrid ml kem tls 1 3
+key exchange.438638 - <a
+href="https://windowsforum.com/windows-news.4/kb5101650-adds-windows-11-hybrid-ml-kem-tls-1-3-key-exchange.438638/"
+class="uri">https://windowsforum.com/windows-news.4/kb5101650-adds-windows-11-hybrid-ml-kem-tls-1-3-key-exchange.438638/</a>
+- as of 2026-07-14</li>
+<li>paragmali.com — cng architecture bcrypt ncrypt ksps - <a
+href="https://paragmali.com/blog/cng-architecture-bcrypt-ncrypt-ksps/"
+class="uri">https://paragmali.com/blog/cng-architecture-bcrypt-ncrypt-ksps/</a>
+- as of 2026-05-16</li>
+<li>docs.oracle.com — oracle providers - <a
+href="https://docs.oracle.com/en/java/javase/24/security/oracle-providers.html"
+class="uri">https://docs.oracle.com/en/java/javase/24/security/oracle-providers.html</a></li>
+<li>seanjmullan.org — jdk24 - <a
+href="https://seanjmullan.org/blog/2025/04/07/jdk24"
+class="uri">https://seanjmullan.org/blog/2025/04/07/jdk24</a> - as of
+2025-04-07</li>
+<li>seanjmullan.org — jdk25 - <a
+href="https://seanjmullan.org/blog/2025/09/23/jdk25"
+class="uri">https://seanjmullan.org/blog/2025/09/23/jdk25</a> - as of
+2025-09-23</li>
+<li>Exploiting ML-DSA bugs (D. J. Bernstein) - <a
+href="https://cr.yp.to/papers/mldsa-20260601.pdf"
+class="uri">https://cr.yp.to/papers/mldsa-20260601.pdf</a> - as of
+2026-06-04</li>
+<li>Breaking Optimized HQC: The First Cache-Timing Full Decryption
+Oracle Key-Recovery… (Crypto 2026) - <a
+href="https://www.youtube.com/watch?v=8_FGGAHKgdI"
+class="uri">https://www.youtube.com/watch?v=8_FGGAHKgdI</a> - as of
+2026-08-15</li>
+<li>OpenSSL Security Advisory [25th August 2026] - <a
+href="https://openssl-library.org/news/secadv/20260825.txt"
+class="uri">https://openssl-library.org/news/secadv/20260825.txt</a> -
+as of 2026-08-25</li>
+<li>liboqs/RELEASE.md at main · open-quantum-safe/liboqs - <a
+href="https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md"
+class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md</a>
+- as of 2026-07-09</li>
+<li>A Survey of Post-Quantum Cryptography Support in Cryptographic
+Libraries - <a href="https://arxiv.org/html/2508.16078v1"
+class="uri">https://arxiv.org/html/2508.16078v1</a> - as of
+2026-08-15</li>
+<li>Google Boringssl : Security vulnerabilities, CVEs - <a
+href="https://www.cvedetails.com/vulnerability-list/vendor_id-1224/product_id-47071/Google-Boringssl.html"
+class="uri">https://www.cvedetails.com/vulnerability-list/vendor_id-1224/product_id-47071/Google-Boringssl.html</a>
+- as of 2026-08-15</li>
+<li>Latest NIST PQC Standards and more - Bouncy Castle Java 1.79 -
+Bouncycastle - <a
+href="https://www.bouncycastle.org/resources/latest-nist-pqc-standards-and-more-bouncy-castle-java-1-79/"
+class="uri">https://www.bouncycastle.org/resources/latest-nist-pqc-standards-and-more-bouncy-castle-java-1-79/</a>
+- as of 2026-08-15</li>
+<li>CVE-2025-52473 | Tenable® - <a
+href="https://www.tenable.com/cve/CVE-2025-52473"
+class="uri">https://www.tenable.com/cve/CVE-2025-52473</a> - as of
+2025-07-10</li>
+<li>Releases · open-quantum-safe/liboqs - <a
+href="https://github.com/open-quantum-safe/liboqs/releases"
+class="uri">https://github.com/open-quantum-safe/liboqs/releases</a> -
+as of 2025-07-10</li>
+<li>PQCA announces release of liboqs version 0.14.0 from Open Quantum
+Safe project – Post-Quantum Cryptography Alliance - <a
+href="https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/"
+class="uri">https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/</a>
+- as of 2025-07-10</li>
+<li>Theoretical design flaw in HQC · Advisory · open-quantum-safe/liboqs
+· GitHub - <a
+href="https://github.com/open-quantum-safe/liboqs/security/advisories/GHSA-3rxw-4v8q-9gq5"
+class="uri">https://github.com/open-quantum-safe/liboqs/security/advisories/GHSA-3rxw-4v8q-9gq5</a></li>
+<li>Securityvulnerability - <a
+href="https://securityvulnerability.io/vulnerability/CVE-2025-48946"
+class="uri">https://securityvulnerability.io/vulnerability/CVE-2025-48946</a></li>
+<li>Using AISLE to Find Vulnerabilities in Amazon’s Crypto Stack: AWS-LC
+and s2n-tls - <a
+href="https://aisle.com/blog/aisle-finds-vulnerabilities-in-amazons-crypto-stack-aws-lc-and-s2n-tls"
+class="uri">https://aisle.com/blog/aisle-finds-vulnerabilities-in-amazons-crypto-stack-aws-lc-and-s2n-tls</a>
+- as of 2026-03-03</li>
+<li>Amazon AWS-LC Vulnerability Allows Attackers to Bypass Certificate
+Chain Verification - <a
+href="https://cyberpress.org/amazon-aws-lc-vulnerability/"
+class="uri">https://cyberpress.org/amazon-aws-lc-vulnerability/</a> - as
+of 2026-03-06</li>
+<li>aws-lc/crypto/fipsmodule/PQREADME.md at main · aws/aws-lc - <a
+href="https://github.com/aws/aws-lc/blob/main/crypto/fipsmodule/PQREADME.md"
+class="uri">https://github.com/aws/aws-lc/blob/main/crypto/fipsmodule/PQREADME.md</a></li>
+<li>AWS Security Blog - <a
+href="https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation"
+class="uri">https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation</a></li>
+<li>BoringSSL through 2018-06-14 allows a memory-cache side… ·
+CVE-2018-12440 · GitHub Advisory Database · GitHub - <a
+href="https://github.com/advisories/GHSA-mwrj-3qqh-xprh"
+class="uri">https://github.com/advisories/GHSA-mwrj-3qqh-xprh</a> - as
+of 2018-06-14</li>
+<li>NIST PQC Support and more - Bouncy Castle C# .NET 2.5.0 -
+Bouncycastle - <a
+href="https://www.bouncycastle.org/resources/nist-pqc-support-and-more-bouncy-castle-c-net-2-5-0/"
+class="uri">https://www.bouncycastle.org/resources/nist-pqc-support-and-more-bouncy-castle-c-net-2-5-0/</a>
+- as of 2024-12-06</li>
+<li>Bouncy Castle Releases Java 1.81 and C# .NET 2.6.1 - Bouncycastle -
+<a
+href="https://www.bouncycastle.org/resources/bouncy-castle-releases-java-1-81-and-c-net-2-6-1/"
+class="uri">https://www.bouncycastle.org/resources/bouncy-castle-releases-java-1-81-and-c-net-2-6-1/</a>
+- as of 2025-06-09</li>
+<li>New Releases: Bouncy Castle Java 1.84 and Bouncy Castle Java LTS
+2.73.11 - <a
+href="https://www.bouncycastle.org/resources/new-releases-bouncy-castle-java-1-84-and-bouncy-castle-java-lts-2-73-11/"
+class="uri">https://www.bouncycastle.org/resources/new-releases-bouncy-castle-java-1-84-and-bouncy-castle-java-lts-2-73-11/</a>
+- as of 2026-05-12</li>
+<li>Vulnerabilities | OpenSSL Library - <a
+href="https://openssl-library.org/news/vulnerabilities/"
+class="uri">https://openssl-library.org/news/vulnerabilities/</a> - as
+of 2026-04-07</li>
+<li>OpenSSL 3.5 Series Release Notes | OpenSSL Library - <a
+href="https://openssl-library.org/news/openssl-3.5-notes/"
+class="uri">https://openssl-library.org/news/openssl-3.5-notes/</a> - as
+of 2025-04-08</li>
+<li>OpenSSL 3.5 Released » ADMIN Magazine - <a
+href="https://www.admin-magazine.com/News/OpenSSL-3.5-Released"
+class="uri">https://www.admin-magazine.com/News/OpenSSL-3.5-Released</a></li>
+<li>OpenSSL Position and Plans on Private Key Formats for the ML-KEM and
+ML-DSA Post-quantum (PQ) Algorithms | OpenSSL Corporation - <a
+href="https://openssl-corporation.org/post/2025-01-21-blog-positionandplans/"
+class="uri">https://openssl-corporation.org/post/2025-01-21-blog-positionandplans/</a>
+- as of 2025-01-21</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="03-operating-systems.html"><span>Previous</span>Part 3 - Operating Systems &amp; Endpoints</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="05-hsm-kms.html"><span>Next</span>Part 5 - HSMs, KMS &amp; Key Management</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/04-crypto-libraries.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

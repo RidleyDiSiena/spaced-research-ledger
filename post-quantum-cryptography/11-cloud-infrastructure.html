@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 11 - Cloud Infrastructure | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 11: Cloud Infrastructure.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 11</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 11</p>
+    <h1>Cloud Infrastructure</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/11-cloud-infrastructure.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#aws" id="toc-aws">1. AWS</a></li>
+<li><a href="#azure" id="toc-azure">2. Azure</a></li>
+<li><a href="#google-cloud" id="toc-google-cloud">3. Google
+Cloud</a></li>
+<li><a href="#other-cloud-providers" id="toc-other-cloud-providers">4.
+Other Cloud Providers</a></li>
+<li><a href="#cdn-edge" id="toc-cdn-edge">5. CDN &amp; Edge</a></li>
+<li><a href="#sase-zero-trust" id="toc-sase-zero-trust">6. SASE &amp;
+Zero Trust</a></li>
+<li><a href="#confidential-computing-attestation"
+id="toc-confidential-computing-attestation">7. Confidential Computing
+Attestation</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Most of the world’s computing now runs in a handful of clouds, so a
+single provider decision moves more traffic to post-quantum than a
+thousand enterprise projects. The providers know it, and they have
+turned the migration into a competitive race with published roadmaps and
+dated milestones.</p>
+<p>This report covers the field in seven sections. Sections 1 through 3
+cover AWS, Azure, and Google Cloud. Section 4 covers the other
+providers, Section 5 the content-delivery networks, Section 6 the
+secure-access services, and Section 7 the attestation chains inside
+confidential computing.</p>
+<p>The standings are uneven. AWS turned hybrid key exchange on by
+default across its core services and put ML-DSA into its key and
+certificate services. Google matched that and became the only major
+cloud with all three NIST algorithms generally available in its KMS.
+Azure trails visibly, with its own documentation claiming no
+post-quantum key types at all.</p>
+<p>The edge moved fastest of anyone. Cloudflare and Akamai now run
+post-quantum end to end, and both have committed to full protection,
+signatures included, by 2029. At the other extreme sits confidential
+computing, where every attestation chain in every cloud still rests on
+classical elliptic curves.</p>
+<h2 id="aws">1. AWS</h2>
+<p><em>Amazon’s cloud secures more workloads than any other, and its
+migration is organized as a program: inventory first, public endpoints
+second, roots of trust third. What AWS operates, it upgrades itself.
+What customers configure, they must switch on. This section covers how
+far each half has come.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The FIPS gap closed. AWS KMS now runs hybrid post-quantum TLS on all
+endpoints, the FIPS-validated ones included [1]. Two absences are worth
+naming precisely. No primary source describes shipped post-quantum
+features in the Nitro virtualization system, where commentary is
+forward-looking only. And nothing confirms the managed Site-to-Site VPN
+supports a hybrid key exchange natively [2].</p>
+<h3 id="current-state">Current State</h3>
+<p>The default flipped in spring 2026. AWS turned ML-KEM hybrid TLS on
+by default across KMS, Secrets Manager, ACM, Payment Cryptography, and
+S3 [3]. The lineage runs back to 2022, when the KMS endpoints offered
+three draft-era KEMs [4], narrowed to Kyber in 2023 [5], then
+standardized. The cost is measured: about 1,600 extra handshake bytes
+and well under a millisecond [6]. The foundation is AWS-LC, the first
+open-source module with ML-KEM in a FIPS validation [6].</p>
+<p>The customer-configured surfaces are opt-in. Load balancers support
+post-quantum TLS policies everywhere at no cost, but listeners must
+select them [7][7], with three hybrid groups and named recommended
+policies [8][8]. CloudFront went the other way, enabling hybrid key
+establishment automatically on viewer connections [9] and adding a TLS
+1.3-only policy [9]. It earned exclusion from AWS’s own readiness
+scanner because there is nothing left to configure [10]. The scanner
+covers the surfaces where policy choice still matters [10].</p>
+<p>Signatures run through the certificate services. Private CA issues
+ML-DSA for roots of trust spanning code signing, device authentication,
+and tunnel authentication [11][11]. Public ACM certificates remain
+classical [12], and the original transport rollout never touched
+certificate content [4]. The program frames it all as workstreams under
+a shared-responsibility split: AWS endpoints prefer post-quantum
+automatically, customer resources need configuration [11][11].</p>
+<p>The VPN gap illustrates the split’s edge: the available mechanism is
+post-quantum-signed certificates for tunnel authentication, not a
+post-quantum exchange inside the VPN protocol [11][2][11]. Nitro’s
+baseline, meanwhile, is a clean public record with no known compromise,
+ahead of any quantum-specific upgrade [13].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="azure">2. Azure</h2>
+<p><em>Microsoft’s cloud inherits its cryptography from Windows, which
+means Azure’s post-quantum story is largely the Schannel and SymCrypt
+story told elsewhere. What Azure has not done is put the new algorithms
+into its key-custody services, and its own documentation is the bluntest
+witness. This section covers the gap between platform and
+product.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The key services remain classical by the best available reading. A
+third-party analysis, itself marked as needing verification, found Key
+Vault supporting only RSA, elliptic-curve, and AES keys, with no FIPS
+203, 204, or 205 algorithm available [14]. Managed HSM matches, with
+ML-KEM and ML-DSA explicitly unsupported and the underlying hardware
+validated to the older FIPS standard [14][14]. The workaround is
+imported keys from external hardware, which puts post-quantum material
+under Azure’s access control without giving it HSM-attested operations
+[14].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Microsoft’s own pages say the quiet part. The Key Vault documentation
+claims quantum resistance only for 256-bit symmetric keys, framed around
+Grover’s algorithm, never a NIST asymmetric algorithm [15]. Managed
+HSM’s documentation echoes it exactly [16]. The shipped movement is
+symmetric too: AES key wrapping reached Key Vault Premium in preview,
+extending quantum-resistant wrapping [17].</p>
+<p>The edge is similarly unannounced. A tracking site’s Front Door
+assessment contradicts itself, saying in one place that no customer
+toggle exists and in another that a rollout has begun [18]. No Microsoft
+statement supports either version [18]. Application Gateway follows the
+Windows Schannel cadence rather than any gateway-specific release
+[18].</p>
+<p>The practical guidance is telling: terminate TLS on a
+customer-controlled backend and run the gateway as a pass-through [18].
+Architects are told to build health checks that log negotiated suites,
+because the default cannot be assumed [19].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="google-cloud">3. Google Cloud</h2>
+<p><em>Google ran post-quantum cryptography in production before NIST
+finished standardizing it, on the internal protocol that encrypts
+traffic between its own data centers. Its cloud now publishes the most
+specific roadmap of the three: migration complete by 2029, a year ahead
+of the government’s deprecation clock. This section covers the provider
+setting the pace.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The roadmap keeps its dates. Quantum-safe key import reached preview
+in Cloud KMS in August, wrapping imported keys with ML-KEM or X-Wing in
+transit [20], on schedule against the published plan [21]. The internal
+protocol’s next step is authenticity, adding post-quantum signatures to
+the ALTS handshake to gain operational experience with post-quantum
+certificate chains [22], targeted for 2026 to 2027 [21]. The load
+balancers got the most explicit rollout in the industry: opt-in now,
+default with an opt-out from October 2026, and permanently on with no
+opt-out after October 2027 [23].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Cloud KMS leads the market on algorithms. It is the only major cloud
+KMS with all three NIST families generally available as native key
+types, with pre-hash variants chosen deliberately to make large-payload
+signing practical [24][24]. A dashboard chart now shows customers which
+asymmetric keys remain quantum-vulnerable [25].</p>
+<p>The history explains the confidence. Google enabled a conservative
+pre-NIST KEM on ALTS in November 2022 [26] and migrated it to
+standardized ML-KEM as a completed milestone [27]. The company target is
+full migration by 2029, with store-now-decrypt-later mitigated by 2027
+[27]. Its public endpoints already offer hybrid key exchange to all
+comers [28]. A hands-on account quantifies the wire cost, with hello
+messages growing several-fold, a fragmentation concern but not a
+practical problem for browsing [29].</p>
+<p>The load-balancer rollout requires TLS 1.3 by construction [30]. The
+honest caveat is hardware. The 2028 target for HSM and
+confidential-computing roots of trust is Google’s own, and the roadmap
+admits equipment cycles could push parts past 2029 [27].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="other-cloud-providers">4. Other Cloud Providers</h2>
+<p><em>Beyond the big three, the cloud market includes providers with
+their own migrations: Oracle, IBM, Alibaba, and regional players. Their
+timelines range from earlier than anyone to documentation that may be
+years stale. This section covers the rest of the field, where the
+sharpest single product is a database.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Oracle put the algorithms in the database itself. Oracle Database 19c
+supports ML-KEM, ML-DSA, and SLH-DSA under its next-generation provider,
+in non-FIPS and FIPS 140-3 modes but not the legacy FIPS mode [31].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>Oracle’s push is broad and dated. Its security team implemented
+ML-KEM and ML-DSA in its providers as the first step toward hybrid key
+establishment across TLS, SSH, and IKEv2 [32]. Its flagship database
+added pure ML-KEM key exchange in October 2025 and hybrid in January
+2026, claiming a first among database systems [33]. The FIPS-mode
+boundaries are documented [34], and newer releases default stronger
+tablespace ciphers [35][35].</p>
+<p>Partners fill the network layer, with a post-quantum VPN in its
+government regions [36] and cryptographic-discovery tooling for defense
+customers [37]. Java workloads ride the JDK roadmap toward its September
+completion [38].</p>
+<p>IBM moved earliest and may have aged worst. It announced quantum-safe
+cloud services in November 2020, well before standards [39]. Current
+documentation still describes round-three Kyber parameters and round-two
+Dilithium, and it is unclear whether that reflects deployed algorithms
+or stale pages [40][40]. The broader Quantum Safe branding spans
+mainframes and consulting, context rather than cloud capability
+[41].</p>
+<p>Alibaba matched the default-on edge pattern. Its edge-acceleration
+service enables the hybrid group sitewide with no configuration [42]. It
+offers a beta post-quantum HSM covering the NIST set plus the hash-based
+schemes [43]. It claims a first with post-quantum algorithms in vehicles
+through an XPeng partnership, self-reported [44]. Ambitions run from
+chips to flying cars [44], with a research lab in the background
+[45].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="cdn-edge">5. CDN &amp; Edge</h2>
+<p><em>The content-delivery networks sit between every browser and most
+large websites, which makes them the internet’s fastest lever: one CDN
+default protects millions of sites at once. Two networks account for
+most post-quantum TLS on the internet today. This section covers the
+layer that finished first.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>Akamai completed the loop. In August it reached general availability
+for end-to-end post-quantum protection across its network,
+client-to-edge on by default and origin plus internal legs complete
+[46]. It is evaluating its roadmap against the industry’s 2029 target,
+certificates included [47]. Cloudflare shipped the harder half early:
+post-quantum origin authentication with ML-DSA went live in June, weeks
+before its announcement [48][49]. The rollout had one incident, a
+certificate-validation change that briefly invalidated a small number of
+customer certificates [48].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>Cloudflare is the reference deployment. It has worked on post-quantum
+since 2017, enabled client-side hybrid key agreement for all customers
+in 2022, and reached origin key agreement in 2023 [50]. Its current
+status page is precise [51][52]. Key agreement is on in both directions,
+and origin signatures are on through its authentication features.</p>
+<p>Visitor-side signatures wait on Merkle Tree Certificates, and
+internal migration is mostly done with a long tail [51][52]. The
+engineering details are candid, including a library fork four years
+behind upstream and a patched interim implementation while Go lacked
+ML-DSA [53], with documentation current [54].</p>
+<p>Its accelerated 2029 commitment cites the recent resource-estimate
+research and covers every plan tier free [55][55], with dated milestones
+[56]. Its essays argue ML-DSA will have to do rather than waiting for
+better algorithms [57], noting a U.S. executive order’s 2031 deadline
+[57].</p>
+<p>Akamai ran the same race with opposite instincts. It positioned
+itself as a standards-follower, waiting for the IETF and libraries [58].
+It then executed a three-phase rollout from origin to edge to internal
+[59], building its own provider rather than waiting on upstream [60].
+Its origin leg requires TLS 1.3 and degrades gracefully by one round
+trip [61].</p>
+<p>Fastly announced its rollout in April 2025 with little since [62].
+Yet the measured result stands: Fastly and Cloudflare together account
+for nearly 70 percent of observed post-quantum TLS deployments [63].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sase-zero-trust">6. SASE &amp; Zero Trust</h2>
+<p><em>Secure-access platforms sit inline on enterprise traffic,
+decrypting, inspecting, and re-encrypting it. That position makes them
+natural translators: a proxy can speak post-quantum to the world on
+behalf of applications that cannot. This section covers the vendors
+racing to be that translator, and how far each has actually
+shipped.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>The proxies are lighting up in sequence. Netskope’s secure web
+gateway added beta hybrid key exchange on both the client and server
+sides of its proxy, support-enabled rather than self-service, key
+exchange only [64][64]. AT&amp;T and Palo Alto Networks announced a
+quantum-resilient SASE fabric integrating the NIST algorithms into
+SD-WAN appliances over a private backbone [65]. It is built on the
+IETF’s IPsec mechanisms, with trials in summer 2026 [66]. Zscaler’s
+platform extends protection across the last mile even when destination
+servers lack support [67], and paired with a consulting partner for
+discovery services [67].</p>
+<h3 id="current-state-5">Current State</h3>
+<p>Zscaler claims the inline-inspection first. It decrypts hybrid
+post-quantum traffic, applies full content inspection, and re-encrypts
+onward, styling itself a quantum-safe intermediary [68]. It supports the
+preshared-key IPsec mechanism for branch connections [69] and anchors
+its positioning to the June 2026 U.S. executive orders and their 2030
+and 2031 deadlines [68].</p>
+<p>Palo Alto shipped the deepest protocol support. Its SD-WAN release
+implements the preshared-key and multiple-key-exchange RFCs with up to
+seven rounds, plus the standard hybrid TLS groups for control
+connections [70]. Its firewalls offer cipher translation, quantum-safe
+outside and classical inside, framed as a compatibility bridge for
+unupgradable applications [71]. Uniquely among vendors here, it exposes
+non-selected experimental KEM families as a labeled option [71]. Its
+remote-access agent mirrors the same mechanisms [72].</p>
+<p>Netskope is earlier stage and says so. Its public work centers on an
+architecture white paper mapping five encryption points [73]. The
+quantum-resilient platform remains pre-availability months after
+announcement [74], with executive framing about 2026 being the year of
+how [75]. Market analysts rank it a SASE leader anyway, with
+post-quantum readiness one factor among several [76].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="confidential-computing-attestation">7. Confidential Computing
+Attestation</h2>
+<p><em>Confidential computing promises that even the cloud provider
+cannot see inside a running workload, proven by hardware-signed
+attestation reports. Every one of those signatures is classical elliptic
+curve. This section is short because the work has not started, and that
+absence is the finding.</em></p>
+<h3 id="current-state-6">Current State</h3>
+<p>Every chain is classical, uniformly. AMD’s attestation reports are
+signed by per-chip elliptic-curve keys [77]. They root in an all-ECDSA
+certificate chain confirmed across AMD, AWS, Azure, and VMware
+documentation, with no post-quantum algorithm mentioned anywhere [78].
+Intel’s TDX quotes run through an ECDSA attestation key certified back
+to hardware fuses [79], and its verification library exposes no
+post-quantum option [80].</p>
+<p>AWS’s enclave attestation shows the structural problem concretely.
+Its documents are signed with ECDSA under a 30-year root [81], and the
+key-delivery mechanism supports only RSA encryption [82]. An open issue
+requesting post-quantum support notes that an ML-KEM public key
+physically does not fit the document’s fixed field, requiring a format
+change [83]. The hardware roots of trust, everywhere, are the
+migration’s last mile.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Using hybrid post-quantum TLS with AWS KMS - AWS Key Management
+Service - <a
+href="https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html"
+class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html</a>
+- as of 2026-08-25</li>
+<li>Getting started with hybrid connectivity using Site-to-Site VPN -
+Hybrid Networking Lens - <a
+href="https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/hybrid-networking-lens/site-to-site-vpn.html"
+class="uri">https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/hybrid-networking-lens/site-to-site-vpn.html</a>
+- as of 2026-08-15</li>
+<li>ML-KEM on AWS: Post-Quantum Cryptography Has Left the Lab and
+Entered Production - <a
+href="https://builder.aws.com/content/3DejKUc7QSvuXlC13C1rbtoMZNY/ml-kem-on-aws-post-quantum-cryptography-has-left-the-lab-and-entered-production-sdks"
+class="uri">https://builder.aws.com/content/3DejKUc7QSvuXlC13C1rbtoMZNY/ml-kem-on-aws-post-quantum-cryptography-has-left-the-lab-and-entered-production-sdks</a>
+- as of 2026-05-12</li>
+<li>AWS KMS and ACM now support the latest hybrid post-quantum TLS
+ciphers - <a
+href="https://aws.amazon.com/about-aws/whats-new/2022/03/aws-kms-acm-support-latest-hybrid-post-quantum-tls-ciphers"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2022/03/aws-kms-acm-support-latest-hybrid-post-quantum-tls-ciphers</a>
+- as of 2022-03-16</li>
+<li>AWS Security Blog - <a
+href="https://aws.amazon.com/blogs/security/tag/cryptography/page/3"
+class="uri">https://aws.amazon.com/blogs/security/tag/cryptography/page/3</a>
+- as of 2023-01-25</li>
+<li>AWS Security Blog - <a
+href="https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager"
+class="uri">https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager</a>
+- as of 2025-04-07</li>
+<li>AWS Application and Network Load Balancers Now Support Post-Quantum
+Key Exchange for TLS - <a
+href="https://aws.amazon.com/about-aws/whats-new/2025/11/network-load-balancers-post-quantum-key-exchange-tls"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2025/11/network-load-balancers-post-quantum-key-exchange-tls</a>
+- as of 2025-11-21</li>
+<li>Security policies for your Application Load Balancer - Elastic Load
+Balancing - <a
+href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/describe-ssl-policies.html"
+class="uri">https://docs.aws.amazon.com/elasticloadbalancing/latest/application/describe-ssl-policies.html</a></li>
+<li>Amazon CloudFront launches TLS security policy with post-quantum
+support - <a
+href="https://aws.amazon.com/about-aws/whats-new/2025/09/amazon-cloudfront-TLS-policy-post-quantum-support"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2025/09/amazon-cloudfront-TLS-policy-post-quantum-support</a>
+- as of 2025-09-05</li>
+<li>Automating post-quantum cryptography readiness using AWS Config |
+Amazon Web Services - <a
+href="https://aws.amazon.com/blogs/security/automating-post-quantum-cryptography-readiness-using-aws-config/"
+class="uri">https://aws.amazon.com/blogs/security/automating-post-quantum-cryptography-readiness-using-aws-config/</a></li>
+<li>Post-Quantum Cryptography - Amazon Web Services - <a
+href="https://aws.amazon.com/security/post-quantum-cryptography/"
+class="uri">https://aws.amazon.com/security/post-quantum-cryptography/</a></li>
+<li>AWS KMS Post-Quantum: ML-KEM &amp; ML-DSA in Production 2026 - <a
+href="https://www.factualminds.com/blog/aws-kms-post-quantum-cryptography-ml-kem-ml-dsa/"
+class="uri">https://www.factualminds.com/blog/aws-kms-post-quantum-cryptography-ml-kem-ml-dsa/</a></li>
+<li>AWS leans on prior ingenuity to face future AI and quantum threats |
+CSO Online - <a
+href="https://www.csoonline.com/article/4164624/aws-leans-on-prior-ingenuity-to-face-future-ai-and-quantum-threats.html"
+class="uri">https://www.csoonline.com/article/4164624/aws-leans-on-prior-ingenuity-to-face-future-ai-and-quantum-threats.html</a></li>
+<li>quantumsecuritydefence.com — cloud kms pqc readiness aws azure gcp -
+<a
+href="https://quantumsecuritydefence.com/insights/cloud-kms-pqc-readiness-aws-azure-gcp/"
+class="uri">https://quantumsecuritydefence.com/insights/cloud-kms-pqc-readiness-aws-azure-gcp/</a>
+- as of 2026-07-13</li>
+<li>learn.microsoft.com — about keys - <a
+href="https://learn.microsoft.com/en-us/azure/key-vault/keys/about-keys"
+class="uri">https://learn.microsoft.com/en-us/azure/key-vault/keys/about-keys</a></li>
+<li>github.com — about keys - <a
+href="https://github.com/MicrosoftDocs/azure-security-docs/blob/main/articles/key-vault/managed-hsm/about-keys.md"
+class="uri">https://github.com/MicrosoftDocs/azure-security-docs/blob/main/articles/key-vault/managed-hsm/about-keys.md</a></li>
+<li>techcommunity.microsoft.com — 4544358 - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/azure-key-vault-premium-and-aes-kw-post-quantum-resistant-key-wrapping-in-public/4544358"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/azure-key-vault-premium-and-aes-kw-post-quantum-resistant-key-wrapping-in-public/4544358</a></li>
+<li>checkpqc.com — azure - <a href="https://checkpqc.com/kb/azure/"
+class="uri">https://checkpqc.com/kb/azure/</a></li>
+<li>vbeyonddigital.com — preparing for post quantum security in dynamics
+365 a practical guide - <a
+href="https://www.vbeyonddigital.com/blog/preparing-for-post-quantum-security-in-dynamics-365-a-practical-guide/"
+class="uri">https://www.vbeyonddigital.com/blog/preparing-for-post-quantum-security-in-dynamics-365-a-practical-guide/</a>
+- as of 2026-04-09</li>
+<li>Announcing quantum-safe key import in Cloud KMS | Google Cloud Blog
+- <a
+href="https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-key-import-in-cloud-kms"
+class="uri">https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-key-import-in-cloud-kms</a>
+- as of 2026-08-20</li>
+<li>PQC in Plaintext: Google Cloud’s post-quantum cryptography roadmap -
+<a
+href="https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap"
+class="uri">https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap</a>
+- as of 2026-08-11</li>
+<li>bughunters.google.com — next with quantum safe certificates - <a
+href="https://bughunters.google.com/blog/next-with-quantum-safe-certificates"
+class="uri">https://bughunters.google.com/blog/next-with-quantum-safe-certificates</a>
+- as of 2026-06-01</li>
+<li>docs.cloud.google.com — release notes - <a
+href="https://docs.cloud.google.com/load-balancing/docs/release-notes"
+class="uri">https://docs.cloud.google.com/load-balancing/docs/release-notes</a>
+- as of 2026-07-10</li>
+<li>securitybrief.asia — google brings quantum safe signatures to cloud
+kms - <a
+href="https://securitybrief.asia/story/google-brings-quantum-safe-signatures-to-cloud-kms"
+class="uri">https://securitybrief.asia/story/google-brings-quantum-safe-signatures-to-cloud-kms</a></li>
+<li>docs.cloud.google.com — release notes - <a
+href="https://docs.cloud.google.com/kms/docs/release-notes"
+class="uri">https://docs.cloud.google.com/kms/docs/release-notes</a></li>
+<li>cloud.google.com — why google now uses post quantum cryptography for
+internal comms - <a
+href="https://cloud.google.com/blog/products/identity-security/why-google-now-uses-post-quantum-cryptography-for-internal-comms"
+class="uri">https://cloud.google.com/blog/products/identity-security/why-google-now-uses-post-quantum-cryptography-for-internal-comms</a>
+- as of 2022-11-19</li>
+<li>infosecurity-magazine.com — google cloud post quantum roadmap - <a
+href="https://www.infosecurity-magazine.com/news/google-cloud-post-quantum-roadmap/"
+class="uri">https://www.infosecurity-magazine.com/news/google-cloud-post-quantum-roadmap/</a></li>
+<li>cloud.google.com — pqc in plaintext google clouds post quantum
+cryptography roadmap - <a
+href="https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap"
+class="uri">https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap</a></li>
+<li>medium.com — i connected to google using post quantum encryption
+heres what the output actually means bbaf37194657 - <a
+href="https://medium.com/@sumit.giri199/i-connected-to-google-using-post-quantum-encryption-heres-what-the-output-actually-means-bbaf37194657"
+class="uri">https://medium.com/@sumit.giri199/i-connected-to-google-using-post-quantum-encryption-heres-what-the-output-actually-means-bbaf37194657</a>
+- as of 2026-03-07</li>
+<li>docs.cloud.google.com — ssl policies concepts - <a
+href="https://docs.cloud.google.com/load-balancing/docs/ssl-policies-concepts"
+class="uri">https://docs.cloud.google.com/load-balancing/docs/ssl-policies-concepts</a></li>
+<li>Post-Quantum Cryptography in Oracle Database - <a
+href="https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/post-quantum-cryptography-reference.html"
+class="uri">https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/post-quantum-cryptography-reference.html</a>
+- as of 2026-08-25</li>
+<li>blogs.oracle.com — post quantum cryptography - <a
+href="https://blogs.oracle.com/security/post-quantum-cryptography"
+class="uri">https://blogs.oracle.com/security/post-quantum-cryptography</a>
+- as of 2025-11-18</li>
+<li>blogs.oracle.com — hybrid pqc - <a
+href="https://blogs.oracle.com/database/hybrid-pqc"
+class="uri">https://blogs.oracle.com/database/hybrid-pqc</a> - as of
+2026-01-26</li>
+<li>docs.oracle.com — post quantum cryptography reference - <a
+href="https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/post-quantum-cryptography-reference.html"
+class="uri">https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/post-quantum-cryptography-reference.html</a></li>
+<li>Database Encryption in 2026: The Good, the Quantum, and the Insider
+- <a
+href="https://www.pebbleit.com.au/insight/database-encryption-in-2026-the-good-the-quantum-and-the-insider"
+class="uri">https://www.pebbleit.com.au/insight/database-encryption-in-2026-the-good-the-quantum-and-the-insider</a>
+- as of 2026-05-18</li>
+<li>blogs.oracle.com — oracle american binary post quantum solutions -
+<a
+href="https://blogs.oracle.com/cloud-infrastructure/oracle-american-binary-post-quantum-solutions"
+class="uri">https://blogs.oracle.com/cloud-infrastructure/oracle-american-binary-post-quantum-solutions</a>
+- as of 2026-02-23</li>
+<li>blogs.oracle.com — oracle arqit post quantum security - <a
+href="https://blogs.oracle.com/cloud-infrastructure/oracle-arqit-post-quantum-security"
+class="uri">https://blogs.oracle.com/cloud-infrastructure/oracle-arqit-post-quantum-security</a>
+- as of 2026-05-12</li>
+<li>blogs.oracle.com — post quantum cryptography in long term support
+jdk releases - <a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a></li>
+<li>newsroom.ibm.com — 2020 11 30 IBM Cloud Delivers Quantum Safe
+Cryptography and Hyper Protect Crypto Services to Help Protect Data in
+the Hybrid Era - <a
+href="https://newsroom.ibm.com/2020-11-30-IBM-Cloud-Delivers-Quantum-Safe-Cryptography-and-Hyper-Protect-Crypto-Services-to-Help-Protect-Data-in-the-Hybrid-Era"
+class="uri">https://newsroom.ibm.com/2020-11-30-IBM-Cloud-Delivers-Quantum-Safe-Cryptography-and-Hyper-Protect-Crypto-Services-to-Help-Protect-Data-in-the-Hybrid-Era</a>
+- as of 2020-11-30</li>
+<li>github.com — security - <a
+href="https://github.com/ibm-cloud-docs/overview/security"
+class="uri">https://github.com/ibm-cloud-docs/overview/security</a></li>
+<li>cybermagazine.com — ibm entrust cryptography for post quantum
+security risks - <a
+href="https://cybermagazine.com/news/ibm-entrust-cryptography-for-post-quantum-security-risks"
+class="uri">https://cybermagazine.com/news/ibm-entrust-cryptography-for-post-quantum-security-risks</a>
+- as of 2026-05-01</li>
+<li>alibabacloud.com — post quantum encryption - <a
+href="https://www.alibabacloud.com/help/tc/edge-security-acceleration/esa/user-guide/post-quantum-encryption"
+class="uri">https://www.alibabacloud.com/help/tc/edge-security-acceleration/esa/user-guide/post-quantum-encryption</a>
+- as of 2026-04-23</li>
+<li>Post-Quantum Cryptography GVSM (Chinese mainland version) - <a
+href="https://help.aliyun.com/en/kms/cloud-hardware-security-module/product-overview/gvsm-post-quantum-cipher-machine-beta"
+class="uri">https://help.aliyun.com/en/kms/cloud-hardware-security-module/product-overview/gvsm-post-quantum-cipher-machine-beta</a>
+- as of 2026-01-14</li>
+<li>developer.aliyun.com — 1683391 - <a
+href="https://developer.aliyun.com/article/1683391"
+class="uri">https://developer.aliyun.com/article/1683391</a> - as of
+2025-09-26</li>
+<li>zhihu.com — 65198620 - <a
+href="https://www.zhihu.com/question/65198620"
+class="uri">https://www.zhihu.com/question/65198620</a> - as of
+2017-09-11</li>
+<li>Future-Proofing the Internet: Akamai Achieves End-to-End PQC - <a
+href="https://www.akamai.com/blog/security/future-proofing-internet-akamai-achieves-end-to-end-pqc"
+class="uri">https://www.akamai.com/blog/security/future-proofing-internet-akamai-achieves-end-to-end-pqc</a>
+- as of 2026-08-19</li>
+<li>Post-Quantum Cryptography: What’s Next for Edge Security - <a
+href="https://www.akamai.com/blog/security/post-quantum-cryptography-whats-next-edge-security"
+class="uri">https://www.akamai.com/blog/security/post-quantum-cryptography-whats-next-edge-security</a>
+- as of 2026-07-15</li>
+<li>Google Cloud PQC Roadmap: Signatures Trail by a Year - <a
+href="https://postquantum.com/security-pqc/google-cloud-pqc-roadmap/"
+class="uri">https://postquantum.com/security-pqc/google-cloud-pqc-roadmap/</a>
+- as of 2026-08-14</li>
+<li>blog.cloudflare.com — post quantum authentication to origins - <a
+href="https://blog.cloudflare.com/post-quantum-authentication-to-origins/"
+class="uri">https://blog.cloudflare.com/post-quantum-authentication-to-origins/</a>
+- as of 2026-07-29</li>
+<li>developers.cloudflare.com — post quantum cryptography - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/</a>
+- as of 2026-07-03</li>
+<li>PQC in Cloudflare products · Cloudflare SSL/TLS docs - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-cloudflare-products/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-cloudflare-products/</a>
+- as of 2026-08-28</li>
+<li>developers.cloudflare.com — pqc cloudflare products - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-cloudflare-products/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-cloudflare-products/</a></li>
+<li>noise.getoto.net — post quantum authentication to origins is now
+supported - <a
+href="https://noise.getoto.net/2026/07/29/post-quantum-authentication-to-origins-is-now-supported/"
+class="uri">https://noise.getoto.net/2026/07/29/post-quantum-authentication-to-origins-is-now-supported/</a>
+- as of 2026-07-29</li>
+<li>Post-quantum between Cloudflare and origin servers - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-to-origin/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-to-origin/</a>
+- as of 2026-08-03</li>
+<li>postquantum.com — cloudflare pqc 2029 - <a
+href="https://postquantum.com/security-pqc/cloudflare-pqc-2029/"
+class="uri">https://postquantum.com/security-pqc/cloudflare-pqc-2029/</a>
+- as of 2026-04-08</li>
+<li>quantumcomputingreport.com — cloudflare accelerates post quantum
+roadmap to 2029 amid major algorithmic breakthroughs - <a
+href="https://quantumcomputingreport.com/cloudflare-accelerates-post-quantum-roadmap-to-2029-amid-major-algorithmic-breakthroughs/"
+class="uri">https://quantumcomputingreport.com/cloudflare-accelerates-post-quantum-roadmap-to-2029-amid-major-algorithmic-breakthroughs/</a>
+- as of 2026-04-09</li>
+<li>Why we cannot wait for better post-quantum signature algorithms - <a
+href="https://blog.cloudflare.com/ml-dsa-will-have-to-do/"
+class="uri">https://blog.cloudflare.com/ml-dsa-will-have-to-do/</a> - as
+of 2026-07-09</li>
+<li>akamai.com — akamai and post quantum cryptography - <a
+href="https://www.akamai.com/blog/security/akamai-and-post-quantum-cryptography"
+class="uri">https://www.akamai.com/blog/security/akamai-and-post-quantum-cryptography</a>
+- as of 2026-01-16</li>
+<li>akamai.com — digital signatures traditional post quantum
+cryptographic - <a
+href="https://www.akamai.com/blog/security/digital-signatures-traditional-post-quantum-cryptographic"
+class="uri">https://www.akamai.com/blog/security/digital-signatures-traditional-post-quantum-cryptographic</a>
+- as of 2026-02-27</li>
+<li>akamai.com — post quantum cryptography implementation considerations
+tls - <a
+href="https://www.akamai.com/blog/security/post-quantum-cryptography-implementation-considerations-tls"
+class="uri">https://www.akamai.com/blog/security/post-quantum-cryptography-implementation-considerations-tls</a>
+- as of 2025-08-06</li>
+<li>techdocs.akamai.com — pqc origin - <a
+href="https://techdocs.akamai.com/property-mgr/docs/pqc-origin"
+class="uri">https://techdocs.akamai.com/property-mgr/docs/pqc-origin</a></li>
+<li>fastly.com — future proofing tls encryption against quantum threats
+- <a
+href="https://www.fastly.com/blog/future-proofing-tls-encryption-against-quantum-threats"
+class="uri">https://www.fastly.com/blog/future-proofing-tls-encryption-against-quantum-threats</a>
+- as of 2025-04-02</li>
+<li>Mind the Gap: Policy vs Reality in Post-Quantum TLS Deployment - <a
+href="https://arxiv.org/html/2607.29005v1"
+class="uri">https://arxiv.org/html/2607.29005v1</a> - as of
+2026-08-24</li>
+<li>Post-Quantum Cryptography Support - <a
+href="https://docs.netskope.com/en/post-quantum-cryptography-support"
+class="uri">https://docs.netskope.com/en/post-quantum-cryptography-support</a>
+- as of 2026-08-05</li>
+<li>AT&amp;T, Palo Alto Networks Deliver Quantum-Resilient SASE Fabric -
+<a
+href="https://about.att.com/blogs/2026/quantum-resilient-sase-fabric.html"
+class="uri">https://about.att.com/blogs/2026/quantum-resilient-sase-fabric.html</a>
+- as of 2026-07-16</li>
+<li>AT&amp;T and Palo Alto Networks ship a quantum-resilient network
+fabric - <a
+href="https://quantum-brief.com/blog/news-2026-07-19-att-palo-alto-quantum-sase/"
+class="uri">https://quantum-brief.com/blog/news-2026-07-19-att-palo-alto-quantum-sase/</a>
+- as of 2026-07-19</li>
+<li>quantumzeitgeist.com — hcltech zscaler pqc offering amid - <a
+href="https://quantumzeitgeist.com/hcltech-zscaler-pqc-offering-amid/"
+class="uri">https://quantumzeitgeist.com/hcltech-zscaler-pqc-offering-amid/</a>
+- as of 2026-06-08</li>
+<li>zscaler.com — accelerating post quantum readiness timelines new
+executive order securing - <a
+href="https://www.zscaler.com/blogs/product-insights/accelerating-post-quantum-readiness-timelines-new-executive-order-securing"
+class="uri">https://www.zscaler.com/blogs/product-insights/accelerating-post-quantum-readiness-timelines-new-executive-order-securing</a></li>
+<li>zscaler.com — future proof security first quantum ready security
+service edge sse - <a
+href="https://www.zscaler.com/blogs/product-insights/future-proof-security-first-quantum-ready-security-service-edge-sse"
+class="uri">https://www.zscaler.com/blogs/product-insights/future-proof-security-first-quantum-ready-security-service-edge-sse</a>
+- as of 2026-04-15</li>
+<li>docs.paloaltonetworks.com — features introduced in july 2026 - <a
+href="https://docs.paloaltonetworks.com/prisma-sd-wan/release-notes/new-features/prisma-sd-wan-release-information/prisma-sd-wan-features-introduced-in-2026/features-introduced-in-july-2026"
+class="uri">https://docs.paloaltonetworks.com/prisma-sd-wan/release-notes/new-features/prisma-sd-wan-release-information/prisma-sd-wan-features-introduced-in-2026/features-introduced-in-july-2026</a></li>
+<li>docs.paloaltonetworks.com — support for quantum features - <a
+href="https://docs.paloaltonetworks.com/network-security/quantum-security/administration/quantum-security-concepts/support-for-quantum-features"
+class="uri">https://docs.paloaltonetworks.com/network-security/quantum-security/administration/quantum-security-concepts/support-for-quantum-features</a></li>
+<li>live.paloaltonetworks.com — 1253367 - <a
+href="https://live.paloaltonetworks.com/t5/community-blogs/securing-the-future-how-access-agent-is-preparing-for-the/ba-p/1253367"
+class="uri">https://live.paloaltonetworks.com/t5/community-blogs/securing-the-future-how-access-agent-is-preparing-for-the/ba-p/1253367</a>
+- as of 2026-05-01</li>
+<li>netskope.com — preparing for a future with post quantum cryptography
+- <a
+href="https://www.netskope.com/resources/white-papers/preparing-for-a-future-with-post-quantum-cryptography"
+class="uri">https://www.netskope.com/resources/white-papers/preparing-for-a-future-with-post-quantum-cryptography</a>
+- as of 2025-09-25</li>
+<li>decisioninsights.ai — netskope enhances encryption protocols for
+quantum threats - <a
+href="https://decisioninsights.ai/netskope-enhances-encryption-protocols-for-quantum-threats/"
+class="uri">https://decisioninsights.ai/netskope-enhances-encryption-protocols-for-quantum-threats/</a>
+- as of 2026-02-13</li>
+<li>tiinside.com.br — Netskope’s predictions for cybersecurity in 2026 -
+<a
+href="https://tiinside.com.br/en/02/12/2025/Netskope&#39;s-predictions-for-cybersecurity-in-2026/"
+class="uri">https://tiinside.com.br/en/02/12/2025/Netskope's-predictions-for-cybersecurity-in-2026/</a>
+- as of 2025-12-03</li>
+<li>sdxcentral.com — gartner sase 2026 rankings netskope leads cato
+networks leaps and palo alto networks falls - <a
+href="https://www.sdxcentral.com/news/gartner-sase-2026-rankings-netskope-leads-cato-networks-leaps-and-palo-alto-networks-falls/"
+class="uri">https://www.sdxcentral.com/news/gartner-sase-2026-rankings-netskope-leads-cato-networks-leaps-and-palo-alto-networks-falls/</a></li>
+<li>arxiv.org — 2406.01186 - <a href="https://arxiv.org/pdf/2406.01186"
+class="uri">https://arxiv.org/pdf/2406.01186</a></li>
+<li>lenovopress.lenovo.com — lp2349 configuring confidential computing
+with amd sev snp and vmware esxi 90 - <a
+href="https://lenovopress.lenovo.com/lp2349-configuring-confidential-computing-with-amd-sev-snp-and-vmware-esxi-90"
+class="uri">https://lenovopress.lenovo.com/lp2349-configuring-confidential-computing-with-amd-sev-snp-and-vmware-esxi-90</a>
+- as of 2026-01-05</li>
+<li>download.01.org — Intel TDX DCAP Quoting Library API.pdf - <a
+href="https://download.01.org/intel-sgx/latest/dcap-latest/linux/docs/Intel_TDX_DCAP_Quoting_Library_API.pdf"
+class="uri">https://download.01.org/intel-sgx/latest/dcap-latest/linux/docs/Intel_TDX_DCAP_Quoting_Library_API.pdf</a></li>
+<li>deepwiki.com — 3.1 quote verification engine - <a
+href="https://deepwiki.com/intel/SGX-TDX-DCAP-QuoteVerificationLibrary/3.1-quote-verification-engine"
+class="uri">https://deepwiki.com/intel/SGX-TDX-DCAP-QuoteVerificationLibrary/3.1-quote-verification-engine</a></li>
+<li>docs.aws.amazon.com — nitrotpm attestation document validate - <a
+href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm-attestation-document-validate.html"
+class="uri">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm-attestation-document-validate.html</a></li>
+<li>docs.aws.amazon.com — recipient - <a
+href="https://docs.aws.amazon.com/sdk-for-kotlin/api/latest/kms/aws.sdk.kotlin.services.kms.model/-derive-shared-secret-request/recipient.html"
+class="uri">https://docs.aws.amazon.com/sdk-for-kotlin/api/latest/kms/aws.sdk.kotlin.services.kms.model/-derive-shared-secret-request/recipient.html</a></li>
+<li>github.com — 168 - <a
+href="https://github.com/aws/aws-nitro-enclaves-sdk-c/issues/168"
+class="uri">https://github.com/aws/aws-nitro-enclaves-sdk-c/issues/168</a>
+- as of 2026-04-13</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="10-containers-orchestration.html"><span>Previous</span>Part 10 - Containers, Orchestration, Service Mesh</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="12-security-appliances.html"><span>Next</span>Part 12 - Security &amp; Network Appliances</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/11-cloud-infrastructure.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

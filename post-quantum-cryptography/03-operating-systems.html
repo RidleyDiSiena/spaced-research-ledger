@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 3 - Operating Systems & Endpoints | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 3: Operating Systems & Endpoints.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 3</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 3</p>
+    <h1>Operating Systems &amp; Endpoints</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/03-operating-systems.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#windows-platform-crypto"
+id="toc-windows-platform-crypto">1. Windows Platform Crypto</a></li>
+<li><a href="#apple-platforms" id="toc-apple-platforms">2. Apple
+Platforms</a></li>
+<li><a href="#linux-distributions-kernel-crypto"
+id="toc-linux-distributions-kernel-crypto">3. Linux Distributions &amp;
+Kernel Crypto</a></li>
+<li><a href="#android-chromeos" id="toc-android-chromeos">4. Android
+&amp; ChromeOS</a></li>
+<li><a href="#mainframe-bsd" id="toc-mainframe-bsd">5. Mainframe &amp;
+BSD</a></li>
+<li><a href="#rtos-platforms" id="toc-rtos-platforms">6. RTOS
+Platforms</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Operating systems are where post-quantum cryptography meets ordinary
+users. When an OS ships the new algorithms, every application on it can
+use them. When it turns them on by default, every user gets them without
+knowing.</p>
+<p>This report covers six platform families. Section 1 covers Windows,
+Section 2 Apple’s platforms, and Section 3 Linux. Section 4 covers
+Android and ChromeOS, Section 5 mainframes and the BSD systems, and
+Section 6 the real-time operating systems inside embedded devices.</p>
+<p>The headline is that every major platform now ships post-quantum
+cryptography, and the real difference is the defaults. Apple turned
+quantum-secure TLS on by default across its entire 26-generation of
+operating systems. Windows made hybrid post-quantum TLS generally
+available in July 2026 but ships it disabled, leaving activation to
+administrators. Linux splits by distribution, with the newest releases
+defaulting on for SSH and TLS while older long-term-support releases
+need manual work.</p>
+<p>Below the flagship platforms, the pattern repeats at different
+speeds. Android 17 brings post-quantum app and boot signing. IBM builds
+the algorithms into its newest mainframe and Power hardware. The BSDs
+quietly made post-quantum SSH key exchange the default. The embedded
+operating systems, hardest to update and longest-lived, mostly still
+rely on third-party libraries.</p>
+<h2 id="windows-platform-crypto">1. Windows Platform Crypto</h2>
+<p><em>Windows exposes cryptography to applications through a stack of
+Microsoft components. The SymCrypt library sits at the bottom, the CNG
+programming interface above it, and the Schannel TLS engine handles most
+software’s secure connections. What lands in this stack eventually
+reaches most of the world’s business desktops. This section covers how
+far each layer has come and what remains off by default.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>Hybrid post-quantum TLS reached production Windows in July 2026. The
+security updates for Windows 11 and Windows Server 2025 made ML-KEM
+hybrid key exchange generally available in Schannel [1], after earlier
+preview builds [1]. Three hybrid groups are supported, all restricted to
+TLS 1.3, and older TLS versions will not get them [2].</p>
+<p>Shipping is not the same as on. The groups arrive disabled by
+default, and administrators must explicitly enable a post-quantum group
+ahead of the classical curves [2]. Enabling one protects only the
+session-key exchange. The organization’s existing certificate hierarchy
+stays classical, addressed separately through ML-DSA certificate
+issuance [3]. Event log entries let administrators confirm a handshake
+actually negotiated a post-quantum group, since unsupported peers
+silently fall back [4].</p>
+<p>The foundations are also being formally verified. SymCrypt released
+verified Rust implementations of ML-KEM and SHA-3, with machine-checked
+proofs, already used in Windows Insider builds [5]. The verification
+workflow is being extended to ML-DSA [5].</p>
+<h3 id="current-state">Current State</h3>
+<p>The API layer went generally available first. CNG gained ML-KEM and
+ML-DSA support in Windows Server 2025 and Windows 11 with the November
+2025 update [6], after reaching Insider builds in May 2025 [7]. All
+three security levels of each algorithm are exposed [8]. Third-party
+hardware vendors ship key-storage providers that let Windows certificate
+services keep ML-DSA keys inside external HSMs [9]. Certificate issuance
+itself, through Active Directory Certificate Services, went GA in May
+2026, with post-quantum CAs deployed fresh rather than upgraded
+[10].</p>
+<p>Underneath, SymCrypt has carried the algorithms since late 2024,
+adding ML-KEM and XMSS in September and LMS and ML-DSA in December [11].
+It now runs them in production across Azure, Microsoft 365, and Windows
+[12]. Microsoft commits to adding further algorithms as standards
+mature, without a fixed schedule [6]. Planned additions include SLH-DSA,
+LMS and XMSS in CNG, plus composite-certificate work tracking the IETF
+[7].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>One availability question is disputed. An industry article states
+SymCrypt now supports SLH-DSA alongside ML-KEM and ML-DSA [13].
+Microsoft’s own posts describe SLH-DSA as a planned addition in May 2025
+[7] and still pending in May 2026 [12]. Microsoft’s release notes for
+the update that ships it would settle the question.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="apple-platforms">2. Apple Platforms</h2>
+<p><em>Apple controls its platforms’ cryptography end to end, from the
+corecrypto library and the Secure Enclave chip through the CryptoKit
+developer framework to system services like iMessage. That control lets
+Apple flip defaults for a billion devices at once. This section covers
+the 26-generation operating systems, where quantum-secure connections
+stopped being an option and became the default.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Apple turned post-quantum protection on by default. Quantum-secure
+TLS is enabled for all system services and apps using the standard
+networking frameworks on iOS 26, iPadOS 26, macOS 26, tvOS 26, and
+watchOS 26 [14]. macOS 26 upgraded SSH with quantum-secure key exchange
+[14]. Even the iPhone-to-Watch link now runs ML-KEM-768 alongside
+classical key exchange [14]. Apple’s network-preparation guide adds
+visionOS 26 to the platforms advertising hybrid key exchange in TLS
+[15].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Developers get the same algorithms through CryptoKit, which exposes
+ML-KEM at two security levels and ML-DSA at two levels across the
+26-generation platforms [16]. The high-level encryption API builds on
+the X-Wing construction, combining ML-KEM with classical X25519 [17].
+Swift Crypto mirrors the same APIs server-side, so Swift backends
+interoperate with Apple clients [17]. Third parties are building on it
+already, including post-quantum JWT support in the Vapor web framework
+[18]. Microsoft’s .NET team independently confirmed the timing: .NET
+lacks post-quantum support on macOS precisely because Apple’s frameworks
+only gained it with the 26 generation [19].</p>
+<p>Apple also opened the foundations. In May 2026 it open-sourced its
+corecrypto ML-KEM and ML-DSA implementations, including hand-optimized
+assembly and formal verification proofs against the FIPS specifications
+[20].</p>
+<p>The story started with messaging. PQ3, announced in February 2024,
+layered pre-standardization Kyber onto iMessage’s ratchet protocol [21].
+It remains scoped to iMessage, and a machine-checked security analysis
+of it was published at USENIX Security 2025 [22]. Neither PQ3 nor
+Signal’s equivalent has yet moved identity authentication to a
+post-quantum signature. Both still authenticate with classical
+signatures, so the quantum protection covers message confidentiality,
+not the authentication layer [23].</p>
+<p>The hardware layer is present but not fully certified. CryptoKit’s
+ML-KEM and ML-DSA operations can run with Secure Enclave enforcement
+[17], and post-quantum keys can optionally be Enclave-protected [24]. In
+PQ3, the per-device signing key stays inside the Enclave [21]. But no
+completed FIPS 140-3 certificate specifically covering the Enclave’s
+post-quantum operations could be located, even though the certification
+pathway exists [25].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>Two documentation gaps deserve flagging. Apple’s own pages disagree
+on visionOS: the network guide includes it among quantum-secure
+platforms [15], while the developer security guide omits it [16]. A
+consistent platform list from Apple would settle it. Separately, a
+German preview piece claimed iOS 26.5 extends the PQ3 protocol to TLS,
+VPN, and SSH. That conflates PQ3, which Apple documents strictly as an
+iMessage protocol, with Apple’s separately branded transport work, and
+no Apple primary source corroborates it [26].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="linux-distributions-kernel-crypto">3. Linux Distributions &amp;
+Kernel Crypto</h2>
+<p><em>Linux is not one operating system but a family of distributions,
+each choosing when to ship new cryptography. Most inherit their
+capability from the OpenSSL and OpenSSH versions they package. The
+kernel itself is a separate story, with its own signing infrastructure.
+This section covers who ships what, whose defaults are on, and how deep
+the support now goes.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The newest enterprise releases now prefer post-quantum by default.
+SUSE Linux Enterprise Server 16.0 enables post-quantum key exchange in
+its system-wide policies for SSH [27]. RHEL 10.2 added two
+FIPS-compatible post-quantum SSH key exchanges through Red Hat’s own
+patches, hybrids that upstream OpenSSH declined to implement [28].
+Debian 13 and Ubuntu 25.04 and later ship OpenSSH versions that offer
+ML-KEM hybrid SSH key exchange by default [29]. Alpine’s current stable
+branch carries OpenSSL 3.5.7, giving it native ML-KEM, ML-DSA, and
+SLH-DSA with no add-on provider [30].</p>
+<p>The kernel keeps extending its signing support. Linux 7.2 adds
+post-quantum ML-DSA signatures to the kernel’s file-integrity subsystems
+[31]. Debian 13 also consolidated its LDAP stack onto OpenSSL, a
+plumbing change rather than a post-quantum feature [32].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Distribution support now splits cleanly by release age. Debian 13
+ships OpenSSL 3.5 in its base [33], and guidance groups it with Alpine
+and RHEL-compatible 10 releases where simply updating is enough for
+working post-quantum TLS [34]. Ubuntu 24.04 LTS, by contrast, ships an
+OpenSSL too old for post-quantum work and requires building from source
+[35]. Ubuntu 26.04 LTS closes the gap, with hybrid SSH key exchange on
+by default and OpenSSL 3.5.5 [36], plus a kernel that verifies ML-DSA
+module signatures [37]. One practitioner assessment of that release
+notes nearly all software now supports quantum-resistant key exchange,
+while no browser yet supports quantum-resistant certificates, making
+key-exchange-only protection the sensible current target [38].</p>
+<p>Red Hat’s line shows the fastest maturation. RHEL 10.0 delivered
+ML-KEM through an add-on provider, with ML-DSA only a technology preview
+[39]. RHEL 10.1 made hybrid key exchange and ML-DSA certificates
+generally available across its TLS libraries, with the default crypto
+policy preferring post-quantum in TLS and SSH [40]. In FIPS mode, only
+the FIPS-curve hybrids function [39].</p>
+<p>RHEL 10.2’s FUTURE policy goes further and permits only hybrid
+post-quantum key exchange [41]. It also brings post-quantum definitions
+into PKCS #11 headers and composite signatures to container signing
+[41]. Backports are planned to carry preliminary support to RHEL 9 [42],
+with broader signature support following standards [42].</p>
+<p>SUSE documents a two-track strategy: older service packs rely on the
+liboqs add-on architecture, while SLES 16.0 moves to native support
+across OpenSSL, libgcrypt, NSS, and GnuTLS [43]. Its TLS support centers
+on the same hybrid key exchange as everyone else [43]. SLES 16.0 itself
+went generally available in November 2025 [44].</p>
+<p>The kernel’s own cryptography moved in 2026. Native ML-DSA support
+landed in Linux 7.0, with module signing as the first consumer and X.509
+and CMS paths built for wider use [45]. The work originated with a Red
+Hat engineer and slipped one merge window while kernel numbering rolled
+into 7.x [46]. Kernel documentation now lists ML-DSA alongside RSA and
+ECDSA for module signing [47].</p>
+<p>One interoperability wrinkle: OpenSSL’s CMS API forced the kernel’s
+signing tool to use signed attributes for ML-DSA, pending an OpenSSL 4
+fix [48]. Key encapsulation is earlier: proof-of-concept ML-KEM patches
+exist, deliberately unmerged until an in-kernel consumer such as NVMe
+authentication or WireGuard materializes [49].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="android-chromeos">4. Android &amp; ChromeOS</h2>
+<p><em>Google’s two consumer platforms take different routes. ChromeOS
+inherits most of its cryptography from the Chrome browser. Android
+splits the work between Conscrypt, its TLS provider, and Keystore, the
+hardware-backed key store that guards app signing and device
+credentials. This section covers a platform where signing has moved
+faster than connections.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Android 17 is the signing milestone. It introduces APK Signature
+Scheme v3.2, a hybrid scheme pairing classical signatures with ML-DSA
+for app signing [50]. Conscrypt version 2.6.0 added support for hybrid
+key exchange, ML-KEM, ML-DSA, and SLH-DSA in its TLS and Java providers
+[51]. Apps that bundle their own cryptography, such as Signal, already
+provide post-quantum key establishment regardless of the platform stack,
+so third-party coverage is currently driven by app choices [52].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>Keystore is the platform’s post-quantum anchor. Android 17 natively
+supports ML-DSA key generation through the standard API, with keys held
+in the device’s trusted hardware [53]. Verified Boot is integrating
+ML-DSA for boot-chain signatures, and remote attestation is beginning
+its transition [53]. Google Play will generate hybrid signing keys for
+new and opted-in apps during the Android 17 cycle, with a two-year
+rotation policy [53].</p>
+<p>Key encapsulation in the hardware layer is explicitly later work: the
+secure hardware signs post-quantum today but does not yet do
+post-quantum key exchange [53]. A Samsung case study quantifies the
+cost, with ML-DSA’s much larger keys straining the secure element and an
+optimized scheme cutting signing latency by about a third [54].</p>
+<p>ChromeOS rides the browser. ML-KEM has been on by default since
+Chrome 131, protecting web traffic on ChromeOS along with everyone else
+[55]. An enterprise device policy exists to control it [56].</p>
+<p>Chrome’s Merkle Tree Certificates initiative for post-quantum
+certificates is a web-PKI effort that will reach ChromeOS when deployed
+[57]. The platform’s verified boot, meanwhile, does not use the TPM for
+its core signature check, and no post-quantum update to that design was
+located [58]. Conscrypt’s platform documentation on Android still lists
+no ML-KEM or ML-DSA support [59].</p>
+<h3 id="unresolved-conflicts-2">Unresolved Conflicts</h3>
+<p>The platform TLS timeline is murky. An aggregator claims Google
+deployed hybrid post-quantum TLS in Android’s platform stack, but marks
+its own claim as inferred [52]. A directly tested Android 17 beta was
+found to lack post-quantum key exchange in Conscrypt entirely [52]. The
+same source marks Keystore’s pre-Android-17 status as unverified [52]. A
+tested, current Android release either negotiating or failing to
+negotiate hybrid TLS in the platform stack would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="mainframe-bsd">5. Mainframe &amp; BSD</h2>
+<p><em>At the two extremes of computing sit the mainframe, which
+processes much of the world’s banking, and the BSD systems, which
+quietly supply cryptographic infrastructure to everything else. Both
+moved earlier than the noise suggests. This section covers IBM’s stack
+and the BSD family, where post-quantum SSH became the default before
+most desktops had the option.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>IBM built the algorithms into hardware. The z17 mainframe ships with
+built-in quantum-safe security features [60]. IBM MQ on IBM i now
+supports creating keystores with post-quantum protection, though the
+operating system itself does not yet process them [61].</p>
+<p>The BSDs are extending from key exchange into signatures. FreeBSD’s
+base OpenSSH added experimental support for a composite post-quantum
+host-key signature scheme, off by default [62]. OpenBSD’s development
+branch added the same experimental scheme [63]. Even the pfSense
+firewall distribution now includes post-quantum key exchange in its SSH
+daemon [64].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The mainframe stack is thorough. IBM’s core cryptographic facility
+supports all parameter sets of ML-KEM and ML-DSA, in hardware through
+the Crypto Express coprocessor and in software [65]. Java applications
+on z/OS get the same algorithms, including hybrid key exchange, through
+IBM’s provider [66]. The key-management product orchestrates
+post-quantum keys generated on the crypto cards [67], and the platform’s
+cryptographic architectures document the algorithms with sample code
+[68].</p>
+<p>On IBM’s midrange, the picture is transitional. IBM i 7.6’s
+cryptographic APIs gained new classical algorithms but no ML-KEM or
+ML-DSA [69]. The Power11 processor beneath it, though, ships with
+built-in quantum-safe cryptography [70]. Partner documentation describes
+it authenticating firmware and operating systems at boot with the
+algorithm that became ML-DSA [71]. All of this follows NIST’s August
+2024 finalization of the three core standards, after which each
+ecosystem moved on its own cadence [72].</p>
+<p>The BSDs turned defaults on early. FreeBSD 15.0 compiled OpenSSL
+3.5’s post-quantum algorithms into the base system [73] and made hybrid
+ML-KEM SSH key exchange the default [74]. OpenBSD promoted the same
+default in its 7.7 release [75], then gave LibreSSL a public ML-KEM API
+[76].</p>
+<p>LibreSSL 4.3.0 added the hybrid TLS keyshare, flowing to OpenBSD and
+to portable users on other systems [77], with a follow-up release
+refining it [78]. OpenBSD 7.9 ships OpenSSH 10.3 [79]. NetBSD lags: its
+stock OpenSSL needs an add-on provider today [80], but its
+in-development 12.0 branch imports an OpenSSH new enough to default to
+post-quantum key exchange on release [81].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="rtos-platforms">6. RTOS Platforms</h2>
+<p><em>Real-time operating systems run the machines around us: cars,
+factory controllers, medical devices, routers. They are small,
+long-lived, and rarely updated, which makes their cryptography both
+critical and slow to change. This section covers the major embedded
+platforms, where post-quantum support today mostly means a third-party
+library rather than the operating system itself.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>The evidence something can be done is arriving before platform
+support. A peer-reviewed evaluation ran every NIST-standardized
+parameter set of ML-KEM, ML-DSA, and SLH-DSA on a common microcontroller
+under FreeRTOS, without external memory [82]. A community developer
+separately posted a portable ML-KEM implementation with a FreeRTOS port,
+bounded memory use, and a tested emulated build. It is a contribution,
+not an official platform deliverable [83].</p>
+<h3 id="current-state-5">Current State</h3>
+<p>Platform-native support remains thin, and vendors fill the gap.
+FreeRTOS’s official TLS integrations document no NIST-finalized
+post-quantum algorithms [84]. wolfSSL’s post-quantum firmware TPM lists
+FreeRTOS, QNX, VxWorks, and other POSIX-capable systems as targets, with
+the support still in active development [85]. The same vendor’s TLS
+library ships CNSA-compliant post-quantum algorithms across roughly
+forty embedded targets, VxWorks and Zephyr among them [86]. VxWorks’s
+own last cryptography announcement predates the post-quantum standards
+by several release cycles [87].</p>
+<p>QNX exposes cryptography through a swappable plugin architecture over
+OpenSSL 3.0, which is the mechanism by which newer providers could
+arrive without an OS rebuild [88][89]. BlackBerry says quantum-safety
+has been a priority since 2016 [90].</p>
+<p>Zephyr routes cryptography through the PSA Crypto API implemented by
+Mbed TLS [91]. Mbed TLS’s stated plan has been to wait on
+standardization, considering only hash-based signatures production-ready
+at its last review [92]. The liboqs project maintains
+continuing-integration coverage for Zephyr [93]. Research shows what is
+possible: a full post-quantum DTLS 1.3 stack on Zephyr completed
+verified handshakes faster than the classical baseline [94].</p>
+<h3 id="unresolved-conflicts-3">Unresolved Conflicts</h3>
+<p>BlackBerry’s quantum messaging needs care. Its 2026 coverage of
+post-quantum readiness mostly describes its secure-communications and
+endpoint-management products, distinct from the QNX operating system,
+yet several articles blend both under one security narrative. Whether
+QNX itself has shipped concrete post-quantum integration is not
+established by available sources [95]. A QNX release note naming shipped
+algorithms would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>windowsforum.com — kb5101650 adds windows 11 hybrid ml kem tls 1 3
+key exchange.438638 - <a
+href="https://windowsforum.com/windows-news.4/kb5101650-adds-windows-11-hybrid-ml-kem-tls-1-3-key-exchange.438638/"
+class="uri">https://windowsforum.com/windows-news.4/kb5101650-adds-windows-11-hybrid-ml-kem-tls-1-3-key-exchange.438638/</a></li>
+<li>techcommunity.microsoft.com — 4536649 - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
+- as of 2026-07-14</li>
+<li>ASP.NET, Kestrel and Schannel GA with TLS 1.3 Post-Quantum
+Cryptography (Microsoft) - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
+- as of 2026-07-15</li>
+<li>windowsnews.ai — microsoft delivers post quantum tls to windows but
+activation is on you.438638 - <a
+href="https://windowsnews.ai/article/microsoft-delivers-post-quantum-tls-to-windows-but-activation-is-on-you.438638"
+class="uri">https://windowsnews.ai/article/microsoft-delivers-post-quantum-tls-to-windows-but-activation-is-on-you.438638</a></li>
+<li>Verifying Rust cryptography in SymCrypt, from standards to code - <a
+href="https://www.microsoft.com/en-us/research/blog/verifying-rust-cryptography-in-symcrypt-from-standards-to-code/"
+class="uri">https://www.microsoft.com/en-us/research/blog/verifying-rust-cryptography-in-symcrypt-from-standards-to-code/</a>
+- as of 2026-07-13</li>
+<li>techcommunity.microsoft.com — 4469093 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093</a>
+- as of 2025-11-12</li>
+<li>techcommunity.microsoft.com — 4413803 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-comes-to-windows-insiders-and-linux/4413803"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-comes-to-windows-insiders-and-linux/4413803</a>
+- as of 2025-05-19</li>
+<li>cyberinsider.com — microsoft rolls out post quantum cryptography
+support for windows insiders - <a
+href="https://cyberinsider.com/microsoft-rolls-out-post-quantum-cryptography-support-for-windows-insiders/"
+class="uri">https://cyberinsider.com/microsoft-rolls-out-post-quantum-cryptography-support-for-windows-insiders/</a>
+- as of 2025-05-21</li>
+<li>kryptus.com — appnote adcs ml dsa knet en.pdf - <a
+href="https://kryptus.com/wp-content/uploads/2026/06/appnote-adcs-ml-dsa-knet-en.pdf"
+class="uri">https://kryptus.com/wp-content/uploads/2026/06/appnote-adcs-ml-dsa-knet-en.pdf</a></li>
+<li>techcommunity.microsoft.com — 4523370 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370</a></li>
+<li>techcommunity.microsoft.com — 4238780 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/microsofts-quantum-resistant-cryptography-is-here/4238780"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/microsofts-quantum-resistant-cryptography-is-here/4238780</a>
+- as of 2024-12-17</li>
+<li>quantumzeitgeist.com — top post quantum cryptography companies - <a
+href="https://quantumzeitgeist.com/top-post-quantum-cryptography-companies/"
+class="uri">https://quantumzeitgeist.com/top-post-quantum-cryptography-companies/</a>
+- as of 2026-05-15</li>
+<li>infoworld.com — bringing post quantum cryptography to windows - <a
+href="https://www.infoworld.com/article/4012664/bringing-post-quantum-cryptography-to-windows.html"
+class="uri">https://www.infoworld.com/article/4012664/bringing-post-quantum-cryptography-to-windows.html</a>
+- as of 2025-06-26</li>
+<li>Apple Platform Security Guide - <a
+href="https://help.apple.com/pdf/security/en_US/apple-platform-security-guide.pdf"
+class="uri">https://help.apple.com/pdf/security/en_US/apple-platform-security-guide.pdf</a>
+- as of 2026-08-03</li>
+<li>support.apple.com — 122756 - <a
+href="https://support.apple.com/en-us/122756"
+class="uri">https://support.apple.com/en-us/122756</a> - as of
+2026-06-18</li>
+<li>support.apple.com — web - <a
+href="https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web"
+class="uri">https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web</a>
+- as of 2026-01-28</li>
+<li>developer.apple.com — 314 - <a
+href="https://developer.apple.com/videos/play/wwdc2025/314/"
+class="uri">https://developer.apple.com/videos/play/wwdc2025/314/</a></li>
+<li>blog.vapor.codes — post quantum jwtkit - <a
+href="https://blog.vapor.codes/posts/post-quantum-jwtkit/"
+class="uri">https://blog.vapor.codes/posts/post-quantum-jwtkit/</a> - as
+of 2026-04-15</li>
+<li>duendesoftware.com — 20260514 post quantum cryptography in dotnet 10
+- <a
+href="https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10"
+class="uri">https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10</a>
+- as of 2026-05-14</li>
+<li>A blueprint for formal verification of Apple corecrypto - <a
+href="https://security.apple.com/blog/formal-verification-corecrypto/"
+class="uri">https://security.apple.com/blog/formal-verification-corecrypto/</a>
+- as of 2026-05-22</li>
+<li>security.apple.com — imessage pq3 - <a
+href="https://security.apple.com/blog/imessage-pq3/"
+class="uri">https://security.apple.com/blog/imessage-pq3/</a></li>
+<li>usenix.org — linker - <a
+href="https://www.usenix.org/conference/usenixsecurity25/presentation/linker"
+class="uri">https://www.usenix.org/conference/usenixsecurity25/presentation/linker</a></li>
+<li>quantumsecuritydefence.com — quantum secure messaging signal
+protocol future - <a
+href="https://quantumsecuritydefence.com/quantum-news/quantum-secure-messaging-signal-protocol-future/"
+class="uri">https://quantumsecuritydefence.com/quantum-news/quantum-secure-messaging-signal-protocol-future/</a>
+- as of 2026-07-10</li>
+<li>encryptionconsulting.com — microsoft and apple advance post quantum
+cryptography support in upcoming os releases - <a
+href="https://www.encryptionconsulting.com/microsoft-and-apple-advance-post-quantum-cryptography-support-in-upcoming-os-releases/"
+class="uri">https://www.encryptionconsulting.com/microsoft-and-apple-advance-post-quantum-cryptography-support-in-upcoming-os-releases/</a>
+- as of 2026-01-27</li>
+<li>csrc.nist.gov — fips 140 3 ig announcements - <a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-ig-announcements"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-ig-announcements</a>
+- as of 2026-06-29</li>
+<li>it-boltwise.de — wwdc 2026 ios und watchos mit ki offensive und post
+quanten schutz - <a
+href="https://www.it-boltwise.de/wwdc-2026-ios-und-watchos-mit-ki-offensive-und-post-quanten-schutz.html"
+class="uri">https://www.it-boltwise.de/wwdc-2026-ios-und-watchos-mit-ki-offensive-und-post-quanten-schutz.html</a>
+- as of 2026-05-26</li>
+<li>SUSE Linux Enterprise Server Release Notes | SUSE Linux Enterprise
+Server 16.0 - <a
+href="https://documentation.suse.com/releasenotes/sles/html/releasenotes_sles_16.0/index.html"
+class="uri">https://documentation.suse.com/releasenotes/sles/html/releasenotes_sles_16.0/index.html</a>
+- as of 2026-08-19</li>
+<li>redhat.com — advancing post quantum capabilities ssh red hat
+enterprise linux - <a
+href="https://www.redhat.com/en/blog/advancing-post-quantum-capabilities-ssh-red-hat-enterprise-linux"
+class="uri">https://www.redhat.com/en/blog/advancing-post-quantum-capabilities-ssh-red-hat-enterprise-linux</a>
+- as of 2026-06-08</li>
+<li>byteiota.com — openssh post quantum warning fix - <a
+href="https://byteiota.com/openssh-post-quantum-warning-fix/"
+class="uri">https://byteiota.com/openssh-post-quantum-warning-fix/</a> -
+as of 2026-06-29</li>
+<li>pkgs.alpinelinux.org — openssl - <a
+href="https://pkgs.alpinelinux.org/package/v3.22/main/x86/openssl"
+class="uri">https://pkgs.alpinelinux.org/package/v3.22/main/x86/openssl</a>
+- as of 2026-06-10</li>
+<li>Linux 7.2 Ready With IMA and EVM Post-Quantum ML-DSA Signature
+Support - <a href="https://www.phoronix.com/news/Linux-7.2-Integrity"
+class="uri">https://www.phoronix.com/news/Linux-7.2-Integrity</a> - as
+of 2026-06-24</li>
+<li>debian.org — release notes.en.pdf - <a
+href="https://www.debian.org/releases/trixie/release-notes.en.pdf"
+class="uri">https://www.debian.org/releases/trixie/release-notes.en.pdf</a>
+- as of 2026-06-26</li>
+<li>blog.desdelinux.net — Debian 13 has been released. Trixie learn
+about its new features improvements and more. - <a
+href="https://blog.desdelinux.net/en/Debian-13-has-been-released.-Trixie--learn-about-its-new-features--improvements--and-more./"
+class="uri">https://blog.desdelinux.net/en/Debian-13-has-been-released.-Trixie--learn-about-its-new-features--improvements--and-more./</a>
+- as of 2025-08-11</li>
+<li>blog.nginx.org — pqc nginx - <a
+href="https://blog.nginx.org/blog/pqc-nginx"
+class="uri">https://blog.nginx.org/blog/pqc-nginx</a> - as of
+2025-12-03</li>
+<li>linode.com — post quantum encryption nginx ubuntu2404 - <a
+href="https://www.linode.com/docs/guides/post-quantum-encryption-nginx-ubuntu2404/"
+class="uri">https://www.linode.com/docs/guides/post-quantum-encryption-nginx-ubuntu2404/</a>
+- as of 2025-04-29</li>
+<li>computingforgeeks.com — ubuntu 2604 post quantum ssh hardening - <a
+href="https://computingforgeeks.com/ubuntu-2604-post-quantum-ssh-hardening/"
+class="uri">https://computingforgeeks.com/ubuntu-2604-post-quantum-ssh-hardening/</a>
+- as of 2026-04-15</li>
+<li>What’s New in Security for Ubuntu 26.04 - <a
+href="https://mondoo.com/blog/whats-new-in-ubuntu-2604-security"
+class="uri">https://mondoo.com/blog/whats-new-in-ubuntu-2604-security</a>
+- as of 2026-05-04</li>
+<li>medium.com — implementation notes for pqc on ubuntu resolute
+02337c5dc5e5 - <a
+href="https://medium.com/@mikkolehtisalo/implementation-notes-for-pqc-on-ubuntu-resolute-02337c5dc5e5"
+class="uri">https://medium.com/@mikkolehtisalo/implementation-notes-for-pqc-on-ubuntu-resolute-02337c5dc5e5</a>
+- as of 2026-05-23</li>
+<li>access.redhat.com — 7119430 - <a
+href="https://access.redhat.com/articles/7119430"
+class="uri">https://access.redhat.com/articles/7119430</a></li>
+<li>redhat.com — whats new post quantum cryptography rhel 101 - <a
+href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
+class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
+- as of 2026-02-17</li>
+<li>RHEL 10.2 Released with Post-Quantum SSH and Kernel Livepatching -
+<a
+href="https://linuxiac.com/rhel-10-2-released-with-post-quantum-ssh-and-kernel-livepatching/"
+class="uri">https://linuxiac.com/rhel-10-2-released-with-post-quantum-ssh-and-kernel-livepatching/</a>
+- as of 2026-05-20</li>
+<li>redhat.com — road to quantum safe cryptography red hat openshift -
+<a
+href="https://www.redhat.com/en/blog/road-to-quantum-safe-cryptography-red-hat-openshift"
+class="uri">https://www.redhat.com/en/blog/road-to-quantum-safe-cryptography-red-hat-openshift</a>
+- as of 2025-05-21</li>
+<li>suse.com — suse state of and strategy for post quantum cryptography
+at the end of 2025 - <a
+href="https://www.suse.com/c/suse-state-of-and-strategy-for-post-quantum-cryptography-at-the-end-of-2025/"
+class="uri">https://www.suse.com/c/suse-state-of-and-strategy-for-post-quantum-cryptography-at-the-end-of-2025/</a>
+- as of 2025-12-04</li>
+<li>SUSE Linux Enterprise Server 16: What’s New in SLES 16.0 - <a
+href="https://www.suse.com/c/what-is-new-in-suse-linux-enterprise-server-16-0/"
+class="uri">https://www.suse.com/c/what-is-new-in-suse-linux-enterprise-server-16-0/</a>
+- as of 2026-04-08</li>
+<li>phoronix.com — Linux 7.0 Crypto ML DSA - <a
+href="https://www.phoronix.com/news/Linux-7.0-Crypto-ML-DSA"
+class="uri">https://www.phoronix.com/news/Linux-7.0-Crypto-ML-DSA</a> -
+as of 2026-02-13</li>
+<li>phoronix.com — Dilithium ML DSA Module Sign - <a
+href="https://www.phoronix.com/news/Dilithium-ML-DSA-Module-Sign"
+class="uri">https://www.phoronix.com/news/Dilithium-ML-DSA-Module-Sign</a>
+- as of 2025-11-07</li>
+<li>kernel.org — module signing - <a
+href="https://www.kernel.org/doc/html/v7.0-rc7/admin-guide/module-signing.html"
+class="uri">https://www.kernel.org/doc/html/v7.0-rc7/admin-guide/module-signing.html</a></li>
+<li>lkml.iu.edu — 01674 - <a
+href="https://lkml.iu.edu/hypermail/linux/kernel/2602.0/01674.html"
+class="uri">https://lkml.iu.edu/hypermail/linux/kernel/2602.0/01674.html</a>
+- as of 2026-02-02</li>
+<li>phoronix.com — Linux PoC ML KEM X Wing - <a
+href="https://www.phoronix.com/news/Linux-PoC-ML-KEM-X-Wing"
+class="uri">https://www.phoronix.com/news/Linux-PoC-ML-KEM-X-Wing</a> -
+as of 2026-05-26</li>
+<li>APK signature scheme v3.2 | Android Open Source Project - <a
+href="https://source.android.com/docs/security/features/apksigning/v3-2"
+class="uri">https://source.android.com/docs/security/features/apksigning/v3-2</a>
+- as of 2026-07-29</li>
+<li>Releases · google/conscrypt · GitHub - <a
+href="https://github.com/google/conscrypt/releases"
+class="uri">https://github.com/google/conscrypt/releases</a> - as of
+2026-07-08</li>
+<li>quantumsecuritydefence.com — mobile os pqc android ios comparison -
+<a
+href="https://quantumsecuritydefence.com/quantum-news/mobile-os-pqc-android-ios-comparison/"
+class="uri">https://quantumsecuritydefence.com/quantum-news/mobile-os-pqc-android-ios-comparison/</a>
+- as of 2026-07-12</li>
+<li>security.googleblog.com — post quantum cryptography in android - <a
+href="https://security.googleblog.com/2026/03/post-quantum-cryptography-in-android.html"
+class="uri">https://security.googleblog.com/2026/03/post-quantum-cryptography-in-android.html</a>
+- as of 2026-03-25</li>
+<li>researchgate.net — 400436763 Case Study PQC migration for Android
+Strongbox Keymaster on Samsung Galaxy Mobile Devices - <a
+href="https://www.researchgate.net/publication/400436763_Case_Study_PQC_migration_for_Android_Strongbox_Keymaster_on_Samsung_Galaxy_Mobile_Devices"
+class="uri">https://www.researchgate.net/publication/400436763_Case_Study_PQC_migration_for_Android_Strongbox_Keymaster_on_Samsung_Galaxy_Mobile_Devices</a></li>
+<li>chromium.org — quarterly updates - <a
+href="https://www.chromium.org/Home/chromium-security/quarterly-updates/"
+class="uri">https://www.chromium.org/Home/chromium-security/quarterly-updates/</a></li>
+<li>DevicePostQuantumKeyAgreementEnabled: Enable post-quantum key
+agreement for TLS for device | Chrome Enterprise - <a
+href="https://chromeenterprise.google/intl/en_uk/policies/device-post-quantum-key-agreement-enabled/"
+class="uri">https://chromeenterprise.google/intl/en_uk/policies/device-post-quantum-key-agreement-enabled/</a>
+- as of 2026-04-22</li>
+<li>security.googleblog.com — cultivating robust and efficient - <a
+href="https://security.googleblog.com/2026/02/cultivating-robust-and-efficient.html"
+class="uri">https://security.googleblog.com/2026/02/cultivating-robust-and-efficient.html</a>
+- as of 2026-03-25</li>
+<li>chromium.org — verified boot crypto - <a
+href="https://www.chromium.org/chromium-os/chromiumos-design-docs/verified-boot-crypto/"
+class="uri">https://www.chromium.org/chromium-os/chromiumos-design-docs/verified-boot-crypto/</a></li>
+<li>source.android.com — conscrypt - <a
+href="https://source.android.com/docs/core/ota/modular-system/conscrypt"
+class="uri">https://source.android.com/docs/core/ota/modular-system/conscrypt</a></li>
+<li>Enhancing IBM Z Security for the future of AI with IBM z17 - <a
+href="https://www.ibm.com/new/announcements/enhancing-ibm-z-security-for-the-future-of-ai-with-ibm-z17"
+class="uri">https://www.ibm.com/new/announcements/enhancing-ibm-z-security-for-the-future-of-ai-with-ibm-z17</a>
+- as of 2026-07-07</li>
+<li>IBM MQ on IBM i and PQC enabled CMS Keystores - <a
+href="https://www.ibm.com/support/pages/ibm-mq-ibm-i-and-pqc-enabled-cms-keystores"
+class="uri">https://www.ibm.com/support/pages/ibm-mq-ibm-i-and-pqc-enabled-cms-keystores</a>
+- as of 2026-06-23</li>
+<li>FreeBSD source tree changelog - <a
+href="https://cgit.freebsd.org/src/log/crypto/openssh?showmsg=1"
+class="uri">https://cgit.freebsd.org/src/log/crypto/openssh?showmsg=1</a>
+- as of 2026-07-09</li>
+<li>OpenBSD -current Changelog - <a
+href="https://www.openbsd.org/plus.html"
+class="uri">https://www.openbsd.org/plus.html</a> - as of
+2026-08-22</li>
+<li>Netgate pfSense 2.9.0 Release Notes - <a
+href="https://www.netgate.com/blog/netgate-releases-pfsense-community-edition-version-2.9.0"
+class="uri">https://www.netgate.com/blog/netgate-releases-pfsense-community-edition-version-2.9.0</a>
+- as of 2026-08-20</li>
+<li>ibm.com — OA67885 - <a
+href="https://www.ibm.com/support/pages/apar/OA67885"
+class="uri">https://www.ibm.com/support/pages/apar/OA67885</a></li>
+<li>ibm.com — ibmjcecca pqc - <a
+href="https://www.ibm.com/docs/en/SSA3RN_17.0/com.ibm.java.security.component.17.doc/zsecurity-component/ibmjcecca_pqc.html"
+class="uri">https://www.ibm.com/docs/en/SSA3RN_17.0/com.ibm.java.security.component.17.doc/zsecurity-component/ibmjcecca_pqc.html</a></li>
+<li>ibm.com — unified key orchestrator for zos - <a
+href="https://www.ibm.com/products/unified-key-orchestrator-for-zos"
+class="uri">https://www.ibm.com/products/unified-key-orchestrator-for-zos</a></li>
+<li>Using ML-DSA and ML-KEM on IBM Z - <a
+href="https://community.ibm.com/community/user/blogs/richard-kisley1/2025/11/06/using-ml-dsa-and-ml-kem-on-ibm-z"
+class="uri">https://community.ibm.com/community/user/blogs/richard-kisley1/2025/11/06/using-ml-dsa-and-ml-kem-on-ibm-z</a>
+- as of 2025-11-06</li>
+<li>ibm.com — ibm i 76 base enhancements - <a
+href="https://www.ibm.com/support/pages/ibm-i-76-base-enhancements"
+class="uri">https://www.ibm.com/support/pages/ibm-i-76-base-enhancements</a>
+- as of 2025-07-08</li>
+<li>newsroom.ibm.com — 2025 07 08 ibm power11 raises the bar for
+enterprise it - <a
+href="https://newsroom.ibm.com/2025-07-08-ibm-power11-raises-the-bar-for-enterprise-it"
+class="uri">https://newsroom.ibm.com/2025-07-08-ibm-power11-raises-the-bar-for-enterprise-it</a>
+- as of 2025-07-08</li>
+<li>covenco.com — quantum safe cyber security with ibm power11 - <a
+href="https://covenco.com/insights/blog/quantum-safe-cyber-security-with-ibm-power11/"
+class="uri">https://covenco.com/insights/blog/quantum-safe-cyber-security-with-ibm-power11/</a>
+- as of 2025-07-08</li>
+<li>csrc.nist.gov — post quantum cryptography - <a
+href="https://csrc.nist.gov/projects/post-quantum-cryptography"
+class="uri">https://csrc.nist.gov/projects/post-quantum-cryptography</a></li>
+<li>freebsd.org — announce - <a
+href="https://www.freebsd.org/releases/15.0R/announce/"
+class="uri">https://www.freebsd.org/releases/15.0R/announce/</a> - as of
+2025-12-02</li>
+<li>ostechnix.com — freebsd 15 released - <a
+href="https://ostechnix.com/freebsd-15-released/"
+class="uri">https://ostechnix.com/freebsd-15-released/</a> - as of
+2025-12-06</li>
+<li>openbsd.org — plus77 - <a href="https://www.openbsd.org/plus77.html"
+class="uri">https://www.openbsd.org/plus77.html</a> - as of
+2025-04-28</li>
+<li>openbsd.org — plus78 - <a href="https://www.openbsd.org/plus78.html"
+class="uri">https://www.openbsd.org/plus78.html</a></li>
+<li>mail-archive.com — msg00594 - <a
+href="https://www.mail-archive.com/announce@openbsd.org/msg00594.html"
+class="uri">https://www.mail-archive.com/announce@openbsd.org/msg00594.html</a>
+- as of 2026-04-18</li>
+<li>LibreSSL Releases - <a href="https://www.libressl.org/releases.html"
+class="uri">https://www.libressl.org/releases.html</a> - as of
+2026-05-25</li>
+<li>fosslinux.com — openbsd 7 9 celebrates its 60th release - <a
+href="https://www.fosslinux.com/157063/openbsd-7-9-celebrates-its-60th-release.htm"
+class="uri">https://www.fosslinux.com/157063/openbsd-7-9-celebrates-its-60th-release.htm</a>
+- as of 2026-05-19</li>
+<li>netmeister.org — netbsd pqc - <a
+href="https://www.netmeister.org/blog/netbsd-pqc.html"
+class="uri">https://www.netmeister.org/blog/netbsd-pqc.html</a> - as of
+2025-05-02</li>
+<li>netbsd.org — changes 12.0 - <a
+href="https://www.netbsd.org/changes/changes-12.0.html"
+class="uri">https://www.netbsd.org/changes/changes-12.0.html</a> - as of
+2026-04-08</li>
+<li>Exploring hardware implementation feasibility of post-quantum
+cryptography in embedded systems: Evaluation of NIST-standardized
+ML-KEM, ML-DSA and SLH-DSA on ESP32-C6 - <a
+href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0355179"
+class="uri">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0355179</a>
+- as of 2026-08-18</li>
+<li>forums.freertos.org — 25112 - <a
+href="https://forums.freertos.org/t/ml-kem-implementation-with-bounded-memory-use-and-a-freertos-port/25112"
+class="uri">https://forums.freertos.org/t/ml-kem-implementation-with-bounded-memory-use-and-a-freertos-port/25112</a>
+- as of 2026-08-10</li>
+<li>github.com — migrating to wolfssl - <a
+href="https://github.com/FreeRTOS/Lab-Project-FreeRTOS-SESIP/blob/main/docs/wolfSSL-migration-guide/migrating_to_wolfssl.md"
+class="uri">https://github.com/FreeRTOS/Lab-Project-FreeRTOS-SESIP/blob/main/docs/wolfSSL-migration-guide/migrating_to_wolfssl.md</a></li>
+<li>wolfssl.com — the first firmware tpm with post quantum cryptography
+- <a
+href="https://www.wolfssl.com/the-first-firmware-tpm-with-post-quantum-cryptography/"
+class="uri">https://www.wolfssl.com/the-first-firmware-tpm-with-post-quantum-cryptography/</a>
+- as of 2026-05-04</li>
+<li>wolfssl.com — wolfssl - <a
+href="https://www.wolfssl.com/products/wolfssl/"
+class="uri">https://www.wolfssl.com/products/wolfssl/</a></li>
+<li>windriver.com — news 22444 - <a
+href="https://www.windriver.com/news/press/news-22444"
+class="uri">https://www.windriver.com/news/press/news-22444</a> - as of
+2019-10-08</li>
+<li>qnx.com — crypto integrators - <a
+href="https://www.qnx.com/developers/docs/8.0/com.qnx.doc.security.system/topic/manual/crypto_integrators.html"
+class="uri">https://www.qnx.com/developers/docs/8.0/com.qnx.doc.security.system/topic/manual/crypto_integrators.html</a></li>
+<li>qnx.com — qcrypto openssl plugin - <a
+href="https://www.qnx.com/developers/docs/8.0/com.qnx.doc.security.system/topic/manual/qcrypto_openssl_plugin.html"
+class="uri">https://www.qnx.com/developers/docs/8.0/com.qnx.doc.security.system/topic/manual/qcrypto_openssl_plugin.html</a></li>
+<li>computerweekly.com — BlackBerry doubles down on secure
+communications - <a
+href="https://www.computerweekly.com/news/366643081/BlackBerry-doubles-down-on-secure-communications"
+class="uri">https://www.computerweekly.com/news/366643081/BlackBerry-doubles-down-on-secure-communications</a>
+- as of 2026-05-14</li>
+<li>docs.zephyrproject.org — psa crypto - <a
+href="https://docs.zephyrproject.org/latest/services/crypto/psa_crypto.html"
+class="uri">https://docs.zephyrproject.org/latest/services/crypto/psa_crypto.html</a></li>
+<li>mbed-tls.readthedocs.io — long term plans - <a
+href="https://mbed-tls.readthedocs.io/en/latest/project/long-term-plans/"
+class="uri">https://mbed-tls.readthedocs.io/en/latest/project/long-term-plans/</a></li>
+<li>github.com — releases - <a
+href="https://github.com/open-quantum-safe/liboqs/releases"
+class="uri">https://github.com/open-quantum-safe/liboqs/releases</a></li>
+<li>arxiv.org — 2603.10274v1 - <a
+href="https://arxiv.org/html/2603.10274v1"
+class="uri">https://arxiv.org/html/2603.10274v1</a> - as of
+2026-03-10</li>
+<li>webdisclosure.com — blackberry qnx nasdaq bb blackberry answers
+rising demand for sovereign endpoint control K2eRUw235MI - <a
+href="https://www.webdisclosure.com/press-release/blackberry-qnx-nasdaq-bb-blackberry-answers-rising-demand-for-sovereign-endpoint-control-K2eRUw235MI"
+class="uri">https://www.webdisclosure.com/press-release/blackberry-qnx-nasdaq-bb-blackberry-answers-rising-demand-for-sovereign-endpoint-control-K2eRUw235MI</a>
+- as of 2026-06-16</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="02-firmware-root-of-trust.html"><span>Previous</span>Part 2 - Firmware &amp; Root of Trust</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="04-crypto-libraries.html"><span>Next</span>Part 4 - Crypto Libraries &amp; Providers</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/03-operating-systems.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

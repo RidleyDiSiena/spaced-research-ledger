@@ -1,0 +1,495 @@
+/* Spaced Research Ledger -- the web edition.
+   Same identity as the PDF: black and dark gray on white, no blue, a long
+   measure and plenty of air. Colours live in custom properties so the dark
+   scheme at the bottom only has to restate the values, never the rules. */
+
+:root {
+  --ink:        #1a1a1a;   /* body text, the PDF's Normal          */
+  --ink-strong: #000000;   /* headings, the PDF's Title / Heading1  */
+  --ink-2:      #2b2b2b;   /* section headings, the PDF's Heading2  */
+  --ink-3:      #3f3f3f;   /* sub-headings                          */
+  --ink-mute:   #707070;   /* dates, captions, breadcrumbs          */
+  --rule:       #e0e0e0;
+  --rule-soft:  #efefef;
+  --paper:      #ffffff;
+  --paper-2:    #fafafa;   /* cards, the contents panel             */
+  --link:         #6b21a8; /* purple-800, 8.7:1 on paper            */
+  --link-visited: #581c87; /* purple-900, duller and darker         */
+  --measure:    38rem;     /* ~78 characters, print's comfort zone  */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* NEVER put `-apple-system` in the `font` SHORTHAND. Safari and Firefox
+   parse it there as a system-font keyword (like `caption` or `menu`), which
+   invalidates the whole declaration and drops the page to the browser
+   default -- Times. Chrome is lenient, so the bug is invisible in a Chrome
+   screenshot and obvious to anyone on Safari. Longhands only. */
+:root {
+  --font-ui: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text",
+             "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Browsers default these to a serif or to a different monospace than the
+   page uses, so each states its family rather than inheriting by luck. */
+h1, h2, h3, h4, h5, h6, p, li, td, th, blockquote, figcaption,
+input, button, select, textarea { font-family: inherit; }
+
+/* ---------------------------------------------------------------- header */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 1.25rem;
+}
+
+.wordmark {
+  color: var(--ink-strong);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+.wordmark:hover { text-decoration: underline; }
+
+
+/* min-width:0 matters: a flex item defaults to min-width:auto, so a long
+   breadcrumb refuses to shrink below its max-content width and pushes the
+   whole page wider than a phone screen. */
+.crumbs {
+  color: var(--ink-mute);
+  font-size: 0.8125rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.crumbs a { color: var(--ink-mute); }
+.crumbs .sep { padding: 0 0.45rem; opacity: 0.6; }
+
+/* ------------------------------------------------------------------ page */
+
+main {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.titleblock { margin-bottom: 2.5rem; }
+
+/* The PDF cover's artwork, reused here. Both files are black ink on a
+   TRANSPARENT ground -- the print versions carry an opaque white box, which
+   would glare on a dark page, so config/site/*.png are alpha rebuilds.
+   Black ink at 72% on white reads as dark gray; inverted on a dark page it
+   reads as light gray. One asset, both schemes, no second file to keep in
+   step. The width cap is on the IMAGE, not the box, so the wordmark keeps
+   its own proportions instead of stretching to the measure. */
+.banner {
+  margin: 0 0 1.75rem;
+  line-height: 0;
+}
+.banner img {
+  width: 100%;
+  max-width: 26rem;
+  height: auto;
+  opacity: 0.72;
+}
+
+.mark {
+  margin: 0 0 1.25rem;
+  line-height: 0;
+}
+.mark img {
+  width: 100%;
+  max-width: 15rem;      /* below ~14rem the "SPACED RESEARCH LEDGER" line
+                            under the logo degrades into grey mush */
+  height: auto;
+  opacity: 0.55;
+}
+
+.kicker {
+  margin: 0 0 0.5rem;
+  color: var(--ink-mute);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: clamp(1.85rem, 1.3rem + 2.2vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.standfirst {
+  margin: 0.65rem 0 0;
+  color: var(--ink-3);
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+.updated { margin: 1rem 0 0; color: var(--ink-mute); font-size: 0.8125rem; }
+
+.actions { margin: 1.5rem 0 0; }
+/* The hub's guide PDF sits after the prose it belongs to, not before it. */
+.actions-end { margin: 2.5rem 0 0; }
+
+.pdf {
+  display: inline-block;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  padding: 0.5rem 1rem;
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.pdf:hover { background: var(--ink); color: var(--paper); }
+
+/* -------------------------------------------------------------- contents */
+
+.contents {
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-radius: 3px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.75rem;
+}
+.contents-heading {
+  margin: 0 0 0.6rem;
+  color: var(--ink-mute);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 0;
+  padding: 0;
+}
+.contents a { text-decoration: none; }
+.contents ul { margin: 0; padding-left: 1.1rem; }
+.contents li { margin: 0.2rem 0; }
+
+
+/* ----------------------------------------------------------------- prose */
+
+.prose > :first-child { margin-top: 0; }
+
+/* A jump from the Contents lands the heading flush against the top of the
+   window otherwise, which reads as if the section began mid-air. */
+.prose h2, .contents { scroll-margin-top: 1.5rem; }
+
+/* The way back out of a section. Quiet at rest -- it repeats once per
+   section and must not compete with the headings it sits between. */
+.backtotop {
+  margin: 2rem 0 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+/* Scoped under .prose deliberately: the back-link lives INSIDE the article,
+   so a bare `.backtotop a` ties with `.prose a` on specificity and loses on
+   source order, taking the prose link colour and underline with it. This is
+   a control, not a citation, so it reads as one. */
+.prose .backtotop a {
+  color: var(--ink-mute);
+  text-decoration: none;
+}
+.prose .backtotop a:hover {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose h2 {
+  margin: 3rem 0 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-2);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.prose h3 {
+  margin: 2rem 0 0.6rem;
+  color: var(--ink-3);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.prose p { margin: 0 0 1.15rem; }
+
+/* The italic standfirst that opens every numbered section. */
+.prose h2 + p em, .prose p > em:only-child {
+  color: var(--ink-3);
+  font-style: italic;
+}
+
+/* Links keep their underline, and it is not decoration. Measured against
+   this palette, every candidate link colour clears 7:1 against the page but
+   none reaches 3:1 against the body ink -- the best was 1.96:1. WCAG needs
+   that 3:1 before colour alone may mark a link, so colour here is the
+   second signal and the underline is the first. Underline-free prose links
+   are a trend accessibility guidance has pushed back on, whatever it looks
+   like elsewhere. */
+.prose a {
+  color: var(--link);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+}
+.prose a:hover {
+  text-decoration-thickness: 2px;
+  text-decoration-color: currentColor;
+}
+.prose a:visited { color: var(--link-visited); }
+
+/* Navigation: the context already says these are links -- a list of part
+   titles, a Contents panel, a breadcrumb -- so the underline waits for
+   hover while the colour is shared, and the site still reads as one thing.
+   Links inside RUNNING PROSE are the opposite case and keep their underline
+   at rest (see `.prose a`): mixed into a sentence, they are ambiguous
+   without it. User decision 2026-09-11, after seeing both. */
+.contents a, .card-title a, .card-meta a, .colophon a, .pager a {
+  color: var(--link);
+}
+.contents a:hover, .card-title a:hover, .card-meta a:hover, .colophon a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Keyboard users get the same affordance as mouse users. */
+a:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* The Sources list: long bare URLs must wrap rather than push the page wide. */
+.prose ol { padding-left: 1.4rem; }
+.prose ol li { margin: 0 0 0.6rem; overflow-wrap: anywhere; }
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--rule);
+  color: var(--ink-3);
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--paper-2);
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}
+
+.prose table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.9375rem; }
+.prose th, .prose td { border-bottom: 1px solid var(--rule); padding: 0.5rem 0.6rem; text-align: left; vertical-align: top; }
+.prose th { color: var(--ink-strong); }
+
+/* ----------------------------------------------------------------- cards */
+
+.cards { list-style: none; margin: 0 0 3rem; padding: 0; }
+
+.card {
+  border-top: 1px solid var(--rule);
+  padding: 1.35rem 0;
+}
+.card:last-child { border-bottom: 1px solid var(--rule); }
+
+.card-title { margin: 0; font-size: 1.1875rem; font-weight: 700; line-height: 1.3; }
+
+
+.card-title a { text-decoration: none; }
+
+.card-summary { margin: 0.4rem 0 0; color: var(--ink-3); font-size: 0.9375rem; line-height: 1.55; }
+
+.card-meta a { text-decoration: none; }
+
+.card-meta {
+  margin: 0.55rem 0 0;
+  color: var(--ink-mute);
+  font-size: 0.8125rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+}
+
+
+/* The landing page only: each topic is a block that behaves like the
+   Download PDF button -- a bordered box whose colours invert on hover. The
+   hub's part list keeps the plain ruled rows, so the two levels of the site
+   do not look like the same list twice. */
+.cards-boxed { display: grid; gap: 0.85rem; margin-bottom: 3rem; }
+
+.cards-boxed .card { border: 0; padding: 0; }
+.cards-boxed .card:last-child { border-bottom: 0; }
+
+.cards-boxed .card-link {
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 1.25rem 1.35rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.cards-boxed .card-link:hover,
+.cards-boxed .card-link:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+/* Every line inside the box follows the flip, so nothing keeps its old
+   colour and vanishes against the inverted ground. */
+.cards-boxed .card-link:hover :is(.card-title, .card-summary, .card-meta),
+.cards-boxed .card-link:focus-visible :is(.card-title, .card-summary, .card-meta) {
+  color: inherit;
+}
+
+.cards-boxed .card-title {
+  display: block;
+  color: var(--ink-strong);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.cards-boxed .card-summary { display: block; }
+.cards-boxed .card-meta { display: flex; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-boxed .card-link { transition: none; }
+}
+
+.group-heading {
+  margin: 3rem 0 0.25rem;
+  color: var(--ink-strong);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.group-heading:first-of-type { margin-top: 0; }
+
+/* ----------------------------------------------------------------- pager */
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.pager a {
+  flex: 1 1 12rem;
+  min-width: 0;                 /* same flex trap as .crumbs, long part names */
+  overflow-wrap: anywhere;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.8rem 1rem;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+}
+.pager a:hover { border-color: var(--link); }
+.pager a span {
+  display: block;
+  color: var(--ink-mute);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.pager-next { text-align: right; }
+
+/* ------------------------------------------------------------- colophon */
+
+.colophon {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-mute);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+.colophon p { margin: 0 0 0.5rem; }
+.colophon a { text-decoration: none; }
+
+
+/* --------------------------------------------------------------- screens */
+
+@media (max-width: 34rem) {
+  main { padding-top: 2rem; }
+  .masthead { padding: 0.9rem 1.1rem; }
+  main, .colophon { padding-left: 1.1rem; padding-right: 1.1rem; }
+  .contents { padding: 1rem 1.1rem; }
+  .prose h2 { margin-top: 2.25rem; }
+  .pager-next { text-align: left; }
+}
+
+@media print {
+  .masthead, .pager, .actions, .contents, .backtotop { display: none; }
+  .banner img, .mark img { opacity: 1; }
+  .prose a { color: #000; text-decoration-color: #999; }
+  body { color: #000; }
+}
+
+/* The print edition is light only; the web edition follows the reader. The
+   palette stays neutral in both -- the rules above never change. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:        #e4e4e4;
+    --ink-strong: #ffffff;
+    --ink-2:      #dcdcdc;
+    --ink-3:      #bdbdbd;
+    --ink-mute:   #8f8f8f;
+    --rule:       #333333;
+    --rule-soft:  #2a2a2a;
+    --paper:      #141414;
+    --paper-2:    #1c1c1c;
+    --link:         #2dd4bf;   /* teal-400, 9.9:1 on the dark ground */
+    --link-visited: #14b8a6;   /* teal-500, dimmer once followed     */
+  }
+  .pdf:hover { background: var(--ink); color: var(--paper); }
+  /* Pure black-on-transparent art is invisible on a dark ground; inverting
+     makes it white ink, and the lower opacity brings it back to gray. */
+  .banner img { filter: invert(1); opacity: 0.62; }
+  .mark img   { filter: invert(1); opacity: 0.45; }
+}

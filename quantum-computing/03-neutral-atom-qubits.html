@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 3 - Neutral Atom Qubits | Quantum Computing</title>
+  <meta name="description" content="Quantum Computing, Part 3: Neutral Atom Qubits.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Quantum Computing</a><span class="sep">/</span>Part 3</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Quantum Computing &middot; Part 3</p>
+    <h1>Neutral Atom Qubits</h1>
+    <p class="updated">Last updated: 2026-08-30</p>
+    <p class="actions"><a class="pdf" href="latest/03-neutral-atom-qubits.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#academic-records" id="toc-academic-records">1. Academic
+Records</a></li>
+<li><a href="#quera" id="toc-quera">2. QuEra</a></li>
+<li><a href="#pasqal" id="toc-pasqal">3. Pasqal</a></li>
+<li><a href="#infleqtion" id="toc-infleqtion">4. Infleqtion</a></li>
+<li><a href="#atom-computing" id="toc-atom-computing">5. Atom
+Computing</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Neutral atom machines hold uncharged atoms in place with focused
+laser beams called optical tweezers, and make them interact by exciting
+them into large, puffed-up states known as Rydberg states. The atoms are
+identical by nature, like the ions in Part 2. They are not electrically
+charged, so they can be packed far more densely without pushing each
+other apart.</p>
+<p>That density is the modality’s defining advantage. The systems in
+this part reach thousands of qubits while the machines in Parts 1 and 2
+count in the tens and low hundreds. The offsetting weakness is that
+atoms escape their traps, so a large array steadily loses its qubits,
+and gate fidelities sit slightly behind the leaders in the other two
+modalities.</p>
+<p>A second distinction matters for reading the numbers below. These
+machines run in two modes. Analog mode excites all atoms at once to
+simulate a physical system directly. Digital mode executes ordinary
+quantum gates one after another for general algorithms [2]. A large
+analog machine and a large digital one are not the same achievement.</p>
+<p>Section 1 covers the academic groups setting the records, Section 2
+QuEra, Section 3 Pasqal, Section 4 Infleqtion, and Section 5 Atom
+Computing.</p>
+<h2 id="academic-records">1. Academic Records</h2>
+<p><em>The largest arrays and the highest fidelities in this part come
+from university groups rather than companies. Two results here also
+address the atom-loss problem directly, which is the constraint that
+governs how large these machines can get.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The Harvard group led by Mikhail Lukin reached 99.85% raw fidelity
+for its two-qubit gates, rising to 99.94% when results affected by atom
+loss are discarded [1]. The gap between those two numbers is the
+atom-loss penalty stated plainly.</p>
+<p>Caltech’s Endres group published the first direct experimental
+measurement of two-dimensional conformal field theory spectra, using an
+analog simulator with chains of up to 35 strontium atoms [4]. This is a
+physics result obtained on a quantum machine rather than a machine
+result, and it is the kind of work analog mode exists for.</p>
+<h3 id="current-state">Current State</h3>
+<p>The Harvard group, with collaborators including Hollerith at ETH
+Zurich, reported continuous operation of a coherent system of more than
+3,000 qubits [2]. It used a dual optical-lattice conveyor belt that
+continuously moves atoms from a reservoir into the computing zone.
+Tweezers load at 300,000 atoms per second.</p>
+<p>Continuous loading is the answer to atom loss. Rather than trying to
+stop atoms escaping, the machine replaces them faster than they leave.
+That array was sustained for over two hours, which QuEra and its Harvard
+collaborators presented as resolving the atom-loss problem for scaling
+[3].</p>
+<p>Caltech holds the size record. In September 2025 the Endres group
+reported an array of 6,100 caesium atoms trapped across 12,000 optical
+tweezer sites [2]. Single-qubit manipulation accuracy was 99.98%, and
+the group demonstrated coherent atom transport. The work was published
+in Nature as a tweezer array with 6,100 highly coherent atomic qubits
+[5]. The group has also published a benchmarking and fidelity-response
+theory for high-fidelity Rydberg entangling gates in PRX Quantum,
+establishing how to characterize two-qubit gate errors on its platform
+[5].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="quera">2. QuEra</h2>
+<p><em>QuEra’s machines are the most used neutral-atom systems in the
+world by customer hours, and its gate fidelities are the strongest of
+the commercial platforms in this part.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>QuEra’s Gemini system reached 99.77% two-qubit gate fidelity, rising
+to 99.96% when atom-loss cases are excluded, and averaging 99.74% across
+large zones [6].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The result that established the modality’s credibility came earlier.
+QuEra, with Harvard and MIT, achieved 99.5% two-qubit entangling
+fidelity on up to 60 rubidium atoms operating in parallel, published in
+Nature in October 2023 [7]. That figure passed the surface-code
+error-correction threshold, meaning the hardware became good enough for
+the error-correction schemes in Part 6 to help rather than hurt.</p>
+<p>QuEra’s Aquila is a 256-atom analog processor available on Amazon
+Braket since 2022 [8]. It is the most-accessed neutral-atom system in
+the world measured by external customer hours, which is a different kind
+of achievement from any fidelity figure.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="pasqal">3. Pasqal</h2>
+<p><em>Pasqal has the widest commercial deployment in this part and the
+most unusual strategy. It ships analog and digital processors at the
+same time and upgrades one hardware line toward fault tolerance, rather
+than treating today’s machines as disposable.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>Pasqal had 7 processors with 100 to 200 or more qubits deployed in
+commercial use as of August 2026, with 3 more in production [9].
+Deployment count is the number that distinguishes this company from its
+competitors.</p>
+<p>Pasqal and its subsidiary Aeponyx demonstrated trapping individual
+atoms using laser light generated by a photonic integrated circuit [10].
+The company announced it in August 2026 as a world first. Putting qubit
+control onto a chip addresses the practical problem that these machines
+currently need a table of optical equipment.</p>
+<p>CNRS, the Institut d’Optique Graduate School and Pasqal opened a
+joint laboratory called AtomIQ-Lab in November 2025 [14]. It focuses on
+laser-controlled cold-atom computers and on improving processor
+performance through atom-manipulation techniques.</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Pasqal’s array quality result is the strongest evidence that this
+modality can scale cleanly. It achieved defect-free 1,024-atom registers
+with a 0.3% average defect rate [11]. Atom lifetimes ran beyond 5,000
+seconds in a 4-kelvin cryogenic environment. Long lifetimes attack the
+same atom-loss problem that Section 1 solves by continuous
+replacement.</p>
+<p>Deployment has been steady. Pasqal put its 100-qubit Orion Beta
+system on site at the French GENCI computing centre and the German
+Jülich Research Centre between 2024 and 2025 [2]. These were among the
+first quantum computers integrated into supercomputing facilities. In
+February 2026 it delivered a system of more than 140 qubits to the
+Italian CINECA centre and launched its Vela processor with more than 256
+qubits [2]. It had announced a processor with more than 1,000 atoms
+loaded in a single event in June 2024 [2].</p>
+<p>One claim needs a caveat. In early 2026 Pasqal announced a
+demonstrated quantum advantage over classical methods in a
+materials-science simulation of magnetic materials [12]. This is a
+company statement that has not been peer-reviewed, published, or
+independently confirmed.</p>
+<p>The company’s strategy is to ship analog and digital processors
+concurrently rather than separating current machines from future
+fault-tolerant ones, upgrading the same platform over time [13].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="infleqtion">4. Infleqtion</h2>
+<p><em>Infleqtion competes on installed national infrastructure rather
+than raw scale. Its systems are the operational machines at the UK and
+Japanese national programmes, and its recent work extends to using two
+different atomic species at once.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Japan’s Institute for Molecular Science, with Hitachi and Infleqtion,
+launched Shunkai, Japan’s first full-stack neutral-atom quantum computer
+[15]. It starts at 50 qubits with a target of 10,000 by 2031, and uses
+rubidium atoms and optical tweezers. It runs at room temperature with
+reconfigurable connectivity. Cloud access is planned, with
+commercialization through Yaqumo Inc.</p>
+<p>Infleqtion reported a record dual-species entangling gate fidelity of
+0.975 ± 0.002, using rubidium and caesium together, in May 2026 [16].
+Two species allow one type of atom to be measured while the other keeps
+its state, which matters for error correction.</p>
+<h3 id="current-state-3">Current State</h3>
+<p>Infleqtion demonstrated arrays up to 1,600 sites with 99.73%
+two-qubit gate fidelity on its Sqale platform [17]. It had reported that
+same fidelity in December 2025 alongside 114-qubit in-place
+entanglement, then the largest UK neutral-atom array [18].</p>
+<p>The UK installation is the company’s anchor. In December 2025 the
+Sqale system at the UK National Quantum Computing Centre became the
+country’s only operational 100-qubit machine [19]. That followed a
+February 2025 demonstration of a 256-site array at the Centre’s Harwell
+campus, the largest of its kind in the UK at the time [21].</p>
+<p>The Sqale architecture combines individual optical addressing of
+qubits with dynamically reconfigurable arrays [20]. It supports both
+atom rearrangement and in-place entanglement in a digital gate-based
+mode.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="atom-computing">5. Atom Computing</h2>
+<p><em>Atom Computing runs the largest production machine in this part
+and stores information differently from everything else here, in nuclear
+spins rather than electronic states. That choice buys coherence times
+measured in seconds.</em></p>
+<h3 id="current-state-4">Current State</h3>
+<p>The Phoenix system holds 1,180 physical qubits in a 1,225-site
+optical tweezer array [8]. Announced in late 2023, it was the first
+universal quantum platform to pass 1,000 qubits, and as of 2026 it
+remains the largest production neutral-atom system.</p>
+<p>The coherence figure is the standout. Atom Computing encodes qubits
+in the nuclear spin states of strontium atoms, which yields coherence
+times on the order of 40 seconds [22]. Every other machine in this
+collection measures coherence in microseconds or milliseconds.</p>
+<p>The company operates a gate-based digital architecture rather than a
+purely analog one [22]. It has reported 99.6% two-qubit gate fidelity,
+described as the highest for any commercial neutral-atom platform
+[22].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Two companies claim the highest commercial two-qubit fidelity in this
+modality, and both cannot be right. Atom Computing reports 99.6% and
+describes it as the highest for any commercial neutral-atom platform
+[22]. Infleqtion reports 99.73% on its Sqale platform, a higher figure
+billed the same way [17]. The Atom Computing source is undated and low
+confidence, so it cannot be established which claim is current. A dated
+measurement from either company, stating the array size and whether
+atom-loss cases were excluded, would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>High-fidelity entangling gates and nonlocal circuits with neutral
+atoms (arXiv:2604.25987) - <a href="https://arxiv.org/abs/2604.25987"
+class="uri">https://arxiv.org/abs/2604.25987</a> (as of 2026-04-01)</li>
+<li>Neutral Atom Quantum Computing: Principles, Routes, Progress, and
+Challenges - <a href="https://arxiv.org/html/2608.05010v1"
+class="uri">https://arxiv.org/html/2608.05010v1</a> (as of
+2026-02-01)</li>
+<li>QuEra Says 2025 Is Turning Point In Neutral Atoms - <a
+href="https://quantumzeitgeist.com/quera-quantum-computing-error-correction/"
+class="uri">https://quantumzeitgeist.com/quera-quantum-computing-error-correction/</a>
+(as of 2025-01-01)</li>
+<li>Observation of conformal field theory spectra in a quantum simulator
+(Nature) - <a href="https://www.nature.com/articles/s41586-026-10904-x"
+class="uri">https://www.nature.com/articles/s41586-026-10904-x</a> (as
+of 2026-08-20)</li>
+<li>Velocity-Enabled Quantum Computing with Neutral Atoms - <a
+href="https://arxiv.org/pdf/2603.15561"
+class="uri">https://arxiv.org/pdf/2603.15561</a> (as of 2025-01-01)</li>
+<li>QuEra AI Info Page - <a href="https://www.quera.com/ai-info-page"
+class="uri">https://www.quera.com/ai-info-page</a> (as of
+2026-08-16)</li>
+<li>High-fidelity parallel entangling gates on a neutral-atom quantum
+computer - <a href="https://www.nature.com/articles/s41586-023-06481-y"
+class="uri">https://www.nature.com/articles/s41586-023-06481-y</a> (as
+of 2023-10-11)</li>
+<li>Top Neutral Atom Quantum Computing Companies: Complete 2026 Guide -
+<a
+href="https://quantumzeitgeist.com/top-neutral-atom-quantum-computing-companies/"
+class="uri">https://quantumzeitgeist.com/top-neutral-atom-quantum-computing-companies/</a>
+(as of 2023-10-01)</li>
+<li>France’s Pasqal is public, with $360M and a valuation of about 100
+times revenue - <a
+href="https://thenextweb.com/news/pasqal-nasdaq-debut-psql-360m"
+class="uri">https://thenextweb.com/news/pasqal-nasdaq-debut-psql-360m</a>
+(as of 2026-08-28)</li>
+<li>Pasqal Brings Qubit Control On Chip, Advancing the Path to
+Fault-Tolerant Quantum Computing at Scale - <a
+href="https://www.globenewswire.com/news-release/2026/08/10/3341792/0/en/Pasqal-Brings-Qubit-Control-On-Chip-Advancing-the-Path-to-Fault-Tolerant-Quantum-Computing-at-Scale.html"
+class="uri">https://www.globenewswire.com/news-release/2026/08/10/3341792/0/en/Pasqal-Brings-Qubit-Control-On-Chip-Advancing-the-Path-to-Fault-Tolerant-Quantum-Computing-at-Scale.html</a>
+(as of 2026-08-10)</li>
+<li>Defect-free arrays at the thousand-atom scale in a 4-K environment -
+<a href="https://arxiv.org/html/2604.07205v1"
+class="uri">https://arxiv.org/html/2604.07205v1</a> (as of
+2026-04-08)</li>
+<li>Neutral atom quantum computing roadmap - <a
+href="https://www.tomshardware.com/tech-industry/quantum-computing/neural-atom-quantum-computing-roadmap-how-laser-cooled-trapped-atoms-could-pave-the-path-beyond-physical-qubit-counts"
+class="uri">https://www.tomshardware.com/tech-industry/quantum-computing/neural-atom-quantum-computing-roadmap-how-laser-cooled-trapped-atoms-could-pave-the-path-beyond-physical-qubit-counts</a>
+(as of 2026-01-01)</li>
+<li>Pasqal - <a
+href="https://postquantum.com/quantum-computing-companies/pasqal/"
+class="uri">https://postquantum.com/quantum-computing-companies/pasqal/</a>
+(undated)</li>
+<li>The CNRS, l’Institut d’Optique Graduate School and Pasqal join
+forces to build the computers of the future - <a
+href="https://www.pasqal.com/newsroom/the-cnrs-linstitut-doptique-graduate-school-and-the-scaleup-pasqal-join-forces-to-build-the-computers-of-the-future/"
+class="uri">https://www.pasqal.com/newsroom/the-cnrs-linstitut-doptique-graduate-school-and-the-scaleup-pasqal-join-forces-to-build-the-computers-of-the-future/</a>
+(as of 2025-11-26)</li>
+<li>Infleqtion Collaboration with Japan Moonshot Program: Shunkai Now
+Operational - <a
+href="https://infleqtion.com/infleqtion-collaboration-with-japan-moonshot-program-achieves-major-milestone-shunkai-neutral-atom-quantum-computer-now-operational/"
+class="uri">https://infleqtion.com/infleqtion-collaboration-with-japan-moonshot-program-achieves-major-milestone-shunkai-neutral-atom-quantum-computer-now-operational/</a>
+(as of 2026-08-24)</li>
+<li>Infleqtion Strengthens Neutral-Atom Quantum Computing Platform - <a
+href="https://infleqtion.com/infleqtion-strengthens-neutral-atom-quantum-computing-platform-with-new-technical-breakthroughs/"
+class="uri">https://infleqtion.com/infleqtion-strengthens-neutral-atom-quantum-computing-platform-with-new-technical-breakthroughs/</a>
+(as of 2026-05-20)</li>
+<li>Sqale Quantum Computer - Infleqtion - <a
+href="https://infleqtion.com/quantum-computing/"
+class="uri">https://infleqtion.com/quantum-computing/</a> (as of
+2026-01-01)</li>
+<li>Infleqtion - Neutral-Atom Quantum Computing - <a
+href="https://entangledfuture.com/company/infleqtion/"
+class="uri">https://entangledfuture.com/company/infleqtion/</a> (as of
+2025-12-01)</li>
+<li>Infleqtion Delivers the UK’s Only Operational 100-Qubit Quantum
+Computing System at the NQCC - <a
+href="https://infleqtion.com/infleqtion-delivers-the-uks-only-operational-100-qubit-quantum-computing-system-at-the-national-quantum-computing-centre/"
+class="uri">https://infleqtion.com/infleqtion-delivers-the-uks-only-operational-100-qubit-quantum-computing-system-at-the-national-quantum-computing-centre/</a>
+(as of 2025-12-01)</li>
+<li>Infleqtion Unveils New Architecture to Accelerate Its Quantum
+Computing Roadmap - <a
+href="https://infleqtion.com/infleqtion-unveils-new-architecture-to-accelerate-its-quantum-computing-roadmap-to-achieve-1000-logical-qubits-by-2030/"
+class="uri">https://infleqtion.com/infleqtion-unveils-new-architecture-to-accelerate-its-quantum-computing-roadmap-to-achieve-1000-logical-qubits-by-2030/</a>
+(as of 2025-09-17)</li>
+<li>Infleqtion Demonstrates Largest Neutral Atom Array in UK - <a
+href="https://infleqtion.com/infleqtion-demonstrates-largest-neutral-atom-array-in-uk-paving-way-for-scalable-quantum-computing/"
+class="uri">https://infleqtion.com/infleqtion-demonstrates-largest-neutral-atom-array-in-uk-paving-way-for-scalable-quantum-computing/</a>
+(as of 2025-02-18)</li>
+<li>Atom Computing - <a
+href="https://postquantum.com/quantum-computing-companies/atom-computing/"
+class="uri">https://postquantum.com/quantum-computing-companies/atom-computing/</a>
+(undated)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="02-trapped-ion-qubits.html"><span>Previous</span>Part 2 - Trapped Ion Qubits</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Quantum Computing</a>
+    <a class="pager-next" href="04-photonic-quantum-computing.html"><span>Next</span>Part 4 - Photonic Quantum Computing</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/03-neutral-atom-qubits.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

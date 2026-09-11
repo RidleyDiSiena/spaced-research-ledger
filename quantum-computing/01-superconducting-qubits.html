@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 1 - Superconducting Qubits | Quantum Computing</title>
+  <meta name="description" content="Quantum Computing, Part 1: Superconducting Qubits.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Quantum Computing</a><span class="sep">/</span>Part 1</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Quantum Computing &middot; Part 1</p>
+    <h1>Superconducting Qubits</h1>
+    <p class="updated">Last updated: 2026-08-30</p>
+    <p class="actions"><a class="pdf" href="latest/01-superconducting-qubits.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#ibm" id="toc-ibm">1. IBM</a></li>
+<li><a href="#google-quantum-ai" id="toc-google-quantum-ai">2. Google
+Quantum AI</a></li>
+<li><a href="#rigetti" id="toc-rigetti">3. Rigetti</a></li>
+<li><a href="#iqm" id="toc-iqm">4. IQM</a></li>
+<li><a href="#fujitsu-and-riken" id="toc-fujitsu-and-riken">5. Fujitsu
+and RIKEN</a></li>
+<li><a href="#materials-and-device-research"
+id="toc-materials-and-device-research">6. Materials and Device
+Research</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Superconducting qubits are tiny circuits, cooled to near absolute
+zero, that behave like artificial atoms. They are the most widely
+deployed way to build a quantum computer, and the approach behind most
+of the machines the public has heard of. They are fast, they are
+manufacturable using methods borrowed from the chip industry, and they
+lose their information quickly. Everything in this part follows from
+that last trade.</p>
+<p>Two measurements recur throughout. Coherence time is how long a qubit
+holds its state before noise destroys it, usually written as T1 and T2
+and measured in microseconds. Gate fidelity is how often an operation
+does what it was supposed to, quoted as a percentage that matters mainly
+in how many nines follow the decimal point.</p>
+<p>Section 1 covers IBM, Section 2 Google, Section 3 Rigetti, Section 4
+IQM, and Section 5 the Fujitsu and RIKEN collaboration. Section 6 covers
+materials research, where the next generation of these devices is being
+decided.</p>
+<h2 id="ibm">1. IBM</h2>
+<p><em>IBM has stopped competing on qubit count. Its current design
+deliberately uses fewer qubits than its predecessor and spends the
+difference on connectivity. The theory is that circuit depth, not qubit
+population, is what limits useful work.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The first processor built on that design reached customers in January
+2026. IBM’s ibm_miami became available on the company’s Premium and Flex
+cloud plans, making the Nighthawk design generally accessible rather
+than a laboratory demonstration [1].</p>
+<h3 id="current-state">Current State</h3>
+<p>Nighthawk was unveiled in November 2025 as IBM’s first chip with a
+square qubit topology [2]. It raised the number of tunable couplers from
+176 on the earlier Heron design to 218, which improves connections
+between neighbouring qubits and cuts the need for SWAP gates. A SWAP
+gate moves information between qubits that are not directly connected,
+and every one of them is overhead rather than useful work.</p>
+<p>The chip carries 120 physical qubits [3]. That is fewer than Heron r2
+before it, and the reduction is deliberate. The design trades qubit
+count for circuit-depth capacity.</p>
+<p>Nighthawk-based systems support circuits requiring up to 5,000
+two-qubit gates at launch [4]. Two-qubit gates are the entangling
+operations that do the actual computational work, so this figure is the
+practical measure of what the machine can run. IBM states it is
+currently the only company able to deliver accurate results at that
+circuit complexity [5]. It attributes the capability to hardware
+combined with error-mitigation techniques, rather than to device
+fidelity alone.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="google-quantum-ai">2. Google Quantum AI</h2>
+<p><em>Google builds fewer machines than IBM and publishes more about
+each one. Its Willow chip is the device behind the field’s
+below-threshold error-correction result, and its specifications are the
+most thoroughly documented in this part.</em></p>
+<h3 id="current-state-1">Current State</h3>
+<p>Willow was announced in December 2024 and carries 105 superconducting
+transmon qubits [6]. Google fabricates it end to end at its own Santa
+Barbara facility rather than using an outside foundry, which is unusual
+in an industry that mostly relies on contract manufacturing.</p>
+<p>The chip’s headline achievement is coherence. Willow’s T1 relaxation
+time approaches 100 microseconds, roughly five times better than
+Google’s previous Sycamore chip, which the company attributes to
+materials and fabrication changes that lower loss [6]. Google reports
+single-qubit gate fidelity near 99.97% and two-qubit gate fidelity near
+99.88% [7].</p>
+<p>Detailed characterization gives a more textured picture than the
+headline numbers. Average T1 across the 105-qubit processor runs from
+about 37 to 86 microseconds, and T2 from about 17 to 78 microseconds
+[9]. Two-qubit CZ gates execute in roughly 42 nanoseconds. A 72-qubit
+Willow variant does better on both counts, with T1 from about 75 to 85
+microseconds and CZ gates in 37 nanoseconds. Smaller chips are easier to
+make uniform, and the spread across a larger device is itself a scaling
+problem.</p>
+<p>Two architectural choices support those numbers. Google activates
+tunable couplers between adjacent qubits to perform two-qubit gates,
+replacing the passive capacitive coupling used in earlier chips such as
+Bristlecone, which reduced crosstalk and improved fidelity [8]. It also
+uses an inverted flip-chip integration style, bonding a separate wiring
+chip to the qubit chip [7]. That frees the qubit layer from dense
+on-chip routing, which is one of the practical limits on how many qubits
+fit in one device.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="rigetti">3. Rigetti</h2>
+<p><em>Rigetti’s distinguishing bet is speed and modularity. Its gates
+are roughly a thousand times faster than the modalities in Parts 2 and
+3. It builds large processors by connecting small chips rather than
+fabricating one big one.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Rigetti’s second-quarter 2026 report gave precise figures for its
+108-qubit Cepheus-1-108Q system [10]. Median single-qubit gate fidelity
+is approximately 99.9%, median two-qubit gate fidelity approximately
+99.1%, and gate speeds approximately 60 nanoseconds.</p>
+<h3 id="current-state-2">Current State</h3>
+<p>An independent result matters more than a vendor’s own calibration.
+Quantum Machines operated a Rigetti Novera processor using its own
+control hardware and calibration software [11]. It reproduced a median
+two-qubit gate fidelity of 99.5% across 11 qubit pairs, peaking at
+99.86%. It also measured 99.93% median single-qubit fidelity and 95%
+readout fidelity. The figures matched Rigetti’s in-house results using
+third-party electronics, which is a stronger claim than either party
+could make alone.</p>
+<p>Speed is where superconducting hardware separates itself. Current
+Rigetti systems perform two-qubit gates in 50 to 70 nanoseconds, roughly
+a thousand times faster than the gate speeds reported for trapped-ion
+and neutral-atom machines [12]. More operations fit inside a coherence
+window, which partly offsets the shorter coherence times.</p>
+<p>The multi-chip approach is working. Rigetti’s Cepheus-1-36Q system is
+built from four interconnected 9-qubit chiplets and reached 99.5% median
+two-qubit gate fidelity [13]. That halved the two-qubit gate error rate
+compared with the earlier 84-qubit single-chip Ankaa-3 system. A smaller
+assembled machine outperforming a larger monolithic one is the argument
+for modular construction.</p>
+<p>The product line starts well below those systems. The 9-qubit Novera
+processor, introduced in 2023 on the Ankaa-class architecture with
+tunable couplers, is the on-premises entry point, and the line runs up
+through the 108-qubit Cepheus systems [14].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="iqm">4. IQM</h2>
+<p><em>IQM’s approach is defined by where its machines go rather than
+what they achieve. It builds a graded product line and installs it
+inside national supercomputing centres, which makes deployment count a
+more meaningful number than peak specification.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>IQM deployed its first U.S. system in June 2026, a 20-qubit
+Pathfinder Radiance device installed at Oak Ridge National Laboratory
+for hybrid quantum and high-performance-computing work [15].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>IQM’s largest deployed systems are 54-qubit Radiance and Crystal
+devices [16]. One went to CINECA in Bologna in late 2025, integrated
+with the Leonardo supercomputer. Another has run at the Leibniz
+Supercomputing Centre in Munich since February 2026, as Europe’s first
+EuroHPC-funded quantum computer.</p>
+<p>The larger tier is announced rather than delivered. As of the Munich
+deployment, IQM’s 150-qubit Radiance tier had not arrived at that site
+[16]. The 150-qubit upgrade to the 54-qubit system was still planned for
+the end of 2026.</p>
+<p>Gate quality is consistent across the range. The 20-qubit Garnet
+processor reaches a median two-qubit gate fidelity of 99.5%, with
+genuine entanglement demonstrated across all 20 qubits at once [17]. The
+54-qubit Emerald system, using the same architecture scaled up, reports
+the same 99.5% median figure for its two-qubit gates [18]. Holding
+fidelity constant while more than doubling qubit count is the harder
+half of scaling.</p>
+<p>The product line spans 5-qubit, 20-qubit, 54-qubit and 150-qubit
+systems, all built on a square-lattice architecture where each qubit
+connects to its neighbours through a tunable coupler [19].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="fujitsu-and-riken">5. Fujitsu and RIKEN</h2>
+<p><em>This collaboration is the clearest demonstration that the
+limiting factor for superconducting machines is often the refrigerator
+rather than the chip. Its most recent system quadrupled qubit count
+inside the same cooling hardware.</em></p>
+<h3 id="current-state-4">Current State</h3>
+<p>The current-generation system holds 256 qubits and was unveiled in
+April 2025 at the RIKEN RQC-Fujitsu Collaboration Center [20]. It
+quadruples the capacity of the 64-qubit machine the pair deployed in
+October 2023.</p>
+<p>The design scaled without a redesign. The 256-qubit system uses a
+three-dimensional architecture built from repeatable 4-qubit unit cells,
+the same unit-cell design as its 64-qubit predecessor [20]. Growth came
+from repeating a proven block rather than drawing a new chip.</p>
+<p>The cooling result is the one that generalizes. The system achieves a
+fourfold increase in implementation density inside the dilution
+refrigerator, letting four times the qubits operate within the same
+cooling unit the 64-qubit machine used [20]. Dilution refrigerators are
+large, expensive and slow to build, so density inside an existing one is
+worth more than it sounds.</p>
+<p>The machine became available to companies and research institutions
+worldwide during the first quarter of fiscal year 2025, through the
+pair’s hybrid quantum-classical platform [20].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="materials-and-device-research">6. Materials and Device
+Research</h2>
+<p><em>The results in this section are not machines. They are attempts
+to change what superconducting qubits are made of, and they matter on a
+longer horizon than any product roadmap in the preceding
+sections.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>MIT researchers developed air-stable ultrathin niobium diselenide
+superconductors, using encapsulation epitaxy with graphene to keep them
+stable [21]. The material can be integrated into superconducting
+microwave circuits at wafer scale. Air stability is the practical
+barrier with ultrathin superconductors, because a material that degrades
+on contact with atmosphere cannot go through normal fabrication.</p>
+<p>Yale researchers fabricated all-nitride transmon qubits from niobium
+nitride and aluminium nitride using atomic layer deposition [22]. They
+achieved microsecond-scale T1 above 300 millikelvin. The temperature is
+the point. Conventional superconducting qubits need to sit well below
+that, and every millikelvin of headroom reduces the cooling burden
+described in Section 5.</p>
+<p>ETH Zurich coupled a superconducting transmon qubit to a mechanical
+resonator, specifically a high-overtone bulk-acoustic wave device, and
+used the hybrid to perform C-PHASE gates and small quantum algorithms
+[23]. The work was published in Science. Mechanical resonators can hold
+a state far longer than a transmon, so pairing the two is an attempt to
+get transmon speed with mechanical memory.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>IBM Quantum product update: Nighthawk - <a
+href="https://quantum.cloud.ibm.com/announcements/en/product-updates/2026-01-05-nighthawk"
+class="uri">https://quantum.cloud.ibm.com/announcements/en/product-updates/2026-01-05-nighthawk</a>
+(as of 2026-01-05)</li>
+<li>IBM Targets Quantum Advantage By 2026 With New Processors And Tools
+- <a
+href="https://www.forbes.com/sites/moorinsights/2025/12/05/ibm-targets-quantum-advantage-by-2026-with-new-processors-and-tools/"
+class="uri">https://www.forbes.com/sites/moorinsights/2025/12/05/ibm-targets-quantum-advantage-by-2026-with-new-processors-and-tools/</a>
+(as of 2025-11-12)</li>
+<li>IBM, Google, Microsoft, IonQ: Fault-Tolerance Roadmaps 2026 - <a
+href="https://quantumsecuritydefence.com/quantum-news/quantum-progress-fault-tolerance-roadmaps-2026/"
+class="uri">https://quantumsecuritydefence.com/quantum-news/quantum-progress-fault-tolerance-roadmaps-2026/</a>
+(as of 2025-11-12)</li>
+<li>IBM Delivers New Quantum Processors, Software, and Algorithm
+Breakthroughs on Path to Advantage and Fault Tolerance - <a
+href="https://newsroom.ibm.com/2025-11-12-ibm-delivers-new-quantum-processors,-software,-and-algorithm-breakthroughs-on-path-to-advantage-and-fault-tolerance"
+class="uri">https://newsroom.ibm.com/2025-11-12-ibm-delivers-new-quantum-processors,-software,-and-algorithm-breakthroughs-on-path-to-advantage-and-fault-tolerance</a>
+(as of 2025-11-12)</li>
+<li>IBM lays out clear path to fault-tolerant quantum computing - <a
+href="https://www.ibm.com/quantum/blog/large-scale-ftqc"
+class="uri">https://www.ibm.com/quantum/blog/large-scale-ftqc</a>
+(undated)</li>
+<li>Meet Willow, our state-of-the-art quantum chip - <a
+href="https://blog.google/innovation-and-ai/technology/research/google-willow-quantum-chip/"
+class="uri">https://blog.google/innovation-and-ai/technology/research/google-willow-quantum-chip/</a>
+(as of 2024-12-09)</li>
+<li>Willow Spec Sheet (Google Quantum AI) - <a
+href="https://quantumai.google/static/site-assets/downloads/willow-spec-sheet.pdf"
+class="uri">https://quantumai.google/static/site-assets/downloads/willow-spec-sheet.pdf</a>
+(as of 2024-12-09)</li>
+<li>Google Quantum AI - <a
+href="https://www.jaredwatkins.com/research/quantum-computing/google-quantum-ai/"
+class="uri">https://www.jaredwatkins.com/research/quantum-computing/google-quantum-ai/</a>
+(undated)</li>
+<li>Notes on Google Willow (2024) - <a
+href="https://www.researchgate.net/publication/387576664_Notes_on_Google_Willow_2024_aka_Quantum_Error_Correction_Below_the_Surface_Code_Threshold"
+class="uri">https://www.researchgate.net/publication/387576664_Notes_on_Google_Willow_2024_aka_Quantum_Error_Correction_Below_the_Surface_Code_Threshold</a>
+(as of 2024-12-09)</li>
+<li>Rigetti Computing second-quarter 2026 results exhibit - <a
+href="https://www.sec.gov/Archives/edgar/data/1838359/000110465926091979/rgti-20260806xex99d1.htm"
+class="uri">https://www.sec.gov/Archives/edgar/data/1838359/000110465926091979/rgti-20260806xex99d1.htm</a>
+(as of 2026-08-06)</li>
+<li>Quantum Machines Hits 99.5% Fidelity on Rigetti Novera - <a
+href="https://www.quantum-machines.co/resources/blog/rigetti-novera-99-5-fidelity-opx1000/"
+class="uri">https://www.quantum-machines.co/resources/blog/rigetti-novera-99-5-fidelity-opx1000/</a>
+(as of 2026-05-27)</li>
+<li>Rigetti Computing Reports Fourth Quarter and Full-Year 2025
+Financial Results - <a
+href="https://investors.rigetti.com/news-releases/news-release-details/rigetti-computing-reports-fourth-quarter-and-full-year-2025"
+class="uri">https://investors.rigetti.com/news-releases/news-release-details/rigetti-computing-reports-fourth-quarter-and-full-year-2025</a>
+(as of 2026-03-04)</li>
+<li>Rigetti Demonstrates Industry’s Largest Multi-Chip Quantum Computer
+- <a
+href="https://investors.rigetti.com/news-releases/news-release-details/rigetti-demonstrates-industrys-largest-multi-chip-quantum"
+class="uri">https://investors.rigetti.com/news-releases/news-release-details/rigetti-demonstrates-industrys-largest-multi-chip-quantum</a>
+(as of 2025-07-16)</li>
+<li>Novera - Rigetti Computing - <a
+href="https://www.rigetti.com/novera"
+class="uri">https://www.rigetti.com/novera</a> (as of 2023-11-16)</li>
+<li>ORNL deploys new IQM quantum computer - <a
+href="https://www.ornl.gov/news/ornl-deploys-new-iqm-quantum-computer"
+class="uri">https://www.ornl.gov/news/ornl-deploys-new-iqm-quantum-computer</a>
+(as of 2026-06-17)</li>
+<li>Largest Quantum Computers 2026: Top Systems by Qubit Count - <a
+href="https://entangledfuture.com/best-quantum-computers/"
+class="uri">https://entangledfuture.com/best-quantum-computers/</a> (as
+of 2026-02-01)</li>
+<li>Technology and Performance Benchmarks of IQM’s 20-Qubit Quantum
+Computer - <a href="https://arxiv.org/abs/2408.12433"
+class="uri">https://arxiv.org/abs/2408.12433</a> (as of 2024-08-22)</li>
+<li>IQM - Superconducting Quantum Computing - <a
+href="https://entangledfuture.com/company/iqm/"
+class="uri">https://entangledfuture.com/company/iqm/</a> (as of
+2023-06-01)</li>
+<li>IQM Quantum Computers - <a href="https://iqm.tech/"
+class="uri">https://iqm.tech/</a> (undated)</li>
+<li>RIKEN and Fujitsu unveil world-leading 256-qubit quantum computer -
+<a
+href="https://www.riken.jp/en/news_pubs/news/2025/20250422_1/index.html"
+class="uri">https://www.riken.jp/en/news_pubs/news/2025/20250422_1/index.html</a>
+(as of 2025-04-22)</li>
+<li>Air-stable, ultrathin superconductors developed for more scalable
+quantum devices - <a
+href="https://phys.org/news/2026-08-air-stable-ultrathin-superconductors-scalable.html"
+class="uri">https://phys.org/news/2026-08-air-stable-ultrathin-superconductors-scalable.html</a>
+(as of 2026-08-05)</li>
+<li>All-nitride superconducting qubits based on atomic layer deposition
+- <a href="https://www.nature.com/articles/s41563-025-02448-8"
+class="uri">https://www.nature.com/articles/s41563-025-02448-8</a> (as
+of 2026-01-06)</li>
+<li>Best of two worlds: superconducting qubits and mechanical resonators
+for quantum computing - <a
+href="https://www.phys.ethz.ch/news-and-events/d-phys-news/2026/05/best-of-two-worlds-superconducting-qubits-and-mechanical-resonators-for-quantum-computing.html"
+class="uri">https://www.phys.ethz.ch/news-and-events/d-phys-news/2026/05/best-of-two-worlds-superconducting-qubits-and-mechanical-resonators-for-quantum-computing.html</a>
+(as of 2026-05-28)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>Quantum Computing</a>
+    <a class="pager-next" href="02-trapped-ion-qubits.html"><span>Next</span>Part 2 - Trapped Ion Qubits</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/01-superconducting-qubits.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

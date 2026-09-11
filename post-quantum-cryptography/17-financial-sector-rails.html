@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 17 - Financial Messaging & Sector Rails | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 17: Financial Messaging & Sector Rails.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 17</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 17</p>
+    <h1>Financial Messaging &amp; Sector Rails</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/17-financial-sector-rails.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#swift-iso-20022" id="toc-swift-iso-20022">1. SWIFT &amp;
+ISO 20022</a></li>
+<li><a href="#card-networks-clearing-settlement"
+id="toc-card-networks-clearing-settlement">2. Card Networks, Clearing
+&amp; Settlement</a></li>
+<li><a href="#financial-standards-bodies"
+id="toc-financial-standards-bodies">3. Financial Standards
+Bodies</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The world’s money moves through a small set of rails: SWIFT messages
+between banks, central-bank settlement systems, and the card networks.
+Their cryptography is old, their message formats are tight, and a
+successful quantum attack on any of them would be a macroeconomic event.
+One study put a theoretical attack on the U.S. settlement system at a 10
+to 17 percent hit to GDP.</p>
+<p>This report covers the rails in three sections. Section 1 covers
+SWIFT and the ISO 20022 messaging standard, Section 2 the card networks
+and settlement infrastructure, and Section 3 the standards bodies
+writing the sector’s rules.</p>
+<p>The year’s landmark is a real test on a real system. Central banks
+ran post-quantum signatures through the Eurosystem’s TARGET2 settlement
+platform, and everything worked, at a price. Signatures came out
+thirteen times larger than RSA, verification ran seven and a half times
+slower, and message buffers broke along the way. SWIFT itself is
+expected to be post-quantum-enabled by 2027.</p>
+<p>The coordination machinery arrived with it. The U.S. Treasury
+launched a quantum-readiness task force for the sector in August, the G7
+published its coordinated roadmap, and Europe’s payments council rewrote
+its cryptographic guidelines around the transition.</p>
+<h2 id="swift-iso-20022">1. SWIFT &amp; ISO 20022</h2>
+<p><em>SWIFT carries the payment instructions between the world’s banks,
+and ISO 20022 is the message format the industry has just finished
+adopting. Both were sized for classical signatures. This section covers
+the first live post-quantum tests in a settlement system, and the
+surprisingly tight arithmetic of fitting new signatures into old
+messages.</em></p>
+<h3 id="current-state">Current State</h3>
+<p>Project Leap made the migration empirical. The central-bank
+collaboration spanned the BIS innovation hub, the Bank of Italy, the
+Bank of France, the Bundesbank, and SWIFT [1]. It tested post-quantum
+cryptography in an operational payment system, publishing in December
+2025 [1]. Phase 2 replaced traditional signatures on liquidity transfers
+in TARGET2, modifying numerous components for compatibility [2]. Every
+scenario succeeded, while revealing performance differences that demand
+more testing before a systemic transition [2].</p>
+<p>The specifics are sobering: a Dilithium signature of 3,293 bytes
+replaced a 256-byte RSA signature in the message header, a thirteen-fold
+increase [3]. Testing used the pre-standard algorithm because the
+finalized ML-DSA could not yet be exercised [3]. The larger payloads
+overflowed TARGET2’s expected buffers, requiring engineering rework [3],
+and verification took meaningfully longer, forcing capacity replanning
+for high-frequency settlement [4]. Phase 1 had earlier moved test
+payments through a quantum-resistant VPN between Paris and Frankfurt
+[5].</p>
+<p>The message-size arithmetic drives algorithm choice. A simulation
+study of correspondent banking concludes Falcon-512 is the only NIST
+signature fitting SWIFT’s legacy 2,048-byte message limit [6]. It
+recommends ML-KEM for key establishment with the level set by risk
+appetite [6], and rules out SLH-DSA for high-frequency signing on
+performance [6]. SWIFT’s own path is dated: its next-generation platform
+is expected post-quantum-enabled by 2027, with a 15-month migration
+window for institutions [3].</p>
+<p>The surrounding obligations are indirect but real. No explicit U.S.
+mandate requires financial post-quantum deployment, though risk-based
+security programs already cover cryptographic control [7]. Europe is
+more explicit, with the coordinated roadmap asking for transition starts
+by end-2026 and critical financial infrastructure secured by 2030 [8],
+reinforced by the operational-resilience and network-security
+regulations [8].</p>
+<p>HSMs sit under all of it, payment and general-purpose alike, and must
+gain the algorithms because they anchor banking trust [9]. The X9
+standards committee covers the messaging side, with a readiness
+assessment spanning both card and ISO 20022 formats [10]. Its
+key-management standard applies immediately to structured payment data
+[11], and a standing technical report covers quantum techniques in
+messaging [12].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="card-networks-clearing-settlement">2. Card Networks, Clearing
+&amp; Settlement</h2>
+<p><em>Behind every card swipe sits a clearing and settlement stack that
+nets and moves the money. Its operators are infrastructure companies
+with decade-scale change cycles, now being convened by treasuries and
+central banks. This section covers who is coordinating, who has
+published, and the one network with a paper trail.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The coordination bodies formed. The U.S. Treasury launched its
+Quantum-Readiness Task Force in August 2026, a public-private effort
+with workstreams on sector alignment, vendor readiness, and
+market-infrastructure risk [13]. It explicitly spans clearing houses and
+settlement operators [13].</p>
+<p>A community migration framework split payments into its own extension
+document, acknowledging the complexity of cross-border flows and card
+dependencies [14]. On the standards side, the new QR-payment standard
+signs with the X9 financial PKI, positioned as a bridge to post-quantum
+signatures [15].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Mastercard is the network with public research. Its white paper with
+NTU Singapore concludes post-quantum cryptography beats quantum key
+distribution for the sector’s harvest-now-decrypt-later problem, with
+cryptographic inventory the immediate priority [16]. It names agility
+the cornerstone of readiness, recommending algorithm-selection
+abstraction layers in payment infrastructure [3]. Visa maintains a
+research track with no public product announcements, and the other
+networks show nothing beyond EMVCo participation [3]. The financial PKI
+those networks rely on is governed by the X9 committee through its
+certificate products [17].</p>
+<p>The settlement layer has its stakes quantified. The Hudson
+Institute’s estimate for a quantum attack on Fedwire runs to a possible
+six-month recession [18]. The BIS has published its quantum-readiness
+roadmap for the financial system [19], and Norway’s central bank expects
+extensive implementation with entity responsibility plus coordination
+[20]. The TARGET2 numbers give the engineering reality: functional
+success with a 7.5-times verification slowdown and a need for parallel
+post-quantum certificate distribution across participants [3]. The G7’s
+cyber experts published the sector’s coordinated transition roadmap in
+January [21], followed by the first quantum-readiness report from its
+technologies working group [22].</p>
+<p>The vendor and guidance layer is assembling. Quantum-safe HSMs are
+marketed across settlement, instant payments, and central-bank digital
+currency infrastructure [23], with validated hardware supporting the
+NIST algorithms [23] and a joint consulting-plus-hardware offering for
+payments [23]. Industry analysis puts the burden on identifying
+high-risk areas and prioritizing remediation across the market
+infrastructures [24], with agility embedded into settlement and
+digital-currency systems [18]. The X9 assessment covers both messaging
+formats used in clearing [17][3], though no dedicated engineering
+analysis of field-level impact on the card-clearing format yet exists
+[3]. An X9 working group is building assessment guidelines to identify
+which financial standards need updating [25].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="financial-standards-bodies">3. Financial Standards Bodies</h2>
+<p><em>Three bodies write the rules the payments industry actually
+follows: X9 in the United States, EMVCo for chip cards, and the European
+Payments Council for the eurozone. Their positions range from urgent to
+explicitly unhurried. This section covers what each has published and
+where they differ.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Europe’s guidelines took their post-quantum turn. The payments
+council published version 16.0.1 of its cryptographic-algorithms
+guidance in June 2026 [26], following the March edition that
+significantly expanded its post-quantum content [27].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>X9 has the longest institutional runway. It formed its quantum study
+group in 2017 [12] and published its technical report introducing
+quantum consequences for financial services in 2019 [28][29]. It has
+assigned work to extend its algorithm-agnostic messaging standard for
+the transition [30]. Its 2025 readiness assessment gives management
+guidance on identifying and prioritizing quantum risk [12][31], and its
+cryptographic-tools group is building assessment guidelines usable by
+auditors and regulators [25].</p>
+<p>EMVCo is the deliberate outlier. Its published position expects no
+practical quantum threat to EMV before 2040, possibly never, while
+monitoring [32], through a public position statement and an engaged
+security working group [33]. The reasoning is structural: online
+transaction cryptograms are symmetric AES, present since 2010 and
+effectively future-proof, while legacy triple-DES retains a smaller
+margin [34]. The exposure it concedes is offline transactions, which use
+quantum-vulnerable RSA and elliptic curves [34].</p>
+<p>The engagement is increasing anyway, with post-quantum in its chip
+workstream since 2023 [35]. A special interest meeting on quantum
+resilience ran in March 2026 [36], and two further papers are planned on
+market requirements and offline mitigations [37].</p>
+<p>The European Payments Council writes the operational middle ground.
+Its annually reviewed guidelines reflect the cryptographic state of the
+art including post-quantum [38], reference the U.S. securities
+regulator’s post-quantum roadmap and European symmetric-cryptography
+analysis [26], and stay scoped to algorithms and key management for
+interoperable cross-border payments [26]. Its earlier industry guidance
+captured the transitional consensus: hybrids to ease the path, elliptic
+curves as the immediate card upgrade [39].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Project Leap phase 2: quantum-proofing payment systems - <a
+href="https://www.bis.org/publ/othp107.htm"
+class="uri">https://www.bis.org/publ/othp107.htm</a> - as of
+2025-12-11</li>
+<li>www.bis.org (Project Leap Phase 2 report) - <a
+href="https://www.bis.org/publ/othp107.pdf"
+class="uri">https://www.bis.org/publ/othp107.pdf</a> - as of
+2025-12-11</li>
+<li>Payments and the Race to Quantum Safety / Post-Quantum Cryptography
+(PQC) - <a
+href="https://postquantum.com/post-quantum/payments-quantum-pqc/"
+class="uri">https://postquantum.com/post-quantum/payments-quantum-pqc/</a>
+- as of 2026-02-25</li>
+<li>Project Leap Phase 2 report (BIS) - <a
+href="https://www.bis.org/publ/othp107.htm"
+class="uri">https://www.bis.org/publ/othp107.htm</a> - as of
+2025-12-11</li>
+<li>BIS-Led Collaboration Completes Successful Tests of Post-Quantum
+Cryptography in Payment System - <a
+href="https://www.pymnts.com/digital-payments/2025/bis-led-collaboration-completes-successful-tests-of-post-quantum-cryptography-in-payment-system/"
+class="uri">https://www.pymnts.com/digital-payments/2025/bis-led-collaboration-completes-successful-tests-of-post-quantum-cryptography-in-payment-system/</a>
+- as of 2023-06-01</li>
+<li>Post-Quantum Cryptography Migration in Australian Real-Time Payment
+Infrastructure: A Monte Carlo Simulation Study of the New Payments
+Platform - <a href="https://arxiv.org/pdf/2605.02276"
+class="uri">https://arxiv.org/pdf/2605.02276</a></li>
+<li>Quantum Threat Readiness for Financial Institutions: A Guide to
+Post-Quantum Cryptography - <a
+href="https://www.netbankaudit.com/resources/quantum-threat-readiness-for-financial-institutions"
+class="uri">https://www.netbankaudit.com/resources/quantum-threat-readiness-for-financial-institutions</a>
+- as of 2024-01-01</li>
+<li>A Banker’s Guide to Quantum Safe Cryptography - Part 3: Roadmap to
+PQC Migration for Financial Institutions - <a
+href="https://www.cryptomathic.com/a-bankers-guide-to-quantum-safe-cryptography-part-3-roadmap-to-pqc-migration-for-financial-institutions-cryptomathic"
+class="uri">https://www.cryptomathic.com/a-bankers-guide-to-quantum-safe-cryptography-part-3-roadmap-to-pqc-migration-for-financial-institutions-cryptomathic</a></li>
+<li>Securing the Future: Why Post-Quantum Cryptography Matters to
+Financial Institutions - <a
+href="https://internationalbanker.com/banking/securing-the-future-why-post-quantum-cryptography-matters-to-financial-institutions/"
+class="uri">https://internationalbanker.com/banking/securing-the-future-why-post-quantum-cryptography-matters-to-financial-institutions/</a></li>
+<li>New X9 Report Supplies Guidance on Migrating to Post-quantum
+Cryptography Safely and Cost-effectively - <a
+href="https://x9.org/new-x9-report-migrating-to-post-quantum-cryptography/"
+class="uri">https://x9.org/new-x9-report-migrating-to-post-quantum-cryptography/</a>
+- as of 2025-08-05</li>
+<li>X9 Issues New Update to Cryptographic Key Management Standard,
+Adding Protection Against Quantum Computing Attacks - <a
+href="https://x9.org/new-update-to-cryptographic-key-management-standard/"
+class="uri">https://x9.org/new-update-to-cryptographic-key-management-standard/</a></li>
+<li>Quantum Computing - Accredited Standards Committee X9 - <a
+href="https://x9.org/quantum-computing/"
+class="uri">https://x9.org/quantum-computing/</a> - as of
+2025-01-01</li>
+<li>Treasury Announces the Quantum-Readiness Task Force - <a
+href="https://home.treasury.gov/news/press-releases/sb0615"
+class="uri">https://home.treasury.gov/news/press-releases/sb0615</a> -
+as of 2026-08-24</li>
+<li>PQC Migration Framework v2.0 Released: What Changed - <a
+href="https://postquantum.com/security-pqc/pqc-migration-framework-v2/"
+class="uri">https://postquantum.com/security-pqc/pqc-migration-framework-v2/</a>
+- as of 2026-06-08</li>
+<li>New X9 Standard for Secure, Interoperable QR Code Payments Will
+Accelerate U.S. Use of Instant Payments | Accredited Standards Committee
+X9 - <a
+href="https://x9.org/new-x9-standard-for-secure-interoperable-qr-code-payments-will-accelerate-u-s-use-of-instant-payments/"
+class="uri">https://x9.org/new-x9-standard-for-secure-interoperable-qr-code-payments-will-accelerate-u-s-use-of-instant-payments/</a>
+- as of 2026-07-14</li>
+<li>Mastercard addresses migration to post-quantum cryptography |
+PQShield - <a
+href="https://pqshield.com/mastercard-addresses-migration-to-post-quantum-cryptography/"
+class="uri">https://pqshield.com/mastercard-addresses-migration-to-post-quantum-cryptography/</a>
+- as of 2025-10-01</li>
+<li>New X9 Report Supplies Guidance on Migrating to Post-quantum
+Cryptography Safely and Cost-effectively | Accredited Standards
+Committee X9 - <a
+href="https://x9.org/new-x9-report-migrating-to-post-quantum-cryptography/"
+class="uri">https://x9.org/new-x9-report-migrating-to-post-quantum-cryptography/</a></li>
+<li>Safeguarding central bank digital currency systems in the
+post-quantum computing age - <a
+href="https://www.weforum.org/stories/2024/05/safeguarding-central-bank-digital-currency-systems-post-quantum-age/"
+class="uri">https://www.weforum.org/stories/2024/05/safeguarding-central-bank-digital-currency-systems-post-quantum-age/</a>
+- as of 2021-01-01</li>
+<li>Frequently Asked Questions about Post-Quantum Cryptography —
+Migration to Post-Quantum Cryptography documentation - <a
+href="https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/"
+class="uri">https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/</a></li>
+<li>Web report Financial infrastructure 2026 - <a
+href="https://www.norges-bank.no/en/news-events/publications/Financial-Infrastructure-Report/financial-infrastructure-2026/web-report-financial-infrastructure-2026/"
+class="uri">https://www.norges-bank.no/en/news-events/publications/Financial-Infrastructure-Report/financial-infrastructure-2026/web-report-financial-infrastructure-2026/</a>
+- as of 2026-05-19</li>
+<li>G7 Cyber Expert Group Statement on Advancing a Coordinated Roadmap
+for the Transition to Post-Quantum Cryptography in the Financial Sector:
+January 2026 - <a
+href="https://www.gov.uk/government/publications/advancing-a-coordinated-roadmap-for-the-transition-to-post-quantum-cryptography-in-the-financial-sector/g7-cyber-expert-group-statement-on-advancing-a-coordinated-roadmap-for-the-transition-to-post-quantum-cryptography-in-the-financial-sector-january-20"
+class="uri">https://www.gov.uk/government/publications/advancing-a-coordinated-roadmap-for-the-transition-to-post-quantum-cryptography-in-the-financial-sector/g7-cyber-expert-group-statement-on-advancing-a-coordinated-roadmap-for-the-transition-to-post-quantum-cryptography-in-the-financial-sector-january-20</a>
+- as of 2026-01-13</li>
+<li>G7 Issue First Quantum Report for Financial Sector - <a
+href="https://postquantum.com/quantum-policy/g7-central-banks-quantum-financial-sector/"
+class="uri">https://postquantum.com/quantum-policy/g7-central-banks-quantum-financial-sector/</a>
+- as of 2026-05-17</li>
+<li>The post-quantum countdown has begun: The looming vulnerability in
+global payment infrastructure - <a
+href="https://www.ibm.com/think/perspectives/post-quantum-countdown"
+class="uri">https://www.ibm.com/think/perspectives/post-quantum-countdown</a></li>
+<li>Quantum Resilience for Financial Market Infrastructures - <a
+href="https://www.tcs.com/what-we-do/research/white-paper/quantum-resilience-financial-market-infrastructures"
+class="uri">https://www.tcs.com/what-we-do/research/white-paper/quantum-resilience-financial-market-infrastructures</a></li>
+<li>X9 Launches Effort to Create Post-Quantum Cryptography Assessment
+Guidelines; Participants Sought - Accredited Standards Committee X9 - <a
+href="https://x9.org/x9-launches-effort-to-create-post-quantum-cryptography-assessment-guidelines-participants-sought/"
+class="uri">https://x9.org/x9-launches-effort-to-create-post-quantum-cryptography-assessment-guidelines-participants-sought/</a>
+- as of 2024-07-18</li>
+<li>Guidelines on cryptographic algorithms usage and key management
+(EPC342-08 v16.0.1) - <a
+href="https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2026-06/EPC342-08%20v16.0.1%20Approved%20-%20Guidelines%20on%20Cryptographic%20Algorithms%20Usage%20and%20Key%20Management.pdf"
+class="uri">https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2026-06/EPC342-08%20v16.0.1%20Approved%20-%20Guidelines%20on%20Cryptographic%20Algorithms%20Usage%20and%20Key%20Management.pdf</a>
+- as of 2026-06-01</li>
+<li>Guidelines on cryptographic algorithms usage and key management
+(EPC342-08 v16.0) - <a
+href="https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2026-03/EPC342-08%20v16.0%20Approved%20-%20Guidelines%20on%20Cryptographic%20Algorithms%20Usage%20and%20Key%20Management.pdf"
+class="uri">https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2026-03/EPC342-08%20v16.0%20Approved%20-%20Guidelines%20on%20Cryptographic%20Algorithms%20Usage%20and%20Key%20Management.pdf</a>
+- as of 2026-03-01</li>
+<li>ASC X9 TR 50–2019 Quantum Techniques in Cryptographic Message Syntax
+(CMS) - <a
+href="https://x9.org/wp-content/uploads/2019/03/ASC-X9-TR-50-2019-Quantum-Techniques-in-Cryptographic-Message-Syntax-1.pdf"
+class="uri">https://x9.org/wp-content/uploads/2019/03/ASC-X9-TR-50-2019-Quantum-Techniques-in-Cryptographic-Message-Syntax-1.pdf</a>
+- as of 2019-01-20</li>
+<li>Download QC TR50 - Accredited Standards Committee X9 - <a
+href="https://x9.org/download-qc-tr50/"
+class="uri">https://x9.org/download-qc-tr50/</a> - as of 2019-01-20</li>
+<li>ASC X9 Publishes White Paper and Technical Report on Quantum
+Computing Risks - Accredited Standards Committee X9 - <a
+href="https://x9.org/asc-x9-publishes-white-paper-and-technical-report-on-quantum-computing-risks/"
+class="uri">https://x9.org/asc-x9-publishes-white-paper-and-technical-report-on-quantum-computing-risks/</a></li>
+<li>New X9 Report: Guidance on Migrating to Post-Quantum Cryptography
+Safely and Cost-Effectively - <a
+href="https://www.ansi.org/standards-news/member-updates/8-14-25-new-x9-report-guidance-on-migrating-to-post-quantum-cryptography"
+class="uri">https://www.ansi.org/standards-news/member-updates/8-14-25-new-x9-report-guidance-on-migrating-to-post-quantum-cryptography</a>
+- as of 2025-08-14</li>
+<li>Enabling Seamless and Secure Payments in 2026 | EMVCo - <a
+href="https://www.emvco.com/knowledge-hub/enabling-seamless-and-secure-payments-in-2026/"
+class="uri">https://www.emvco.com/knowledge-hub/enabling-seamless-and-secure-payments-in-2026/</a></li>
+<li>EMV® Mobile | EMVCo - <a
+href="https://www.emvco.com/emv-technologies/mobile/"
+class="uri">https://www.emvco.com/emv-technologies/mobile/</a></li>
+<li>Quantum Computing and EMV® Chip – What’s the Threat? | EMVCo - <a
+href="https://www.emvco.com/knowledge-hub/quantum-computing-and-emv-chip-whats-the-threat/"
+class="uri">https://www.emvco.com/knowledge-hub/quantum-computing-and-emv-chip-whats-the-threat/</a>
+- as of 2010-01-01</li>
+<li>What’s New from EMVCo in 2023? | EMVCo - <a
+href="https://www.emvco.com/knowledge-hub/whats-new-from-emvco-in-2023/"
+class="uri">https://www.emvco.com/knowledge-hub/whats-new-from-emvco-in-2023/</a>
+- as of 2023-01-01</li>
+<li>EMV® Resilience to Quantum SIM: Associates - <a
+href="https://www.emvco.com/events/emv-resilience-to-quantum/"
+class="uri">https://www.emvco.com/events/emv-resilience-to-quantum/</a>
+- as of 2026-03-24</li>
+<li>Quantum Computing and EMV® Chip – What’s the Threat? - <a
+href="https://www.emvco.com/knowledge-hub/quantum-computing-and-emv-chip-whats-the-threat/"
+class="uri">https://www.emvco.com/knowledge-hub/quantum-computing-and-emv-chip-whats-the-threat/</a>
+- as of 2025-06-03</li>
+<li>Yearly update: Guidelines on cryptographic algorithms usage and key
+management | European Payments Council - <a
+href="https://www.europeanpaymentscouncil.eu/document-library/guidance-documents/yearly-update-guidelines-cryptographic-algorithms-usage-and-0"
+class="uri">https://www.europeanpaymentscouncil.eu/document-library/guidance-documents/yearly-update-guidelines-cryptographic-algorithms-usage-and-0</a></li>
+<li>A pathway to improve the security of card payment systems | European
+Payments Council - <a
+href="https://www.europeanpaymentscouncil.eu/news-insights/insight/pathway-improve-security-card-payment-systems"
+class="uri">https://www.europeanpaymentscouncil.eu/news-insights/insight/pathway-improve-security-card-payment-systems</a>
+- as of 2023-05-31</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="16-iot-ot.html"><span>Previous</span>Part 16 - Enterprise IoT &amp; OT</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="18-migration-tooling.html"><span>Next</span>Part 18 - Developer &amp; Migration Tooling</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/17-financial-sector-rails.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

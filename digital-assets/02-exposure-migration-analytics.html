@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 2 - Exposure & Migration Analytics | Digital Asset Cryptography</title>
+  <meta name="description" content="Digital Asset Cryptography, Part 2: Exposure & Migration Analytics.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Digital Asset Cryptography</a><span class="sep">/</span>Part 2</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">Digital Asset Cryptography &middot; Part 2</p>
+    <h1>Exposure &amp; Migration Analytics</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/02-exposure-migration-analytics.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#what-counts-as-exposed" id="toc-what-counts-as-exposed">1.
+What Counts as Exposed</a></li>
+<li><a href="#the-trackers-and-their-numbers"
+id="toc-the-trackers-and-their-numbers">2. The Trackers and Their
+Numbers</a></li>
+<li><a href="#the-lower-estimates-and-the-dispute"
+id="toc-the-lower-estimates-and-the-dispute">3. The Lower Estimates and
+the Dispute</a></li>
+<li><a href="#dormant-coins-and-migration-signals"
+id="toc-dormant-coins-and-migration-signals">4. Dormant Coins and
+Migration Signals</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Somewhere between 1.6 million and 7 million bitcoin are exposed to a
+future quantum attacker, depending on who is counting and what they
+count. That spread is the central finding of this part, and it is a
+definitional dispute rather than a measurement one. The analytics firms
+broadly agree on the underlying blockchain data. They disagree about
+whether coins that owners could protect today belong in the same total
+as coins that cannot be protected at all. No headline exposure figure
+from this subject means anything without its definition attached.</p>
+<p>Section 1 explains what makes a coin exposed and the three tiers that
+exposure sorts into. Section 2 covers the trackers publishing live
+totals. Section 3 covers the lower estimates and the methodological
+fight over them. Section 4 covers dormant coins, Satoshi Nakamoto’s
+holdings, and what the movement data actually shows.</p>
+<h2 id="what-counts-as-exposed">1. What Counts as Exposed</h2>
+<p><em>A bitcoin is quantum-vulnerable only when its public key is
+visible on-chain. Address types differ on when that happens, and the
+difference sorts the exposure into tiers.</em></p>
+<h3 id="current-state">Current State</h3>
+<p>Exposure sorts into three tiers by when the public key becomes
+visible.[1] Tier A is visible immediately and is the long-range target.
+It covers P2PK, an early format that publishes the key directly and
+holds about 1.7 million BTC, including Satoshi Nakamoto’s estimated 1.1
+million across roughly 22,000 addresses. It also covers bare multisig
+and Taproot, whose tweaked public key is on-chain by
+construction.[1]</p>
+<p>Tier B is hidden until spent, and therefore preventable. The common
+modern formats stay safe while unused, but become exposed through
+address reuse after spending, through spending on forked chains, and
+through shared extended public keys. About 5.2 million BTC is estimated
+at risk this way.[1] Tier C is the short-range window: every address
+type exposes its public key while a transaction waits unconfirmed in the
+mempool.[1]</p>
+<p>The two attack classes need very different hardware. A long-range
+attack on stored coins works if a key can be broken over days or weeks.
+Short-range hijacking of an in-flight transaction means breaking a key
+in minutes, a substantially later capability.[1] On this tiering,
+roughly 35% of BTC sits in theoretically vulnerable addresses, and about
+65% sits in address types whose keys have never been revealed.[1]</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-trackers-and-their-numbers">2. The Trackers and Their
+Numbers</h2>
+<p><em>Three organisations publish running totals of exposed bitcoin.
+Their headline figures agree within about 15%, which is closer than the
+public debate suggests.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The August 2026 readings cluster near seven million coins. Project
+Eleven’s Bitcoin Risq List reported 7,039,051 BTC at risk as of 20 July
+2026.[2] ChainQuery reported 7,052,314 BTC, about 35.1% of circulating
+supply, as of 2 August 2026, split into 1,934,419 always-exposed and
+5,117,895 reuse-exposed coins.[3] Glassnode Research estimated 6.04
+million BTC, or 30.2% of supply, exposed at rest as of August 2026,
+split into 1.92 million structurally exposed and 4.12 million
+operationally exposed.[4]</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The Risq List is an open-source record of public-key exposure at the
+script and address-reuse level, and the closest thing to a canonical
+real-time public count.[5] It puts approximately 6.9 million BTC,
+roughly one third of circulating supply, in quantum-vulnerable
+addresses.[5] The full report behind it, published 6 May 2026, runs to
+110 pages.[5]</p>
+<p>The decomposition matters more than the total. Address reuse accounts
+for about 4.99 million BTC, or 72.3% of the exposed figure. Legacy P2PK
+scripts account for about 1.72 million, or 24.8%. Taproot holds about
+198,000 exposed coins, because its x-only public key is visible in the
+address, and bare multisig is negligible by comparison.[5]</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-lower-estimates-and-the-dispute">3. The Lower Estimates and
+the Dispute</h2>
+<p><em>Not everyone counts seven million. The disagreement is about
+which risks belong in the number, not about the blockchain
+data.</em></p>
+<h3 id="current-state-2">Current State</h3>
+<p>Coinbase convened an Independent Advisory Board on Quantum Computing
+and Blockchain, with professors from UT Austin, Stanford and UCSB
+alongside Ethereum Foundation and Coinbase representatives. In a June
+2026 document the board counts approximately 1.7 million Bitcoin across
+about 20,000 public keys in the directly exposed P2PK form.[6] The same
+coverage attributes about 5 million BTC of address-reuse exposure to
+Project Eleven, consistent with the Risq List’s own figure.[6] The two
+organisations agree on the underlying counts.[6]</p>
+<p>Galaxy Digital’s March 2026 report concludes the vulnerability is
+significant but manageable. It puts roughly 7 million BTC, about $470
+billion at then-recent prices, at risk under a broad long-exposure
+definition.[7] It states plainly that other estimates come in lower
+depending on methodology.[7]</p>
+<p>CoinShares counts differently. Its February 2026 research treats only
+the roughly 1.6 million BTC in legacy P2PK addresses, about 8% of
+supply, as theoretically exposed. It then narrows the practically
+significant figure much further, to 10,200 coins sitting in holdings
+whose theft could cause any appreciable market disruption.[8]</p>
+<p>The narrowing argument is distributional. The vulnerable coins spread
+across roughly 32,607 individual holdings of about 50 BTC each, which
+CoinShares argues would take millennia to crack even under outlandishly
+optimistic scenarios.[8] Its earlier research found that almost all
+vulnerable coins are mining rewards that have never moved.[9] It counted
+34,068 P2PK addresses holding between 49 and 51 BTC, and concluded that
+only about 24 addresses warrant serious concern.[9]</p>
+<p>A widely repeated middle figure also circulates: 6.7 million BTC,
+about $600 billion, vulnerable through unsafe address type or address
+reuse. Up to 2.3 million of that is considered dormant, and dormancy is
+framed as making it an especially attractive target.[10]</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>The main dispute is definitional. CoinShares writes that claims of
+25% vulnerability often include temporary risks, such as reused exchange
+addresses, which can be easily mitigated.[8] The Risq List counts
+exactly those reused addresses and reaches roughly one third of
+supply.[5] Both sides read the same blockchain. What would settle it is
+a shared convention on whether remediable exposure belongs in the
+headline number, and no such convention exists.</p>
+<p>A smaller discrepancy sits inside the agreeing camp. The
+exposure-tier analysis puts the 1.7 million P2PK coins across roughly
+22,000 addresses, while the Coinbase board’s document says about 20,000
+public keys.[1][6] The totals match and the key counts do not, a
+methodology difference the sources leave unexplained.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="dormant-coins-and-migration-signals">4. Dormant Coins and
+Migration Signals</h2>
+<p><em>If old coins started moving in bulk, it could mean holders were
+fleeing quantum risk. The data shows the opposite.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>In August 2026, six wallets untouched for more than ten years moved
+roughly $40 million, and most of it did not go to exchanges.[11] The
+trend direction cuts against the panic narrative. Dormant-coin activity
+is at its lowest level since 2022, and 2026 is on pace for under half of
+the previous year’s total. Old coins are moving less, not more.[11]</p>
+<h3 id="current-state-3">Current State</h3>
+<p>Satoshi Nakamoto’s estimated 1.1 million BTC, worth over $85 billion,
+has not moved since 2010. Prediction-market participants have staked
+over $2.6 million on the question, with odds strongly favouring
+continued dormancy through December 2026.[12]</p>
+<p>Migration into quantum-resistant addresses cannot be measured yet,
+since Part 3 shows none have activated. The nearest proxy is Taproot’s
+share of transactions, which peaked at about 42% in 2024, driven largely
+by inscription activity.[13] It settled to roughly 15% to 20% by late
+2025 as that activity declined.[13]</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>onrampbitcoin.com — which bitcoin is vulnerable to quantum computing
+address types exposure tiers and what you can do - <a
+href="https://onrampbitcoin.com/knowledge-center/which-bitcoin-is-vulnerable-to-quantum-computing-address-types-exposure-tiers-and-what-you-can-do"
+class="uri">https://onrampbitcoin.com/knowledge-center/which-bitcoin-is-vulnerable-to-quantum-computing-address-types-exposure-tiers-and-what-you-can-do</a>
+(undated)</li>
+<li>Project Eleven - Bitcoin Risq List - FAQs - <a
+href="https://bitcoin-risq-list.projecteleven.com/faqs"
+class="uri">https://bitcoin-risq-list.projecteleven.com/faqs</a> (as of
+2026-07-20)</li>
+<li>Bitcoin Quantum Exposure: 7.1M BTC at risk · ChainQuery.com - <a
+href="https://chainquery.com/reports/quantum-exposure"
+class="uri">https://chainquery.com/reports/quantum-exposure</a> (as of
+2026-08-02)</li>
+<li>StarkWare’s quantum-safe Bitcoin transaction reaches mainnet - <a
+href="https://www.cryptopolitan.com/starkware-quantum-bitcoin-mainnet/"
+class="uri">https://www.cryptopolitan.com/starkware-quantum-bitcoin-mainnet/</a>
+(as of 2026-08-27)</li>
+<li>postquantum.com — project eleven quantum threat blockchains 2026 -
+<a
+href="https://postquantum.com/industry-news/project-eleven-quantum-threat-blockchains-2026/"
+class="uri">https://postquantum.com/industry-news/project-eleven-quantum-threat-blockchains-2026/</a>
+(as of 2026-05-06)</li>
+<li>Coinbase Quantum Advisory Council Publishes Position Paper on
+Quantum Computing and Blockchain - <a
+href="https://www.coinbase.com/blog/coinbase-quantum-advisory-council-publishes-position-paper-on-quantum-computing-and-blockchain"
+class="uri">https://www.coinbase.com/blog/coinbase-quantum-advisory-council-publishes-position-paper-on-quantum-computing-and-blockchain</a>
+(as of 2026-06-08)</li>
+<li>coindesk.com — bitcoin s quantum threat is real but far from an
+existential crisis galaxy says - <a
+href="https://www.coindesk.com/tech/2026/03/19/bitcoin-s-quantum-threat-is-real-but-far-from-an-existential-crisis-galaxy-says"
+class="uri">https://www.coindesk.com/tech/2026/03/19/bitcoin-s-quantum-threat-is-real-but-far-from-an-existential-crisis-galaxy-says</a>
+(as of 2026-03-19)</li>
+<li>coinshares.com — quantum vulnerability in bitcoin a manageable risk
+- <a
+href="https://coinshares.com/insights/research-data/quantum-vulnerability-in-bitcoin-a-manageable-risk/"
+class="uri">https://coinshares.com/insights/research-data/quantum-vulnerability-in-bitcoin-a-manageable-risk/</a>
+(as of 2026-02-06)</li>
+<li>coinshares.com — burning quantum vulnerable coins is a bad idea - <a
+href="https://coinshares.com/insights/research-data/burning-quantum-vulnerable-coins-is-a-bad-idea/"
+class="uri">https://coinshares.com/insights/research-data/burning-quantum-vulnerable-coins-is-a-bad-idea/</a>
+(as of 2025-08-05)</li>
+<li>bitcoinsuisse.com — bitcoin takes first steps toward post quantum
+resistance - <a
+href="https://bitcoinsuisse.com/industry-blog/bitcoin-takes-first-steps-toward-post-quantum-resistance"
+class="uri">https://bitcoinsuisse.com/industry-blog/bitcoin-takes-first-steps-toward-post-quantum-resistance</a>
+(undated)</li>
+<li>coindesk.com — bitcoin wallets untouched for 10 years moved usd40
+million most avoided exchanges - <a
+href="https://www.coindesk.com/markets/2026/08/28/bitcoin-wallets-untouched-for-10-years-moved-usd40-million-most-avoided-exchanges"
+class="uri">https://www.coindesk.com/markets/2026/08/28/bitcoin-wallets-untouched-for-10-years-moved-usd40-million-most-avoided-exchanges</a>
+(as of 2026-08-28)</li>
+<li>financefeeds.com — will satoshi nakamoto ever move his bitcoin - <a
+href="https://financefeeds.com/will-satoshi-nakamoto-ever-move-his-bitcoin/"
+class="uri">https://financefeeds.com/will-satoshi-nakamoto-ever-move-his-bitcoin/</a>
+(undated)</li>
+<li>spark.money — bitcoin segwit adoption tracker - <a
+href="https://www.spark.money/tools/bitcoin-segwit-adoption-tracker"
+class="uri">https://www.spark.money/tools/bitcoin-segwit-adoption-tracker</a>
+(undated)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="01-ecc-attack-demonstrations-resource-estimates.html"><span>Previous</span>Part 1 - ECC Attack Demonstrations &amp; Resource Estimates</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Digital Asset Cryptography</a>
+    <a class="pager-next" href="03-protocol-proposals-activation-politics.html"><span>Next</span>Part 3 - Protocol Proposals &amp; Activation Politics</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/02-exposure-migration-analytics.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

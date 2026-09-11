@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 4 - Public Trust Programs | CA/Browser Forum Tracker</title>
+  <meta name="description" content="CA/Browser Forum Tracker, Part 4: Public Trust Programs.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">CA/Browser Forum Tracker</a><span class="sep">/</span>Part 4</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">CA/Browser Forum Tracker &middot; Part 4</p>
+    <h1>Public Trust Programs</h1>
+    <p class="updated">Last updated: 2026-09-01</p>
+    <p class="actions"><a class="pdf" href="latest/04-public-trust-programs.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#root-store-policies" id="toc-root-store-policies">1. Root
+Store Policies</a></li>
+<li><a href="#the-common-ca-database-incidents-and-distrust"
+id="toc-the-common-ca-database-incidents-and-distrust">2. The Common CA
+Database, Incidents and Distrust</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The Forum writes the rules, and the root programs decide who is
+trusted. That division matters because a root program can and does
+impose requirements the Baseline Requirements do not, often a year or
+more ahead of them. This part covers both halves of that enforcement
+layer. Section 1 covers the four browser and operating system root store
+policies. Section 2 covers the Common CA Database and the incident and
+distrust record that runs through it.</p>
+<p>Two kinds of distrust appear below and should never be conflated. One
+follows a pattern of misconduct and is punitive. The other follows the
+age of a root and is routine housekeeping. Both remove trust, and only
+one is a judgment about a certificate authority’s behaviour.</p>
+<h2 id="root-store-policies">1. Root Store Policies</h2>
+<p><em>Four organizations run root programs that matter for the public
+web. Their policies are converging on the same themes, which are
+dedicated hierarchies, bounded root lifetimes, and stronger evidence of
+what a certificate authority actually does.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>Mozilla Root Store Policy version 3.1 was published on 29 June 2026
+and took effect on 1 July 2026 [1] [2]. Its theme is transparency and
+assurance. It revises Section 3.3 to require that policy and practice
+statement documentation be explicit, bounded, auditable and detailed
+enough to describe issuance activities. It adds requirements for version
+control, accessibility and maintenance [1].</p>
+<p>The most consequential change in that policy arrives later. For audit
+periods beginning on or after 1 July 2027, certificate authorities with
+roots enabled for TLS website authentication must obtain a Detailed
+Controls Report [3]. That report must cover system scope, audit
+criteria, implemented controls, testing procedures, test results and any
+deficiencies [3]. Version 3.1 also requires root key pairs to have been
+generated within the previous five years. It aligns mass revocation
+planning with the Forum’s requirements, and clarifies notification when
+ownership or operational control changes [1] [4].</p>
+<p>The Chrome Root Program Policy is at version 1.8, last updated 5
+February 2026 [5]. It limits the number of root certificates per
+certificate authority owner and extends automation support to all
+existing authorities. It also requires policy documents to state
+adherence explicitly, and sets expectations for industry engagement [5].
+Owners with more than two self-signed roots in the Chrome Root Store had
+to submit a consolidation plan before 15 June 2026. A maximum of two
+self-signed roots per owner takes effect on 15 September 2027 [6].</p>
+<p>Two further programs published requirements this year. Microsoft’s
+Trusted Root Program requirements took effect on 1 July 2026. They cap
+newly minted root authorities at ten years of validity from submission,
+and require participating roots to be dedicated to clearly defined trust
+purposes [7].</p>
+<p>Apple’s root program policy took effect on 1 August 2026. It requires
+subordinate certificates to carry an Extended Key Usage extension and
+forbids asserting anyExtendedKeyUsage. Externally operated subordinate
+authorities need Apple approval before issuance [8].</p>
+<h3 id="current-state">Current State</h3>
+<p>All four programs are moving against multi-purpose roots. Mozilla
+requires new roots to be dedicated to either TLS or S/MIME. Operators
+had until 15 April 2026 to submit a transition plan for existing
+dual-purpose roots, and must complete migration to separate roots by 31
+December 2028 [9]. Chrome requires that hierarchies in its store be
+dedicated solely to TLS server authentication, with the phase-out for
+existing authorities beginning 15 June 2026 [5].</p>
+<p>Chrome also publishes a document of stated direction rather than
+binding rules. Moving Forward, Together names support for automation,
+term limits for roots, and minimum linting expectations. It also names
+phasing out multi-purpose roots and client authentication use cases,
+strengthening domain validation, and shorter validity for subordinate
+and subscriber certificates [10]. It carries no implementation timelines
+of its own, and its items bind only when they appear in the policy
+itself or in a Forum ballot [11]. Two proposals sit there without dates,
+which are rotating aging roots rather than trusting them for thirty
+years or more, and bounding the currently unlimited lifetime of
+subordinate certificates [12].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>The record contains an unresolved inconsistency about Chrome policy
+versions. One source attributes the June 2026 dedicated-hierarchy
+requirement to version 1.6, while the policy document itself is version
+1.8 dated 5 February 2026 [5]. A version 1.8 dated February cannot
+postdate a version 1.6 dated June, so at least one of those attributions
+is wrong. Reading the policy archive in order would settle which
+requirement entered at which version. The requirement and its June 2026
+date are not in doubt, only the version that introduced it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-common-ca-database-incidents-and-distrust">2. The Common CA
+Database, Incidents and Distrust</h2>
+<p><em>The database is where certificate authorities disclose what they
+operate, and the incident bugs are where their behaviour is judged.
+Together they form the behavioural record that root programs act
+on.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>CCADB Policy version 2.1 took effect on 20 March 2026 [13]. It
+requires certificate authority policy documents to state adherence to
+the CCADB Policy from 15 September 2026, and encourages focused
+single-use-case policy documents [14]. The database itself gained new
+fields on the same date. They include a JSON array of all full
+revocation list URLs, plus automation attestation and public test
+infrastructure fields for root records. An Apple policy agreement field
+was added to inclusion requests [15].</p>
+<p>Further changes are proposed rather than adopted. The CCADB Steering
+Committee has put forward clarifications on subordinate authority
+ownership disclosure. It also proposes further policy document
+disclosures from 15 September 2026, audit sampling disclosure for
+periods beginning 15 January 2027, and qualified auditor involvement in
+incident reports [16]. The self-assessment template moved to version 1.8
+on 26 February 2026 [17].</p>
+<p>The most visible trust removal this year was routine rather than
+punitive. On 15 April 2026 Mozilla and Chrome removed the DigiCert G1
+generation of roots, and certificates chaining solely to them lost trust
+in Firefox and Chrome that day [18]. Three roots were affected, and
+dependent certificates had to move to the G2 or G3 roots [19]. This was
+an age-based retirement in support of modern cryptographic standards,
+not a response to misconduct [20]. Mozilla made other lifecycle-driven
+removals in its April 2026 release, including a websites trust bit
+removal for Izenpe [21].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The punitive precedent remains Entrust. Google was the first root
+program to act, citing a pattern of concerning behaviours rather than
+any single incident [22]. Chrome applied the distrust gradually rather
+than as an immediate cutoff. Certificates logged to a Certificate
+Transparency log before a defined enforcement date stayed trusted until
+they expired [23]. That blocking action took effect on 12 November 2024,
+timed to the Chrome M131 release [24].</p>
+<p>Mozilla stopped trusting Entrust certificates dated after 30 November
+2024, leaving earlier ones in place [25]. Distrust in this ecosystem is
+applied by issuance date rather than by mass revocation.</p>
+<p>The incident regime is continuous rather than episodic. A certificate
+authority that suffers an incident must file a report on Bugzilla that
+is detailed, candid, timely and transparent. The quality of that report
+is itself part of what root programs judge [26]. Open bugs during 2026
+included NETLOCK non-compliance with the CCADB incident reporting
+guidelines [27]. Others covered profile deviations in a CFCA responder
+certificate found in April 2026, and a D-Trust report with an action
+item due 30 September 2026 [28].</p>
+<p>Policy is argued in public before it is adopted. Mozilla’s proposed
+updates on root authority life cycles went to the dev-security-policy
+mailing list, which remains the venue for that debate [29]. The same
+list carried 2026 discussion of the version 3.1 audit improvements and
+responses to a May 2026 survey of certificate authorities [30].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to four systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Improving Transparency and Assurance in the Web PKI, Mozilla Root
+Store Policy v3.1 — Mozilla Security Blog. <a
+href="https://blog.mozilla.org/security/2026/06/29/improving-transparency-and-assurance-in-the-web-pki-mozilla-root-store-policy-v3-1/"
+class="uri">https://blog.mozilla.org/security/2026/06/29/improving-transparency-and-assurance-in-the-web-pki-mozilla-root-store-policy-v3-1/</a>
+(2026-07-01)</li>
+<li>Mozilla Root Store Policy v3.1 publication — Mozilla Security Blog.
+<a
+href="https://blog.mozilla.org/security/2026/06/29/improving-transparency-and-assurance-in-the-web-pki-mozilla-root-store-policy-v3-1/"
+class="uri">https://blog.mozilla.org/security/2026/06/29/improving-transparency-and-assurance-in-the-web-pki-mozilla-root-store-policy-v3-1/</a>
+(2026-06-29)</li>
+<li>Detailed Controls Reports requirement — Mozilla Security Blog. <a
+href="https://blog.mozilla.org/security/2026/06/29/improving-transparency-and-assurance-in-the-web-pki-mozilla-root-store-policy-v3-1/"
+class="uri">https://blog.mozilla.org/security/2026/06/29/improving-transparency-and-assurance-in-the-web-pki-mozilla-root-store-policy-v3-1/</a>
+(2027-07-01)</li>
+<li>Mozilla Root Store Policy — Mozilla. <a
+href="https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/policy/"
+class="uri">https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/policy/</a>
+(2026-07-01)</li>
+<li>Chrome Root Program Policy — Google Chrome. <a
+href="https://googlechrome.github.io/chromerootprogram/crp/policy"
+class="uri">https://googlechrome.github.io/chromerootprogram/crp/policy</a>
+(2026-02-05)</li>
+<li>Chrome Root Program Policy, root consolidation requirement — Google
+Chrome. <a
+href="https://googlechrome.github.io/chromerootprogram/crp/policy"
+class="uri">https://googlechrome.github.io/chromerootprogram/crp/policy</a>
+(2026-08-28)</li>
+<li>Microsoft Trusted Root Program Requirements — TrustedRootProgram. <a
+href="https://github.com/TrustedRootProgram/Program-Requirements/blob/main/Requirements.md"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements/blob/main/Requirements.md</a>
+(2026-07-01)</li>
+<li>Apple Root Program policy — Apple. <a
+href="https://github.com/apple/apple-root-program/blob/main/policy.md"
+class="uri">https://github.com/apple/apple-root-program/blob/main/policy.md</a>
+(2026-08-01)</li>
+<li>Mozilla Root Store Policy, dedicated root requirement — Mozilla. <a
+href="https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/policy/"
+class="uri">https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/policy/</a>
+(2026-04-15)</li>
+<li>Moving Forward, Together — Chrome Root Program. <a
+href="https://googlechrome.github.io/chromerootprogram/moving-forward-together/"
+class="uri">https://googlechrome.github.io/chromerootprogram/moving-forward-together/</a>
+(2026-09-01)</li>
+<li>Moving Forward, Together, status of its items — Chrome Root Program.
+<a
+href="https://googlechrome.github.io/chromerootprogram/moving-forward-together/"
+class="uri">https://googlechrome.github.io/chromerootprogram/moving-forward-together/</a>
+(2026-09-01)</li>
+<li>Moving Forward, Together, undated proposals — Chrome Root Program.
+<a
+href="https://googlechrome.github.io/chromerootprogram/moving-forward-together/"
+class="uri">https://googlechrome.github.io/chromerootprogram/moving-forward-together/</a>
+(2026-09-01)</li>
+<li>CCADB Policy — mozilla/www.ccadb.org. <a
+href="https://github.com/mozilla/www.ccadb.org/blob/master/policy.md"
+class="uri">https://github.com/mozilla/www.ccadb.org/blob/master/policy.md</a>
+(2026-03-20)</li>
+<li>CCADB Policy v2.1 — CCADB. <a href="https://www.ccadb.org/policy"
+class="uri">https://www.ccadb.org/policy</a> (2026-03-20)</li>
+<li>CCADB field additions, March 2026 — CCADB public list. <a
+href="https://groups.google.com/a/ccadb.org/g/public/c/uuLe_H7RDHc/m/GMU6Sk0yAgAJ"
+class="uri">https://groups.google.com/a/ccadb.org/g/public/c/uuLe_H7RDHc/m/GMU6Sk0yAgAJ</a>
+(2026-03-20)</li>
+<li>CCADB Steering Committee proposed policy updates — CCADB public
+list. <a
+href="https://groups.google.com/a/ccadb.org/g/public/c/ZWaz1d5ghEw"
+class="uri">https://groups.google.com/a/ccadb.org/g/public/c/ZWaz1d5ghEw</a>
+(2026-09-01)</li>
+<li>CCADB Self-Assessment template v1.8 — CCADB. <a
+href="https://www.ccadb.org/cas/self-assessment"
+class="uri">https://www.ccadb.org/cas/self-assessment</a>
+(2026-02-26)</li>
+<li>DigiCert G1 root removal advisory — DigiCert. <a
+href="https://docs.digicert.com/en/certcentral/order-and-manage-certificates/reports-and-advisories/review-the-g1-root-removal-advisory.html"
+class="uri">https://docs.digicert.com/en/certcentral/order-and-manage-certificates/reports-and-advisories/review-the-g1-root-removal-advisory.html</a>
+(2026-04-15)</li>
+<li>G1 roots affected and migration path — DigiCert. <a
+href="https://docs.digicert.com/en/certcentral/order-and-manage-certificates/reports-and-advisories/review-the-g1-root-removal-advisory.html"
+class="uri">https://docs.digicert.com/en/certcentral/order-and-manage-certificates/reports-and-advisories/review-the-g1-root-removal-advisory.html</a>
+(2026-04-15)</li>
+<li>G1 removal rationale — DigiCert. <a
+href="https://docs.digicert.com/en/certcentral/order-and-manage-certificates/reports-and-advisories/review-the-g1-root-removal-advisory.html"
+class="uri">https://docs.digicert.com/en/certcentral/order-and-manage-certificates/reports-and-advisories/review-the-g1-root-removal-advisory.html</a>
+(2026-04-15)</li>
+<li>Mozilla April 2026 NSS root store changes — mozilla
+dev-security-policy. <a
+href="https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/o1VliD70ctg"
+class="uri">https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/o1VliD70ctg</a>
+(2026-04-08)</li>
+<li>Sustaining Digital Certificate Security, Entrust Certificate
+Distrust — Google Online Security Blog. <a
+href="https://security.googleblog.com/2024/06/sustaining-digital-certificate-security.html"
+class="uri">https://security.googleblog.com/2024/06/sustaining-digital-certificate-security.html</a>
+(2024-08-01)</li>
+<li>Chrome’s gradual distrust method — Google Online Security Blog. <a
+href="https://security.googleblog.com/2024/06/sustaining-digital-certificate-security.html"
+class="uri">https://security.googleblog.com/2024/06/sustaining-digital-certificate-security.html</a>
+(2024-06-27)</li>
+<li>Chrome Entrust blocking effective date — Google Online Security
+Blog. <a
+href="https://security.googleblog.com/2024/06/sustaining-digital-certificate-security.html"
+class="uri">https://security.googleblog.com/2024/06/sustaining-digital-certificate-security.html</a>
+(2024-11-12)</li>
+<li>Entrust distrust FAQ — DigiCert. <a
+href="https://www.digicert.com/campaigns/entrust-certificate-distrust/faq"
+class="uri">https://www.digicert.com/campaigns/entrust-certificate-distrust/faq</a>
+(2024-11-30)</li>
+<li>Mozilla and Entrust coverage — The Register. <a
+href="https://www.theregister.com/2024/08/01/mozilla_entrust/"
+class="uri">https://www.theregister.com/2024/08/01/mozilla_entrust/</a>
+(2026-09-01)</li>
+<li>NETLOCK incident report — Bugzilla. <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2013395"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2013395</a>
+(2026-01-29)</li>
+<li>D-Trust incident report — Bugzilla. <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2029013"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2029013</a>
+(2026-09-01)</li>
+<li>Proposed updates to MRSP on root CA life cycles — mozilla
+dev-security-policy. <a
+href="https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/-qSvEhaHs1c"
+class="uri">https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/-qSvEhaHs1c</a>
+(2026-09-01)</li>
+<li>mozilla dev-security-policy discussions, 2026 — mozilla
+dev-security-policy. <a
+href="https://groups.google.com/a/mozilla.org/g/dev-security-policy"
+class="uri">https://groups.google.com/a/mozilla.org/g/dev-security-policy</a>
+(2026-09-01)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="03-smime-working-group.html"><span>Previous</span>Part 3 - S/MIME Working Group</a>
+    <a class="pager-up" href="index.html"><span>Up</span>CA/Browser Forum Tracker</a>
+    <a class="pager-next" href="05-revocation-and-transparency.html"><span>Next</span>Part 5 - Revocation &amp; Transparency</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/04-public-trust-programs.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 5 - Cryptanalysis of Candidate & Non-Ratified Schemes | Post-Quantum Mathematics</title>
+  <meta name="description" content="Post-Quantum Mathematics, Part 5: Cryptanalysis of Candidate & Non-Ratified Schemes.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Mathematics</a><span class="sep">/</span>Part 5</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Mathematics &middot; Part 5</p>
+    <h1>Cryptanalysis of Candidate &amp; Non-Ratified Schemes</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/05-cryptanalysis-of-candidate-non-ratified-schemes.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#attacks-on-code-based-schemes"
+id="toc-attacks-on-code-based-schemes">1. Attacks on Code-Based
+Schemes</a></li>
+<li><a href="#attacks-on-multivariate-schemes"
+id="toc-attacks-on-multivariate-schemes">2. Attacks on Multivariate
+Schemes</a></li>
+<li><a href="#the-isogeny-result" id="toc-the-isogeny-result">3. The
+Isogeny Result</a></li>
+<li><a href="#the-hawk-withdrawal-and-nists-response"
+id="toc-the-hawk-withdrawal-and-nists-response">4. The HAWK Withdrawal
+and NIST’s Response</a></li>
+<li><a href="#keeping-parameter-estimates-current"
+id="toc-keeping-parameter-estimates-current">5. Keeping Parameter
+Estimates Current</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>This part covers attacks on algorithms that are not yet standards.
+That distinction matters, because an attack on a candidate is how the
+process is supposed to work. A scheme that fails during evaluation has
+done its job by failing early.</p>
+<p>The period covered here contains one outright casualty. HAWK, the
+only lattice-based candidate in NIST’s additional-signatures round, was
+withdrawn in July 2026. The rest of this part covers pressure short of
+withdrawal: security margins narrowed, cost estimates lowered, attack
+techniques extended to parameter ranges they previously did not
+reach.</p>
+<p>One family is under noticeably more pressure than the others.
+Multivariate schemes make up four of the nine remaining signature
+candidates, and Sections 2 and 4 show why NIST singled them out for
+mandatory parameter adjustments.</p>
+<p>Section 1 covers attacks on code-based schemes and Section 2 attacks
+on multivariate schemes. Section 3 covers the isogeny result, Section 4
+the withdrawal and NIST’s response, and Section 5 the tool that keeps
+parameter estimates current.</p>
+<h2 id="attacks-on-code-based-schemes">1. Attacks on Code-Based
+Schemes</h2>
+<p><em>Both results here target Classic McEliece, the scheme with the
+longest unbroken record in this collection. Neither breaks it, and both
+narrow the margin it has relied on.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>A quasipolynomial-time distinguisher, running in n^{O(log n)}, exists
+for Classic McEliece public keys in an asymptotic regime, and extends to
+heuristic key-recovery and decryption attacks [9]. A distinguisher tells
+an attacker that a key is a Classic McEliece key rather than random.
+That is weaker than recovering the key, but it is the step from which
+key recovery is often built.</p>
+<p>Holdout key-recovery attacks against all five parameter sets have
+been costed at between 2^{126.77} and 2^{145.22} bit operations [8].
+Those figures sit below the classical reference levels NIST set for the
+corresponding security categories.</p>
+<p>Neither result is a practical attack, and the same two papers appear
+in Part 3 from the scheme’s own perspective. Read together, they say the
+margin is thinner than it was in July 2026, on a scheme two European
+governments recommend and ISO has standardized.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="attacks-on-multivariate-schemes">2. Attacks on Multivariate
+Schemes</h2>
+<p><em>Multivariate signatures are the largest group in NIST’s remaining
+candidate pool and the one under the most sustained attack. The line of
+work below has been extended three times in about a year.</em></p>
+<h3 id="current-state">Current State</h3>
+<p>UOV is a foundational multivariate scheme that other candidates build
+on, and it has a documented line of algebraic key-recovery attacks that
+keeps widening [2]. An original 2025 attack applied only when one
+parameter was below twice another. It was improved twice by different
+groups, and then extended in August 2026 to the remaining parameter
+range.</p>
+<p>That extension has a concrete target. Applied to SNOVA at its lowest
+NIST security level, it reduces estimated security to 2^103 gate
+operations [2]. That is below the level the parameter set was chosen to
+provide.</p>
+<p>SNOVA is separately targeted by a wedge product attack, which extends
+prior algebraic attacks by exploiting the scheme’s particular block
+structure [1]. This report could not retrieve that paper’s own text due
+to a file-encoding problem, so the citation supports the attack’s
+existence and general approach, not its parameter-specific impact.</p>
+<p>A different kind of attack applies to UOV as implemented rather than
+as designed. A 2026 paper demonstrates a physical fault attack that
+recovers part of the secret linear map by inducing faults during
+operation [5]. It then transforms the public key system to complete the
+recovery. Fault attacks require physical access, which puts them in a
+different threat model from the algebraic work above.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-isogeny-result">3. The Isogeny Result</h2>
+<p><em>One new attack on the underlying isogeny problem, recorded here
+because its practical impact is nil and that is worth stating
+plainly.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>An unconditional attack solves the supersingular isogeny problem in
+time and memory p^{2/5+o(1)}, using a technique called bivariate
+multipoint evaluation [7]. It is of theoretical interest only and does
+not threaten practical isogeny cryptosystems such as SQIsign.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-hawk-withdrawal-and-nists-response">4. The HAWK Withdrawal
+and NIST’s Response</h2>
+<p><em>The one candidate that did not survive. The manner of its
+withdrawal is as notable as the fact.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>HAWK was withdrawn on 29 July 2026 [6]. It was the sole lattice-based
+candidate advanced to NIST’s third round of additional digital
+signatures. The attack reduced key recovery to a shortest-vector problem
+in roughly half the expected dimension, halving effective security
+margins for the proposed parameters.</p>
+<p>The attack was AI-assisted, and the source attributes the assistance
+to Anthropic [6]. This is the first entry in this collection where an AI
+system contributed to breaking a cryptographic candidate rather than to
+analyzing one.</p>
+<p>Its withdrawal also removes the only lattice-based scheme from the
+additional-signatures round, leaving that competition entirely to
+multivariate, isogeny and MPC-in-the-head constructions. Since the
+competition exists to diversify away from the lattice assumptions
+underlying ML-DSA, losing the lattice entrant arguably serves that
+goal.</p>
+<p>RingSLIP, covered in Part 3, uses HAWK as a component.</p>
+<h3 id="current-state-1">Current State</h3>
+<p>NIST’s round-3 requirements name the pressure directly. Submission
+teams had to address known cryptanalytic vulnerabilities by 14 August
+2026 [3]. The requirement text specifically cites adjusting multivariate
+parameters to mitigate exterior product and small-field attacks. Naming
+one family in a general requirement confirms which class is under the
+most active pressure.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="keeping-parameter-estimates-current">5. Keeping Parameter
+Estimates Current</h2>
+<p><em>A parameter set is only as good as the attack knowledge it was
+chosen against. This section covers the tool that tracks the
+difference.</em></p>
+<h3 id="current-state-2">Current State</h3>
+<p>The Lattice Estimator is the field’s standard tool for estimating the
+security of parameter sets built on the Learning With Errors problem
+[4]. It is maintained specifically to track state-of-the-art attacks, so
+that parameter choices can be validated against current cryptanalysis
+rather than against whatever was known when they were chosen.</p>
+<p>That maintenance is the point. Every scheme in Parts 1 and 3 that
+rests on lattice assumptions depends on someone continuing to do it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Wedge product attack on SNOVA - <a
+href="https://eprint.iacr.org/2026/237.pdf"
+class="uri">https://eprint.iacr.org/2026/237.pdf</a> (undated)</li>
+<li>Extending the Applicability of Algebraic Key Recovery Attacks on the
+UOV Signature Scheme - <a href="https://eprint.iacr.org/2026/1620"
+class="uri">https://eprint.iacr.org/2026/1620</a> (as of
+2026-08-06)</li>
+<li>NIST Advances Nine Post-Quantum Digital Signature Candidates to
+Third Evaluation Round - <a
+href="https://quantumcomputingreport.com/nist-advances-nine-post-quantum-digital-signature-candidates-to-third-evaluation-round/"
+class="uri">https://quantumcomputingreport.com/nist-advances-nine-post-quantum-digital-signature-candidates-to-third-evaluation-round/</a>
+(undated)</li>
+<li>Lattice Estimator - <a
+href="https://lattice-estimator.readthedocs.io/en/latest/readme_link.html"
+class="uri">https://lattice-estimator.readthedocs.io/en/latest/readme_link.html</a>
+(undated)</li>
+<li>Performance Analysis of Fault Attack on UOV Multivariate Signature
+Scheme - <a
+href="https://link.springer.com/chapter/10.1007/978-981-96-1218-5_10"
+class="uri">https://link.springer.com/chapter/10.1007/978-981-96-1218-5_10</a>
+(undated)</li>
+<li>Nine Candidates Advance to the Third Round of the Additional Digital
+Signatures for the PQC Standardization Process - <a
+href="https://www.nist.gov/news-events/news/2026/05/nine-candidates-advance-third-round-additional-digital-signatures-pqc"
+class="uri">https://www.nist.gov/news-events/news/2026/05/nine-candidates-advance-third-round-additional-digital-signatures-pqc</a>
+(as of 2026-07-29)</li>
+<li>Solving the supersingular isogeny problem in time p^{2/5+o(1)} using
+bivariate multipoint evaluation - <a
+href="https://eprint.iacr.org/2026/1575"
+class="uri">https://eprint.iacr.org/2026/1575</a> (as of
+2026-07-31)</li>
+<li>Bit Operation Cost of Holdout Key-Recovery Attacks Against Classic
+McEliece - <a href="https://eprint.iacr.org/2026/1786"
+class="uri">https://eprint.iacr.org/2026/1786</a> (as of
+2026-08-24)</li>
+<li>Quasipolynomial Cryptanalysis of the McEliece Cryptosystem - <a
+href="https://eprint.iacr.org/2026/1630.pdf"
+class="uri">https://eprint.iacr.org/2026/1630.pdf</a> (as of
+2026-08-27)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="04-symmetric-hash-based-research.html"><span>Previous</span>Part 4 - Symmetric &amp; Hash-Based Research</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Mathematics</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/05-cryptanalysis-of-candidate-non-ratified-schemes.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

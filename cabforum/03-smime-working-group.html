@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 3 - S/MIME Working Group | CA/Browser Forum Tracker</title>
+  <meta name="description" content="CA/Browser Forum Tracker, Part 3: S/MIME Working Group.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">CA/Browser Forum Tracker</a><span class="sep">/</span>Part 3</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">CA/Browser Forum Tracker &middot; Part 3</p>
+    <h1>S/MIME Working Group</h1>
+    <p class="updated">Last updated: 2026-09-01</p>
+    <p class="actions"><a class="pdf" href="latest/03-smime-working-group.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#requirements-and-version-history"
+id="toc-requirements-and-version-history">1. Requirements and Version
+History</a></li>
+<li><a href="#the-rsa-key-size-transition"
+id="toc-the-rsa-key-size-transition">2. The RSA Key Size
+Transition</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The S/MIME Working Group writes the rules for certificates that sign
+and encrypt email. Its Baseline Requirements are the youngest of the
+Forum’s documents, adopted at the start of 2023, and the group has
+issued fifteen revisions since. Section 1 covers the current
+requirements and the version history behind them. Section 2 covers the
+RSA key size transition, whose first deadline falls two weeks after this
+report.</p>
+<p>This group deserves more attention than its size suggests. It has
+already published post-quantum algorithms into its requirements, which
+the larger server certificate group has not. It is the clearest case in
+the Forum of a working group moving ahead of its bigger sibling.</p>
+<h2 id="requirements-and-version-history">1. Requirements and Version
+History</h2>
+<p><em>The version table is the record of what this group has agreed.
+Reading it in order shows a group that imports the server group’s
+decisions deliberately rather than automatically.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The current version is 1.0.15, published on 30 July 2026 by Ballot
+SMC017, titled Increase Minimum RSA CA Key Size [1] [2]. Version 1.0.14
+followed on 5 May 2026 from Ballot SMC016, titled Equivalence with
+Ballots SC096 and SC097 [3]. That title is worth reading closely. It is
+this group importing the server group’s DNSSEC logging carve-out and
+SHA-1 sunset by explicit decision, one ballot at a time.</p>
+<p>Version 1.0.13 arrived on 27 March 2026 from Ballot SMC015, which
+allows a mobile driving licence to be used for authentication of
+individual identity [3]. Version 1.0.12 came on 13 October 2025 from
+Ballot SMC014, covering DNSSEC for CAA [3].</p>
+<p>One ballot is adopted and awaiting publication. Ballot SMC018, titled
+Realignment of Multipurpose use cases, was posted on 11 August 2026 and
+is in its 30-day intellectual property review, having passed its vote
+[4].</p>
+<h3 id="current-state">Current State</h3>
+<p>Post-quantum algorithms are already permitted in this group’s
+published requirements. Ballot SMC013, titled Introduction of PQC
+Algorithms, was published on 22 August 2025 as version 1.0.11 [5]. The
+S/MIME Baseline Requirements have therefore admitted post-quantum
+algorithms for over a year, while the equivalent text for web server
+certificates remains an unmerged draft.</p>
+<p>The document’s own starting point is recent. Version 1.0.0 was
+adopted on 1 January 2023 by Ballot SMC01, with an implementation
+deadline of 1 September 2023 [3].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>What SMC013 actually permits is not established here. The version
+table records that post-quantum algorithms were introduced, and gives
+the ballot and the date. The ballot text itself was not read. This
+report therefore cannot say which algorithms are allowed, in which
+positions of the certificate profile, or under what conditions.</p>
+<p>Reading the ballot would settle it. Until then the safe reading is
+that the door is open in this group and shut in the server certificate
+group, without a precise account of how far open.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-rsa-key-size-transition">2. The RSA Key Size Transition</h2>
+<p><em>This is the group’s most consequential current change, and its
+first deadline is imminent.</em></p>
+<h3 id="current-state-1">Current State</h3>
+<p>A new root or subordinate certificate authority RSA key must be at
+least 4096 bits, with a compliance date of 15 September 2026 [6]. The
+increase applies to certificate authority keys only. The minimum for
+subscriber certificates stays at 2048 bits [7].</p>
+<p>The second stage closes the path for legacy keys without forcing
+their immediate removal. From 15 September 2027, certificate authorities
+may not issue subscriber certificates from any subordinate authority
+whose RSA modulus is smaller than 3072 bits [8]. Existing 2048-bit
+subordinate authorities are not revoked by that rule. They simply stop
+being able to issue, which lets them age out as their own certificates
+expire.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to four systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Latest S/MIME Baseline Requirements — CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/smime/requirements/"
+class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
+(2026-07-30)</li>
+<li>Ballot SMC017v2, Increase Minimum RSA CA Key Size — CA/Browser
+Forum. <a href="https://cabforum.org/working-groups/smime/requirements/"
+class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
+(2026-07-30)</li>
+<li>S/MIME Baseline Requirements version history — CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/smime/requirements/"
+class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
+(2026-09-01)</li>
+<li>Ballot SMC018, Realignment of Multipurpose use cases — CA/Browser
+Forum. <a href="https://cabforum.org/working-groups/smime/"
+class="uri">https://cabforum.org/working-groups/smime/</a>
+(2026-08-11)</li>
+<li>Ballot SMC013, Introduction of PQC Algorithms — CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/smime/requirements/"
+class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
+(2025-08-22)</li>
+<li>S/MIME Baseline Requirements, RSA CA key size requirement —
+CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/smime/requirements/"
+class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
+(2026-09-15)</li>
+<li>S/MIME Baseline Requirements, subscriber key size — CA/Browser
+Forum. <a href="https://cabforum.org/working-groups/smime/requirements/"
+class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
+(2026-07-30)</li>
+<li>S/MIME Baseline Requirements, subordinate CA issuance sunset —
+CA/Browser Forum. <a
+href="https://cabforum.org/working-groups/smime/requirements/"
+class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
+(2027-09-15)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="02-code-signing-working-group.html"><span>Previous</span>Part 2 - Code Signing Working Group</a>
+    <a class="pager-up" href="index.html"><span>Up</span>CA/Browser Forum Tracker</a>
+    <a class="pager-next" href="04-public-trust-programs.html"><span>Next</span>Part 4 - Public Trust Programs</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/03-smime-working-group.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

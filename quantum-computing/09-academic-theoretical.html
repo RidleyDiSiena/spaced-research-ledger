@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 9 - Academic & Theoretical | Quantum Computing</title>
+  <meta name="description" content="Quantum Computing, Part 9: Academic & Theoretical.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Quantum Computing</a><span class="sep">/</span>Part 9</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Quantum Computing &middot; Part 9</p>
+    <h1>Academic &amp; Theoretical</h1>
+    <p class="updated">Last updated: 2026-08-30</p>
+    <p class="actions"><a class="pdf" href="latest/09-academic-theoretical.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#new-and-improved-quantum-algorithms"
+id="toc-new-and-improved-quantum-algorithms">1. New and Improved Quantum
+Algorithms</a></li>
+<li><a href="#complexity-and-hardness-results"
+id="toc-complexity-and-hardness-results">2. Complexity and Hardness
+Results</a></li>
+<li><a href="#dequantization-and-classical-simulation"
+id="toc-dequantization-and-classical-simulation">3. Dequantization and
+Classical Simulation</a></li>
+<li><a href="#verification-and-benchmarking-theory"
+id="toc-verification-and-benchmarking-theory">4. Verification and
+Benchmarking Theory</a></li>
+<li><a href="#noise-and-error-mitigation-theory"
+id="toc-noise-and-error-mitigation-theory">5. Noise and Error Mitigation
+Theory</a></li>
+<li><a href="#negative-results" id="toc-negative-results">6. Negative
+Results</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>This part covers theory rather than machines. It records new
+algorithms and proofs about what quantum computers can and cannot do
+faster than classical ones. It also records the steady work of showing
+that some claimed quantum advantages were never real.</p>
+<p>That last category deserves its own word. Dequantization is the
+practice of taking a quantum algorithm that was supposed to be
+exponentially faster and finding a classical algorithm that matches it.
+It is a normal and productive part of this field, and Section 3 collects
+the recent cases. A quantum speedup that survives dequantization
+attempts is worth considerably more than one that has not been
+tested.</p>
+<p>One conceptual thread runs through Sections 1 and 2. The most
+reliable quantum speedups come from problems with mathematical structure
+the algorithm can exploit. For unstructured problems, the recent
+theoretical results tighten the limits on what any quantum machine could
+achieve.</p>
+<p>Section 1 covers new algorithms, Section 2 complexity and hardness
+results, Section 3 dequantization, Section 4 verification and
+benchmarking theory, Section 5 error-mitigation theory, and Section 6
+negative results.</p>
+<h2 id="new-and-improved-quantum-algorithms">1. New and Improved Quantum
+Algorithms</h2>
+<p><em>Recent algorithm work concentrates on linear algebra,
+differential equations and optimization rather than on the codebreaking
+applications that made the field famous. Several results trade
+theoretical advantage for circuits that could actually be run.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>A peer-reviewed algorithm solves the Sylvester equation, a matrix
+equation of the form A X plus X B equals C, by constructing a block
+encoding of the solution matrix [1]. Its query and gate complexities are
+almost linear in a condition number from the input matrices. They are
+logarithmic in dimension and inverse error. It can solve BQP-complete
+problems efficiently, which places it among the hardest problems a
+quantum computer is believed to handle.</p>
+<p>Researchers at the Chinese Academy of Sciences published an algorithm
+for topological data analysis on directed graphs, introducing a
+path-homology approach with a universal encoding protocol [2]. The
+guaranteed speedup depends on how the data is accessed, with exponential
+gains possible under certain conditions. That conditional phrasing is
+the norm in this area and should be read carefully.</p>
+<p>A preprint develops an algorithm for the dynamics of the nonlinear
+viscous Burgers equation, with extensions to general fluid equations
+[3]. It combines Carleman linearization with a permutation matrix
+representation and a linear combination of Hamiltonian simulations. It
+scales with the off-diagonal norm rather than the full matrix norm.
+Nonlinear equations are difficult for quantum computers because quantum
+mechanics is linear, so any progress here is notable in itself.</p>
+<h3 id="current-state">Current State</h3>
+<p>Several earlier results remain the reference points.</p>
+<p>Improved algorithms for reinforcement learning combine value
+iteration with quantum mean estimation and quantum maximum finding to
+achieve speedups over classical methods [4]. A bounded-error algorithm
+for modular factorials breaks the exponent-one-half barrier for the
+first time, through exact reconstruction of a Jacobi sum in compact
+algebraic form [5]. A space-efficient algorithm solves the elliptic
+curve discrete logarithm problem over prime fields using only 3n+6⌊log
+n⌋ qubits, reducing the qubit count for that construction [6].</p>
+<p>Decoded Quantum Interferometry is an algorithm for a class of
+optimization problems [7]. For one special case there is strong evidence
+of a superpolynomial speedup over the best known classical methods for
+approximate solutions. A quantum dynamic-programming algorithm for the
+travelling salesman problem achieves a feasible circuit implementation
+using very few qubits, trading theoretical advantage for practical
+implementability [8].</p>
+<p>One report captures how contested this area is. An algorithm posted
+as a preprint was reported to run faster than all known classical
+algorithms on a wide class of optimization problems [9]. No classical
+algorithm had matched it as of that report. The same report notes that a
+separate claimed speedup published in Science met classical rebuttals
+within days of publication.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="complexity-and-hardness-results">2. Complexity and Hardness
+Results</h2>
+<p><em>These are proofs about limits rather than methods. The most
+important recent one narrows where unstructured quantum speedups can
+exist at all.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>A preprint titled Quantum Speedups Require Structure or Depth shows
+that every t-query, d-round quantum algorithm can be simulated on most
+inputs with t^O(d²) classical queries [10]. The implication is direct.
+For unstructured problems, a superpolynomial quantum speedup requires
+more than constant circuit depth, and an exponential speedup requires
+polynomial depth. The result is not yet peer-reviewed.</p>
+<p>A second recent item requires a warning rather than a summary. OpenAI
+reported in August 2026 that an internal model solved 10 longstanding
+open problems across mathematics, quantum complexity theory and
+theoretical computer science [11]. The claimed results include quantum
+parallel repetition and hardness bounds for the closest vector problem.
+No detailed proofs were released and no peer-reviewed validation was
+announced. This is a company claim about unverified results and must not
+be read as settled mathematics.</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Four researchers resolved a two-decade-old open problem by
+identifying a computational problem that provably requires a quantum
+proof of correctness, with no classical proof sufficing [12]. The work
+received the best-paper award at the STOC 2026 conference.</p>
+<p>A 2025 paper on one-way state generators proved that their existence
+follows from almost all computational pseudorandom quantum state
+generators [13]. It also showed that a certain class of these generators
+can be broken by quantum polynomial-time algorithms given access to a
+particular oracle. Work of this kind maps which quantum cryptographic
+building blocks depend on which others.</p>
+<p>A 2025 result reproves the hardness of computing distances of quantum
+error-correcting codes, using simpler arguments based on hypergraph
+product codes [14]. It gives a direct reduction from the classical
+minimum-distance problem. The codes in question are the subject of Part
+6.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="dequantization-and-classical-simulation">3. Dequantization and
+Classical Simulation</h2>
+<p><em>Every result here removes a claimed quantum advantage.
+Collectively they are the strongest available check on the optimism in
+the rest of this collection.</em></p>
+<h3 id="current-state-2">Current State</h3>
+<p>A peer-reviewed 2026 paper dequantizes the algorithm for simulating
+short-time dynamics of classical linear systems with geometrically local
+interactions, showing that this specific case yields no exponential
+advantage [15]. The contrast is instructive, because prior work had
+established an exponential speedup for classical lattice dynamics with
+long-range interactions. The advantage lived in the long-range
+structure, not in the problem generally.</p>
+<p>A dequantization analysis using random Fourier features shows that
+classical algorithms can practically dequantize existing quantum-kernel
+machine learning methods [16]. That widens the set of machine learning
+tasks for which no quantum advantage can be claimed.</p>
+<p>A peer-reviewed paper presents a quantum-enhanced classical method
+for approximating regions of the expectation-value surface produced by
+parametrized quantum circuits [17]. A lower bound has separately been
+established on the classical simulation cost of star-network
+correlations, bounding how efficiently classical resources can reproduce
+that class of quantum correlations [18].</p>
+<p>One item is contested rather than established. A 2026 preprint argues
+that Google’s December 2024 random-circuit-sampling claim occupied a
+regime whose classical simulability was closed within ten months by a
+general theorem on noisy random circuits [19]. It also states the
+underlying samples have not been replicated end to end. This is a
+disputed interpretation, not a settled finding.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="verification-and-benchmarking-theory">4. Verification and
+Benchmarking Theory</h2>
+<p><em>This section asks how anyone knows a quantum result is correct.
+Both entries measure the tools rather than the machines.</em></p>
+<h3 id="current-state-3">Current State</h3>
+<p>Two 2026 preprint benchmarks cover 36 and 40 machine-checkable
+theorem-completion tasks in the Lean 4 proof system [20]. They test
+whether AI agents can construct formally verified proofs in quantum
+algorithms and quantum information theory. The best-performing model
+scored 60.4 out of 100 on one and 59.6 out of 100 on the other.</p>
+<p>A 2025 preprint develops scalable proxy circuits, built from a
+restricted set of operations, that estimate application-level
+performance of a quantum computer [21]. It gives theoretical grounding
+for when such restricted benchmarks are enough to predict performance on
+the harder circuits that real applications need.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="noise-and-error-mitigation-theory">5. Noise and Error Mitigation
+Theory</h2>
+<p><em>Error mitigation is the set of techniques for extracting useful
+answers from noisy machines without full error correction. The theory in
+this section is mostly about its limits, and the limits are
+severe.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>A peer-reviewed paper introduces surrogate-enabled zero-noise
+extrapolation, which uses classical learning surrogates to perform the
+technique with only constant measurement overhead for families of
+parametrized circuits [22]. It reports accuracy comparable to the
+conventional method and was validated on tasks up to 100 qubits.
+Constant rather than growing overhead is the important claim, for
+reasons the Current State below makes clear.</p>
+<p>Two further preprints appeared in August 2026, neither peer-reviewed
+[23]. One frames error suppression, mitigation and full correction as
+complementary layers of a single strategy for the period between today’s
+noisy machines and early fault tolerance. The other proposes an
+AI-assisted mitigation framework that models decoherence as sequences of
+weak measurements.</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The central limitation is a cost that grows exponentially. Standard
+techniques including probabilistic error cancellation, zero-noise
+extrapolation and Clifford data regression can substantially reduce
+estimation error [24]. All of them incur a sampling overhead that scales
+exponentially as circuit size or noise increases. That single fact
+motivates most of the other work in this section.</p>
+<p>A peer-reviewed 2025 paper reduces that overhead for probabilistic
+error cancellation, through Pauli error propagation combined with
+classical preprocessing [24]. It cuts the cost substantially for a
+restricted class of circuits.</p>
+<p>Theoretical work presented at a 2025 workshop established rigorous
+worst-case bounds showing that error mitigation is fundamentally limited
+in its scalability as circuit size and noise grow [25]. The same
+workshop’s report describes the field as still formative after nearly a
+decade, largely heuristic and problem-specific, with very few practical
+guidelines for when to apply which technique [25].</p>
+<p>Two methodological cautions round this out. Apparent improvements in
+zero-noise extrapolation can arise from post-processing arithmetic
+artefacts rather than genuine noise suppression, so benchmarking must
+distinguish the two [26]. Verifiable blind probabilistic error
+cancellation offers a method for reliable mitigation without requiring
+full trust in the noise model or in the hardware performing the
+computation [27].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="negative-results">6. Negative Results</h2>
+<p><em>Published negative results are rarer than they should be in any
+field, and they are the most useful entries in this part.</em></p>
+<h3 id="current-state-5">Current State</h3>
+<p>No quantum advantage was found for fidelity-kernel methods in
+predicting the cross-section of stock returns, evaluated across 170
+walk-forward windows on a point-in-time universe [28]. Finance is among
+the most heavily promoted quantum application areas, which makes a clean
+negative result there worth recording.</p>
+<p>A claimed quantum speedup published in Science was publicly disputed
+within a week, with two separate research groups independently showing
+how to perform similar calculations classically [9].</p>
+<p>A 2026 preprint contends that Google’s Willow random-circuit-sampling
+result has not been replicated end to end [19]. It argues the
+demonstration occupied a region of circuit space later shown to admit
+classical simulation. The preprint frames this as a recurring pattern in
+which demonstrations were confined to classically simulable regimes by
+hardware constraints. That interpretation is contested and not
+universally accepted.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Quantum algorithm for linear matrix equations - <a
+href="https://www.nature.com/articles/s41534-026-01360-6"
+class="uri">https://www.nature.com/articles/s41534-026-01360-6</a> (as
+of 2026-08-21)</li>
+<li>Chinese Academy of Sciences quantum algorithm for topological data
+analysis - <a
+href="https://quantumzeitgeist.com/chinese-sciences-quantum-algorithm-speeds-up/"
+class="uri">https://quantumzeitgeist.com/chinese-sciences-quantum-algorithm-speeds-up/</a>
+(as of 2026-08-28)</li>
+<li>Quantum algorithm for differential equations via permutation matrix
+representation with application to the Burgers equation - <a
+href="https://arxiv.org/abs/2608.19508"
+class="uri">https://arxiv.org/abs/2608.19508</a> (as of 2026-08-19)</li>
+<li>Improved Quantum Algorithms for Reinforcement Learning - <a
+href="https://arxiv.org/abs/2608.02826"
+class="uri">https://arxiv.org/abs/2608.02826</a> (as of 2026-08-05)</li>
+<li>Quantum Algorithms for Modular Factorials - <a
+href="https://arxiv.org/abs/2607.29453"
+class="uri">https://arxiv.org/abs/2607.29453</a> (as of 2026-07-31)</li>
+<li>Quantum Algorithm for Elliptic Curve Discrete Logarithm Problem - <a
+href="https://arxiv.org/abs/2607.13816"
+class="uri">https://arxiv.org/abs/2607.13816</a> (as of 2026-07-29)</li>
+<li>Quantum Decoding Algorithms: Quantum Speedups in Optimization - <a
+href="https://arxiv.org/abs/2605.00312"
+class="uri">https://arxiv.org/abs/2605.00312</a> (undated)</li>
+<li>A quantum speedup algorithm for TSP based on quantum dynamic
+programming with very few qubits - <a
+href="https://arxiv.org/abs/2502.08853v3"
+class="uri">https://arxiv.org/abs/2502.08853v3</a> (as of
+2025-02-12)</li>
+<li>Quantum Speedup Found for Huge Class of Hard Problems - <a
+href="https://www.quantamagazine.org/quantum-speedup-found-for-huge-class-of-hard-problems-20250317/"
+class="uri">https://www.quantamagazine.org/quantum-speedup-found-for-huge-class-of-hard-problems-20250317/</a>
+(as of 2025-03-17)</li>
+<li>Quantum Speedups Require Structure or Depth - <a
+href="https://arxiv.org/abs/2608.19158"
+class="uri">https://arxiv.org/abs/2608.19158</a> (as of 2026-08-19)</li>
+<li>OpenAI says next-generation model solved 10 major open problems in
+quantum complexity and mathematics - <a
+href="https://thequantuminsider.com/2026/08/04/openai-says-next-generation-model-solved-10-major-open-problems-in-quantum-complexity-mathematics/"
+class="uri">https://thequantuminsider.com/2026/08/04/openai-says-next-generation-model-solved-10-major-open-problems-in-quantum-complexity-mathematics/</a>
+(as of 2026-08-04)</li>
+<li>Researchers Reveal the Power of Quantum Proofs - <a
+href="https://www.quantamagazine.org/researchers-reveal-the-power-of-quantum-proofs-20260706/"
+class="uri">https://www.quantamagazine.org/researchers-reveal-the-power-of-quantum-proofs-20260706/</a>
+(as of 2026-06-01)</li>
+<li>On the Computational Hardness of Quantum One-Wayness - <a
+href="https://quantum-journal.org/papers/q-2025-03-27-1679/pdf/"
+class="uri">https://quantum-journal.org/papers/q-2025-03-27-1679/pdf/</a>
+(as of 2025-03-15)</li>
+<li>On the Hardness of Approximating Distances of Quantum Codes - <a
+href="https://par.nsf.gov/biblio/10658279"
+class="uri">https://par.nsf.gov/biblio/10658279</a> (as of
+2025-01-01)</li>
+<li>On the quantum computational complexity of classical linear dynamics
+with geometrically local interactions - <a
+href="https://quantum-journal.org/papers/q-2026-08-03-2182/"
+class="uri">https://quantum-journal.org/papers/q-2026-08-03-2182/</a>
+(as of 2026-08-03)</li>
+<li>On Dequantization of Supervised Quantum Machine Learning via Random
+Fourier Features - <a href="https://arxiv.org/abs/2505.15902"
+class="uri">https://arxiv.org/abs/2505.15902</a> (as of 2025-05-21)</li>
+<li>Efficient Quantum-Enhanced Classical Simulation for Patches of
+Quantum Landscapes - <a
+href="https://journals.aps.org/prxquantum/abstract/10.1103/fhc5-8sm6"
+class="uri">https://journals.aps.org/prxquantum/abstract/10.1103/fhc5-8sm6</a>
+(as of 2026-06-12)</li>
+<li>A lower bound on the classical simulation cost of star-network
+correlations - <a href="https://arxiv.org/abs/2608.03986"
+class="uri">https://arxiv.org/abs/2608.03986</a> (as of 2026-08-07)</li>
+<li>The NISQ Trap: Eight Years of Demonstrations the Hardware Was Built
+to Lose - <a href="https://arxiv.org/pdf/2607.07530"
+class="uri">https://arxiv.org/pdf/2607.07530</a> (as of 2026-07-01)</li>
+<li>Benchmarking Agents for Proving Theorems in Quantum Algorithms and
+Quantum Information - <a href="https://arxiv.org/abs/2607.21533"
+class="uri">https://arxiv.org/abs/2607.21533</a> (as of 2026-07-01)</li>
+<li>When Clifford benchmarks are sufficient: estimating application
+performance with scalable proxy circuits - <a
+href="https://arxiv.org/pdf/2503.05943"
+class="uri">https://arxiv.org/pdf/2503.05943</a> (as of 2025-03-01)</li>
+<li>Sample-efficient quantum error mitigation via classical learning
+surrogates - <a
+href="https://www.nature.com/articles/s42005-026-02827-w"
+class="uri">https://www.nature.com/articles/s42005-026-02827-w</a> (as
+of 2026-08-20)</li>
+<li>Practical Error Suppression and Mitigation for Reliable Quantum
+Computing - <a href="https://arxiv.org/abs/2608.20453"
+class="uri">https://arxiv.org/abs/2608.20453</a> (as of 2026-08-20)</li>
+<li>Reduced Sampling Overhead for Probabilistic Error Cancellation by
+Pauli Error Propagation - <a
+href="https://quantum-journal.org/papers/q-2025-08-29-1840/"
+class="uri">https://quantum-journal.org/papers/q-2025-08-29-1840/</a>
+(as of 2025-08-29)</li>
+<li>Report on the 2025 Workshop on Error Resilience in Quantum Computing
+- <a href="https://unitary.foundation/assets/WERQSHOP_report.pdf"
+class="uri">https://unitary.foundation/assets/WERQSHOP_report.pdf</a>
+(as of 2025-09-29)</li>
+<li>Artefactual Improvements in Zero-Noise Extrapolation - <a
+href="https://arxiv.org/abs/2607.09360"
+class="uri">https://arxiv.org/abs/2607.09360</a> (as of 2026-08-03)</li>
+<li>Verifiable blind probabilistic error cancellation - <a
+href="https://arxiv.org/abs/2607.25704"
+class="uri">https://arxiv.org/abs/2607.25704</a> (as of 2026-07-30)</li>
+<li>Quantum Kernels and the Cross-Section of Stock Returns - <a
+href="https://arxiv.org/abs/2607.20168"
+class="uri">https://arxiv.org/abs/2607.20168</a> (as of 2026-07-22)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="08-spac-mergers-public-listings.html"><span>Previous</span>Part 8 - SPAC Mergers &amp; Public Listings</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Quantum Computing</a>
+    <a class="pager-next" href="10-applications-benchmarking-claims.html"><span>Next</span>Part 10 - Applications &amp; Benchmarking Claims</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/09-academic-theoretical.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

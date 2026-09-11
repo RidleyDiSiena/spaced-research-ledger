@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 6 - Network & Transport Protocols | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 6: Network & Transport Protocols.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 6</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 6</p>
+    <h1>Network &amp; Transport Protocols</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/06-network-transport.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#tls-1.3-hybrid-key-exchange"
+id="toc-tls-1.3-hybrid-key-exchange">1. TLS 1.3 Hybrid Key
+Exchange</a></li>
+<li><a href="#quic-http3-dtls" id="toc-quic-http3-dtls">2. QUIC, HTTP/3,
+DTLS</a></li>
+<li><a href="#ipsec-vpn-protocols" id="toc-ipsec-vpn-protocols">3. IPsec
+&amp; VPN Protocols</a></li>
+<li><a href="#ssh" id="toc-ssh">4. SSH</a></li>
+<li><a href="#link-access-layer" id="toc-link-access-layer">5. Link
+&amp; Access Layer</a></li>
+<li><a href="#dns-time" id="toc-dns-time">6. DNS &amp; Time</a></li>
+<li><a href="#routing-storage-protocols"
+id="toc-routing-storage-protocols">7. Routing &amp; Storage
+Protocols</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The protocols that move data across networks are where post-quantum
+cryptography first became real. Every encrypted connection made today
+can be recorded and decrypted later by a quantum computer, so key
+exchange had to move first, years ahead of signatures.</p>
+<p>This report covers seven protocol families. Section 1 covers TLS, the
+web’s transport security, and Section 2 its younger siblings QUIC and
+DTLS. Section 3 covers IPsec and the VPNs, Section 4 SSH, and Section 5
+the link and access layer inside networks. Section 6 covers DNS and
+time, and Section 7 the routing and storage protocols.</p>
+<p>The milestone of 2026 is that hybrid key exchange crossed from
+experiment to majority. Post-quantum key exchange now covers over half
+of the web requests one large network observes. The defining RFC was
+published in August, and Akamai runs it end to end from browser to
+origin. SSH is on the same path, with the newest OpenSSH warning users
+when a connection is not quantum-safe.</p>
+<p>The unsolved problems are just as clear. Certificates and signatures
+everywhere remain classical. DNSSEC has no good answer yet for
+signatures too large for its packets. And the further from the web’s
+center a protocol sits, the less has happened, with storage protocols
+like iSCSI showing no migration activity at all.</p>
+<h2 id="tls-1.3-hybrid-key-exchange">1. TLS 1.3 Hybrid Key Exchange</h2>
+<p><em>TLS is the protocol behind the padlock in a browser, securing
+most traffic on the internet. Hybrid key exchange runs a classical
+algorithm and ML-KEM together, so a session is safe unless both break.
+It defends against the one quantum threat that applies today: recording
+encrypted traffic now to decrypt later. That is why it leads the whole
+migration.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The standards finally caught up with the deployments. RFC 10024,
+published August 2026, defines the three hybrid groups as a Proposed
+Standard and formally retires the pre-standard draft groups [1]. RFC
+9954, published July, provides the general hybrid framework beneath them
+[2]. Akamai reached general availability for end-to-end post-quantum
+connections across its network in August, covering every leg from client
+to origin [3]. Java’s hybrid key exchange feature was delivered for JDK
+27 [4], placed first in the default group list [5].</p>
+<p>Adoption crossed the halfway mark. Post-quantum key exchange rose
+from about 29 percent of one network’s HTTPS requests in mid-2025 to 54
+percent in mid-2026, far faster than other protocol transitions [6]. A
+domain-level study puts partial readiness at 49 percent of domains, a
+reminder that request-weighted figures lean on high-traffic sites [7].
+Library and server support is now broad across mainstream stacks
+[7].</p>
+<p>Defaults keep flipping on. OpenSSL negotiates the hybrid group with
+no application changes [8], and Windows and ASP.NET reached general
+availability in July [9]. Google Cloud’s load balancers are on a staged
+rollout ending with no opt-out in 2027 [10], and even a pure-Erlang QUIC
+stack added the group [11]. Go’s default group list now carries all
+three hybrids [12].</p>
+<h3 id="current-state">Current State</h3>
+<p>One group carries nearly all the traffic. X25519MLKEM768 is the
+default for Chrome, Firefox, and Edge, and accounts for roughly 95
+percent of the post-quantum TLS one large network observes [13]. The
+IETF adopted the defining draft in March 2025 with three groups
+[13].</p>
+<p>The P-256 variant exists specifically for FIPS environments, since
+X25519 is not FIPS-approved [14]. Hybrid key exchange is the most widely
+deployed post-quantum cryptography on the internet precisely because
+harvest-now-decrypt-later applies immediately [14]. The old draft group
+is formally superseded, with guidance to retire it [14], though F5’s
+BIG-IP still spoke only the incompatible draft as of one mid-2025
+assessment [15].</p>
+<p>Two operational wrinkles persist. Go lists the X25519 hybrid as
+FIPS-approved but rejects its classical half under the strictest FIPS
+mode, breaking the handshake and forcing the P-256 variant instead [13].
+And Akamai had already defaulted the hybrid group for customer origin
+connections back in January [16].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Apple’s timeline is the one genuine muddle. Sources disagree on when
+Safari and Apple’s operating systems turned hybrid TLS on by default
+[17]. One dates it to 2025 and another to the 26-generation systems in
+2026, against a backdrop where Apple’s messaging protocol got more
+publicity than its TLS work [17]. A separate source asserts Safari 18
+ships the hybrid on by default, adding a data point without resolving
+the inconsistency [18]. An Apple release note naming the version would
+settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="quic-http3-dtls">2. QUIC, HTTP/3, DTLS</h2>
+<p><em>QUIC is the transport under HTTP/3, carrying a growing share of
+web traffic over UDP instead of TCP. DTLS secures datagram traffic like
+video calls and VPN tunnels. Both borrow the TLS 1.3 handshake, so they
+inherit post-quantum key exchange rather than inventing their own. The
+interesting questions are about packet sizes, not cryptography.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The specifications made inheritance official. RFC 9954 instructs that
+hybrid groups registered under its framework should be marked usable in
+DTLS [19], and RFC 10024 registers all three groups accordingly [20].
+The practical caveats are dimensional: DTLS handshakes fragment more
+once post-quantum keys enlarge them [21], and QUIC’s 1,200-byte initial
+packets force extra packets in the first flight [21]. Firefox supports
+the hybrid group on QUIC connections from version 135 [22]. At the
+experimental edge, a Rust crate now implements pure post-quantum QUIC
+with no classical fallback at all [23].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>No QUIC-specific protocol change was ever needed, because QUIC
+carries TLS 1.3 as its handshake [24]. OpenSSL lists QUIC server support
+within the same post-quantum feature set as its default hybrid group,
+with zero-round-trip resumption still in development for QUIC
+specifically [25]. DTLS compatibility was a design goal from the
+earliest drafts of the hybrid groups, not a late addition [26]. The
+performance story even favors the newer transport: a comparative study
+found QUIC reduces the latency and bandwidth penalty of post-quantum
+handshakes relative to TLS, especially on lossy networks [27].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="ipsec-vpn-protocols">3. IPsec &amp; VPN Protocols</h2>
+<p><em>IPsec secures site-to-site links and corporate VPNs, negotiated
+by a protocol called IKEv2. The consumer VPN world mostly runs on
+WireGuard or OpenVPN instead. All three took different post-quantum
+paths: IKEv2 grew standardized extensions, OpenVPN inherits from
+OpenSSL, and WireGuard, which refuses algorithm negotiation on
+principle, gets its protection bolted on from outside.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The IKEv2 standards pipeline is producing steadily. The draft
+specifying ML-KEM in IKEv2 reached its ninth revision [28]. A
+downgrade-prevention mechanism for hybrid setups cleared review and
+entered the RFC Editor queue [29]. Further drafts cover variable-length
+PRFs [30], reliable transport for hybrids [31], and FrodoKEM [32].</p>
+<p>strongSwan’s experimental branch now runs fully post-quantum tunnels,
+pairing ML-DSA certificates with ML-KEM key exchange [33]. Palo Alto’s
+implementation supports an unusually broad KEM menu, from ML-KEM through
+Classic McEliece [34].</p>
+<p>OpenVPN’s ecosystem matured through its library. Recent releases
+build against newer OpenSSL versions carrying the algorithms [35], with
+a security patch release following [36]. A production VPN provider
+demonstrated fully post-quantum OpenVPN with ML-DSA authentication [37],
+and the Easy-RSA certificate tooling gained first-class post-quantum
+support [38]. On the WireGuard side, NetBird embedded the Rosenpass key
+exchange for automatic quantum-safe key rotation on every connection
+[39].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>IKEv2 itself was never revised. Everything rides on two extensions.
+RFC 8784 mixes an out-of-band preshared key into the exchange, keeping
+session keys safe from a quantum adversary if the secret has enough
+entropy [40]. It transmits only a key identifier in-band [41] and mixes
+rather than replaces the classical exchange [42].</p>
+<p>Formal verification confirms the secrecy claim while noting some
+authentication properties are not restored [43]. Vendors treat it as the
+deployable near-term mitigation [44]. RFC 9867 extended the mechanism to
+later exchanges for full protection and fresh rekeying [45].</p>
+<p>RFC 9370 is the real hybrid framework. It allows up to seven
+additional key exchanges of any kind [46]. The large payloads travel in
+an intermediate exchange [46], and classical and post-quantum methods
+merge into one negotiation registry [46]. It deliberately defines no
+concrete combinations, leaving those to separate drafts [47].</p>
+<p>In practice the design shows on the wire: the small classical key
+goes first, the large ML-KEM key follows in the intermediate exchange,
+fragmented to fit protocol limits [48]. strongSwan shipped it in version
+6.0.0 [49]. Palo Alto trades its agility against fragmentation and a
+larger pre-authentication attack surface [34]. Cloudflare runs hybrid
+post-quantum IPsec in production [50], upgraded across its appliance
+line [51].</p>
+<p>OpenVPN inherits everything from OpenSSL, so capability arrives with
+the host system’s library version [52]. Its Connect client still lacks
+support, promised for a future release [52]. The full algorithm set
+works where OpenSSL 3.5 is present [53], and its handshake-encrypting
+preshared-key feature has quietly protected against
+harvest-now-decrypt-later for years [53]. NordVPN’s post-quantum feature
+explicitly excludes OpenVPN [54].</p>
+<p>WireGuard’s story is deliberate inflexibility. The protocol refuses
+algorithm negotiation, so post-quantum resistance comes from outside
+mechanisms [55], canonically by mixing a separately established
+post-quantum key into its preshared-key slot [55].</p>
+<p>Rosenpass does exactly that, refreshing the key every couple of
+minutes [56]. Mullvad enabled the same pattern by default across
+desktops in January 2025 [57] and offers a standalone tool [58].
+Surfshark followed in January 2026 [56], NordVPN integrated it into its
+WireGuard-based protocol with listed exclusions [54], and ProtonVPN
+abandoned WireGuard compatibility entirely for a ground-up redesign
+[59]. Academic proposals that rebuild the handshake itself remain
+research, hampered by very large keys [60].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="ssh">4. SSH</h2>
+<p><em>SSH is how administrators log into servers and how code moves
+between machines. Its post-quantum story is further along than almost
+any other protocol, because one implementation dominates and its
+maintainers moved early. OpenSSH has defaulted to post-quantum key
+agreement since 2022, before NIST had even finished
+standardizing.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>OpenSSH started on signatures. Version 10.4 added experimental
+support for a composite post-quantum host-key scheme combining ML-DSA-44
+with Ed25519, disabled by default [61]. Version 10.5 followed with fixes
+and a performance improvement for the older post-quantum key agreement
+[61], which Debian promptly packaged [62].</p>
+<p>Server-side scans show post-quantum key exchange on about 11.8
+percent of SSH servers, nearly double the prior year [63]. One
+short-lived hybrid was added and removed within a month [64]. AWS’s
+file-transfer service added the full set of ML-KEM hybrids to its
+security policies [65], and even an iOS client app now negotiates them
+[66].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>OpenSSH’s defaults have led the industry for years. Post-quantum key
+agreement has been the default since version 9.0 in April 2022, first
+with a pre-NIST lattice scheme, then with the ML-KEM hybrid becoming
+default in version 10.0 [67]. Since 10.1 the client actively warns when
+a connection falls back to classical key agreement, naming the
+store-now-decrypt-later risk, with a config option to silence it
+[67].</p>
+<p>The ML-KEM hybrid itself arrived in 9.9 [68], is built so both
+components must break [67], and its method names are being registered
+through an IETF draft [69]. The older scheme was standardized
+retroactively as RFC 9941 in April 2026 [70], having been created in
+2020 [71] and made default in 2022 [71]. Version 9.9 gave it a
+standardized identifier while keeping its legacy vendor name [72].</p>
+<p>Deployment follows distribution schedules. Current Debian, Ubuntu,
+and RHEL releases ship post-quantum-capable OpenSSH, while the older
+Ubuntu LTS needs a backport [73]. Ubuntu 26.04 makes the ML-KEM hybrid
+the default [74]. The installed base lags: roughly three-quarters of
+observed servers run versions predating default post-quantum support
+[75].</p>
+<p>GitHub turned it on for its SSH endpoints in fall 2025 [73], starting
+outside the United States [76]. SUSE enabled the older hybrid through
+its crypto policies [77], and RHEL adds FIPS-compatible hybrids through
+downstream patches, with its test policy enabling only ML-KEM by default
+[78]. The pre-NIST scheme was never a NIST algorithm at all [78].</p>
+<p>The alternative implementations kept pace. PuTTY 0.83 supports
+ML-KEM, hybrid-only by design [79]. Dropbear added both post-quantum
+exchanges in 2025 [80], through community contributions, and recommends
+enabling at least one despite the code-size cost [80]. libssh added and
+prefers the ML-KEM hybrid [81], Termius [82] and Tectia followed, with
+Tectia removing an obsolete scheme [83], and AWS’s SFTP service
+interoperates with the post-quantum clients [84][85].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="link-access-layer">5. Link &amp; Access Layer</h2>
+<p><em>Below the internet protocols sit the technologies that secure
+individual network links: MACsec encrypting traffic between switches,
+and 802.1X deciding who may join a network at all. Their bulk encryption
+is symmetric and already quantum-resistant at 256 bits. The soft spot is
+the same as everywhere else: the key exchange and certificates that set
+the sessions up.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The vendors committed to dates. Cisco pledged post-quantum
+integration across MACsec, IPsec, TLS, and SSH for the majority of its
+core portfolio by December 2026 [86]. RAD demonstrated a quantum-safe
+400-gigabit MACsec system using hybrid ML-KEM [87]. On the research
+side, a hybrid key exchange protocol integrates ML-KEM, ML-DSA, and QKD
+into MACsec without touching the IEEE standards [88]. RADIUS, by
+contrast, shows no protocol-specific migration activity at all, with
+available material addressing only the TLS layer beneath it [89].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>MACsec’s data plane was never the problem. The standard’s 256-bit AES
+modes are considered quantum-resilient [90], added by amendments over a
+decade ago [90], and guidance for quantum-secure configuration centers
+on 256-bit keys and functions throughout [91]. The companion MKA
+protocol establishes those keys, over either preshared keys or 802.1X
+authentication [91][91]. Cisco’s own guidance is candid that the EAP-TLS
+path cannot be called quantum-secure until TLS itself is [91].</p>
+<p>The real fixes are arriving: ML-KEM-based MACsec key exchange in
+IOS-XE 26.1 [92], and a dedicated configuration guide for hybrid ML-KEM
+with EAP-TLS on its router lines [93]. A full-stack post-quantum claim
+for its newest switches is best read against the layered maturity
+beneath it [94].</p>
+<p>A QKD-integrated key-delivery mode exists on data-center switches
+[95], and a lab demonstration hit 196 gigabits of quantum-secure MACsec
+on commodity offloads [96]. FIPS mode, for now, excludes the hybrid
+algorithms [97]. The research protocol detailing hybrid MACsec keying
+published in 2025 [98].</p>
+<p>Access control inherits TLS’s schedule. EAP-TLS gets post-quantum
+security from the TLS handshake beneath it [99], and its
+certificate-based deployments will eventually need post-quantum or
+hybrid certificates [100]. Today’s rollout covers key agreement while
+certificate chains stay classical [101].</p>
+<p>The IETF work has been adopted onto the standards track [102],
+building on earlier drafts addressing large certificates in constrained
+EAP exchanges [103]. Cisco’s network-access product extended TLS 1.3 to
+its EAP methods as a prerequisite step [104]. Measured deployments look
+workable, with session resumption absorbing most of the added latency
+from larger handshakes [105]. MACsec’s symmetric suites themselves need
+no negotiation change for the quantum era [106].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="dns-time">6. DNS &amp; Time</h2>
+<p><em>DNSSEC signs the internet’s address book so answers cannot be
+forged, and encrypted DNS carries queries over TLS. Time synchronization
+has its own security protocol. DNS is the migration’s hardest packaging
+problem: post-quantum signatures simply do not fit in the small UDP
+packets DNS was built on, and no standard answer has been
+chosen.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>The DNSSEC proposals are multiplying because none has won. One draft
+would let resolvers apply local algorithm policy so quantum-safe
+signatures can ride alongside legacy ones [107]. Another splits
+algorithms by role, big conservative ones for key-signing keys and
+compact ones for zone signing [108]. A third applies Merkle Tree Ladder
+mode to ML-DSA to amortize its signature size [109].</p>
+<p>Fresh measurements at country-level domain operators found the MAYO-2
+candidate outperforming classical RSA signing, while Falcon-512 matches
+it with larger signatures [110]. An ACM paper argues for exactly this
+kind of differentiated approach [111]. The TLS-application guidance now
+explicitly covers encrypted DNS [112], and a public test tool checks
+post-quantum support on the DNS-over-TLS port [113].</p>
+<h3 id="current-state-5">Current State</h3>
+<p>The size arithmetic frames everything. DNS mostly runs over UDP with
+about 1,232 usable bytes, while ML-DSA signatures run 2,420 bytes and
+beyond, and SLH-DSA reaches nearly 8,000 [114][115]. Every post-quantum
+family tested pushes responses past UDP limits and into TCP fallback
+[116], with the smallest responses coming from candidates still under
+evaluation [116].</p>
+<p>The strategy taking shape is dual-algorithm: a conservative scheme in
+an impact-mitigating mode, paired with a compact drop-in [115]. Merkle
+Tree Ladder mode amortizes signatures across responses [115], with named
+candidates in each role [115]. Prototypes exist, including a CoreDNS
+plugin wiring thirteen post-quantum algorithms through liboqs [117], and
+a protocol proposal to cut the TCP fallback cost [118]. U.S. government
+guidance already lists DNS software among the product categories
+expected to adopt the standards [119].</p>
+<p>Encrypted DNS moves with TLS. AdGuard enabled hybrid key exchange by
+default across its DNS transports, describing itself as an early adopter
+just behind Google and Cloudflare [120]. Chrome’s ML-KEM rollout covers
+its DNS-over-HTTPS connections [121], Cloudflare’s origin infrastructure
+includes its DNS service [121], and ICANN’s technical office has
+assessed the implications across the encrypted transports [122].</p>
+<p>AWS’s endpoint migration quantifies the cost, about 1,600 extra
+handshake bytes and well under a millisecond of compute [123]. The
+hybrid TLS draft applies directly to DNS-over-TLS [124], whose
+negotiated key share grows to 1,216 bytes [124], on a rollout underway
+since 2024 [125]. A post-quantum DNS-over-TLS framework in the
+literature remains simulation-only [126].</p>
+<p>Time is the quiet corner. Network Time Security, standardized in
+2020, splits key establishment over TLS from the lightweight
+synchronization protocol [127], and remains offered by few services
+[128]. No post-quantum-specific NTS standardization work was found at
+all [127].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="routing-storage-protocols">7. Routing &amp; Storage
+Protocols</h2>
+<p><em>The protocols that steer internet routes and move stored data sit
+furthest from the post-quantum frontier. RPKI, which vouches for who may
+announce which internet addresses, has active design debates. The
+storage protocols mostly rely on symmetric encryption or have simply not
+started. This section is short because the activity is.</em></p>
+<h3 id="recent-developments-6">Recent Developments</h3>
+<p>RPKI’s design argument is now on paper. One draft reframed itself
+from a production algorithm profile into an experiment report on
+post-quantum signatures and migration approaches [129]. A competing
+proposal adds an additive post-quantum layer, protecting the repository
+root with a Merkle tree ladder while leaving existing objects untouched
+and legacy-compatible [130]. A related draft covers router certificates
+while explicitly not changing the BGPsec message signature algorithm
+[131]. For iSCSI, no post-quantum migration activity was found at all
+[132].</p>
+<h3 id="current-state-6">Current State</h3>
+<p>RPKI’s open question is how much to preserve. Backward compatibility
+and a long dual-stack transition complicate adoption, as in other PKI
+ecosystems [133]. The working group has pushed back on stripping objects
+to save signature bytes, since that breaks existing structures [133].
+The Merkle-tree approach amortizes one post-quantum signature across
+many objects [133] and stays compatible with existing size-reduction
+techniques [133]. No ratified standard exists, and the integrity debate
+continues [133].</p>
+<p>The file protocols are symmetric stories. SMB 3.1.1 gained 256-bit
+AES modes on current Windows [134] and negotiates its cipher at
+connection time [135]. It defaults to the 128-bit mode for performance
+[134], extends encryption to its RDMA transport [134], and is mirrored
+by Azure Files [136]. Nothing post-quantum is specified in SMB’s
+negotiation at all [135].</p>
+<p>NFS security rides Kerberos through the RPCSEC_GSS mechanism [137], a
+multiplexing layer dating to 1999 [138]. It is split between kernel and
+userspace on Linux [139], version-limited on mainframes [140], and
+unevenly implemented historically [141]. Its weakest common mode still
+authenticates by user ID alone, with no cryptography to migrate
+[141].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>RFC 10024: Post-Quantum Traditional (PQ/T) Hybrid Key Agreement
+Mechanisms for TLS 1.3 - <a
+href="https://datatracker.ietf.org/doc/rfc10024/"
+class="uri">https://datatracker.ietf.org/doc/rfc10024/</a> - as of
+2026-08-10</li>
+<li>RFC 9954: Hybrid Key Exchange in TLS 1.3 - <a
+href="https://datatracker.ietf.org/doc/rfc9954/"
+class="uri">https://datatracker.ietf.org/doc/rfc9954/</a> - as of
+2026-07-15</li>
+<li>Future-Proofing the Internet: Akamai Achieves End-to-End PQC - <a
+href="https://www.akamai.com/blog/security/future-proofing-internet-akamai-achieves-end-to-end-pqc"
+class="uri">https://www.akamai.com/blog/security/future-proofing-internet-akamai-achieves-end-to-end-pqc</a>
+- as of 2026-08-19</li>
+<li>JEP 527: Post-Quantum Hybrid Key Exchange for TLS 1.3 - <a
+href="https://openjdk.org/jeps/527"
+class="uri">https://openjdk.org/jeps/527</a> - as of 2026-08-17</li>
+<li>JDK 27: Post-Quantum Hybrid Key Exchange for TLS 1.3 - <a
+href="https://inside.java/2026/05/17/quality-heads-up/"
+class="uri">https://inside.java/2026/05/17/quality-heads-up/</a> - as of
+2026-07-31</li>
+<li>technologychecker.io — http protocol adoption - <a
+href="https://technologychecker.io/blog/http-protocol-adoption"
+class="uri">https://technologychecker.io/blog/http-protocol-adoption</a>
+- as of 2026-07-02</li>
+<li>arxiv.org — 2606.16473 - <a href="https://arxiv.org/html/2606.16473"
+class="uri">https://arxiv.org/html/2606.16473</a> - as of
+2026-06-15</li>
+<li>Post-Quantum Readiness - OpenSSL Corporation - <a
+href="https://openssl-corporation.org/post-quantum.html"
+class="uri">https://openssl-corporation.org/post-quantum.html</a> - as
+of 2026-08-21</li>
+<li>ASP.NET, Kestrel and Schannel GA with TLS 1.3 Post-Quantum
+Cryptography - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
+- as of 2026-07-14</li>
+<li>ML-KEM vs X25519 TLS 1.3: 52% Adoption, +1.5ms [2026] - <a
+href="https://shattered.io/ml-kem-vs-x25519-tls-1-3-2026/"
+class="uri">https://shattered.io/ml-kem-vs-x25519-tls-1-3-2026/</a> - as
+of 2026-08-28</li>
+<li>erlang_quic 1.8.1 release notes - <a
+href="https://github.com/benoitc/erlang_quic/releases/tag/1.8.1"
+class="uri">https://github.com/benoitc/erlang_quic/releases/tag/1.8.1</a>
+- as of 2026-08-15</li>
+<li>Go crypto/tls common.go - <a
+href="https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go"
+class="uri">https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go</a>
+- as of 2026-08-25</li>
+<li>netguardia.com — hybrid key exchange today why x25519 ml kem is the
+interim default - <a
+href="https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/"
+class="uri">https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/</a>
+- as of 2026-04-29</li>
+<li>goodtls.com — post quantum tls - <a
+href="https://goodtls.com/post-quantum-tls"
+class="uri">https://goodtls.com/post-quantum-tls</a> - as of
+2026-06-25</li>
+<li>f5.com — the state of pqc on the web - <a
+href="https://www.f5.com/labs/articles/the-state-of-pqc-on-the-web"
+class="uri">https://www.f5.com/labs/articles/the-state-of-pqc-on-the-web</a>
+- as of 2025-06-26</li>
+<li>Post-Quantum Cryptography Implementation Considerations in TLS - <a
+href="https://www.akamai.com/blog/security/post-quantum-cryptography-implementation-considerations-tls"
+class="uri">https://www.akamai.com/blog/security/post-quantum-cryptography-implementation-considerations-tls</a>
+- as of 2026-01-31</li>
+<li>live.paloaltonetworks.com — 1230276 - <a
+href="https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276"
+class="uri">https://live.paloaltonetworks.com/t5/quantum-security-articles/the-quantum-countdown-how-hybrid-encryption-is-quietly/ta-p/1230276</a>
+- as of 2025-05-28</li>
+<li>Hybrid Cryptography Deployment Guide: Classical + PQC Transition -
+<a
+href="https://www.qcecuring.com/blog/hybrid-cryptography-deployment-guide"
+class="uri">https://www.qcecuring.com/blog/hybrid-cryptography-deployment-guide</a>
+- as of 2026-06-11</li>
+<li>datatracker.ietf.org — rfc9954 - <a
+href="https://datatracker.ietf.org/doc/rfc9954/"
+class="uri">https://datatracker.ietf.org/doc/rfc9954/</a> - as of
+2026-07-13</li>
+<li>RFC 10024 - Post-Quantum Traditional (PQ/T) Hybrid Key Agreement
+Mechanisms for TLS 1.3 - <a
+href="https://datatracker.ietf.org/doc/rfc10024/"
+class="uri">https://datatracker.ietf.org/doc/rfc10024/</a> - as of
+2026-08-01</li>
+<li>Post-Quantum Migration Playbook - <a
+href="https://pq-migration.symbolic.software/static/pdf/playbook.pdf"
+class="uri">https://pq-migration.symbolic.software/static/pdf/playbook.pdf</a>
+- as of 2026-06-28</li>
+<li>PQC support - SSL/TLS - Cloudflare Docs - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/</a>
+- as of 2026-06-24</li>
+<li>ant-quic - crates.io - <a href="https://crates.io/crates/ant-quic"
+class="uri">https://crates.io/crates/ant-quic</a> - as of
+2026-08-24</li>
+<li>stevenpg.com — ultimate guide post quantum cryptography tls - <a
+href="https://stevenpg.com/posts/ultimate-guide-post-quantum-cryptography-tls/"
+class="uri">https://stevenpg.com/posts/ultimate-guide-post-quantum-cryptography-tls/</a>
+- as of 2026-07-05</li>
+<li>openssl-corporation.org — post quantum - <a
+href="https://openssl-corporation.org/post-quantum.html"
+class="uri">https://openssl-corporation.org/post-quantum.html</a> - as
+of 2026-06-30</li>
+<li>datatracker.ietf.org — 02 - <a
+href="https://datatracker.ietf.org/doc/draft-kwiatkowski-tls-ecdhe-mlkem/02/"
+class="uri">https://datatracker.ietf.org/doc/draft-kwiatkowski-tls-ecdhe-mlkem/02/</a></li>
+<li>Comparative Analysis of Post-Quantum Handshake Performance in QUIC
+and TLS Protocols - <a
+href="https://www.researchgate.net/publication/398983814_Comparative_Analysis_of_Post-Quantum_Handshake_Performance_in_QUIC_and_TLS_Protocols"
+class="uri">https://www.researchgate.net/publication/398983814_Comparative_Analysis_of_Post-Quantum_Handshake_Performance_in_QUIC_and_TLS_Protocols</a>
+- as of 2025-12-01</li>
+<li>draft-ietf-ipsecme-ikev2-mlkem-09 - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-mlkem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-mlkem/</a>
+- as of 2026-08-13</li>
+<li>draft-ietf-ipsecme-ikev2-downgrade-prevention (IETF datatracker) -
+<a
+href="https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-downgrade-prevention/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-downgrade-prevention/</a>
+- as of 2026-07-09</li>
+<li>Use of Variable-Length Output Pseudo-Random Functions (PRFs) in the
+Internet Key Exchange Protocol Version 2 (IKEv2) - <a
+href="http://ftp.funet.fi/pub/files/Historical/pub/Historical/pub/index/files/Historical/pub/index/netinfo/internet-drafts/draft-ietf-ipsecme-ikev2-prf-plus-02.html"
+class="uri">http://ftp.funet.fi/pub/files/Historical/pub/Historical/pub/index/files/Historical/pub/index/netinfo/internet-drafts/draft-ietf-ipsecme-ikev2-prf-plus-02.html</a>
+- as of 2026-08-28</li>
+<li>draft-reddy-ipsecme-ikev2-hybrid-reliable-01 - <a
+href="https://datatracker.ietf.org/doc/draft-reddy-ipsecme-ikev2-hybrid-reliable/"
+class="uri">https://datatracker.ietf.org/doc/draft-reddy-ipsecme-ikev2-hybrid-reliable/</a>
+- as of 2026-07-03</li>
+<li>Post-quantum Key Exchange in IKEv2 with FrodoKEM - <a
+href="https://ftp.funet.fi/pub/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-ietf-ipsecme-hybrid-kem-ikev2-frodo-03.html"
+class="uri">https://ftp.funet.fi/pub/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-ietf-ipsecme-hybrid-kem-ikev2-frodo-03.html</a>
+- as of 2026-08-11</li>
+<li>Mutual Post-Quantum Auth over IKEv2 - IPsec Series, Part 8 - Cisco
+Blogs - <a
+href="https://blogs.cisco.com/developer/mutual-post-quantum-auth-over-ikev2-ipsec-series-part-8"
+class="uri">https://blogs.cisco.com/developer/mutual-post-quantum-auth-over-ikev2-ipsec-series-part-8</a>
+- as of 2026-08-24</li>
+<li>How RFC 9242 and RFC 9370 Resist Quantum Computing Threats - <a
+href="https://docs.paloaltonetworks.com/network-security/quantum-security/administration/quantum-security-concepts/how-rfc-9242-and-rfc-9370-resist-quantum-computing-threats"
+class="uri">https://docs.paloaltonetworks.com/network-security/quantum-security/administration/quantum-security-concepts/how-rfc-9242-and-rfc-9370-resist-quantum-computing-threats</a>
+- as of 2026-07-20</li>
+<li>ReleaseHistory – community wiki - <a
+href="https://community.openvpn.net/ReleaseHistory"
+class="uri">https://community.openvpn.net/ReleaseHistory</a> - as of
+2026-08-05</li>
+<li>OpenSSL 3.6 Series Release Notes - <a
+href="https://www.openssl.org/news/openssl-3.6-notes.html"
+class="uri">https://www.openssl.org/news/openssl-3.6-notes.html</a> - as
+of 2026-08-25</li>
+<li>Fully post-quantum OpenVPN (without OpenSSH tunneling) - <a
+href="https://cryptostorm.is/blog/pq-openvpn2"
+class="uri">https://cryptostorm.is/blog/pq-openvpn2</a> - as of
+2026-06-26</li>
+<li>feat(pqc): add native Post-Quantum Cryptography support to Easy-RSA
+- <a href="https://github.com/OpenVPN/easy-rsa/pull/1432"
+class="uri">https://github.com/OpenVPN/easy-rsa/pull/1432</a> - as of
+2026-08-15</li>
+<li>Enable Quantum-Resistance - NetBird Docs - <a
+href="https://docs.netbird.io/client/post-quantum-cryptography"
+class="uri">https://docs.netbird.io/client/post-quantum-cryptography</a>
+- as of 2026-08-21</li>
+<li>RFC 8784: Mixing Preshared Keys in the Internet Key Exchange
+Protocol Version 2 (IKEv2) for Post-quantum Security - <a
+href="https://www.rfc-editor.org/info/rfc8784/"
+class="uri">https://www.rfc-editor.org/info/rfc8784/</a> - as of
+2020-06-01</li>
+<li>Configure Post-Quantum IKEv2 VPNs with RFC 8784 PPKs - <a
+href="https://docs.paloaltonetworks.com/network-security/quantum-security/administration/configure-quantum-resistant-ikev2-vpns/configure-post-quantum-ikev2-vpns"
+class="uri">https://docs.paloaltonetworks.com/network-security/quantum-security/administration/configure-quantum-resistant-ikev2-vpns/configure-post-quantum-ikev2-vpns</a></li>
+<li>Quantum Security Made Easy with RFC 8784 Standard | Palo Alto
+Networks - <a
+href="https://live.paloaltonetworks.com/t5/community-blogs/quantum-security-made-easy-with-rfc-8784-standard/ba-p/574825"
+class="uri">https://live.paloaltonetworks.com/t5/community-blogs/quantum-security-made-easy-with-rfc-8784-standard/ba-p/574825</a></li>
+<li>Formal verification of the post-quantum security properties of IKEv2
+PPK (RFC 8784) using the Tamarin Prover - <a
+href="https://eprint.iacr.org/2023/1753"
+class="uri">https://eprint.iacr.org/2023/1753</a></li>
+<li>Quantum-Safe Encryption Using Postquantum Preshared Keys - <a
+href="https://www.cisco.com/c/en/us/td/docs/optical/ncs1004/243x/configuration/guide/b-configuration-guide-ncs1004-r2431/m-sec-cfg-quantum-encryption-ppk.pdf"
+class="uri">https://www.cisco.com/c/en/us/td/docs/optical/ncs1004/243x/configuration/guide/b-configuration-guide-ncs1004-r2431/m-sec-cfg-quantum-encryption-ppk.pdf</a></li>
+<li>RFC 9867: Mixing Preshared Keys in the IKE_INTERMEDIATE and
+CREATE_CHILD_SA Exchanges of the Internet Key Exchange Protocol Version
+2 (IKEv2) for Post-Quantum Security - <a
+href="https://datatracker.ietf.org/doc/rfc9867/"
+class="uri">https://datatracker.ietf.org/doc/rfc9867/</a> - as of
+2025-11-01</li>
+<li>RFC 9370: Multiple Key Exchanges in the Internet Key Exchange
+Protocol Version 2 (IKEv2) - <a
+href="https://www.rfc-editor.org/info/rfc9370/"
+class="uri">https://www.rfc-editor.org/info/rfc9370/</a></li>
+<li>Post-quantum Hybrid Key Exchange in the IKEv2 with ECDH, ML-KEM, and
+FrodoKEM - <a
+href="https://www.ietf.org/archive/id/draft-wang-hybrid-kem-ikev2-frodo-01.html"
+class="uri">https://www.ietf.org/archive/id/draft-wang-hybrid-kem-ikev2-frodo-01.html</a></li>
+<li>Watch a Hybrid Post-Quantum Handshake on the Wire - IPsec Series,
+Part 4 - Cisco Blogs - <a
+href="https://blogs.cisco.com/developer/watch-a-hybrid-post-quantum-handshake-on-the-wire-ipsec-series-part-4"
+class="uri">https://blogs.cisco.com/developer/watch-a-hybrid-post-quantum-handshake-on-the-wire-ipsec-series-part-4</a></li>
+<li>strongSwan - strongSwan 6.0.0 Released - <a
+href="https://strongswan.org/blog/2024/12/03/strongswan-6.0.0-released.html"
+class="uri">https://strongswan.org/blog/2024/12/03/strongswan-6.0.0-released.html</a>
+- as of 2024-12-03</li>
+<li>Post-quantum encryption for Cloudflare IPsec is generally available
+- <a href="https://blog.cloudflare.com/post-quantum-ipsec/"
+class="uri">https://blog.cloudflare.com/post-quantum-ipsec/</a> - as of
+2026-04-30</li>
+<li>Standardizing Post-Quantum IPsec: Cloudflare Adopts Hybrid ML-KEM -
+<a
+href="https://www.infoq.com/news/2026/03/cloudflare-post-quantum-ipsec/"
+class="uri">https://www.infoq.com/news/2026/03/cloudflare-post-quantum-ipsec/</a>
+- as of 2026-03-07</li>
+<li>Post-Quantum Cryptography and Your VPN: Is Data at Risk? - <a
+href="https://blog.openvpn.net/post-quantum-cryptography-vpn/"
+class="uri">https://blog.openvpn.net/post-quantum-cryptography-vpn/</a>
+- as of 2025-01-01</li>
+<li>Cybersecurity in the Quantum Age | OpenVPN Blog - <a
+href="https://blog.openvpn.net/quantum-safe-vpn"
+class="uri">https://blog.openvpn.net/quantum-safe-vpn</a></li>
+<li>NordVPN Post-quantum encryption explained - <a
+href="https://support.nordvpn.com/hc/en-us/articles/30046321712529-NordVPN-Post-quantum-encryption-explained"
+class="uri">https://support.nordvpn.com/hc/en-us/articles/30046321712529-NordVPN-Post-quantum-encryption-explained</a></li>
+<li>Post-quantum cryptography · Tailscale Docs - <a
+href="https://tailscale.com/kb/1460/post-quantum-cryptography"
+class="uri">https://tailscale.com/kb/1460/post-quantum-cryptography</a></li>
+<li>Can WireGuard Withstand the Quantum Storm? - <a
+href="https://pbxscience.com/can-wireguard-withstand-the-quantum-storm/"
+class="uri">https://pbxscience.com/can-wireguard-withstand-the-quantum-storm/</a>
+- as of 2026-04-26</li>
+<li>Quantum-resistant tunnels are now the default on desktop - <a
+href="https://mullvad.net/en/blog/quantum-resistant-tunnels-are-now-the-default-on-desktop"
+class="uri">https://mullvad.net/en/blog/quantum-resistant-tunnels-are-now-the-default-on-desktop</a>
+- as of 2025-01-09</li>
+<li>GitHub - mullvad/wgephemeralpeer: Mullvad Post-Quantum-secure
+WireGuard tunnels for vanilla WireGuard and custom integrations - <a
+href="https://github.com/mullvad/wgephemeralpeer"
+class="uri">https://github.com/mullvad/wgephemeralpeer</a></li>
+<li>(PDF) Post-Quantum WireGuard: A Practical Implementation Guide - <a
+href="https://www.researchgate.net/publication/394601863_Post-Quantum_WireGuard_A_Practical_Implementation_Guide"
+class="uri">https://www.researchgate.net/publication/394601863_Post-Quantum_WireGuard_A_Practical_Implementation_Guide</a></li>
+<li>Revisiting PQ WireGuard: A Comprehensive Security Analysis With a
+New Design Using Reinforced KEMs - <a
+href="https://thomwiggers.nl/publications/pq-wireguard/"
+class="uri">https://thomwiggers.nl/publications/pq-wireguard/</a></li>
+<li>OpenSSH: Release Notes - <a
+href="https://www.openssh.com/releasenotes.html"
+class="uri">https://www.openssh.com/releasenotes.html</a> - as of
+2026-08-11</li>
+<li>Change log : openssh package : Debian - <a
+href="https://launchpad.net/debian/%2Bsource/openssh/%2Bchangelog"
+class="uri">https://launchpad.net/debian/%2Bsource/openssh/%2Bchangelog</a>
+- as of 2026-08-23</li>
+<li>PQC Adoption Gaps: 90% of Systems Are Still Not Quantum-Safe
+(Forescout) - <a
+href="https://www.forescout.com/blog/pqc-adoption-gaps-90-percent-of-systems-are-still-not-quantum-safe/"
+class="uri">https://www.forescout.com/blog/pqc-adoption-gaps-90-percent-of-systems-are-still-not-quantum-safe/</a>
+- as of 2026-06-24</li>
+<li>OpenSSH: ChangeLog - <a
+href="https://fossies.org/linux/openssh/ChangeLog"
+class="uri">https://fossies.org/linux/openssh/ChangeLog</a> - as of
+2026-08-08</li>
+<li>Using hybrid post-quantum key exchange with AWS Transfer Family - <a
+href="https://docs.aws.amazon.com/transfer/latest/userguide/post-quantum-security-policies.html"
+class="uri">https://docs.aws.amazon.com/transfer/latest/userguide/post-quantum-security-policies.html</a>
+- as of 2026-08-15</li>
+<li>Post-Quantum SSH on iOS: NeoServer Adds ML-KEM Key Exchange - <a
+href="https://www.joyk.com/en/doc/ios-post-quantum-ssh-mlkem-neoserver.html"
+class="uri">https://www.joyk.com/en/doc/ios-post-quantum-ssh-mlkem-neoserver.html</a>
+- as of 2026-08-19</li>
+<li>OpenSSH: Post-Quantum Cryptography - <a
+href="https://www.openssh.org/pq.html"
+class="uri">https://www.openssh.org/pq.html</a> - as of 2025-04-01</li>
+<li>OpenSSH 9.9 released with DSA disabled and hybrid ML-KEM
+post-quantum key exchange - <a
+href="https://alternativeto.net/news/2024/9/openssh-9-9-released-with-dsa-disabled-and-hybrid-ml-kem-post-quantum-key-exchange"
+class="uri">https://alternativeto.net/news/2024/9/openssh-9-9-released-with-dsa-disabled-and-hybrid-ml-kem-post-quantum-key-exchange</a>
+- as of 2024-09-19</li>
+<li>draft-ietf-sshm-mlkem-hybrid-kex-10 - PQ/T Hybrid Key Exchange with
+ML-KEM in SSH - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-sshm-mlkem-hybrid-kex/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-sshm-mlkem-hybrid-kex/</a></li>
+<li>RFC 9941: Secure Shell (SSH) Key Exchange Method Using Hybrid
+Streamlined NTRU Prime sntrup761 and X25519 with SHA-512 - <a
+href="https://www.rfc-editor.org/rfc/rfc9941.pdf"
+class="uri">https://www.rfc-editor.org/rfc/rfc9941.pdf</a> - as of
+2026-04-10</li>
+<li>Secure Shell (SSH) Key Exchange Method Using Hybrid Streamlined NTRU
+Prime sntrup761 and X25519 with SHA-512 - <a
+href="https://www.ietf.org/archive/id/draft-josefsson-ntruprime-ssh-02.html"
+class="uri">https://www.ietf.org/archive/id/draft-josefsson-ntruprime-ssh-02.html</a>
+- as of 2022-01-01</li>
+<li>OpenSSH 9.9 new features: Enhanced security with post-quantum key
+exchange (mlkem768x25519-sha256) and DSA removal - <a
+href="https://4sysops.com/archives/openssh-99-new-features-enhanced-security-with-post-quantum-key-exchange-mlkem768x25519-sha256-and-dsa-removal/"
+class="uri">https://4sysops.com/archives/openssh-99-new-features-enhanced-security-with-post-quantum-key-exchange-mlkem768x25519-sha256-and-dsa-removal/</a>
+- as of 2024-09-19</li>
+<li>OpenSSH Post-Quantum Warning: What Developers Must Do | byteiota -
+<a href="https://byteiota.com/openssh-post-quantum-warning-fix/"
+class="uri">https://byteiota.com/openssh-post-quantum-warning-fix/</a> -
+as of 2025-09-01</li>
+<li>Post Quantum Support in the upcoming 26.04 LTS - <a
+href="https://discourse.ubuntu.com/t/post-quantum-support-in-the-upcoming-26-04-lts/76840"
+class="uri">https://discourse.ubuntu.com/t/post-quantum-support-in-the-upcoming-26-04-lts/76840</a>
+- as of 2026-02-12</li>
+<li>Post-Quantum Cryptography: The Real Risks of Not Adopting It - <a
+href="https://www.forescout.com/blog/post-quantum-cryptography-the-real-risks-of-not-adopting-it/"
+class="uri">https://www.forescout.com/blog/post-quantum-cryptography-the-real-risks-of-not-adopting-it/</a></li>
+<li>Post-quantum security for SSH access on GitHub - <a
+href="https://github.blog/engineering/platform-security/post-quantum-security-for-ssh-access-on-github"
+class="uri">https://github.blog/engineering/platform-security/post-quantum-security-for-ssh-access-on-github</a>
+- as of 2025-09-15</li>
+<li>Recommended update for crypto-policies | SUSE Support | SUSE - <a
+href="https://www.suse.com/support/update/announcement/2026/suse-ru-20261113-1/"
+class="uri">https://www.suse.com/support/update/announcement/2026/suse-ru-20261113-1/</a>
+- as of 2026-03-27</li>
+<li>Post-quantum cryptography in Red Hat Enterprise Linux 10 - <a
+href="https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10"
+class="uri">https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10</a></li>
+<li>PuTTY wish ml-kem - <a
+href="https://www.chiark.greenend.org.uk/~sgtatham/putty/wishlist/ml-kem.html"
+class="uri">https://www.chiark.greenend.org.uk/~sgtatham/putty/wishlist/ml-kem.html</a></li>
+<li>Releases · mkj/dropbear - <a
+href="https://github.com/mkj/dropbear/releases"
+class="uri">https://github.com/mkj/dropbear/releases</a> - as of
+2025-05-07</li>
+<li>Advancing post-quantum capabilities of SSH in Red Hat Enterprise
+Linux - <a
+href="https://www.redhat.com/en/blog/advancing-post-quantum-capabilities-ssh-red-hat-enterprise-linux"
+class="uri">https://www.redhat.com/en/blog/advancing-post-quantum-capabilities-ssh-red-hat-enterprise-linux</a>
+- as of 2026-05-28</li>
+<li>Post-quantum cryptography - <a
+href="https://termius.com/blog/post-quantum-cryptography"
+class="uri">https://termius.com/blog/post-quantum-cryptography</a> - as
+of 2026-04-16</li>
+<li>Tectia SSH Server Product Updates | SSH - <a
+href="https://www.ssh.com/tectia-server-product-update"
+class="uri">https://www.ssh.com/tectia-server-product-update</a> - as of
+2026-04-16</li>
+<li>Amazon Transfer Family announces ML-KEM quantum-resistant key
+exchange for SFTP - <a
+href="https://www.amazonaws.cn/en/new/2025/amazon-transfer-family-announces-ml-kem-quantum-resistant-key-exchange-for-sftp/"
+class="uri">https://www.amazonaws.cn/en/new/2025/amazon-transfer-family-announces-ml-kem-quantum-resistant-key-exchange-for-sftp/</a></li>
+<li>AWS Transfer Family announces ML-KEM quantum-resistant key exchange
+for SFTP – GIXtools - <a
+href="https://gixtools.net/2025/05/aws-transfer-family-announces-ml-kem-quantum-resistant-key-exchange-for-sftp/"
+class="uri">https://gixtools.net/2025/05/aws-transfer-family-announces-ml-kem-quantum-resistant-key-exchange-for-sftp/</a>
+- as of 2025-05-01</li>
+<li>Post-Quantum Cryptography - Cisco - <a
+href="https://www.cisco.com/site/us/en/about/trust-center/post-quantum-cryptography.html"
+class="uri">https://www.cisco.com/site/us/en/about/trust-center/post-quantum-cryptography.html</a>
+- as of 2026-08-14</li>
+<li>Quantum Safe Encryption: PQC, QKD and Post Quantum | RAD - <a
+href="https://www.rad.com/topics/quantum-safe-encryption/"
+class="uri">https://www.rad.com/topics/quantum-safe-encryption/</a> - as
+of 2026-06-01</li>
+<li>What Is Hybrid Cryptography? | The Bridge to Post-Quantum Security -
+<a
+href="https://www.paloaltonetworks.com/cyberpedia/what-is-hybrid-cryptography"
+class="uri">https://www.paloaltonetworks.com/cyberpedia/what-is-hybrid-cryptography</a>
+- as of 2026-08-22</li>
+<li>draft-ietf-pquip-pqc-engineers-14 - Post-Quantum Cryptography for
+Engineers - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-pquip-pqc-engineers/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-pquip-pqc-engineers/</a>
+- as of 2026-08-15</li>
+<li>CRYSTALS-Dilithium post-quantum cyber-secure SoC for wired
+communications in critical systems - <a
+href="https://www.sciencedirect.com/science/article/pii/S2542660525001702"
+class="uri">https://www.sciencedirect.com/science/article/pii/S2542660525001702</a></li>
+<li>Post-quantum MACsec in Cisco switches - Cisco Blogs - <a
+href="https://blogs.cisco.com/security/post-quantum-macsec-in-cisco-switches"
+class="uri">https://blogs.cisco.com/security/post-quantum-macsec-in-cisco-switches</a></li>
+<li>Design Zone - Quantum-Ready Migration Guide - Cisco - <a
+href="https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/Quantum-Ready-Migration-Guide.html"
+class="uri">https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/Quantum-Ready-Migration-Guide.html</a>
+- as of 2026-05-06</li>
+<li>Security and VPN Configuration Guide - Post-Quantum Cryptography for
+MACSec with EAP-TLS - <a
+href="https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/security-vpn/security-vpn/post-quantum-cryptography-eap-tls.html"
+class="uri">https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/security-vpn/security-vpn/post-quantum-cryptography-eap-tls.html</a>
+- as of 2026-04-24</li>
+<li>Post-Quantum Crypto in Cisco Campus Networks Guide - <a
+href="https://www.pinglabz.com/post-quantum-crypto-in-cisco-campus-networks-what-operators-need-to-know/"
+class="uri">https://www.pinglabz.com/post-quantum-crypto-in-cisco-campus-networks-what-operators-need-to-know/</a></li>
+<li>Cisco Nexus 9000 Series NX-OS Security Configuration Guide, Release
+10.6(x) - Configure MACsec - <a
+href="https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/106x/configuration/security/cisco-nexus-9000-series-nx-os-security-configuration-guide-release-106x/m-configuring-macsec.html"
+class="uri">https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/106x/configuration/security/cisco-nexus-9000-series-nx-os-security-configuration-guide-release-106x/m-configuring-macsec.html</a></li>
+<li>First Demonstration of 200 Gbps Regime Line-Rate Quantum-Secure
+MACsec Optical Links Using Commodity Hardware Offloads - <a
+href="https://docta.ucm.es/rest/api/core/bitstreams/b1d9759f-4238-4ee1-bee0-b2ddc65af743/content"
+class="uri">https://docta.ucm.es/rest/api/core/bitstreams/b1d9759f-4238-4ee1-bee0-b2ddc65af743/content</a>
+- as of 2026-04-07</li>
+<li>MACsec Encryption Configuration Guide (Cisco) - <a
+href="https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/sec-crypto/macsec/macsec-encryption-configuration-guide.pdf"
+class="uri">https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/sec-crypto/macsec/macsec-encryption-configuration-guide.pdf</a>
+- as of 2026-04-24</li>
+<li>Versatile quantum-safe hybrid key exchange and its application to
+MACsec - <a
+href="https://link.springer.com/article/10.1140/epjqt/s40507-025-00382-x"
+class="uri">https://link.springer.com/article/10.1140/epjqt/s40507-025-00382-x</a>
+- as of 2025-05-21</li>
+<li>Merkle Tree Certificate Post-Quantum PKI for Kubernetes and
+Cloud-Native 5G/B5G Core - <a href="https://arxiv.org/pdf/2604.04191"
+class="uri">https://arxiv.org/pdf/2604.04191</a></li>
+<li>What is 802.1x EAP-TLS Authentication? A Step-by-Step Guide - <a
+href="https://securew2.com/blog/802-1x-eap-tls-authentication-flow-explained"
+class="uri">https://securew2.com/blog/802-1x-eap-tls-authentication-flow-explained</a></li>
+<li>Post-quantum TLS: ML-KEM, X25519MLKEM768, and the hybrid handshake -
+<a href="https://blog.crawlex.net/blog/post-quantum-tls-ml-kem/"
+class="uri">https://blog.crawlex.net/blog/post-quantum-tls-ml-kem/</a></li>
+<li>Post-Quantum Enhancements to TLS-Based EAP Methods - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-emu-pqc-eap-tls/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-emu-pqc-eap-tls/</a>
+- as of 2026-05-13</li>
+<li>Post-Quantum Enhancements to EAP-TLS and EAP-TTLS - <a
+href="https://www.ietf.org/ietf-ftp/internet-drafts/draft-reddy-emu-pqc-eap-tls-02.txt"
+class="uri">https://www.ietf.org/ietf-ftp/internet-drafts/draft-reddy-emu-pqc-eap-tls-02.txt</a>
+- as of 2026-01-24</li>
+<li>PQC Support - <a
+href="https://community.cisco.com/t5/network-access-control/pqc-support/td-p/5544485"
+class="uri">https://community.cisco.com/t5/network-access-control/pqc-support/td-p/5544485</a>
+- as of 2026-04-09</li>
+<li>Assessing the Real-World Impact of Post-Quantum Cryptography on
+WPA-Enterprise Networks - <a href="https://arxiv.org/pdf/2601.22892"
+class="uri">https://arxiv.org/pdf/2601.22892</a> - as of 2026-01-30</li>
+<li>Post-quantum MACsec key agreement for ethernet networks - <a
+href="https://dl.acm.org/doi/10.1145/3407023.3409220"
+class="uri">https://dl.acm.org/doi/10.1145/3407023.3409220</a></li>
+<li>Supporting Quantum-Safe Algorithms in DNSSEC with Local Resolver
+Policy - <a
+href="https://ftp.funet.fi/pub/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-jabley-dnsop-local-signing-algorithm-policy-00.html"
+class="uri">https://ftp.funet.fi/pub/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-jabley-dnsop-local-signing-algorithm-policy-00.html</a>
+- as of 2026-08-06</li>
+<li>draft-johani-dnsop-dnssec-alg-split-02 - Algorithm-Split DNSSEC:
+KSK/ZSK Algorithm Separation - <a
+href="https://datatracker.ietf.org/doc/draft-johani-dnsop-dnssec-alg-split-02/"
+class="uri">https://datatracker.ietf.org/doc/draft-johani-dnsop-dnssec-alg-split-02/</a>
+- as of 2026-07-03</li>
+<li>draft-kaizer-dnsop-ml-dsa-mtl-dnssec-01 - Module-Lattice-Based
+Signatures with Merkle Tree Ladders (ML-DSA-MTL) for DNSSEC - <a
+href="https://datatracker.ietf.org/doc/draft-kaizer-dnsop-ml-dsa-mtl-dnssec-01/"
+class="uri">https://datatracker.ietf.org/doc/draft-kaizer-dnsop-ml-dsa-mtl-dnssec-01/</a>
+- as of 2026-08-14</li>
+<li>Evaluating Post-Quantum Cryptography in DNSSEC Signing for Top-Level
+Domain Operators - <a
+href="https://research.utwente.nl/files/521750159/Evaluating_Post-Quantum_Cryptography_in_DNSSEC_Signing_for_Top-Level_Domain_Operators.pdf"
+class="uri">https://research.utwente.nl/files/521750159/Evaluating_Post-Quantum_Cryptography_in_DNSSEC_Signing_for_Top-Level_Domain_Operators.pdf</a>
+- as of 2026-08-01</li>
+<li>A Differentiated Approach for Post-Quantum DNSSEC - <a
+href="https://dl.acm.org/doi/10.1145/3779208.3805967"
+class="uri">https://dl.acm.org/doi/10.1145/3779208.3805967</a> - as of
+2026-06-04</li>
+<li>draft-ietf-uta-pqc-app-03 - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-uta-pqc-app/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-uta-pqc-app/</a>
+- as of 2026-07-04</li>
+<li>Cloudflare Radar - Website post-quantum TLS key exchange support -
+<a
+href="https://radar.cloudflare.com/embed/PostQuantumWebsiteTestWidget"
+class="uri">https://radar.cloudflare.com/embed/PostQuantumWebsiteTestWidget</a>
+- as of 2026-08-21</li>
+<li>Post-Quantum DNSSEC: A Systematic Review of Transport Constraints,
+Security Vulnerabilities, and Migration Pathways - <a
+href="https://doi.org/10.3390/math14142555"
+class="uri">https://doi.org/10.3390/math14142555</a></li>
+<li>draft-sheth-pqc-dnssec-strategy-01 - Post-Quantum Cryptography
+Strategy for DNSSEC - <a
+href="https://datatracker.ietf.org/doc/draft-sheth-pqc-dnssec-strategy/"
+class="uri">https://datatracker.ietf.org/doc/draft-sheth-pqc-dnssec-strategy/</a></li>
+<li>Implementing and Evaluating Post-Quantum DNSSEC in CoreDNS - <a
+href="https://arxiv.org/pdf/2507.09301"
+class="uri">https://arxiv.org/pdf/2507.09301</a></li>
+<li>Post-Quantum Cryptography Plugin Secures DNSSEC Against Future
+Attacks - <a
+href="https://quantumzeitgeist.com/post-quantum-cryptography-plugin-secures-dnssec-against-future-attacks/"
+class="uri">https://quantumzeitgeist.com/post-quantum-cryptography-plugin-secures-dnssec-against-future-attacks/</a></li>
+<li>Post-Quantum DNSSEC with Faster TCP Fallbacks - <a
+href="https://eprint.iacr.org/2025/003"
+class="uri">https://eprint.iacr.org/2025/003</a> - as of 2025-01-01</li>
+<li>Product Categories for Technologies That Use Post-Quantum
+Cryptography Standards - <a
+href="https://www.cisa.gov/resources-tools/resources/product-categories-technologies-use-post-quantum-cryptography-standards"
+class="uri">https://www.cisa.gov/resources-tools/resources/product-categories-technologies-use-post-quantum-cryptography-standards</a>
+- as of 2026-01-23</li>
+<li>AdGuard DNS now supports post-quantum cryptography. Here’s what that
+means - <a href="https://adguard-dns.io/en/blog/adguard-dns-v2-19.html"
+class="uri">https://adguard-dns.io/en/blog/adguard-dns-v2-19.html</a></li>
+<li>A Survey of Post-Quantum Cryptography Support in Cryptographic
+Libraries - <a href="https://arxiv.org/pdf/2508.16078"
+class="uri">https://arxiv.org/pdf/2508.16078</a></li>
+<li>Quantum Computing and the DNS - <a
+href="https://www.icann.org/en/system/files/files/octo-031-25may26-en.pdf"
+class="uri">https://www.icann.org/en/system/files/files/octo-031-25may26-en.pdf</a>
+- as of 2026-05-25</li>
+<li>ML-KEM post-quantum TLS now supported in AWS KMS, ACM, and Secrets
+Manager - <a
+href="https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/"
+class="uri">https://aws.amazon.com/blogs/security/ml-kem-post-quantum-tls-now-supported-in-aws-kms-acm-and-secrets-manager/</a></li>
+<li>draft-ietf-tls-ecdhe-mlkem-05 - Post-quantum hybrid ECDHE-MLKEM Key
+Agreement for TLSv1.3 - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/</a></li>
+<li>Layered Performance Analysis of TLS 1.3 Handshakes: Classical,
+Hybrid, and Pure Post-Quantum Key Exchange - <a
+href="https://arxiv.org/pdf/2603.11006"
+class="uri">https://arxiv.org/pdf/2603.11006</a> - as of 2024-04-01</li>
+<li>Challenges of DNS in the Post-Quantum Era - <a
+href="https://real.mtak.hu/229419/1/InfocomJournal_2025_3_2.pdf"
+class="uri">https://real.mtak.hu/229419/1/InfocomJournal_2025_3_2.pdf</a></li>
+<li>RFC 8915: Network Time Security for the Network Time Protocol - <a
+href="https://www.rfc-editor.org/rfc/rfc8915.html"
+class="uri">https://www.rfc-editor.org/rfc/rfc8915.html</a> - as of
+2026-08-15</li>
+<li>What is Network Time Security (NTS)? | Netnod - <a
+href="https://www.netnod.se/knowledge-base/What-is-Network-Time-Security-NTS"
+class="uri">https://www.netnod.se/knowledge-base/What-is-Network-Time-Security-NTS</a>
+- as of 2020-01-01</li>
+<li>Post-Quantum Signature Experiments and Migration Considerations for
+the Resource Public Key Infrastructure (RPKI) - <a
+href="https://ftp.funet.fi/pub/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-yoshikawa-sidrops-pqc-rpki-02.html"
+class="uri">https://ftp.funet.fi/pub/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-yoshikawa-sidrops-pqc-rpki-02.html</a>
+- as of 2026-08-20</li>
+<li>Post-Quantum Authentication for the Resource Public Key
+Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-li-sidrops-pqrpki/"
+class="uri">https://datatracker.ietf.org/doc/draft-li-sidrops-pqrpki/</a>
+- as of 2026-07-20</li>
+<li>draft-yoshikawa-sidrops-pqc-rpki-01 - Post-Quantum Signature
+Algorithm Profile and Migration Considerations for the Resource Public
+Key Infrastructure (RPKI) - <a
+href="https://datatracker.ietf.org/doc/draft-yoshikawa-sidrops-pqc-rpki/"
+class="uri">https://datatracker.ietf.org/doc/draft-yoshikawa-sidrops-pqc-rpki/</a>
+- as of 2026-07-03</li>
+<li>Preparing for Post-Quantum Cryptography: The Secure Firewall Roadmap
+- <a
+href="https://blogs.cisco.com/security/preparing-for-post-quantum-cryptography-the-secure-firewall-roadmap"
+class="uri">https://blogs.cisco.com/security/preparing-for-post-quantum-cryptography-the-secure-firewall-roadmap</a>
+- as of 2026-08-15</li>
+<li>pqRPKI: A Practical RPKI Architecture for the Post-Quantum Era - <a
+href="https://arxiv.org/html/2603.06968"
+class="uri">https://arxiv.org/html/2603.06968</a></li>
+<li>SMB Security Enhancements | Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/windows-server/storage/file-server/smb-security"
+class="uri">https://learn.microsoft.com/en-us/windows-server/storage/file-server/smb-security</a></li>
+<li>SMB 3.1.1 Encryption in Windows 10 | Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/archive/blogs/openspecification/smb-3-1-1-encryption-in-windows-10"
+class="uri">https://learn.microsoft.com/en-us/archive/blogs/openspecification/smb-3-1-1-encryption-in-windows-10</a></li>
+<li>Azure Storage Account SMB traffic is not set to 3.1.1 version only
+and not encrypted | Orca Security - <a
+href="https://orca.security/resources/blog/azure-storage-account-smb-traffic-is-not-set-to-3-1-1-version-only-and-not-encrypted/"
+class="uri">https://orca.security/resources/blog/azure-storage-account-smb-traffic-is-not-set-to-3-1-1-version-only-and-not-encrypted/</a></li>
+<li>Network File System security - IBM Documentation - <a
+href="https://www.ibm.com/docs/ssw_aix_71/security/secure_nfs.html"
+class="uri">https://www.ibm.com/docs/ssw_aix_71/security/secure_nfs.html</a></li>
+<li>RFC 2623 - NFS Version 2 and Version 3 Security Issues and the NFS
+Protocol’s Use of RPCSEC_GSS and Kerberos V5 - <a
+href="https://datatracker.ietf.org/doc/rfc2623/"
+class="uri">https://datatracker.ietf.org/doc/rfc2623/</a> - as of
+1999-06-01</li>
+<li>rpcsec_gss support for kernel RPC servers — The Linux Kernel
+documentation - <a
+href="https://docs.kernel.org/filesystems/nfs/rpc-server-gss.html"
+class="uri">https://docs.kernel.org/filesystems/nfs/rpc-server-gss.html</a></li>
+<li>Protecting the file system with RPCSEC_GSS - IBM Documentation - <a
+href="https://www.ibm.com/docs/en/zos/2.5.0?topic=files-protecting-file-system-rpcsec-gss"
+class="uri">https://www.ibm.com/docs/en/zos/2.5.0?topic=files-protecting-file-system-rpcsec-gss</a></li>
+<li>Using Kerberos security with Server for NFS | Microsoft Community
+Hub - <a
+href="https://techcommunity.microsoft.com/blog/filecab/using-kerberos-security-with-server-for-nfs/424122"
+class="uri">https://techcommunity.microsoft.com/blog/filecab/using-kerberos-security-with-server-for-nfs/424122</a></li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="05-hsm-kms.html"><span>Previous</span>Part 5 - HSMs, KMS &amp; Key Management</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="07-pki-identity.html"><span>Next</span>Part 7 - PKI, Certificates, Identity &amp; Authentication</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/06-network-transport.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

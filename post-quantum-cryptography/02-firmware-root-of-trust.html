@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 2 - Firmware & Root of Trust | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 2: Firmware & Root of Trust.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 2</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 2</p>
+    <h1>Firmware &amp; Root of Trust</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/02-firmware-root-of-trust.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#uefi-boot-chain" id="toc-uefi-boot-chain">1. UEFI &amp;
+Boot Chain</a></li>
+<li><a href="#tpm-tcg-specifications" id="toc-tpm-tcg-specifications">2.
+TPM &amp; TCG Specifications</a></li>
+<li><a href="#attestation-protocols-silicon-rot"
+id="toc-attestation-protocols-silicon-rot">3. Attestation Protocols
+&amp; Silicon RoT</a></li>
+<li><a href="#ota-update-signing" id="toc-ota-update-signing">4. OTA
+Update Signing</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Every computer decides what software to trust before the operating
+system even starts. That decision rests on cryptographic signatures
+burned into firmware, boot chains, and security chips. These are the
+hardest components to fix after they ship, so they carry the earliest
+post-quantum deadlines in the whole migration.</p>
+<p>This report covers them in four sections. Section 1 covers the boot
+chain and Section 2 the TPM security chip and its standards. Section 3
+covers attestation protocols and silicon roots of trust, and Section 4
+the signing of firmware updates.</p>
+<p>Two things changed decisively this year. The Trusted Computing Group
+published the first TPM specification with post-quantum algorithms built
+in, and followed it with buyer guidance for telling a quantum-ready TPM
+from a marketing claim. And the standards work for post-quantum boot
+chains moved from discussion to concrete proposals, with the UEFI Forum
+publishing draft specification changes and reference firmware code
+gaining real ML-DSA support.</p>
+<p>One widespread confusion deserves clearing up front. Microsoft
+rotated its Secure Boot signing certificates in June 2026 because the
+old ones expired, and some coverage presents that as quantum readiness.
+Microsoft’s own engineers say it is not. The actual post-quantum
+transition for Secure Boot is planned for around 2030, and Section 1
+covers the disagreement.</p>
+<p>Meanwhile the update-signing world is not waiting for the boot chain.
+Android now verifies its boot sequence with a post-quantum algorithm,
+and Microsoft plans post-quantum code signing by default in 2027. At
+least one storage vendor already ships hard drives with dual
+classical-plus-quantum firmware signatures.</p>
+<h2 id="uefi-boot-chain">1. UEFI &amp; Boot Chain</h2>
+<p><em>When a computer powers on, its firmware checks a chain of
+cryptographic signatures before handing control to the operating system.
+That process, called Secure Boot on most machines, is governed by the
+UEFI specification and a small set of signing certificates, most of them
+controlled by Microsoft. If those signatures can be forged by a quantum
+computer, everything the machine runs afterward is built on sand. This
+section covers how the boot chain’s specifications, reference code, and
+certificates are preparing.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The specification work turned concrete this year, even though no
+product ships post-quantum Secure Boot yet. The UEFI Forum’s Security
+Sub-Team published a whitepaper proposing changes for a future
+“UEFI.next” specification [1]. Intel and Microsoft editors wrote it,
+with contributors from a dozen major firmware and hardware vendors
+[1].</p>
+<p>The reference firmware moved too. TianoCore EDK II, the open-source
+base most UEFI firmware builds on, merged ML-DSA signing and
+verification APIs into its cryptography package in July, with unit tests
+[2]. A follow-up commit hardened parameter validation in the
+verification path a week later [3].</p>
+<p>The signing chain above the firmware is moving on the same algorithm.
+Linux kernel patches under review add ML-DSA support to kernel module
+signing, extending the post-quantum chain from firmware into
+operating-system code signing [4]. On Windows, Microsoft shipped hybrid
+ML-KEM key exchange for TLS in a July cumulative update as part of its
+Quantum Safe Program. That protects connections, not the Secure Boot
+trust chain itself [5].</p>
+<h3 id="current-state">Current State</h3>
+<p>The boot chain’s biggest event in 2026 has nothing to do with quantum
+resistance, and keeping the two apart takes some care. Microsoft’s
+original 2011 Secure Boot certificates expired on June 27, 2026, and are
+being replaced by 2023-generation certificates. Existing signed binaries
+keep booting, but new binaries can no longer be signed with the old key
+[6]. Linux distributions handled it by shipping boot loaders signed by
+both generations, with some platforms moving to the 2023-only signer
+[7][8]. In the same period Microsoft revoked roughly a dozen old signed
+boot loaders that could bypass Secure Boot, ordinary operational churn
+in the revocation infrastructure [9].</p>
+<p>The genuine post-quantum plan sits years out. Microsoft engineers
+said at a March 2026 session that the post-quantum transition for Secure
+Boot certificates on future hardware is planned for around 2030 [10].
+What exists today is preparation. Microsoft enabled ML-DSA certificate
+issuance in Active Directory Certificate Services on Windows Server
+2025, explicitly as a way to evaluate post-quantum signing workflows
+[11]. It requires a new parallel certificate hierarchy and is separate
+from signing the boot chain [11].</p>
+<p>The UEFI whitepaper’s proposals show what the eventual transition
+requires. They include allowing multiple signatures per boot image, so a
+revoked algorithm does not invalidate an otherwise-valid one [1]. They
+add storage of certificate hashes instead of full certificates, because
+post-quantum certificates are far larger [1]. And they define a new
+firmware table letting the operating system query which algorithms the
+firmware actually supports [1].</p>
+<p>The design deliberately defines no new cryptography, reusing the
+IETF’s certificate and signature formats instead [1]. The products must
+not ship any of it until the specification is formally adopted [1].</p>
+<p>Two dependencies sit outside UEFI’s control. The composite
+classical-plus-quantum signature format the whitepaper references is
+still an IETF draft, so implementations depending on it wait on
+standardization [12]. And government guidance, chiefly NSA’s CNSA 2.0
+and NIST’s migration report, sets the backdrop the whole effort designs
+against [13]. The UEFI security team’s public tracking issue has been
+open since 2022 [13].</p>
+<p>The open-source alternatives lag the specification work. coreboot’s
+verified boot still documents an RSA-only root of trust with no
+post-quantum alternative [14], and its two most recent releases mention
+no post-quantum work at all [15]. The shim boot loader’s repository
+shows no ML-DSA or SLH-DSA changes either, with current effort going to
+revocation handling and other hardening [16].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>The one live disagreement is about framing, and it matters because it
+shapes buyer expectations. Some vendor and news coverage presents
+Microsoft’s 2026 certificate rotation and post-quantum readiness side by
+side as one trust-modernization story. Microsoft’s own engineers and Red
+Hat’s technical guidance treat the rotation as unrelated to quantum
+resistance, with the real Secure Boot transition around 2030 [17].
+Microsoft’s published transition plan for its signing infrastructure
+would settle which reading buyers should act on [17].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="tpm-tcg-specifications">2. TPM &amp; TCG Specifications</h2>
+<p><em>The Trusted Platform Module is the small security chip in most
+business computers. It stores keys, measures what software booted, and
+proves a machine’s identity to networks and services. The Trusted
+Computing Group writes its specifications. Because TPMs are usually
+soldered to the motherboard, whatever algorithms they ship with are what
+the machine keeps, which makes the specification’s algorithm choices
+unusually consequential.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The specification milestone arrived in March. The Trusted Computing
+Group released TPM 2.0 Library specification version 185, its first with
+post-quantum capabilities, adding ML-KEM and ML-DSA [18]. The final
+document published on March 12 after two rounds of release-candidate
+review [19]. TCG called it a critical milestone for the organization and
+for vendors building on its standards [20].</p>
+<p>Guidance for buyers followed in August. New TCG requirements define
+what counts as a “PQC-ready TPM,” anchored to the PC Client Platform TPM
+Profile 1.07 built on the version 185 library [21]. A separate
+“PQC-upgradable” designation covers modules that can get there by update
+[21]. The point, as coverage noted, is giving buyers a way to test
+vendor claims instead of taking them on faith [22].</p>
+<p>Hardware is starting to follow the ink. SEALSQ is sampling its TPM185
+post-quantum module [23]. Its revised roadmap targets FIPS 140-3
+submission around February 2027, TCG certification around April 2027,
+and first revenues by the end of 2026 [24]. The DICE device-identity
+specifications entered a fresh public-review round in July [25].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Version 185 makes specific, conservative algorithm assignments.
+ML-KEM applies to the TPM’s Endorsement Key for long-term
+confidentiality, and ML-DSA to Attestation Keys [18]. The release also
+adds Curve25519 and Curve448 for compatibility with protocols that
+already use them [26]. Software support exists ahead of silicon:
+wolfSSL’s wolfTPM library implements the new command set, including the
+encapsulation and signing commands [27]. The same vendor announced a
+firmware TPM implementing the full version 185 command set, across every
+ML-DSA and ML-KEM parameter set, for embedded platforms [28].</p>
+<p>The surrounding TCG portfolio is adjusting at its own pace. The DICE
+attestation architecture, whose key-derivation model is independent of
+which signature algorithm signs its certificates [29], stands at version
+1.2 [30] with active errata maintenance [31]. Its interoperability
+binding to the SPDM protocol does not itself add post-quantum algorithms
+[32]. The Platform Certificate Profile now states the root of trust need
+not be the TPM at all, admitting DICE or MARS instead [33].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="attestation-protocols-silicon-rot">3. Attestation Protocols
+&amp; Silicon RoT</h2>
+<p><em>Attestation is how one piece of hardware proves to another what
+it is and what it is running. Data centers depend on it: a server checks
+its network card, a cloud checks its servers. The proofs are signatures
+from a root of trust, a minimal piece of silicon whose only job is to be
+trustworthy. This section covers the main open efforts, the SPDM
+protocol and the Caliptra and OpenTitan roots of trust, and the first
+security research against post-quantum hardware.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The SPDM protocol is taking public input on its post-quantum future.
+The DMTF working group published its plan for hybrid
+classical-plus-quantum support in the forthcoming SPDM 1.5 [34] and
+opened formal feedback with an August 31, 2026 deadline [35]. Meanwhile
+SPDM 1.4.1 published in July, and the libspdm reference implementation
+reached version 3.8.2 [36]. A community Rust implementation reported
+full SPDM 1.4 support including ML-DSA and ML-KEM, cross-tested against
+libspdm, plus a new use securing key exchange for live migration of
+confidential-computing workloads [37].</p>
+<p>On the silicon side, SEALSQ’s QVault TPM roadmap revision also lands
+here: engineering samples available now, certifications targeted through
+2027, first revenues expected by the end of 2026 [38]. TCG’s PQC-ready
+TPM guidance applies to the measured-boot chain these devices anchor
+[21].</p>
+<p>OpenTitan’s project news came in a cluster in late August. The
+published roadmap introduces a second-generation top-level design, Earl
+Grey 2, with hardened ML-KEM and ML-DSA support, CHERI memory safety,
+and RRAM, targeting initial implementation during 2026 [83]. A companion
+top-level called Peppermint, an integrated root of trust aimed at
+area-constrained chips such as wearables, was announced the same week
+[84]. Caliptra’s own cadence continued: the first Caliptra 2.1 Subsystem
+silicon powered on in mid-August [85], after FIPS certification of the
+2.x cryptographic algorithms completed in July [85].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Caliptra, the open-source silicon root of trust, is the
+furthest-along post-quantum hardware. It authenticates firmware with a
+dual-signature scheme pairing ECDSA P-384 with ML-DSA-87 through its
+layered DICE identity architecture [39]. Since version 2.0 the
+specification allows those dual signatures to satisfy FIPS 204 and CNSA
+2.0’s highest category, plus ML-KEM alongside classical key exchange
+[40]. Version 2.1 integrates Adams Bridge 2.0, an accelerator providing
+ML-DSA and ML-KEM with side-channel countermeasures [41]. Adams Bridge
+itself is described as the first open-source lattice-cryptography
+hardware accelerator, unifying both algorithms in one pipelined datapath
+with measured efficiency gains at 5nm [42].</p>
+<p>The project was founded in 2022 by Microsoft, AMD, Google, and Nvidia
+[41].</p>
+<p>OpenTitan is the root of trust that already ships post-quantum boot.
+Its first production chip, Earlgrey, verifies firmware with
+hardware-accelerated SPHINCS+ signatures, compliant with the FIPS 205
+SLH-DSA standard [80]. Nuvoton began mass production in February 2025,
+with the chips headed for Chromebooks and Google’s own data-center
+servers [81]. By its partners’ account this is the first production
+security chip whose secure boot rests on a NIST post-quantum signature
+[80].</p>
+<p>The signing side is next. OpenTitan partners approved hardware
+extensions to the project’s big-number accelerator for ML-DSA and ML-KEM
+[80]. The additions are eight times the data memory, a direct path to
+the hardened hashing block, vectorized polynomial arithmetic, and
+automated mask conversion [80]. The mask hardware matters because
+side-channel protection otherwise dominates cost, with masking overhead
+near 90% without it [80]. The changes are planned to complete in 2026,
+with work under way in the public repository since February [80].</p>
+<p>Commercially, ZeroRISC and research partners including the Max Planck
+Institute for Security and Privacy released an open-source cryptographic
+stack for this silicon [82]. It ships hardware-accelerated ML-KEM,
+ML-DSA, and SLH-DSA, with reported speedups of six to nine times
+[82].</p>
+<p>SPDM’s post-quantum arc has broad institutional weight behind it. Six
+standards bodies jointly announced the protocol’s evolution toward
+post-quantum support aligned with CNSA 2.0 [43]. The libspdm reference
+already supports ML-DSA, SLH-DSA, and ML-KEM alongside its classical set
+[44]. The protocol’s key-exchange mechanism entered FIPS 140-3
+implementation guidance in April 2026, giving validated modules a
+recognized path to using it [45]. The first industry feedback round on
+post-quantum SPDM dates back to mid-2024 [46].</p>
+<p>Commercial measured-boot products are marketing post-quantum support
+today. Dyber’s QuantaTPM advertises TCG certification, ML-KEM key
+establishment, and CNSA 2.0 alignment, with FIPS validation described as
+in process [47]. SEALSQ’s QVault targets smart meters and grid
+controllers with ML-KEM and ML-DSA alongside classical algorithms [48].
+A published research taxonomy frames the whole field’s central
+challenges as larger keys, larger signatures, and higher compute cost,
+with open questions in migration strategy and formal modeling [49].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>The first security research against post-quantum root-of-trust
+hardware has produced a genuine open question. Researchers published a
+power-analysis side-channel attack against the ML-DSA implementation
+inside Caliptra’s Adams Bridge accelerator, the first documented attack
+of its kind [50]. A later analysis re-examined the accelerator’s partial
+masking countermeasures and questioned whether its claim that
+unprotected layers are impractical to exploit holds up [51]. Sources
+disagree on how resolved the concern is. An independent evaluation of
+the countermeasures, or a revised design, would settle it [51].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="ota-update-signing">4. OTA Update Signing</h2>
+<p><em>Every device that updates itself over the air checks a signature
+before installing new firmware. That signature is the last line of
+defense against malicious updates, and its algorithm is baked into
+devices that may sit in the field for decades. This is why firmware
+signing carries the earliest post-quantum deadline of any category in
+United States government guidance. This section covers the signing
+schemes, the tools, and who has actually switched.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>The standards and platform announcements now come monthly. An IETF
+draft on constrained devices recommends the stateful hash-based schemes
+LMS and XMSS for firmware signing [52]. It notes the relevant working
+group may add ML-DSA and SLH-DSA to update formats later [52]. A
+companion draft defines composite classical-plus-quantum signatures for
+the JOSE and COSE formats used in artifact and firmware signing [53].
+Microsoft plans to move Windows production signing to post-quantum by
+default in 2027, after replacing its certificate authorities in 2026
+[54].</p>
+<p>Toolchains gained concrete support through August. Renesas’s port of
+the MCUboot boot loader now verifies all three ML-DSA parameter sets
+[55]. STMicroelectronics’s quantum-resistant TPM uses LMS for secure
+firmware updates as a hardware root of trust [56]. The SWUpdate embedded
+updater added hybrid classical-plus-quantum signing with multiple
+signers, including ML-DSA certificates [57].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>Government policy makes this the most urgent corner of the migration.
+NSA’s CNSA 2.0 advisory set software and firmware signing as its
+earliest transition category: begin immediately, prefer the new
+algorithms by 2025, use them exclusively by 2030 [58]. Commentary
+attributes the tight timeline to the fact that firmware roots of trust
+are the hardest components to update after deployment [59]. NSA has
+urged LMS and XMSS adoption since 2022, and validated hardware has been
+available for over a year [59].</p>
+<p>The practical pattern is dual signing. Vendors sign new firmware with
+both a classical and a post-quantum algorithm in parallel [60]. They
+publish the post-quantum key even before field devices can verify it, so
+integrity can later be proven against a quantum-capable adversary
+[60].</p>
+<p>Industry guidance treats LMS and XMSS as the deployable choice today
+[61]. ML-DSA is the likely long-term preference once tool validation
+catches up, because it needs no one-time-key state tracking [61]. One
+embedded-security assessment places lattice signatures only in pilot use
+in secure boot chains, with hybrid signing expected to dominate through
+2030 [62].</p>
+<p>Real deployments exist now. Android 17 integrates ML-DSA into Android
+Verified Boot and extends it to app signing through the Keystore and
+Google Play [63]. Western Digital adopted ML-DSA-87 dual-signed with RSA
+for secure boot and firmware signing in enterprise hard drives, with its
+post-quantum signing infrastructure deployed in 2025 [64]. Infineon’s
+Optiga TPM firmware updates are already signed with XMSS, which the chip
+verifies directly with sub-second verification [65]. A defense
+contractor demonstrated post-quantum firmware-update signing on a
+memory-safe chip [66], and a public demonstration integrated ML-DSA and
+SLH-DSA into ESP32 secure boot and update flows [67].</p>
+<p>The boot-loader ecosystem is split. wolfSSL’s wolfBoot supports LMS
+[68], XMSS [69], and ML-DSA [70]. The upstream MCUboot documentation
+still describes only classical algorithms [71], even as the Renesas port
+adds ML-DSA, so support depends on which build a vendor ships [55]. The
+UEFI whitepaper’s multiple-signature and certificate-hash proposals
+extend the same modernization to PC-class update signing [72].</p>
+<p>Signing services and hardware complete the chain. AWS added ML-DSA
+signing to its key management service, aimed explicitly at firmware and
+code signing where signatures cannot be changed after deployment [73].
+It then extended the capability to full certificate hierarchies through
+its private CA [74].</p>
+<p>PQShield sells secure-boot silicon supporting LMS for fast boot
+verification, ML-DSA for general signing, and ML-KEM for encrypted-image
+keys [75]. In vehicles, researchers have benchmarked post-quantum
+signatures against the Uptane update framework the automotive industry
+standardized on [76]. A dedicated survey covers vehicle migration [77],
+and commercial workshops sequence the transition by safety criticality
+under the industry’s regulatory obligations [78]. Trade coverage sums up
+the state plainly: post-quantum firmware signing is no longer theory,
+with standards bodies and silicon vendors pushing it into embedded
+toolchains [79].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>uefi.org — UEFI PQC Update Whitepaper Final.pdf - <a
+href="https://uefi.org/sites/default/files/resources/UEFI_PQC_Update_Whitepaper_Final.pdf"
+class="uri">https://uefi.org/sites/default/files/resources/UEFI_PQC_Update_Whitepaper_Final.pdf</a>
+- as of 2026-04-29</li>
+<li>github.com — 0f07c187d016bd63098a5bf3e2b12c51ca9d4bb3 - <a
+href="https://github.com/tianocore/edk2/commit/0f07c187d016bd63098a5bf3e2b12c51ca9d4bb3"
+class="uri">https://github.com/tianocore/edk2/commit/0f07c187d016bd63098a5bf3e2b12c51ca9d4bb3</a>
+- as of 2026-07-13</li>
+<li>github.com — 264f812b70c8941e449740dbc1ae528620089f78 - <a
+href="https://github.com/tianocore/edk2/commit/264f812b70c8941e449740dbc1ae528620089f78"
+class="uri">https://github.com/tianocore/edk2/commit/264f812b70c8941e449740dbc1ae528620089f78</a>
+- as of 2026-07-20</li>
+<li>lkml.iu.edu — 09630 - <a
+href="https://lkml.iu.edu/2601.2/09630.html"
+class="uri">https://lkml.iu.edu/2601.2/09630.html</a> - as of
+2026-01-20</li>
+<li>techcommunity.microsoft.com — 4523370 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370</a>
+- as of 2026-07-14</li>
+<li>developers.redhat.com — secure boot certificate changes 2026
+guidance rhel environments - <a
+href="https://developers.redhat.com/articles/2026/02/04/secure-boot-certificate-changes-2026-guidance-rhel-environments"
+class="uri">https://developers.redhat.com/articles/2026/02/04/secure-boot-certificate-changes-2026-guidance-rhel-environments</a>
+- as of 2026-05-21</li>
+<li>redhat.com — expiration secure boot signing certificates 2026 - <a
+href="https://www.redhat.com/en/blog/expiration-secure-boot-signing-certificates-2026"
+class="uri">https://www.redhat.com/en/blog/expiration-secure-boot-signing-certificates-2026</a>
+- as of 2026-06-10</li>
+<li>almalinux.org — 2026 02 18 shim 16.1 update - <a
+href="https://almalinux.org/blog/2026-02-18-shim-16.1-update/"
+class="uri">https://almalinux.org/blog/2026-02-18-shim-16.1-update/</a>
+- as of 2026-02-18</li>
+<li>thehackernews.com — 11 old microsoft signed linux uefi - <a
+href="https://thehackernews.com/2026/07/11-old-microsoft-signed-linux-uefi.html"
+class="uri">https://thehackernews.com/2026/07/11-old-microsoft-signed-linux-uefi.html</a>
+- as of 2026-07-11</li>
+<li>malwarebytes.com — your windows pc has a security deadline in june
+2026 - <a
+href="https://www.malwarebytes.com/blog/how-to/2026/05/your-windows-pc-has-a-security-deadline-in-june-2026"
+class="uri">https://www.malwarebytes.com/blog/how-to/2026/05/your-windows-pc-has-a-security-deadline-in-june-2026</a>
+- as of 2026-05-28</li>
+<li>directaccess.richardhicks.com — microsoft ad cs adds post quantum
+cryptography support with ml dsa - <a
+href="https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/"
+class="uri">https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/</a>
+- as of 2026-05-18</li>
+<li>arxiv.org — 2603.28728 - <a href="https://arxiv.org/pdf/2603.28728"
+class="uri">https://arxiv.org/pdf/2603.28728</a> - as of 2026-02-01</li>
+<li>github.com — 10279 - <a
+href="https://github.com/tianocore/edk2/issues/10279"
+class="uri">https://github.com/tianocore/edk2/issues/10279</a></li>
+<li>doc.coreboot.org — index - <a
+href="https://doc.coreboot.org/security/vboot/index.html"
+class="uri">https://doc.coreboot.org/security/vboot/index.html</a></li>
+<li>blogs.coreboot.org — announcing the coreboot 26 06 release - <a
+href="https://blogs.coreboot.org/blog/2026/06/25/announcing-the-coreboot-26-06-release/"
+class="uri">https://blogs.coreboot.org/blog/2026/06/25/announcing-the-coreboot-26-06-release/</a>
+- as of 2026-06-25</li>
+<li>github.com — shim - <a href="https://github.com/rhboot/shim"
+class="uri">https://github.com/rhboot/shim</a></li>
+<li>encryptionconsulting.com — secure boot certificate transition 2026 -
+<a
+href="https://www.encryptionconsulting.com/secure-boot-certificate-transition-2026/"
+class="uri">https://www.encryptionconsulting.com/secure-boot-certificate-transition-2026/</a>
+- as of 2026-06-30</li>
+<li>trustedcomputinggroup.org — new computing specification implements
+pqc measures to protect users from quantum attacks - <a
+href="https://trustedcomputinggroup.org/new-computing-specification-implements-pqc-measures-to-protect-users-from-quantum-attacks/"
+class="uri">https://trustedcomputinggroup.org/new-computing-specification-implements-pqc-measures-to-protect-users-from-quantum-attacks/</a>
+- as of 2026-03-31</li>
+<li>trustedcomputinggroup.org — Trusted Platform Module 2.0 Library Part
+0 Introduction Version 185 pub.pdf - <a
+href="https://trustedcomputinggroup.org/wp-content/uploads/Trusted-Platform-Module-2.0-Library-Part-0-Introduction_Version-185_pub.pdf"
+class="uri">https://trustedcomputinggroup.org/wp-content/uploads/Trusted-Platform-Module-2.0-Library-Part-0-Introduction_Version-185_pub.pdf</a>
+- as of 2026-03-12</li>
+<li>sdxcentral.com — tcg integrates post quantum algorithms to tpm 20
+spec for enhanced security - <a
+href="https://www.sdxcentral.com/news/tcg-integrates-post-quantum-algorithms-to-tpm-20-spec-for-enhanced-security/"
+class="uri">https://www.sdxcentral.com/news/tcg-integrates-post-quantum-algorithms-to-tpm-20-spec-for-enhanced-security/</a>
+- as of 2026-03-27</li>
+<li>TCG: New guidance sets benchmark for true quantum-safe security
+readiness - <a
+href="https://trustedcomputinggroup.org/new-guidance-sets-benchmark-for-true-quantum-safe-security-readiness/"
+class="uri">https://trustedcomputinggroup.org/new-guidance-sets-benchmark-for-true-quantum-safe-security-readiness/</a>
+- as of 2026-08-24</li>
+<li>New TCG guidance gives buyers a way to test PQC-ready TPM claims -
+<a
+href="https://www.helpnetsecurity.com/2026/08/25/trusted-computing-group-pqc-ready-tpm/"
+class="uri">https://www.helpnetsecurity.com/2026/08/25/trusted-computing-group-pqc-ready-tpm/</a>
+- as of 2026-08-25</li>
+<li>SEALSQ (Nasdaq:LAES) - Stock Analysis - <a
+href="https://simplywall.st/stocks/us/semiconductors/nasdaq-laes/sealsq"
+class="uri">https://simplywall.st/stocks/us/semiconductors/nasdaq-laes/sealsq</a>
+- as of 2026-07-30</li>
+<li>SEALSQ updates post-quantum chip certification plans | LAES SEC
+Filing - Form 6-K - <a
+href="https://www.stocktitan.net/sec-filings/LAES/6-k-sealsq-corp-current-report-foreign-issuer-75088fd6327b.html"
+class="uri">https://www.stocktitan.net/sec-filings/LAES/6-k-sealsq-corp-current-report-foreign-issuer-75088fd6327b.html</a>
+- as of 2026-08-14</li>
+<li>Public Review Specifications - <a
+href="https://trustedcomputinggroup.org/specifications-public-review/"
+class="uri">https://trustedcomputinggroup.org/specifications-public-review/</a>
+- as of 2026-07-23</li>
+<li>datacentre.solutions — new tpm 20 specification aims to enhance
+security against quantum threats - <a
+href="https://datacentre.solutions/news/71976/new-tpm-20-specification-aims-to-enhance-security-against-quantum-threats"
+class="uri">https://datacentre.solutions/news/71976/new-tpm-20-specification-aims-to-enhance-security-against-quantum-threats</a>
+- as of 2026-04-01</li>
+<li>wolfssl.com — wolftpm add tpm 2 0 v1 85 pqc post quantum support -
+<a
+href="https://www.wolfssl.com/wolftpm-add-tpm-2-0-v1-85-pqc-post-quantum-support/"
+class="uri">https://www.wolfssl.com/wolftpm-add-tpm-2-0-v1-85-pqc-post-quantum-support/</a>
+- as of 2026-01-15</li>
+<li>wolfssl.com — the first firmware tpm with post quantum cryptography
+- <a
+href="https://www.wolfssl.com/the-first-firmware-tpm-with-post-quantum-cryptography/"
+class="uri">https://www.wolfssl.com/the-first-firmware-tpm-with-post-quantum-cryptography/</a>
+- as of 2026-05-04</li>
+<li>eprint.iacr.org — 1049.pdf - <a
+href="https://eprint.iacr.org/2022/1049.pdf"
+class="uri">https://eprint.iacr.org/2022/1049.pdf</a></li>
+<li>trustedcomputinggroup.org — DICE Attestation Architecture v1.2
+pub.pdf - <a
+href="https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-v1.2_pub.pdf"
+class="uri">https://trustedcomputinggroup.org/wp-content/uploads/DICE-Attestation-Architecture-v1.2_pub.pdf</a>
+- as of 2025-04-24</li>
+<li>trustedcomputinggroup.org — dice attestation architecture - <a
+href="https://trustedcomputinggroup.org/resource/dice-attestation-architecture/"
+class="uri">https://trustedcomputinggroup.org/resource/dice-attestation-architecture/</a>
+- as of 2026-01-29</li>
+<li>trustedcomputinggroup.org — TCG DICE Concise Evidence Binding for
+SPDM Version 1.1 RC1 10April25.pdf - <a
+href="https://trustedcomputinggroup.org/wp-content/uploads/TCG-DICE-Concise-Evidence-Binding-for-SPDM-Version-1.1-RC1_10April25.pdf"
+class="uri">https://trustedcomputinggroup.org/wp-content/uploads/TCG-DICE-Concise-Evidence-Binding-for-SPDM-Version-1.1-RC1_10April25.pdf</a>
+- as of 2025-04-10</li>
+<li>TCG Platform Certificate Profile - <a
+href="https://trustedcomputinggroup.org/wp-content/uploads/TCG_Platform_Certificate_Profile_2.1_Pub_v2.pdf"
+class="uri">https://trustedcomputinggroup.org/wp-content/uploads/TCG_Platform_Certificate_Profile_2.1_Pub_v2.pdf</a>
+- as of 2026-01-27</li>
+<li>SPDM WG Plan of Hybrid Support for Traditional and Post Quantum
+Crypto ( PQC ) in SPDM 1.5 | DMTF - <a
+href="https://www.dmtf.org/content/spdm-wg-plan-hybrid-support-traditional-and-post-quantum-crypto-pqc-spdm-15"
+class="uri">https://www.dmtf.org/content/spdm-wg-plan-hybrid-support-traditional-and-post-quantum-crypto-pqc-spdm-15</a>
+- as of 2026-05-16</li>
+<li>Help Us Get SPDM 1.5 Right: Feedback Requested on Plan for Hybrid
+Support of Traditional and PQC (Deadline: August 31, 2026) | DMTF - <a
+href="https://www.dmtf.org/content/help-us-get-spdm-15-right-feedback-requested-plan-hybrid-support-traditional-and-pqc"
+class="uri">https://www.dmtf.org/content/help-us-get-spdm-15-right-feedback-requested-plan-hybrid-support-traditional-and-pqc</a>
+- as of 2026-06-18</li>
+<li>SPDM | DMTF - <a href="https://www.dmtf.org/standards/spdm"
+class="uri">https://www.dmtf.org/standards/spdm</a> - as of
+2026-08-28</li>
+<li>confidentialcomputing.io — welcome to the june 2026 newsletter - <a
+href="https://confidentialcomputing.io/2026/06/29/welcome-to-the-june-2026-newsletter/"
+class="uri">https://confidentialcomputing.io/2026/06/29/welcome-to-the-june-2026-newsletter/</a>
+- as of 2026-06-29</li>
+<li>SEALSQ Corp. (LAES) revises post-quantum chip timelines - <a
+href="https://www.stocktitan.net/sec-filings/LAES/6-k-sealsq-corp-current-report-foreign-issuer-75088fd6327b.html"
+class="uri">https://www.stocktitan.net/sec-filings/LAES/6-k-sealsq-corp-current-report-foreign-issuer-75088fd6327b.html</a>
+- as of 2026-08-15</li>
+<li>Caliptra.md - <a
+href="https://raw.githubusercontent.com/chipsalliance/Caliptra/main/doc/Caliptra.md"
+class="uri">https://raw.githubusercontent.com/chipsalliance/Caliptra/main/doc/Caliptra.md</a></li>
+<li>github.com — Caliptra - <a
+href="https://github.com/chipsalliance/Caliptra/blob/main/doc/Caliptra.md"
+class="uri">https://github.com/chipsalliance/Caliptra/blob/main/doc/Caliptra.md</a></li>
+<li>techcommunity.microsoft.com — 4460758 - <a
+href="https://techcommunity.microsoft.com/blog/azureinfrastructureblog/caliptra-2-1-an-open-source-silicon-root-of-trust-with-enhanced-protection-of-da/4460758"
+class="uri">https://techcommunity.microsoft.com/blog/azureinfrastructureblog/caliptra-2-1-an-open-source-silicon-root-of-trust-with-enhanced-protection-of-da/4460758</a>
+- as of 2025-10-13</li>
+<li>eprint.iacr.org — 256 - <a href="https://eprint.iacr.org/2026/256"
+class="uri">https://eprint.iacr.org/2026/256</a> - as of 2026-02-13</li>
+<li>dmtf.org — icymi industry standards groups advance security spdm
+standard and post quantum cryptography support and alignment with cnsa
+2.0 - <a
+href="https://www.dmtf.org/content/icymi-industry-standards-groups-advance-security-spdm-standard-and-post-quantum-cryptography-support-and-alignment-with-cnsa-2.0"
+class="uri">https://www.dmtf.org/content/icymi-industry-standards-groups-advance-security-spdm-standard-and-post-quantum-cryptography-support-and-alignment-with-cnsa-2.0</a>
+- as of 2025-05-28</li>
+<li>github.com — libspdm - <a href="https://github.com/DMTF/libspdm"
+class="uri">https://github.com/DMTF/libspdm</a></li>
+<li>dmtf.org — news - <a href="https://www.dmtf.org/news"
+class="uri">https://www.dmtf.org/news</a></li>
+<li>dmtf.org — dmtf seeks industry feedback support post quantum
+cryptography specifications - <a
+href="https://www.dmtf.org/content/dmtf-seeks-industry-feedback-support-post-quantum-cryptography-specifications"
+class="uri">https://www.dmtf.org/content/dmtf-seeks-industry-feedback-support-post-quantum-cryptography-specifications</a>
+- as of 2024-06-06</li>
+<li>dyber.org — quantatpm - <a href="https://dyber.org/quantatpm/"
+class="uri">https://dyber.org/quantatpm/</a></li>
+<li>sealsq.com — qvaulttpm - <a
+href="https://www.sealsq.com/products/secure-element/tpm/qvaulttpm"
+class="uri">https://www.sealsq.com/products/secure-element/tpm/qvaulttpm</a></li>
+<li>preprints.org — download - <a
+href="https://www.preprints.org/manuscript/202509.0862/v1/download"
+class="uri">https://www.preprints.org/manuscript/202509.0862/v1/download</a></li>
+<li>design-reuse.com — 202501187 breaking ground in post quantum
+cryptography real world implementation security research - <a
+href="https://www.design-reuse.com/news/202501187-breaking-ground-in-post-quantum-cryptography-real-world-implementation-security-research/"
+class="uri">https://www.design-reuse.com/news/202501187-breaking-ground-in-post-quantum-cryptography-real-world-implementation-security-research/</a>
+- as of 2025-01-16</li>
+<li>arxiv.org — 2604.03813 - <a href="https://arxiv.org/pdf/2604.03813"
+class="uri">https://arxiv.org/pdf/2604.03813</a></li>
+<li>Adapting Constrained Devices for Post-Quantum Cryptography - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-pquip-pqc-hsm-constrained/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-pquip-pqc-hsm-constrained/</a>
+- as of 2026-06-24</li>
+<li>PQ/T Hybrid Composite Signatures for JOSE and COSE - <a
+href="https://ietf-wg-jose.github.io/draft-ietf-jose-pq-composite-sigs/draft-ietf-jose-pq-composite-sigs.html"
+class="uri">https://ietf-wg-jose.github.io/draft-ietf-jose-pq-composite-sigs/draft-ietf-jose-pq-composite-sigs.html</a>
+- as of 2026-08-21</li>
+<li>Preparing the Windows ecosystem for next-generation code signing -
+<a
+href="https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/08/next-generation-code-signing"
+class="uri">https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/08/next-generation-code-signing</a>
+- as of 2026-08-20</li>
+<li>MCUboot Port (rm_mcuboot_port) - <a
+href="https://renesas.github.io/fsp/group___r_m___m_c_u_b_o_o_t___p_o_r_t.html"
+class="uri">https://renesas.github.io/fsp/group___r_m___m_c_u_b_o_o_t___p_o_r_t.html</a>
+- as of 2026-08-13</li>
+<li>Update: New ST54M and PQC, Everything you wanted to know about
+post-quantum cryptography but were afraid to ask - <a
+href="https://blog.st.com/pqc-post-quantum-cryptography/"
+class="uri">https://blog.st.com/pqc-post-quantum-cryptography/</a> - as
+of 2026-08-14</li>
+<li>GitHub - sbabic/meta-swupdate - <a
+href="https://github.com/sbabic/meta-swupdate"
+class="uri">https://github.com/sbabic/meta-swupdate</a> - as of
+2026-08-13</li>
+<li>media.defense.gov — CSA CNSA 2.0 ALGORITHMS.PDF - <a
+href="https://media.defense.gov/2025/May/30/2003728741/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS.PDF"
+class="uri">https://media.defense.gov/2025/May/30/2003728741/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS.PDF</a></li>
+<li>postquantum.com — complete guide - <a
+href="https://postquantum.com/cnsa-2-0/complete-guide/"
+class="uri">https://postquantum.com/cnsa-2-0/complete-guide/</a> - as of
+2026-05-14</li>
+<li>postquantum.com — ot pqc challenges - <a
+href="https://postquantum.com/post-quantum/ot-pqc-challenges/"
+class="uri">https://postquantum.com/post-quantum/ot-pqc-challenges/</a>
+- as of 2026-04-10</li>
+<li>garantir.io — keeping software secure in a post quantum world - <a
+href="https://garantir.io/keeping-software-secure-in-a-post-quantum-world/"
+class="uri">https://garantir.io/keeping-software-secure-in-a-post-quantum-world/</a>
+- as of 2026-03-07</li>
+<li>promwad.com — secure ota boot chains firmware verification - <a
+href="https://promwad.com/news/secure-ota-boot-chains-firmware-verification"
+class="uri">https://promwad.com/news/secure-ota-boot-chains-firmware-verification</a>
+- as of 2025-10-17</li>
+<li>Google Online Security Blog: March 2026 - <a
+href="https://security.googleblog.com/2026/03/"
+class="uri">https://security.googleblog.com/2026/03/</a> - as of
+2026-03-31</li>
+<li>Post-Quantum Cryptography for Enterprise HDD Security - <a
+href="https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/collateral/white-paper/white-paper-post-quantum-cryptography-enterprise-hdd-security.pdf"
+class="uri">https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/collateral/white-paper/white-paper-post-quantum-cryptography-enterprise-hdd-security.pdf</a>
+- as of 2026-05-15</li>
+<li>computer-automation.de — firmware security in the post quantum age -
+<a
+href="https://www.computer-automation.de/industrial-computing/firmware-security-in-the-post-quantum-age.htm"
+class="uri">https://www.computer-automation.de/industrial-computing/firmware-security-in-the-post-quantum-age.htm</a></li>
+<li>SECQAI and global defence contractor demonstrate world’s first PQC
+in a FOTA process on a Memory Safe Chip - <a
+href="https://www.secqai.com/insights-and-news/secqai-pqc-fota-cheri-platform"
+class="uri">https://www.secqai.com/insights-and-news/secqai-pqc-fota-cheri-platform</a>
+- as of 2025-11-26</li>
+<li>Post-Quantum Firmware Signing in IoT: Practical PQC-FOTA
+Implementation - <a href="https://www.youtube.com/watch?v=wpKcUK6D7rI"
+class="uri">https://www.youtube.com/watch?v=wpKcUK6D7rI</a> - as of
+2025-12-01</li>
+<li>wolfssl.com — wolfboot support for post quantum secure boot with lms
+hss signatures - <a
+href="https://www.wolfssl.com/wolfboot-support-for-post-quantum-secure-boot-with-lms-hss-signatures/"
+class="uri">https://www.wolfssl.com/wolfboot-support-for-post-quantum-secure-boot-with-lms-hss-signatures/</a>
+- as of 2023-09-27</li>
+<li>wolfssl.com — wolfboot on stm32h5 enhancing secure boot with
+trustzone m - <a
+href="https://www.wolfssl.com/wolfboot-on-stm32h5-enhancing-secure-boot-with-trustzone-m/"
+class="uri">https://www.wolfssl.com/wolfboot-on-stm32h5-enhancing-secure-boot-with-trustzone-m/</a>
+- as of 2024-07-22</li>
+<li>Secure Boot now with support for FIPS 204 ML-DSA post-quantum
+signature algorithm - <a
+href="https://www.wolfssl.com/wolfboot-secure-boot-now-with-support-for-fips-204-ml-dsa-post-quantum-signature-algorithm/"
+class="uri">https://www.wolfssl.com/wolfboot-secure-boot-now-with-support-for-fips-204-ml-dsa-post-quantum-signature-algorithm/</a>
+- as of 2024-10-25</li>
+<li>docs.mcuboot.com — design - <a
+href="https://docs.mcuboot.com/design.html"
+class="uri">https://docs.mcuboot.com/design.html</a></li>
+<li>POST-QUANTUM CRYPTOGRAPHY: UEFI SPECIFICATION UPDATES - <a
+href="https://uefi.org/sites/default/files/resources/UEFI_PQC_Update_Whitepaper_Final.pdf"
+class="uri">https://uefi.org/sites/default/files/resources/UEFI_PQC_Update_Whitepaper_Final.pdf</a>
+- as of 2026-04-29</li>
+<li>aws.amazon.com — aws kms post quantum ml dsa digital signatures - <a
+href="https://aws.amazon.com/about-aws/whats-new/2025/06/aws-kms-post-quantum-ml-dsa-digital-signatures"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2025/06/aws-kms-post-quantum-ml-dsa-digital-signatures</a>
+- as of 2025-06-13</li>
+<li>aws.amazon.com — post quantum ml dsa code signing with aws private
+ca and aws kms - <a
+href="https://aws.amazon.com/blogs/security/post-quantum-ml-dsa-code-signing-with-aws-private-ca-and-aws-kms"
+class="uri">https://aws.amazon.com/blogs/security/post-quantum-ml-dsa-code-signing-with-aws-private-ca-and-aws-kms</a>
+- as of 2025-11-17</li>
+<li>pqshield.com — secure boot - <a
+href="https://pqshield.com/use_cases/secure-boot/"
+class="uri">https://pqshield.com/use_cases/secure-boot/</a> - as of
+2025-10-07</li>
+<li>researchgate.net — 322881541 Uptane Security and Customizability of
+Software Updates for Vehicles - <a
+href="https://www.researchgate.net/publication/322881541_Uptane_Security_and_Customizability_of_Software_Updates_for_Vehicles"
+class="uri">https://www.researchgate.net/publication/322881541_Uptane_Security_and_Customizability_of_Software_Updates_for_Vehicles</a></li>
+<li>arxiv.org — 2604.21606 - <a href="https://arxiv.org/pdf/2604.21606"
+class="uri">https://arxiv.org/pdf/2604.21606</a></li>
+<li>quantumsecuritydefence.com — quantum safe ota update security for
+connected vehicles - <a
+href="https://quantumsecuritydefence.com/workshops/automotive/quantum-safe-ota-update-security-for-connected-vehicles/"
+class="uri">https://quantumsecuritydefence.com/workshops/automotive/quantum-safe-ota-update-security-for-connected-vehicles/</a></li>
+<li>siliconlogix.it — secure ota firmware updates with rollback for
+embedded devices - <a
+href="https://www.siliconlogix.it/en/article/secure-ota-firmware-updates-with-rollback-for-embedded-devices"
+class="uri">https://www.siliconlogix.it/en/article/secure-ota-firmware-updates-with-rollback-for-embedded-devices</a>
+- as of 2026-05-19</li>
+<li>OpenTitan’s Transition to Side-Channel Resilient Post-Quantum
+Cryptography - <a
+href="https://lowrisc.org/news/opentitans-transition-to-side-channel-resilient-post-quantum-cryptography/"
+class="uri">https://lowrisc.org/news/opentitans-transition-to-side-channel-resilient-post-quantum-cryptography/</a>
+- as of 2026-02-01</li>
+<li>Open and quantum-safe RISC-V security chip OpenTitan for Chromebooks
+- <a
+href="https://www.heise.de/en/news/Open-and-quantum-safe-RISC-V-security-chip-OpenTitan-for-Chromebooks-10274833.html"
+class="uri">https://www.heise.de/en/news/Open-and-quantum-safe-RISC-V-security-chip-OpenTitan-for-Chromebooks-10274833.html</a>
+- as of 2025-02-28</li>
+<li>ZeroRISC and Leading Research Institutions Deliver Production-Grade
+Post-Quantum Cryptography for Open Silicon - <a
+href="https://www.businesswire.com/news/home/20260309087282/en/ZeroRISC-and-Leading-Research-Institutions-Deliver-Production-Grade-Post-Quantum-Cryptography-for-Open-Silicon"
+class="uri">https://www.businesswire.com/news/home/20260309087282/en/ZeroRISC-and-Leading-Research-Institutions-Deliver-Production-Grade-Post-Quantum-Cryptography-for-Open-Silicon</a>
+- as of 2026-03-09</li>
+<li>OpenTitan Roadmap - <a href="https://opentitan.org/roadmap/"
+class="uri">https://opentitan.org/roadmap/</a> - as of 2026-08-25</li>
+<li>OpenTitan project kicks off the Peppermint integrated root-of-trust
+for area-constrained SoCs - <a
+href="https://markets.businessinsider.com/news/stocks/opentitan-project-kicks-off-the-peppermint-integrated-root-of-trust-for-area-constrained-socs-1036489254"
+class="uri">https://markets.businessinsider.com/news/stocks/opentitan-project-kicks-off-the-peppermint-integrated-root-of-trust-for-area-constrained-socs-1036489254</a>
+- as of 2026-08-25</li>
+<li>Caliptra Blog - <a
+href="https://chipsalliance.github.io/caliptra-web/blog"
+class="uri">https://chipsalliance.github.io/caliptra-web/blog</a> - as
+of 2026-08-19</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="01-hardware-acceleration.html"><span>Previous</span>Part 1 - Hardware Acceleration &amp; Silicon</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="03-operating-systems.html"><span>Next</span>Part 3 - Operating Systems &amp; Endpoints</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/02-firmware-root-of-trust.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

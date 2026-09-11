@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 1 - Hardware Acceleration & Silicon | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 1: Hardware Acceleration & Silicon.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 1</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 1</p>
+    <h1>Hardware Acceleration &amp; Silicon</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/01-hardware-acceleration.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#cpu-isa-extensions" id="toc-cpu-isa-extensions">1. CPU
+&amp; ISA Extensions</a></li>
+<li><a href="#offload-accelerators" id="toc-offload-accelerators">2.
+Offload &amp; Accelerators</a></li>
+<li><a href="#pqc-silicon-ip-cores" id="toc-pqc-silicon-ip-cores">3. PQC
+Silicon IP Cores</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The new post-quantum algorithms are only useful if hardware can run
+them fast. This report covers that problem in three sections. Section 1
+follows the tuned code that makes the new math fast on ordinary
+processors. Section 2 follows the dedicated accelerator cards built for
+heavy connection loads. Section 3 follows the ready-made circuit blocks
+that put the algorithms into future chips.</p>
+<p>The clearest change this summer happened in software, not silicon.
+Optimized assembly implementations of ML-KEM and ML-DSA, the two
+workhorse post-quantum algorithms, became the default in liboqs, a
+widely used open-source cryptography library. wolfSSL finished dropping
+its outside dependency and now ships its own native, optimized
+implementations. Processor instruction sets themselves have not moved.
+Work on ARM and RISC-V instructions built for this math remains academic
+research, with none of it merged into products or ratified
+standards.</p>
+<p>Dedicated hardware is arriving for the heaviest loads. FPGA-based
+accelerator cards from Silicom and Eideticom now handle millions of
+post-quantum TLS handshakes per second. NVIDIA GPUs speed up key
+encapsulation about tenfold through the cuPQC library. Intel has
+promised full post-quantum compliance across new platforms by 2030.
+Whether its QuickAssist accelerators already speed up the new algorithms
+is disputed, and Section 2 states that disagreement in full.</p>
+<p>For chips themselves, licensable design blocks from Rambus, Synopsys,
+PQShield, and PQSecure now cover the standardized algorithm set.
+Validated end products are starting to follow. Crypto4A’s hardware
+security module is described as the first quantum-safe module to pass
+FIPS 140-3 Level 3 validation, in August 2026. STMicroelectronics put a
+post-quantum accelerator into a mobile security chip that also carries
+NFC and eSIM functions on one die.</p>
+<h2 id="cpu-isa-extensions">1. CPU &amp; ISA Extensions</h2>
+<p><em>Every secure connection a computer makes runs cryptographic math
+on its main processor. This section covers how fast the new post-quantum
+algorithms run on mainstream chips from Intel, ARM licensees, and RISC-V
+designers. Speed can come from two places: hand-tuned code that uses the
+vector instructions chips already have, and proposals for new
+instructions built for the algorithms’ distinctive math. Today all the
+practical gains come from tuned code inside cryptographic libraries. The
+new instructions remain research.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The news this summer is that optimized implementations became the
+ones everyone gets by default. liboqs, the open-source library many
+products build on, made tuned assembly standard in July. Its 0.16.0
+release brings in mldsa-native and updates mlkem-native to version
+1.2.0, with optimized x86-64 and ARM builds enabled out of the box [1].
+wolfSSL went further in August and removed its dependency on liboqs
+entirely. It now ships its own native implementations of ML-KEM and
+ML-DSA with optimized paths for both major architectures [2].</p>
+<h3 id="current-state">Current State</h3>
+<p>Everything fast today comes from software making better use of
+instructions that chips already have. liboqs had already adopted
+mlkem-native, with portable C, AVX2, and ARM variants, as its standard
+ML-KEM implementation [3]. The first stable version of that code arrived
+with liboqs 0.14.0 in August 2025, alongside a faster SHA-3 built on
+AVX-512VL instructions [4].</p>
+<p>The optimized variants come straight from the actively maintained
+upstream mlkem-native project [5], which recently added a consistency
+self-test and support for Intel’s control-flow protection [1]. Much of
+the code is formally verified: the C for memory and type safety, the ARM
+assembly for functional correctness [1]. When built for distribution,
+the library picks the fastest routine for the running processor
+automatically [6][7]. Only the standardized algorithm names are treated
+as stable identifiers, and everything else may still change [8].</p>
+<p>Chipmakers contribute tuning rather than new hardware. Intel
+published AVX-512 optimizations of the library’s Keccak hashing core,
+worth up to a 1.64x speedup on Xeon processors [9]. An experimental
+AVX-512 build of ML-KEM, running 32 polynomial multiplications in
+parallel, has been wired into liboqs and an OpenSSL provider [10].
+NVIDIA’s GPU library cuPQC was added as a further backend [1]. wolfSSL
+maintains its own AVX2 assembly for ML-KEM and fixed bugs in it during
+its 5.9.1 release cycle [11].</p>
+<p>The craft involved is considerable. State-of-the-art implementations
+for small ARM microcontrollers rely on more than 3,000 lines of
+hand-written assembly per algorithm [12]. A tool called SLOTHY can now
+generate code that matches or beats hand-optimized assembly for ARM’s
+Neon and Helium instruction sets [12].</p>
+<p>Earlier NEON work covered the pre-standardization candidates on
+hardware from the Apple M1 down to the Raspberry Pi 4 [13]. The formally
+verified Libjade library shows the cost of full rigor. It still offers
+only two Kyber variants, on x86-64 Linux and macOS alone [6].</p>
+<p>New instructions, by contrast, are still in the lab. On ARM, the
+research is real but unadopted. ARMv9 processors carry the SVE2 and SME
+vector extensions, with SVE2 folding the older NEON instructions into a
+broader superset [14].</p>
+<p>A January 2026 paper used both to run ML-KEM up to 7.77x faster than
+reference code on an Apple M4 Pro, the first such work on real ARMv9
+hardware [15]. A companion effort made ML-DSA signing 70.7 percent
+faster using SVE2 [16]. The catch is unchanged: none of these code paths
+have been merged into production libraries such as liboqs, OpenSSL, or
+mlkem-native [15].</p>
+<p>RISC-V is further behind. No ratified RISC-V crypto extension
+includes instructions for lattice math, and every acceleration effort
+found remains an academic proposal [17]. The proposals are serious
+designs. RISQ-V couples 29 custom instructions to the processor pipeline
+and shows up to 11.4x speedups on prototype hardware [17]. A fabricated
+test chip with a tightly integrated NTT accelerator improved end-to-end
+ML-KEM performance by up to 56.5 percent [18].</p>
+<p>Others include the HORCRUX extension architecture [19], the VPQC
+vector processor [20], a programmable crypto-processor covering the NIST
+algorithms [21], and simulator studies of vector-extension speedups for
+Classic McEliece [22]. All of them stop short of the step that would
+matter to products: adoption into a ratified extension [17].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="offload-accelerators">2. Offload &amp; Accelerators</h2>
+<p><em>Offload hardware takes cryptographic work off a server’s main
+processor and runs it on a dedicated card or chip. The devices that
+terminate huge numbers of encrypted connections, such as load balancers
+and data-center network cards, need this the most. Post-quantum
+handshakes cost more compute than the ones they replace, so at millions
+of connections per second the math earns its own silicon. This section
+covers the accelerator cards, SmartNICs, and GPU libraries being adapted
+for the new algorithms.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>August brought hard performance numbers for dedicated cards, and a
+long-range pledge from Intel. Silicom’s Accelerated Crypto Adapter,
+built on Eideticom’s NoLoad technology, handles up to 450,000 hybrid
+post-quantum handshakes per second. The vendors equate that to
+offloading more than 85 processor cores [23]. Silicom quotes 1.8 million
+TLS handshakes per second for ML-KEM-768 on a related FPGA design [24].
+Intel, for its part, has committed to full post-quantum compliance
+across new platforms by 2030 [25].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Most of the market handles post-quantum handshakes without any
+dedicated card at all. The big traffic-management vendors added them in
+plain software. F5’s BIG-IP runs hybrid ML-KEM key exchange on its
+general compute, and F5 states that no hardware security module or
+dedicated crypto silicon is required [26].</p>
+<p>Support has widened release by release. BIG-IP Next 20.3 carried a
+draft hybrid cipher [27], version 17.5 added both client and server
+sides [28], and the NIST-approved X25519 combination followed [29].
+Version 21.1 added two more NIST-compliant cipher groups this May
+[30].</p>
+<p>Citrix NetScaler supports hybrid key exchange on the front end [31].
+A10 went one step further and enabled it by default on client-side
+connections through OpenSSL 3.5 [32].</p>
+<p>Where dedicated hardware does appear, it comes in three forms. Market
+analysis describes FPGA, ASIC, and system-on-chip accelerators as the
+dominant product types [33]. Eideticom’s accelerator card offloads
+signature generation and verification and plugs into OpenSSL and NGINX
+[34]. NVIDIA’s cuPQC library, being folded into liboqs through a Linux
+Foundation partnership [33], runs ML-KEM up to 10x faster than CPUs. It
+reaches 3.16 million key generations per second for the smallest variant
+[35].</p>
+<p>On the network side, BlueField data-processing units have carried
+post-quantum IPsec at 400 gigabits per second in demonstrations [36].
+That capability comes from a third-party integration, Qrypt’s gateway
+software, rather than anything NVIDIA-native [37]. Qrypt has extended
+the same gateway to the new 800-gigabit BlueField-4 [38], and AIC ships
+a FIPS-compliant server platform pairing BlueField-3 with Qrypt’s
+encryption [39]. Bloombase integrates its storage encryption with
+Intel’s Mount Evans network processor [40].</p>
+<p>Intel’s present-day contribution is narrower than its 2030 pledge
+suggests. The company says it began adding post-quantum capabilities in
+2023 [25], but an independent evaluation found its QuickAssist
+accelerator a poor fit for hash-based signatures. Those schemes issue
+many small hash calls, where the accelerator only wins on large inputs
+[41].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>One real disagreement stands, over Intel’s QuickAssist. Intel’s own
+technical material shows its acceleration paths, the IPsec Multi-Buffer
+library and the Cryptography Primitives Library, speeding up classical
+algorithms rather than offloading the new ones in hardware [42]. Its
+demonstrated post-quantum gains come from AVX-512 instructions on Xeon
+CPUs, not from the QuickAssist accelerator [43][44].</p>
+<p>Against that, NEXCOM markets an edge server that it says uses
+QuickAssist to accelerate post-quantum workloads [45]. A specification
+showing ML-KEM or ML-DSA offload running on QuickAssist hardware would
+settle the question. Nothing public does so today.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="pqc-silicon-ip-cores">3. PQC Silicon IP Cores</h2>
+<p><em>Most chipmakers do not build cryptography from scratch. They
+license ready-made circuit designs, called IP cores, and drop them into
+their own processors, secure elements, and hardware security modules. A
+chip fixed in silicon cannot be patched the way software can, so chips
+being designed today must already include the new algorithms. This
+section covers the vendors selling those building blocks and the first
+finished chips that carry them.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>Validated post-quantum silicon stopped being theoretical this summer.
+Crypto4A’s QASM module is described as the first quantum-safe HSM to
+pass FIPS 140-3 Level 3 validation, in August 2026 [46]. Thales launched
+Luna 8, new hardware with a custom cryptographic processor, now under
+the same FIPS and Common Criteria evaluations [47]. PQShield’s
+PQCryptoLib-Core 3.5.1 passed NIST validation covering ML-KEM, ML-DSA,
+and the SHA-3 family in August [48]. PQSecure’s crypto-agile framework
+passed NIST validation in June [49].</p>
+<p>New chips and designs followed the validations. STMicroelectronics
+announced the ST54M, a mobile chip combining a post-quantum accelerator
+with NFC, a secure element, and an eSIM on a single die [50]. Rambus
+introduced the RT-648, an ARM-based embedded security module for
+automotive silicon [51]. PQSecure demonstrated its core running in
+QuickLogic’s embedded FPGA fabric on Intel’s 18A process, a trade study
+rather than a shipping chip [52][53].</p>
+<p>One timeline moved the other way. SEALSQ’s Common Criteria milestones
+slipped from March to September 2026, with the full post-quantum test
+report now expected in December [54].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Existing secure hardware mostly gains the algorithms through
+firmware, not replacement. Vendors of hardware security modules ship the
+algorithms as firmware updates, usually with hybrid
+classical-plus-post-quantum modes for cautious pilots [55]. Thales Luna
+firmware 7.9.0 brought validated ML-KEM and ML-DSA, with the LMS scheme
+supported from 7.8.9 [56]. Entrust’s nShield 5 firmware carries
+algorithm validations for ML-DSA, ML-KEM, and SLH-DSA [57]. Eviden,
+Fortanix, and Futurex all report supporting the full NIST algorithm trio
+[58].</p>
+<p>Two structural drags apply across the board. The FIPS validation
+queue adds roughly 12 to 18 months between an algorithm existing and a
+certified product carrying it [59]. And the updated TPM 2.0
+specification now defines post-quantum identifiers, but deployed TPM
+chips are usually soldered down and only gain the algorithms if
+manufacturers ship firmware updates [59].</p>
+<p>Four vendors sell the building blocks for new chips. Rambus offers
+the broadest stack. Its CryptoManager root-of-trust family has
+quantum-safe variants [60], and the QSE-IP-86 engine accelerates all
+three NIST algorithms with a dedicated lattice-math core [61]. The
+standalone Quantum Safe Engine has been on offer since 2023 [62],
+alongside an FPGA security suite with side-channel countermeasures [63]
+and pre-validated automotive HSM software built with ETAS [64]. The
+platform pitch throughout is agility: algorithm updates by firmware
+instead of silicon redesign [65].</p>
+<p>Synopsys takes the same hybrid hardware-and-firmware approach in its
+Agile PQC public-key accelerators, which cover the NIST algorithms plus
+the hash-based XMSS and LMS schemes [66][67]. The accelerators handle
+signatures, key encapsulation, and key generation, with FIPS 140-3
+support and optional side-channel countermeasures [68]. They sit inside
+a broader security portfolio positioned for chips designed ahead of the
+standards [69]. Its physical-unclonable-function key storage rests on
+symmetric cryptography and needs no post-quantum retrofit at all
+[70].</p>
+<p>PQShield pairs certified software with silicon designs. Its embedded
+library fits the algorithms into under 5 kilobytes of RAM [71] and
+became an ST-authorized product for STM32 microcontrollers [72]. It also
+supports the PSA Certified crypto API [73] and gained software-level
+protections against power analysis and fault injection [74].</p>
+<p>On the hardware side, PQShield has a silicon test chip carrying its
+platform IP [75], including an accelerator aimed at hash-based
+signatures [76]. The wider product line spans acceleration engines and
+full root-of-trust subsystems [77]. The company says customers including
+Microchip have its IP in silicon today, naming AMD, Lattice, and Mirise
+as further collaborations. No shipping part numbers are public, so that
+remains a vendor claim [78].</p>
+<p>PQSecure, the smallest of the four, sells hardware cores proven
+across several FPGA vendors’ fabrics [79] and partners on the NIST
+crypto-agility project [80].</p>
+<p>In secure elements, vendor claims still outrun independent
+confirmation. SEALSQ’s QS7001 implements ML-KEM and ML-DSA and passed
+entropy-source validation in May [81]. The company describes the part as
+shipping today and cites a pipeline of over 150 customers, figures that
+are self-reported and unverified [82].</p>
+<p>Two cautions round out the picture. On a hardware datasheet,
+“quantum-safe” means the firmware can run the new algorithms inside the
+existing tamper-resistant boundary, not that the old hardware was
+quantum-vulnerable [83]. And migration guides tell buyers to confirm
+that a vendor’s post-quantum firmware is on the roadmap and covered by
+the existing maintenance contract [84].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Releases · open-quantum-safe/liboqs - <a
+href="https://github.com/open-quantum-safe/liboqs/releases"
+class="uri">https://github.com/open-quantum-safe/liboqs/releases</a> -
+as of 2026-07-09</li>
+<li>wolfCrypt Retires liboqs as Native Post-Quantum Support Expands - <a
+href="https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/"
+class="uri">https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/</a>
+- as of 2026-08-19</li>
+<li>open-quantum-safe/liboqs 0.13.0 on GitHub - <a
+href="https://newreleases.io/project/github/open-quantum-safe/liboqs/release/0.13.0"
+class="uri">https://newreleases.io/project/github/open-quantum-safe/liboqs/release/0.13.0</a></li>
+<li>PQCA announces release of liboqs version 0.14.0 from Open Quantum
+Safe project - <a
+href="https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/"
+class="uri">https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/</a>
+- as of 2025-08-21</li>
+<li>ML-KEM | Open Quantum Safe - <a
+href="https://openquantumsafe.org/liboqs/algorithms/kem/ml-kem.html"
+class="uri">https://openquantumsafe.org/liboqs/algorithms/kem/ml-kem.html</a></li>
+<li>liboqs: Options for configuring liboqs builds - <a
+href="https://openquantumsafe.org/liboqs/api/doxygen/options-for-configuring-liboqs-builds.html"
+class="uri">https://openquantumsafe.org/liboqs/api/doxygen/options-for-configuring-liboqs-builds.html</a></li>
+<li>Options for configuring liboqs builds | liboqs - <a
+href="https://open-quantum-safe.github.io/liboqs/CONFIGURE.html"
+class="uri">https://open-quantum-safe.github.io/liboqs/CONFIGURE.html</a></li>
+<li>GitHub - open-quantum-safe/liboqs - <a
+href="https://github.com/open-quantum-safe/liboqs"
+class="uri">https://github.com/open-quantum-safe/liboqs</a></li>
+<li>Post-Quantum Cryptography: Accelerating Open Quantum Safe Library
+with Intel® AVX-512 Keccak 1600 Implementation - <a
+href="https://www.intel.com/content/www/us/en/content-details/868835/post-quantum-cryptography-accelerating-open-quantum-safe-library-with-intel-avx-512-keccak-1600-implementation.html"
+class="uri">https://www.intel.com/content/www/us/en/content-details/868835/post-quantum-cryptography-accelerating-open-quantum-safe-library-with-intel-avx-512-keccak-1600-implementation.html</a>
+- as of 2025-10-27</li>
+<li>Faster Post-Quantum TLS 1.3 Based on ML-KEM: Implementation and
+Assessment - <a href="https://arxiv.org/pdf/2404.13544"
+class="uri">https://arxiv.org/pdf/2404.13544</a></li>
+<li>ML-KEM: fix AVX2 assembly by SparkiDev · Pull Request #10430 ·
+wolfSSL/wolfssl - <a
+href="https://github.com/wolfSSL/wolfssl/pull/10430"
+class="uri">https://github.com/wolfSSL/wolfssl/pull/10430</a></li>
+<li>Enabling Microarchitectural Agility: Taking ML-KEM &amp; ML-DSA - <a
+href="https://eprint.iacr.org/2025/366.pdf"
+class="uri">https://eprint.iacr.org/2025/366.pdf</a></li>
+<li>Optimized Software Implementations Using NEON-Based Instructions -
+<a
+href="https://csrc.nist.gov/CSRC/media/Events/third-pqc-standardization-conference/documents/accepted-papers/nguyen-optimized-software-gmu-pqc2021.pdf"
+class="uri">https://csrc.nist.gov/CSRC/media/Events/third-pqc-standardization-conference/documents/accepted-papers/nguyen-optimized-software-gmu-pqc2021.pdf</a></li>
+<li>Vectorized SVE2 Optimization of the Post-Quantum Signature ML-DSA on
+ARMv9-A Architecture - <a href="https://eprint.iacr.org/2025/2208.pdf"
+class="uri">https://eprint.iacr.org/2025/2208.pdf</a></li>
+<li>Optimized Implementation of ML-KEM on ARMv9-A with SVE2 and SME - <a
+href="https://eprint.iacr.org/2026/093"
+class="uri">https://eprint.iacr.org/2026/093</a> - as of 2026-08-15</li>
+<li>Vectorized SVE2 Optimization of the Post-Quantum Signature ML-DSA on
+ARMv9-A Architecture - <a href="https://eprint.iacr.org/2025/2208"
+class="uri">https://eprint.iacr.org/2025/2208</a> - as of
+2025-12-08</li>
+<li>RISQ-V: Tightly Coupled RISC-V Accelerators for Post-Quantum
+Cryptography - <a href="https://eprint.iacr.org/2020/446.pdf"
+class="uri">https://eprint.iacr.org/2020/446.pdf</a> - as of
+2026-08-15</li>
+<li>A RISC-V Post Quantum Cryptography Instruction Set Extension for
+Number Theoretic Transform to speed-up CRYSTALS Algorithms - <a
+href="https://www.researchgate.net/publication/356010586_A_RISC-V_Post_Quantum_Cryptography_Instruction_Set_Extension_for_Number_Theoretic_Transform_to_speed-up_CRYSTALS_Algorithms"
+class="uri">https://www.researchgate.net/publication/356010586_A_RISC-V_Post_Quantum_Cryptography_Instruction_Set_Extension_for_Number_Theoretic_Transform_to_speed-up_CRYSTALS_Algorithms</a></li>
+<li>HORCRUX: A Complete PQC RISC-V eXtension Architecture - <a
+href="https://arxiv.org/pdf/2607.13939"
+class="uri">https://arxiv.org/pdf/2607.13939</a> - as of 2026-07-15</li>
+<li>Enhancing RISC-V Vector Extension for Efficient Application of
+Post-Quantum Cryptography - <a
+href="https://www.researchgate.net/publication/374403803_Enhancing_RISC-V_Vector_Extension_for_Efficient_Application_of_Post-Quantum_Cryptography"
+class="uri">https://www.researchgate.net/publication/374403803_Enhancing_RISC-V_Vector_Extension_for_Efficient_Application_of_Post-Quantum_Cryptography</a></li>
+<li>A Programmable Crypto-Processor for National Institute of Standards
+and Technology Post-Quantum Cryptography Standardization Based on the
+RISC-V Architecture - <a
+href="https://www.mdpi.com/1424-8220/23/23/9408"
+class="uri">https://www.mdpi.com/1424-8220/23/23/9408</a></li>
+<li>Exploring the RISC-V Vector Extension for the Classic McEliece
+Post-Quantum Cryptosystem - <a
+href="https://ieeexplore.ieee.org/document/9424273/"
+class="uri">https://ieeexplore.ieee.org/document/9424273/</a></li>
+<li>Silicom Accelerated Crypto Adapter with NoLoad®: PQC Ready
+Cryptographic Acceleration - Eideticom - <a
+href="https://www.eideticom.com/blog/silicom-accelerated-crypto-adapter-with-noload-r-pqc-ready-cryptographic-acceleration"
+class="uri">https://www.eideticom.com/blog/silicom-accelerated-crypto-adapter-with-noload-r-pqc-ready-cryptographic-acceleration</a>
+- as of 2026-08-26</li>
+<li>Post-Quantum Crypto Acceleration - <a
+href="https://www.silicom-usa.com/silicoms-post-quantum-crypto-acceleration/"
+class="uri">https://www.silicom-usa.com/silicoms-post-quantum-crypto-acceleration/</a>
+- as of 2026-08-14</li>
+<li>Securing the Future: Post-Quantum Cryptography Security Readiness -
+<a
+href="https://www.intel.com/content/www/us/en/security/post-quantum-cryptography-readiness.html"
+class="uri">https://www.intel.com/content/www/us/en/security/post-quantum-cryptography-readiness.html</a>
+- as of 2026-08-12</li>
+<li>Future-Proofing Your Network: Enabling Quantum Ciphers on F5 BIG-IP
+TMOS 17.5.1 | DevCentral - <a
+href="https://community.f5.com/kb/technicalarticles/future-proofing-your-network-enabling-quantum-ciphers-on-f5-big-ip-tmos-17-5-1/342586"
+class="uri">https://community.f5.com/kb/technicalarticles/future-proofing-your-network-enabling-quantum-ciphers-on-f5-big-ip-tmos-17-5-1/342586</a>
+- as of 2025-08-28</li>
+<li>Enabling Post-Quantum Cryptography in BIG-IP Next - <a
+href="https://my.f5.com/manage/s/article/K000148294"
+class="uri">https://my.f5.com/manage/s/article/K000148294</a> - as of
+2024-10-31</li>
+<li>Post-Quantum Cryptography: Building Resilience Against Tomorrow’s
+Threats | DevCentral - <a
+href="https://community.f5.com/kb/technicalarticles/post-quantum-cryptography-building-resilience-against-tomorrow%E2%80%99s-threats/341048"
+class="uri">https://community.f5.com/kb/technicalarticles/post-quantum-cryptography-building-resilience-against-tomorrow%E2%80%99s-threats/341048</a></li>
+<li>Integrating PQC on the client-side - MyF5 | Support - <a
+href="https://techdocs.f5.com/en-us/big-ip-system-ssl-administration-ditamap/integrating-PQC-on-the-client-side.html"
+class="uri">https://techdocs.f5.com/en-us/big-ip-system-ssl-administration-ditamap/integrating-PQC-on-the-client-side.html</a></li>
+<li>F5 BIG-IP v21.1 is now generally available, bringing PQC and AI
+security enhancements | F5 - <a
+href="https://www.f5.com/company/blog/f5-big-ip-v21-1-is-now-generally-available-bringing-pqc-and-ai-security-enhancements"
+class="uri">https://www.f5.com/company/blog/f5-big-ip-v21-1-is-now-generally-available-bringing-pqc-and-ai-security-enhancements</a>
+- as of 2026-05-06</li>
+<li>Support for Hybrid Post-Quantum Cryptography on the front end - <a
+href="https://docs.netscaler.com/en-us/citrix-adc/current-release/ssl/hybrid-pqc.html"
+class="uri">https://docs.netscaler.com/en-us/citrix-adc/current-release/ssl/hybrid-pqc.html</a>
+- as of 2025-09-27</li>
+<li>Post-quantum Cryptography Comes to A10 SSL/TLS Data Plane - <a
+href="https://www.a10networks.com/blog/post-quantum-cryptography-comes-to-a10-ssl-tls-data-plane/"
+class="uri">https://www.a10networks.com/blog/post-quantum-cryptography-comes-to-a10-ssl-tls-data-plane/</a>
+- as of 2026-05-07</li>
+<li>Post-Quantum Transport Layer Security (TLS) Hardware Accelerator
+Global Market Report 2026 - <a
+href="https://www.giiresearch.com/report/tbrc1982723-post-quantum-transport-layer-security-tls-hardware.html"
+class="uri">https://www.giiresearch.com/report/tbrc1982723-post-quantum-transport-layer-security-tls-hardware.html</a>
+- as of 2025-01-01</li>
+<li>TLS Acceleration for Post Quantum Cryptography - Eideticom - <a
+href="https://www.eideticom.com/blog/tls-acceleration-for-post-quantum-cryptography"
+class="uri">https://www.eideticom.com/blog/tls-acceleration-for-post-quantum-cryptography</a></li>
+<li>QORE : Quantum Secure 5G/B5G Core - <a
+href="https://arxiv.org/pdf/2510.19982"
+class="uri">https://arxiv.org/pdf/2510.19982</a></li>
+<li>QRoNS: Quantum Resilience over IPsec Tunnels for Network Slicing -
+<a href="https://www.mdpi.com/2079-9292/14/21/4234"
+class="uri">https://www.mdpi.com/2079-9292/14/21/4234</a></li>
+<li>Qrypt to Provide Quantum Secure Encryption for NVIDIA BlueField-3
+DPUs - Qrypt - <a
+href="https://www.qrypt.com/resources/qrypt-to-provide-quantum-secure-encryption-for-nvidia-bluefield-3-dpus/"
+class="uri">https://www.qrypt.com/resources/qrypt-to-provide-quantum-secure-encryption-for-nvidia-bluefield-3-dpus/</a>
+- as of 2024-03-15</li>
+<li>Qrypt Extends Quantum-Secure Gateway for AI Workloads with NVIDIA
+BlueField-4 DPUs - <a
+href="https://www.businesswire.com/news/home/20251028020837/en/Qrypt-Extends-Quantum-Secure-Gateway-for-AI-Workloads-with-NVIDIA-BlueField-4-DPUs"
+class="uri">https://www.businesswire.com/news/home/20251028020837/en/Qrypt-Extends-Quantum-Secure-Gateway-for-AI-Workloads-with-NVIDIA-BlueField-4-DPUs</a>
+- as of 2025-10-28</li>
+<li>AIC Launches FIPS-Compliant Security Platform Powered by NVIDIA
+BlueField-3 DPU and Qrypt Quantum Encryption - <a
+href="https://www.prnewswire.com/news-releases/aic-launches-fips-compliant-security-platform-powered-by-nvidia-bluefield-3-dpu-and-qrypt-quantum-encryption-302162939.html"
+class="uri">https://www.prnewswire.com/news-releases/aic-launches-fips-compliant-security-platform-powered-by-nvidia-bluefield-3-dpu-and-qrypt-quantum-encryption-302162939.html</a>
+- as of 2024-06-04</li>
+<li>Bloombase StoreSafe and <span class="citation"
+data-cites="Intel">@Intel</span> Mount Evans IPU - <a
+href="https://www.youtube.com/watch?v=clIzQpA9xUE"
+class="uri">https://www.youtube.com/watch?v=clIzQpA9xUE</a> - as of
+2024-11-07</li>
+<li>Evaluating Intel QAT for Hash-Based Post-Quantum Signature Schemes –
+Among Bytes - <a
+href="https://amongbytes.com/posts/20251129-qat-intro/20251129-qat-intro.html"
+class="uri">https://amongbytes.com/posts/20251129-qat-intro/20251129-qat-intro.html</a>
+- as of 2025-11-29</li>
+<li>Accelerate Post-Quantum Cryptography with Intel Crypto Technologies
+- <a
+href="https://builders.intel.com/docs/networkbuilders/accelerate-post-quantum-cryptography-with-intel-crypto-technologies-1759835295.pdf"
+class="uri">https://builders.intel.com/docs/networkbuilders/accelerate-post-quantum-cryptography-with-intel-crypto-technologies-1759835295.pdf</a></li>
+<li>Accelerate Post-Quantum Cryptography with Intel Crypto Technologies
+- <a
+href="https://www.intel.com/content/www/us/en/content-details/866282/accelerate-post-quantum-cryptography-with-intel-crypto-technologies.html"
+class="uri">https://www.intel.com/content/www/us/en/content-details/866282/accelerate-post-quantum-cryptography-with-intel-crypto-technologies.html</a></li>
+<li>Post-Quantum Cryptography: Defending Against Future Adversaries with
+NIST Standards - <a
+href="https://www.intel.com/content/www/us/en/research/news/post-quantum-cryptography.html"
+class="uri">https://www.intel.com/content/www/us/en/research/news/post-quantum-cryptography.html</a></li>
+<li>NEXCOM Delivers Optimized Edge Security for Post-Quantum Workloads -
+<a
+href="https://www.nexcom.com/news/Detail/nexcom-delivers-optimized-edge-security-for-post-quantum-workloads"
+class="uri">https://www.nexcom.com/news/Detail/nexcom-delivers-optimized-edge-security-for-post-quantum-workloads</a>
+- as of 2026-05-06</li>
+<li>Crypto4A Achieves World-First FIPS 140-3 Level 3 Validation for
+Quantum-Safe HSM Module - <a
+href="https://quantumcomputingreport.com/crypto4a-achieves-world-first-fips-140-3-level-3-validation-for-quantum-safe-hsm-module/"
+class="uri">https://quantumcomputingreport.com/crypto4a-achieves-world-first-fips-140-3-level-3-validation-for-quantum-safe-hsm-module/</a>
+- as of 2026-08-20</li>
+<li>Thales launches Luna 8 hardware security module in India, targeting
+post-quantum cryptography readiness - <a
+href="https://www.91mobiles.com/updates/thales-launches-luna-8-hardware-security-module-in-india/"
+class="uri">https://www.91mobiles.com/updates/thales-launches-luna-8-hardware-security-module-in-india/</a>
+- as of 2026-08-22</li>
+<li>PQCryptoLib-Core 3.5.1 NIST CAVP certification announcement - <a
+href="https://x.com/PqShield/status/2087201094891864174"
+class="uri">https://x.com/PqShield/status/2087201094891864174</a> - as
+of 2026-08-11</li>
+<li>Latest News – PQSecure Technologies - <a
+href="https://pqsecurity.com/latest-news/"
+class="uri">https://pqsecurity.com/latest-news/</a> - as of
+2026-06-02</li>
+<li>STMicroelectronics unveils ST54M secure mobile chip with
+post-quantum cryptography - <a
+href="https://newsroom.st.com/media-center/press-item.html/p4784.html"
+class="uri">https://newsroom.st.com/media-center/press-item.html/p4784.html</a>
+- as of 2026-06-26</li>
+<li>Rambus Introduces RT-648: Bringing Arm-Based Root of Trust into the
+Automotive CSS Ecosystem - Rambus - <a
+href="https://www.rambus.com/blogs/rambus-introduces-rt-648-bringing-arm-based-root-of-trust-into-the-automotive-css-ecosystem/"
+class="uri">https://www.rambus.com/blogs/rambus-introduces-rt-648-bringing-arm-based-root-of-trust-into-the-automotive-css-ecosystem/</a>
+- as of 2026-06-17</li>
+<li>QuickLogic and PQSecure Enable Reprogrammable Post-Quantum
+Cryptography for SoCs - <a
+href="https://www.prnewswire.com/news-releases/quicklogic-and-pqsecure-enable-reprogrammable-post-quantum-cryptography-for-socs-302827173.html"
+class="uri">https://www.prnewswire.com/news-releases/quicklogic-and-pqsecure-enable-reprogrammable-post-quantum-cryptography-for-socs-302827173.html</a>
+- as of 2026-07-16</li>
+<li>PQSecure and QuickLogic Demonstrate Reprogrammable Post-Quantum
+Security for Next-Generation SoCs - <a
+href="https://www.design-reuse.com/news/202530905-pqsecure-and-quicklogic-demonstrate-reprogrammable-post-quantum-security-for-next-generation-socs/"
+class="uri">https://www.design-reuse.com/news/202530905-pqsecure-and-quicklogic-demonstrate-reprogrammable-post-quantum-security-for-next-generation-socs/</a>
+- as of 2026-07-30</li>
+<li>SEALSQ updates post-quantum chip certification plans | LAES SEC
+Filing - <a
+href="https://www.stocktitan.net/sec-filings/LAES/6-k-sealsq-corp-current-report-foreign-issuer-75088fd6327b.html"
+class="uri">https://www.stocktitan.net/sec-filings/LAES/6-k-sealsq-corp-current-report-foreign-issuer-75088fd6327b.html</a>
+- as of 2026-08-14</li>
+<li>Hardware Security Modules for Post-Quantum Cryptography - <a
+href="https://www.ampcuscyber.com/knowledge-hub/what-is-hardware-security-module/"
+class="uri">https://www.ampcuscyber.com/knowledge-hub/what-is-hardware-security-module/</a></li>
+<li>Post Quantum Algorithms - Thales Docs - <a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm</a>
+- as of 2026-07-17</li>
+<li>Are Your HSMs PQC-Ready? - <a
+href="https://www.encryptionconsulting.com/are-your-hsms-pqc-ready/"
+class="uri">https://www.encryptionconsulting.com/are-your-hsms-pqc-ready/</a>
+- as of 2026-06-24</li>
+<li>PQC Capabilities Matrix (PQCCM) | PKI Consortium - <a
+href="https://pkic.org/wg/pqc/pqccm/"
+class="uri">https://pkic.org/wg/pqc/pqccm/</a></li>
+<li>Securing Cryptography in the Age of Quantum Computing and AI:
+Threats, Implementations, and Strategic Response - <a
+href="https://arxiv.org/pdf/2603.06969"
+class="uri">https://arxiv.org/pdf/2603.06969</a></li>
+<li>CryptoManager RT-6xx Root of Trust | Security IP - Rambus - <a
+href="https://www.rambus.com/security/root-of-trust/rt-6xx/"
+class="uri">https://www.rambus.com/security/root-of-trust/rt-6xx/</a> -
+as of 2025-03-10</li>
+<li>QSE-IP-86 Quantum Safe Engine | Security IP - Rambus - <a
+href="https://www.rambus.com/security/quantum-safe-cryptography/qse-ip-86/"
+class="uri">https://www.rambus.com/security/quantum-safe-cryptography/qse-ip-86/</a></li>
+<li>Rambus Protects Data Center Infrastructure with Quantum Safe Engine
+IP - <a
+href="https://www.businesswire.com/news/home/20231204051092/en/Rambus-Protects-Data-Center-Infrastructure-with-Quantum-Safe-Engine-IP"
+class="uri">https://www.businesswire.com/news/home/20231204051092/en/Rambus-Protects-Data-Center-Infrastructure-with-Quantum-Safe-Engine-IP</a>
+- as of 2023-12-04</li>
+<li>Rambus boosts FPGA security with post quantum IP - <a
+href="https://www.eenewseurope.com/en/rambus-boosts-fpga-security-with-post-quantum-ip/"
+class="uri">https://www.eenewseurope.com/en/rambus-boosts-fpga-security-with-post-quantum-ip/</a>
+- as of 2023-08-22</li>
+<li>CryptoManager RT-7xx Embedded HSM | Security IP - Rambus - <a
+href="https://www.rambus.com/security/root-of-trust/rt-7xx/"
+class="uri">https://www.rambus.com/security/root-of-trust/rt-7xx/</a></li>
+<li>The Post-Quantum Cryptography Mandate: Building Cryptographically
+Agile Systems for the Quantum Era - Rambus - <a
+href="https://www.rambus.com/blogs/the-post-quantum-cryptography-mandate-building-cryptographically-agile-systems-for-the-quantum-era/"
+class="uri">https://www.rambus.com/blogs/the-post-quantum-cryptography-mandate-building-cryptographically-agile-systems-for-the-quantum-era/</a></li>
+<li>What is Post-Quantum Cryptography (PQC)? – How it Works | Synopsys -
+<a
+href="https://www.synopsys.com/glossary/what-is-post-quantum-cryptography.html"
+class="uri">https://www.synopsys.com/glossary/what-is-post-quantum-cryptography.html</a></li>
+<li>Agile PQC Public Key Accelerators | Synopsys - <a
+href="https://www.synopsys.com/designware-ip/security-ip/cryptography-ip/public-key-accelerators/agile-pqc-pka.html"
+class="uri">https://www.synopsys.com/designware-ip/security-ip/cryptography-ip/public-key-accelerators/agile-pqc-pka.html</a></li>
+<li>Post Quantum Cryptography: Algorithms &amp; Security | Synopsys Blog
+- <a
+href="https://www.synopsys.com/blogs/chip-design/post-quantum-cryptography-algorithms-security.html"
+class="uri">https://www.synopsys.com/blogs/chip-design/post-quantum-cryptography-algorithms-security.html</a></li>
+<li>How Post-Quantum Cryptography Impacts SoC Design | Synopsys Blog -
+<a
+href="https://www.synopsys.com/blogs/chip-design/post-quantum-cryptography-in-soc-design.html"
+class="uri">https://www.synopsys.com/blogs/chip-design/post-quantum-cryptography-in-soc-design.html</a></li>
+<li>Security IP | Cryptography | PUF - <a
+href="https://www.synopsys.com/designware-ip/security-ip/cryptography-ip/puf/post-quantum-secure-puf.html"
+class="uri">https://www.synopsys.com/designware-ip/security-ip/cryptography-ip/puf/post-quantum-secure-puf.html</a></li>
+<li>PQMicroLib-Core | PQShield - <a
+href="https://pqshield.com/products/pqm-cor/"
+class="uri">https://pqshield.com/products/pqm-cor/</a> - as of
+2026-03-10</li>
+<li>PQShield becomes ST Authorized Partner | PQShield - <a
+href="https://pqshield.com/pqshield-becomes-st-authorized-partner/"
+class="uri">https://pqshield.com/pqshield-becomes-st-authorized-partner/</a>
+- as of 2026-02-23</li>
+<li>PQMicroLib-Core now supports PSA Certified Crypto API | PQShield -
+<a
+href="https://pqshield.com/pqmicrolib-core-now-supports-psa-certified-crypto-api/"
+class="uri">https://pqshield.com/pqmicrolib-core-now-supports-psa-certified-crypto-api/</a>
+- as of 2026-03-13</li>
+<li>PQShield Releases 5KB RAM Post-Quantum Cryptography Implementation -
+Quantum Computing Report - <a
+href="https://quantumcomputingreport.com/pqshield-launches-ultra-compact-pqc-implementation-for-embedded-systems/"
+class="uri">https://quantumcomputingreport.com/pqshield-launches-ultra-compact-pqc-implementation-for-embedded-systems/</a>
+- as of 2026-03-10</li>
+<li>PQShield builds NIST-ready PQC in silicon | PQShield - <a
+href="https://pqshield.com/pqshield-builds-nist-ready-pqc-in-silicon/"
+class="uri">https://pqshield.com/pqshield-builds-nist-ready-pqc-in-silicon/</a>
+- as of 2024-09-04</li>
+<li>PQPlatform-Hash Product Brief (PQShield) - <a
+href="https://pqshield.com/wp-content/uploads/2024/06/PQPlatform-Hash.pdf"
+class="uri">https://pqshield.com/wp-content/uploads/2024/06/PQPlatform-Hash.pdf</a>
+- as of 2024-09-04</li>
+<li>Quantum resistant encryption | PQShield - <a
+href="https://pqshield.com/quantum-resistant-encryption/"
+class="uri">https://pqshield.com/quantum-resistant-encryption/</a></li>
+<li>PQShield: at the heart of the PQC conversation | PQShield - <a
+href="https://pqshield.com/pqshield-at-the-heart-of-the-pqc-conversation/"
+class="uri">https://pqshield.com/pqshield-at-the-heart-of-the-pqc-conversation/</a></li>
+<li>PQSecure™ – Hardware – PQSecure Technologies - <a
+href="https://pqsecurity.com/pqsecure-hardware/"
+class="uri">https://pqsecurity.com/pqsecure-hardware/</a></li>
+<li>PQSecure Technologies - <a href="https://pqsecurity.com/"
+class="uri">https://pqsecurity.com/</a></li>
+<li>SEALSQ’s QS7001 Post-Quantum Secure Element Achieves NIST SP 800-90B
+Entropy Source Validation - <a
+href="https://isp.netscape.com/tech/story/0022/20260528/9728139.htm"
+class="uri">https://isp.netscape.com/tech/story/0022/20260528/9728139.htm</a>
+- as of 2026-05-28</li>
+<li>SEALSQ’s QS7001 Post-Quantum Secure Element Aligned with New ANSSI
+Post Quantum Mandate - <a
+href="https://www.sealsq.com/investors/news-releases/sealsqs-qs7001-post-quantum-secure-element-aligned-with-new-anssi-post-quantum-mandate"
+class="uri">https://www.sealsq.com/investors/news-releases/sealsqs-qs7001-post-quantum-secure-element-aligned-with-new-anssi-post-quantum-mandate</a></li>
+<li>Are Quantum-Safe HSMs Essential for PQC Certificate Security? |
+Encryption Consulting - <a
+href="https://www.encryptionconsulting.com/pqc-cert-with-quantum-safe-hsm/"
+class="uri">https://www.encryptionconsulting.com/pqc-cert-with-quantum-safe-hsm/</a></li>
+<li>Post-Quantum Cryptography (PQC) Guide | Evertrust - <a
+href="https://evertrust.io/guide/pqc/"
+class="uri">https://evertrust.io/guide/pqc/</a></li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="02-firmware-root-of-trust.html"><span>Next</span>Part 2 - Firmware &amp; Root of Trust</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/01-hardware-acceleration.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

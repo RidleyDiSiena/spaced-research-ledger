@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 10 - Containers, Orchestration, Service Mesh | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 10: Containers, Orchestration, Service Mesh.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 10</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 10</p>
+    <h1>Containers, Orchestration, Service Mesh</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/10-containers-orchestration.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#container-runtimes" id="toc-container-runtimes">1.
+Container Runtimes</a></li>
+<li><a href="#kubernetes-pki" id="toc-kubernetes-pki">2. Kubernetes
+PKI</a></li>
+<li><a href="#service-mesh-workload-identity"
+id="toc-service-mesh-workload-identity">3. Service Mesh &amp; Workload
+Identity</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Cloud-native infrastructure got much of its post-quantum protection
+by accident. Kubernetes, containerd, and their neighbors are written in
+Go, and when Go turned hybrid key exchange on by default, whole clusters
+started negotiating it with no announcement and no planning.</p>
+<p>This report covers that world in three sections. Section 1 covers the
+container runtimes, Section 2 the Kubernetes certificate machinery, and
+Section 3 the service meshes and workload identity.</p>
+<p>The pattern to understand is transport versus certificates. Every
+connection between cluster components can already run hybrid
+post-quantum key exchange. But every certificate those components
+present is still classical, and the tools that issue them, from
+cert-manager to SPIRE, have open issues rather than shipped support.</p>
+<p>The meshes are the exception that moved deliberately. Istio ships a
+named post-quantum compliance policy, and Linkerd went further, making
+ML-KEM the default for all meshed traffic. When infrastructure inherits
+good defaults, the remaining work is the part nobody inherits: the
+signatures.</p>
+<h2 id="container-runtimes">1. Container Runtimes</h2>
+<p><em>Container runtimes are the engines that actually run containers:
+Docker, containerd, and their enterprise derivatives. Their cryptography
+secures the control connections between components and the pulls from
+registries. Most of it comes straight from the Go standard library,
+which is the whole story of their post-quantum status.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The enterprise edge is moving deliberately. Mirantis is adding hybrid
+post-quantum key exchange to its container runtime’s internal mTLS,
+automatic, certificate-preserving, and FIPS-compatible [1]. The measured
+cost is under half a millisecond and two kilobytes per handshake [1].
+containerd needs no such project: built on current Go, it negotiates the
+hybrid group by default [2].</p>
+<h3 id="current-state">Current State</h3>
+<p>The one deliberate decision on record is a retirement. Docker’s
+Notary v1 service behind Docker Content Trust shuts down in December
+2026, with publishers directed to Sigstore or Notation rather than any
+post-quantum migration of the old system [3].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="kubernetes-pki">2. Kubernetes PKI</h2>
+<p><em>Kubernetes runs on certificates: every node, controller, and API
+request authenticates with X.509. The transport between components
+inherited post-quantum key exchange from Go, but the certificate
+machinery is its own system. This section covers a cluster’s split
+personality, quantum-safe on the wire and classical in every identity it
+issues.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The certificate tooling is at the planning stage. cert-manager opened
+a tracking issue in June to plan ML-DSA certificate support once Go 1.27
+ships the algorithm in its certificate library [4].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The transport story happened without a plan. Kubernetes components
+are Go programs, and Go’s hybrid group became default in Go 1.24 after a
+draft period [5]. Kubernetes v1.33 moved to that toolchain without
+overriding preferences, so its components picked up hybrid post-quantum
+TLS with no enhancement proposal and no announcement [6]. The kubelet
+and the rest of the control plane gained it the same way [7][6].</p>
+<p>The certificates stayed behind. cert-manager’s API offers only RSA,
+ECDSA, and Ed25519 [8]. Kubelet certificate issuance documents no
+post-quantum signing option at all, so the coverage stops at the
+handshake [9]. etcd lagged even on transport, called out as the one
+control-plane component without support while it sat on an older Go [7].
+Its releases have since moved through Go 1.24 and 1.25 builds
+[10][11].</p>
+<p>One operational trap deserves attention. The post-quantum default
+degrades silently. A component built on older Go negotiating with a
+newer one loses the shared group, falling back to classical key exchange
+without error [6]. Mixed-version clusters get no warning that their
+protection varies by connection.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="service-mesh-workload-identity">3. Service Mesh &amp; Workload
+Identity</h2>
+<p><em>A service mesh encrypts the traffic between microservices
+automatically, and workload-identity systems like SPIFFE hand each
+service its certificate. Together they are the inside-the-cluster PKI.
+This section covers the two meshes that shipped deliberate post-quantum
+support, and the identity layer where signatures remain an open
+request.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The identity layer is inching forward. SPIRE 1.15.2 added two
+post-quantum curves and extended its post-quantum policy to the bundle
+endpoint and metrics server [12][12]. Consul, by contrast, has an open
+request just asking for the algorithms and clearer documentation,
+despite its Go foundation carrying them since 1.24 [13].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Istio made post-quantum a named policy. Version 1.27 added a
+compliance setting enforcing TLS 1.3 with the hybrid key exchange [14],
+covering proxy-to-proxy traffic, gateways, and the control-plane channel
+[15]. Red Hat’s mesh, built on Istio 1.28, carries the support into its
+3.3 release [16], after documenting a custom-build stopgap for earlier
+versions [15]. An open issue asks to extend coverage deeper into
+mesh-internal traffic [17]. The data-plane caveat lives downstream:
+Consul’s mesh runs on vendored Envoy, and upstream Envoy’s post-quantum
+issue has gone stale [18].</p>
+<p>Linkerd simply changed the default. Version 2.19 swapped its proxy’s
+cryptographic module, added the stronger cipher suites, and made
+ML-KEM-768 the default key exchange for all meshed-pod traffic [19]. It
+exports the negotiated algorithms as metrics, with the FIPS-validated
+enterprise build offered as a distinct path [20].</p>
+<p>SPIFFE and SPIRE hold the certificate gap. An open backlog issue asks
+what SPIRE needs to issue ML-DSA-signed identities and run ML-KEM
+connections, indicating none of it was implemented [21]. The shipped
+work is policy-level, updating the key-exchange requirement to the
+standardized group [22]. Academic designs for a hybrid post-quantum
+SPIFFE exist as proposals only [23].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>One outside account oversells SPIRE. A blog post describes SPIRE’s
+migration to ML-DSA as proceeding smoothly thanks to its plugin
+structure [24]. That directly contradicts the project’s own open,
+backlog-tagged issue asking what such a migration would even require
+[21]. The project issue is the primary source. A SPIRE release note
+shipping ML-DSA identities would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Post-Quantum Cryptography in Mirantis Container Runtime - <a
+href="https://www.mirantis.com/blog/post-quantum-cryptography-in-mirantis-container-runtime/"
+class="uri">https://www.mirantis.com/blog/post-quantum-cryptography-in-mirantis-container-runtime/</a>
+- as of 2026-07-10</li>
+<li>Add tls_groups configuration for Post-Quantum TLS in registry host
+config · Issue #13663 · containerd/containerd - <a
+href="https://github.com/containerd/containerd/issues/13663"
+class="uri">https://github.com/containerd/containerd/issues/13663</a> -
+as of 2026-06-24</li>
+<li>oneuptime.com — view - <a
+href="https://oneuptime.com/blog/post/2026-01-16-docker-content-trust/view"
+class="uri">https://oneuptime.com/blog/post/2026-01-16-docker-content-trust/view</a>
+- as of 2026-01-16</li>
+<li>Post-Quantum Cryptography: Plan ML-DSA certificate support for Go
+1.27 · Issue #8929 · cert-manager/cert-manager - <a
+href="https://github.com/cert-manager/cert-manager/issues/8929"
+class="uri">https://github.com/cert-manager/cert-manager/issues/8929</a>
+- as of 2026-06-22</li>
+<li>pkg.go.dev — tls - <a href="https://pkg.go.dev/crypto/tls"
+class="uri">https://pkg.go.dev/crypto/tls</a></li>
+<li>kubernetes.io — pqc in k8s - <a
+href="https://kubernetes.io/blog/2025/07/18/pqc-in-k8s/"
+class="uri">https://kubernetes.io/blog/2025/07/18/pqc-in-k8s/</a> - as
+of 2026-01-03</li>
+<li>redhat.com — deeper look post quantum cryptography support red hat
+openshift 420 control plane - <a
+href="https://www.redhat.com/en/blog/deeper-look-post-quantum-cryptography-support-red-hat-openshift-420-control-plane"
+class="uri">https://www.redhat.com/en/blog/deeper-look-post-quantum-cryptography-support-red-hat-openshift-420-control-plane</a>
+- as of 2025-11-24</li>
+<li>cert-manager.io — annotations - <a
+href="https://cert-manager.io/docs/reference/annotations/"
+class="uri">https://cert-manager.io/docs/reference/annotations/</a></li>
+<li>learn.microsoft.com — certificate rotation - <a
+href="https://learn.microsoft.com/en-us/azure/aks/certificate-rotation"
+class="uri">https://learn.microsoft.com/en-us/azure/aks/certificate-rotation</a></li>
+<li>github.com — CHANGELOG 3.6 - <a
+href="https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.6.md"
+class="uri">https://github.com/etcd-io/etcd/blob/main/CHANGELOG/CHANGELOG-3.6.md</a></li>
+<li>etcd.io — july 23 patch release - <a
+href="https://etcd.io/blog/2026/july-23-patch-release/"
+class="uri">https://etcd.io/blog/2026/july-23-patch-release/</a></li>
+<li>spire/CHANGELOG.md at main · spiffe/spire · GitHub - <a
+href="https://github.com/spiffe/spire/blob/main/CHANGELOG.md"
+class="uri">https://github.com/spiffe/spire/blob/main/CHANGELOG.md</a> -
+as of 2026-07-09</li>
+<li>Support of post-quantum algorithms · Issue #23738 · hashicorp/consul
+- <a href="https://github.com/hashicorp/consul/issues/23738"
+class="uri">https://github.com/hashicorp/consul/issues/23738</a> - as of
+2026-07-16</li>
+<li>istio.io — change notes - <a
+href="https://istio.io/latest/news/releases/1.27.x/announcing-1.27/change-notes/"
+class="uri">https://istio.io/latest/news/releases/1.27.x/announcing-1.27/change-notes/</a>
+- as of 2025-08-11</li>
+<li>developers.redhat.com — quantum secure gateways openshift service
+mesh - <a
+href="https://developers.redhat.com/articles/2025/12/18/quantum-secure-gateways-openshift-service-mesh"
+class="uri">https://developers.redhat.com/articles/2025/12/18/quantum-secure-gateways-openshift-service-mesh</a>
+- as of 2025-12-22</li>
+<li>redhat.com — openshift service mesh 33 adds post quantum
+cryptography - <a
+href="https://www.redhat.com/en/blog/openshift-service-mesh-33-adds-post-quantum-cryptography"
+class="uri">https://www.redhat.com/en/blog/openshift-service-mesh-33-adds-post-quantum-cryptography</a>
+- as of 2026-03-17</li>
+<li>Feature request: PQC for mesh-internal traffic · Issue #56330 ·
+istio/istio - <a href="https://github.com/istio/istio/issues/56330"
+class="uri">https://github.com/istio/istio/issues/56330</a> - as of
+2025-05-16</li>
+<li>github.com — 42893 - <a
+href="https://github.com/envoyproxy/envoy/issues/42893"
+class="uri">https://github.com/envoyproxy/envoy/issues/42893</a> - as of
+2026-01-07</li>
+<li>linkerd.io — announcing linkerd 2.19 - <a
+href="https://linkerd.io/2025/10/31/announcing-linkerd-2.19/"
+class="uri">https://linkerd.io/2025/10/31/announcing-linkerd-2.19/</a> -
+as of 2025-10-31</li>
+<li>buoyant.io — linkerd enterprise 2 19 windows service mesh post
+quantum cryptography supply chain security fips 140 3 and a new on
+cluster dashboard - <a
+href="https://www.buoyant.io/blog/linkerd-enterprise-2-19-windows-service-mesh-post-quantum-cryptography-supply-chain-security-fips-140-3-and-a-new-on-cluster-dashboard"
+class="uri">https://www.buoyant.io/blog/linkerd-enterprise-2-19-windows-service-mesh-post-quantum-cryptography-supply-chain-security-fips-140-3-and-a-new-on-cluster-dashboard</a>
+- as of 2026-02-09</li>
+<li>github.com — 6975 - <a
+href="https://github.com/spiffe/spire/issues/6975"
+class="uri">https://github.com/spiffe/spire/issues/6975</a> - as of
+2026-05-20</li>
+<li>spire/CHANGELOG.md at main · spiffe/spire - <a
+href="https://github.com/spiffe/spire/blob/main/CHANGELOG.md"
+class="uri">https://github.com/spiffe/spire/blob/main/CHANGELOG.md</a> -
+as of 2026-03-18</li>
+<li>ieeexplore.ieee.org — 11044812 - <a
+href="https://ieeexplore.ieee.org/abstract/document/11044812/"
+class="uri">https://ieeexplore.ieee.org/abstract/document/11044812/</a></li>
+<li>dev.to — spiffespire deep dive a5p - <a
+href="https://dev.to/kanywst/spiffespire-deep-dive-a5p"
+class="uri">https://dev.to/kanywst/spiffespire-deep-dive-a5p</a> - as of
+2026-04-24</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="09-software-supply-chain.html"><span>Previous</span>Part 9 - Software Supply Chain</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="11-cloud-infrastructure.html"><span>Next</span>Part 11 - Cloud Infrastructure</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/10-containers-orchestration.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

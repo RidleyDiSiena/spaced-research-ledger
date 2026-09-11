@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 13 - Enterprise Infrastructure & Storage | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 13: Enterprise Infrastructure & Storage.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 13</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 13</p>
+    <h1>Enterprise Infrastructure &amp; Storage</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/13-enterprise-infra-storage.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#virtualization-platforms"
+id="toc-virtualization-platforms">1. Virtualization Platforms</a></li>
+<li><a href="#bmc-out-of-band-management"
+id="toc-bmc-out-of-band-management">2. BMC &amp; Out-of-Band
+Management</a></li>
+<li><a href="#backup-storage-systems" id="toc-backup-storage-systems">3.
+Backup &amp; Storage Systems</a></li>
+<li><a href="#disk-data-at-rest-encryption"
+id="toc-disk-data-at-rest-encryption">4. Disk &amp; Data-at-Rest
+Encryption</a></li>
+<li><a href="#peripherals-physical-access"
+id="toc-peripherals-physical-access">5. Peripherals &amp; Physical
+Access</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The machines that run and store enterprise data live longer than
+almost anything else in computing. A storage array, a tape cartridge, or
+a server management chip bought today will still be in service when
+quantum computers are far closer. That makes this hardware’s
+cryptography a decision with a decade-long tail.</p>
+<p>This report covers the layer in five sections. Section 1 covers the
+virtualization platforms, Section 2 the management controllers inside
+servers, and Section 3 backup and storage systems. Section 4 covers disk
+and data-at-rest encryption, and Section 5 the peripherals and badge
+readers at the physical edge.</p>
+<p>The surprises run in both directions. Tape, the oldest medium in the
+room, shipped the world’s first post-quantum-ready drive, building on
+demonstrations that predate the standards by five years. Server
+management moved hard, with HPE and Dell signing firmware with
+post-quantum algorithms and marketing quantum-resistant security
+processors. Even printers now ship post-quantum secure boot.</p>
+<p>The laggard is the layer everyone assumes is fine. Data-at-rest
+encryption leans on the fact that symmetric AES is already
+quantum-resistant, but the key-wrapping and self-encrypting-drive
+standards around it show no post-quantum work at all. VMware, meanwhile,
+is honest that its timeline is hostage to the FIPS validation queue.</p>
+<h2 id="virtualization-platforms">1. Virtualization Platforms</h2>
+<p><em>Hypervisors run most enterprise workloads, and their management
+traffic carries the credentials to everything. The platform vendors
+themselves have moved slowly, which has made backup vendors and third
+parties the practical delivery channel for post-quantum protection. This
+section covers a layer waiting on its suppliers.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The motion comes from outside the hypervisors. wolfSSL announced a
+path to FIPS-validated post-quantum cryptography for Proxmox by
+replacing the platform’s cryptographic backends wholesale [1].</p>
+<h3 id="current-state">Current State</h3>
+<p>Backup vendors became the common channel. Veeam’s 13.1 release adds
+hybrid FIPS-plus-post-quantum key exchange for backup and replication
+traffic, keeping certified AES for bulk data, adoptable without
+redeployment [2]. Its hypervisor coverage spans essentially the whole
+market through a universal API [3]. Commvault moved even earlier,
+carrying the draft-era algorithms in an agility framework since 2024 and
+adding the backup KEM in 2025 [4].</p>
+<p>VMware is candid about being stuck. Its own blog explains that
+post-quantum algorithms cannot ship in production until FIPS-certified
+builds of the underlying libraries exist, tying its timeline directly to
+the validation backlog [5]. The preparatory work is real: fleet-wide TLS
+profiles and a cryptographic bill of materials mapping every algorithm
+in use [5]. Nutanix shows no native feature, with a third-party
+encryption vendor filling the gap through certified node-level
+protection [6].</p>
+<p>One dark footnote: a ransomware family brands itself with
+post-quantum terminology, actually using Kyber on Windows while its ESXi
+variant’s quantum claim is simply false [7]. The attackers adopted the
+vocabulary before some vendors did.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="bmc-out-of-band-management">2. BMC &amp; Out-of-Band
+Management</h2>
+<p><em>Every server contains a second, hidden computer: the management
+controller that can reflash firmware and reach the console even when the
+machine is off. Compromise it and you own the fleet, which is why its
+firmware signing is racing ahead of nearly everything else. This section
+covers HPE, Dell, and the attestation standard beneath both.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Firmware signing went post-quantum on both major lines. HPE’s Gen12
+servers sign the boot chain with LMS for the first step and ML-DSA for
+the rest, deliberately saying quantum-resistant rather than
+quantum-proof [8]. CNSA 2.0-approved signing is stated in product
+specifications [9]. Dell now dual-signs iDRAC firmware with a
+post-quantum signature beside the classical one, both validated on
+update [10].</p>
+<p>The interfaces followed. HPE’s iLO 7 Redfish service added ML-DSA-87
+certificate types and a post-quantum enable flag [11][11]. The standards
+layer moved with them. The SPDM attestation protocol’s working group
+opened feedback on hybrid support for version 1.5 [12] and published
+version 1.4.1 [13]. Its reference implementation carries the NIST
+algorithm set [14].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>HPE claims the compliance high ground. Gen12 with iLO 7 reaches FIPS
+140-3 Level 3, described as the first servers meeting NIST’s
+quantum-resistant requirements [15], with a dedicated Secure Enclave
+processor guarding keys [15]. Further standards arrive over summer 2026
+[16]. One marketing claim needs correction.</p>
+<p>Framing larger RSA keys as being for post-quantum cryptography is
+technically wrong, since RSA of any size falls to a quantum computer
+[17]. That conflates classical hardening with quantum resistance
+[17].</p>
+<p>Dell’s approach is explicitly hybrid. iDRAC runs on FIPS-certified
+silicon with traditional and quantum-safe methods combined [18], and its
+newest generation adds a security enclave and component verification
+[19]. Attestation runs over SPDM with a silicon root of trust [20], and
+quantum-resistant firmware validation reaches production platforms in
+2026 [21].</p>
+<p>The attestation standard is the shared dependency. SPDM entered FIPS
+implementation guidance [22], its post-quantum expansion was announced
+by six standards bodies [23], and its full update waits on a
+standardized definition of hybrid encryption [24].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="backup-storage-systems">3. Backup &amp; Storage Systems</h2>
+<p><em>Storage arrays and backup systems hold the data that
+harvest-now-decrypt-later attacks ultimately want. Their vendors split
+between shipping post-quantum protection on the wire and reframing
+existing AES as already quantum-safe. This section covers who did which,
+and the tape drive that beat everyone.</em></p>
+<h3 id="current-state-2">Current State</h3>
+<p>Tape got there first. LTO-10 is the first post-quantum-ready tape
+drive, carrying certificates for the NIST algorithms [25][26], with a
+higher-capacity cartridge keeping the same protection [27]. The lineage
+is real. IBM demonstrated Kyber and Dilithium on tape drives in 2019,
+five years before standardization, and commits its drives to the
+ratified algorithms [28].</p>
+<p>It stands as one of only two products predating the 2024 announcement
+[29]. The key-management side is concrete, with drives connecting to
+IBM’s key manager over post-quantum-protected TLS, upgraded in a
+specific order [30].</p>
+<p>Dell shipped the flashiest first. Its PowerStore and PowerEdge
+combination with Broadcom’s secure adapters delivers what it calls the
+first end-to-end in-flight post-quantum-ready encryption [31]. The
+specification is precise: ML-KEM-1024 key negotiation, ML-DSA-87
+certificates, an LMS silicon root of trust, and line AES [32]. Its
+crypto module supports the finalized ML-DSA standard [33], and its own
+framing is sober, describing storage readiness as six layers rather than
+one upgrade [34].</p>
+<p>NetApp embedded the algorithms in the array. It announced
+NIST-compliant post-quantum for file and block workloads [35], covering
+data at rest and in flight [36]. ONTAP supports all three algorithms for
+SSL, currently outside FIPS mode [37]. It also sells a separately named
+quantum-ready product that is AES-256 under the hood [38].</p>
+<p>Partnerships extend the story, with F5 fronting its object storage
+with hybrid TLS [39][40] and a Taiwanese development agreement [41].
+Pure Storage frames adoption as an extension of its continuous-upgrade
+model, a philosophy statement more than a shipped feature [38].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="disk-data-at-rest-encryption">4. Disk &amp; Data-at-Rest
+Encryption</h2>
+<p><em>Encrypted disks are the one place the quantum threat is smaller
+for real reasons: the bulk encryption is symmetric AES, which larger
+keys already protect. The soft spots are around the edges, in the key
+wrapping, the drive-access standards, and the databases. This section
+covers a layer where almost nothing has changed, and why that is only
+partly fine.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The changes are at the perimeter. Microsoft named composite
+post-quantum support, ML-KEM included, as a future direction for
+BitLocker [42]. The Trusted Computing Group’s new TPM guidance defines
+the quantum-ready hardware categories the drive-access chain will
+eventually rest on [43].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The standards under the drives are untouched. TCG Opal’s
+authentication remains credential-based with no post-quantum algorithm
+mentioned in current documentation [44]. LUKS has no post-quantum update
+either, its most notable recent change being integration with Opal
+hardware that inherits whatever authentication is configured [45]. Where
+drive access is token-based, the exposure is inherited from the token’s
+own readiness, still prototype-stage [45].</p>
+<p>Databases show the same pattern with better marketing. Oracle’s
+transparent data encryption defaults to AES-256, framed as strong
+against classical and quantum threats alike [46], with master keys in
+wallets and vaults integrating HSMs [47]. But no source confirms the
+key-wrapping mechanism itself has adopted a post-quantum KEM, as opposed
+to the database’s network TLS, and the historical wallet mechanism is
+password-based [48]. For Microsoft SQL Server, nothing
+post-quantum-specific was found beyond classical key-manager
+integrations [49].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="peripherals-physical-access">5. Peripherals &amp; Physical
+Access</h2>
+<p><em>The migration’s furthest edge is physical: the badge that opens
+the door, the printer in the hallway, the security key on a keyring.
+Some of it moved surprisingly fast, and some of it has not moved at all.
+This section covers printers with quantum-resistant chips, badges
+without any post-quantum at all, and the federal program planning the
+difference.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Printers became an unlikely front-runner. Xerox’s new A4 line ships
+hardware-enabled post-quantum secure boot on by default [50], with
+firmware updates extending protection to older devices back to 2018
+[50]. The positioning against the RSA-and-ECC sunset is explicit [50].
+Analysts rank it a print-security leader partly on that readiness
+[51].</p>
+<p>HP answered with a quantum-resilient printer series built on
+quantum-resistant chips [52]. On the credential side, a partnership is
+building end-to-end post-quantum FIDO2 passkeys combining secure
+hardware with credential management [53].</p>
+<p>The federal machinery started planning. GSA is expanding its
+evaluation lab to test quantum-resistant badges, passes, and access
+controls [54], and updating the federal identity architecture around
+crypto agility [55]. The phased timeline runs from discovery now to full
+migration by 2035 [56]. A hardware key now combines FIDO2 with badge
+credentials in one device [57].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The badge ecosystem is the untouched middle. HID’s dominant
+credential platform documents symmetric encryption and mutual
+authentication with no post-quantum algorithm anywhere [58]. The company
+publishes awareness content rather than shipped features [59], and its
+identity-management platform’s security story is workflow, not
+cryptography [60]. The design work exists as patents, a post-quantum
+Common Access Card concept [61] and a signature-free access scheme [62],
+neither a product.</p>
+<p>Swissbit is the active corner, integrating HID credentials into its
+security key [63] and running a post-quantum evaluation platform for
+partners [63]. U.S. government guidance nonetheless lists identity
+hardware among categories with post-quantum-capable products widely
+available [64].</p>
+<p>The printer race has a commercial logic. HP’s commissioned study
+found no in-class competitor protecting firmware with quantum-resistant
+signatures at the time, a vendor claim [65]. Analysts locate the driver
+in procurement: printers bought today serve five to seven years, so
+quantum-resistant endpoints are entering RFPs, while attackers pivot
+toward printers as other endpoints harden [66]. Multi-generational
+refreshes at HP and Xerox’s entry a year later suggest the category is
+now permanent [67].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>wolfSSL Advances Post-Quantum Encryption and FIPS 140-3 Across
+Embedded and Enterprise Systems to Facilitate CNSA 2.0 Compliance - <a
+href="https://www.wolfssl.com/wolfssl-advances-post-quantum-encryption-and-fips-140-3-across-embedded-and-enterprise-systems-to-facilitate-cnsa-2-0-compliance/"
+class="uri">https://www.wolfssl.com/wolfssl-advances-post-quantum-encryption-and-fips-140-3-across-embedded-and-enterprise-systems-to-facilitate-cnsa-2-0-compliance/</a>
+- as of 2026-08-04</li>
+<li>veeam.com — veeam data platform v13 1 announcements veeamon 2026 -
+<a
+href="https://www.veeam.com/blog/veeam-data-platform-v13-1-announcements-veeamon-2026.html"
+class="uri">https://www.veeam.com/blog/veeam-data-platform-v13-1-announcements-veeamon-2026.html</a></li>
+<li>thenasguy.com — whats new in veeam data platform v13 1 a
+practitioners look at the veeamon nyc 2026 announcements - <a
+href="https://www.thenasguy.com/2026/05/14/whats-new-in-veeam-data-platform-v13-1-a-practitioners-look-at-the-veeamon-nyc-2026-announcements/"
+class="uri">https://www.thenasguy.com/2026/05/14/whats-new-in-veeam-data-platform-v13-1-a-practitioners-look-at-the-veeamon-nyc-2026-announcements/</a>
+- as of 2026-05-14</li>
+<li>nasdaq.com — commvault unveils new post quantum cryptography
+capabilities help customers protect - <a
+href="https://www.nasdaq.com/press-release/commvault-unveils-new-post-quantum-cryptography-capabilities-help-customers-protect"
+class="uri">https://www.nasdaq.com/press-release/commvault-unveils-new-post-quantum-cryptography-capabilities-help-customers-protect</a>
+- as of 2025-06-09</li>
+<li>blogs.vmware.com — post quantum readiness on vcf - <a
+href="https://blogs.vmware.com/cloud-foundation/2026/04/28/post-quantum-readiness-on-vcf/"
+class="uri">https://blogs.vmware.com/cloud-foundation/2026/04/28/post-quantum-readiness-on-vcf/</a>
+- as of 2026-04-28</li>
+<li>certes.ai — certes validated as nutanix ready ahv with quantum safe
+options to protect data everywhere - <a
+href="https://certes.ai/2025/10/31/certes-validated-as-nutanix-ready-ahv-with-quantum-safe-options-to-protect-data-everywhere/"
+class="uri">https://certes.ai/2025/10/31/certes-validated-as-nutanix-ready-ahv-with-quantum-safe-options-to-protect-data-everywhere/</a>
+- as of 2025-10-31</li>
+<li>vpncentral.com — kyber ransomware targets windows and vmware esxi
+with post quantum encryption claims - <a
+href="https://vpncentral.com/kyber-ransomware-targets-windows-and-vmware-esxi-with-post-quantum-encryption-claims/"
+class="uri">https://vpncentral.com/kyber-ransomware-targets-windows-and-vmware-esxi-with-post-quantum-encryption-claims/</a>
+- as of 2026-04-26</li>
+<li>techzine.eu — hpe ilo security from remote management to quantum
+safe security - <a
+href="https://www.techzine.eu/blogs/security/142674/hpe-ilo-security-from-remote-management-to-quantum-safe-security/"
+class="uri">https://www.techzine.eu/blogs/security/142674/hpe-ilo-security-from-remote-management-to-quantum-safe-security/</a>
+- as of 2026-07-03</li>
+<li>HPE ProLiant Compute ML350 Gen12 QuickSpecs - <a
+href="https://www.hpe.com/us/en/collaterals/collateral.a50006995enw.html"
+class="uri">https://www.hpe.com/us/en/collaterals/collateral.a50006995enw.html</a>
+- as of 2026-08-03</li>
+<li>iDRAC10 Version 1.30.xx Security Configuration Guide - <a
+href="https://www.dell.com/support/manuals/en-us/poweredge-m7725/idrac10_1.30.xx_scg/signed-firmware-updates?guid=guid-e3978eef-a12e-48fb-bf10-086132c3a56d&amp;lang=en-us"
+class="uri">https://www.dell.com/support/manuals/en-us/poweredge-m7725/idrac10_1.30.xx_scg/signed-firmware-updates?guid=guid-e3978eef-a12e-48fb-bf10-086132c3a56d&amp;lang=en-us</a>
+- as of 2026-08-27</li>
+<li>iLO 7 changelog - <a
+href="https://servermanagementportal.ext.hpe.com/docs/redfishservices/ilos/ilo7/ilo7_changelog"
+class="uri">https://servermanagementportal.ext.hpe.com/docs/redfishservices/ilos/ilo7/ilo7_changelog</a>
+- as of 2026-08-27</li>
+<li>Help Us Get SPDM 1.5 Right: Feedback Requested on Plan for Hybrid
+Support of Traditional and PQC - <a
+href="https://www.dmtf.org/content/help-us-get-spdm-15-right-feedback-requested-plan-hybrid-support-traditional-and-pqc"
+class="uri">https://www.dmtf.org/content/help-us-get-spdm-15-right-feedback-requested-plan-hybrid-support-traditional-and-pqc</a>
+- as of 2026-06-18</li>
+<li>SPDM | DMTF - <a href="https://www.dmtf.org/standards/spdm"
+class="uri">https://www.dmtf.org/standards/spdm</a> - as of
+2026-07-02</li>
+<li>DMTF/libspdm - <a href="https://www.github.com/DMTF/libspdm"
+class="uri">https://www.github.com/DMTF/libspdm</a> - as of
+2026-08-26</li>
+<li>RESEARCH NOTE: Is Quantum-Resistant Cybersecurity A Reality? - <a
+href="https://moorinsightsstrategy.com/research-notes/is-quantum-resistant-cybersecurity-a-reality/"
+class="uri">https://moorinsightsstrategy.com/research-notes/is-quantum-resistant-cybersecurity-a-reality/</a>
+- as of 2026-08-13</li>
+<li>HPE introduces sweeping security advancements to secure AI adoption
+and strengthen enterprise resiliency - <a
+href="https://www.hpe.com/us/en/newsroom/press-release/2026/03/hpe-introduces-sweeping-security-advancements-to-secure-ai-adoption-and-strengthen-enterprise-resiliency.html"
+class="uri">https://www.hpe.com/us/en/newsroom/press-release/2026/03/hpe-introduces-sweeping-security-advancements-to-secure-ai-adoption-and-strengthen-enterprise-resiliency.html</a>
+- as of 2026-03-24</li>
+<li>hpcwire.com — hpe highlights modular design and post quantum
+security at ocp global summit - <a
+href="https://www.hpcwire.com/off-the-wire/hpe-highlights-modular-design-and-post-quantum-security-at-ocp-global-summit/"
+class="uri">https://www.hpcwire.com/off-the-wire/hpe-highlights-modular-design-and-post-quantum-security-at-ocp-global-summit/</a>
+- as of 2025-10-13</li>
+<li>delltechnologies.com — cyber resilient security with poweredge
+servers.pdf - <a
+href="https://www.delltechnologies.com/asset/sv-se/products/servers/industry-market/cyber-resilient-security-with-poweredge-servers.pdf"
+class="uri">https://www.delltechnologies.com/asset/sv-se/products/servers/industry-market/cyber-resilient-security-with-poweredge-servers.pdf</a></li>
+<li>storagereview.com — dell poweredge xe7740 inside the architecture of
+enterprise ai inference - <a
+href="https://www.storagereview.com/review/dell-poweredge-xe7740-inside-the-architecture-of-enterprise-ai-inference"
+class="uri">https://www.storagereview.com/review/dell-poweredge-xe7740-inside-the-architecture-of-enterprise-ai-inference</a>
+- as of 2026-02-27</li>
+<li>Tolly Report 225142 for Dell Technologies - <a
+href="https://tolly.com/publications/225142"
+class="uri">https://tolly.com/publications/225142</a> - as of
+2025-08-01</li>
+<li>Securing Storage from Silicon to Software: Dell’s Layered Approach
+to PQC Readiness - <a
+href="https://www.dell.com/en-us/blog/securing-storage-dell-s-layered-approach-to-pqc-readiness-is-the-pqc-blog2-one/"
+class="uri">https://www.dell.com/en-us/blog/securing-storage-dell-s-layered-approach-to-pqc-readiness-is-the-pqc-blog2-one/</a>
+- as of 2026-05-18</li>
+<li>Recent News - DMTF.org - <a href="https://www.dmtf.org/news"
+class="uri">https://www.dmtf.org/news</a> - as of 2026-05-12</li>
+<li>Industry Standards Groups Advance Security with SPDM Standard and
+Post-Quantum Cryptography Support, and Alignment with CNSA 2.0 - <a
+href="https://www.businesswire.com/news/home/20250528847702/en/Industry-Standards-Groups-Advance-Security-with-SPDM-Standard-and-Post-Quantum-Cryptography-Support-and-Alignment-with-CNSA-2.0"
+class="uri">https://www.businesswire.com/news/home/20250528847702/en/Industry-Standards-Groups-Advance-Security-with-SPDM-Standard-and-Post-Quantum-Cryptography-Support-and-Alignment-with-CNSA-2.0</a>
+- as of 2025-05-28</li>
+<li>dmtf.org — DMTF Newsletter February 2026.pdf - <a
+href="https://www.dmtf.org/sites/default/files/DMTF_Newsletter_February_2026.pdf"
+class="uri">https://www.dmtf.org/sites/default/files/DMTF_Newsletter_February_2026.pdf</a>
+- as of 2026-02-05</li>
+<li>The LTO Program introduces LTO Generation 10: the world’s first
+post-quantum cryptography-ready tape drive - <a
+href="https://resilienceforward.com/the-lto-program-introduces-lto-generation-10-the-worlds-first-post-quantum-cryptography-ready-tape-drive/"
+class="uri">https://resilienceforward.com/the-lto-program-introduces-lto-generation-10-the-worlds-first-post-quantum-cryptography-ready-tape-drive/</a>
+- as of 2025-08-14</li>
+<li>Why IBM LTO-10 Is the Next Leap in Scalable, Secure Data … - <a
+href="https://jeskell.com/why-ibm-lto-10-is-the-next-leap-in-scalable-secure-data-archiving/"
+class="uri">https://jeskell.com/why-ibm-lto-10-is-the-next-leap-in-scalable-secure-data-archiving/</a>
+- as of 2025-05-28</li>
+<li>LTO Program Unveils LTO-10 40TB Ultrium Cartridge, Updates Roadmap
+Toward 913TB Archival Tape - <a
+href="https://www.storagereview.com/news/lto-program-unveils-lto-10-40tb-ultrium-cartridge-updates-roadmap-toward-913tb-archival-tape"
+class="uri">https://www.storagereview.com/news/lto-program-unveils-lto-10-40tb-ultrium-cartridge-updates-roadmap-toward-913tb-archival-tape</a>
+- as of 2025-11-15</li>
+<li>community.ibm.com — truth or dare quantum safe cryptography and tape
+- <a
+href="https://community.ibm.com/community/user/blogs/shawn-brume1/2022/03/30/truth-or-dare-quantum-safe-cryptography-and-tape"
+class="uri">https://community.ibm.com/community/user/blogs/shawn-brume1/2022/03/30/truth-or-dare-quantum-safe-cryptography-and-tape</a></li>
+<li>researchweb.draco.res.ibm.com — quantum safe crypto standards
+roundtable - <a
+href="https://researchweb.draco.res.ibm.com/blog/quantum-safe-crypto-standards-roundtable"
+class="uri">https://researchweb.draco.res.ibm.com/blog/quantum-safe-crypto-standards-roundtable</a></li>
+<li>ibm.com — 12fc84a134d95c2b - <a
+href="https://www.ibm.com/downloads/documents/us-en/12fc84a134d95c2b"
+class="uri">https://www.ibm.com/downloads/documents/us-en/12fc84a134d95c2b</a></li>
+<li>Dell Delivers First End-to-End Inflight PQC-Ready Encryption for
+Dell PowerStore and Dell PowerEdge Using Broadcom Emulex SecureHBAs - <a
+href="https://www.broadcom.com/company/news/articles/security/dell-delivers-first-end-to-end-inflight-pqc-ready-encryption-for-dell-powerstore-and-dell-poweredge-using-broadcom-emulex-securehbas"
+class="uri">https://www.broadcom.com/company/news/articles/security/dell-delivers-first-end-to-end-inflight-pqc-ready-encryption-for-dell-powerstore-and-dell-poweredge-using-broadcom-emulex-securehbas</a>
+- as of 2026-05-19</li>
+<li>Dell Delivers First End-to-End Inflight PQC-Ready Encryption for
+Dell PowerStore and Dell PowerEdge Using Broadcom Emulex SecureHBAs - <a
+href="https://www.broadcom.com/blog/dell-delivers-first-end-to-end-inflight-pqc-ready-encryption-for-dell-powerstore-and-dell-poweredge-using-broadcom-emulex-securehbas"
+class="uri">https://www.broadcom.com/blog/dell-delivers-first-end-to-end-inflight-pqc-ready-encryption-for-dell-powerstore-and-dell-poweredge-using-broadcom-emulex-securehbas</a>
+- as of 2026-05-19</li>
+<li>Support for BSAFE Crypto Module for C - <a
+href="https://www.dell.com/support/product-details/en-us/product/bsafe-crypto-module-c/resources/articles"
+class="uri">https://www.dell.com/support/product-details/en-us/product/bsafe-crypto-module-c/resources/articles</a>
+- as of 2026-05-22</li>
+<li>dell.com — securing storage dell s layered approach to pqc readiness
+is the pqc blog2 one - <a
+href="https://www.dell.com/en-us/blog/securing-storage-dell-s-layered-approach-to-pqc-readiness-is-the-pqc-blog2-one/"
+class="uri">https://www.dell.com/en-us/blog/securing-storage-dell-s-layered-approach-to-pqc-readiness-is-the-pqc-blog2-one/</a>
+- as of 2026-05-18</li>
+<li>NetApp Sets New Standard for Cybersecurity at the Storage Layer - <a
+href="https://www.netapp.com/newsroom/press-releases/news-rel-20250429-648807/"
+class="uri">https://www.netapp.com/newsroom/press-releases/news-rel-20250429-648807/</a>
+- as of 2025-04-29</li>
+<li>Why you need post quantum cryptography at the storage layer - <a
+href="https://www.netapp.com/blog/post-quantum-cryptography-storage-layer/"
+class="uri">https://www.netapp.com/blog/post-quantum-cryptography-storage-layer/</a>
+- as of 2025-04-14</li>
+<li>Configure ONTAP network security using FIPS for all SSL connections
+- <a
+href="https://docs.netapp.com/us-en/ontap/networking/configure_network_security_using_federal_information_processing_standards_fips.html"
+class="uri">https://docs.netapp.com/us-en/ontap/networking/configure_network_security_using_federal_information_processing_standards_fips.html</a>
+- as of 2026-05-29</li>
+<li>storagereview.com — q day is coming is your storage quantum safe -
+<a
+href="https://www.storagereview.com/review/q-day-is-coming-is-your-storage-quantum-safe"
+class="uri">https://www.storagereview.com/review/q-day-is-coming-is-your-storage-quantum-safe</a>
+- as of 2025-03-03</li>
+<li>community.f5.com — 342128 - <a
+href="https://community.f5.com/kb/technicalarticles/defend-s3-data-flows-now-against-quantum-computing-harvest-threats-with-f5-big-i/342128"
+class="uri">https://community.f5.com/kb/technicalarticles/defend-s3-data-flows-now-against-quantum-computing-harvest-threats-with-f5-big-i/342128</a>
+- as of 2025-11-10</li>
+<li>F5 and NetApp to safeguard data with post-quantum cryptography - <a
+href="https://www.sdxcentral.com/news/f5-and-netapp-to-safeguard-data-with-post-quantum-cryptography/"
+class="uri">https://www.sdxcentral.com/news/f5-and-netapp-to-safeguard-data-with-post-quantum-cryptography/</a>
+- as of 2025-12-17</li>
+<li>NetApp 與資策會簽署 MOU 推動臺灣後量子密碼學技術發展 - <a
+href="https://news.xfastest.com/interview/interview-01/156878/netapp-%e8%88%87%e8%b3%87%e7%ad%96%e6%9c%83%e7%b0%bd%e7%bd%b2-mou-%e6%8e%a8%e5%8b%95%e8%87%ba%e7%81%a3%e5%be%8c%e9%87%8f%e5%ad%90%e5%af%86%e7%a2%bc%e5%ad%b8%e6%8a%80%e8%a1%93%e7%99%bc%e5%b1%95/"
+class="uri">https://news.xfastest.com/interview/interview-01/156878/netapp-%e8%88%87%e8%b3%87%e7%ad%96%e6%9c%83%e7%b0%bd%e7%bd%b2-mou-%e6%8e%a8%e5%8b%95%e8%87%ba%e7%81%a3%e5%be%8c%e9%87%8f%e5%ad%90%e5%af%86%e7%a2%bc%e5%ad%b8%e6%8a%80%e8%a1%93%e7%99%bc%e5%b1%95/</a>
+- as of 2025-12-13</li>
+<li>New Windows Features to Secure Today’s Data in a Post-Quantum World
+- <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370</a>
+- as of 2026-06-02</li>
+<li>TCG: New guidance sets benchmark for true quantum-safe security
+readiness - <a
+href="https://trustedcomputinggroup.org/new-guidance-sets-benchmark-for-true-quantum-safe-security-readiness/"
+class="uri">https://trustedcomputinggroup.org/new-guidance-sets-benchmark-for-true-quantum-safe-security-readiness/</a>
+- as of 2026-08-24</li>
+<li>flexxon.com — self encrypting drives and tcg opal - <a
+href="https://www.flexxon.com/self-encrypting-drives-and-tcg-opal/"
+class="uri">https://www.flexxon.com/self-encrypting-drives-and-tcg-opal/</a>
+- as of 2026-03-14</li>
+<li>phoronix.com — Cryptsetup Lands OPAL Encrypt - <a
+href="https://www.phoronix.com/news/Cryptsetup-Lands-OPAL-Encrypt"
+class="uri">https://www.phoronix.com/news/Cryptsetup-Lands-OPAL-Encrypt</a>
+- as of 2023-08-18</li>
+<li>blogs.oracle.com — oracle ai database 26ai pqc - <a
+href="https://blogs.oracle.com/database/oracle-ai-database-26ai-pqc"
+class="uri">https://blogs.oracle.com/database/oracle-ai-database-26ai-pqc</a></li>
+<li>oracle.com — advanced security - <a
+href="https://www.oracle.com/security/database-security/advanced-security/"
+class="uri">https://www.oracle.com/security/database-security/advanced-security/</a></li>
+<li>docs.oracle.com — asotrans - <a
+href="https://docs.oracle.com/cd/B19306_01/network.102/b14268/asotrans.htm"
+class="uri">https://docs.oracle.com/cd/B19306_01/network.102/b14268/asotrans.htm</a></li>
+<li>cpl.thalesgroup.com — tde key management - <a
+href="https://cpl.thalesgroup.com/encryption/database-security/tde-key-management"
+class="uri">https://cpl.thalesgroup.com/encryption/database-security/tde-key-management</a></li>
+<li>Post-quantum security moves into mainstream print - Quocirca - <a
+href="https://quocirca.com/content/post-quantum-security-moves-into-mainstream-print/"
+class="uri">https://quocirca.com/content/post-quantum-security-moves-into-mainstream-print/</a>
+- as of 2026-07-13</li>
+<li>Xerox Named a Leader in Quocirca’s Print Security Landscape 2026 -
+<a
+href="https://www.marketscreener.com/news/xerox-named-a-leader-in-quocirca-s-print-security-landscape-2026-ce7859ddd08ff622"
+class="uri">https://www.marketscreener.com/news/xerox-named-a-leader-in-quocirca-s-print-security-landscape-2026-ce7859ddd08ff622</a>
+- as of 2026-08-19</li>
+<li>HP’s Quantum‑Resilient Printers Launched | JK Tech - <a
+href="https://jktech.com.sg/blogs/news/hp-s-quantum-resilient-printers-launched-jk-tech"
+class="uri">https://jktech.com.sg/blogs/news/hp-s-quantum-resilient-printers-launched-jk-tech</a>
+- as of 2026-08-21</li>
+<li>Intercede and Swissbit build post-quantum FIDO2 Passkeys - <a
+href="https://www.swissbit.com/en/news/press/intercede-and-swissbit-extend-partnership-to-build-end-to-end-post-quantum-authentication"
+class="uri">https://www.swissbit.com/en/news/press/intercede-and-swissbit-extend-partnership-to-build-end-to-end-post-quantum-authentication</a>
+- as of 2026-06-15</li>
+<li>GSA Details Post-Quantum Work on Federal ID and Building Access - ID
+Tech - <a
+href="https://idtechwire.com/gsa-details-post-quantum-work-on-federal-id-and-building-access/"
+class="uri">https://idtechwire.com/gsa-details-post-quantum-work-on-federal-id-and-building-access/</a>
+- as of 2026-08-25</li>
+<li>GSA Leads the Transition to Quantum-Resistant Technology | GSA - <a
+href="https://www.gsa.gov/blog/2026/08/24/gsa-leads-the-transition-to-quantumresistant-technology"
+class="uri">https://www.gsa.gov/blog/2026/08/24/gsa-leads-the-transition-to-quantumresistant-technology</a>
+- as of 2026-08-24</li>
+<li>US begins post-quantum upgrade of federal identity credentials |
+Biometric Update - <a
+href="https://www.biometricupdate.com/202608/us-begins-post-quantum-upgrade-of-federal-identity-credentials"
+class="uri">https://www.biometricupdate.com/202608/us-begins-post-quantum-upgrade-of-federal-identity-credentials</a>
+- as of 2026-08-27</li>
+<li>Swissbit combines FIDO and physical access control in single
+security key with NXP | Biometric Update - <a
+href="https://www.biometricupdate.com/202606/swissbit-combines-fido-and-physical-access-control-in-single-security-key-with-nxp"
+class="uri">https://www.biometricupdate.com/202606/swissbit-combines-fido-and-physical-access-control-in-single-security-key-with-nxp</a>
+- as of 2026-06-12</li>
+<li>hidglobal.com — seos - <a
+href="https://www.hidglobal.com/product-mix/seos"
+class="uri">https://www.hidglobal.com/product-mix/seos</a></li>
+<li>blog.hidglobal.com — post quantum cryptography why your organization
+needs prepare now - <a
+href="https://blog.hidglobal.com/post-quantum-cryptography-why-your-organization-needs-prepare-now"
+class="uri">https://blog.hidglobal.com/post-quantum-cryptography-why-your-organization-needs-prepare-now</a>
+- as of 2025-02-11</li>
+<li>hidglobal.com — physical identity access management - <a
+href="https://www.hidglobal.com/solutions/physical-identity-access-management"
+class="uri">https://www.hidglobal.com/solutions/physical-identity-access-management</a></li>
+<li>image-ppubs.uspto.gov — 12052374 - <a
+href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12052374"
+class="uri">https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12052374</a></li>
+<li>image-ppubs.uspto.gov — 12395343 - <a
+href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12395343"
+class="uri">https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12395343</a></li>
+<li>Swissbit Sets the Stage for Post-Quantum Hardware Authentication at
+RSAC 2026 - <a
+href="https://www.swissbit.com/en/news/press/swissbit-sets-the-stage-for-post-quantum-hardware-authentication-at-rsac-2026"
+class="uri">https://www.swissbit.com/en/news/press/swissbit-sets-the-stage-for-post-quantum-hardware-authentication-at-rsac-2026</a>
+- as of 2026-03-23</li>
+<li>Product Categories for Technologies That Use Post-Quantum
+Cryptography Standards | CISA - <a
+href="https://www.cisa.gov/resources-tools/resources/product-categories-technologies-use-post-quantum-cryptography-standards"
+class="uri">https://www.cisa.gov/resources-tools/resources/product-categories-technologies-use-post-quantum-cryptography-standards</a>
+- as of 2026-01-23</li>
+<li>hp.com — laserjet portfolio with resistant security and faster
+digitization - <a
+href="https://www.hp.com/us-en/newsroom/press-releases/2026/laserjet-portfolio-with-resistant-security-and-faster-digitization.html"
+class="uri">https://www.hp.com/us-en/newsroom/press-releases/2026/laserjet-portfolio-with-resistant-security-and-faster-digitization.html</a></li>
+<li>darkreading.com — hp brings quantum safe encryption printers - <a
+href="https://www.darkreading.com/endpoint-security/hp-brings-quantum-safe-encryption-printers"
+class="uri">https://www.darkreading.com/endpoint-security/hp-brings-quantum-safe-encryption-printers</a>
+- as of 2026-03-28</li>
+<li>thecannatareport.com — xerox new a4 color mfps unified brand - <a
+href="https://www.thecannatareport.com/xerox-new-a4-color-mfps-unified-brand/"
+class="uri">https://www.thecannatareport.com/xerox-new-a4-color-mfps-unified-brand/</a>
+- as of 2026-06-24</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="12-security-appliances.html"><span>Previous</span>Part 12 - Security &amp; Network Appliances</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="14-enterprise-applications.html"><span>Next</span>Part 14 - Enterprise Applications &amp; Delivery</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/13-enterprise-infra-storage.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 1 - ECC Attack Demonstrations & Resource Estimates | Digital Asset Cryptography</title>
+  <meta name="description" content="Digital Asset Cryptography, Part 1: ECC Attack Demonstrations & Resource Estimates.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Digital Asset Cryptography</a><span class="sep">/</span>Part 1</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">Digital Asset Cryptography &middot; Part 1</p>
+    <h1>ECC Attack Demonstrations &amp; Resource Estimates</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/01-ecc-attack-demonstrations-resource-estimates.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#the-q-day-prize-and-its-rebuttal"
+id="toc-the-q-day-prize-and-its-rebuttal">1. The Q-Day Prize and Its
+Rebuttal</a></li>
+<li><a href="#googles-resource-estimate"
+id="toc-googles-resource-estimate">2. Google’s Resource
+Estimate</a></li>
+<li><a href="#the-neutral-atom-counter-estimate"
+id="toc-the-neutral-atom-counter-estimate">3. The Neutral-Atom
+Counter-Estimate</a></li>
+<li><a href="#the-exposure-window-and-the-odds"
+id="toc-the-exposure-window-and-the-odds">4. The Exposure Window and the
+Odds</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Nobody has broken a real cryptographic key with a quantum computer.
+Everything in this part sits against that fact. What exists instead is a
+contested prize demonstration and two rival estimates of the hardware a
+real attack would need. Alongside them sits a piece of arithmetic about
+how fast such an attack would have to run.</p>
+<p>Bitcoin and Ethereum sign transactions with elliptic curve
+cryptography, ECC for short. A quantum computer running Shor’s
+algorithm, a quantum method for finding private keys, could in principle
+derive a private key from a public one. Classical computers cannot do
+that at these key sizes. The open question is scale: how many qubits, of
+what quality, running for how long. The field’s two current answers
+disagree by a factor of about fifty.</p>
+<p>Section 1 covers the Q-Day Prize demonstration and the rebuttal that
+followed it. Section 2 covers Google Quantum AI’s estimate of the
+hardware needed to break a Bitcoin key. Section 3 covers a far lower
+neutral-atom estimate and the dispute over it. Section 4 covers the
+arithmetic behind the widely quoted nine-minute figure.</p>
+<h2 id="the-q-day-prize-and-its-rebuttal">1. The Q-Day Prize and Its
+Rebuttal</h2>
+<p><em>A security company paid a one-bitcoin bounty for the largest
+public quantum attack on ECC to date. Bitcoin developers then showed the
+quantum computer contributed nothing to the result.</em></p>
+<h3 id="current-state">Current State</h3>
+<p>The award is real and the dispute is about what it demonstrated.
+Project Eleven awarded its Q-Day Prize, a one-bitcoin bounty worth about
+$78,000 at the time, to Giancarlo Lelli on 24 April 2026.[1] Lelli
+derived a 15-bit elliptic curve private key from its public key on a
+publicly accessible IBM quantum computer, using a variant of Shor’s
+algorithm.[1] Project Eleven presented the result as a 512 times jump
+over the previous public demonstration.[2] The company called it the
+largest public demonstration to date of the attack class threatening
+Bitcoin, Ethereum and over $2.5 trillion in ECC-secured assets.[2]</p>
+<p>The rebuttal came on the record. Jonas Schnelli, a former Bitcoin
+Core maintainer, reproduced the key recovery in Python using purely
+random bits, and found the quantum computer’s outputs statistically
+indistinguishable from random coin flips.[3] Independent researcher
+Yuval Adam confirmed this by swapping the IBM backend for the
+random-number generator in Linux and getting identical results. Coinkite
+founder Rodolfo Novak argued that the private key is classically solved
+before the quantum circuit even runs, and Jimmy Song also criticised the
+result.[3]</p>
+<p>The mechanism of the objection is simple. A 15-bit key lives in a
+search space of only 32,767 candidates.[1] That is small enough for
+classical checking against the public key to find a match by near-random
+sampling with high probability, so the quantum stage contributes no
+advantage.[3]</p>
+<p>Project Eleven’s chief executive Alex Pruden conceded the point in
+part. He acknowledged the result was not Q-Day, agreed that experiments
+on today’s noisy hardware depend on classical assistance, and reframed
+the prize as incremental progress on accessible machines.[3] He
+maintained that planning for post-quantum migration remains
+prudent.[3]</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="googles-resource-estimate">2. Google’s Resource Estimate</h2>
+<p><em>Google Quantum AI worked out how big a quantum computer would
+need to be to break the curve Bitcoin uses. The answer came in twenty
+times smaller than earlier estimates, and still far beyond any machine
+that exists.</em></p>
+<h3 id="current-state-1">Current State</h3>
+<p>The paper, “Securing Elliptic Curve Cryptocurrencies against Quantum
+Vulnerabilities”, was announced on 30 March 2026 by researchers from
+Google Quantum AI, the Ethereum Foundation and Stanford University.[4]
+It gives two circuit designs for breaking a 256-bit key on secp256k1,
+the curve Bitcoin and Ethereum use. One needs at most 1,200 logical
+qubits and 90 million Toffoli gates, a basic quantum operation used here
+as a cost unit. The other needs at most 1,450 logical qubits and 70
+million Toffoli gates.[5]</p>
+<p>A logical qubit is an error-corrected unit built from many physical
+qubits. Mapped onto a superconducting architecture with a physical error
+rate of 10⁻³, the design needs fewer than 500,000 physical qubits,
+roughly twenty times fewer than previous estimates.[5] No machine with
+even 1% of that capacity exists, and the paper is a resource estimate,
+not a timeline prediction.[5]</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-neutral-atom-counter-estimate">3. The Neutral-Atom
+Counter-Estimate</h2>
+<p><em>One day after Google’s paper, a startup and two universities
+claimed the same attack could run on roughly ten thousand qubits. The
+claim is serious, self-interested, and unreviewed.</em></p>
+<h3 id="current-state-2">Current State</h3>
+<p>The paper “Shor’s algorithm is possible with as few as 10,000
+reconfigurable atomic qubits” appeared on 31 March 2026, from Oratomic,
+Caltech and UC Berkeley.[6] That was one day after the Google
+paper.[6]</p>
+<p>Its figures depend on the architecture chosen. A space-efficient
+design needs 9,700 to 11,000 physical qubits, a balanced one 12,000 to
+13,300, and a time-efficient one about 26,000.[6] Runtimes range from 10
+to 264 days depending on parallelisation, assuming a cycle time of one
+millisecond.[6] The authors state that a machine with about 26,000 of
+these qubits could break a 256-bit ECC key in about ten days.[7]</p>
+<p>The fifty-fold reduction against Google’s figure comes from error
+correction. The authors use high-rate quantum LDPC codes, an
+error-correction family that spends far fewer physical qubits per
+logical qubit. Their codes reach about 30% encoding efficiency, against
+about 4% for the surface codes in Google’s mapping, and their
+lifted-product code encodes 1,480 logical qubits in 5,278 physical
+ones.[6]</p>
+<p>The paper’s own caveats are substantial. The authors describe their
+construction as a theoretically consistent existence proof that may not
+be optimal, and checking it became computationally prohibitive for the
+largest codes.[6] The assumed one-millisecond cycle time is
+undemonstrated, with current systems running several milliseconds per
+cycle on far fewer qubits, and individually addressed qubits at that
+scale lack experimental proof.[6] Some of the underlying codes were
+found by a search method assisted by large language models, which the
+community has yet to reproduce independently.[6]</p>
+<p>Two further facts frame the claim. Current neutral-atom systems
+control 6,100 atoms, so the qubit-count gap is roughly a factor of two,
+far smaller than the gap facing superconducting approaches.[6] And all
+nine authors are shareholders in Oratomic, with six employed there,
+which makes the paper both a scientific result and a roadmap for the
+company’s own hardware. It had not passed peer review as of the research
+behind this part.[7]</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>The two papers disagree by a factor of about fifty on the hardware a
+Bitcoin key break requires. Google’s mapping puts it under 500,000
+physical qubits on superconducting hardware.[5] Oratomic and its
+academic co-authors put it near 10,000 reconfigurable atomic qubits,
+using much denser error correction.[6] Independent reproduction of the
+code constructions, and peer review of the neutral-atom paper, would
+settle whether the lower figure stands.[7]</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-exposure-window-and-the-odds">4. The Exposure Window and the
+Odds</h2>
+<p><em>The widely quoted claim that a quantum computer could crack a
+Bitcoin key in nine minutes is real arithmetic resting on ideal
+assumptions. The odds of the required machine existing soon are polled,
+not known.</em></p>
+<h3 id="current-state-3">Current State</h3>
+<p>The nine-minute figure derives from the Google paper’s circuit
+execution time. Assuming microsecond-scale gate operations and
+accounting for overheads, the full circuit runs on the order of tens of
+minutes. Because portions can be precomputed before a specific key is
+targeted, the target-specific phase comes to about nine minutes.[8]</p>
+<p>Nine minutes matters because it sits just inside Bitcoin’s average
+block time of roughly ten minutes.[8] An attacker that fast could in
+principle break a key from a public key revealed in the mempool, the
+waiting area for unconfirmed transactions, before the transaction
+confirms.[8] This on-spend attack is one modality among several, not the
+general case.[8] And the conditions are idealised: the figure depends on
+unproven architectures and assumes error-correction capability that does
+not exist.[8]</p>
+<p>On probability, the Global Risk Institute’s 2025 expert survey places
+such capability within ten years at quite possible, meaning 28% to
+49%.[8] It only reaches likely, meaning 51% to 70%, at fifteen years.[8]
+The survey treats 2030 to 2035 as a reference window for migration
+readiness rather than a predicted arrival date.[8] Researchers
+affiliated with the Ethereum Foundation, co-authors of the Google paper,
+estimated at least a 10% chance that a capable machine could exist by
+2032.[9]</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Project Eleven Awards 1 BTC Q-Day Prize (Project Eleven blog) - <a
+href="https://blog.projecteleven.com/posts/project-eleven-awards-1-btc-q-day-prize-for-largest-quantum-attack-on-elliptic-curve-cryptography-to-date"
+class="uri">https://blog.projecteleven.com/posts/project-eleven-awards-1-btc-q-day-prize-for-largest-quantum-attack-on-elliptic-curve-cryptography-to-date</a>
+(as of 2026-04-24)</li>
+<li>blog.projecteleven.com — project eleven awards 1 btc q day prize for
+largest quantum attack on elliptic curve cryptography to date - <a
+href="https://blog.projecteleven.com/posts/project-eleven-awards-1-btc-q-day-prize-for-largest-quantum-attack-on-elliptic-curve-cryptography-to-date"
+class="uri">https://blog.projecteleven.com/posts/project-eleven-awards-1-btc-q-day-prize-for-largest-quantum-attack-on-elliptic-curve-cryptography-to-date</a>
+(as of 2026-04-24)</li>
+<li>news.bitcoin.com — ibm quantum hardware cracks 15 bit ecc key but
+bitcoin devs say random bits match the result - <a
+href="https://news.bitcoin.com/ibm-quantum-hardware-cracks-15-bit-ecc-key-but-bitcoin-devs-say-random-bits-match-the-result/"
+class="uri">https://news.bitcoin.com/ibm-quantum-hardware-cracks-15-bit-ecc-key-but-bitcoin-devs-say-random-bits-match-the-result/</a>
+(undated)</li>
+<li>Securing Elliptic Curve Cryptocurrencies against Quantum
+Vulnerabilities (arXiv:2603.28846) - <a
+href="https://arxiv.org/abs/2603.28846"
+class="uri">https://arxiv.org/abs/2603.28846</a> (as of 2026-03-30)</li>
+<li>Securing Elliptic Curve Cryptocurrencies against Quantum
+Vulnerabilities (arXiv:2603.28846) - <a
+href="https://arxiv.org/abs/2603.28846"
+class="uri">https://arxiv.org/abs/2603.28846</a> (as of 2026-03-30)</li>
+<li>Shor’s algorithm is possible with as few as 10,000 reconfigurable
+atomic qubits (arXiv:2603.28627) - <a
+href="https://arxiv.org/abs/2603.28627"
+class="uri">https://arxiv.org/abs/2603.28627</a> (as of 2026-03-31)</li>
+<li>coindesk.com — quantum computers could break crypto wallet
+encryption with just 10 000 qubits researchers say - <a
+href="https://www.coindesk.com/markets/2026/03/31/quantum-computers-could-break-crypto-wallet-encryption-with-just-10-000-qubits-researchers-say"
+class="uri">https://www.coindesk.com/markets/2026/03/31/quantum-computers-could-break-crypto-wallet-encryption-with-just-10-000-qubits-researchers-say</a>
+(as of 2026-03-31)</li>
+<li>safeheron.com — google quantum whitepaper - <a
+href="https://safeheron.com/blog/google-quantum-whitepaper/"
+class="uri">https://safeheron.com/blog/google-quantum-whitepaper/</a>
+(undated)</li>
+<li>thequantuminsider.com — blockrock updates bitcoin etf with broadened
+warning about quantum computing - <a
+href="https://thequantuminsider.com/2025/05/13/blockrock-updates-bitcoin-etf-with-broadened-warning-about-quantum-computing/"
+class="uri">https://thequantuminsider.com/2025/05/13/blockrock-updates-bitcoin-etf-with-broadened-warning-about-quantum-computing/</a>
+(undated)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>Digital Asset Cryptography</a>
+    <a class="pager-next" href="02-exposure-migration-analytics.html"><span>Next</span>Part 2 - Exposure &amp; Migration Analytics</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/01-ecc-attack-demonstrations-resource-estimates.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 16 - Enterprise IoT & OT | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 16: Enterprise IoT & OT.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 16</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 16</p>
+    <h1>Enterprise IoT &amp; OT</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/16-iot-ot.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#industrial-control-protocols"
+id="toc-industrial-control-protocols">1. Industrial Control
+Protocols</a></li>
+<li><a href="#energy-grid" id="toc-energy-grid">2. Energy &amp;
+Grid</a></li>
+<li><a href="#physical-security-devices"
+id="toc-physical-security-devices">3. Physical Security Devices</a></li>
+<li><a href="#medical-devices" id="toc-medical-devices">4. Medical
+Devices</a></li>
+<li><a href="#payments-hardware" id="toc-payments-hardware">5. Payments
+Hardware</a></li>
+<li><a href="#automotive" id="toc-automotive">6. Automotive</a></li>
+<li><a href="#aviation-rail" id="toc-aviation-rail">7. Aviation &amp;
+Rail</a></li>
+<li><a href="#short-range-iot" id="toc-short-range-iot">8. Short-Range
+IoT</a></li>
+<li><a href="#iot-messaging-lpwan" id="toc-iot-messaging-lpwan">9. IoT
+Messaging &amp; LPWAN</a></li>
+<li><a href="#telecom-5g" id="toc-telecom-5g">10. Telecom &amp;
+5G</a></li>
+<li><a href="#gnss-satellite-links" id="toc-gnss-satellite-links">11.
+GNSS &amp; Satellite Links</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The physical world runs on devices that live for decades: grid
+controllers, payment cards, cars, satellites, smart meters. They are the
+hardest things to migrate and the last to move, which makes this report
+a map of gaps as much as progress.</p>
+<p>Eleven sections cover the terrain. Sections 1 and 2 cover industrial
+protocols and the energy grid. Sections 3 through 5 cover physical
+security, medical devices, and payments hardware. Sections 6 and 7 cover
+vehicles, aviation, and rail. Sections 8 and 9 cover short-range
+wireless and IoT messaging, and Sections 10 and 11 cover telecom and
+satellites.</p>
+<p>Where the sectors have moved, it is at the standards and silicon
+level. The power industry’s DNP3 protocol grew a post-quantum security
+layer, smart metering’s DLMS standard is finalizing ML-KEM and ML-DSA,
+and automotive security chips with the algorithms in hardware are
+shipping. Payment-card feasibility is settled: only ML-KEM and ML-DSA
+fit on card hardware at all.</p>
+<p>Where the sectors have not moved, the physics is the obstacle. A
+single ML-KEM handshake can fragment into 62 LoRa packets,
+vehicle-to-vehicle messages cannot fit post-quantum signatures inside
+their packet limits, and Matter and Thread have no post-quantum
+statement at all. The clocks are running anyway, led by France’s 2027
+certification cutoff and the EU’s 2030 critical-infrastructure
+deadline.</p>
+<h2 id="industrial-control-protocols">1. Industrial Control
+Protocols</h2>
+<p><em>Factories, water plants, and substations speak protocols designed
+decades before security was a requirement, let alone quantum resistance.
+Retrofits arrive as security layers bolted around the old messages. This
+section covers the industrial protocol families, where one real
+post-quantum layer now exists and the rest is research and committee
+work.</em></p>
+<h3 id="current-state">Current State</h3>
+<p>The power industry produced the concrete artifact. DNP3-SL, the
+protocol’s new security layer, uses post-quantum cryptography including
+ML-KEM for establishing mutually authenticated associations, with
+symmetric sessions built for constrained brownfield devices [1]. It is
+designed as a separable layer, supports PKI or self-signed certificates,
+eliminates preshared secrets, and coexists with the prior security
+version [2]. The history explains the caution, with earlier classical
+retrofits criticized as incomplete [3].</p>
+<p>The rest is profile work and proposals. IEC 62351, the power-grid
+security standard family, has begun its transition with a cryptographic
+inventory and working-group effort, using its migration-guidance part
+for stronger algorithms [4]. Several parts profile standard protocols
+like TLS, so those move by profile update, while others need dedicated
+committee work [4]. Key-management updates for the multicast grid
+protocols are under consideration [5], and summaries acknowledge the
+quantum vulnerability without specifying implementations [6].</p>
+<p>Modbus has no security in its base specification at all [7], with
+research proposing proxy-based post-quantum frameworks for legacy
+devices [7] and measured integrations into its secure variant [8]. OPC
+UA has peer-reviewed hybrid proposals but no vendor-shipped integration
+[9], continued survey attention [10], and a European consortium proposal
+to build the real thing [11]. Building automation’s secure profile rides
+TLS 1.3 and certificates, with the IETF noting both must migrate
+[12].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="energy-grid">2. Energy &amp; Grid</h2>
+<p><em>The electric grid is critical infrastructure with equipment
+lifecycles measured in decades and, so far, no binding post-quantum
+rules. Regulators are circling, vendors are partnering, and the meters
+on houses are becoming the first mass deployment question. This section
+covers the grid’s regulatory vacuum and the smart-meter supply chain
+filling it.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The rules are still forming. No U.S. post-quantum regulation exists
+for energy, and no state has quantum-specific requirements [13]. The
+proposed Quantum-GUARD Act would push grid regulators to weigh quantum
+risk and fund a testing environment, but remains introduced, not enacted
+[14][15]. The June executive order commits federal assistance rather
+than mandates [15].</p>
+<p>Abroad the clocks are set: the EU targets critical-infrastructure
+quantum resistance by 2030, the UK phases to 2035 [13], and France stops
+certifying products without quantum-resistant encryption in 2027 [16].
+China, meanwhile, deployed dozens of quantum devices at a demonstration
+substation [17]. On meters, Honeywell is integrating quantum-generated
+keys with both classical and post-quantum algorithms [18], and the
+telecom industry is testing the NIST algorithms on constrained meters
+[19]. Open-standard mesh architectures are argued to absorb the
+algorithms more easily than proprietary stacks [20].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The binding-rules gap is explicit. NERC’s roadmap names quantum
+computing an emerging risk with no requirements attached [21], and the
+proposed legislation would create testing rather than mandates [22].
+Australia’s guidance asks energy operators for transition plans during
+2026 [23].</p>
+<p>The meter ecosystem is organizing around standards and silicon. The
+DLMS metering-security standard is finalizing its Suite 3 with ML-KEM
+and ML-DSA [24], requiring a post-quantum-ready secure element with
+physical isolation and secure update [24]. SEALSQ partnered with the
+dominant mesh-networking alliance to bring post-quantum PKI and hardware
+to metering [25], with its secure element’s certifications tracking
+toward year end [26]. PKI tooling now targets replacing the identical
+factory-burned symmetric keys in meter fleets [27].</p>
+<p>The stakes are longevity: meters installed today run into the 2040s,
+making agility the priority over algorithm perfection [28]. A market
+forecast sees quantum-resistant meters tripling by 2034 [29], while a
+systematic review finds deployed edge mitigations entirely unprepared, a
+gap between academic proposals and shippable hardware [30].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="physical-security-devices">3. Physical Security Devices</h2>
+<p><em>The cameras and access controllers watching buildings are
+networked computers with certificate stores, standardized by ONVIF.
+Nothing in that standard is post-quantum yet, and the vendors are at the
+considering stage. This section is short because the sector is
+early.</em></p>
+<h3 id="current-state-2">Current State</h3>
+<p>The standard enumerates only classical algorithms. ONVIF’s current
+security specification lists RSA and ECC key pairs for its keystore,
+with no post-quantum algorithm named anywhere [31]. The structure for
+change exists: security moved into an add-on category precisely so it
+can update faster than fixed profiles [32]. The add-on is slated for
+upgrade at the end of 2026 against new cybersecurity requirements
+[33].</p>
+<p>The standard’s scope spans cameras and access control across tens of
+thousands of conformant products [33]. On the vendor side, Axis says
+post-quantum considerations now enter design decisions across its
+product lines, alongside FIPS work [34].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="medical-devices">4. Medical Devices</h2>
+<p><em>Medical devices combine decades-long lifecycles, patient-safety
+constraints, and some of the most power-starved electronics anywhere.
+The regulator’s cryptography requirements remain general rather than
+quantum-specific, while research produces hardware that could actually
+run the algorithms on a pacemaker’s power budget. This section covers
+both tracks.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The quality regime tightened without naming quantum. The FDA’s
+Quality Management System Regulation took effect in February 2026,
+embedding cybersecurity into design controls and post-market
+surveillance as a mandatory quality element [35].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The regulatory posture is general-purpose. The premarket guidance
+requires lifecycle protection assurance, citing general key-management
+standards, nothing post-quantum-specific [36]. Its 2026 reissue was a
+citation alignment, core requirements unchanged [37]. A MITRE discussion
+paper covers post-quantum risk analysis for manufacturers, influential
+but non-binding [38]. A systematic review maps the frameworks,
+recommends staged migration to protect patient safety, and names
+pervasive legacy systems as the structural barrier [39].</p>
+<p>The hardware research is the bright spot. An MIT chip the size of a
+needle tip runs the post-quantum algorithms on wireless biomedical power
+budgets, an order of magnitude more efficient with anti-tampering built
+in [40]. The architectural alternative offloads the work, with a
+constrained device doing one lightweight exchange to a cloud broker at
+session start [41].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="payments-hardware">5. Payments Hardware</h2>
+<p><em>Every card tap runs cryptography on some of the most constrained
+silicon in commerce, governed by EMV standards built around RSA. The
+feasibility mathematics is now settled, the chips are entering
+production, and the standards body says there is no hurry. This section
+covers that tension.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The hardware is arriving ahead of the standard. Diebold Nixdorf
+designs its current ATM lines for post-quantum readiness [42], noting
+machines bought in 2026 serve into the mid-2030s, exactly one refresh
+cycle against the federal deadlines [43]. IDEMIA demonstrated KEM-based
+authentication replacing signatures on a smart card [44]. SEALSQ’s
+secure microcontroller is entering transit payment readers [45], and
+STMicroelectronics’s mobile chip targets certification with an ML-KEM
+and ML-DSA accelerator [46].</p>
+<p>NXP published its transition framework for secure elements through
+2030 [47]. One widely repeated claim needs a caveat: the reported Visa
+and Mastercard phased upgrade through 2028 traces to a single
+uncorroborated commentary, not a network announcement [48].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The feasibility line is drawn precisely. IDEMIA’s analysis found most
+candidates simply do not fit on card hardware, with only ML-KEM and
+ML-DSA theoretically feasible, and side-channel protection multiplying
+execution time up to five-fold [49]. Its earlier hybrid implementation
+showed EMV’s 256-byte command limit too small for post-quantum
+signatures, requiring extended commands [49]. Its chip partnership
+targets mass production in 2026 [50], following its first post-quantum
+hardware accelerator [51].</p>
+<p>The standards body counsels patience while the sector plans anyway.
+EMVCo expects no practical quantum threat to EMV before 2040, possibly
+never, and is monitoring with industry engagement planned [52],
+publishing its position-paper series [53]. Financial-sector guidance is
+blunter, noting it is not known whether EMV can even accommodate
+quantum-safe certificates [50]. The sector’s working group has
+nonetheless reviewed ATM and POS vulnerabilities [54].</p>
+<p>ATM security leadership names quantum among coming threats [55].
+Compact libraries fit the algorithms into terminal memory budgets [56],
+and a quantum-safe QR terminal collaboration is underway [57].
+Tokenization helps fraud but does not touch the underlying asymmetric
+exposure [58].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="automotive">6. Automotive</h2>
+<p><em>A car is a datacenter on wheels with a 15-year life and a
+type-approval regime that makes cryptographic change slow. The chips
+arrived first, the software standards are agile but algorithm-silent,
+and the vehicle-to-vehicle radio problem is truly unsolved. This section
+covers all three layers.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Production silicon crossed the line. Telechips ships automotive
+processors with a security engine implementing all three NIST standards
+in hardware, isolated across cockpit and driver-assistance domains [59].
+NXP reports major automakers already implementing post-quantum in
+software-defined vehicle platforms, with production vehicles expected
+within a couple of years [60]. The tooling followed: IAV’s quantumSAR
+library covers the NIST set plus the backup KEM against the current
+AUTOSAR release [61], and architecture proposals sketch a quantum-safe
+crypto abstraction layer [62].</p>
+<p>Korea funded a quantum-resistant automotive security chip program
+running to 2030, tied to the type-approval standards [63]. Industry
+timing guidance targets high-risk use cases before 2030, with broad
+deployment by 2035 under vehicle-lifecycle constraints [64].</p>
+<h3 id="current-state-5">Current State</h3>
+<p>The software standard is agile but uncommitted. AUTOSAR’s crypto
+stack is modular by construction, with provider interfaces and KEM
+abstractions that avoid locking algorithms in [65], yet no post-quantum
+schemes are specified for compliance [66]. IAV’s design philosophy fills
+the gap in software, replacing crypto drivers without replacing the ECU
+[67].</p>
+<p>Regulation frames the deadline without naming algorithms. The UNECE
+cybersecurity and update regulations are mandatory for type approval,
+blocking sales without certified management systems [68], mapped through
+the ISO engineering standards [68]. Migration is practical risk
+management rather than legal mandate, with 2026 to 2028 the window
+before hardware lead times narrow options [68]. Deprecated algorithms
+may risk type approval [69].</p>
+<p>Roughly half a vehicle’s ECUs are security-relevant [70], and the
+field has its own academic survey [71]. A vendor push ties safety and
+security compliance together [72].</p>
+<p>Vehicle-to-vehicle is the hard residue. Current V2X security is
+entirely elliptic-curve, and its certificate format has no post-quantum
+forward compatibility [73]. That creates a deployment stalemate where
+introducing new certificates degrades both old and new vehicles [73].
+The packet arithmetic is brutal, with certificate limits in the low
+hundreds of bytes against multi-kilobyte signatures [74].</p>
+<p>The responses are inventive. A hybrid certificate scheme cuts
+pseudonym certificates under the packet limit [75], and certificate
+segmentation targets cellular V2X [76]. A credential system replaces
+per-message signatures with zero-knowledge rate limiting [77], and a
+Korean signature algorithm benchmarks well [78]. Structured migration
+roadmaps run to 2038 [79], a protocol proposal covers 5G-V2X
+authentication [80], and a review catalogues thirteen open gaps
+[81].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="aviation-rail">7. Aviation &amp; Rail</h2>
+<p><em>Aircraft and trains run communication systems certified over
+decades, some still unencrypted entirely. Both sectors have started the
+paperwork phase of the quantum transition, with the American airspace
+regulator asking industry how and Europe’s rail programs writing agility
+into new specifications. This section covers two industries at the
+request-for-information stage.</em></p>
+<h3 id="current-state-6">Current State</h3>
+<p>Aviation’s baseline is startling. Aircraft voice and the ACARS
+datalink are largely unencrypted and unauthenticated in practice, with
+99 percent of ACARS traffic in plain text [82]. The surveillance
+broadcast carries no cryptography at all [82]. The FAA issued a formal
+request for input on transitioning the airspace system and its
+enterprise IT to post-quantum, framed as prerequisite to the coming
+decades [83].</p>
+<p>It extended the deadline once [84]. The governing frameworks are its
+cybersecurity strategy and ICAO’s action plan [85].</p>
+<p>Vendors market drop-in protection for the legacy channels, unverified
+beyond marketing [85]. Research adapts avionics certification itself,
+wrapping hybrid post-quantum encryption inside module-isolation
+boundaries [82], and a European doctoral project targets
+quantum-resistant protocols for air-traffic communications [86].</p>
+<p>Rail is riding its generational upgrade. The industry named quantum
+security a need as early as 2020, before the algorithms were ready [87].
+The legacy GSM-R radio is being replaced for 2G obsolescence, not
+quantum, on a 2030 clock [88], with the 5G successor in trials toward a
+2027 specification [89]. Europe’s rail cybersecurity specification now
+explicitly designs an open architecture ready to evolve toward
+post-quantum measures [90].</p>
+<p>Vendor practice puts quantum-safe symmetric encryption at the
+transport layers first, with post-quantum algorithms later [91][92]. The
+research layer ties it to railway safety standards, notes signaling
+assets running into the 2040s, and urges pilots now [93]. Systematic
+analyses recommend sector PKI and explicit agility [94].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="short-range-iot">8. Short-Range IoT</h2>
+<p><em>Bluetooth, Zigbee, Thread, and Matter connect the smallest
+devices in the building, radios with payloads measured in dozens of
+bytes. Post-quantum keys do not fit nicely, and the standards bodies
+have said nothing. This section covers a gap documented mostly by
+academics measuring exactly how badly things fragment.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The measurements arrived. Every NIST parameter set runs on a common
+microcontroller without external memory, latency and footprint
+quantified [95]. The fragmentation study puts numbers on the radio
+problem, up to 62 packets for one ML-KEM handshake on low-payload LoRa
+configurations, with Bluetooth and 802.15.4 in between [96]. The
+standards silence is itself a finding: nothing from the Matter or Thread
+organizations addresses post-quantum at all, through four specification
+releases [97].</p>
+<h3 id="current-state-7">Current State</h3>
+<p>The community noticed before the standards did. Smart-home forums
+flag that Zigbee and Matter-over-Thread security is classical with most
+devices lacking hardware ever to upgrade [98]. The research is filling
+in. ML-KEM is computationally feasible in Bluetooth Classic pairing on
+common cores while the backup KEM is not, at the cost of airtime and
+loss sensitivity [99].</p>
+<p>Energy studies find communication overhead dominating computation
+[100], and a MILCOM paper ran ML-KEM inside a Zigbee stack [101].
+Compact non-standard KEMs trade size against standardization [102], and
+a review calls Bluetooth post-quantum research still limited [103].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="iot-messaging-lpwan">9. IoT Messaging &amp; LPWAN</h2>
+<p><em>Above the radios sit the messaging protocols, MQTT and CoAP, and
+the long-range networks like LoRaWAN. One of these was accidentally
+quantum-resistant all along. This section covers the measured cost of
+post-quantum messaging and the network that never used public-key
+cryptography in the first place.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>MQTT got its hybrid proposals and its price tag. A hybrid protocol
+pairs ML-KEM with X25519 for the publish-subscribe world [104]. A
+measured migration on emulated IoT hardware found handshakes nearly five
+times slower under network impairment while steady-state publishing
+stays negligible [105]. Persistent sessions are the recommended
+mitigation [105].</p>
+<h3 id="current-state-8">Current State</h3>
+<p>LoRaWAN is the exception that proves the rule. Its security has
+always been purely symmetric, two preshared root keys deriving sessions,
+no public-key exchange at all [106]. That means no Shor exposure, but
+static never-rotated keys are a documented weakness, and the roadmap
+answer is stronger symmetric cryptography rather than post-quantum
+[107]. Research proposes post-quantum root-key renewal using
+isogeny-based exchange with a minimal PKI [108]. A dedicated
+key-management design project is underway [109], and earlier work bolted
+a lattice KEM on directly [110].</p>
+<p>The messaging measurements are maturing into scores. A study across
+MQTT, HTTP, and HTTPS under real post-quantum load on constrained
+hardware built a composite readiness score [111]. MQTT was most
+efficient by architecture, nothing reached excellent readiness, and
+distance compounds the cryptographic cost [111][111]. The field predates
+it by years [111].</p>
+<p>CoAP research found its own gap, IoT-specific protocols neglected
+relative to TLS [112]. It then delivered a surprise: verified
+post-quantum handshakes on a microcontroller completing 63 percent
+faster than the classical baseline [113]. Signature work runs Falcon
+over MQTT on real boards [114], and an 8-bit sensor-node KEM supports
+hybrid messaging where nothing else fits [115].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="telecom-5g">10. Telecom &amp; 5G</h2>
+<p><em>Mobile networks guard subscriber identity with elliptic curves
+and run roaming interfaces that make attractive interception points. The
+standards machinery has formally started its post-quantum study, while
+operators run the world’s earliest SIM-card demonstrations. This section
+covers a sector migrating by committee, with the committee finally in
+session.</em></p>
+<h3 id="recent-developments-6">Recent Developments</h3>
+<p>The formal study exists. 3GPP’s security group created its
+post-quantum transition study for Release 20, under change control since
+June 2026, covering the identity-concealment protocol among others
+[116].</p>
+<h3 id="current-state-9">Current State</h3>
+<p>The machinery is aligned even if the mandates are not. The security
+group’s work was triggered by the telecom association’s guidelines and
+European recommendations, producing a catalogue of cryptography across
+the 5G specifications [117]. With Release 19 complete, post-quantum is
+named the next step alongside 6G security [118]. Commentary expects
+quantum-resistant options for authentication and identity encryption in
+coming releases, none formally adopted yet [119].</p>
+<p>The association’s task force spans dozens of operators [119] and
+extended its guidance to connected IoT [120]. It mapped the roaming
+interfaces as the common attack entry, with a quantum-safe upgrade path
+prescribed [121]. The near-term posture is agility and inventories over
+forklift swaps [122]. The research says the costs are tolerable, with
+core-network algorithm swaps showing small effects [123], and an
+open-source quantum-secure 5G core exists [124].</p>
+<p>Subscriber identity is the concrete vulnerability. The concealment
+scheme’s two profiles are entirely elliptic-curve, fully exposed to a
+quantum adversary [125]. Device lifecycles beyond ten years drive the
+urgency, with decade-old SIMs still deployed as precedent [126].
+Research replaces the scheme with ML-KEM in the authentication flow
+[125], hybrid protocol proposals exist [127], and the work extends into
+6G [128]. Operators demonstrated it live years ago, with
+quantum-resistant SIMs concealing identities on a real network [129] and
+hybrid encryption piloted on live traffic [129].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="gnss-satellite-links">11. GNSS &amp; Satellite Links</h2>
+<p><em>Satellites broadcast the timing that underpins finance and the
+navigation that underpins everything else, signed with classical curves
+where signed at all. Space systems cannot be recalled for upgrades, and
+the standards body for space links has no post-quantum extension. This
+section covers the orbit-height view of the migration’s furthest
+frontier.</em></p>
+<h3 id="recent-developments-7">Recent Developments</h3>
+<p>The standards gap is the headline. No ratified satellite-navigation
+authentication standard specifies a post-quantum signature, with every
+deployed scheme classical [130]. Galileo’s ranging-level authentication
+service entered testing [131]. The commercial layer is moving anyway,
+with a post-quantum satellite constellation’s first launch scheduled
+[132] and manufacturing partnerships extending it to India [133]. A
+systematic survey names incomplete space-standards work the top research
+gap, proposing a phased roadmap to 2040 [134].</p>
+<h3 id="current-state-10">Current State</h3>
+<p>Navigation authentication went operational, classically. Galileo’s
+OSNMA reached initial service in July 2025, the first global
+open-service signal authentication [135]. It embeds signatures in the
+navigation message [136], built on a delayed-key broadcast scheme in 40
+spare bits [130]. Verification today runs against elliptic-curve keys
+and a Merkle tree [137], with accumulation requirements [137] and tested
+key-rollover machinery [138]. It detects spoofing rather than preventing
+it [139].</p>
+<p>The post-quantum path is charted: a European project validated
+hash-based structures achieving quantum resilience at low latency, plus
+Merkle-tree architectures needing further study [140][140]. Other
+constellations’ research marks post-quantum selection as open
+[141][142], and augmentation-system assessments remain incomplete
+[143].</p>
+<p>The command links are symmetric and stalled. The space data-link
+security standard provides authenticated encryption over preshared
+symmetric keys, no public-key mechanism at all [144][145][146], across
+its documented portfolio [147], with management extensions added in 2020
+[148]. No post-quantum extension is ratified, with hybrid ML-KEM and
+ML-DSA extensions remaining research [149], and even the existing
+standard’s adoption has been slow [148].</p>
+<p>The demonstrations are outrunning the paperwork. A European hybrid
+extension ran on constrained hardware with FPGA acceleration [150], and
+an agency project is building post-quantum satcom hardware [151]. A
+lightweight framework targets satellite 5G [152].</p>
+<p>The first post-quantum link from the International Space Station used
+a proxy requiring no code changes [153], and a Starlink link carried
+post-quantum traffic in a claimed U.S. first [154]. Validated overlay
+products target satcom without hardware refresh [155], and
+nanosatellite-scale encryption has been prototyped [156]. The harvest
+logic drives it all, since telemetry and imagery hold value for decades
+[155].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>The DNP Security Session Layer (DNP3-SL) - <a
+href="https://www.dnp.org/API/Evotiva-UserFiles/FileActionsServices/DownloadFile?ItemId=5235&amp;ModuleId=9582&amp;TabId=66"
+class="uri">https://www.dnp.org/API/Evotiva-UserFiles/FileActionsServices/DownloadFile?ItemId=5235&amp;ModuleId=9582&amp;TabId=66</a>
+- as of 2026-04-26</li>
+<li>DNP3 and TLS - <a
+href="https://applied-paranoia.com/2026/04/26/dnp3sl-and-tls.html"
+class="uri">https://applied-paranoia.com/2026/04/26/dnp3sl-and-tls.html</a>
+- as of 2026-04-26</li>
+<li>medium.com — the quantum threat to scada systems a deep dive into
+security vulnerability and future solutions 48458d8b63f0 - <a
+href="https://medium.com/@rownakborhan34/the-quantum-threat-to-scada-systems-a-deep-dive-into-security-vulnerability-and-future-solutions-48458d8b63f0"
+class="uri">https://medium.com/@rownakborhan34/the-quantum-threat-to-scada-systems-a-deep-dive-into-security-vulnerability-and-future-solutions-48458d8b63f0</a>
+- as of 2025-04-09</li>
+<li>PQC Transition Considerations for Power System Automation in IEC
+62351 - <a
+href="https://www.itu.int/en/ITU-T/Workshops-and-Seminars/2025/0509/Documents/Steffen%20Fries.pdf"
+class="uri">https://www.itu.int/en/ITU-T/Workshops-and-Seminars/2025/0509/Documents/Steffen%20Fries.pdf</a>
+- as of 2025-09-05</li>
+<li>mz-automation.de — cyber security part 1 - <a
+href="https://www.mz-automation.de/13094/cyber-security-part-1/"
+class="uri">https://www.mz-automation.de/13094/cyber-security-part-1/</a>
+- as of 2025-05-22</li>
+<li>grokipedia.com — IEC 62351 - <a
+href="https://grokipedia.com/page/IEC_62351"
+class="uri">https://grokipedia.com/page/IEC_62351</a> - as of
+2026-01-14</li>
+<li>sciencedirect.com — S2214212625002364 - <a
+href="https://www.sciencedirect.com/science/article/pii/S2214212625002364"
+class="uri">https://www.sciencedirect.com/science/article/pii/S2214212625002364</a>
+- as of 2025-08-21</li>
+<li>Future-Proofing Industrial Protocol Security: Integration of
+Post-quantum Cryptography in the Modbus Protocol - <a
+href="https://link.springer.com/chapter/10.1007/978-981-97-5791-6_13"
+class="uri">https://link.springer.com/chapter/10.1007/978-981-97-5791-6_13</a></li>
+<li>link.springer.com — 978 3 030 59013 0 15 - <a
+href="https://link.springer.com/chapter/10.1007/978-3-030-59013-0_15"
+class="uri">https://link.springer.com/chapter/10.1007/978-3-030-59013-0_15</a></li>
+<li>nature.com — s41598 025 28413 8 - <a
+href="https://www.nature.com/articles/s41598-025-28413-8"
+class="uri">https://www.nature.com/articles/s41598-025-28413-8</a> - as
+of 2026-03-03</li>
+<li>Post-Quantum Cryptography OPC UA Initiative - Systerel English - <a
+href="https://www.systerel.fr/en/news/post-quantum-cryptography-opc-ua-initiative/"
+class="uri">https://www.systerel.fr/en/news/post-quantum-cryptography-opc-ua-initiative/</a>
+- as of 2025-11-01</li>
+<li>ietf.org — draft vaira pquip pqc use cases 02 - <a
+href="https://www.ietf.org/archive/id/draft-vaira-pquip-pqc-use-cases-02.html"
+class="uri">https://www.ietf.org/archive/id/draft-vaira-pquip-pqc-use-cases-02.html</a></li>
+<li>postquantum.com — us pqc regulatory framework 2026 - <a
+href="https://postquantum.com/security-pqc/us-pqc-regulatory-framework-2026/"
+class="uri">https://postquantum.com/security-pqc/us-pqc-regulatory-framework-2026/</a>
+- as of 2026-06-25</li>
+<li>Senators Coons, Rounds introduce bipartisan legislation to fortify
+our electric grid against emerging quantum cyber threats - <a
+href="https://www.coons.senate.gov/news/press-releases/senators-coons-rounds-introduce-bipartisan-legislation-to-fortify-our-electric-grid-against-emerging-quantum-cyber-threats"
+class="uri">https://www.coons.senate.gov/news/press-releases/senators-coons-rounds-introduce-bipartisan-legislation-to-fortify-our-electric-grid-against-emerging-quantum-cyber-threats</a>
+- as of 2026-08-18</li>
+<li>whitehouse.gov — securing the nation against advanced cryptographic
+attacks - <a
+href="https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/"
+class="uri">https://www.whitehouse.gov/presidential-actions/2026/06/securing-the-nation-against-advanced-cryptographic-attacks/</a>
+- as of 2026-06-25</li>
+<li>France to stop certifying products without quantum-safe encryption -
+<a
+href="https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/"
+class="uri">https://www.reuters.com/legal/litigation/france-stop-certifying-products-without-quantum-safe-encryption-2026-06-16/</a>
+- as of 2026-06-16</li>
+<li>China Tests Quantum Technology in Power Grid - <a
+href="https://thequantuminsider.com/2026/08/18/china-tests-quantum-technology-in-power-grid/"
+class="uri">https://thequantuminsider.com/2026/08/18/china-tests-quantum-technology-in-power-grid/</a>
+- as of 2026-08-18</li>
+<li>Honeywell strengthens smart meter cybersecurity with Quantinuum
+tech, randomized encryption keys - <a
+href="https://www.facilitiesdive.com/news/honeywell-cyber-security-quantinuum-tech/693133/"
+class="uri">https://www.facilitiesdive.com/news/honeywell-cyber-security-quantinuum-tech/693133/</a>
+- as of 2026-08-25</li>
+<li>Quantum-safe or quantum vulnerable? Inside GSMA’s second PQC
+roundtable at MWC Shanghai - <a
+href="https://www.gsma.com/solutions-and-impact/technologies/security/gsma_resources/quantum-safe-or-quantum-vulnerable-inside-gsmas-second-pqc-roundtable-at-mwc-shanghai/"
+class="uri">https://www.gsma.com/solutions-and-impact/technologies/security/gsma_resources/quantum-safe-or-quantum-vulnerable-inside-gsmas-second-pqc-roundtable-at-mwc-shanghai/</a>
+- as of 2026-07-07</li>
+<li>iotforall.com — cybersecurity ami network standards - <a
+href="https://www.iotforall.com/cybersecurity-ami-network-standards"
+class="uri">https://www.iotforall.com/cybersecurity-ami-network-standards</a>
+- as of 2026-07-15</li>
+<li>nerc.com — nerc cip roadmap 01122026.pdf - <a
+href="https://www.nerc.com/globalassets/our-work/reports/special-reports/nerc_cip_roadmap_01122026.pdf"
+class="uri">https://www.nerc.com/globalassets/our-work/reports/special-reports/nerc_cip_roadmap_01122026.pdf</a>
+- as of 2026-01-12</li>
+<li>wgmd.com — senators coons rounds introduce bipartisan measure to
+fortify electric grid - <a
+href="https://www.wgmd.com/senators-coons-rounds-introduce-bipartisan-measure-to-fortify-electric-grid/"
+class="uri">https://www.wgmd.com/senators-coons-rounds-introduce-bipartisan-measure-to-fortify-electric-grid/</a></li>
+<li>swanforesight.org — post quantum cryptography in critical
+infrastructure sector what s the plan for 2026 - <a
+href="https://www.swanforesight.org/post/post-quantum-cryptography-in-critical-infrastructure-sector-what-s-the-plan-for-2026"
+class="uri">https://www.swanforesight.org/post/post-quantum-cryptography-in-critical-infrastructure-sector-what-s-the-plan-for-2026</a>
+- as of 2025-12-27</li>
+<li>Why Smart Metering Security Must Evolve Beyond PQC - <a
+href="https://www.sealsq.com/sealsq-blog/why-smart-metering-security-must-evolve-beyond-pqc"
+class="uri">https://www.sealsq.com/sealsq-blog/why-smart-metering-security-must-evolve-beyond-pqc</a>
+- as of 2026-05-19</li>
+<li>globenewswire.com — SEALSQ Well Positioned with Post Quantum Chips
+and PKI to Support Wi SUN Alliance Members in Building Quantum Resilient
+Smart Meter Ecosystems Amid Rising Demand in Smart Energy - <a
+href="https://www.globenewswire.com/news-release/2026/03/26/3262990/0/en/SEALSQ-Well-Positioned-with-Post-Quantum-Chips-and-PKI-to-Support-Wi-SUN-Alliance-Members-in-Building-Quantum-Resilient-Smart-Meter-Ecosystems-Amid-Rising-Demand-in-Smart-Energy.html"
+class="uri">https://www.globenewswire.com/news-release/2026/03/26/3262990/0/en/SEALSQ-Well-Positioned-with-Post-Quantum-Chips-and-PKI-to-Support-Wi-SUN-Alliance-Members-in-Building-Quantum-Resilient-Smart-Meter-Ecosystems-Amid-Rising-Demand-in-Smart-Energy.html</a>
+- as of 2026-03-26</li>
+<li>SEALSQ Corp Form 6-K - <a
+href="https://www.sec.gov/Archives/edgar/data/1951222/000121390026090088/ea030208001ex99-1.htm"
+class="uri">https://www.sec.gov/Archives/edgar/data/1951222/000121390026090088/ea030208001ex99-1.htm</a>
+- as of 2026-08-14</li>
+<li>codegic.com — why smart meter pki is the backbone of modern
+intelligent grid - <a
+href="https://www.codegic.com/why-smart-meter-pki-is-the-backbone-of-modern-intelligent-grid/"
+class="uri">https://www.codegic.com/why-smart-meter-pki-is-the-backbone-of-modern-intelligent-grid/</a>
+- as of 2026-04-30</li>
+<li>cyberdefensemagazine.com — why data storage is the key to securing
+smart meters - <a
+href="https://www.cyberdefensemagazine.com/why-data-storage-is-the-key-to-securing-smart-meters/"
+class="uri">https://www.cyberdefensemagazine.com/why-data-storage-is-the-key-to-securing-smart-meters/</a>
+- as of 2025-10-23</li>
+<li>Quantum-Resistant Smart Meter Market Research Report 2034 - <a
+href="https://dataintelo.com/report/quantum-resistant-smart-meter-market"
+class="uri">https://dataintelo.com/report/quantum-resistant-smart-meter-market</a>
+- as of 2026-07-30</li>
+<li>journal.utripoli.edu.ly — 1377 - <a
+href="http://journal.utripoli.edu.ly/index.php/Alqalam/article/download/1797/1377"
+class="uri">http://journal.utripoli.edu.ly/index.php/Alqalam/article/download/1797/1377</a></li>
+<li>onvif.org — ONVIF Security Service Spec.pdf - <a
+href="https://www.onvif.org/specs/srv/security/ONVIF-Security-Service-Spec.pdf"
+class="uri">https://www.onvif.org/specs/srv/security/ONVIF-Security-Service-Spec.pdf</a></li>
+<li>securitysales.com — 156277 - <a
+href="https://www.securitysales.com/news/onvif-finalizes-tls-configuration-add-on/156277"
+class="uri">https://www.securitysales.com/news/onvif-finalizes-tls-configuration-add-on/156277</a>
+- as of 2025-01-15</li>
+<li>onvif.org - <a
+href="https://www.onvif.org/?post_type=pressrelease&amp;p=8621"
+class="uri">https://www.onvif.org/?post_type=pressrelease&amp;p=8621</a>
+- as of 2025-10-09</li>
+<li>Seeing the Future: Safeguarding the Next Era of Surveillance With
+Axis Communications - <a
+href="https://www.nxp.com/company/about-nxp/smarter-world-blog/SF-BL-SEEING-THE-FUTURE-SURVEILLANCE"
+class="uri">https://www.nxp.com/company/about-nxp/smarter-world-blog/SF-BL-SEEING-THE-FUTURE-SURVEILLANCE</a>
+- as of 2025-10-15</li>
+<li>censinet.com — fda guidance post market medical device cybersecurity
+- <a
+href="https://censinet.com/perspectives/fda-guidance-post-market-medical-device-cybersecurity"
+class="uri">https://censinet.com/perspectives/fda-guidance-post-market-medical-device-cybersecurity</a>
+- as of 2026-06-05</li>
+<li>medcrypt.com — navigating post quantum cryptography in medical
+device cybersecurity - <a
+href="https://www.medcrypt.com/blog/navigating-post-quantum-cryptography-in-medical-device-cybersecurity"
+class="uri">https://www.medcrypt.com/blog/navigating-post-quantum-cryptography-in-medical-device-cybersecurity</a>
+- as of 2025-10-10</li>
+<li>hattrick-it.com — cybersecurityguidanceupdate - <a
+href="https://www.hattrick-it.com/blog/cybersecurityguidanceupdate/"
+class="uri">https://www.hattrick-it.com/blog/cybersecurityguidanceupdate/</a>
+- as of 2026-02-18</li>
+<li>meddeviceguide.com — fda cybersecurity guidance qmsr update 2026
+guide - <a
+href="https://meddeviceguide.com/blog/fda-cybersecurity-guidance-qmsr-update-2026-guide"
+class="uri">https://meddeviceguide.com/blog/fda-cybersecurity-guidance-qmsr-update-2026-guide</a>
+- as of 2026-04-28</li>
+<li>frontiersin.org — full - <a
+href="https://www.frontiersin.org/journals/health-services/articles/10.3389/frhs.2026.1901282/full"
+class="uri">https://www.frontiersin.org/journals/health-services/articles/10.3389/frhs.2026.1901282/full</a></li>
+<li>news.mit.edu — new chip can protect wireless biomedical devices from
+quantum attacks 0423 - <a
+href="https://news.mit.edu/2026/new-chip-can-protect-wireless-biomedical-devices-from-quantum-attacks-0423"
+class="uri">https://news.mit.edu/2026/new-chip-can-protect-wireless-biomedical-devices-from-quantum-attacks-0423</a>
+- as of 2026-04-23</li>
+<li>medium.com — securing medical devices in the quantum era cloud based
+pqc for low power life critical systems 2a6629ca76f4 - <a
+href="https://medium.com/@exequantum/securing-medical-devices-in-the-quantum-era-cloud-based-pqc-for-low-power-life-critical-systems-2a6629ca76f4"
+class="uri">https://medium.com/@exequantum/securing-medical-devices-in-the-quantum-era-cloud-based-pqc-for-low-power-life-critical-systems-2a6629ca76f4</a>
+- as of 2025-06-03</li>
+<li>DN Series® Lobby ATM Self-Service Solutions - <a
+href="https://www.dieboldnixdorf.com/en-us/banking/portfolio/dn-series/lobby-atms/"
+class="uri">https://www.dieboldnixdorf.com/en-us/banking/portfolio/dn-series/lobby-atms/</a>
+- as of 2026-08-15</li>
+<li>Post-Quantum Banking Security: ATM Risk &amp; PQC Migration - <a
+href="https://bsiegelwax.substack.com/p/quantum-readiness-in-banking-starts"
+class="uri">https://bsiegelwax.substack.com/p/quantum-readiness-in-banking-starts</a>
+- as of 2026-07-22</li>
+<li>IDEMIA Secure Transactions Advances Post-Quantum Authentication with
+New KEM-Based Technology - <a
+href="https://www.idemia.com/news/idemia-secure-transactions-advances-post-quantum-authentication-new-kem-based-technology-2026-06-16"
+class="uri">https://www.idemia.com/news/idemia-secure-transactions-advances-post-quantum-authentication-new-kem-based-technology-2026-06-16</a>
+- as of 2026-06-16</li>
+<li>SEALSQ and Palm Technologies Plan Quantum-Resistant Palm Payment
+Hardware - ID Tech - <a
+href="https://idtechwire.com/sealsq-and-palm-technologies-plan-quantum-resistant-palm-payment-hardware/"
+class="uri">https://idtechwire.com/sealsq-and-palm-technologies-plan-quantum-resistant-palm-payment-hardware/</a>
+- as of 2026-08-19</li>
+<li>STMicroelectronics adds post-quantum security for mobile IDs,
+payments, access | Biometric Update - <a
+href="https://www.biometricupdate.com/202606/stmicroelectronics-adds-post-quantum-security-for-mobile-ids-payments-access"
+class="uri">https://www.biometricupdate.com/202606/stmicroelectronics-adds-post-quantum-security-for-mobile-ids-payments-access</a>
+- as of 2026-06-30</li>
+<li>Post-Quantum Cryptography | NXP - <a
+href="https://www.nxp.com/applications/technologies/security/post-quantum-cryptography:POST-QUANTUM-CRYPTOGRAPHY"
+class="uri">https://www.nxp.com/applications/technologies/security/post-quantum-cryptography:POST-QUANTUM-CRYPTOGRAPHY</a>
+- as of 2026-07-28</li>
+<li>trustsphere.ai — q day on the horizon why payment infrastructure has
+to move on post quantum cryptography now - <a
+href="https://www.trustsphere.ai/post/q-day-on-the-horizon-why-payment-infrastructure-has-to-move-on-post-quantum-cryptography-now"
+class="uri">https://www.trustsphere.ai/post/q-day-on-the-horizon-why-payment-infrastructure-has-to-move-on-post-quantum-cryptography-now</a>
+- as of 2026-06-11</li>
+<li>postquantum.com — payments quantum pqc - <a
+href="https://postquantum.com/post-quantum/payments-quantum-pqc/"
+class="uri">https://postquantum.com/post-quantum/payments-quantum-pqc/</a>
+- as of 2026-02-25</li>
+<li>Payments and the Race to Quantum Safety / Post-Quantum Cryptography
+(PQC) - <a
+href="https://postquantum.com/post-quantum/payments-quantum-pqc/"
+class="uri">https://postquantum.com/post-quantum/payments-quantum-pqc/</a>
+- as of 2026-02-23</li>
+<li>IDEMIA Secure Transactions Announces its First Hardware Accelerator
+Designed for Post-Quantum Cryptography - <a
+href="https://www.idemia.com/press-release/idemia-secure-transactions-announces-its-first-hardware-accelerator-designed-post-quantum-cryptography-2025-03-18"
+class="uri">https://www.idemia.com/press-release/idemia-secure-transactions-announces-its-first-hardware-accelerator-designed-post-quantum-cryptography-2025-03-18</a>
+- as of 2025-03-18</li>
+<li>Enabling Seamless and Secure Payments in 2026 - <a
+href="https://www.emvco.com/knowledge-hub/enabling-seamless-and-secure-payments-in-2026/"
+class="uri">https://www.emvco.com/knowledge-hub/enabling-seamless-and-secure-payments-in-2026/</a>
+- as of 2026-01-30</li>
+<li>EMVCo Newsletter: Q1 2026 - <a
+href="https://www.emvco.com/news/emvco-newsletter-q1-2026/"
+class="uri">https://www.emvco.com/news/emvco-newsletter-q1-2026/</a> -
+as of 2026-04-10</li>
+<li>Post Quantum PCI Use Cases: ATM and POS Card Capture and ATM and POS
+Setup With Backend Acquiring Systems - <a
+href="https://www.fsisac.com/hubfs/Knowledge/PQC/PCIUseCases-ATM&amp;POSCardCapture_ATM&amp;POSSetupWithBackendAcquiringSystems.pdf"
+class="uri">https://www.fsisac.com/hubfs/Knowledge/PQC/PCIUseCases-ATM&amp;POSCardCapture_ATM&amp;POSSetupWithBackendAcquiringSystems.pdf</a>
+- as of 2025-02-13</li>
+<li>atmmarketplace.com — how to protect atms from present future threats
+- <a
+href="https://www.atmmarketplace.com/articles/how-to-protect-atms-from-present-future-threats/"
+class="uri">https://www.atmmarketplace.com/articles/how-to-protect-atms-from-present-future-threats/</a>
+- as of 2026-05-08</li>
+<li>PQShield Releases 5KB RAM Post-Quantum Cryptography Implementation -
+<a
+href="https://quantumcomputingreport.com/pqshield-launches-ultra-compact-pqc-implementation-for-embedded-systems/"
+class="uri">https://quantumcomputingreport.com/pqshield-launches-ultra-compact-pqc-implementation-for-embedded-systems/</a>
+- as of 2026-03-09</li>
+<li>TechCreate Group Ltd. and pQCee Intend to Collaborate on One of the
+First Quantum-Safe QR Hybrid POS Terminal - <a
+href="https://www.businesswire.com/news/home/20260420365518/en/TechCreate-Group-Ltd.-and-pQCee-Intend-to-Collaborate-on-One-of-the-First-Quantum-Safe-QR-Hybrid-POS-Terminal"
+class="uri">https://www.businesswire.com/news/home/20260420365518/en/TechCreate-Group-Ltd.-and-pQCee-Intend-to-Collaborate-on-One-of-the-First-Quantum-Safe-QR-Hybrid-POS-Terminal</a>
+- as of 2026-04-20</li>
+<li>intellipay.com — under the hood with emv tokenization - <a
+href="https://intellipay.com/under-the-hood-with-emv-tokenization/"
+class="uri">https://intellipay.com/under-the-hood-with-emv-tokenization/</a>
+- as of 2026-03-30</li>
+<li>autoconnectedcar.com — connected car news 28 - <a
+href="https://www.autoconnectedcar.com/2026/06/connected-car-news-28/"
+class="uri">https://www.autoconnectedcar.com/2026/06/connected-car-news-28/</a>
+- as of 2026-06-22</li>
+<li>NXP develops new tech to counter cyberattacks on software-defined
+vehicles - <a
+href="https://www.wardsauto.com/news/nxp-develops-new-tech-to-counter-cyberattacks-on-software-defined-vehicles/810411/"
+class="uri">https://www.wardsauto.com/news/nxp-develops-new-tech-to-counter-cyberattacks-on-software-defined-vehicles/810411/</a>
+- as of 2026-08-13</li>
+<li>IAV quantumSAR - <a
+href="https://github.com/iavofficial/IAV_quantumSAR"
+class="uri">https://github.com/iavofficial/IAV_quantumSAR</a> - as of
+2026-08-22</li>
+<li>Quantum-safe AUTOSAR Crypto Abstraction Layer (Q-CAL) - <a
+href="https://www.linkedin.com/pulse/quantum-safe-autosar-crypto-abstraction-layer-q-cal-jai-deo-tiwari-q8n6c"
+class="uri">https://www.linkedin.com/pulse/quantum-safe-autosar-crypto-abstraction-layer-q-cal-jai-deo-tiwari-q8n6c</a>
+- as of 2026-08-15</li>
+<li>Kookmin University joins $1.2 mln project to develop vehicle
+security chip - <a
+href="https://www.ajupress.com/view/20260819101624068"
+class="uri">https://www.ajupress.com/view/20260819101624068</a> - as of
+2026-08-19</li>
+<li>Quantum-safe or quantum-vulnerable? Inside GSMA’s second PQC
+roundtable at MWC Shanghai - <a
+href="https://www.gsma.com/solutions-and-impact/technologies/security/gsma_resources/quantum-safe-or-quantum-vulnerable-inside-gsmas-second-pqc-roundtable-at-mwc-shanghai/"
+class="uri">https://www.gsma.com/solutions-and-impact/technologies/security/gsma_resources/quantum-safe-or-quantum-vulnerable-inside-gsmas-second-pqc-roundtable-at-mwc-shanghai/</a>
+- as of 2026-07-07</li>
+<li>sciencedirect.com — S2214209626000306 - <a
+href="https://www.sciencedirect.com/science/article/pii/S2214209626000306"
+class="uri">https://www.sciencedirect.com/science/article/pii/S2214209626000306</a>
+- as of 2026-04-03</li>
+<li>apriorit.com — post quantum cryptography in automotive - <a
+href="https://www.apriorit.com/dev-blog/post-quantum-cryptography-in-automotive"
+class="uri">https://www.apriorit.com/dev-blog/post-quantum-cryptography-in-automotive</a>
+- as of 2025-09-18</li>
+<li>elektormagazine.com — automotive crypto agility ecus - <a
+href="https://www.elektormagazine.com/news/automotive-crypto-agility-ecus"
+class="uri">https://www.elektormagazine.com/news/automotive-crypto-agility-ecus</a></li>
+<li>postquantumcryptography.de — pqc unece - <a
+href="https://www.postquantumcryptography.de/publications/pqc_unece.html"
+class="uri">https://www.postquantumcryptography.de/publications/pqc_unece.html</a>
+- as of 2026-04-25</li>
+<li>On-demand webinar: Adoption of post-quantum cryptography in
+real-time automotive systems - <a
+href="https://www.infineon.com/event/webinar/2026/adoption-post-quantum-cryptography-real-time-automotive-systems"
+class="uri">https://www.infineon.com/event/webinar/2026/adoption-post-quantum-cryptography-real-time-automotive-systems</a>
+- as of 2026-03-10</li>
+<li>semiengineering.com — ic security threats spike with quantum ai and
+automotive - <a
+href="https://semiengineering.com/ic-security-threats-spike-with-quantum-ai-and-automotive/"
+class="uri">https://semiengineering.com/ic-security-threats-spike-with-quantum-ai-and-automotive/</a>
+- as of 2026-04-23</li>
+<li>doi.org — ACCESS.2025.3528562 - <a
+href="https://doi.org/10.1109/ACCESS.2025.3528562"
+class="uri">https://doi.org/10.1109/ACCESS.2025.3528562</a></li>
+<li>globenewswire.com — SEALSQ to Bring Post Quantum Security to the
+Automotive Industry - <a
+href="https://www.globenewswire.com/news-release/2026/07/01/3320677/0/en/SEALSQ-to-Bring-Post-Quantum-Security-to-the-Automotive-Industry.html"
+class="uri">https://www.globenewswire.com/news-release/2026/07/01/3320677/0/en/SEALSQ-to-Bring-Post-Quantum-Security-to-the-Automotive-Industry.html</a>
+- as of 2026-07-01</li>
+<li>researchgate.net — 373131334 Post Quantum Impacts on V2X
+Certificates Already at The End of The Road - <a
+href="https://www.researchgate.net/publication/373131334_Post-Quantum_Impacts_on_V2X_Certificates_-_Already_at_The_End_of_The_Road"
+class="uri">https://www.researchgate.net/publication/373131334_Post-Quantum_Impacts_on_V2X_Certificates_-_Already_at_The_End_of_The_Road</a>
+- as of 2023-06-01</li>
+<li>eprint.iacr.org — 483.pdf - <a
+href="https://eprint.iacr.org/2022/483.pdf"
+class="uri">https://eprint.iacr.org/2022/483.pdf</a></li>
+<li>quantumzeitgeist.com — quantum vehicular communications hybrid
+certificate proposal - <a
+href="https://quantumzeitgeist.com/quantum-vehicular-communications-hybrid-certificate-proposal/"
+class="uri">https://quantumzeitgeist.com/quantum-vehicular-communications-hybrid-certificate-proposal/</a>
+- as of 2026-06-15</li>
+<li>rip.trb.org — 2531081 - <a href="https://rip.trb.org/View/2531081"
+class="uri">https://rip.trb.org/View/2531081</a> - as of 2025-03-31</li>
+<li>Post-Quantum Tokenized Security for C-V2X - <a
+href="https://ieeexplore.ieee.org/abstract/document/11510686/"
+class="uri">https://ieeexplore.ieee.org/abstract/document/11510686/</a>
+- as of 2026-05-13</li>
+<li>Post-Quantum Cryptography Migration on V2X Certificate using KpqC
+Algorithms - <a href="https://ieeexplore.ieee.org/document/11170005/"
+class="uri">https://ieeexplore.ieee.org/document/11170005/</a> - as of
+2025-09-30</li>
+<li>pqc-v2x-migration - <a
+href="https://github.com/vu3scd/pqc-v2x-migration"
+class="uri">https://github.com/vu3scd/pqc-v2x-migration</a> - as of
+2026-04-09</li>
+<li>Post-Quantum Authentication and Key Agreement Protocol for 5G-V2X
+Communication - <a href="https://ieeexplore.ieee.org/document/11298475/"
+class="uri">https://ieeexplore.ieee.org/document/11298475/</a> - as of
+2026-08-19</li>
+<li>Post-quantum cryptography for intelligent transportation systems: An
+implementation-focused review - <a
+href="https://www.sciencedirect.com/science/article/pii/S2214209626000306"
+class="uri">https://www.sciencedirect.com/science/article/pii/S2214209626000306</a>
+- as of 2026-08-01</li>
+<li>link.springer.com — s13272 025 00806 5 - <a
+href="https://link.springer.com/article/10.1007/s13272-025-00806-5"
+class="uri">https://link.springer.com/article/10.1007/s13272-025-00806-5</a>
+- as of 2025-05-12</li>
+<li>militaryaerospace.com — faa seeks industry input on post quantum
+cryptography transition for air traffic control and it systems - <a
+href="https://www.militaryaerospace.com/commercial-aerospace/article/55363028/faa-seeks-industry-input-on-post-quantum-cryptography-transition-for-air-traffic-control-and-it-systems"
+class="uri">https://www.militaryaerospace.com/commercial-aerospace/article/55363028/faa-seeks-industry-input-on-post-quantum-cryptography-transition-for-air-traffic-control-and-it-systems</a>
+- as of 2026-03-11</li>
+<li>Post Quantum Cryptography Support for FAA Information Technology -
+<a
+href="https://sam.gov/workspace/contract/opp/03a6704e102945708807878ac8dae17e/view"
+class="uri">https://sam.gov/workspace/contract/opp/03a6704e102945708807878ac8dae17e/view</a>
+- as of 2026-04-24</li>
+<li>support.forwardedge.ai — 11714870 securing aviation from the quantum
+threat - <a
+href="https://support.forwardedge.ai/en/articles/11714870-securing-aviation-from-the-quantum-threat"
+class="uri">https://support.forwardedge.ai/en/articles/11714870-securing-aviation-from-the-quantum-threat</a>
+- as of 2025-12-02</li>
+<li>academictransfer.com — phd position cybersecurity and post quantum
+cryptography for aviation systems - <a
+href="https://www.academictransfer.com/en/jobs/360188/phd-position-cybersecurity-and-post-quantum-cryptography-for-aviation-systems"
+class="uri">https://www.academictransfer.com/en/jobs/360188/phd-position-cybersecurity-and-post-quantum-cryptography-for-aviation-systems</a>
+- as of 2026-04-15</li>
+<li>unife.org — attachments 1.pdf - <a
+href="https://www.unife.org/wp-content/uploads/2021/03/attachments-1.pdf"
+class="uri">https://www.unife.org/wp-content/uploads/2021/03/attachments-1.pdf</a></li>
+<li>nexttechworld.com — gsm r railway communication - <a
+href="https://nexttechworld.com/special-radio/gsm-r-railway-communication/"
+class="uri">https://nexttechworld.com/special-radio/gsm-r-railway-communication/</a>
+- as of 2026-05-21</li>
+<li>ericsson.com — integrating frmcs with 5g technology - <a
+href="https://www.ericsson.com/en/reports-and-papers/white-papers/integrating-frmcs-with-5g-technology"
+class="uri">https://www.ericsson.com/en/reports-and-papers/white-papers/integrating-frmcs-with-5g-technology</a>
+- as of 2026-03-20</li>
+<li>Innovation Pillar, System Pillar and Deployment Group – March News -
+<a
+href="https://rail-research.europa.eu/latest-news/innovation-pillar-march-project-news/"
+class="uri">https://rail-research.europa.eu/latest-news/innovation-pillar-march-project-news/</a>
+- as of 2026-03-25</li>
+<li>globalrailwayreview.com — stay ahead of quantum threat to railway
+security - <a
+href="https://www.globalrailwayreview.com/article/175511/stay-ahead-of-quantum-threat-to-railway-security/"
+class="uri">https://www.globalrailwayreview.com/article/175511/stay-ahead-of-quantum-threat-to-railway-security/</a>
+- as of 2026-03-12</li>
+<li>Is your backbone network ready for FRMCS? - <a
+href="https://www.nokia.com/asset/f/210545/"
+class="uri">https://www.nokia.com/asset/f/210545/</a></li>
+<li>ijfmr.com — 56254.pdf - <a
+href="https://www.ijfmr.com/papers/2025/5/56254.pdf"
+class="uri">https://www.ijfmr.com/papers/2025/5/56254.pdf</a></li>
+<li>arxiv.org — 2606.11839 - <a href="https://arxiv.org/pdf/2606.11839"
+class="uri">https://arxiv.org/pdf/2606.11839</a></li>
+<li>Exploring hardware implementation feasibility of post-quantum
+cryptography in embedded systems: Evaluation of NIST-standardized
+ML-KEM, ML-DSA and SLH-DSA on ESP32-C6 - <a
+href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0355179"
+class="uri">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0355179</a>
+- as of 2026-08-18</li>
+<li>doi.org — fi18060316 - <a href="https://doi.org/10.3390/fi18060316"
+class="uri">https://doi.org/10.3390/fi18060316</a> - as of
+2026-06-10</li>
+<li>datawiresolutions.com — matter thread explained 2026 - <a
+href="https://datawiresolutions.com/blog/matter-thread-explained-2026"
+class="uri">https://datawiresolutions.com/blog/matter-thread-explained-2026</a>
+- as of 2026-06-22</li>
+<li>community.home-assistant.io — 1011475 - <a
+href="https://community.home-assistant.io/t/post-quantum-well-repurshase-everything/1011475"
+class="uri">https://community.home-assistant.io/t/post-quantum-well-repurshase-everything/1011475</a>
+- as of 2026-05-24</li>
+<li>sciencedirect.com — S2542660526000776 - <a
+href="https://www.sciencedirect.com/science/article/pii/S2542660526000776"
+class="uri">https://www.sciencedirect.com/science/article/pii/S2542660526000776</a>
+- as of 2026-04-16</li>
+<li>On the Energy Cost of Post-Quantum Key Establishment in Wireless
+Low-Power Personal Area Networks - <a
+href="https://eprints.qut.edu.au/265124/1/3774906.3802784.pdf"
+class="uri">https://eprints.qut.edu.au/265124/1/3774906.3802784.pdf</a>
+- as of 2026-05-14</li>
+<li>Application of Post-Quantum Cryptography in IoT Networks - <a
+href="https://ieeexplore.ieee.org/document/11310348/"
+class="uri">https://ieeexplore.ieee.org/document/11310348/</a> - as of
+2026-01-01</li>
+<li>eprint.iacr.org — 1170.pdf - <a
+href="https://eprint.iacr.org/2024/1170.pdf"
+class="uri">https://eprint.iacr.org/2024/1170.pdf</a></li>
+<li>eprint.iacr.org — 1668.pdf - <a
+href="https://eprint.iacr.org/2025/1668.pdf"
+class="uri">https://eprint.iacr.org/2025/1668.pdf</a></li>
+<li>PQ-MQTT: A Hybrid Post-Quantum Secure Communication Protocol for
+MQTT-Based IoT Networks - <a
+href="https://www.researchgate.net/publication/406158223_PQ-MQTT_A_Hybrid_Post-Quantum_Secure_Communication_Protocol_for_MQTT-Based_IoT_Networks"
+class="uri">https://www.researchgate.net/publication/406158223_PQ-MQTT_A_Hybrid_Post-Quantum_Secure_Communication_Protocol_for_MQTT-Based_IoT_Networks</a>
+- as of 2026-06-09</li>
+<li>Performance Evaluation of Post-Quantum Cryptography in IoT: A Case
+Study on MQTT Over TLS Under Network Constraints - <a
+href="https://ieeexplore.ieee.org/document/11458974/"
+class="uri">https://ieeexplore.ieee.org/document/11458974/</a> - as of
+2026-08-11</li>
+<li>researchgate.net — 328741904 An Enhanced Key Management Scheme for
+LoRaWAN - <a
+href="https://www.researchgate.net/publication/328741904_An_Enhanced_Key_Management_Scheme_for_LoRaWAN"
+class="uri">https://www.researchgate.net/publication/328741904_An_Enhanced_Key_Management_Scheme_for_LoRaWAN</a></li>
+<li>blog.semtech.com — lorawan security enterprise grade protection
+built into every byte and at every stage of the byte journey - <a
+href="https://blog.semtech.com/lorawan-security-enterprise-grade-protection-built-into-every-byte-and-at-every-stage-of-the-byte-journey"
+class="uri">https://blog.semtech.com/lorawan-security-enterprise-grade-protection-built-into-every-byte-and-at-every-stage-of-the-byte-journey</a>
+- as of 2026-04-08</li>
+<li>sol.sbc.org.br — 36418 - <a
+href="https://sol.sbc.org.br/index.php/sbseg/article/download/36631/36418/"
+class="uri">https://sol.sbc.org.br/index.php/sbseg/article/download/36631/36418/</a></li>
+<li>Design and Implementation of an Optimized Post-Quantum Key
+Management Scheme for LoRaWAN - <a
+href="https://www.laas.fr/fr/offres/design-and-implementation-of-an-optimized-post-quantum-key-management-scheme-for-lorawan/"
+class="uri">https://www.laas.fr/fr/offres/design-and-implementation-of-an-optimized-post-quantum-key-management-scheme-for-lorawan/</a>
+- as of 2026-03-09</li>
+<li>Enhancement in LoraWAN’s Security With Post-Quantum Key
+Encapsulation Method - <a
+href="https://ieeexplore.ieee.org/document/10811133/"
+class="uri">https://ieeexplore.ieee.org/document/10811133/</a> - as of
+2025-04-30</li>
+<li>arxiv.org — 2601.13423 - <a href="https://arxiv.org/pdf/2601.13423"
+class="uri">https://arxiv.org/pdf/2601.13423</a> - as of 2026-01-19</li>
+<li>ieeexplore.ieee.org — 10733716 - <a
+href="https://ieeexplore.ieee.org/document/10733716/"
+class="uri">https://ieeexplore.ieee.org/document/10733716/</a></li>
+<li>Post-Quantum Entropy as a Service for Embedded Systems - <a
+href="https://www.mdpi.com/1424-8220/26/9/2737"
+class="uri">https://www.mdpi.com/1424-8220/26/9/2737</a> - as of
+2026-04-28</li>
+<li>MQTT Across a Raspberry Pi 5 IoT Network Utilizing Quantum-resistant
+Signature Algorithms - <a href="https://arxiv.org/html/2605.13698v1"
+class="uri">https://arxiv.org/html/2605.13698v1</a> - as of
+2026-05-13</li>
+<li>Lightweight PQ KEM and Hybrid MQTT Protocol for 8-bit AVR Sensor
+Nodes - <a href="https://eprint.iacr.org/2026/248"
+class="uri">https://eprint.iacr.org/2026/248</a> - as of 2026-02-13</li>
+<li>Specification # 33.703 - <a
+href="https://www.3gpp.org/dynareport/33703.htm"
+class="uri">https://www.3gpp.org/dynareport/33703.htm</a> - as of
+2026-06-17</li>
+<li>3gpp.org — 3GPP Highlights Issue 12 WEB.pdf - <a
+href="https://www.3gpp.org/ftp/Information/Highlights/3GPP_Highlights_Issue_12_WEB.pdf"
+class="uri">https://www.3gpp.org/ftp/Information/Highlights/3GPP_Highlights_Issue_12_WEB.pdf</a>
+- as of 2026-05-28</li>
+<li>firstnet.gov — 3gpp completes release 19 while progress begins 6g
+work - <a
+href="https://firstnet.gov/newsroom/blog/3gpp-completes-release-19-while-progress-begins-6g-work"
+class="uri">https://firstnet.gov/newsroom/blog/3gpp-completes-release-19-while-progress-begins-6g-work</a>
+- as of 2026-03-19</li>
+<li>postquantum.com — telecom pqc challenges - <a
+href="https://postquantum.com/post-quantum/telecom-pqc-challenges/"
+class="uri">https://postquantum.com/post-quantum/telecom-pqc-challenges/</a>
+- as of 2026-04-10</li>
+<li>gsma.com — post quantum cryptography in iot - <a
+href="https://www.gsma.com/solutions-and-impact/technologies/security/latest-news/post-quantum-cryptography-in-iot/"
+class="uri">https://www.gsma.com/solutions-and-impact/technologies/security/latest-news/post-quantum-cryptography-in-iot/</a>
+- as of 2025-05-07</li>
+<li>arxiv.org — 2510.19982 - <a href="https://arxiv.org/pdf/2510.19982"
+class="uri">https://arxiv.org/pdf/2510.19982</a></li>
+<li>tecknexus.com — 3gpp issue 11 release 18 19 highlights and early 6g
+- <a
+href="https://tecknexus.com/3gpp-issue-11-release-18-19-highlights-and-early-6g/"
+class="uri">https://tecknexus.com/3gpp-issue-11-release-18-19-highlights-and-early-6g/</a>
+- as of 2025-12-11</li>
+<li>Post-Quantum Cryptography in the 5G Core - <a
+href="https://arxiv.org/html/2512.20243v1"
+class="uri">https://arxiv.org/html/2512.20243v1</a> - as of
+2025-12-23</li>
+<li>QORE : Quantum Secure 5G/B5G Core - <a
+href="https://github.com/coranlabs/QORE"
+class="uri">https://github.com/coranlabs/QORE</a> - as of
+2025-10-22</li>
+<li>doi.org — info16070617 - <a
+href="https://doi.org/10.3390/info16070617"
+class="uri">https://doi.org/10.3390/info16070617</a> - as of
+2025-07-19</li>
+<li>image-ppubs.uspto.gov — 11838417 - <a
+href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11838417"
+class="uri">https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11838417</a></li>
+<li>arxiv.org — 2507.17074 - <a href="https://arxiv.org/pdf/2507.17074"
+class="uri">https://arxiv.org/pdf/2507.17074</a></li>
+<li>dl.acm.org — 3507657.3528540 - <a
+href="https://dl.acm.org/doi/10.1145/3507657.3528540"
+class="uri">https://dl.acm.org/doi/10.1145/3507657.3528540</a></li>
+<li>Telecom’s Quantum-Safe Imperative: Challenges in Adopting
+Post-Quantum Cryptography - <a
+href="https://postquantum.com/post-quantum/telecom-pqc-challenges/"
+class="uri">https://postquantum.com/post-quantum/telecom-pqc-challenges/</a>
+- as of 2024-02-26</li>
+<li>Galileo Open Service Navigation Message Authentication - Navipedia -
+<a
+href="https://gssc.esa.int/navipedia/index.php/Galileo_Open_Service_Navigation_Message_Authentication"
+class="uri">https://gssc.esa.int/navipedia/index.php/Galileo_Open_Service_Navigation_Message_Authentication</a>
+- as of 2026-08-15</li>
+<li>News | European GNSS Service Centre (GSC) - <a
+href="https://www.gsc-europa.eu/galileo/news"
+class="uri">https://www.gsc-europa.eu/galileo/news</a> - as of
+2026-08-06</li>
+<li>SEALSQ and WISeSat Announce their Commercial Quantum Spatial Orbital
+Cloud (QSOC) - <a
+href="https://www.sealsq.com/investors/news-releases/sealsq-and-wisesat-announce-their-commercial-quantum-spatial-orbital-cloud-qsoc"
+class="uri">https://www.sealsq.com/investors/news-releases/sealsq-and-wisesat-announce-their-commercial-quantum-spatial-orbital-cloud-qsoc</a>
+- as of 2026-06-12</li>
+<li>WISeKey, Sealsq team with KSTPL to manufacture post-quantum
+satellites in India - <a
+href="https://www.tipranks.com/news/the-fly/wisekey-sealsq-team-with-kstpl-to-manufacture-post-quantum-satellites-in-india-thefly"
+class="uri">https://www.tipranks.com/news/the-fly/wisekey-sealsq-team-with-kstpl-to-manufacture-post-quantum-satellites-in-india-thefly</a>
+- as of 2026-08-27</li>
+<li>Post-quantum cryptography for space systems: Algorithms,
+implementation, and design constraints—A systematic survey - <a
+href="https://www.sciencedirect.com/science/article/pii/S0094576526002730"
+class="uri">https://www.sciencedirect.com/science/article/pii/S0094576526002730</a>
+- as of 2026-09-01</li>
+<li>Galileo Open Service Navigation Message Authentication (OSNMA) |
+European GNSS Service Centre (GSC) - <a
+href="https://www.gsc-europa.eu/galileo/services/galileo-open-service-navigation-message-authentication-osnma"
+class="uri">https://www.gsc-europa.eu/galileo/services/galileo-open-service-navigation-message-authentication-osnma</a>
+- as of 2025-07-24</li>
+<li>Galileo OSNMA authentication service now operational - GPS World -
+<a
+href="https://www.gpsworld.com/galileo-osnma-authentification-service-now-operational/"
+class="uri">https://www.gpsworld.com/galileo-osnma-authentification-service-now-operational/</a></li>
+<li>GitHub - daniestevez/galileo-osnma - <a
+href="https://github.com/daniestevez/galileo-osnma"
+class="uri">https://github.com/daniestevez/galileo-osnma</a></li>
+<li>Galileo Open Service Navigation Message Authentication: Preparation
+Phase and Drivers for Future Service Provision - <a
+href="https://navi.ion.org/content/70/3/navi.572"
+class="uri">https://navi.ion.org/content/70/3/navi.572</a></li>
+<li>Galileo Open Service Navigation Message Authentication adds another
+layer of protection against GNSS interference - <a
+href="https://www.euspa.europa.eu/newsroom-events/news/galileo-open-service-navigation-message-authentication-adds-another-layer"
+class="uri">https://www.euspa.europa.eu/newsroom-events/news/galileo-open-service-navigation-message-authentication-adds-another-layer</a>
+- as of 2025-07-24</li>
+<li>E-GIANTS Project Concludes Study on GNSS Authentication and Security
+Improvements - <a
+href="https://www.euspa.europa.eu/newsroom-events/news/e-giants-project-concludes-study-gnss-authentication-and-security-improvements"
+class="uri">https://www.euspa.europa.eu/newsroom-events/news/e-giants-project-concludes-study-gnss-authentication-and-security-improvements</a>
+- as of 2025-08-05</li>
+<li>Satellite Navigation Signal Authentication in GNSS: A Survey on
+Technology Evolution, Status, and Perspective for BDS - <a
+href="https://www.mdpi.com/2072-4292/15/5/1462"
+class="uri">https://www.mdpi.com/2072-4292/15/5/1462</a></li>
+<li>Practical Cryptographic Civil GPS Signal Authentication - <a
+href="https://www.researchgate.net/publication/264250548_Practical_Cryptographic_Civil_GPS_Signal_Authentication"
+class="uri">https://www.researchgate.net/publication/264250548_Practical_Cryptographic_Civil_GPS_Signal_Authentication</a></li>
+<li>Quantum Resistant Authentication Algorithms for Satellite-Based
+Augmentation - <a
+href="https://web.stanford.edu/group/scpnt/gpslab/pubs/papers/Neish_2018_IONITM_QuantumResistantAuthenticationUpdated.pdf"
+class="uri">https://web.stanford.edu/group/scpnt/gpslab/pubs/papers/Neish_2018_IONITM_QuantumResistantAuthenticationUpdated.pdf</a></li>
+<li>Reimplementing the Space Protocol Stack from Scratch - <a
+href="https://gazagnaire.org/blog/2026-04-15-ccsds-protocol-stack.html"
+class="uri">https://gazagnaire.org/blog/2026-04-15-ccsds-protocol-stack.html</a></li>
+<li>Towards completion of the CCSDS space data link security protocol -
+<a
+href="https://www.researchgate.net/publication/241629407_Towards_completion_of_the_CCSDS_space_data_link_security_protocol"
+class="uri">https://www.researchgate.net/publication/241629407_Towards_completion_of_the_CCSDS_space_data_link_security_protocol</a></li>
+<li>Report Concerning Space Data System Standards SPACE DATA LINK
+SECURITY - <a href="https://ccsds.org/Pubs/350x11g1e1.pdf"
+class="uri">https://ccsds.org/Pubs/350x11g1e1.pdf</a></li>
+<li>Privacy-Preserving for Images in Satellite Communications: A
+Comprehensive Review of Chaos-Based Encryption - <a
+href="https://arxiv.org/pdf/2410.21177"
+class="uri">https://arxiv.org/pdf/2410.21177</a></li>
+<li>Developing a CCSDS compliant platform to reliably secure current and
+future space data links - <a
+href="https://indico.esa.int/event/528/attachments/5988/10191/Developing_a_CCSDS_compliant_platform_to_reliably_secure_current_and_future_space_data_links.pdf"
+class="uri">https://indico.esa.int/event/528/attachments/5988/10191/Developing_a_CCSDS_compliant_platform_to_reliably_secure_current_and_future_space_data_links.pdf</a>
+- as of 2020-01-01</li>
+<li>End-to-End Quantum-Safe Security for Satellite Data Links (E2EQSS) -
+<a
+href="https://www.researchgate.net/publication/397796151_End-to-End_Quantum-Safe_Security_for_Satellite_Data_Links_E2EQSS"
+class="uri">https://www.researchgate.net/publication/397796151_End-to-End_Quantum-Safe_Security_for_Satellite_Data_Links_E2EQSS</a></li>
+<li>End-to-End Quantum-Safe Security for Satellite Data Links (E2EQSS) -
+<a href="https://security4space.esa.int/2025/papers/15/"
+class="uri">https://security4space.esa.int/2025/papers/15/</a> - as of
+2026-02-25</li>
+<li>ESA partners with Polish technology company to develop a satcom
+security solution using post-quantum algorithms - <a
+href="https://connectivity.esa.int/archives/news/esa-partners-polish-technology-company-develop-satcom-security-solution-using-postquantum-algorithms"
+class="uri">https://connectivity.esa.int/archives/news/esa-partners-polish-technology-company-develop-satcom-security-solution-using-postquantum-algorithms</a></li>
+<li>ACES - ESA CSC: Connectivity &amp; Secure Communications - <a
+href="https://connectivity.esa.int/archives/projects/aces"
+class="uri">https://connectivity.esa.int/archives/projects/aces</a> - as
+of 2026-05-06</li>
+<li>Voyager and IBM Prove Post-Quantum Security On-Orbit - <a
+href="https://voyagertechnologies.com/insights/voyager-and-ibm-prove-post-quantum-security-on-orbit/"
+class="uri">https://voyagertechnologies.com/insights/voyager-and-ibm-prove-post-quantum-security-on-orbit/</a>
+- as of 2026-04-15</li>
+<li>Protecting Satellite Data Links with Post-Quantum Cryptography - <a
+href="https://www.aivon.com/blog/mobile-communications/protecting-satellite-data-links-with-post-quantum-cryptography/"
+class="uri">https://www.aivon.com/blog/mobile-communications/protecting-satellite-data-links-with-post-quantum-cryptography/</a></li>
+<li>Quantum-Safe Encryption for Satellite Communications | Phio TX - <a
+href="https://quantumxc.com/satcom/"
+class="uri">https://quantumxc.com/satcom/</a></li>
+<li>First Demonstration of a Post-Quantum Key-Exchange with… - <a
+href="https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=5293&amp;context=smallsat"
+class="uri">https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=5293&amp;context=smallsat</a></li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="15-email-messaging.html"><span>Previous</span>Part 15 - Email &amp; Messaging</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="17-financial-sector-rails.html"><span>Next</span>Part 17 - Financial Messaging &amp; Sector Rails</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/16-iot-ot.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

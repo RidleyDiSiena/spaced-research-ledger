@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 5 - Revocation & Transparency | CA/Browser Forum Tracker</title>
+  <meta name="description" content="CA/Browser Forum Tracker, Part 5: Revocation & Transparency.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">CA/Browser Forum Tracker</a><span class="sep">/</span>Part 5</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">CA/Browser Forum Tracker &middot; Part 5</p>
+    <h1>Revocation &amp; Transparency</h1>
+    <p class="updated">Last updated: 2026-09-01</p>
+    <p class="actions"><a class="pdf" href="latest/05-revocation-and-transparency.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#revocation-mechanisms-and-timelines"
+id="toc-revocation-mechanisms-and-timelines">1. Revocation Mechanisms
+and Timelines</a></li>
+<li><a href="#certificate-transparency"
+id="toc-certificate-transparency">2. Certificate Transparency</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Revocation and transparency are the two mechanisms that let the web
+recover from a certificate that should not exist. Revocation withdraws
+trust from a certificate already issued. Transparency makes every issued
+certificate publicly visible, so that a bad one can be found at all.
+Section 1 covers revocation, where the industry’s answer has shifted
+from fixing the mechanism to routing around it. Section 2 covers
+Certificate Transparency, which is undergoing its first architectural
+change since it was standardized.</p>
+<h2 id="revocation-mechanisms-and-timelines">1. Revocation Mechanisms
+and Timelines</h2>
+<p><em>Revocation is the part of the web’s certificate system that never
+worked well. The clearest evidence of that judgment is that the largest
+certificate authority in the world switched off its status responder and
+replaced it with certificates too short-lived to need one.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>Let’s Encrypt ended its Online Certificate Status Protocol service in
+August 2025 [1]. It had stopped including responder URLs in certificates
+more than ninety days earlier, so every certificate carrying one had
+expired before the responder went dark [1]. The stated reason was
+privacy, because the protocol tells the responder which site a user is
+visiting [2].</p>
+<p>The scale of what was removed is worth stating plainly. At its peak
+the service answered roughly 340 billion requests per month, with more
+than 140,000 requests per second handled by the content delivery network
+[3]. The intent to replace the protocol with revocation lists was
+announced in July 2024, more than a year before the shutdown [4].</p>
+<p>The replacement is not a better status protocol. It is a shorter
+certificate. Let’s Encrypt issued its first six-day certificate on 20
+February 2025 [5]. Those certificates carry neither responder nor
+revocation list URLs, because the window in which a compromised key is
+useful is short enough that revocation is treated as unnecessary
+[6].</p>
+<h3 id="current-state">Current State</h3>
+<p>Browser-side revocation summaries diverge sharply in ambition.
+Firefox began production use of CRLite in August 2025, covering 99.84%
+of certificates visible in transparency logs [7]. It arrives as roughly
+300 kB of daily updates and is queried locally with no network lookup
+[7]. Chrome’s CRLSets carry about 1% of all revocations, roughly 35,000
+out of four million [8].</p>
+<p>The efficiency gap is structural rather than a matter of effort.
+CRLite encodes its set in about 300 kB per day against roughly 600 kB
+for a recent CRLSet, so it delivers complete coverage in half the
+bandwidth [9]. It uses about 6.6 bits per revocation against roughly 110
+bits for a CRLSet, because a filter cascade encodes membership rather
+than listing entries [10].</p>
+<p>The two designs answer different questions. Mozilla pairs OneCRL for
+intermediate certificate revocations with CRLite for end-entity
+revocations. Chrome’s CRLSets are a selective list aimed at high-impact
+and emergency revocations rather than comprehensive coverage [11].</p>
+<p>Policy is tightening around the timelines themselves. Mozilla
+requires certificate authorities to develop, maintain and annually test
+comprehensive mass revocation plans, with third-party assessment from
+June 2025 audits [12]. It states that there are no exceptions to the
+Forum’s revocation timelines [12]. That policy followed multiple
+delayed-revocation incidents, and version 3.0 added a requirement for
+proactive subscriber warnings about revocation timelines and contractual
+language mandating timely cooperation [13].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>The Forum’s own revocation deadlines are debated but unsettled.
+Working group discussions in 2025 proposed splitting one requirement
+into separate triggers. The split would distinguish non-compliance with
+the Baseline Requirements from deviations against an authority’s own
+policy statement, with a 90-day timeline for the latter [14]. The
+related ballots remained in draft as of December 2025 [14]. Until one is
+balloted, the existing deadlines stand unchanged, and the argument for a
+slower track for less severe problems remains an argument rather than a
+rule.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="certificate-transparency">2. Certificate Transparency</h2>
+<p><em>Certificate Transparency is moving from its original append-only
+log design to a static, tiled architecture that operators can serve from
+ordinary object storage. Chrome is driving that transition and has
+staged it as an admission process rather than a cutover.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Chrome’s log policy now accepts logs conforming either to the
+original RFC 6962 design or to the static specification, and neither has
+been retired [15]. The change took effect in Chrome 134, released 4
+March, with operators able to submit static logs for inclusion from 1
+April [16].</p>
+<p>Chrome then went further than admitting the new design. It removed
+the requirement to include at least one log of the original type. From
+15 April 2026 a certificate may carry signed timestamps drawn
+exclusively from static logs [17]. Chrome will also remove support for
+timestamps delivered by status responder in Chrome 148 [18].</p>
+<p>The bar for the new logs is high. Chrome will only consider static
+logs with a maximum merge delay of ten seconds or less, far tighter than
+the day-long norm of the original design. Applications are accepted only
+from operators who have already applied with a log of the original type
+accepting the same certificates.</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Logging obligations are now near universal. Chrome Root Program
+Policy version 1.8 requires certificate authorities to log all TLS
+server authentication precertificates to at least one qualified or
+usable log, effective 15 June 2026 [19].</p>
+<p>The implementation ecosystem is active rather than settled. The
+static specification and several tiled log implementations continue
+development, including support for temporal sharding by certificate
+expiry window [20]. Chrome’s policy defines a lifecycle for logs running
+through pending, qualified, usable, read-only, retired and rejected
+states [21]. The monitoring side is also maintained, with the crt.sh
+project carrying repository updates as recent as September 2026
+[22].</p>
+<p>One operational incident is on record. The Tuscolo2026h2 static log
+suffered a thirty-minute degradation of its write path on 9 August 2026,
+caused by a traffic spike and a lock starvation bug [23]. All entries
+still met the sixty-second merge delay [23].</p>
+<p>Beyond the current architecture, work continues on a design that
+merges logging into issuance itself. The IETF draft for Merkle Tree
+Certificates reached version 05 in July 2026 [24].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to four systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>OCSP Service Has Reached End of Life — Let’s Encrypt. <a
+href="https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life"
+class="uri">https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life</a>
+(2025-08-06)</li>
+<li>Privacy rationale for ending OCSP — Let’s Encrypt. <a
+href="https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life"
+class="uri">https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life</a>
+(2025-08-06)</li>
+<li>Peak OCSP service volume — Let’s Encrypt. <a
+href="https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life"
+class="uri">https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life</a>
+(2025-08-06)</li>
+<li>Intent to End OCSP Service, replacing OCSP with CRLs — Let’s
+Encrypt. <a
+href="https://letsencrypt.org/2024/07/23/replacing-ocsp-with-crls"
+class="uri">https://letsencrypt.org/2024/07/23/replacing-ocsp-with-crls</a>
+(2024-07-23)</li>
+<li>We Issued Our First Six Day Cert — Let’s Encrypt. <a
+href="https://letsencrypt.org/2025/02/20/first-short-lived-cert-issued"
+class="uri">https://letsencrypt.org/2025/02/20/first-short-lived-cert-issued</a>
+(2025-02-20)</li>
+<li>Short-lived certificates carry no revocation URLs — Let’s Encrypt.
+<a
+href="https://letsencrypt.org/2025/02/20/first-short-lived-cert-issued"
+class="uri">https://letsencrypt.org/2025/02/20/first-short-lived-cert-issued</a>
+(2025-02-20)</li>
+<li>CRLite in production in Firefox 142 — Mozilla Hacks. <a
+href="https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/"
+class="uri">https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/</a>
+(2025-08-19)</li>
+<li>CRLSets coverage compared with CRLite — Mozilla Hacks. <a
+href="https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/"
+class="uri">https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/</a>
+(2026-07-22)</li>
+<li>CRLite bandwidth compared with CRLSets — Mozilla Hacks. <a
+href="https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/"
+class="uri">https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/</a>
+(2025-08-31)</li>
+<li>Encoding efficiency of the filter cascade — Mozilla Hacks. <a
+href="https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/"
+class="uri">https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/</a>
+(2025-08-31)</li>
+<li>OneCRL, CRLite and CRLSets compared — Mozilla Hacks. <a
+href="https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/"
+class="uri">https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/</a>
+(2025-08-31)</li>
+<li>Responding to a misissuance, mass revocation requirements —
+MozillaWiki. <a
+href="https://wiki.mozilla.org/CA/Responding_To_A_Misissuance"
+class="uri">https://wiki.mozilla.org/CA/Responding_To_A_Misissuance</a>
+(2025-09-01)</li>
+<li>Enhancing CA Practices, Mozilla Root Store Policy v3.0 — Mozilla
+Security Blog. <a
+href="https://blog.mozilla.org/security/2025/03/12/enhancing-ca-practices-key-updates-in-mozilla-root-store-policy-v3-0/"
+class="uri">https://blog.mozilla.org/security/2025/03/12/enhancing-ca-practices-key-updates-in-mozilla-root-store-policy-v3-0/</a>
+(2025-03-12)</li>
+<li>Minutes of the F2F 65 meeting, Server Certificate Working Group —
+CA/Browser Forum. <a
+href="https://cabforum.org/2025/06/11/minutes-of-the-f2f-65-meeting-in-toronto-canada-scwg-june-11-2025/"
+class="uri">https://cabforum.org/2025/06/11/minutes-of-the-f2f-65-meeting-in-toronto-canada-scwg-june-11-2025/</a>
+(2025-06-11)</li>
+<li>Certificate Transparency Log Policy — Google Chrome. <a
+href="https://googlechrome.github.io/CertificateTransparency/log_policy.html"
+class="uri">https://googlechrome.github.io/CertificateTransparency/log_policy.html</a>
+(2026-09-01)</li>
+<li>Chrome CT Policy changes to accept static-ct-api logs — chromium
+ct-policy list. <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/HBFZHG0TCsY/m/HAaVRK6MAAAJ"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/HBFZHG0TCsY/m/HAaVRK6MAAAJ</a>
+(2026-04-01)</li>
+<li>Removal of the one-RFC6962-log requirement — chromium ct-policy
+list. <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/IXPT4r1CPdE"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/IXPT4r1CPdE</a>
+(2025-12-01)</li>
+<li>Removal of OCSP-delivered SCTs in Chrome 148 — chromium ct-policy
+list. <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/6ewCgspeyZE"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/6ewCgspeyZE</a>
+(2026-03-20)</li>
+<li>Chrome Root Program Policy v1.8, CT logging requirement — Google
+Chrome. <a
+href="https://googlechrome.github.io/chromerootprogram/crp/policy"
+class="uri">https://googlechrome.github.io/chromerootprogram/crp/policy</a>
+(2026-08-28)</li>
+<li>Static CT API specification — C2SP. <a
+href="https://github.com/C2SP/C2SP/blob/main/static-ct-api.md"
+class="uri">https://github.com/C2SP/C2SP/blob/main/static-ct-api.md</a>
+(2026-09-01)</li>
+<li>Certificate Transparency log states —
+GoogleChrome/CertificateTransparency. <a
+href="https://github.com/GoogleChrome/CertificateTransparency/blob/main/log_states.md"
+class="uri">https://github.com/GoogleChrome/CertificateTransparency/blob/main/log_states.md</a>
+(2026-09-01)</li>
+<li>crt.sh repositories — crtsh. <a
+href="https://github.com/orgs/crtsh/repositories"
+class="uri">https://github.com/orgs/crtsh/repositories</a>
+(2026-09-01)</li>
+<li>Tuscolo2026h2 write-path degradation report — chromium ct-policy
+list. <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/RcKh1_LxoB0/m/_oS4OcuOCwAJ"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/RcKh1_LxoB0/m/_oS4OcuOCwAJ</a>
+(2026-08-10)</li>
+<li>draft-ietf-plants-merkle-tree-certs — IETF Datatracker. <a
+href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/</a>
+(2026-07-06)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="04-public-trust-programs.html"><span>Previous</span>Part 4 - Public Trust Programs</a>
+    <a class="pager-up" href="index.html"><span>Up</span>CA/Browser Forum Tracker</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/05-revocation-and-transparency.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

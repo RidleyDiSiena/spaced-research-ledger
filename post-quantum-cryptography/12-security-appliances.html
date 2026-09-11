@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 12 - Security & Network Appliances | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 12: Security & Network Appliances.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 12</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 12</p>
+    <h1>Security &amp; Network Appliances</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/12-security-appliances.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#next-gen-firewalls" id="toc-next-gen-firewalls">1.
+Next-Gen Firewalls</a></li>
+<li><a href="#adcs-load-balancers" id="toc-adcs-load-balancers">2. ADCs
+&amp; Load Balancers</a></li>
+<li><a href="#routers-switches-sd-wan"
+id="toc-routers-switches-sd-wan">3. Routers, Switches, SD-WAN</a></li>
+<li><a href="#tls-inspection-handshake-size-breakage"
+id="toc-tls-inspection-handshake-size-breakage">4. TLS Inspection &amp;
+Handshake Size Breakage</a></li>
+<li><a href="#wi-fi-wpa3" id="toc-wi-fi-wpa3">5. Wi-Fi &amp;
+WPA3</a></li>
+<li><a href="#vpn-concentrators-wan-encryptors"
+id="toc-vpn-concentrators-wan-encryptors">6. VPN Concentrators &amp; WAN
+Encryptors</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The boxes that guard networks, firewalls, load balancers, routers,
+and encryptors, have become one of the migration’s busiest fronts. Every
+major vendor now ships or roadmaps post-quantum features, and some sell
+hardware designed around the new algorithms from the silicon up.</p>
+<p>This report covers the appliance world in six sections. Section 1
+covers the next-generation firewalls, Section 2 the load balancers, and
+Section 3 the routers, switches, and SD-WAN platforms. Section 4 covers
+the awkward physics of bigger handshakes, Section 5 Wi-Fi, and Section 6
+the VPN concentrators and optical encryptors.</p>
+<p>The competitive dynamic is real. Cisco markets the first full-stack
+post-quantum network operating system, and Fortinet iterates hybrid
+IPsec across releases. Palo Alto sells cipher translation as a bridge
+for unupgradable applications, and carriers now offer quantum-resilient
+managed services. Purpose-built hardware has arrived, from
+quantum-optimized firewalls to routers with post-quantum interfaces.</p>
+<p>The same boxes are also where the migration breaks. Middleboxes that
+assume a TLS hello fits in one packet silently drop the larger
+post-quantum handshakes, and Section 4 collects the measured failure
+modes. Wi-Fi, meanwhile, has barely started, with its standards group
+still working toward a first draft.</p>
+<h2 id="next-gen-firewalls">1. Next-Gen Firewalls</h2>
+<p><em>Firewalls terminate VPN tunnels, inspect encrypted traffic, and
+gate every packet into the enterprise, so their cryptography is
+load-bearing twice over. The major vendors have all shipped hybrid
+post-quantum key exchange for IPsec, and the race has moved on to
+inspection, management planes, and signatures. This section covers each
+vendor’s position.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The features are arriving monthly. Check Point added HTTPS inspection
+support for post-quantum traffic [1], shipped ML-KEM per the FIPS
+standard in a hotfix [2], and plans internal control-channel coverage by
+year end [3]. Fortinet extended post-quantum TLS, hybrid key exchange
+plus ML-DSA authentication, to the management interface itself [4].
+Juniper’s newest release signs software images with ML-DSA-87 per CNSA
+2.0 across its major platform lines [5].</p>
+<p>Cisco introduced a router generation purpose-built with quantum-safe
+processors and interfaces [6]. Palo Alto released quantum-optimized
+firewall hardware [7], added ML-KEM at all levels to its TLS profiles
+[8], and expanded certificate lifecycle and inventory features [9]. It
+also paired with AT&amp;T on a quantum-resilient SASE fabric heading to
+general availability [10]. Even pfSense shipped post-quantum SSH key
+exchange [11].</p>
+<h3 id="current-state">Current State</h3>
+<p>Check Point runs hybrid IKEv2 in production. Its R82 release
+introduced Quantum-Safe Key Exchange, classical Diffie-Hellman plus
+ML-KEM through the standard IETF mechanism [12], carried into its
+appliance release notes [13]. Its community documentation is unusually
+candid about hardware: classical crypto-offload chips may not accelerate
+lattice operations, pushing post-quantum exchanges onto general CPUs
+[14]. It cites Germany’s updated technical guideline as external
+validation [14], and cross-vendor interoperability works when both peers
+implement the same RFCs, with automatic classical fallback unless
+post-quantum is forced [15].</p>
+<p>Fortinet has iterated longest. FortiOS 7.6 brought post-quantum IPsec
+with ML-KEM plus non-finalized candidates and QKD integration [16],
+implemented through the multiple-key-exchange RFCs with up to seven
+rounds [17]. Debug logs show real negotiations mixing ML-KEM with a
+fallback candidate in one session [18], and the feature has carried
+unchanged through four releases into 8.0 [19]. That release adds hybrid
+key exchange under deep inspection in both modes [20][21], covers the
+clientless VPN [21], and defaults post-quantum SSH on management
+[21].</p>
+<p>Cisco is roadmap-first on the firewall line. ML-KEM for IPsec targets
+late 2026 releases [22], with decrypted inspection, QUIC, and
+remote-access VPN staged behind draft standards [22]. It assigns ML-DSA
+to authentication and image signing and holds SLH-DSA as deliberate
+algorithmic diversification [23], all under a portfolio-wide commitment
+through December 2026 [23].</p>
+<p>Palo Alto sells the transition itself. Its Quantum-Safe Security
+solution combines discovery, risk assessment, and live cipher
+translation to ML-KEM [24]. PAN-OS 12.1 supports every NIST algorithm
+plus experimental candidates with agility features [25]. Its firewalls
+both translate quantum-safe sessions for classical internal applications
+and police post-quantum usage through decryption policy [26].</p>
+<p>The open-source pair split by layer. pfSense is deliberately
+upstream-dependent, waiting on OpenSSL, FreeBSD, and strongSwan [27],
+while integrating validated wolfCrypt for the future [28]. OPNsense
+shipped something concrete: post-quantum SSH key exchange for
+administering the firewall itself [29]. Both inherit their IPsec future
+from strongSwan, whose stable plugin already carries ML-KEM, making the
+wait a packaging question [30].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Juniper’s naming needs care. One source groups its Quantum Buffer SSH
+feature with the FIPS post-quantum capabilities arriving in Junos [31].
+Juniper’s own documentation instead describes Quantum Buffer as extended
+classical parameters, a crypto-agility stopgap rather than a NIST
+algorithm [32]. The documentation is the better source, and a Juniper
+datasheet naming the algorithm would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="adcs-load-balancers">2. ADCs &amp; Load Balancers</h2>
+<p><em>Application delivery controllers terminate TLS for the
+applications behind them, which makes them the single upgrade that
+quantum-protects a whole server farm. All four major vendors now ship
+hybrid key exchange. This section covers the rollouts, and the first
+real interoperability bug of the migration.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The configuration guides are the news. F5 published exact steps for
+enabling post-quantum cipher groups on its virtual servers [33]. A10
+confirmed its hybrid support ships enabled by default on client-side TLS
+with no new hardware, through OpenSSL 3.5 [34].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>F5’s rollout came in stages. The pre-standard draft group arrived in
+late 2024, client-side only [35]. The finalized hybrid group landed in
+TMOS 17.5 for both sides [36], and the FIPS-curve variants followed in
+March 2026 alongside quantum-secure VPN tunneling [37]. Version 21.1
+consolidated everything, including forward-proxy use [38].</p>
+<p>Its implementation keeps classical certificates for authentication,
+costs roughly a quarter more CPU than classical exchange, and works with
+optional hardware security modules [39]. The migration’s first notable
+interop bug is documented here: listing hybrid groups before classical
+ones broke TLS 1.2 handshakes with common test tools, with the fix being
+order [40].</p>
+<p>Citrix claims the first-mover title. NetScaler previewed hybrid
+support in April 2025 and reached general availability that August,
+marketed as among the first production-ready platforms [41]. The feature
+binds the hybrid group to its enhanced SSL profile, framed around
+harvest-now-decrypt-later [42], and the platform sits on the U.S.
+defense procurement list [43].</p>
+<p>Its marketing leans on survey data showing few organizations have any
+quantum roadmap [44]. A10 keeps it simple: hybrid key exchange in its
+operating system, classical and post-quantum in parallel, prioritizing
+key establishment over everything else [45][45].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>A10’s default-on detail rests on a blocked source. The cipher groups
+and default enablement come from a social post whose retrieval failed
+verification, so they annotate rather than supersede the confirmed
+announcement [34][45]. A10’s release notes would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="routers-switches-sd-wan">3. Routers, Switches, SD-WAN</h2>
+<p><em>The routing and switching layer carries everything else, and its
+vendors are competing on how deep post-quantum goes: into boot chains,
+line-rate encryption, and the silicon itself. This section covers
+Cisco’s full-stack push, the carrier services built on it, and the
+quieter moves at Nokia, Juniper, and Arista.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>Cisco declared full-stack and shipped pieces to match. IOS XE 26 is
+marketed as the first enterprise network OS with post-quantum across
+secure boot, IPsec, and management, secure by default [46]. ML-KEM-1024
+IPsec ships on the WAN aggregation and edge router lines, with
+campus-switch parity a documentation check rather than a marketing claim
+[47]. A validated design extends the envelope across routing fabrics,
+combining post-quantum MACsec, IPsec, and ML-DSA boot anchors [48], and
+the next minor release adds image signing and switch-line coverage [49].
+Context matters here: NIST’s backup KEM and fourth signature remain in
+the pipeline [47].</p>
+<p>The neighbors moved distinctively. Arista’s documentation lists a
+pure post-quantum KEM category, non-hybrid, a framing unlike every other
+vendor covered, with no confirmed hybrid alternative alongside [50][50].
+Juniper’s Quantum Buffer feature rolls out across both its OS lines for
+phased adoption [51]. Nokia’s ANYsec delivers line-rate quantum-safe
+MACsec extended over MPLS and segment routing [52], on specific silicon
+generations [53], with a partner supplying out-of-band key distribution
+[54].</p>
+<p>Versa documented production post-quantum IPsec across its SASE
+platform from one codebase, verified by packet capture [55]. The
+AT&amp;T-Palo Alto fabric bakes the hybrid RFCs into SD-WAN’s data,
+management, and control planes [56].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Cisco’s configuration documentation grounds the marketing.
+Post-quantum IKEv2 can enforce ML-KEM with no classical fallback, cannot
+touch legacy IKEv1, is unsupported on one VPN technology, and fragments
+at standard MTU with the largest parameter set [57]. Hybrid SSH combines
+ML-KEM with a classical curve, downgrade-proof by configuration [58].
+Quantum-safe MACsec secures the LAN first hop, paired with WAN IPsec as
+defense in depth [59].</p>
+<p>The published roadmap names the new hardware, routers, switches, and
+future access points, against dates through mid-2027 [60]. The smart
+switches anchor boot in ML-DSA-87 through a hardware trust module
+[61].</p>
+<p>The others hold narrower positions. Juniper signs software images
+with ML-DSA-87 across six platform families [62] and has offered
+quantum-safe IPsec since 2024 via preshared keys and QKD interfaces
+[63]. It runs a key manager brokering static and quantum-sourced keys
+[64], and treats post-quantum math and QKD physics as parallel tracks
+[65]. Its strongest configuration aligns with CNSA 2.0 [66][67]. Nokia
+documents protecting utility-grid control traffic with hybrid IKEv2 as a
+deployable transitional design [68].</p>
+<p>The market layer confirms demand. Industry analysts list post-quantum
+among the few features enterprise demand is actually driving in SD-WAN
+[69]. AT&amp;T launched the first major North American carrier
+post-quantum SD-WAN service, built on Cisco’s new routers and aimed at
+regulated sectors [70]. A specialist vendor positions a purpose-built
+quantum-safe alternative against retrofit approaches [71].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="tls-inspection-handshake-size-breakage">4. TLS Inspection &amp;
+Handshake Size Breakage</h2>
+<p><em>Post-quantum handshakes are several times larger than classical
+ones, and a generation of network equipment was built assuming they
+would stay small. The result is the migration’s most concrete
+operational pain: silent drops, extra round trips, and fragmentation.
+This section collects the measured failures and what actually mitigates
+them.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>The failure reports are now specific. One post-quantum handshake
+failed silently over a four-byte MTU mismatch with path discovery
+blocked [72]. Cellular paths impose stricter limits that fragment
+oversized handshakes into drops [73]. Distinct failure cliffs appear
+when handshakes cross roughly 10 and 30 kilobytes, where buffers give
+out [74].</p>
+<p>Go’s larger default hello has stalled middleboxes [75], and a full
+ML-DSA certificate chain can overflow the TCP initial congestion window,
+costing a round trip [76]. The IETF’s application guidance formally
+warns about fragmented hellos and middlebox drops [77][73][73].</p>
+<p>The inspection layer is adapting rather than breaking. Palo Alto
+firewalls read the hello’s group list and can strip unsupported
+algorithms in forward proxy [78]. Fortinet inspects hybrid traffic in
+both modes [79], Cloudflare’s gateway covers both legs [80], and F5
+documents forcing classical fallback when sizes bite [81]. The measured
+base rate is reassuring: under one percent of real connections hit
+failures or extra round trips, mostly from inspection proxies and
+appliances with hardcoded limits [82].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The case studies define the genre. Meta’s resumption hello outgrew a
+packet and broke fast-open assumptions, costing a full round trip, and
+the fix was downgrading to the smaller Kyber parameter to fit [83][83].
+Chrome’s rollout measured a four percent median latency increase and
+exposed middleboxes hardcoding the one-packet assumption [84]. A catalog
+site names the three recurring patterns: rejected oversized hellos,
+truncating buffers, and parsers that fail without rejecting [85].</p>
+<p>One corporate firewall dropped fragmented hellos silently for two
+days [86]. Even modern stacks have edges: a proxy’s SNI routing failed
+outright on fragmented post-quantum hellos [87], and Check Point notes
+the CPU and packet growth plainly [88].</p>
+<p>The structural answers are known. QUIC is less exposed because
+multi-packet handshakes are native and encrypted [86], though its
+anti-amplification rule delays certificate-heavy handshakes until
+address validation [89]. Measurement work finds the pain concentrates in
+tail latency under loss, fading as page sizes grow [90]. Practical
+guidance: measure handshake sizes against path MTU, test representative
+middleboxes, watch for silent retries, and roll out by traffic
+splitting, never a flag day [91].</p>
+<p>Deep-inspection deployments feel it first, especially on tunneled
+links [92]. The policy tooling is arriving too, with Cato logging and
+enforcing post-quantum per rule [93] and Zscaler inspecting hybrid
+traffic inline [94].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="wi-fi-wpa3">5. Wi-Fi &amp; WPA3</h2>
+<p><em>Wireless security rides on the same certificates and key
+exchanges as everything else, plus standards of its own. Wi-Fi is the
+least migrated major transport: the relevant IEEE group is still
+resolving comments toward a first draft. This section is short because
+the protocol work is young.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The standards engine has started. IEEE task group P802.11bt is
+developing post-quantum authentication and key-management suites for
+Wi-Fi [95].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The study group’s scoping tells the story. Formed in April 2025, it
+examines how the enterprise authentication methods Wi-Fi relies on could
+gain quantum-resistant KEMs through complementary IETF work [96]. WPA2
+and WPA3 both rest on RSA and elliptic curves [96]. The surprising
+research result: a cross-layer analysis found WPA2-Personal in a
+stronger overall post-quantum posture than WPA3-Personal and
+WPA2-Enterprise, upending the assumption that newer means more
+quantum-resistant [97]. WPA3’s 192-bit enterprise suite is a higher
+classical bar, not a post-quantum one [98].</p>
+<h3 id="unresolved-conflicts-2">Unresolved Conflicts</h3>
+<p>The draft status is one blocked source deep. A meeting report says
+the group resolved 22 comments and instructed its editor to begin Draft
+1.0 [99], a more advanced status than the confirmed baseline [95]. Its
+retrieval failed verification. The group’s published minutes would
+settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="vpn-concentrators-wan-encryptors">6. VPN Concentrators &amp; WAN
+Encryptors</h2>
+<p><em>At the network’s long-haul edge sit the boxes that encrypt whole
+links: site-to-site VPN heads and the optical encryptors under oceans.
+This is where post-quantum meets terabit line rates, often layered with
+quantum key distribution. This section covers a category quietly merging
+into firewalls at one end and into light itself at the other.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>The optical trials went transatlantic. Colt and Ciena moved
+800-gigabit quantum-safe traffic 6,900 kilometers across the Atlantic
+using NIST-compliant algorithms [100]. On the appliance side, FortiGate
+carries hybrid post-quantum IPsec with QKD options [101]. Its 7000G
+series is described as the first commercial VPN appliance implementing
+the FIPS 203 algorithms [102]. FortiOS 8.0 adds the preshared-key RFC as
+a second quantum-resistance layer down to the client [103].</p>
+<p>Palo Alto supports ML-KEM site-to-site tunnels across current
+hardware generations with no replacement required [104]. Cisco’s new
+router generation pushes quantum-safe IPsec throughput past 200 gigabits
+[6], and a startup sells a VPN built on one-time symmetric keys instead
+of PKI entirely [105].</p>
+<h3 id="current-state-5">Current State</h3>
+<p>The optical layer is shipping, not demonstrating. Ciena, Quantum
+Corridor, and Toshiba ran what they call the first 1.6-terabit
+quantum-safe encryption on a live commercial network, hybrid
+post-quantum plus QKD over production fiber [106]. No hardware swap was
+needed, with the new wavelength coexisting beside legacy encrypted
+traffic and line-rate AES in 3-nanometer silicon [107]. Ciena sells it
+as a standing capability with open QKD interfaces [108].</p>
+<p>The history runs deep: ADVA has researched quantum-safe transport
+since 2015 with field trials since 2018, and markets its platforms as
+fully post-quantum equipped [109]. Colt’s trial series spanned QKD,
+preshared keys, and post-quantum across European and transatlantic spans
+at extreme reliability [70]. Internet2 demonstrated FIPS-compliant
+protection across 1,390 backbone miles [110], and a European operator
+launched a quantum-safe connectivity service on Adtran optics [111].
+PacketLight integrated the standards with hybrid options [112], and
+Ciena showed the full stack, PQC, QKD, and authentication, at 1.6
+terabits on another platform [113].</p>
+<p>The concentrator category is dissolving into adjacent boxes. Cisco
+frames VPN post-quantum as a firewall-platform feature with
+authentication following in 2027, advising buyers to weigh post-quantum
+secure boot now [22]. Cloudflare’s WAN appliance went hybrid in February
+[114], and its IPsec service interoperates with Cisco and Fortinet gear
+for site-to-site tunnels [115]. AT&amp;T’s managed service wraps the
+Cisco hardware [116], and the ML-KEM foundation sits in the router OS
+beneath them all [117].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>sk182846 - HTTPS Inspection support for Post-Quantum Cryptography
+(PQC) - <a href="https://support.checkpoint.com/results/sk/sk182846"
+class="uri">https://support.checkpoint.com/results/sk/sk182846</a> - as
+of 2026-08-14</li>
+<li>Best Practices for Quantum Safe Key Exchange and VPN Tunnel
+Encryption - <a
+href="https://sc1.checkpoint.com/documents/r82/webadminguides/en/cp_r82_sitetositevpn_adminguide/content/topics-vpnsg/quantum-safe-key-exchange.htm"
+class="uri">https://sc1.checkpoint.com/documents/r82/webadminguides/en/cp_r82_sitetositevpn_adminguide/content/topics-vpnsg/quantum-safe-key-exchange.htm</a>
+- as of 2026-07-26</li>
+<li>How Cybersecurity Vendors Are Preparing for the Post-Quantum Era -
+<a
+href="https://www.infosecurity-magazine.com/news-features/how-cybersecurity-vendors-prepare/"
+class="uri">https://www.infosecurity-magazine.com/news-features/how-cybersecurity-vendors-prepare/</a>
+- as of 2026-08-03</li>
+<li>Enhanced HTTPS management security with post-quantum TLS algorithms
+- <a
+href="https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/980825/enhanced-https-management-security-with-post-quantum-tls-algorithms"
+class="uri">https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/980825/enhanced-https-management-security-with-post-quantum-tls-algorithms</a>
+- as of 2026-08-20</li>
+<li>Junos OS Release 25.4R1 Release Notes - <a
+href="https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-release-notes-25.4r1/junos-release-notes-25.4r1.pdf"
+class="uri">https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-release-notes-25.4r1/junos-release-notes-25.4r1.pdf</a>
+- as of 2026-08-19</li>
+<li>Cisco Got Serious About PQC at Cisco Live 2026 - <a
+href="https://www.wwt.com/blog/cisco-got-serious-about-pqc-at-cisco-live-2026"
+class="uri">https://www.wwt.com/blog/cisco-got-serious-about-pqc-at-cisco-live-2026</a>
+- as of 2026-06-19</li>
+<li>PA-500 Series Quantum-Optimized NGFWs - Palo Alto Networks - <a
+href="https://www.paloaltonetworks.com/resources/datasheets/pa-500-series"
+class="uri">https://www.paloaltonetworks.com/resources/datasheets/pa-500-series</a>
+- as of 2026-08-20</li>
+<li>Configure an SSL/TLS Service Profile - <a
+href="https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/configure-ssl-tls-service-profile"
+class="uri">https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/configure-ssl-tls-service-profile</a>
+- as of 2026-08-21</li>
+<li>Redefining Network Security for the Frontier AI Era - <a
+href="https://www.paloaltonetworks.com/blog/2026/08/redefining-network-security-for-the-frontier-ai-era/"
+class="uri">https://www.paloaltonetworks.com/blog/2026/08/redefining-network-security-for-the-frontier-ai-era/</a>
+- as of 2026-08-04</li>
+<li>AT&amp;T and Palo Alto Networks ship a quantum-resilient network
+fabric - <a
+href="https://quantum-brief.com/blog/news-2026-07-19-att-palo-alto-quantum-sase/"
+class="uri">https://quantum-brief.com/blog/news-2026-07-19-att-palo-alto-quantum-sase/</a>
+- as of 2026-07-19</li>
+<li>Netgate Releases pfSense Community Edition Version 2.9.0 - <a
+href="https://www.netgate.com/blog/netgate-releases-pfsense-community-edition-version-2.9.0"
+class="uri">https://www.netgate.com/blog/netgate-releases-pfsense-community-edition-version-2.9.0</a>
+- as of 2026-08-20</li>
+<li>blog.checkpoint.com — quantum safe cyber security current
+capabilities and the road ahead - <a
+href="https://blog.checkpoint.com/innovation/quantum-safe-cyber-security-current-capabilities-and-the-road-ahead/"
+class="uri">https://blog.checkpoint.com/innovation/quantum-safe-cyber-security-current-capabilities-and-the-road-ahead/</a>
+- as of 2025-09-25</li>
+<li>R82.00.X Spark Firewall Appliances Release Notes - <a
+href="https://sc1.checkpoint.com/documents/Appliances/Quantum_Spark_R82.00.X/RN/EN/CP_R82.00.X_Appliances_ReleaseNotes.pdf"
+class="uri">https://sc1.checkpoint.com/documents/Appliances/Quantum_Spark_R82.00.X/RN/EN/CP_R82.00.X_Appliances_ReleaseNotes.pdf</a>
+- as of 2026-04-29</li>
+<li>community.checkpoint.com — 262581 - <a
+href="https://community.checkpoint.com/t5/General-Topics/Post-Quantum-Cryptography-PQC/td-p/262581"
+class="uri">https://community.checkpoint.com/t5/General-Topics/Post-Quantum-Cryptography-PQC/td-p/262581</a>
+- as of 2025-11-12</li>
+<li>community.checkpoint.com — 262570 - <a
+href="https://community.checkpoint.com/t5/Firewall-and-Security-Management/Questions-about-Post-Quantum-Cryptography-PQC-for-IPsec-VPN/td-p/262570"
+class="uri">https://community.checkpoint.com/t5/Firewall-and-Security-Management/Questions-about-Post-Quantum-Cryptography-PQC-for-IPsec-VPN/td-p/262570</a>
+- as of 2025-11-12</li>
+<li>blog.tmcnet.com — fortinet adds quantum safe encryption to fortios
+for future ready network security - <a
+href="https://blog.tmcnet.com/blog/rich-tehrani/networking/fortinet-adds-quantum-safe-encryption-to-fortios-for-future-ready-network-security.html"
+class="uri">https://blog.tmcnet.com/blog/rich-tehrani/networking/fortinet-adds-quantum-safe-encryption-to-fortios-for-future-ready-network-security.html</a>
+- as of 2025-07-23</li>
+<li>docs.fortinet.com — post quantum cryptography for ipsec key exchange
+- <a
+href="https://docs.fortinet.com/document/fortigate/7.6.6/administration-guide/229631/post-quantum-cryptography-for-ipsec-key-exchange"
+class="uri">https://docs.fortinet.com/document/fortigate/7.6.6/administration-guide/229631/post-quantum-cryptography-for-ipsec-key-exchange</a></li>
+<li>docs.fortinet.com — post quantum cryptography for ipsec key exchange
+- <a
+href="https://docs.fortinet.com/document/fortigate/7.6.2/administration-guide/229631/post-quantum-cryptography-for-ipsec-key-exchange"
+class="uri">https://docs.fortinet.com/document/fortigate/7.6.2/administration-guide/229631/post-quantum-cryptography-for-ipsec-key-exchange</a></li>
+<li>docs.fortinet.com — post quantum cryptography for ipsec key exchange
+- <a
+href="https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/229631/post-quantum-cryptography-for-ipsec-key-exchange"
+class="uri">https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/229631/post-quantum-cryptography-for-ipsec-key-exchange</a></li>
+<li>Native TLS 1.3 SSL Hybrid Key exchange support with SSL Deep
+inspection in Flow Mode in FortiOS 8.0 - <a
+href="https://video.fortinet.com/latest/native-tls-1-3-ssl-hybrid-key-exchange-support-with-ssl-deep-inspection-in-flow-mode"
+class="uri">https://video.fortinet.com/latest/native-tls-1-3-ssl-hybrid-key-exchange-support-with-ssl-deep-inspection-in-flow-mode</a>
+- as of 2026-05-14</li>
+<li>FortiOS 8.0 new features review - <a
+href="https://blog.guenay.at/2026/04/26/fortios-8-0-new-features-review/"
+class="uri">https://blog.guenay.at/2026/04/26/fortios-8-0-new-features-review/</a>
+- as of 2026-04-26</li>
+<li>blogs.cisco.com — preparing for post quantum cryptography the secure
+firewall roadmap - <a
+href="https://blogs.cisco.com/security/preparing-for-post-quantum-cryptography-the-secure-firewall-roadmap"
+class="uri">https://blogs.cisco.com/security/preparing-for-post-quantum-cryptography-the-secure-firewall-roadmap</a>
+- as of 2026-04-14</li>
+<li>geekfence.com — cisco secure firewall post quantum cryptography
+roadmap - <a
+href="https://geekfence.com/cisco-secure-firewall-post-quantum-cryptography-roadmap/"
+class="uri">https://geekfence.com/cisco-secure-firewall-post-quantum-cryptography-roadmap/</a>
+- as of 2026-04-13</li>
+<li>Introducing Palo Alto Networks Quantum-Safe Security - <a
+href="https://www.paloaltonetworks.com/blog/2026/01/introducing-quantum-safe-security/"
+class="uri">https://www.paloaltonetworks.com/blog/2026/01/introducing-quantum-safe-security/</a>
+- as of 2026-01-27</li>
+<li>Palo Alto Networks’ latest firewalls include defenses for
+post-quantum world - <a
+href="https://itopstimes.com/itsec/palo-alto-networks-latest-firewalls-include-defenses-for-post-quantum-world/"
+class="uri">https://itopstimes.com/itsec/palo-alto-networks-latest-firewalls-include-defenses-for-post-quantum-world/</a>
+- as of 2025-08-14</li>
+<li>docs.paloaltonetworks.com — detection control post quantum
+cryptography - <a
+href="https://docs.paloaltonetworks.com/network-security/decryption/administration/post-quantum-cryptography-decryption/detection-control-post-quantum-cryptography"
+class="uri">https://docs.paloaltonetworks.com/network-security/decryption/administration/post-quantum-cryptography-decryption/detection-control-post-quantum-cryptography</a>
+- as of 2026-03-13</li>
+<li>redmine.pfsense.org — 14430 - <a
+href="https://redmine.pfsense.org/issues/14430"
+class="uri">https://redmine.pfsense.org/issues/14430</a></li>
+<li>wolfCrypt FIPS 140-3 coming to pfSense - <a
+href="https://www.wolfssl.com/wolfcrypt-fips-140-3-coming-to-pfsense/"
+class="uri">https://www.wolfssl.com/wolfcrypt-fips-140-3-coming-to-pfsense/</a>
+- as of 2026-05-22</li>
+<li>forum.opnsense.org — index - <a
+href="https://forum.opnsense.org/index.php?action=profile%3Barea%3Dshowposts%3Bsa%3Dtopics%3Bu%3D20202"
+class="uri">https://forum.opnsense.org/index.php?action=profile%3Barea%3Dshowposts%3Bsa%3Dtopics%3Bu%3D20202</a></li>
+<li>blogs.cisco.com — watch a hybrid post quantum handshake on the wire
+ipsec series part 4 - <a
+href="https://blogs.cisco.com/developer/watch-a-hybrid-post-quantum-handshake-on-the-wire-ipsec-series-part-4"
+class="uri">https://blogs.cisco.com/developer/watch-a-hybrid-post-quantum-handshake-on-the-wire-ipsec-series-part-4</a></li>
+<li>HPE introduces sweeping security advancements to secure AI adoption
+and strengthen enterprise resiliency - <a
+href="https://www.hpe.com/us/en/newsroom/press-release/2026/03/hpe-introduces-sweeping-security-advancements-to-secure-ai-adoption-and-strengthen-enterprise-resiliency.html"
+class="uri">https://www.hpe.com/us/en/newsroom/press-release/2026/03/hpe-introduces-sweeping-security-advancements-to-secure-ai-adoption-and-strengthen-enterprise-resiliency.html</a>
+- as of 2026-03-24</li>
+<li>juniper.net — Post Quantum Cryptography - <a
+href="https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-evo-release-notes-25.4r1/topics/new-features/feature-descriptions/Post-Quantum-Cryptography.html"
+class="uri">https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-evo-release-notes-25.4r1/topics/new-features/feature-descriptions/Post-Quantum-Cryptography.html</a></li>
+<li>How to Configure a BIG-IP Virtual Server for PQC - <a
+href="https://my.f5.com/manage/s/article/K000161408"
+class="uri">https://my.f5.com/manage/s/article/K000161408</a> - as of
+2026-08-05</li>
+<li>A10 Networks tweet on PQC in ACOS 7.0.3 - <a
+href="https://x.com/A10Networks/status/2082819000174530826"
+class="uri">https://x.com/A10Networks/status/2082819000174530826</a> -
+as of 2026-07-30</li>
+<li>my.f5.com — K000148294 - <a
+href="https://my.f5.com/manage/s/article/K000148294"
+class="uri">https://my.f5.com/manage/s/article/K000148294</a> - as of
+2024-10-31</li>
+<li>community.f5.com — 341048 - <a
+href="https://community.f5.com/kb/technicalarticles/post-quantum-cryptography-building-resilience-against-tomorrow%E2%80%99s-threats/341048"
+class="uri">https://community.f5.com/kb/technicalarticles/post-quantum-cryptography-building-resilience-against-tomorrow%E2%80%99s-threats/341048</a>
+- as of 2026-03-25</li>
+<li>f5.com — f5 extends nist compliant pqc cipher support - <a
+href="https://www.f5.com/company/blog/f5-extends-nist-compliant-pqc-cipher-support"
+class="uri">https://www.f5.com/company/blog/f5-extends-nist-compliant-pqc-cipher-support</a>
+- as of 2026-03-11</li>
+<li>f5.com — f5 big ip v21 1 is now generally available bringing pqc and
+ai security enhancements - <a
+href="https://www.f5.com/company/blog/f5-big-ip-v21-1-is-now-generally-available-bringing-pqc-and-ai-security-enhancements"
+class="uri">https://www.f5.com/company/blog/f5-big-ip-v21-1-is-now-generally-available-bringing-pqc-and-ai-security-enhancements</a>
+- as of 2026-05-06</li>
+<li>community.f5.com — 342586 - <a
+href="https://community.f5.com/kb/technicalarticles/future-proofing-your-network-enabling-quantum-ciphers-on-f5-big-ip-tmos-17-5-1/342586"
+class="uri">https://community.f5.com/kb/technicalarticles/future-proofing-your-network-enabling-quantum-ciphers-on-f5-big-ip-tmos-17-5-1/342586</a>
+- as of 2025-08-28</li>
+<li>Post-Quantum Cryptography (PQC) failing with Qualys SSL Labs - <a
+href="https://my.f5.com/manage/s/article/K000161411"
+class="uri">https://my.f5.com/manage/s/article/K000161411</a> - as of
+2026-05-25</li>
+<li>citrix.com — leading the quantum ready transition - <a
+href="https://www.citrix.com/blogs/2025/07/30/leading-the-quantum-ready-transition/"
+class="uri">https://www.citrix.com/blogs/2025/07/30/leading-the-quantum-ready-transition/</a>
+- as of 2025-07-30</li>
+<li>docs.netscaler.com — hybrid pqc - <a
+href="https://docs.netscaler.com/en-us/citrix-adc/current-release/ssl/hybrid-pqc.html"
+class="uri">https://docs.netscaler.com/en-us/citrix-adc/current-release/ssl/hybrid-pqc.html</a>
+- as of 2025-09-27</li>
+<li>citrix.com — quantum ready starts.pdf - <a
+href="https://www.citrix.com/content/dam/citrix61/en_us/documents/quantum-ready-starts.pdf"
+class="uri">https://www.citrix.com/content/dam/citrix61/en_us/documents/quantum-ready-starts.pdf</a></li>
+<li>sdxcentral.com — citrix adds post quantum cryptography to boost
+enterprise data security - <a
+href="https://www.sdxcentral.com/news/citrix-adds-post-quantum-cryptography-to-boost-enterprise-data-security/"
+class="uri">https://www.sdxcentral.com/news/citrix-adds-post-quantum-cryptography-to-boost-enterprise-data-security/</a>
+- as of 2025-07-31</li>
+<li>a10networks.com — post quantum cryptography comes to a10 ssl tls
+data plane - <a
+href="https://www.a10networks.com/blog/post-quantum-cryptography-comes-to-a10-ssl-tls-data-plane/"
+class="uri">https://www.a10networks.com/blog/post-quantum-cryptography-comes-to-a10-ssl-tls-data-plane/</a>
+- as of 2026-05-07</li>
+<li>certificationkits.com — cisco ios xe 26 why the most secure network
+os ever released makes real equipment training more important than ever
+- <a
+href="https://www.certificationkits.com/cisco-ios-xe-26-why-the-most-secure-network-os-ever-released-makes-real-equipment-training-more-important-than-ever/"
+class="uri">https://www.certificationkits.com/cisco-ios-xe-26-why-the-most-secure-network-os-ever-released-makes-real-equipment-training-more-important-than-ever/</a>
+- as of 2026-06-28</li>
+<li>pinglabz.com — post quantum crypto in cisco campus networks what
+operators need to know - <a
+href="https://www.pinglabz.com/post-quantum-crypto-in-cisco-campus-networks-what-operators-need-to-know/"
+class="uri">https://www.pinglabz.com/post-quantum-crypto-in-cisco-campus-networks-what-operators-need-to-know/</a>
+- as of 2026-06-13</li>
+<li>Quantum-Safe SRv6 Fabric for Mission-Critical Networks - Cisco - <a
+href="https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/SRv6_Fabric-Mission-Critical_Networks.html"
+class="uri">https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/SRv6_Fabric-Mission-Critical_Networks.html</a>
+- as of 2026-08-17</li>
+<li>Cisco Got Serious About PQC at Cisco Live 2026 - WWT - <a
+href="https://www.wwt.com/blog/cisco-got-serious-about-pqc-at-cisco-live-2026"
+class="uri">https://www.wwt.com/blog/cisco-got-serious-about-pqc-at-cisco-live-2026</a>
+- as of 2026-06-19</li>
+<li>arista.com — eos control plane security - <a
+href="https://www.arista.com/en/um-eos/eos-control-plane-security"
+class="uri">https://www.arista.com/en/um-eos/eos-control-plane-security</a>
+- as of 2026-07-07</li>
+<li>The Quantum Buffer | Junos OS - <a
+href="https://www.juniper.net/documentation/us/en/software/junos/pki/topics/concept/quantum-buffer-pqc.html"
+class="uri">https://www.juniper.net/documentation/us/en/software/junos/pki/topics/concept/quantum-buffer-pqc.html</a>
+- as of 2026-06-21</li>
+<li>Nokia ANYsec quantum-safe cryptography documentation - <a
+href="https://www.nokia.com/asset/i/210676/"
+class="uri">https://www.nokia.com/asset/i/210676/</a> - as of
+2026-06-24</li>
+<li>Nokia platform overview with quantum-safe MACsec - <a
+href="https://www.nokia.com/asset/i/174271"
+class="uri">https://www.nokia.com/asset/i/174271</a> - as of
+2026-08-10</li>
+<li>Quantropi Announces General Availability of Integrated Nokia
+Solution Delivering Quantum Safe Out-of-Band Key Distribution - <a
+href="https://www.prnewswire.com/news-releases/quantropi-announces-general-availability-of-integrated-nokia-solution-delivering-quantum-safe-outofband-key-distribution-302794595.html"
+class="uri">https://www.prnewswire.com/news-releases/quantropi-announces-general-availability-of-integrated-nokia-solution-delivering-quantum-safe-outofband-key-distribution-302794595.html</a>
+- as of 2026-06-09</li>
+<li>versa-networks.com — operationalizing post quantum cryptography in
+sase and sd wan - <a
+href="https://versa-networks.com/blog/operationalizing-post-quantum-cryptography-in-sase-and-sd-wan/"
+class="uri">https://versa-networks.com/blog/operationalizing-post-quantum-cryptography-in-sase-and-sd-wan/</a>
+- as of 2026-06-23</li>
+<li>Palo Alto Networks and AT&amp;T - Delivering Quantum-Resilient SASE
+Fabric - <a
+href="https://www.paloaltonetworks.com/blog/2026/07/palo-alto-networks-and-att-delivering-quantum-resilient-sase-fabric/"
+class="uri">https://www.paloaltonetworks.com/blog/2026/07/palo-alto-networks-and-att-delivering-quantum-resilient-sase-fabric/</a>
+- as of 2026-07-16</li>
+<li>cisco.com — m pqc ikev2 - <a
+href="https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/security-vpn/security-vpn/m-pqc-ikev2.html"
+class="uri">https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/security-vpn/security-vpn/m-pqc-ikev2.html</a></li>
+<li>cisco.com — pqc for ssh - <a
+href="https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/security-vpn/security-vpn/pqc-for-ssh.html"
+class="uri">https://www.cisco.com/c/en/us/td/docs/routers/ios-xe/security-vpn/security-vpn/pqc-for-ssh.html</a></li>
+<li>cisco.com — Quantum Ready Migration Guide - <a
+href="https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/Quantum-Ready-Migration-Guide.html"
+class="uri">https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/Quantum-Ready-Migration-Guide.html</a></li>
+<li>cisco.com — quantum safe communications roadmap.pdf - <a
+href="https://www.cisco.com/c/dam/en_us/about/doing_business/trust-center/docs/quantum-safe-communications-roadmap.pdf"
+class="uri">https://www.cisco.com/c/dam/en_us/about/doing_business/trust-center/docs/quantum-safe-communications-roadmap.pdf</a></li>
+<li>Securing campus and branch networks from boot to transport with
+full-stack PQC - Cisco Blogs - <a
+href="https://blogs.cisco.com/?p=491793"
+class="uri">https://blogs.cisco.com/?p=491793</a> - as of
+2026-05-26</li>
+<li>Post-Quantum Cryptography (PQC) | Junos OS Evolved - <a
+href="https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-evo-release-notes-25.4r1/topics/new-features/feature-descriptions/Post-Quantum-Cryptography.html"
+class="uri">https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-evo-release-notes-25.4r1/topics/new-features/feature-descriptions/Post-Quantum-Cryptography.html</a>
+- as of 2025-12-17</li>
+<li>blogs.juniper.net — nist finalizes post quantum encryption standards
+- <a
+href="https://blogs.juniper.net/en-us/industry-solutions-and-trends/nist-finalizes-post-quantum-encryption-standards"
+class="uri">https://blogs.juniper.net/en-us/industry-solutions-and-trends/nist-finalizes-post-quantum-encryption-standards</a>
+- as of 2024-08-30</li>
+<li>juniper.net — quantum safe ipsec vpn - <a
+href="https://www.juniper.net/documentation/us/en/software/junos/vpn-ipsec/topics/topic-map/quantum-safe-ipsec-vpn.html"
+class="uri">https://www.juniper.net/documentation/us/en/software/junos/vpn-ipsec/topics/topic-map/quantum-safe-ipsec-vpn.html</a></li>
+<li>juniper.net — get started with pqc - <a
+href="https://www.juniper.net/documentation/us/en/software/junos/pki/topics/concept/get-started-with-pqc.html"
+class="uri">https://www.juniper.net/documentation/us/en/software/junos/pki/topics/concept/get-started-with-pqc.html</a></li>
+<li>juniper.net — pqc overview - <a
+href="https://www.juniper.net/documentation/us/en/software/junos/pki/topics/concept/pqc-overview.html"
+class="uri">https://www.juniper.net/documentation/us/en/software/junos/pki/topics/concept/pqc-overview.html</a>
+- as of 2025-12-16</li>
+<li>juniper.net — Post Quantum Cryptography 5 - <a
+href="https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-release-notes-25.4r1/topics/new-features/feature-descriptions/Post-Quantum-Cryptography-5.html"
+class="uri">https://www.juniper.net/documentation/us/en/software/junos/release-notes/25.4/junos-release-notes-25.4r1/topics/new-features/feature-descriptions/Post-Quantum-Cryptography-5.html</a></li>
+<li>nokia.com — shield iccp communications from quantum threats with
+ipsec - <a
+href="https://www.nokia.com/blog/shield-iccp-communications-from-quantum-threats-with-ipsec/"
+class="uri">https://www.nokia.com/blog/shield-iccp-communications-from-quantum-threats-with-ipsec/</a>
+- as of 2026-01-29</li>
+<li>versa-networks.com — 2026 gartner market guide for sd wan - <a
+href="https://versa-networks.com/resources/reports/2026-gartner-market-guide-for-sd-wan/"
+class="uri">https://versa-networks.com/resources/reports/2026-gartner-market-guide-for-sd-wan/</a></li>
+<li>entangledfuture.com — pqc - <a
+href="https://entangledfuture.com/pqc/"
+class="uri">https://entangledfuture.com/pqc/</a></li>
+<li>plexnet.com.au — sd wan has a quantum problem - <a
+href="https://plexnet.com.au/sd-wan-has-a-quantum-problem"
+class="uri">https://plexnet.com.au/sd-wan-has-a-quantum-problem</a> - as
+of 2026-05-04</li>
+<li>Too Big to Handshake. How post-quantum TLS, a filtered ICMP message,
+and four missing bytes of MTU teamed up to kill a handshake in complete
+silence. - <a
+href="https://medium.com/@lordmoma/too-big-to-handshake-07eb34ab8263"
+class="uri">https://medium.com/@lordmoma/too-big-to-handshake-07eb34ab8263</a>
+- as of 2026-08-13</li>
+<li>Post-Quantum Cryptography (PQC) and Network Connectivity - <a
+href="https://postquantum.com/post-quantum/pqc-network-impacts/"
+class="uri">https://postquantum.com/post-quantum/pqc-network-impacts/</a>
+- as of 2026-08-22</li>
+<li>Infrastructure Challenges of “Dropping In” Post-Quantum Cryptography
+- <a
+href="https://postquantum.com/post-quantum/infrastructure-challenges-pqc/"
+class="uri">https://postquantum.com/post-quantum/infrastructure-challenges-pqc/</a>
+- as of 2026-08-19</li>
+<li>crypto/tls: Go 1.27 TLS 1.3 ClientHello size enlargement (~1.5KB)
+with ML-KEM/ML-DSA causes middlebox handshake stalls - <a
+href="https://github.com/golang/go/issues/80573"
+class="uri">https://github.com/golang/go/issues/80573</a> - as of
+2026-07-26</li>
+<li>Why post-quantum signatures are breaking TLS handshake limits - <a
+href="https://redsift.com/blog/post-quantum-signature-sizes"
+class="uri">https://redsift.com/blog/post-quantum-signature-sizes</a> -
+as of 2026-08-02</li>
+<li>Post-Quantum Cryptography Recommendations for TLS-based Applications
+- <a href="https://datatracker.ietf.org/doc/draft-ietf-uta-pqc-app/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-uta-pqc-app/</a>
+- as of 2026-07-04</li>
+<li>Post-Quantum Cryptography Detection and Control - <a
+href="https://docs.paloaltonetworks.com/network-security/decryption/administration/post-quantum-cryptography-decryption/detection-control-post-quantum-cryptography"
+class="uri">https://docs.paloaltonetworks.com/network-security/decryption/administration/post-quantum-cryptography-decryption/detection-control-post-quantum-cryptography</a>
+- as of 2026-08-15</li>
+<li>Hybrid PQC support in SSL deep inspection - <a
+href="https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/771310/hybrid-pqc-support-in-ssl-deep-inspection"
+class="uri">https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/771310/hybrid-pqc-support-in-ssl-deep-inspection</a>
+- as of 2026-08-20</li>
+<li>Post-quantum cryptography in Cloudflare One - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-and-zero-trust/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-and-zero-trust/</a>
+- as of 2026-07-17</li>
+<li>Force Client-SSL Profile to X25519, Instead of Post-Quantum
+Cryptography - <a
+href="https://community.f5.com/discussions/technicalforum/force-client-ssl-profile-to-x25519-instead-of-post-quantum-cryptography/347290"
+class="uri">https://community.f5.com/discussions/technicalforum/force-client-ssl-profile-to-x25519-instead-of-post-quantum-cryptography/347290</a>
+- as of 2026-08-07</li>
+<li>TLS Handshake Performance with PQC: Real-World Impact and Mitigation
+- <a
+href="https://quantumsecuritydefence.com/quantum-news/tls-handshake-performance-pqc-real-world/"
+class="uri">https://quantumsecuritydefence.com/quantum-news/tls-handshake-performance-pqc-real-world/</a>
+- as of 2026-07-14</li>
+<li>engineering.fb.com — post quantum readiness tls pqr meta - <a
+href="https://engineering.fb.com/2024/05/22/security/post-quantum-readiness-tls-pqr-meta/"
+class="uri">https://engineering.fb.com/2024/05/22/security/post-quantum-readiness-tls-pqr-meta/</a>
+- as of 2025-01-07</li>
+<li>Advancing Our Amazing Bet on Asymmetric Cryptography (Chromium) - <a
+href="https://blog.google/chromium/advancing-our-amazing-bet-on-asymmetric/"
+class="uri">https://blog.google/chromium/advancing-our-amazing-bet-on-asymmetric/</a>
+- as of 2025-09-25</li>
+<li>netguardia.com — hybrid key exchange today why x25519 ml kem is the
+interim default - <a
+href="https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/"
+class="uri">https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/</a>
+- as of 2026-04-29</li>
+<li>lucioduran.com — tls 1 3 post quantum kyber hybrid - <a
+href="https://lucioduran.com/blog/tls-1-3-post-quantum-kyber-hybrid"
+class="uri">https://lucioduran.com/blog/tls-1-3-post-quantum-kyber-hybrid</a>
+- as of 2026-03-10</li>
+<li>[TCP Router] HostSNI routing fails on Post-Quantum (ML-KEM) TLS 1.3
+connections due to ClientHello fragmentation - <a
+href="https://community.traefik.io/t/tcp-router-hostsni-routing-fails-on-post-quantum-ml-kem-tls-1-3-connections-due-to-clienthello-fragmentation/29730"
+class="uri">https://community.traefik.io/t/tcp-router-hostsni-routing-fails-on-post-quantum-ml-kem-tls-1-3-connections-due-to-clienthello-fragmentation/29730</a>
+- as of 2026-03-08</li>
+<li>Questions about Post-Quantum Cryptography (PQC) for IPsec VPN - <a
+href="https://community.checkpoint.com/t5/Firewall-and-Security-Management/Questions-about-Post-Quantum-Cryptography-PQC-for-IPsec-VPN/td-p/262570"
+class="uri">https://community.checkpoint.com/t5/Firewall-and-Security-Management/Questions-about-Post-Quantum-Cryptography-PQC-for-IPsec-VPN/td-p/262570</a>
+- as of 2025-11-11</li>
+<li>axelspire.com — pqc tls certificate impact - <a
+href="https://axelspire.com/business/pqc-tls-certificate-impact/"
+class="uri">https://axelspire.com/business/pqc-tls-certificate-impact/</a>
+- as of 2026-03-26</li>
+<li>csrc.nist.gov — the impact of data heavy post quantum.pdf - <a
+href="https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf"
+class="uri">https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/the-impact-of-data-heavy-post-quantum.pdf</a></li>
+<li>postquantum.com — infrastructure challenges pqc - <a
+href="https://postquantum.com/post-quantum/infrastructure-challenges-pqc/"
+class="uri">https://postquantum.com/post-quantum/infrastructure-challenges-pqc/</a>
+- as of 2026-04-10</li>
+<li>MTU and Deep SSL Inspection: Essential Insights for 2026 - <a
+href="https://www.pablosec.com/blog/mtu-a-critical-part-of-deep-ssl-inspection-in-2026/"
+class="uri">https://www.pablosec.com/blog/mtu-a-critical-part-of-deep-ssl-inspection-in-2026/</a>
+- as of 2026-02-03</li>
+<li>What is PQC for TLS Inspection – Cato Learning Center - <a
+href="https://support.catonetworks.com/hc/en-us/articles/34309562891037-What-is-PQC-for-TLS-Inspection"
+class="uri">https://support.catonetworks.com/hc/en-us/articles/34309562891037-What-is-PQC-for-TLS-Inspection</a>
+- as of 2026-04-23</li>
+<li>Zscaler Post-Quantum Cryptography Inline Inspection - <a
+href="https://www.zscaler.com/resources/solution-briefs/post-quantum-cryptography.pdf"
+class="uri">https://www.zscaler.com/resources/solution-briefs/post-quantum-cryptography.pdf</a>
+- as of 2026-02-11</li>
+<li>Quantum Computing and the Future of Wi-Fi Security: WPA2, WPA3, and
+the Coming Cryptographic Shift - <a
+href="https://cyberraiden.wordpress.com/2026/08/19/quantum-computing-and-the-future-of-wi-fi-security-wpa2-wpa3-and-the-coming-cryptographic-shift/"
+class="uri">https://cyberraiden.wordpress.com/2026/08/19/quantum-computing-and-the-future-of-wi-fi-security-wpa2-wpa3-and-the-coming-cryptographic-shift/</a>
+- as of 2026-08-19</li>
+<li>helpnetsecurity.com — wba wi fi roaming security - <a
+href="https://www.helpnetsecurity.com/2026/04/16/wba-wi-fi-roaming-security/"
+class="uri">https://www.helpnetsecurity.com/2026/04/16/wba-wi-fi-roaming-security/</a>
+- as of 2026-04-16</li>
+<li>quantumzeitgeist.com — network layers quantum cryptography - <a
+href="https://quantumzeitgeist.com/network-layers-quantum-cryptography/"
+class="uri">https://quantumzeitgeist.com/network-layers-quantum-cryptography/</a>
+- as of 2026-04-14</li>
+<li>cwnp.com — wi fi ready quantum threat - <a
+href="https://www.cwnp.com/wi-fi-ready-quantum-threat"
+class="uri">https://www.cwnp.com/wi-fi-ready-quantum-threat</a> - as of
+2025-08-18</li>
+<li>IEEE P802.11 - TASK GROUP BT (PQC) MEETING UPDATE - <a
+href="https://ieee802.org/11/Reports/tgbt_update.htm"
+class="uri">https://ieee802.org/11/Reports/tgbt_update.htm</a> - as of
+2026-07-17</li>
+<li>Colt and Ciena Set New Benchmark with Fastest Ever Quantum-Safe
+Transatlantic Data Transmission - <a
+href="https://www.ciena.com/about/newsroom/press-releases/colt-and-ciena-set-new-benchmark-with-fastest-ever-quantum-safe-transatlantic-data-transmission"
+class="uri">https://www.ciena.com/about/newsroom/press-releases/colt-and-ciena-set-new-benchmark-with-fastest-ever-quantum-safe-transatlantic-data-transmission</a>
+- as of 2026-06-10</li>
+<li>Secure your enterprise against emerging quantum threats - <a
+href="https://www.fortinet.com/solutions/quantum-security"
+class="uri">https://www.fortinet.com/solutions/quantum-security</a> - as
+of 2026-08-15</li>
+<li>Virtual Private Network Market Size, Global Report - 2035 - <a
+href="https://www.marketresearchfuture.com/reports/virtual-private-network-market-2160"
+class="uri">https://www.marketresearchfuture.com/reports/virtual-private-network-market-2160</a>
+- as of 2026-07-20</li>
+<li>Post-Quantum Preshared Key support | FortiGate / FortiOS 8.0.0 - <a
+href="https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/527690/post-quantum-preshared-key-support"
+class="uri">https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/527690/post-quantum-preshared-key-support</a>
+- as of 2026-08-20</li>
+<li>Quantum Security Administration - <a
+href="https://origin-docs.paloaltonetworks.com/content/dam/techdocs/en_US/pdf/network-security/quantum-security-administration.pdf"
+class="uri">https://origin-docs.paloaltonetworks.com/content/dam/techdocs/en_US/pdf/network-security/quantum-security-administration.pdf</a>
+- as of 2026-07-29</li>
+<li>Symmatrics Introduces Quantum Secure VPN (press release) - <a
+href="https://www.prnewswire.com/news-releases/symmatrics-introduces-quantum-secure-vpn-to-eliminate-credential-based-attacks-and-future-proof-secure-access-302806811.html"
+class="uri">https://www.prnewswire.com/news-releases/symmatrics-introduces-quantum-secure-vpn-to-eliminate-credential-based-attacks-and-future-proof-secure-access-302806811.html</a>
+- as of 2026-06-23</li>
+<li>convergedigest.com — ciena quantum corridor toshiba 1 6tbps quantum
+safe encryption - <a
+href="https://convergedigest.com/ciena-quantum-corridor-toshiba-1-6tbps-quantum-safe-encryption/"
+class="uri">https://convergedigest.com/ciena-quantum-corridor-toshiba-1-6tbps-quantum-safe-encryption/</a></li>
+<li>Quantum Corridor, Ciena and Toshiba Demonstrate 1.6 Tb/s
+Quantum-Safe Networking (press release) - <a
+href="https://www.hpcwire.com/off-the-wire/quantum-corridor-ciena-and-toshiba-demonstrate-1-6-tb-s-quantum-safe-networking/"
+class="uri">https://www.hpcwire.com/off-the-wire/quantum-corridor-ciena-and-toshiba-demonstrate-1-6-tb-s-quantum-safe-networking/</a></li>
+<li>ciena.com — quantum safe communications - <a
+href="https://www.ciena.com/solutions/quantum-safe-communications"
+class="uri">https://www.ciena.com/solutions/quantum-safe-communications</a></li>
+<li>advasecurity.com — post quantum cryptography - <a
+href="https://advasecurity.com/en/innovation/post-quantum-cryptography"
+class="uri">https://advasecurity.com/en/innovation/post-quantum-cryptography</a></li>
+<li>Demo Achieves Post-Quantum Cryptography on the Internet2 National
+Backbone - <a
+href="https://internet2.edu/demo-achieves-post-quantum-cryptography-on-the-internet2-national-backbone/"
+class="uri">https://internet2.edu/demo-achieves-post-quantum-cryptography-on-the-internet2-national-backbone/</a>
+- as of 2026-04-13</li>
+<li>euNetworks launches new quantum-safe private connectivity service
+powered by Adtran’s encrypted optical transport technology - <a
+href="https://investors.adtran.com/news/news-details/2026/euNetworks-launches-new-quantum-safe-private-connectivity-service-powered-by-Adtrans-encrypted-optical-transport-technology/default.aspx"
+class="uri">https://investors.adtran.com/news/news-details/2026/euNetworks-launches-new-quantum-safe-private-connectivity-service-powered-by-Adtrans-encrypted-optical-transport-technology/default.aspx</a>
+- as of 2026-05-27</li>
+<li>PacketLight and Quantum XChange Partner to Deliver Crypto-Agile
+Optical Transport Solutions - <a
+href="https://quantumcomputingreport.com/packetlight-and-quantum-xchange-partner-to-deliver-crypto-agile-optical-transport-solutions/"
+class="uri">https://quantumcomputingreport.com/packetlight-and-quantum-xchange-partner-to-deliver-crypto-agile-optical-transport-solutions/</a>
+- as of 2026-05-20</li>
+<li>Quantum Computing Inc. and Ciena Demonstrate Next-Generation
+Quantum-Secured Communications with High-Speed Encryption using PQC and
+QKD at OFC 2026 - <a
+href="https://www.ciena.com/about/newsroom/press-releases/quantum-computing-inc-and-ciena-demonstrate-next-generation-quantum-secured-communications-with-high-speed-encryption-using-pqc-and-qkd-at-ofc-2026"
+class="uri">https://www.ciena.com/about/newsroom/press-releases/quantum-computing-inc-and-ciena-demonstrate-next-generation-quantum-secured-communications-with-high-speed-encryption-using-pqc-and-qkd-at-ofc-2026</a>
+- as of 2026-03-11</li>
+<li>Cloudflare One is the first SASE offering modern post-quantum
+encryption across the full platform - <a
+href="https://blog.cloudflare.com/post-quantum-sase/"
+class="uri">https://blog.cloudflare.com/post-quantum-sase/</a> - as of
+2026-02-23</li>
+<li>Cloudflare’s Quantum-Proof Tunnels: Hybrid ML-KEM Secures IPsec
+Against Harvest-Now Threats - <a
+href="https://www.webpronews.com/cloudflares-quantum-proof-tunnels-hybrid-ml-kem-secures-ipsec-against-harvest-now-threats/"
+class="uri">https://www.webpronews.com/cloudflares-quantum-proof-tunnels-hybrid-ml-kem-secures-ipsec-against-harvest-now-threats/</a>
+- as of 2026-05-01</li>
+<li>Preparing for The Quantum Era: AT&amp;T Business Debuts Post-Quantum
+Cryptography Secure SD-WAN, Powered by Cisco - <a
+href="https://about.att.com/story/2026/cisco-post-quantum-cryptography.html"
+class="uri">https://about.att.com/story/2026/cisco-post-quantum-cryptography.html</a>
+- as of 2026-05-11</li>
+<li>Cisco Quantum-Ready Migration Guide - <a
+href="https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/Quantum-Ready-Migration-Guide.pdf"
+class="uri">https://www.cisco.com/c/en/us/td/docs/solutions/CVD/Campus/Quantum-Ready-Migration-Guide.pdf</a></li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="11-cloud-infrastructure.html"><span>Previous</span>Part 11 - Cloud Infrastructure</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="13-enterprise-infra-storage.html"><span>Next</span>Part 13 - Enterprise Infrastructure &amp; Storage</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/12-security-appliances.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 10 - Applications & Benchmarking Claims | Quantum Computing</title>
+  <meta name="description" content="Quantum Computing, Part 10: Applications & Benchmarking Claims.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Quantum Computing</a><span class="sep">/</span>Part 10</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Quantum Computing &middot; Part 10</p>
+    <h1>Applications &amp; Benchmarking Claims</h1>
+    <p class="updated">Last updated: 2026-08-30</p>
+    <p class="actions"><a class="pdf" href="latest/10-applications-benchmarking-claims.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#quantum-advantage-and-utility-claims"
+id="toc-quantum-advantage-and-utility-claims">1. Quantum Advantage and
+Utility Claims</a></li>
+<li><a href="#classical-simulation-rebuttals"
+id="toc-classical-simulation-rebuttals">2. Classical Simulation
+Rebuttals</a></li>
+<li><a href="#benchmark-suites-and-metrics"
+id="toc-benchmark-suites-and-metrics">3. Benchmark Suites and
+Metrics</a></li>
+<li><a href="#chemistry-and-materials-simulation"
+id="toc-chemistry-and-materials-simulation">4. Chemistry and Materials
+Simulation</a></li>
+<li><a href="#optimization-applications"
+id="toc-optimization-applications">5. Optimization Applications</a></li>
+<li><a href="#machine-learning-applications"
+id="toc-machine-learning-applications">6. Machine Learning
+Applications</a></li>
+<li><a href="#finance-applications" id="toc-finance-applications">7.
+Finance Applications</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>This part records claims that quantum computers have done something
+useful, together with the rebuttals those claims attracted. The two
+belong in the same document. A quantum advantage claim and its classical
+refutation are usually separated by months and reported by different
+outlets, and reading either alone gives a false picture.</p>
+<p>The pattern repeats often enough to state plainly. A company
+announces that its machine solved a problem no classical computer could.
+Within weeks or months, a research group reproduces the result on
+conventional hardware, sometimes on a laptop. The claim is then
+defended, narrowed, or quietly dropped. Sections 1 and 2 should be read
+as a pair.</p>
+<p>One distinction separates the strong claims from the weak ones. A
+complexity-theoretic claim argues that no classical algorithm could
+match the result, and rests on mathematical proof. An empirical claim
+reports only that known classical methods became unreliable in some
+regime, which allows a better classical method to appear later.</p>
+<p>Section 1 covers advantage claims, Section 2 the rebuttals, Section 3
+benchmark metrics, and Sections 4 through 7 the application areas:
+chemistry, optimization, machine learning and finance.</p>
+<h2 id="quantum-advantage-and-utility-claims">1. Quantum Advantage and
+Utility Claims</h2>
+<p><em>The 2026 claims are more carefully argued than their
+predecessors, and the companies making them are increasingly explicit
+about which kind of claim they are making.</em></p>
+<h3 id="current-state">Current State</h3>
+<p>In July 2026 IBM coordinated three preprint announcements, with the
+University of Chicago, Qedma and Algorithmiq [1]. They were presented
+together as evidence that quantum computing had entered an era of
+quantum advantage. The three papers carry different evidentiary weight,
+which the coordinated presentation tends to obscure.</p>
+<p>The strongest of the three is the University of Chicago paper. It
+makes an explicit advantage claim backed by complexity-theoretic
+hardness arguments and a device-dependent fidelity certificate [1]. The
+Qedma and Algorithmiq papers make empirical claims about regimes where
+tested classical methods become unreliable.</p>
+<p>The claim itself has a stated limit. IBM’s collaboration claims a
+mathematical proof that no classical computer can generate the specific
+sample distribution its circuit produced within a reasonable time [2].
+The proof covers at least one such sample set and cannot rule out an
+unknown classical shortcut.</p>
+<p>Earlier claims set the pattern. D-Wave’s 2025 Science paper reported
+a quantum supremacy demonstration simulating spin glass dynamics across
+three lattice geometries on its Advantage2 annealer [3]. Google’s
+original 2019 random circuit sampling claim drew intense scrutiny, and
+within months classical simulation had narrowed, though not closed, the
+gap [4]. Google and the University of Science and Technology of China
+have since repeated the experiment with larger systems and deeper
+circuits.</p>
+<p>Quantinuum has demonstrated random circuit sampling on a trapped-ion
+system with fewer qubits but higher connectivity and lower error rates
+[4]. Its results are comparable to the superconducting experiments,
+reached through a different architecture.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="classical-simulation-rebuttals">2. Classical Simulation
+Rebuttals</h2>
+<p><em>Each entry here is a specific challenge to a specific claim in
+Section 1. One of them was answered by a laptop.</em></p>
+<h3 id="current-state-1">Current State</h3>
+<p>The most direct rebuttal came for D-Wave. Flatiron Institute
+physicists and collaborators matched D-Wave’s published spin glass
+outputs across all three lattice geometries [3]. Their classical
+algorithm used three-dimensional tensor networks combined with a belief
+propagation method first published in 1982. It also agreed with
+analytically known answers on smaller instances.</p>
+<p>D-Wave issued a formal rebuttal in May 2026 [5]. The company argues
+the classical method does not compute the full-state data profiles and
+higher-order observables its processor produced. It also does not
+attempt the most complex non-planar lattice topologies from the original
+paper. Both positions are recorded here because neither has
+withdrawn.</p>
+<p>IBM’s earlier utility claim met the same treatment. Its 2023 Nature
+paper on kicked Ising dynamics on a 127-qubit processor was challenged
+by several groups, including Caltech, whose classical methods reproduced
+the results substantially faster [6]. Those methods now serve as
+benchmarking tools for validating later utility claims, which is an
+unusually productive outcome for a refutation.</p>
+<p>A July 2026 preprint challenges the certification method itself,
+proposing a frozen-tree algorithm that questions whether sample-only
+ensemble statistics can certify random circuit sampling at all [1]. It
+argues the algorithm reproduces the relevant ensemble-level statistics
+without simulating the circuit’s full output distribution.</p>
+<p>A 2026 benchmarking study reached a broader negative conclusion. On
+current noisy hardware, runtime-based quantum advantage has not been
+demonstrated under experimentally grounded metrics [7]. A restricted
+implementation of Simon’s problem ran roughly two orders of magnitude
+slower than a tuned classical baseline. A claimed runtime advantage for
+one hybrid algorithm was not observed under more comprehensive
+testing.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="benchmark-suites-and-metrics">3. Benchmark Suites and
+Metrics</h2>
+<p><em>Benchmarks are how any of the above gets compared. The recurring
+weakness in the established metrics is that most of them ignore
+speed.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>An August 2026 preprint formalizes a whole-system speed benchmark for
+layered, hardware-aware circuits on utility-scale processors, binding
+speed to independently verified layer-fidelity quality envelopes
+[8].</p>
+<p>A June 2026 preprint introduces Clifford Volume and Free Fermion
+Volume as scalable volumetric benchmarks [9]. Both are classically
+simulable, which means their results can be verified rather than
+assumed, and both were validated experimentally on Quantinuum’s H2-1
+system, reaching a Clifford Volume of 34.</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Quantum Volume, introduced by IBM in 2019, is a single-number
+benchmark that runs random square model circuits [10]. It folds qubit
+count, gate fidelity, connectivity, crosstalk, calibration and compiler
+quality into one score. Quantinuum’s trapped-ion systems hold the
+highest reported values, reaching 2²³ in May 2025 and a reported 2²⁵ in
+September 2025 [10]. The company aims to increase the figure tenfold
+each year.</p>
+<p>Circuit Layer Operations per Second, developed by IBM in 2021,
+measures execution speed by combining circuit runtime with real-time and
+near-time classical computation [11]. It was originally envisioned
+alongside qubit count and Quantum Volume as one of three core comparison
+metrics.</p>
+<p>Algorithmic Qubits aims to measure the useful computational qubits a
+system has for practical algorithms [12]. Like Quantum Volume, it does
+not account for execution speed, which is the gap the recent work in
+this section addresses.</p>
+<p>Two community efforts sit above the individual metrics. The QED-C
+suite is an open-source, evolving set of more than 20 application-based
+benchmarks, including phase estimation and Hamiltonian simulation,
+measuring execution quality, runtime cost and resource requirements
+[13]. Its architecture was updated in 2025 for modularity, integrating a
+low-level benchmark suite and NVIDIA’s CUDA-Q for distributed simulation
+[14]. Metriq is a free collaborative platform supported by the Unitary
+Fund that aggregates benchmarking results from papers and news, and its
+framework integrates the QED-C benchmarks alongside device-level
+protocols [15].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="chemistry-and-materials-simulation">4. Chemistry and Materials
+Simulation</h2>
+<p><em>Chemistry is the application most experts expect to benefit
+first. The claims below are correspondingly more measured than those in
+Sections 6 and 7.</em></p>
+<h3 id="current-state-3">Current State</h3>
+<p>Qedma researchers used an IBM machine to simulate a quantum magnet in
+a July 2026 preprint [2]. This is an empirical claim about a regime
+where classical methods reportedly become unreliable, and is
+deliberately weaker than the complexity-theoretic claim in the companion
+paper described in Section 1.</p>
+<p>Quantinuum published a paper, now appearing in Nature, exploring a
+chemistry-relevant system at scales the company describes as frustrating
+classical computation [16]. It frames this as evidence that quantum
+computing is matching or exceeding classical high-performance computing
+in this domain.</p>
+<p>Two applied collaborations are worth recording. Investigators
+highlighted by St. Jude Children’s Research Hospital reported that
+augmenting machine-learning drug discovery with quantum computing
+outperformed comparable classical-only models in identifying compounds
+against a KRAS target [17]. The work included experimental validation
+rather than simulation alone, which is rare in this area. Pasqal and
+Qubit Pharmaceuticals applied hybrid quantum methods to protein
+hydration and ligand-protein binding, focused on placing water molecules
+accurately within protein cavities [17].</p>
+<p>One claim carries a caveat. A 2026 preprint claims a parallel method
+enables quantum chemistry simulations at 200-qubit scale on accelerated
+computing platforms, reporting results said to surpass classical
+benchmarks for ruthenium catalysts [18]. It has not been
+peer-reviewed.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="optimization-applications">5. Optimization Applications</h2>
+<p><em>Optimization attracts the most commercial interest and produces
+the least verified advantage. The most useful recent contribution here
+is about how to measure the claims rather than a claim itself.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Two Fraunhofer publications from August 2026 propose methods for
+assessing potential quantum advantage under more realistic physical
+conditions and across increasing problem sizes [19]. This is a
+contribution to benchmarking rigour rather than a new application
+claim.</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The strongest recent result is hybrid. A July 2026 preprint by
+JPMorgan Chase, AWS, Quantinuum and collaborators reports a hybrid
+quantum-classical portfolio optimization workflow on Quantinuum’s
+98-qubit Helios hardware [20]. It consistently outperformed a standalone
+quantum algorithm on real market data from four major financial indices.
+The comparison is against another quantum method, not against the best
+classical one.</p>
+<p>A February 2026 preprint testing a constraint-preserving formulation
+for stock selection reported a Sharpe ratio of 1.81 [21]. The monthly
+walk-forward backtest on 10 US equities gave 1.31 for simulated
+annealing and 0.98 for a standard classical method. The sample is small
+and the source confidence low.</p>
+<p>A September 2025 Fraunhofer benchmark compared five methods on
+realistic portfolio instances [21]. The quantum approximate optimization
+algorithm reached 97.3% of the exact classical solution quality in
+certain parameter ranges, for small and medium problems. Hybrid
+strategies showed the most promise for larger ones. Reaching 97.3% of a
+classical answer is not an advantage over it.</p>
+<p>Two supporting items complete the picture. The Quantum Optimization
+Benchmarking Library is a 2025 preprint establishing a standard suite
+for evaluating quantum optimization algorithms [22]. D-Wave specializes
+in quantum annealing for combinatorial optimization, with systems
+reportedly used by enterprises including NASA and Volkswagen, though
+these are vendor-reported deployments rather than peer-reviewed
+demonstrations [23].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="machine-learning-applications">6. Machine Learning
+Applications</h2>
+<p><em>The theory in this section is stronger than the practice. One
+paper establishes when a quantum advantage could be inherited at all,
+which is more than most application claims can offer.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>A July 2026 paper derives the conditions under which quantum machine
+learning can inherit computational advantages from general quantum
+algorithms for supervised learning [24]. Establishing when an advantage
+is even possible is a firmer foundation than any individual
+benchmark.</p>
+<p>A July 2026 preprint by WISER and E.ON reports hybrid benchmarks for
+multi-output electricity demand forecasting on IBM hardware with more
+than 100 qubits [25]. One model achieved a 40.37% reduction in mean
+absolute error against a classical baseline on real hardware, and 62.01%
+in simulation. The gap between the hardware and simulation figures is
+itself the finding.</p>
+<h3 id="current-state-5">Current State</h3>
+<p>Quantum kernel methods and quantum neural networks are being explored
+for fraud detection, to identify nonlinear patterns in high-dimensional
+data [26]. Practical advantage there remains out of reach, with most
+researchers expecting meaningful results only from larger and more
+accurate processors.</p>
+<p>One widely reported result needs its qualification attached. IonQ and
+Ansys reported in early 2025 that a hybrid algorithm delivered up to 12%
+faster processing than classical methods on a blood pump simulation
+[23]. The full-scale speedup was achieved by classically simulating the
+quantum algorithm rather than running it, and IonQ hardware was used
+only to validate smaller instances.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="finance-applications">7. Finance Applications</h2>
+<p><em>Banks are paying for access to quantum computers. As of the most
+recent assessment here, none of them has obtained an advantage from
+it.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>ORIENTOM and softwareQ signed a memorandum of understanding in August
+2026 to explore quantum and quantum-inspired computing for financial
+services, banking and insurance [27]. Named use cases include
+derivatives pricing, portfolio optimization, risk management and machine
+learning. This is an exploratory partnership rather than a benchmarked
+result.</p>
+<h3 id="current-state-6">Current State</h3>
+<p>The summary judgment is direct. As of March 2026, no quantum
+advantage had been demonstrated for any real-world financial
+application, despite banks paying for quantum computing access in
+anticipation of future advantage [26].</p>
+<p>Commercial activity continues regardless. Rigetti announced a
+partnership with Algorithmiq in February 2026 targeting quantum machine
+learning for fraud detection, among the first commercial collaborations
+aimed at that use case [26]. IBM has the deepest financial-sector
+engagement of any vendor through its quantum network, which includes
+JPMorgan Chase, Goldman Sachs and Barclays [26]. Its finance module
+offers pre-built circuits for portfolio optimization, option pricing and
+risk analysis.</p>
+<p>Regulators are watching the same gap. The UK Financial Conduct
+Authority highlighted optimization, machine learning and stochastic
+modelling as material domains for financial-services quantum
+applications [28]. It stressed benchmarking, explainability, validation
+and resilience as prerequisites for adoption, rather than confirming any
+current advantage.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>IBM’s Three Quantum Advantage Claims, Fact-Checked - <a
+href="https://postquantum.com/industry-news/ibm-three-quantum-advantage-papers/"
+class="uri">https://postquantum.com/industry-news/ibm-three-quantum-advantage-papers/</a>
+(as of 2026-07-30)</li>
+<li>IBM claims its quantum computers outperform classical ones - <a
+href="https://cen.acs.org/physical-chemistry/computational-chemistry/quantum-advantage-ibm-proof/104/web/2026/08"
+class="uri">https://cen.acs.org/physical-chemistry/computational-chemistry/quantum-advantage-ibm-proof/104/web/2026/08</a>
+(as of 2026-08-01)</li>
+<li>D-Wave Said Classical Computers Could Not Match Its Quantum Chip. A
+Laptop Just Did. - <a
+href="https://www.techtimes.com/articles/321190/20260721/d-wave-said-classical-computers-could-not-match-its-quantum-chip-laptop-just-did.htm"
+class="uri">https://www.techtimes.com/articles/321190/20260721/d-wave-said-classical-computers-could-not-match-its-quantum-chip-laptop-just-did.htm</a>
+(as of 2025-01-01)</li>
+<li>Quantum Advantage Has Likely Been Achieved, The Debate Is Over What
+Counts - <a
+href="https://thequantuminsider.com/2026/01/12/quantum-advantage-has-likely-been-achieved-the-debate-is-over-what-counts/"
+class="uri">https://thequantuminsider.com/2026/01/12/quantum-advantage-has-likely-been-achieved-the-debate-is-over-what-counts/</a>
+(undated)</li>
+<li>D-Wave’s Quantum Supremacy Result Stands - <a
+href="https://www.dwavequantum.com/company/newsroom/press-release/d-wave-s-quantum-supremacy-result-stands/"
+class="uri">https://www.dwavequantum.com/company/newsroom/press-release/d-wave-s-quantum-supremacy-result-stands/</a>
+(as of 2026-05-26)</li>
+<li>Pauli Path Simulators: Quantum Benchmarking - <a
+href="https://www.bluequbit.io/blog/pauli-path-simulators"
+class="uri">https://www.bluequbit.io/blog/pauli-path-simulators</a> (as
+of 2023-06-01)</li>
+<li>Recent quantum runtime (dis)advantages - <a
+href="https://arxiv.org/abs/2510.06337"
+class="uri">https://arxiv.org/abs/2510.06337</a> (as of 2026-02-10)</li>
+<li>CLOPS: Benchmarking System Speed at Utility Scale - <a
+href="https://arxiv.org/abs/2608.18044"
+class="uri">https://arxiv.org/abs/2608.18044</a> (as of 2026-08-18)</li>
+<li>Clifford Volume and Free Fermion Volume: Complementary Scalable
+Benchmarks for Quantum Computers - <a
+href="https://arxiv.org/html/2512.19413v2"
+class="uri">https://arxiv.org/html/2512.19413v2</a> (as of
+2026-06-22)</li>
+<li>Quantum Volume - Quantum Benchmark Zoo - <a
+href="https://quantumbenchmarkzoo.com/benchmarks/quantum-volume/"
+class="uri">https://quantumbenchmarkzoo.com/benchmarks/quantum-volume/</a>
+(as of 2025-09-01)</li>
+<li>Circuit Layer Operations per Second - <a
+href="https://en.wikipedia.org/wiki/Circuit_Layer_Operations_per_Second"
+class="uri">https://en.wikipedia.org/wiki/Circuit_Layer_Operations_per_Second</a>
+(as of 2021-01-01)</li>
+<li>Quantum Computing Benchmarks: RCS, QV, AQ, and More - <a
+href="https://postquantum.com/quantum-computing/quantum-computing-benchmarks/"
+class="uri">https://postquantum.com/quantum-computing/quantum-computing-benchmarks/</a>
+(undated)</li>
+<li>Software for Creating Scalable Benchmarks from Quantum Algorithms -
+<a href="https://arxiv.org/pdf/2511.02134"
+class="uri">https://arxiv.org/pdf/2511.02134</a> (undated)</li>
+<li>QED-C Benchmark suite - <a
+href="https://quantumbenchmarkzoo.org/content/benchmarking-tools/benchmark-suites/QED-C"
+class="uri">https://quantumbenchmarkzoo.org/content/benchmarking-tools/benchmark-suites/QED-C</a>
+(as of 2025-01-01)</li>
+<li>Quantum Benchmark Zoo - <a
+href="https://quantumbenchmarkzoo.org/content/business-info/other-benchmarking-initiative"
+class="uri">https://quantumbenchmarkzoo.org/content/business-info/other-benchmarking-initiative</a>
+(undated)</li>
+<li>Unlocking Scalable Chemistry Simulations for Quantum-Supercomputing
+- <a
+href="https://www.quantinuum.com/blog/unlocking-scalable-chemistry-simulations-for-quantum-supercomputing"
+class="uri">https://www.quantinuum.com/blog/unlocking-scalable-chemistry-simulations-for-quantum-supercomputing</a>
+(as of 2025-01-01)</li>
+<li>How Chemistry And Materials Science Can Benefit From Quantum
+Computing - <a
+href="https://www.opensourceforu.com/2026/08/how-chemistry-and-materials-science-can-benefit-from-quantum-computing/"
+class="uri">https://www.opensourceforu.com/2026/08/how-chemistry-and-materials-science-can-benefit-from-quantum-computing/</a>
+(as of 2025-01-01)</li>
+<li>Parallel iQCC Enables 200 Qubit Scale Quantum Chemistry on
+Accelerated Computing Platforms - <a
+href="https://arxiv.org/pdf/2603.08883"
+class="uri">https://arxiv.org/pdf/2603.08883</a> (undated)</li>
+<li>Scientists propose more realistic benchmarks for quantum algorithms
+- <a
+href="https://thequantuminsider.com/2026/08/17/scientists-propose-more-realistic-benchmarks-for-quantum-algorithms/"
+class="uri">https://thequantuminsider.com/2026/08/17/scientists-propose-more-realistic-benchmarks-for-quantum-algorithms/</a>
+(as of 2026-08-17)</li>
+<li>Hybrid quantum algorithm for portfolio optimization
+(arXiv:2607.01037) - <a href="https://arxiv.org/abs/2607.01037"
+class="uri">https://arxiv.org/abs/2607.01037</a> (as of 2026-07-06)</li>
+<li>Quantum Computing in Finance: Portfolio Optimization, Fraud
+Detection, and Monte Carlo - <a
+href="https://medium.com/@superpositions_studio/quantum-computing-in-finance-portfolio-optimization-fraud-detection-and-monte-carlo-where-it-4b68ed34bb92"
+class="uri">https://medium.com/@superpositions_studio/quantum-computing-in-finance-portfolio-optimization-fraud-detection-and-monte-carlo-where-it-4b68ed34bb92</a>
+(as of 2026-02-01)</li>
+<li>BACQ - Application-Oriented Benchmarks for Quantum Computing - <a
+href="https://link.springer.com/chapter/10.1007/978-3-032-13852-1_22"
+class="uri">https://link.springer.com/chapter/10.1007/978-3-032-13852-1_22</a>
+(as of 2025-01-01)</li>
+<li>What is Quantum Machine Learning? - <a
+href="https://thequantuminsider.com/2026/05/08/what-is-quantum-machine-learning/"
+class="uri">https://thequantuminsider.com/2026/05/08/what-is-quantum-machine-learning/</a>
+(as of 2025-01-01)</li>
+<li>Advantage of quantum machine learning from general computational
+advantages - <a
+href="https://www.nature.com/articles/s41534-026-01279-y"
+class="uri">https://www.nature.com/articles/s41534-026-01279-y</a> (as
+of 2026-07-28)</li>
+<li>WISER and E.ON Benchmark Quantum Machine Learning for Smart Grid
+Energy Forecasting - <a
+href="https://quantumcomputingreport.com/wiser-and-e-on-benchmark-quantum-machine-learning-for-smart-grid-energy-forecasting/"
+class="uri">https://quantumcomputingreport.com/wiser-and-e-on-benchmark-quantum-machine-learning-for-smart-grid-energy-forecasting/</a>
+(as of 2026-07-25)</li>
+<li>Quantum Computing for Finance 2026: Applications and Companies - <a
+href="https://entangledfuture.com/guides/quantum-computing-for-finance/"
+class="uri">https://entangledfuture.com/guides/quantum-computing-for-finance/</a>
+(as of 2026-03-01)</li>
+<li>ORIENTOM and softwareQ partner on quantum computing finance
+applications - <a
+href="https://thequantuminsider.com/2026/08/12/orientom-softwareq-quantum-computing-finance-applications/"
+class="uri">https://thequantuminsider.com/2026/08/12/orientom-softwareq-quantum-computing-finance-applications/</a>
+(as of 2026-08-12)</li>
+<li>Quantum Computing for Financial Transformation - <a
+href="https://arxiv.org/html/2604.08180v1"
+class="uri">https://arxiv.org/html/2604.08180v1</a> (as of
+2025-01-01)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="09-academic-theoretical.html"><span>Previous</span>Part 9 - Academic &amp; Theoretical</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Quantum Computing</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/10-applications-benchmarking-claims.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

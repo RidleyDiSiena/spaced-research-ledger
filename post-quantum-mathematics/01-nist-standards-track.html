@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 1 - NIST Standards Track | Post-Quantum Mathematics</title>
+  <meta name="description" content="Post-Quantum Mathematics, Part 1: NIST Standards Track.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Mathematics</a><span class="sep">/</span>Part 1</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Mathematics &middot; Part 1</p>
+    <h1>NIST Standards Track</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/01-nist-standards-track.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#the-ratified-standards" id="toc-the-ratified-standards">1.
+The Ratified Standards</a></li>
+<li><a href="#fn-dsa-and-fips-206" id="toc-fn-dsa-and-fips-206">2.
+FN-DSA and FIPS 206</a></li>
+<li><a href="#the-additional-signatures-on-ramp"
+id="toc-the-additional-signatures-on-ramp">3. The Additional Signatures
+On-Ramp</a></li>
+<li><a href="#hqc" id="toc-hqc">4. HQC</a></li>
+<li><a href="#ietf-standardization-activity"
+id="toc-ietf-standardization-activity">5. IETF Standardization
+Activity</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>NIST runs the process that decides which post-quantum algorithms the
+world will actually use. Its choices are not binding on anyone outside
+the US federal government, but in practice they set the direction for
+browsers, cloud providers, hardware vendors and most other standards
+bodies.</p>
+<p>Three algorithms are finished and published. A fourth is in final
+review. A fifth was selected but not yet written up. A further nine are
+still competing in a separate process for additional signature schemes.
+This part covers all four of those stages, because the difference
+between them is the difference between something you can deploy and
+something you should only watch.</p>
+<p>One piece of vocabulary carries through. A KEM, or key encapsulation
+mechanism, is the modern replacement for classical key exchange, and it
+is how two parties agree on a secret over an open channel. Signature
+schemes prove who sent something. The two have different urgencies, for
+reasons Part 2 covers.</p>
+<p>Section 1 covers the three ratified standards and the corrections
+being made to them. Section 2 covers the signature standard still in
+review. Section 3 covers the additional-signatures competition. Section
+4 covers HQC. Section 5 covers the IETF work that turns these standards
+into usable protocols.</p>
+<h2 id="the-ratified-standards">1. The Ratified Standards</h2>
+<p><em>Three standards were published together in August 2024 and are
+the settled foundation of the whole migration. What is interesting about
+them now is not their content but their errata, because both
+lattice-based standards are being corrected while already
+deployed.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>NIST’s FIPS 204 publication page carries a planning note dated July
+2026, pointing to an errata spreadsheet listing several minor issues to
+be corrected in a future revision [1]. The spreadsheet’s specific
+contents were not retrieved for this report.</p>
+<p>Checked as of the date of this report, the FIPS 205 page carries no
+planning note and no errata link [2]. Its document history lists only
+the original draft and final entries. Of the three ratified standards,
+the hash-based one is the only one with nothing queued for
+correction.</p>
+<p>Two pieces of validation infrastructure moved in August 2026, which
+matters to anyone certifying an implementation rather than reading the
+standard.</p>
+<p>The FIPS 140-3 Implementation Guidance was updated on 19 August 2026
+[3]. It adds clarifications on hybrid modules, new scenarios for hybrid
+key encapsulation referencing SP 800-227, and updated self-test
+requirements for ML-KEM. Hybrid deployment is the norm in the migration,
+so guidance on how hybrid modules are validated is the practical
+gate.</p>
+<p>Draft validation-testing specifications for ML-DSA and SLH-DSA were
+published dated 14 August 2026 [4]. They cover known-answer tests,
+signature verification test types and coverage details. Testing
+specifications are what turn a published standard into something a
+laboratory can certify against.</p>
+<h3 id="current-state">Current State</h3>
+<p>NIST published the first three post-quantum standards on 13 August
+2024: FIPS 203 for ML-KEM, FIPS 204 for ML-DSA, and FIPS 205 for SLH-DSA
+[5].</p>
+<p>FIPS 203 has an open issue. NIST’s own publication page carries a
+planning note dated November 2025 [6]. It states that a problem has been
+identified which will be corrected in a future revision, with details in
+a linked errata spreadsheet. The spreadsheet itself was not retrieved
+for this report.</p>
+<p>A mailing-list thread on the NIST PQC forum discusses two specific
+planned changes to FIPS 203 [7]. The first allows the key-derivation
+methods in SP 800-56C to apply to ML-KEM-generated keys in place of
+shared secrets. The second specifies a lower-level derandomized
+interface, which enables validation testing against known answers and
+allows keys to be stored as compact seeds rather than in expanded form.
+Seed storage matters for constrained devices, where ML-KEM’s key sizes
+are a real cost.</p>
+<p>FIPS 204’s page also carries an earlier planning note from January
+2025, announcing a general FAQ resource covering the post-quantum
+standards rather than anything specific to that document [2].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="fn-dsa-and-fips-206">2. FN-DSA and FIPS 206</h2>
+<p><em>One algorithm selected in 2022 still has no published standard.
+The reason is instructive: the difficulty is not in the mathematics but
+in implementing it safely.</em></p>
+<h3 id="current-state-1">Current State</h3>
+<p>FN-DSA, previously called Falcon, was left out of the initial batch
+of three because its reference signing procedure depends on
+floating-point Gaussian sampling [8]. That is difficult to implement
+safely and in constant time, and it is the main reason its
+standardization has taken longer than the others. Constant-time
+implementation matters because an operation whose duration depends on
+the secret key leaks that key to anyone who can measure timing.</p>
+<p>NIST submitted the draft FIPS 206 standard for approval in August
+2025 [8]. As of mid-2026 it remains in final review, with the final
+standard expected in late 2026 or early 2027.</p>
+<p>The algorithm is worth the wait for specific uses. FN-DSA produces
+the smallest signatures and public keys among NIST’s post-quantum
+signature schemes, which makes it attractive wherever bandwidth is
+constrained [9]. NIST project staff have given conference presentations
+tracking the standard’s status. This report could not extract readable
+text from the presentation itself, so that citation supports the
+presentation’s existence and topic rather than any figure inside it.</p>
+<p>As of this research, FN-DSA is something to plan and test for, not to
+deploy in production [8].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-additional-signatures-on-ramp">3. The Additional Signatures
+On-Ramp</h2>
+<p><em>NIST opened a second signature competition specifically to reduce
+its dependence on one kind of mathematics. Nine candidates remain, and
+the interesting fact about them is how few are lattice-based.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>NIST announced in May 2026 that nine candidates advanced from round 2
+to round 3 [10]. One is lattice-based, HAWK. One is isogeny-based,
+SQIsign. Three are built on a technique called MPC-in-the-head: FAEST,
+MQOM and SDitH. Four are multivariate: UOV, MAYO, QR-UOV and SNOVA.</p>
+<p>The distribution is the point. Only one of the nine is lattice-based,
+against four multivariate schemes. The competition exists to find
+signatures whose security rests on different assumptions from ML-DSA’s,
+so a future break in lattice mathematics would not take everything down
+at once.</p>
+<p>SQIsign is the only isogeny-based scheme remaining, and has the
+smallest combined public-key-and-signature size of any round-3
+candidate, at 148-byte signatures at the lowest security category
+[10].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Round-3 teams had to submit finalized specifications and
+implementation adjustments addressing known cryptanalytic issues by 14
+August 2026, and NIST published its round-2 status report as NIST IR
+8610 [10].</p>
+<p>The evaluation period is expected to run roughly two years [10]. It
+concludes around the 7th NIST PQC Standardization Conference,
+tentatively scheduled for late spring or early summer 2027 in
+Gaithersburg, Maryland.</p>
+<p>Part 5 covers what has happened to several of these candidates since.
+One of the nine has already been withdrawn.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="hqc">4. HQC</h2>
+<p><em>NIST selected a fifth algorithm in 2025 for the same reason the
+signature competition exists: to avoid depending on one kind of hard
+problem. Its standard has not appeared.</em></p>
+<h3 id="current-state-3">Current State</h3>
+<p>NIST selected HQC as a fifth algorithm for standardization in March
+2025 [11]. It is a code-based key encapsulation mechanism, chosen
+specifically to give the portfolio a backup built on different
+underlying mathematics from ML-KEM’s structured lattices, should ML-KEM
+ever be broken.</p>
+<p>NIST mathematician Dustin Moody stated the reasoning directly [11].
+In his words, NIST wanted a backup standard based on a different
+mathematical approach from ML-KEM.</p>
+<p>As of that announcement no FIPS number had been assigned [11]. A
+draft standard was expected roughly a year after selection, around March
+2026, with a final standard anticipated in 2027.</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>A secondary source states that HQC’s final standard is “anticipated
+as FIPS 207”, naming a specific number [12]. This report could not
+verify that number against any NIST primary source, and NIST’s own
+selection announcement is silent on it [11]. The disagreement is between
+a specific claim and an absence rather than between two competing
+figures, which is why it is recorded rather than resolved. A NIST
+publication or draft carrying the number would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="ietf-standardization-activity">5. IETF Standardization
+Activity</h2>
+<p><em>A NIST standard describes an algorithm. It does not say how to
+use that algorithm inside a real protocol. That second job belongs to
+the IETF, and this section covers the drafts that do it.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The IETF TLS working group’s draft for pure ML-KEM in TLS 1.3 has
+moved past working-group revision into IESG Last Call, reached around 30
+July 2026 [13]. Final comments were due 13 August 2026, with an intended
+status of Informational RFC. Last Call is the final review stage before
+publication, so this work is close to done rather than in progress.</p>
+<p>The draft defines the three ML-KEM parameter sets as named groups for
+TLS 1.3 and registers the corresponding values in the public registry
+[14]. Registration is the step that lets independent implementations
+interoperate.</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The LAMPS working group’s composite-signatures work reached
+working-group last call in March 2026, targeting publication as an RFC
+in the final quarter of 2026 [15]. A composite certificate carries a
+single subject public key formed by joining an ML-DSA-65 public key to a
+classical ECDSA P-256 public key. The point of a composite is that an
+attacker must break both to forge a signature.</p>
+<p>The HPKE working group has an active draft defining post-quantum and
+hybrid key encapsulation for hybrid public key encryption [16]. It
+covers the three ML-KEM parameter sets and hybrid combinations pairing
+ML-KEM-768 with classical X25519 or P-256.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>FIPS 204, Module-Lattice-Based Digital Signature Standard - <a
+href="https://csrc.nist.gov/pubs/fips/204/final"
+class="uri">https://csrc.nist.gov/pubs/fips/204/final</a> (as of
+2026-07-31)</li>
+<li>FIPS 205, Stateless Hash-Based Digital Signature Standard - <a
+href="https://csrc.nist.gov/pubs/fips/205/final"
+class="uri">https://csrc.nist.gov/pubs/fips/205/final</a> (as of
+2026-08-30)</li>
+<li>FIPS 140-3 Implementation Guidance announcements, Cryptographic
+Module Validation Program - <a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-ig-announcements"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/fips-140-3-ig-announcements</a>
+(as of 2026-08-19)</li>
+<li>ACVP draft specification, ML-DSA - <a
+href="https://pages.nist.gov/ACVP/draft-celi-acvp-ml-dsa.txt"
+class="uri">https://pages.nist.gov/ACVP/draft-celi-acvp-ml-dsa.txt</a>
+(as of 2026-08-14)</li>
+<li>Announcing Issuance of Federal Information Processing Standards FIPS
+203, 204 and 205 - <a
+href="https://www.federalregister.gov/documents/2024/08/14/2024-17956/announcing-issuance-of-federal-information-processing-standards-fips-fips-203-module-lattice-based"
+class="uri">https://www.federalregister.gov/documents/2024/08/14/2024-17956/announcing-issuance-of-federal-information-processing-standards-fips-fips-203-module-lattice-based</a>
+(as of 2024-08-14)</li>
+<li>FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard
+- <a href="https://csrc.nist.gov/pubs/fips/203/final"
+class="uri">https://csrc.nist.gov/pubs/fips/203/final</a> (as of
+2025-11-17)</li>
+<li>Updates for FIPS 203, NIST PQC forum thread - <a
+href="https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/Rb0nFvfFTEQ/m/lw-k7tVdBQAJ"
+class="uri">https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/Rb0nFvfFTEQ/m/lw-k7tVdBQAJ</a>
+(undated)</li>
+<li>Quantum-ready: FN-DSA nears draft approval from NIST - <a
+href="https://www.digicert.com/blog/quantum-ready-fndsa-nears-draft-approval-from-nist"
+class="uri">https://www.digicert.com/blog/quantum-ready-fndsa-nears-draft-approval-from-nist</a>
+(undated)</li>
+<li>FIPS 206 (FN-DSA / Falcon) status presentation - <a
+href="https://csrc.nist.gov/csrc/media/presentations/2025/fips-206-fn-dsa-(falcon)/images-media/fips_206-perlner_2.1.pdf"
+class="uri">https://csrc.nist.gov/csrc/media/presentations/2025/fips-206-fn-dsa-(falcon)/images-media/fips_206-perlner_2.1.pdf</a>
+(undated)</li>
+<li>NIST Advances Nine Post-Quantum Digital Signature Candidates to
+Third Evaluation Round - <a
+href="https://quantumcomputingreport.com/nist-advances-nine-post-quantum-digital-signature-candidates-to-third-evaluation-round/"
+class="uri">https://quantumcomputingreport.com/nist-advances-nine-post-quantum-digital-signature-candidates-to-third-evaluation-round/</a>
+(as of 2026-05-18)</li>
+<li>NIST Selects HQC as Fifth Algorithm for Post-Quantum Encryption - <a
+href="https://www.nist.gov/news-events/news/2025/03/nist-selects-hqc-fifth-algorithm-post-quantum-encryption"
+class="uri">https://www.nist.gov/news-events/news/2025/03/nist-selects-hqc-fifth-algorithm-post-quantum-encryption</a>
+(as of 2025-03-11)</li>
+<li>NIST Announces HQC as Fifth Standardized Post-Quantum Algorithm - <a
+href="https://www.securityweek.com/nist-announces-hqc-as-fifth-standardized-post-quantum-algorithm/"
+class="uri">https://www.securityweek.com/nist-announces-hqc-as-fifth-standardized-post-quantum-algorithm/</a>
+(undated)</li>
+<li>draft-ietf-tls-mlkem (IETF datatracker) - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/</a>
+(as of 2026-07-30)</li>
+<li>draft-ietf-tls-mlkem - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/</a>
+(as of 2026-07-20)</li>
+<li>draft-ietf-lamps-pq-composite-kem - <a
+href="https://lamps-wg.github.io/draft-composite-kem/draft-ietf-lamps-pq-composite-kem.html"
+class="uri">https://lamps-wg.github.io/draft-composite-kem/draft-ietf-lamps-pq-composite-kem.html</a>
+(undated)</li>
+<li>draft-ietf-hpke-pq - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-hpke-pq/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-hpke-pq/</a>
+(undated)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Mathematics</a>
+    <a class="pager-next" href="02-non-nist-national-regional-standards-tracks.html"><span>Next</span>Part 2 - Non-NIST National &amp; Regional Standards Tracks</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/01-nist-standards-track.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

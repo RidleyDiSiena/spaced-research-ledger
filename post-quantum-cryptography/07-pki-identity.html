@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 7 - PKI, Certificates, Identity & Authentication | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 7: PKI, Certificates, Identity & Authentication.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 7</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 7</p>
+    <h1>PKI, Certificates, Identity &amp; Authentication</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/07-pki-identity.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#public-ca-ecosystem" id="toc-public-ca-ecosystem">1.
+Public CA Ecosystem</a></li>
+<li><a href="#enterprise-ca-platforms"
+id="toc-enterprise-ca-platforms">2. Enterprise CA Platforms</a></li>
+<li><a href="#certificate-enrollment-protocols"
+id="toc-certificate-enrollment-protocols">3. Certificate Enrollment
+Protocols</a></li>
+<li><a href="#certificate-formats-hybrid-constructions"
+id="toc-certificate-formats-hybrid-constructions">4. Certificate Formats
+&amp; Hybrid Constructions</a></li>
+<li><a href="#enterprise-auth-protocols"
+id="toc-enterprise-auth-protocols">5. Enterprise Auth Protocols</a></li>
+<li><a href="#passwordless-hardware-tokens"
+id="toc-passwordless-hardware-tokens">6. Passwordless &amp; Hardware
+Tokens</a></li>
+<li><a href="#identity-provider-platforms"
+id="toc-identity-provider-platforms">7. Identity Provider
+Platforms</a></li>
+<li><a href="#revocation-status-infrastructure"
+id="toc-revocation-status-infrastructure">8. Revocation &amp; Status
+Infrastructure</a></li>
+<li><a href="#long-term-signature-validation-document-signing"
+id="toc-long-term-signature-validation-document-signing">9. Long-Term
+Signature Validation &amp; Document Signing</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Everything that proves identity on the internet runs on certificates
+and signatures, and none of it is quantum-safe yet. Encryption moved
+first because recorded traffic is at risk today. Signatures can wait
+until a large quantum computer exists, but the systems that issue,
+distribute, and validate them take a decade to change. This is the
+migration’s long pole.</p>
+<p>This report covers nine layers of that problem. Section 1 covers the
+public certificate authorities, Section 2 the enterprise CA platforms,
+and Section 3 the enrollment protocols between them. Section 4 covers
+certificate formats and hybrids, Section 5 the enterprise authentication
+protocols, and Section 6 smart cards and passkeys. Section 7 covers the
+identity providers, Section 8 revocation, and Section 9 document signing
+and long-term validation.</p>
+<p>The defining fact is stark: as of mid-2026, zero post-quantum roots
+chain into any major browser trust store. The defining decision is just
+as clear. Google, Let’s Encrypt, and Cloudflare have all committed to
+Merkle Tree Certificates, a redesign that shrinks quantum-safe
+authentication data twenty-fold, rather than stuffing large ML-DSA
+signatures into today’s certificates.</p>
+<p>Behind the public web, the enterprise stack is further along.
+Microsoft’s certificate services, AWS’s private CA, and the major
+open-source CA platforms all issue ML-DSA certificates today. The
+identity layer trails everything, with no standard yet for post-quantum
+SAML, and passkeys still signing with algorithms a quantum computer
+would break.</p>
+<h2 id="public-ca-ecosystem">1. Public CA Ecosystem</h2>
+<p><em>The public certificate authorities, governed by the CA/Browser
+Forum and the browser root programs, decide what certificate the padlock
+trusts. Change here requires coordinated rules, audited CAs, and browser
+support, which is why it moves slower than any software release. This
+section covers an ecosystem that has chosen its path but not yet taken
+it.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The industry picked an architecture instead of an algorithm swap. The
+IETF chartered the PLANTS working group to standardize Merkle Tree
+Certificates, with Google, Cloudflare, Let’s Encrypt, and independent
+cryptographers at the table [1]. Chrome declared MTCs its preferred
+path, and Cloudflare is running a live feasibility experiment against
+real Chrome traffic [1]. The efficiency argument is dramatic: an
+inclusion proof covering millions of certificates is 736 bytes, with no
+per-certificate post-quantum signature on the wire [1].</p>
+<p>Let’s Encrypt committed to the same path in June, targeting staging
+issuance in late 2026 and production in 2027 [2]. It noted the rollout
+touches its issuance systems, the ACME protocol, revocation, and logging
+[1]. The first CA application for Chrome’s MTC test program arrived in
+August [3], and the draft keeps iterating [4]. DigiCert published a
+developer playground [1] alongside recommendations favoring plain ML-DSA
+over composites for public trust [5].</p>
+<p>Meanwhile the rulebook has not moved. No CA/Browser Forum ballot
+enabling publicly trusted post-quantum TLS certificates had been adopted
+by late August 2026 [6], consistent with earlier tracking [7]. The count
+of ML-DSA roots in the Mozilla, Apple, Microsoft, or Chrome stores
+remains exactly zero [8].</p>
+<h3 id="current-state">Current State</h3>
+<p>The reason authentication lags encryption is size. ML-DSA-44
+signatures run about 2,420 bytes against 64 for classical ECDSA. A
+handshake carrying five signatures could push past a threshold estimated
+to break several percent of real connections [9]. Chrome reaffirmed in
+August that it has no plan to add traditional post-quantum X.509
+certificates to its root store, pursuing MTCs with no published
+timelines [10].</p>
+<p>The working group’s draft defines the new certificate form with
+public logging built in, cutting overhead for short-lived certificates
+and large algorithms alike [11]. Under the MTC design, transparency
+becomes structural: a certificate cannot exist outside the published
+tree, and the proof is itself proof of publication [9]. Let’s Encrypt
+describes today’s transparency ecosystem as bolted on after the fact,
+with separate logging signatures riding in every handshake [12]. Tree
+heads will be signed with hybrid classical-plus-quantum keys [13], and
+log entries store hashes rather than full keys for a hundred-fold saving
+[13].</p>
+<p>Let’s Encrypt already runs the same data structure in its
+transparency logs [14]. Google proposed a dedicated quantum-resistant
+root store accepting only MTCs [13]. Cloudflare’s experiment re-encodes
+about a thousand real certificates with X.509 fallback [15], and the
+company frames key exchange as half done and certificates as the harder
+half [16][17]. The earlier announcement dates from October 2025
+[18].</p>
+<p>What the Forum has passed is preparation. Ballot SMC013 enabled pure
+post-quantum certificates in the S/MIME requirements for experimentation
+[19][20], with root programs free to add their own conditions [19].
+Ballot SC-081v3 shrinks maximum TLS certificate lifetime in stages to 47
+days by 2029 [21][22], and a separate ballot retired SHA-1 from S/MIME
+[23]. A TLS-specific post-quantum ballot was still in drafting as of
+late 2025 [17], with industry expectations pointing to late 2026 or 2027
+[7].</p>
+<p>The Forum is also removing client-authentication usage from public
+certificates, pushing those uses to private PKI [24]. Its April meeting
+heard research suggesting ECC may fall to quantum attack more cheaply
+than thought, without any ballot proposed [25]. It also heard progress
+reports on MTCs, including open-source implementation work [25].
+Commentary connects the lifetime shortening to algorithm agility
+[26].</p>
+<p>At the CA product level, post-quantum today means private, not
+public. DigiCert issues private ML-DSA and SLH-DSA certificates [27] but
+not public ones [28]. It excludes Falcon and composites as experimental
+[27], and supports CRL but not yet OCSP checking for the new algorithms
+[29]. It added hardware-backed issuance through a validated HSM [27].
+Sectigo runs a sandbox for post-quantum certificate experimentation [30]
+and launched managed private post-quantum issuance in April [31],
+covering all three ML-DSA sets [32], hosted with a virtual HSM [31].</p>
+<p>Europe’s regulatory layer is converging on the same timeline. eIDAS
+2.0’s technology-neutral language lets the EU Digital Identity Wallet
+transition later without mandating post-quantum now [33], and no binding
+European technical standard for post-quantum qualified certificates
+exists [34]. The trust-service chain still runs entirely on classical
+cryptography [35][36], with ETSI’s migration framework prioritizing the
+store-now-decrypt-later exposures [37][37]. Qualified website
+certificates remain classical [38].</p>
+<p>The EU’s coordinated roadmap wants national transition strategies
+started by the end of 2026 and critical infrastructure done by 2030
+[39]. A proposed directive would write post-quantum policy into law,
+naming the wallet ecosystem’s certificate-heavy PKI as one of the
+longest-lead migrations [40][40][40]. The wallet rollout itself proceeds
+classically, with the December 2026 deadline unchanged [41]. The
+validation-queue reality bites here too: with a documented backlog and
+few fully validated hardware modules, qualified-signature regimes cannot
+yet deploy post-quantum compliantly at scale [42].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Two tensions stand. Google’s February plan described a concrete
+second phase inviting log operators in early 2027 [15], while Chrome’s
+August policy page says there are no planned MTC implementation
+timelines [10]. Whether the timeline was walked back or merely omitted
+is unclear, and a dated Chrome roadmap would settle it. Separately,
+whether the 47-day certificate ballot was quantum-motivated is disputed:
+its own text cites revocation reliability, while commentary
+retroactively frames it as post-quantum groundwork [26].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="enterprise-ca-platforms">2. Enterprise CA Platforms</h2>
+<p><em>Inside organizations, certificate authorities issue the
+credentials that machines and employees use every day. These platforms
+answer to no browser root program, so they can move as fast as their
+vendors ship. This section covers the layer where post-quantum
+certificates stopped being theoretical, and where the gaps between
+products are now wide.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Microsoft’s certificate service crossed into general availability.
+ML-DSA shipped in Active Directory Certificate Services in May 2026, the
+first post-quantum algorithm there, with no in-place migration: a new
+parallel hierarchy is required [43]. The documentation lays out the
+phases, with ML-KEM and composites planned next [44]. Among the others,
+EJBCA now covers ML-DSA, ML-KEM, composites, and SLH-DSA with HSM
+interoperability [45].</p>
+<p>HashiCorp Vault’s signing engine added SLH-DSA and hybrids [46],
+exposed through its infrastructure tooling [47]. CyberArk’s certificate
+manager documented new composite algorithms [48] and made post-quantum
+available by default, invalidating old experimental keys on upgrade
+[49].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The Microsoft stack is furthest into production. AD CS supports
+ML-DSA for CAs, templates, and responders [50], phased with ML-KEM later
+[51], covering all three parameter sets across the full lifecycle
+[52][53]. General availability landed in May [54], following the
+platform APIs in November 2025 [55], enabling pure ML-DSA certificates
+for code signing, TLS, and OCSP [44]. It is confined to Windows Server
+2025, with no backport plans [56], and HSM vendors are already
+publishing integration notes [57].</p>
+<p>AWS made its private CA post-quantum in November 2025. It creates
+ML-DSA CAs and certificates with revocation support across all regions
+[58][58] and combines with its key service for code-signing hierarchies
+[59][60]. The service builds on the first FIPS-validated open-source
+module with ML-KEM [61], and cites the federal 2030 and 2035 deprecation
+timeline [62].</p>
+<p>The open-source and commercial CA field is a capability patchwork.
+EJBCA replaced the draft algorithms with the finalized ones in 9.1
+[63][64], though its key-recovery keys stay RSA and OCSP signing remains
+classical [64]. It solved the KEM enrollment problem, since KEM keys
+cannot sign requests, through encrypted-certificate proof of possession
+[65] and an alternative message format [66]. It offers dual-key Chimera
+chains [67], composite keys [66], experimental Falcon [68], and
+hash-based schemes per the industry capability matrix [69], with newer
+releases broadening support [70][71].</p>
+<p>Its vendor marks experimental algorithms as non-production [72],
+expanded across its signing products [69][70], launched a test-drive lab
+[73], and bought two cryptographic-discovery companies [74]. Keyfactor’s
+documentation aligns with the ratified hardware-token standard [65] and
+splits community from enterprise support [67], with its stated
+commitment to adopt finalized standards [64].</p>
+<p>Entrust sells hybrid and pure issuance backed by validated HSMs
+[75][76] and helped define the IETF hybrid formats [77]. It offers
+readiness assessments [77], and published survey data showing
+organizations broadly unready [78]. Its own HSM matrix still shows the
+hash-based schemes missing [69][70].</p>
+<p>The stragglers are instructive. Vault’s post-quantum support lives in
+its signing engine, explicitly for evaluation [79][80], with the PKI
+engine’s request still an open issue [81][82] and hybrid plans waiting
+on upstream maturity [83][84][85]. smallstep implemented hybrid TLS but
+stalled on certificates, judging ML-DSA too large and slow pending
+NIST’s follow-on competition [86], with community discussion noting no
+client demand yet [87]. Its CA remains classical-first [88], supporting
+the hybrid key exchange off by default [86], with the matrix showing
+ML-KEM but no signatures [69].</p>
+<p>Venafi added the algorithms across two releases [89][90], then
+changed owners twice, landing inside Palo Alto Networks [91]. A rival’s
+claim that the new owner deprioritizes PKI is competitor marketing, not
+verified fact [92].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="certificate-enrollment-protocols">3. Certificate Enrollment
+Protocols</h2>
+<p><em>Certificates reach devices through enrollment protocols: ACME for
+web servers, SCEP for phones and network gear, EST and CMP for industry
+and IoT. Most were designed assuming a key can sign its own request,
+which post-quantum KEM keys cannot do. This section covers how each
+protocol is adapting, or failing to.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>ACME is growing post-quantum profiles. New drafts define
+quantum-ready profiles [93] and per-account algorithm preferences [94].
+The important one solves proof of possession: a public-key challenge
+letting a client prove it holds a private key without a self-signed
+request, built for KEM keys [95]. It is now in a formal adoption call
+[96]. SCEP, by contrast, has no ratified post-quantum extension at all
+[97].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>ACME’s position is mostly inherit-and-wait. The protocol standardized
+in 2019 [98] automates validation and now underlies most public
+certificates [99], with extensions keeping it current as lifetimes
+shrink [99]. It contains no algorithm negotiation [100], a gap one
+expired draft tried to fill [100][101]. The IETF’s status page lists it
+as needing no protocol-specific work since it inherits from its building
+blocks [101]. Enterprises increasingly use it beyond the web, with SCEP
+kept for older devices [102].</p>
+<p>CMP did the real KEM work. The protocol’s 2023 refresh improved
+algorithm agility [103], with a lightweight profile for industrial use
+[104] and a maintained algorithm registry [105]. The 2025 revision, RFC
+9810, adds explicit management of KEM-key certificates [106], the
+culmination of a multi-year design arc [107]. A shared CMS building
+block carries KEM support across protocols [101], and the
+composite-signature draft serves them all while remaining unratified
+[108], with its keys restricted to signing-only use [109].</p>
+<p>EST and SCEP sit at opposite ends of dignity. EST profiles enrollment
+over TLS [110], with mutual authentication and simple re-enrollment
+[110], errata fixes [111], a template mechanism for request contents
+[112], and a renewal-guidance draft [113]. The tracker lists it as
+inheriting post-quantum support [101]. Microsoft’s CA does not speak it
+natively, requiring gateways [114].</p>
+<p>SCEP was standardized informationally in 2020 after twenty years [97]
+and carries requests in CMS envelopes [97]. It gained non-RSA enrollment
+late [115], and rests on a preshared-password model weaker than EST’s
+[116]. It remains the most deployed protocol for device management
+[116], implemented even in new products [117]. Research proposes direct
+post-quantum modifications [118], while CA vendors openly question
+whether it survives the transition [119].</p>
+<p>The tracker itself is unsure which working group owns it [101].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="certificate-formats-hybrid-constructions">4. Certificate Formats
+&amp; Hybrid Constructions</h2>
+<p><em>A hybrid certificate carries both a classical and a post-quantum
+key, insurance against either one breaking. The IETF’s composite drafts
+weld the two into one atomic algorithm, while older dual-key designs let
+legacy systems ignore what they do not understand. This section covers
+the formats, and the timestamping machinery that must outlive them
+all.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>The composite specifications are inches from the finish. The
+composite KEM draft entered IETF Last Call in July [120], advanced to
+IESG evaluation with a September telechat [120], and its version history
+shows steady progress [121][122]. On the TLS side, drafts define
+composite ML-DSA negotiation [123] and a continuity extension letting
+clients pin a server’s post-quantum commitment against downgrade [124].
+A separate proposal would bind certificates to a committed future
+algorithm by hash [125].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The terminology and rules are now formal. RFC 9794 defines the
+post-quantum/traditional hybrid taxonomy, with composite as the
+instantiation that looks like a single algorithm to unaware systems
+[126][127]. Some national authorities already mandate lattice schemes
+only in hybrid form [128]. The composite signature draft cleared Last
+Call in January [129] yet kept revising through April without becoming
+an RFC [130][108], defining fixed pairings of ML-DSA with the classical
+algorithms [127].</p>
+<p>It is positioned as extra insurance rather than a universal
+replacement [131], with signing-only key usage enforced [132]. Companion
+drafts carry composites through CMS [133][134]. A hardening proposal
+binds signatures to the composite key to block cross-key forgery [135],
+and the KEM variant’s design goal is drop-in compatibility across the
+certificate ecosystem [126]. A FIPS-certification rationale drives the
+KEM composite: pair an uncertified ML-KEM with a certified classical
+component and the module can certify now [136].</p>
+<p>An IETF hackathon project maintains public interoperability matrices
+[137]. Vendor guidance still calls composites not production-ready,
+recommending plain post-quantum certificates as the simpler path
+[138].</p>
+<p>The dual-key alternative took a different road. The original catalyst
+draft is formally dead at the IETF [139]. Its approach lives on in the
+ITU-T X.509 standard, where a certificate carries an alternative key
+that legacy parties ignore [139]. Practitioners now distinguish three
+families: composites, catalyst-style alternatives, and chameleon dual
+certificates [140], with several products supporting catalyst
+certificates while chameleon remains a draft [69].</p>
+<p>An academic comparison notes the catalyst draft expired without
+becoming the international mainstream [141]. A separate individual draft
+proposes certificates signaling continuity commitments [142], carrying
+no formal standing [143]. One structural rule outlasts every format
+choice: a chain is only as post-quantum as every signature in it, which
+is why PKI is the long-lead item [144].</p>
+<p>Timestamping is quietly ready. RFC 3161’s structures are not
+algorithm-specific, so migration is substitution, not rewrite
+[145][146], with long-term evidence preserved through existing renewal
+mechanisms [146]. Commercial servers already sign tokens with ML-DSA
+[147], one vendor cross-validated ML-DSA timestamp tokens against
+independent tooling [148][149], implementing the ratified
+algorithm-identifier RFCs [148]. No standards-track update to the
+protocol itself exists or is needed [150].</p>
+<p>The tokens are ordinary X.509 signatures facing the same migration
+[151]. Analysts warn timestamps are only partial mitigation, and that
+revocation endpoints migrate separately [152][144]. A new RFC carries
+the tokens into COSE structures [153].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="enterprise-auth-protocols">5. Enterprise Auth Protocols</h2>
+<p><em>When an employee signs into anything, the login flows through
+SAML, OpenID Connect, Kerberos, or LDAP, all of them signing and
+encrypting with classical algorithms. The tokens are short-lived, but
+the signing keys and the directory traffic are not. This section covers
+the protocols where post-quantum work has barely begun, and why some
+will migrate far more easily than others.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The token-format layer got its standard. RFC 9964 registers ML-DSA
+identifiers and a new key type for JOSE and COSE [154], the piece every
+JSON-based login protocol was waiting for. The registrations are formal
+IANA entries, all marked recommended [155]. The working group continues
+on two tracks, with draft identifiers subject to change until
+registration completes [156], a composite-signature serialization draft
+[157], and the KEM draft rescoped to COSE [158].</p>
+<p>Size math stays manageable for web tokens carried over HTTPS [156].
+Kerberos moved too: an individual draft extends its certificate-based
+pre-authentication with ML-KEM [159] and reached a first revision [160].
+It was interop-tested at an IETF hackathon with a working MIT Kerberos
+build [161]. Microsoft’s directory documentation reiterates the phased
+certificate rollout [44][162], while a vendor whitepaper confirms the
+platform’s hybrid TLS covers LDAPS without any directory-specific
+mechanism [163].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The JOSE and COSE plumbing is the furthest along. The ML-DSA
+serialization draft defines the new key-pair type [164][164], and hybrid
+public-key encryption drafts cover the KEM side [165]. The original
+multi-algorithm draft was split per scheme [166], with the per-algorithm
+drafts active except an expired Falcon one [101]. Hash-based signatures
+have had a COSE RFC for years [101].</p>
+<p>Kerberos has a design but no deployment. The draft defines its KEM
+structures, key derivation, and downgrade prevention while remaining
+individual, not adopted [159][167]. Microsoft lists Kerberos on its
+roadmap with progress expected into 2027 [168]. Red Hat states plainly
+that nothing beyond TLS and SSH supports post-quantum signatures in its
+current release, Kerberos included [169].</p>
+<p>Directory traffic is the quiet exposure: advisories flag LDAP,
+Kerberos, and DNS between endpoints and domain controllers as
+harvest-now-decrypt-later targets [170][171]. Microsoft’s certificate
+support explicitly does not extend to the directory-authentication layer
+itself [172], though issued certificates cover domain authentication
+uses [51][51][44], with composites on the forward roadmap [168].</p>
+<p>The federation protocols split cleanly. OIDC signs tokens with
+quantum-vulnerable algorithms like everything else [156]. But its
+identifiers live in IANA registries where drafts exist, and its keys
+distribute through polled endpoints, making its path structurally
+cleaner [156]. The real near-term advice is defensive: tokens are
+short-lived, so protect the long-lived signing key and the endpoints
+instead [156].</p>
+<p>Government profiles already demand crypto-agility and recommend the
+hybrid TLS suites [173][173][173]. A research prototype shows a full
+post-quantum OIDC stack works [174], while no RFC defines post-quantum
+token signing yet [175].</p>
+<p>SAML is stuck at a lower layer. No specification exists for
+post-quantum SAML signatures [176], and its XML signature format has no
+post-quantum algorithm URI to reference [156][156]. Migration would mean
+coordinated metadata redistribution across every service provider [156].
+None of the major providers documents general-availability post-quantum
+SAML signing [156].</p>
+<p>Guidance points to ML-DSA as the eventual replacement, once standards
+exist [175][175]. The deeper problem is organizational: SAML’s standards
+committee no longer exists, so the work would have to happen in the
+XML-signature world [177].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="passwordless-hardware-tokens">6. Passwordless &amp; Hardware
+Tokens</h2>
+<p><em>Smart cards and passkeys are the physical end of identity: the
+badge that opens the federal building, the security key that defeats
+phishing. Both sign with elliptic curves a quantum computer would break,
+and both live in hardware that cannot be patched. This section covers
+the standards bodies designing their successors, and the years-long gap
+before anything ships.</em></p>
+<h3 id="recent-developments-5">Recent Developments</h3>
+<p>The U.S. federal credential started its redesign. NIST released
+working drafts updating the PIV smart-card standards for ML-DSA and
+ML-KEM [178]. They rest on a dual-stack model adding post-quantum
+containers beside the classical ones for incremental deployment
+[178][179].</p>
+<p>The drafts are explicitly labeled preliminary [178], with a gap
+analysis attached [180]. Research found KEM-based card authentication
+far lighter than signatures on constrained hardware [181], and IDEMIA
+demonstrated the first complete PIV application using it [182]. NIST
+contracted support for the credentialing update [183], and GSA is
+rebuilding the federal identity architecture around post-quantum, with
+pilots through 2028 and full migration targeted by 2035 [184].</p>
+<p>The passkey world reached milestones without post-quantum. WebAuthn
+Level 3 became a full W3C Recommendation in August [185], with an open
+post-quantum transition issue on the next milestone [186]. Yubico
+demonstrated ML-DSA running on YubiKey hardware [187], and a vendor
+partnership is developing end-to-end post-quantum FIDO2 passkeys
+[188].</p>
+<h3 id="current-state-5">Current State</h3>
+<p>The FIDO stack has groundwork but no shipped product. Current
+implementations sign with classical curves [189][190], IANA registered
+the ML-DSA identifiers in 2025 as the prerequisite [191][192], and the
+server requirements already list ML-DSA as recommended or optional
+[193]. The Alliance runs a dedicated post-quantum working group, with no
+finalized specification or platform implementation yet [192][194].
+Google’s 2023 hybrid security key was a research demonstration predating
+the registrations [191][195].</p>
+<p>Researchers name the missing secure hardware and the absent roadmap
+as the bottlenecks [196]. Academic work evaluates ML-DSA’s fit [197],
+and proposed architectures treat the migration as lifecycle management
+across every component [198].</p>
+<p>The protocol versions keep the platform current. CTAP 2.3 published
+in February as the certification baseline [199][200],
+backward-compatible [199], adding transport and usability features
+[201], with certification consolidated on it [201]. Its predecessor
+added token and policy features [202], and CTAP pairs with WebAuthn to
+form FIDO2 [197][203]. WebAuthn Level 3 consolidates passkey behaviors
+and adds capability APIs [204], after a candidate phase [185][205], atop
+the earlier Recommendations [205].</p>
+<p>RFC 9964’s publication gave the web-token side its identifiers [206],
+and a draft describes ML-DSA in WebAuthn directly [207]. Adoption is the
+bright spot: roughly 5 billion passkeys active [208], with high
+awareness and enterprise deployment [208], and portability arriving
+through a credential-exchange protocol [208].</p>
+<p>The federal card fleet is the hard case. Current standards
+authenticate with RSA or ECDSA at graduated assurance [209], the defense
+card remains the standard credential [210], aligned department-wide on
+PIV authentication [211]. Policy now admits passkeys as approved
+alternatives for some uses, with phishable authenticators to retire by
+fiscal 2027 [212]. A live GSA pilot issues PIV credentials with
+classical, hybrid, and post-quantum profiles [213]. The physics problem
+is memory: legacy chips with as little as 72 kilobytes cannot hold
+post-quantum material, so dual-signature certificates let old systems
+fall back to classical [214].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="identity-provider-platforms">7. Identity Provider Platforms</h2>
+<p><em>A handful of identity providers hold the signing keys behind
+millions of corporate logins. When they migrate, whole ecosystems
+follow. Until then, every relying application waits. This section covers
+a market of roadmaps, where the clearest engineering commitment comes
+from an open-source project rather than any commercial vendor.</em></p>
+<h3 id="recent-developments-6">Recent Developments</h3>
+<p>Microsoft moved its target forward. The company now aims to
+transition its products and services, Entra included, to post-quantum by
+2029, four years earlier than its prior 2033 goal [215]. Its security
+initiative reports a defined transition approach across certificate
+services and identity platforms [216]. Okta paired its hybrid key
+exchange rollout with tooling to migrate customer tenants as defaults
+change [217], positioning its coverage across all hyperscalers
+[217].</p>
+<p>Keycloak’s community opened concrete feature requests for ML-DSA
+token signing [218] and hybrid composite signatures targeting a named
+release [219]. An independent ranking credits Ping’s orchestration
+engine as a natural phase-in path while noting 2026 readiness mostly
+means agility, not shipped features [220].</p>
+<h3 id="current-state-6">Current State</h3>
+<p>Microsoft’s identity migration is roadmap plus foundations. The
+published plan makes Entra authentication, passkeys included,
+quantum-safe on the long timeline [221]. The underpinnings arrive
+earlier: certificate services issuing ML-DSA [53], and platform APIs
+generally available [222][55]. Hybrid TLS sits in the stack beneath the
+services [223], with standing involvement in the open-source and NIST
+integration efforts [223]. Authentication scenarios themselves, Kerberos
+and passwordless included, are explicitly future work into 2027
+[224].</p>
+<p>Keycloak is the transparent one. It supports only classical
+algorithms today [225], with a readiness epic explicitly keeping
+post-quantum optional and legacy algorithms intact [226]. Maintainers
+report the signature mechanics easy and the key-distribution standards
+the hard part [225], and recommend hybrids despite format gaps [225].
+They field adjacent requests from password hashing [227] to a years-old
+dependency bump [228].</p>
+<p>The work in progress spans SAML readiness [229], a priority research
+spike [230], and a sixty-subtask epic targeting a named milestone, more
+concrete than any commercial provider’s public plan [231]. The
+motivating deadlines are regulatory, led by France’s 2027 certification
+cutoff [231]. Outside observers tie the work to the new token-signing
+RFC, noting that the first post-quantum token an IdP issues obligates
+every downstream verifier [232].</p>
+<p>The commercial providers publish posture, not features. Okta’s
+two-phase plan starts with hybrid key exchange against
+harvest-now-decrypt-later [217][217], wrapped in customer audit guidance
+[217][233], and its appearance in a conference promotion names no
+shipped capability [234]. Ping evaluates the standards and plans
+adoption as they mature [235], positions its platform around agility
+[235], and publishes migration playbooks [236]. Its executives urge
+inventory-first preparation [237][238] while calling the shrinking
+window real [239].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>Microsoft’s own dates disagree. The current announcement targets 2029
+for the product transition [215], while the standing Entra roadmap
+document still says full transition by 2033 [221]. The likeliest reading
+is acceleration that has not propagated through all documentation, but
+the documents themselves do not say so. A single updated Microsoft
+timeline would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="revocation-status-infrastructure">8. Revocation &amp; Status
+Infrastructure</h2>
+<p><em>When a certificate goes bad, revocation lists and OCSP responses
+are how the world finds out. Both are signed artifacts, so post-quantum
+signatures multiply their size at exactly the moment the industry was
+already losing faith in them. This section covers the arithmetic, and
+the two escape routes: certificates too short-lived to revoke, and
+Merkle trees.</em></p>
+<h3 id="recent-developments-7">Recent Developments</h3>
+<p>The measurements arrived and they are ugly. Profiled revocation lists
+grow roughly seven-fold under ML-DSA-44 and forty-fold under the larger
+hash-based sets [240]. OCSP responses grow from about 2 to 8 kilobytes,
+list entries from 300 bytes to 4 kilobytes, and a
+hundred-thousand-certificate database from 240 megabytes to 1.8
+gigabytes [241][241]. The Merkle Tree Certificates draft moved onto the
+standards track [242], with deployment use cases [243] and bulk proof
+mechanisms [244].</p>
+<p>Chrome has a phased plan running through a 2027 root-store
+finalization [245]. The editor’s copy clarifies that classical
+revocation applies unmodified to MTCs [4]. Let’s Encrypt’s plan folds
+revocation tooling into its MTC transition [2]. A new draft proposes
+stapled status via sparse Merkle proofs and threshold signatures as an
+OCSP alternative [246].</p>
+<p>Current guidance recommends hours-to-days certificate lifetimes for
+high-scale systems precisely to sidestep revocation [247].</p>
+<h3 id="current-state-7">Current State</h3>
+<p>The size problem compounds through the stack. ML-DSA inflates chains,
+lists, and responses together [248], and the hash-based schemes are
+worst for revocation artifacts [248]. Modeling of RPKI-style object
+stores shows growth from 1.2 gigabytes to 2.9 under ML-DSA and to 39 in
+the worst hash-based case [249][249]. A response’s penalty stacks on the
+chain’s, since responses embed certificates [250], and a three-tier
+ML-DSA chain crosses 20 kilobytes before the handshake starts [250].</p>
+<p>NIST proposed reduced-size hash-based parameter sets aimed at
+certificate signing [251]. Forum deliberations even floated hard byte
+caps forcing CAs to partition lists [252].</p>
+<p>The industry’s direction was set before the algorithms arrived. The
+Forum made OCSP optional and lists mandatory in 2023 [253], and Let’s
+Encrypt completed its OCSP exit in 2025, decommissioning its responders
+entirely [254][255]. Where OCSP survives, stapling carries larger signed
+responses through an otherwise unchanged protocol [256], recommended
+alongside caching extensions to absorb the size [257]. Stapling already
+fails silently across much of production [258].</p>
+<p>Short lifetimes are the working substitute. The 47-day schedule
+passed with every browser in favor and zero CAs opposed [259][260], its
+text framing revocation as complementary and sole reliance on it as
+untenable [261][262]. Bounded lifetimes bound algorithm exposure too,
+which is the crypto-agility argument [263]. MTCs push the same logic
+further, recommending hourly batches and 14-day certificates so expiry
+replaces revocation [264].</p>
+<p>Within the MTC design, relying parties revoke by index ranges without
+knowing log contents [265], and an optional mode drops signatures
+entirely for current clients [266]. The log entries dodge the size
+penalty by storing hashes [265], and a CA’s cosigner key may still sign
+classical status artifacts [266]. Researchers classify the whole
+construction as research-stage, against deployed classical schemes and
+emerging plain ML-DSA [267][267]. Meanwhile Microsoft’s responder signs
+OCSP with ML-DSA today [268][269], the concrete counterpoint to all the
+redesigns.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="long-term-signature-validation-document-signing">9. Long-Term
+Signature Validation &amp; Document Signing</h2>
+<p><em>A signed contract must stay verifiable for decades, long after
+the algorithm that signed it dies. Europe’s advanced-signature standards
+solved this for classical cryptography with layered timestamps and
+archival levels. This section covers how that machinery absorbs the
+post-quantum transition, and the e-signature platforms dragging behind
+it.</em></p>
+<h3 id="recent-developments-8">Recent Developments</h3>
+<p>Europe’s algorithm catalogue went post-quantum. ETSI TS 119 312
+version 2.1.1, published June 2026, incorporates ML-DSA, SLH-DSA, the
+hash-based schemes, and hybrids, with recommended suites and a dedicated
+migration section [270][270]. Downstream assessors updated their
+policies immediately [271], and ETSI opened a new report series on
+post-quantum impact across signatures, trust providers, and the EU
+wallet [272]. Among the platforms, DocuSign started implementing ML-DSA
+with dates promised in 2026 [273].</p>
+<h3 id="current-state-8">Current State</h3>
+<p>The standards were built algorithm-agnostic, which is now paying off.
+PAdES, the PDF signature standard, only recommends the catalogue’s
+algorithms rather than requiring them, so it can carry post-quantum
+signatures without a specification change [274]. Its current version
+[275] defines four baseline levels [276], with the archival level
+designed to outlive algorithm expiry by accumulating new material
+[277][278]. The XML equivalent augments incrementally the same way
+[279][279], with archival timestamps requiring embedded validation
+material first [280] and profile-level placement rules [281]. The
+CMS-based standard sits at its 2023 revision [282][283], and a new
+COSE-based signature standard defers to the catalogue by construction
+[284].</p>
+<p>The catalogue is also the migration clock. The superseded version
+already set end dates rather than open-ended approvals [285][286], and a
+machine-readable schema encodes them for automated preservation [287].
+The post-quantum revision arrived roughly on its announced schedule
+[286]. The forcing function is simple: suitability periods are shorter
+than statutory retention, so long-lived signatures must be
+re-timestamped before their algorithms expire, a maintenance process the
+standard mandates [285][285]. Interoperability rests on the coordinated
+European mechanism agreements [286].</p>
+<p>The platform gap is the story to watch. Adobe states no confirmed
+post-quantum roadmap for Acrobat signatures as of March 2026 [288]. Yet
+the first ML-DSA-signed PDF passed between a vendor and Adobe in May
+2025, SLH-DSA followed, and the PDF industry agreed to formalize both
+algorithms into the specification [289][289]. Adobe’s transport layer
+meanwhile keeps supporting old TLS for lagging clients, with
+post-quantum interest noted [290].</p>
+<p>Europe’s qualified-signature regime frames the deadline. eIDAS 2.0
+requires every member state to issue a digital identity wallet by the
+end of 2026 [291]. Wallet-created qualified signatures carry legal
+equivalence to handwritten ones through qualified providers [292]. It
+expands the trust services [292] and sets identity-proofing requirements
+on issuance [293], with existing providers coexisting through the
+transition [294]. All of it, for now, on classical cryptography, which
+is exactly why the catalogue’s new migration section matters.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Let’s Encrypt Merkle Tree Certificates Post-Quantum - <a
+href="https://postquantum.com/security-pqc/lets-encrypt-merkle-tree-mtc-post-quantum/"
+class="uri">https://postquantum.com/security-pqc/lets-encrypt-merkle-tree-mtc-post-quantum/</a>
+- as of 2026-06-05</li>
+<li>A Post-Quantum Future for Let’s Encrypt - <a
+href="https://letsencrypt.org/2026/06/03/pq-certs"
+class="uri">https://letsencrypt.org/2026/06/03/pq-certs</a> - as of
+2026-06-03</li>
+<li>First CA Files for Chrome’s MTC Test Root Store - <a
+href="https://postquantum.com/security-pqc/trustasia-mtc-chrome-test-root/"
+class="uri">https://postquantum.com/security-pqc/trustasia-mtc-chrome-test-root/</a>
+- as of 2026-08-04</li>
+<li>Merkle Tree Certificates - <a
+href="https://ietf-plants-wg.github.io/merkle-tree-certs/draft-ietf-plants-merkle-tree-certs.html"
+class="uri">https://ietf-plants-wg.github.io/merkle-tree-certs/draft-ietf-plants-merkle-tree-certs.html</a>
+- as of 2026-08-28</li>
+<li>Recommendations for Post-Quantum TLS Migration | DigiCert - <a
+href="https://www.digicert.com/articles/pqc/recommendations-for-post-quantum-tls-migration"
+class="uri">https://www.digicert.com/articles/pqc/recommendations-for-post-quantum-tls-migration</a>
+- as of 2026-08-26</li>
+<li>Ballot SMC017v2: Increase Minimum RSA CA Key Size | CA/Browser Forum
+- <a href="https://cabforum.org/2026/06/16/ballot-smc-017v2/"
+class="uri">https://cabforum.org/2026/06/16/ballot-smc-017v2/</a> - as
+of 2026-08-27</li>
+<li>A look at TLS and Internet security in early 2026 | SSLreminder blog
+- <a href="https://sslreminder.pro/blog/posts/state-of-tls-q1-2026/"
+class="uri">https://sslreminder.pro/blog/posts/state-of-tls-q1-2026/</a>
+- as of 2026-06-12</li>
+<li>Hybrid Post-Quantum Certificates: Why Your First PQC … - <a
+href="https://evertrust.io/blog/hybrid-post-quantum-certificates/"
+class="uri">https://evertrust.io/blog/hybrid-post-quantum-certificates/</a>
+- as of 2026-06-03</li>
+<li>Post-Quantum TLS Certificates: Let’s Encrypt Plans Merkle Tree
+Rollout That Shrinks Handshakes - <a
+href="https://www.techtimes.com/articles/317788/20260604/post-quantum-tls-certificates-lets-encrypt-plans-merkle-tree-rollout-that-shrinks-handshakes.htm"
+class="uri">https://www.techtimes.com/articles/317788/20260604/post-quantum-tls-certificates-lets-encrypt-plans-merkle-tree-rollout-that-shrinks-handshakes.htm</a>
+- as of 2026-06-04</li>
+<li>Chrome Root Program - Moving Forward, Together - <a
+href="https://googlechrome.github.io/chromerootprogram/crp/moving-forward-together"
+class="uri">https://googlechrome.github.io/chromerootprogram/crp/moving-forward-together</a>
+- as of 2026-08-28</li>
+<li>Merkle Tree Certificates - <a
+href="https://www.ietf.org/archive/id/draft-ietf-plants-merkle-tree-certs-01.html"
+class="uri">https://www.ietf.org/archive/id/draft-ietf-plants-merkle-tree-certs-01.html</a></li>
+<li>A Post-Quantum Future for Let’s Encrypt - Let’s Encrypt - <a
+href="https://letsencrypt.org/2026/06/03/pq-certs"
+class="uri">https://letsencrypt.org/2026/06/03/pq-certs</a></li>
+<li>Cultivating a robust and efficient quantum-safe HTTPS (Google
+Security Blog) - <a
+href="https://security.googleblog.com/2026/02/cultivating-robust-and-efficient.html"
+class="uri">https://security.googleblog.com/2026/02/cultivating-robust-and-efficient.html</a>
+- as of 2026-02-28</li>
+<li>Quantum is the least interesting part of quantum certificates - <a
+href="https://www.certkit.io/blog/quantum-is-the-least-interesting-part"
+class="uri">https://www.certkit.io/blog/quantum-is-the-least-interesting-part</a></li>
+<li>Cultivating a robust and efficient quantum-safe HTTPS - <a
+href="https://security.googleblog.com/2026/02/cultivating-robust-and-efficient.html"
+class="uri">https://security.googleblog.com/2026/02/cultivating-robust-and-efficient.html</a>
+- as of 2026-02-01</li>
+<li>Keeping the Internet fast and secure- introducing Merkle Tree
+Certificates | The Cloudflare Blog - <a
+href="https://blog.cloudflare.com/bootstrap-mtc/"
+class="uri">https://blog.cloudflare.com/bootstrap-mtc/</a> - as of
+2025-10-28</li>
+<li>State of the post-quantum Internet in 2025 | Cloudflare Blog - <a
+href="https://blog.cloudflare.com/pq-2025/"
+class="uri">https://blog.cloudflare.com/pq-2025/</a> - as of
+2025-10-28</li>
+<li>Keeping the Internet fast and secure: introducing Merkle Tree
+Certificates - <a href="https://blog.cloudflare.com/bootstrap-mtc/"
+class="uri">https://blog.cloudflare.com/bootstrap-mtc/</a> - as of
+2025-10-28</li>
+<li>Ballot SMC013: Enable PQC Algorithms for S/MIME | CA/Browser Forum -
+<a href="https://cabforum.org/2025/07/02/ballot-smc-013/"
+class="uri">https://cabforum.org/2025/07/02/ballot-smc-013/</a> - as of
+2025-08-22</li>
+<li>Ballot SMC013: Enable PQC Algorithms for S/MIME - <a
+href="https://cabforum.org/2025/07/02/ballot-smc-013/"
+class="uri">https://cabforum.org/2025/07/02/ballot-smc-013/</a> - as of
+2025-08-22</li>
+<li>Ballot SC081v3: Introduce Schedule of Reducing Validity and Data
+Reuse Periods (CA/Browser Forum) - <a
+href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/"
+class="uri">https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/</a>
+- as of 2025-04-11</li>
+<li>Ballot SC081v3: Introduce Schedule of Reducing Validity and Data
+Reuse Periods - <a
+href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/"
+class="uri">https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/</a>
+- as of 2025-04-11</li>
+<li>Baseline Requirements | CA/Browser Forum - <a
+href="https://cabforum.org/working-groups/server/baseline-requirements/"
+class="uri">https://cabforum.org/working-groups/server/baseline-requirements/</a>
+- as of 2026-05-05</li>
+<li>Certificate Best Practices for 2026 and Beyond: A Guide for Security
+Teams - <a
+href="https://blogs.oracle.com/cloud-infrastructure/certificate-best-practices-for-2026-and-beyond"
+class="uri">https://blogs.oracle.com/cloud-infrastructure/certificate-best-practices-for-2026-and-beyond</a></li>
+<li>2026-04-09 Minutes of the Forum - <a
+href="https://cabforum.org/2026/04/09/2026-04-09-minutes-of-the-forum/"
+class="uri">https://cabforum.org/2026/04/09/2026-04-09-minutes-of-the-forum/</a>
+- as of 2026-04-09</li>
+<li>It’s Official: CA/B Forum Votes Yes to 47-Day TLS Certificates - <a
+href="https://www.appviewx.com/blogs/https-www-appviewx-com-blogs-its-official-ca-b-forum-votes-yes-to-47-day-tls-certificates/"
+class="uri">https://www.appviewx.com/blogs/https-www-appviewx-com-blogs-its-official-ca-b-forum-votes-yes-to-47-day-tls-certificates/</a>
+- as of 2026-05-19</li>
+<li>Post-quantum cryptography (PQC) - <a
+href="https://docs.digicert.com/en/trust-lifecycle-manager/enroll-and-manage-certificates/post-quantum-cryptography-pqc.html"
+class="uri">https://docs.digicert.com/en/trust-lifecycle-manager/enroll-and-manage-certificates/post-quantum-cryptography-pqc.html</a></li>
+<li>Understand solutions for post-quantum computing - <a
+href="https://docs.digicert.com/en/platform-overview/digicert-solutions-for-post-quantum-computing.html"
+class="uri">https://docs.digicert.com/en/platform-overview/digicert-solutions-for-post-quantum-computing.html</a></li>
+<li>Post-quantum cryptography (PQC) support - <a
+href="https://docs.digicert.com/en/digicert-private-ca-services/ca-manager/post-quantum-cryptography--pqc--support.html"
+class="uri">https://docs.digicert.com/en/digicert-private-ca-services/ca-manager/post-quantum-cryptography--pqc--support.html</a></li>
+<li>Post-quantum Cryptography Solutions (PQC) | Sectigo® Official - <a
+href="https://www.sectigo.com/quantum-labs"
+class="uri">https://www.sectigo.com/quantum-labs</a></li>
+<li>Sectigo advances post-quantum readiness with Private PQC
+certificates built into Sectigo Certificate Manager - <a
+href="https://www.sectigo.com/resource-library/private-pqc-in-sectigo-certificate-manager"
+class="uri">https://www.sectigo.com/resource-library/private-pqc-in-sectigo-certificate-manager</a>
+- as of 2026-04-14</li>
+<li>Sectigo advances post-quantum readiness with Private PQC
+certificates - <a
+href="https://www.sectigo.com/resource-library/private-pqc-in-sectigo-certificate-manager"
+class="uri">https://www.sectigo.com/resource-library/private-pqc-in-sectigo-certificate-manager</a>
+- as of 2026-04-14</li>
+<li>The many features which make the eIDAS 2 Digital Wallet either risky
+or the ideal vehicle for the transition to post-quantum encryption - <a
+href="https://www.sciencedirect.com/science/article/abs/pii/S0267364924000888"
+class="uri">https://www.sciencedirect.com/science/article/abs/pii/S0267364924000888</a>
+- as of 2026-08-03</li>
+<li>Preparing Qualified Electronic Signatures: Navigating Post-Quantum
+Cryptography - <a
+href="https://www.cryptomathic.com/preparing-qualified-electronic-signatures-navigating-post-quantum-cryptography-cryptomathic"
+class="uri">https://www.cryptomathic.com/preparing-qualified-electronic-signatures-navigating-post-quantum-cryptography-cryptomathic</a>
+- as of 2026-07-09</li>
+<li>Post-Quantum Qualified Electronic Signatures | Cryptomathic - <a
+href="https://www.cryptomathic.com/preparing-qualified-electronic-signatures-navigating-post-quantum-cryptography-cryptomathic"
+class="uri">https://www.cryptomathic.com/preparing-qualified-electronic-signatures-navigating-post-quantum-cryptography-cryptomathic</a></li>
+<li>Post-Quantum Cryptography &amp; Trust Services - <a
+href="https://pkic.org/events/2023/pqc-conference-amsterdam-nl/pkic-pqcc_lizzy-pollman_rdi_post-quantum-cryptography-and-trust-services.pdf"
+class="uri">https://pkic.org/events/2023/pqc-conference-amsterdam-nl/pkic-pqcc_lizzy-pollman_rdi_post-quantum-cryptography-and-trust-services.pdf</a></li>
+<li>Post-Quantum Cryptography Conference How ETSI is Preparing for PQC -
+<a
+href="https://pkic.org/events/2025/pqc-conference-kuala-lumpur-my/THU_P_1200_inigo-barreira_how-etsi-is-preparing-for-pqc_merged.pdf"
+class="uri">https://pkic.org/events/2025/pqc-conference-kuala-lumpur-my/THU_P_1200_inigo-barreira_how-etsi-is-preparing-for-pqc_merged.pdf</a></li>
+<li>What is eIDAS 2? Explore Today’s Compliance Landscape. | Entrust -
+<a href="https://www.entrust.com/resources/learn/eidas-2"
+class="uri">https://www.entrust.com/resources/learn/eidas-2</a></li>
+<li>EU begins coordinated effort for Member States to switch critical
+infrastructure to quantum-resistant encryption by 2030 - Industrial
+Cyber - <a
+href="https://industrialcyber.co/regulation-standards-and-compliance/eu-begins-coordinated-effort-for-member-states-to-switch-critical-infrastructure-to-quantum-resistant-encryption-by-2030/"
+class="uri">https://industrialcyber.co/regulation-standards-and-compliance/eu-begins-coordinated-effort-for-member-states-to-switch-critical-infrastructure-to-quantum-resistant-encryption-by-2030/</a></li>
+<li>The EU Just Proposed Including Post-Quantum Cryptography (PQC) in
+NIS2 - <a href="https://postquantum.com/security-pqc/eu-pqc-nis2/"
+class="uri">https://postquantum.com/security-pqc/eu-pqc-nis2/</a> - as
+of 2026-02-13</li>
+<li>eIDAS 2 PKI Implications for Digital Identity - <a
+href="https://www.tigertrust.io/blog/eidas-2-pki-implications-digital-identity"
+class="uri">https://www.tigertrust.io/blog/eidas-2-pki-implications-digital-identity</a>
+- as of 2026-04-15</li>
+<li>Hybrid Post-Quantum Certificates: Why Your First PQC Deployment - <a
+href="https://evertrust.io/blog/hybrid-post-quantum-certificates/"
+class="uri">https://evertrust.io/blog/hybrid-post-quantum-certificates/</a>
+- as of 2026-06-03</li>
+<li>encryptionconsulting.com — ml dsa support for your microsoft pki -
+<a
+href="https://www.encryptionconsulting.com/ml-dsa-support-for-your-microsoft-pki/"
+class="uri">https://www.encryptionconsulting.com/ml-dsa-support-for-your-microsoft-pki/</a>
+- as of 2026-06-30</li>
+<li>Post-Quantum Cryptography in AD CS overview - Windows Server - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
+- as of 2026-08-25</li>
+<li>Post-Quantum Cryptography Keys and Signatures - <a
+href="https://docs.keyfactor.com/ejbca/latest/post-quantum-cryptography-keys-and-signatures"
+class="uri">https://docs.keyfactor.com/ejbca/latest/post-quantum-cryptography-keys-and-signatures</a>
+- as of 2026-08-08</li>
+<li>Preparing for the post-quantum era: Discover and prioritize now - <a
+href="https://www.hashicorp.com/en/blog/preparing-for-the-post-quantum-era-discover-and-prioritize-now"
+class="uri">https://www.hashicorp.com/en/blog/preparing-for-the-post-quantum-era-discover-and-prioritize-now</a>
+- as of 2026-07-13</li>
+<li>vault_transit_secret_backend_key | Resources | hashicorp/vault - <a
+href="https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/transit_secret_backend_key"
+class="uri">https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/transit_secret_backend_key</a>
+- as of 2026-08-14</li>
+<li>What’s New in CyberArk Trust Protection Foundation - <a
+href="https://docs.cyberark.com/mis-self-hosted/Docs/current/TopNav/Content/Release-Documents/whats_new.php"
+class="uri">https://docs.cyberark.com/mis-self-hosted/Docs/current/TopNav/Content/Release-Documents/whats_new.php</a>
+- as of 2026-08-21</li>
+<li>Important Considerations before upgrading CyberArk Trust Protection
+Foundation - <a
+href="https://docs.cyberark.com/mis-self-hosted/Docs/current/TopNav/Content/Release-Documents/important_considerations.php"
+class="uri">https://docs.cyberark.com/mis-self-hosted/Docs/current/TopNav/Content/Release-Documents/important_considerations.php</a>
+- as of 2026-08-21</li>
+<li>What is Active Directory Certificate Services in Windows Server? |
+Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/active-directory-certificate-services-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/active-directory-certificate-services-overview</a></li>
+<li>Post-Quantum Cryptography in AD CS overview - Windows Server |
+Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a></li>
+<li>learn.microsoft.com — ml dsa overview - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/ml-dsa-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/ml-dsa-overview</a>
+- as of 2026-05-20</li>
+<li>Microsoft AD CS Adds Post-Quantum Cryptography Support with ML-DSA |
+Richard M. Hicks Consulting, Inc. - <a
+href="https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/"
+class="uri">https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/</a>
+- as of 2026-05-18</li>
+<li>New Windows 11 Features to Secure Today’s Data in a Post-Quantum
+World | Windows 11 Forum - <a
+href="https://www.elevenforum.com/t/new-windows-11-features-to-secure-todays-data-in-a-post-quantum-world.47227/"
+class="uri">https://www.elevenforum.com/t/new-windows-11-features-to-secure-todays-data-in-a-post-quantum-world.47227/</a>
+- as of 2026-05-01</li>
+<li>Post-Quantum Cryptography APIs Now Generally Available on Microsoft
+Platforms | Microsoft Community Hub - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093</a>
+- as of 2025-11-18</li>
+<li>sysadmins.lv — meet pqc ml dsa support in active directory
+certificate services - <a
+href="https://www.sysadmins.lv/blog-en/meet-pqc-ml-dsa-support-in-active-directory-certificate-services.aspx"
+class="uri">https://www.sysadmins.lv/blog-en/meet-pqc-ml-dsa-support-in-active-directory-certificate-services.aspx</a>
+- as of 2026-05-14</li>
+<li>kryptus.com — appnote adcs ml dsa knet en.pdf - <a
+href="https://kryptus.com/wp-content/uploads/2026/06/appnote-adcs-ml-dsa-knet-en.pdf"
+class="uri">https://kryptus.com/wp-content/uploads/2026/06/appnote-adcs-ml-dsa-knet-en.pdf</a></li>
+<li>AWS Private CA now supports post-quantum digital certificates - <a
+href="https://aws.amazon.com/about-aws/whats-new/2025/11/aws-private-ca-post-quantum-digital-certificates/"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2025/11/aws-private-ca-post-quantum-digital-certificates/</a>
+- as of 2025-11-10</li>
+<li>AWS Security Blog - <a
+href="https://aws.amazon.com/blogs/security/post-quantum-ml-dsa-code-signing-with-aws-private-ca-and-aws-kms"
+class="uri">https://aws.amazon.com/blogs/security/post-quantum-ml-dsa-code-signing-with-aws-private-ca-and-aws-kms</a></li>
+<li>aws.amazon.com — post quantum ml dsa code signing with aws private
+ca and aws kms - <a
+href="https://aws.amazon.com/blogs/security/post-quantum-ml-dsa-code-signing-with-aws-private-ca-and-aws-kms"
+class="uri">https://aws.amazon.com/blogs/security/post-quantum-ml-dsa-code-signing-with-aws-private-ca-and-aws-kms</a></li>
+<li>Post-Quantum Cryptography - Amazon Web Services - <a
+href="https://aws.amazon.com/security/post-quantum-cryptography/"
+class="uri">https://aws.amazon.com/security/post-quantum-cryptography/</a></li>
+<li>Migration to Post-Quantum Cryptography - Amazon Web Services - <a
+href="https://aws.amazon.com/security/post-quantum-cryptography/migrating-to-post-quantum-cryptography/"
+class="uri">https://aws.amazon.com/security/post-quantum-cryptography/migrating-to-post-quantum-cryptography/</a></li>
+<li>EJBCA 9.1 Community is Here! - EJBCA - <a
+href="https://www.ejbca.org/resources/ejbca-9-1-community-is-here/"
+class="uri">https://www.ejbca.org/resources/ejbca-9-1-community-is-here/</a>
+- as of 2025-03-31</li>
+<li>Post-Quantum Cryptography Keys and Signatures - <a
+href="https://docs.keyfactor.com/ejbca/9.1.1/post-quantum-cryptography-keys-and-signatures"
+class="uri">https://docs.keyfactor.com/ejbca/9.1.1/post-quantum-cryptography-keys-and-signatures</a></li>
+<li>Post-Quantum Cryptography Keys and Signatures | Keyfactor Docs - <a
+href="https://docs.keyfactor.com/ejbca/latest/post-quantum-cryptography-keys-and-signatures"
+class="uri">https://docs.keyfactor.com/ejbca/latest/post-quantum-cryptography-keys-and-signatures</a></li>
+<li>docs.keyfactor.com — post quantum cryptography keys and signatures -
+<a
+href="https://docs.keyfactor.com/ejbca/latest/post-quantum-cryptography-keys-and-signatures"
+class="uri">https://docs.keyfactor.com/ejbca/latest/post-quantum-cryptography-keys-and-signatures</a></li>
+<li>Tutorial - Create Post-Quantum Cryptography Chimera CA Chain |
+Keyfactor Docs - <a
+href="https://docs.keyfactor.com/ejbca/latest/tutorial-create-pqc-hybrid-ca-chain"
+class="uri">https://docs.keyfactor.com/ejbca/latest/tutorial-create-pqc-hybrid-ca-chain</a></li>
+<li>Try Quantum-Safe Cryptography PKI - <a
+href="https://www.ejbca.org/use-cases/try-quantum-safe-cryptography-pki/"
+class="uri">https://www.ejbca.org/use-cases/try-quantum-safe-cryptography-pki/</a></li>
+<li>pkic.org — pqccm - <a href="https://pkic.org/wg/pqc/pqccm/"
+class="uri">https://pkic.org/wg/pqc/pqccm/</a> - as of 2025-10-02</li>
+<li>PQC Capabilities Matrix (PQCCM) - <a
+href="https://pkic.org/wg/pqc/pqccm/"
+class="uri">https://pkic.org/wg/pqc/pqccm/</a> - as of 2025-06-23</li>
+<li>What’s New in Keyfactor EJBCA 9.4: Quantum-Safe, Planet Scale,
+Appliance Ready - <a
+href="https://www.keyfactor.com/blog/whats-new-in-keyfactor-ejbca-9-4-quantum-safe-planet-scale-appliance-ready/"
+class="uri">https://www.keyfactor.com/blog/whats-new-in-keyfactor-ejbca-9-4-quantum-safe-planet-scale-appliance-ready/</a>
+- as of 2025-12-15</li>
+<li>docs.keyfactor.com — post quantum cryptography keys and signatures -
+<a
+href="https://docs.keyfactor.com/ejbca/9.0/post-quantum-cryptography-keys-and-signatures"
+class="uri">https://docs.keyfactor.com/ejbca/9.0/post-quantum-cryptography-keys-and-signatures</a></li>
+<li>Keyfactor PQC Lab Test Drive - now with support for Signing - <a
+href="https://www.ejbca.org/resources/keyfactor-pqc-lab-test-drive-now-with-support-for-signing/"
+class="uri">https://www.ejbca.org/resources/keyfactor-pqc-lab-test-drive-now-with-support-for-signing/</a>
+- as of 2025-12-11</li>
+<li>axelspire.com — vendor comparison matrix - <a
+href="https://axelspire.com/vault/vendors/vendor-comparison-matrix/"
+class="uri">https://axelspire.com/vault/vendors/vendor-comparison-matrix/</a>
+- as of 2026-02-14</li>
+<li>POST-QUANTUM CRYPTOGRAPHY Protect Today &amp; Future-Proof Your - <a
+href="https://www.entrust.com/sites/default/files/documentation/solution-briefs/post-quantum-crypto-solutions-sb.pdf"
+class="uri">https://www.entrust.com/sites/default/files/documentation/solution-briefs/post-quantum-crypto-solutions-sb.pdf</a></li>
+<li>Entrust nShield 5 HSMs Post-Quantum Algorithm Now CAVP Certified |
+Entrust - <a
+href="https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified"
+class="uri">https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified</a>
+- as of 2025-09-15</li>
+<li>Post-Quantum Cryptography (PQC) Solutions and Services Provider |
+Entrust - <a
+href="https://www.entrust.com/solutions/post-quantum-cryptography"
+class="uri">https://www.entrust.com/solutions/post-quantum-cryptography</a></li>
+<li>Digital Trust on a Deadline: Entrust Global Report Finds
+Cryptographic Visibility Stagnant as Quantum Threat Nears | Entrust - <a
+href="https://www.entrust.com/company/newsroom/entrust-global-report-finds-cryptographic-visibility-stagnant-as-quantum-threat-nears"
+class="uri">https://www.entrust.com/company/newsroom/entrust-global-report-finds-cryptographic-visibility-stagnant-as-quantum-threat-nears</a>
+- as of 2026-01-27</li>
+<li>Vault Enterprise 1.19 reduces risk with encryption updates and
+automated root rotation - <a
+href="https://www.hashicorp.com/en/blog/vault-enterprise-1-19-reduces-risk-encryption-updates-automated-root-rotation"
+class="uri">https://www.hashicorp.com/en/blog/vault-enterprise-1-19-reduces-risk-encryption-updates-automated-root-rotation</a></li>
+<li>Vault Radar, Boundary transparent sessions, and more at HashiDays
+2025 - <a
+href="https://www.hashicorp.com/en/blog/vault-radar-boundary-transparent-sessions-and-more-at-hashidays-2025"
+class="uri">https://www.hashicorp.com/en/blog/vault-radar-boundary-transparent-sessions-and-more-at-hashidays-2025</a>
+- as of 2025-06-03</li>
+<li>Implement Post Quantum algorithms for PKI · Issue #27239 ·
+hashicorp/vault - <a
+href="https://github.com/hashicorp/vault/issues/27239"
+class="uri">https://github.com/hashicorp/vault/issues/27239</a></li>
+<li>github.com — 27239 - <a
+href="https://github.com/hashicorp/vault/issues/27239"
+class="uri">https://github.com/hashicorp/vault/issues/27239</a> - as of
+2024-05-26</li>
+<li>NIST’s post-quantum cryptography standards: Our plans - <a
+href="https://www.hashicorp.com/en/blog/nist-s-post-quantum-cryptography-standards-our-plans"
+class="uri">https://www.hashicorp.com/en/blog/nist-s-post-quantum-cryptography-standards-our-plans</a></li>
+<li>hashicorp.com — nist s post quantum cryptography standards our plans
+- <a
+href="https://www.hashicorp.com/en/blog/nist-s-post-quantum-cryptography-standards-our-plans"
+class="uri">https://www.hashicorp.com/en/blog/nist-s-post-quantum-cryptography-standards-our-plans</a>
+- as of 2024-09-04</li>
+<li>Prioritizing data for post-quantum cryptography (PQC) - <a
+href="https://www.hashicorp.com/en/blog/prioritizing-data-for-post-quantum-cryptography-pqc"
+class="uri">https://www.hashicorp.com/en/blog/prioritizing-data-for-post-quantum-cryptography-pqc</a>
+- as of 2025-06-11</li>
+<li>Preparing for Q-Day - <a
+href="https://smallstep.com/blog/post-quantum-cryptography-at-smallstep/"
+class="uri">https://smallstep.com/blog/post-quantum-cryptography-at-smallstep/</a>
+- as of 2025-04-01</li>
+<li>Post Quantum Crypto · smallstep/certificates · Discussion #1395 - <a
+href="https://github.com/smallstep/certificates/discussions/1395"
+class="uri">https://github.com/smallstep/certificates/discussions/1395</a></li>
+<li>Private CA Comparison 2026: AD CS vs EJBCA vs step-ca vs HashiCorp
+Vault PKI | Axelspire - <a
+href="https://axelspire.com/vault/vendors/private-ca-comparison/"
+class="uri">https://axelspire.com/vault/vendors/private-ca-comparison/</a></li>
+<li>Algorithm types supported by Venafi Platform - <a
+href="https://docs.venafi.com/25.1/supported-algorithms"
+class="uri">https://docs.venafi.com/25.1/supported-algorithms</a> - as
+of 2025-10-03</li>
+<li>dbta.com — Venafi Fortifies Machine Identity Management for Post
+Quantum Multi Cloud Environments 166193 - <a
+href="https://www.dbta.com/Editorial/News-Flashes/Venafi-Fortifies-Machine-Identity-Management-for-Post-Quantum-Multi-Cloud-Environments-166193.aspx"
+class="uri">https://www.dbta.com/Editorial/News-Flashes/Venafi-Fortifies-Machine-Identity-Management-for-Post-Quantum-Multi-Cloud-Environments-166193.aspx</a>
+- as of 2024-10-03</li>
+<li>fixmycert.com — what is venafi - <a
+href="https://fixmycert.com/guides/what-is-venafi"
+class="uri">https://fixmycert.com/guides/what-is-venafi</a></li>
+<li>encryptionconsulting.com — certsecure manager vs venafi tls protect
+- <a
+href="https://www.encryptionconsulting.com/certsecure-manager-vs-venafi-tls-protect/"
+class="uri">https://www.encryptionconsulting.com/certsecure-manager-vs-venafi-tls-protect/</a>
+- as of 2026-05-12</li>
+<li>draft-ar-acme-pqc-tlsjws-00 - Quantum-Ready Profiles for ACME - <a
+href="https://datatracker.ietf.org/doc/draft-ar-acme-pqc-tlsjws/"
+class="uri">https://datatracker.ietf.org/doc/draft-ar-acme-pqc-tlsjws/</a>
+- as of 2026-06-30</li>
+<li>draft-vicente-acme-pqc-agility-profile-02 - Post-Quantum
+Cryptographic Agility Profile for ACME - <a
+href="https://datatracker.ietf.org/doc/draft-vicente-acme-pqc-agility-profile/"
+class="uri">https://datatracker.ietf.org/doc/draft-vicente-acme-pqc-agility-profile/</a>
+- as of 2026-06-26</li>
+<li>draft-geng-acme-public-key-07 - Automated Certificate Management
+Environment (ACME) Extension for Public Key Challenges - <a
+href="https://datatracker.ietf.org/doc/draft-geng-acme-public-key/"
+class="uri">https://datatracker.ietf.org/doc/draft-geng-acme-public-key/</a>
+- as of 2026-06-14</li>
+<li>[Acme] CfA for draft-geng-acme-public-key (until 24-Aug) - <a
+href="https://mailarchive.ietf.org/arch/msg/acme/en1gkFeaeS8XBHpqwCpAJfrVnNc/"
+class="uri">https://mailarchive.ietf.org/arch/msg/acme/en1gkFeaeS8XBHpqwCpAJfrVnNc/</a>
+- as of 2026-08-09</li>
+<li>RFC 8894: Simple Certificate Enrolment Protocol - <a
+href="https://www.rfc-editor.org/rfc/rfc8894.html"
+class="uri">https://www.rfc-editor.org/rfc/rfc8894.html</a> - as of
+2026-08-10</li>
+<li>RFC 8555: Automatic Certificate Management Environment (ACME) - <a
+href="https://www.rfc-editor.org/rfc/rfc8555.html"
+class="uri">https://www.rfc-editor.org/rfc/rfc8555.html</a> - as of
+2019-03-01</li>
+<li>Choosing a Certificate Enrollment Protocol - <a
+href="https://www.encryptionconsulting.com/choosing-certificate-enrollment-protocol/"
+class="uri">https://www.encryptionconsulting.com/choosing-certificate-enrollment-protocol/</a></li>
+<li>ACME PQC Algorithm Negotiation - <a
+href="https://www.ietf.org/archive/id/draft-giron-acme-pqcnegotiation-03.html"
+class="uri">https://www.ietf.org/archive/id/draft-giron-acme-pqcnegotiation-03.html</a></li>
+<li>github.com — state of protocols and pqc - <a
+href="https://github.com/ietf-wg-pquip/state-of-protocols-and-pqc"
+class="uri">https://github.com/ietf-wg-pquip/state-of-protocols-and-pqc</a></li>
+<li>What Is ACME Protocol? - Palo Alto Networks - <a
+href="https://www.paloaltonetworks.com/cyberpedia/what-is-acme-protocol"
+class="uri">https://www.paloaltonetworks.com/cyberpedia/what-is-acme-protocol</a></li>
+<li>RFC 9480: Certificate Management Protocol (CMP) Updates - <a
+href="https://www.rfc-editor.org/rfc/rfc9480.html"
+class="uri">https://www.rfc-editor.org/rfc/rfc9480.html</a> - as of
+2023-11-01</li>
+<li>RFC 9483: Lightweight Certificate Management Protocol (CMP) Profile
+- <a href="https://www.rfc-editor.org/info/rfc9483/"
+class="uri">https://www.rfc-editor.org/info/rfc9483/</a> - as of
+2023-11-01</li>
+<li>RFC 9481 - Certificate Management Protocol (CMP) Algorithms - <a
+href="https://datatracker.ietf.org/doc/rfc9481/"
+class="uri">https://datatracker.ietf.org/doc/rfc9481/</a> - as of
+2023-11-01</li>
+<li>RFC 9810 - Internet X.509 Public Key Infrastructure – Certificate
+Management Protocol (CMP) - <a
+href="https://datatracker.ietf.org/doc/rfc9810/"
+class="uri">https://datatracker.ietf.org/doc/rfc9810/</a> - as of
+2025-07-01</li>
+<li>datatracker.ietf.org — draft ietf lamps rfc4210bis 07 - <a
+href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-rfc4210bis-07"
+class="uri">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-rfc4210bis-07</a></li>
+<li>draft-ietf-lamps-pq-composite-sigs-19 - Composite
+Module-Lattice-Based Digital Signature Algorithm (ML-DSA) for use in
+X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/</a>
+- as of 2026-04-21</li>
+<li>Composite ML-DSA for use in X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-sigs"
+class="uri">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-sigs</a></li>
+<li>RFC 7030 - Enrollment over Secure Transport - Datatracker - <a
+href="https://datatracker.ietf.org/doc/rfc7030/"
+class="uri">https://datatracker.ietf.org/doc/rfc7030/</a> - as of
+2013-10-01</li>
+<li>Clarification of Enrollment over Secure Transport (EST): Transfer
+Encodings and ASN.1 - RFC 8951 - <a
+href="https://datatracker.ietf.org/doc/rfc8951/"
+class="uri">https://datatracker.ietf.org/doc/rfc8951/</a> - as of
+2020-11-19</li>
+<li>RFC 9908: Clarification and Enhancement of the CSR Attributes
+Definition in RFC 7030 - <a
+href="https://tagteam.harvard.edu/hub_feeds/3876/feed_items/17171938"
+class="uri">https://tagteam.harvard.edu/hub_feeds/3876/feed_items/17171938</a>
+- as of 2026-01-07</li>
+<li>draft-ietf-lamps-est-renewal-info-00 - Certificate Renewal
+Recommendations for Enrollment over Secure Transport - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-est-renewal-info/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-est-renewal-info/</a>
+- as of 2026-02-12</li>
+<li>EST Enrollment over Secure Transport Solutions for Windows CA? -
+Microsoft Q&amp;A - <a
+href="https://learn.microsoft.com/en-us/answers/questions/5836293/est-enrollment-over-secure-transport-solutions-for"
+class="uri">https://learn.microsoft.com/en-us/answers/questions/5836293/est-enrollment-over-secure-transport-solutions-for</a></li>
+<li>Simple Certificate Enrollment Protocol - <a
+href="https://en.wikipedia.org/wiki/Simple_Certificate_Enrollment_Protocol"
+class="uri">https://en.wikipedia.org/wiki/Simple_Certificate_Enrollment_Protocol</a>
+- as of 2020-09-01</li>
+<li>SCEP Protocol Explained: MDM &amp; Enterprise Guide - <a
+href="https://evertrust.io/guide/scep/"
+class="uri">https://evertrust.io/guide/scep/</a></li>
+<li>Simple Certificate Enrollment Protocol (SCEP) | Vault | HashiCorp
+Developer - <a
+href="https://developer.hashicorp.com/vault/docs/secrets/pki/scep"
+class="uri">https://developer.hashicorp.com/vault/docs/secrets/pki/scep</a></li>
+<li>Efficient Post-Quantum Cryptography Algorithms for Auto-Enrollment
+Protocols - <a href="https://www.mdpi.com/2079-9292/14/10/1980"
+class="uri">https://www.mdpi.com/2079-9292/14/10/1980</a> - as of
+2025-05-01</li>
+<li>#KEYMASTER: Is SCEP Still Relevant in a Post-Quantum World? - <a
+href="https://www.ejbca.org/resources/keymaster-is-scep-still-relevant-in-a-post-quantum-world/"
+class="uri">https://www.ejbca.org/resources/keymaster-is-scep-still-relevant-in-a-post-quantum-world/</a>
+- as of 2026-05-19</li>
+<li>Composite ML-KEM for use in X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/</a>
+- as of 2026-08-14</li>
+<li>Composite ML-KEM for use in X.509 Public Key Infrastructure - <a
+href="https://lamps-wg.github.io/draft-composite-kem/draft-ietf-lamps-pq-composite-kem.html"
+class="uri">https://lamps-wg.github.io/draft-composite-kem/draft-ietf-lamps-pq-composite-kem.html</a>
+- as of 2026-07-23</li>
+<li>datatracker.ietf.org — draft ietf lamps pq composite kem 18 - <a
+href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-18"
+class="uri">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-18</a>
+- as of 2026-07-23</li>
+<li>Use of Composite ML-DSA in TLS 1.3 - <a
+href="https://www.ietf.org/archive/id/draft-reddy-tls-composite-mldsa-11.html"
+class="uri">https://www.ietf.org/archive/id/draft-reddy-tls-composite-mldsa-11.html</a>
+- as of 2026-08-18</li>
+<li>PQC Continuity: Downgrade Protection for TLS Servers Migrating to
+PQC - <a
+href="https://datatracker.ietf.org/doc/html/draft-sheffer-tls-pqc-continuity-02"
+class="uri">https://datatracker.ietf.org/doc/html/draft-sheffer-tls-pqc-continuity-02</a>
+- as of 2026-06-09</li>
+<li>A Post-Quantum Hybrid-Commitment Certificate Extension (PQCHC) - <a
+href="https://datatracker.ietf.org/doc/draft-vicente-lamps-pqchc/"
+class="uri">https://datatracker.ietf.org/doc/draft-vicente-lamps-pqchc/</a>
+- as of 2026-06-26</li>
+<li>datatracker.ietf.org — 13 - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/13/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/13/</a>
+- as of 2026-03-27</li>
+<li>Composite Module-Lattice-Based Digital Signature Algorithm (ML-DSA)
+for use in X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-sigs-19"
+class="uri">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-sigs-19</a>
+- as of 2026-04-21</li>
+<li>datatracker.ietf.org — 08 - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/08/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/08/</a>
+- as of 2025-09-22</li>
+<li>mailarchive.ietf.org — 1lrbrehZ32QVxH7C26y7aZykfds - <a
+href="https://mailarchive.ietf.org/arch/msg/ietf-announce/1lrbrehZ32QVxH7C26y7aZykfds/"
+class="uri">https://mailarchive.ietf.org/arch/msg/ietf-announce/1lrbrehZ32QVxH7C26y7aZykfds/</a>
+- as of 2026-01-20</li>
+<li>datatracker.ietf.org — draft ietf lamps pq composite sigs - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/</a>
+- as of 2026-04-21</li>
+<li>draft-ietf-lamps-pq-composite-sigs-12 - Composite ML-DSA for use in
+X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/12/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/12/</a></li>
+<li>draft-ietf-lamps-pq-composite-sigs-13 - Composite ML-DSA for use in
+X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/13/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/13/</a></li>
+<li>ietf.org — draft ietf lamps cms composite sigs 01.txt - <a
+href="https://www.ietf.org/archive/id/draft-ietf-lamps-cms-composite-sigs-01.txt"
+class="uri">https://www.ietf.org/archive/id/draft-ietf-lamps-cms-composite-sigs-01.txt</a>
+- as of 2026-01-21</li>
+<li>datatracker.ietf.org — draft ietf lamps cms composite kem - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-composite-kem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-composite-kem/</a>
+- as of 2026-02-25</li>
+<li>datatracker.ietf.org — draft gray lamps compositepkc 00 - <a
+href="https://datatracker.ietf.org/doc/html/draft-gray-lamps-compositepkc-00"
+class="uri">https://datatracker.ietf.org/doc/html/draft-gray-lamps-compositepkc-00</a>
+- as of 2026-05-13</li>
+<li>draft-ietf-lamps-pq-composite-kem-11 - <a
+href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-11"
+class="uri">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-11</a></li>
+<li>GitHub - IETF-Hackathon/pqc-certificates: Post-quantum cryptography
+certificates - <a
+href="https://github.com/IETF-Hackathon/pqc-certificates"
+class="uri">https://github.com/IETF-Hackathon/pqc-certificates</a></li>
+<li>#KEYMASTER: The Current State of Composites Signatures and
+Certificates - <a
+href="https://www.ejbca.org/resources/keymaster-the-current-state-of-composites-signatures-and-certificates/"
+class="uri">https://www.ejbca.org/resources/keymaster-the-current-state-of-composites-signatures-and-certificates/</a>
+- as of 2025-11-25</li>
+<li>Multiple Public-Key Algorithm X.509 Certificates - <a
+href="https://www.ietf.org/archive/id/draft-truskovsky-lamps-pq-hybrid-x509-02.html"
+class="uri">https://www.ietf.org/archive/id/draft-truskovsky-lamps-pq-hybrid-x509-02.html</a>
+- as of 2019-01-01</li>
+<li>Hybrid PQC Certificates: Generation, Testing, and Compatibility |
+Axelspire - <a
+href="https://axelspire.com/vault/security/hybrid-pqc-certificates/"
+class="uri">https://axelspire.com/vault/security/hybrid-pqc-certificates/</a></li>
+<li>A Comparative Study of Hybrid Post-Quantum Cryptographic X.509
+Certificate Schemes - <a href="https://arxiv.org/pdf/2511.00111"
+class="uri">https://arxiv.org/pdf/2511.00111</a></li>
+<li>X.509 Extensions for PQC or Composite Certificate Hosting Continuity
+- <a
+href="https://datatracker.ietf.org/doc/html/draft-reddy-lamps-x509-pq-commit-01"
+class="uri">https://datatracker.ietf.org/doc/html/draft-reddy-lamps-x509-pq-commit-01</a>
+- as of 2026-02-25</li>
+<li>draft-reddy-lamps-x509-pq-commit-01 - X.509 Extensions for PQC or
+Composite Certificate Hosting Continuity - <a
+href="https://datatracker.ietf.org/doc/draft-reddy-lamps-x509-pq-commit/"
+class="uri">https://datatracker.ietf.org/doc/draft-reddy-lamps-x509-pq-commit/</a></li>
+<li>PQC in PKI: Migration Planning for Certificate Authorities | Quantum
+Security Defence - <a
+href="https://quantumsecuritydefence.com/insights/pqc-in-pki-migration-planning/"
+class="uri">https://quantumsecuritydefence.com/insights/pqc-in-pki-migration-planning/</a></li>
+<li>RFC 3161: Internet X.509 Public Key Infrastructure Time-Stamp
+Protocol (TSP) - <a href="https://www.rfc-editor.org/rfc/rfc3161.html"
+class="uri">https://www.rfc-editor.org/rfc/rfc3161.html</a> - as of
+2001-08-01</li>
+<li>#KEYMASTER: The Evolution of Timestamping: From Classical to
+Post-Quantum Security - <a
+href="https://www.ejbca.org/resources/keymaster-the-evolution-of-timestamping-from-classical-to-post-quantum-security/"
+class="uri">https://www.ejbca.org/resources/keymaster-the-evolution-of-timestamping-from-classical-to-post-quantum-security/</a></li>
+<li>Khtatim Timestamp Server - Post-Quantum Ready Timestamping - Codegic
+- <a
+href="https://www.codegic.com/khatim-timestamp-server/post-quantum-ready-timestamping/"
+class="uri">https://www.codegic.com/khatim-timestamp-server/post-quantum-ready-timestamping/</a>
+- as of 2026-02-10</li>
+<li>Post–Quantum Cryptography in ADSS Server—Interoperability Validation
+- <a
+href="https://blog.ascertia.com/post-quantum-cryptography-in-adss-server-interoperability-validation"
+class="uri">https://blog.ascertia.com/post-quantum-cryptography-in-adss-server-interoperability-validation</a>
+- as of 2026-05-12</li>
+<li>blog.ascertia.com — post quantum cryptography in adss server
+interoperability validation - <a
+href="https://blog.ascertia.com/post-quantum-cryptography-in-adss-server-interoperability-validation"
+class="uri">https://blog.ascertia.com/post-quantum-cryptography-in-adss-server-interoperability-validation</a>
+- as of 2026-05-12</li>
+<li>draft-ietf-pkix-rfc3161-update-00 - <a
+href="https://datatracker.ietf.org/doc/html/draft-ietf-pkix-rfc3161-update-00"
+class="uri">https://datatracker.ietf.org/doc/html/draft-ietf-pkix-rfc3161-update-00</a></li>
+<li>rfc-editor.org — rfc3161.txt - <a
+href="https://www.rfc-editor.org/rfc/rfc3161.txt"
+class="uri">https://www.rfc-editor.org/rfc/rfc3161.txt</a></li>
+<li>quantumsecuritydefence.com — pqc in pki migration planning - <a
+href="https://quantumsecuritydefence.com/insights/pqc-in-pki-migration-planning/"
+class="uri">https://quantumsecuritydefence.com/insights/pqc-in-pki-migration-planning/</a>
+- as of 2026-05-27</li>
+<li>RFC 9921 - CBOR Object Signing and Encryption (COSE) Header
+Parameter for Timestamp Tokens as Defined in RFC 3161 - <a
+href="https://datatracker.ietf.org/doc/rfc9921/"
+class="uri">https://datatracker.ietf.org/doc/rfc9921/</a> - as of
+2026-02-01</li>
+<li>JSON – Mike Jones: self-issued - <a
+href="https://self-issued.info/?cat=27"
+class="uri">https://self-issued.info/?cat=27</a> - as of 2026-07-10</li>
+<li>datatracker.ietf.org — rfc9964 - <a
+href="https://datatracker.ietf.org/doc/rfc9964/"
+class="uri">https://datatracker.ietf.org/doc/rfc9964/</a> - as of
+2026-05-20</li>
+<li>quantumsecuritydefence.com — saml oidc pqc identity provider
+migration - <a
+href="https://quantumsecuritydefence.com/quantum-news/saml-oidc-pqc-identity-provider-migration/"
+class="uri">https://quantumsecuritydefence.com/quantum-news/saml-oidc-pqc-identity-provider-migration/</a>
+- as of 2026-07-14</li>
+<li>PQ/T Hybrid Composite Signatures for JOSE and COSE - <a
+href="https://ietf-wg-jose.github.io/draft-ietf-jose-pq-composite-sigs/draft-ietf-jose-pq-composite-sigs.html"
+class="uri">https://ietf-wg-jose.github.io/draft-ietf-jose-pq-composite-sigs/draft-ietf-jose-pq-composite-sigs.html</a>
+- as of 2026-08-21</li>
+<li>draft-ietf-jose-pqc-kem-06 - Post-Quantum Key Encapsulation
+Mechanisms (PQ KEMs) for COSE - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-jose-pqc-kem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-jose-pqc-kem/</a>
+- as of 2026-07-06</li>
+<li>Post-quantum Key Encapsulation with ML-KEM in Public Key
+Cryptography for Initial Authentication in Kerberos (PKINIT) - <a
+href="https://datatracker.ietf.org/doc/html/draft-bokovoy-kitten-pkinit-pqc-00"
+class="uri">https://datatracker.ietf.org/doc/html/draft-bokovoy-kitten-pkinit-pqc-00</a>
+- as of 2026-06-01</li>
+<li>draft-bokovoy-kitten-pkinit-pqc-01 - Post-quantum Key Encapsulation
+with ML-KEM in Public Key Cryptography for Initial Authentication in
+Kerberos (PKINIT) - <a
+href="https://datatracker.ietf.org/doc/draft-bokovoy-kitten-pkinit-pqc/"
+class="uri">https://datatracker.ietf.org/doc/draft-bokovoy-kitten-pkinit-pqc/</a>
+- as of 2026-07-18</li>
+<li>[hackathon] Re: [kitten] IETF 126 Hackathon Project: Interop testing
+of PQC enabled Kerberos PKINIT - <a
+href="http://mailarchive.ietf.org/arch/msg/hackathon/llu8AbHFffEP4zwNyJeV61E7fnc/"
+class="uri">http://mailarchive.ietf.org/arch/msg/hackathon/llu8AbHFffEP4zwNyJeV61E7fnc/</a>
+- as of 2026-07-18</li>
+<li>What is ML-DSA support in AD CS? - Windows Server - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/ml-dsa-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/ml-dsa-overview</a>
+- as of 2026-08-07</li>
+<li>s5.technology — post quantum cryptography windows server - <a
+href="https://www.s5.technology/post-quantum-cryptography-windows-server/"
+class="uri">https://www.s5.technology/post-quantum-cryptography-windows-server/</a>
+- as of 2026-06-17</li>
+<li>draft-ietf-cose-dilithium-11 - ML-DSA for JOSE and COSE - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/</a>
+- as of 2025-11-15</li>
+<li>draft-reddy-cose-jose-pqc-hybrid-hpke-11 - Post-Quantum and Hybrid
+KEMs for HPKE with JOSE and COSE - <a
+href="https://datatracker.ietf.org/doc/draft-reddy-cose-jose-pqc-hybrid-hpke/"
+class="uri">https://datatracker.ietf.org/doc/draft-reddy-cose-jose-pqc-hybrid-hpke/</a>
+- as of 2026-02-15</li>
+<li>GitHub - ietf-wg-pquip/state-of-protocols-and-pqc: A list of the
+state of IETF protocols and PQC - <a
+href="https://github.com/ietf-wg-pquip/state-of-protocols-and-pqc"
+class="uri">https://github.com/ietf-wg-pquip/state-of-protocols-and-pqc</a></li>
+<li>datatracker.ietf.org — draft bokovoy kitten pkinit pqc 00 - <a
+href="https://datatracker.ietf.org/doc/html/draft-bokovoy-kitten-pkinit-pqc-00"
+class="uri">https://datatracker.ietf.org/doc/html/draft-bokovoy-kitten-pkinit-pqc-00</a></li>
+<li>New Windows Features to Secure Today’s Data in a Post-Quantum World
+| Microsoft Community Hub - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370</a></li>
+<li>redhat.com — post quantum cryptography red hat enterprise linux 10 -
+<a
+href="https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10"
+class="uri">https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10</a>
+- as of 2025-11-24</li>
+<li>certes.ai — post quantum active directory a perfect storm for
+attackers - <a
+href="https://certes.ai/2025/11/07/post-quantum-active-directory-a-perfect-storm-for-attackers/"
+class="uri">https://certes.ai/2025/11/07/post-quantum-active-directory-a-perfect-storm-for-attackers/</a>
+- as of 2025-12-08</li>
+<li>Post-Quantum + Active Directory: A Perfect Storm for Attackers - <a
+href="https://certes.ai/2025/11/07/post-quantum-active-directory-a-perfect-storm-for-attackers/"
+class="uri">https://certes.ai/2025/11/07/post-quantum-active-directory-a-perfect-storm-for-attackers/</a></li>
+<li>learn.microsoft.com — post quantum cryptography overview - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
+- as of 2026-05-20</li>
+<li>International Government Assurance Profile (iGov) for OAuth 2.0 -
+1.0 Implementers Draft 2 - <a
+href="https://openid.net/specs/openid-igov-oauth2-1_0.html"
+class="uri">https://openid.net/specs/openid-igov-oauth2-1_0.html</a></li>
+<li>Study of Post Quantum status of Widely Used Protocols - <a
+href="https://arxiv.org/html/2603.28728v1"
+class="uri">https://arxiv.org/html/2603.28728v1</a></li>
+<li>Post-Quantum Cryptography: Enterprise Auth Migration Guide,
+guptadeepak.com - <a
+href="https://guptadeepak.com/post-quantum-cryptography-for-authentication-the-enterprise-migration-guide-2026/"
+class="uri">https://guptadeepak.com/post-quantum-cryptography-for-authentication-the-enterprise-migration-guide-2026/</a></li>
+<li>Post-Quantum Cryptography for Authentication: The Enterprise
+Migration Guide 2026 - Security Boulevard - <a
+href="https://securityboulevard.com/2026/03/post-quantum-cryptography-for-authentication-the-enterprise-migration-guide-2026/"
+class="uri">https://securityboulevard.com/2026/03/post-quantum-cryptography-for-authentication-the-enterprise-migration-guide-2026/</a>
+- as of 2026-08-10</li>
+<li>github.com — 484 - <a
+href="https://github.com/w3c/strategy/issues/484"
+class="uri">https://github.com/w3c/strategy/issues/484</a> - as of
+2024-11-17</li>
+<li>NIST Special Publication (SP) 800-73-6 (Draft) - <a
+href="https://csrc.nist.gov/pubs/sp/800/73/pt2/6/iwd"
+class="uri">https://csrc.nist.gov/pubs/sp/800/73/pt2/6/iwd</a> - as of
+2026-06-12</li>
+<li>csrc.nist.gov — iwd - <a
+href="https://csrc.nist.gov/pubs/sp/800/78/6/iwd"
+class="uri">https://csrc.nist.gov/pubs/sp/800/78/6/iwd</a> - as of
+2026-06-12</li>
+<li>nist.gov — working drafts post quantum cryptography updates piv
+standards - <a
+href="https://www.nist.gov/news-events/news/2026/06/working-drafts-post-quantum-cryptography-updates-piv-standards"
+class="uri">https://www.nist.gov/news-events/news/2026/06/working-drafts-post-quantum-cryptography-updates-piv-standards</a>
+- as of 2026-06-12</li>
+<li>Design and Performance Evaluation of Post-Quantum Authentication for
+Embedded Systems: A Case Study on PIV - <a
+href="https://eprint.iacr.org/2026/1274"
+class="uri">https://eprint.iacr.org/2026/1274</a> - as of
+2026-06-17</li>
+<li>Post-Quantum Authentication with KEM-Based Technology - <a
+href="https://www.idemia.com/news/idemia-secure-transactions-advances-post-quantum-authentication-new-kem-based-technology-2026-06-16"
+class="uri">https://www.idemia.com/news/idemia-secure-transactions-advances-post-quantum-authentication-new-kem-based-technology-2026-06-16</a>
+- as of 2026-06-16</li>
+<li>NIST taps Electrosoft to advance post-quantum digital identity - <a
+href="https://www.biometricupdate.com/202608/nist-taps-electrosoft-to-advance-post-quantum-digital-identity"
+class="uri">https://www.biometricupdate.com/202608/nist-taps-electrosoft-to-advance-post-quantum-digital-identity</a>
+- as of 2026-08-24</li>
+<li>US begins post-quantum upgrade of federal identity credentials |
+Biometric Update - <a
+href="https://www.biometricupdate.com/202608/us-begins-post-quantum-upgrade-of-federal-identity-credentials"
+class="uri">https://www.biometricupdate.com/202608/us-begins-post-quantum-upgrade-of-federal-identity-credentials</a>
+- as of 2026-08-27</li>
+<li>Web Authentication: An API for accessing Public Key Credentials -
+Level 3 - <a href="https://www.w3.org/TR/webauthn-3/"
+class="uri">https://www.w3.org/TR/webauthn-3/</a> - as of
+2026-08-25</li>
+<li>07/01/2026 W3C Web Authentication Meeting Agenda - <a
+href="https://lists.w3.org/Archives/Public/public-webauthn/2026Jul/0000.html"
+class="uri">https://lists.w3.org/Archives/Public/public-webauthn/2026Jul/0000.html</a>
+- as of 2026-07-01</li>
+<li>What is Yubico? - <a
+href="https://www.yubico.com/resource/what-is-yubico/"
+class="uri">https://www.yubico.com/resource/what-is-yubico/</a> - as of
+2026-07-10</li>
+<li>Intercede and Swissbit extend partnership to build end-to-end
+post-quantum authentication - <a
+href="https://www.swissbit.com/en/news/press/intercede-and-swissbit-extend-partnership-to-build-end-to-end-post-quantum-authentication"
+class="uri">https://www.swissbit.com/en/news/press/intercede-and-swissbit-extend-partnership-to-build-end-to-end-post-quantum-authentication</a>
+- as of 2026-06-15</li>
+<li>Post-Quantum Cryptography: Enterprise Auth Migration Guide - <a
+href="https://guptadeepak.com/post-quantum-cryptography-for-authentication-the-enterprise-migration-guide-2026/"
+class="uri">https://guptadeepak.com/post-quantum-cryptography-for-authentication-the-enterprise-migration-guide-2026/</a></li>
+<li>guptadeepak.com — post quantum cryptography for authentication the
+enterprise migration guide 2026 - <a
+href="https://guptadeepak.com/post-quantum-cryptography-for-authentication-the-enterprise-migration-guide-2026/"
+class="uri">https://guptadeepak.com/post-quantum-cryptography-for-authentication-the-enterprise-migration-guide-2026/</a>
+- as of 2026-05-25</li>
+<li>Passkeys and FIDO2 Quietly Became Quantum-Safe: Here’s What Changed
+- <a
+href="https://www.wultra.com/blog/passkeys-and-fido2-quietly-became-quantum-safe-heres-what-changed"
+class="uri">https://www.wultra.com/blog/passkeys-and-fido2-quietly-became-quantum-safe-heres-what-changed</a>
+- as of 2025-04-24</li>
+<li>mojoauth.com — quantum computing milestones that will redefine
+authentication - <a
+href="https://mojoauth.com/blog/quantum-computing-milestones-that-will-redefine-authentication"
+class="uri">https://mojoauth.com/blog/quantum-computing-milestones-that-will-redefine-authentication</a>
+- as of 2026-05-01</li>
+<li>Server Requirements (WebAuthn Level 3 and CTAP2.3) - <a
+href="https://fidoalliance.org/specs/fidoserver/fido-server-v2.3-rd-20260226.html"
+class="uri">https://fidoalliance.org/specs/fidoserver/fido-server-v2.3-rd-20260226.html</a>
+- as of 2026-02-26</li>
+<li>Passwordless Banking in 2026: FIDO2, PSD3 Compliance, and
+Post-Quantum Security - <a
+href="https://www.rsa.com/resources/blog/passwordless/passwordless-banking-fido2-psd3-compliance-post-quantum-security/"
+class="uri">https://www.rsa.com/resources/blog/passwordless/passwordless-banking-fido2-psd3-compliance-post-quantum-security/</a></li>
+<li>wultra.com — passkeys and fido2 quietly became quantum safe heres
+what changed - <a
+href="https://www.wultra.com/blog/passkeys-and-fido2-quietly-became-quantum-safe-heres-what-changed"
+class="uri">https://www.wultra.com/blog/passkeys-and-fido2-quietly-became-quantum-safe-heres-what-changed</a></li>
+<li>The Qey: Implementation and performance study of post quantum
+cryptography in FIDO2 - <a href="https://arxiv.org/html/2510.21353v1"
+class="uri">https://arxiv.org/html/2510.21353v1</a> - as of
+2025-10-24</li>
+<li>arxiv.org — 2510.21353v1 - <a
+href="https://arxiv.org/html/2510.21353v1"
+class="uri">https://arxiv.org/html/2510.21353v1</a> - as of
+2025-10-24</li>
+<li>jisem-journal.com — 14185 - <a
+href="https://jisem-journal.com/index.php/journal/article/view/14185"
+class="uri">https://jisem-journal.com/index.php/journal/article/view/14185</a>
+- as of 2026-01-22</li>
+<li>Client To Authenticator Protocol (CTAP) - FIDO2 Developer - <a
+href="https://developers.yubico.com/CTAP/"
+class="uri">https://developers.yubico.com/CTAP/</a> - as of
+2026-02-01</li>
+<li>FIDO Client to Authenticator Protocol (CTAP) v2.3, Proposed
+Standard, February 26, 2026 - <a
+href="https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/365"
+class="uri">https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/365</a>
+- as of 2026-02-26</li>
+<li>FIDO2 CTAP 2.3 standard and Server Requirements published - <a
+href="https://self-issued.info/?p=2829"
+class="uri">https://self-issued.info/?p=2829</a> - as of 2026-02-26</li>
+<li>CTAP2.2 - <a href="https://developers.yubico.com/CTAP/CTAP2.2.html"
+class="uri">https://developers.yubico.com/CTAP/CTAP2.2.html</a> - as of
+2025-03-18</li>
+<li>FIDO User Authentication Specifications | FIDO Alliance - <a
+href="https://fidoalliance.org/specifications/"
+class="uri">https://fidoalliance.org/specifications/</a></li>
+<li>W3C Publishes WebAuthn Level 3 Candidate Recommendation - <a
+href="https://progosling.com/en/dev-digest/2026-02/webauthn-level-3-candidate-recommendation-2026"
+class="uri">https://progosling.com/en/dev-digest/2026-02/webauthn-level-3-candidate-recommendation-2026</a>
+- as of 2026-01-13</li>
+<li>WebAuthn - <a href="https://en.wikipedia.org/wiki/WebAuthn"
+class="uri">https://en.wikipedia.org/wiki/WebAuthn</a> - as of
+2021-04-08</li>
+<li>Post-Quantum Signatures for JOSE and COSE - <a
+href="https://self-issued.info/?p=2853"
+class="uri">https://self-issued.info/?p=2853</a> - as of 2026-05-19</li>
+<li>ML-DSA for Web Authentication - <a
+href="https://datatracker.ietf.org/doc/draft-vitap-ml-dsa-webauthn/04/"
+class="uri">https://datatracker.ietf.org/doc/draft-vitap-ml-dsa-webauthn/04/</a>
+- as of 2026-03-23</li>
+<li>The Future of Authentication 2026-2030 - <a
+href="https://securityboulevard.com/2026/07/the-future-of-authentication-2026-2030-how-five-converging-technologies-are-rebuilding-identity-from-the-ground-up/"
+class="uri">https://securityboulevard.com/2026/07/the-future-of-authentication-2026-2030-how-five-converging-technologies-are-rebuilding-identity-from-the-ground-up/</a>
+- as of 2026-05-01</li>
+<li>Design and Performance Evaluation of Post-Quantum PIV - <a
+href="https://eprint.iacr.org/2026/1274.pdf"
+class="uri">https://eprint.iacr.org/2026/1274.pdf</a></li>
+<li>Common Access Card - <a
+href="https://en.wikipedia.org/wiki/Common_Access_Card"
+class="uri">https://en.wikipedia.org/wiki/Common_Access_Card</a></li>
+<li>Modernizing the CAC - <a
+href="https://dodcio.defense.gov/Portals/0/Documents/Cyber/modernizing_the_cac.pdf"
+class="uri">https://dodcio.defense.gov/Portals/0/Documents/Cyber/modernizing_the_cac.pdf</a></li>
+<li>DoD expands login options beyond CAC - <a
+href="https://federalnewsnetwork.com/defense-news/2025/12/dod-expands-login-options-beyond-cac/"
+class="uri">https://federalnewsnetwork.com/defense-news/2025/12/dod-expands-login-options-beyond-cac/</a>
+- as of 2025-12-01</li>
+<li>idmanagement.gov — gsa pqc experiment - <a
+href="https://www.idmanagement.gov/experiments/gsa-pqc-experiment/"
+class="uri">https://www.idmanagement.gov/experiments/gsa-pqc-experiment/</a></li>
+<li>versasec.com — navigating the post quantum shift - <a
+href="https://versasec.com/blog/navigating-the-post-quantum-shift/"
+class="uri">https://versasec.com/blog/navigating-the-post-quantum-shift/</a></li>
+<li>Accelerating the quantum-safe timeline - <a
+href="https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/"
+class="uri">https://www.microsoft.com/en-us/security/blog/2026/06/30/microsoft-advances-quantum-safe-security-as-the-risk-timeline-shifts/</a>
+- as of 2026-06-30</li>
+<li>What’s new in the Secure Future Initiative - <a
+href="https://learn.microsoft.com/en-us/security/zero-trust/sfi/secure-future-initiative-whats-new"
+class="uri">https://learn.microsoft.com/en-us/security/zero-trust/sfi/secure-future-initiative-whats-new</a>
+- as of 2026-07-24</li>
+<li>Guide to Post-Quantum Cryptography &amp; Identity Security | Okta -
+<a
+href="https://www.okta.com/en-in/blog/product-innovation/quantum-computing-identity-security-risks/"
+class="uri">https://www.okta.com/en-in/blog/product-innovation/quantum-computing-identity-security-risks/</a>
+- as of 2026-08-06</li>
+<li>Support Post-Quantum Cryptography ( ML-DSA ) OIDC token signing and
+key… - <a href="https://github.com/keycloak/keycloak/issues/50355"
+class="uri">https://github.com/keycloak/keycloak/issues/50355</a> - as
+of 2026-06-25</li>
+<li>Support PQ/T Hybrid Composite Signatures for JOSE and COSE · Issue
+#50304 · keycloak/keycloak · GitHub - <a
+href="https://github.com/keycloak/keycloak/issues/50304"
+class="uri">https://github.com/keycloak/keycloak/issues/50304</a> - as
+of 2026-06-24</li>
+<li>startwithidentity.com — best post quantum ciam vendors - <a
+href="https://startwithidentity.com/rankings/best-post-quantum-ciam-vendors/"
+class="uri">https://startwithidentity.com/rankings/best-post-quantum-ciam-vendors/</a>
+- as of 2026-07-03</li>
+<li>Passkey FAQs - Microsoft Entra ID | Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/entra/identity/authentication/passkey-faq"
+class="uri">https://learn.microsoft.com/en-us/entra/identity/authentication/passkey-faq</a></li>
+<li>techcommunity.microsoft.com — 4469093 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093</a>
+- as of 2025-11-18</li>
+<li>Quantum-safe security: Progress towards next-generation cryptography
+| Microsoft Security Blog - <a
+href="https://www.microsoft.com/en-us/security/blog/2025/08/20/quantum-safe-security-progress-towards-next-generation-cryptography/"
+class="uri">https://www.microsoft.com/en-us/security/blog/2025/08/20/quantum-safe-security-progress-towards-next-generation-cryptography/</a></li>
+<li>techcommunity.microsoft.com — 4523370 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370</a></li>
+<li>Post-Quantum Keys choice for signing/encryption · keycloak/keycloak
+· Discussion #40496 - <a
+href="https://github.com/keycloak/keycloak/discussions/40496"
+class="uri">https://github.com/keycloak/keycloak/discussions/40496</a></li>
+<li>Post-Quantum Cryptography (PQC) readiness · Issue #43690 ·
+keycloak/keycloak - <a
+href="https://github.com/keycloak/keycloak/issues/43690"
+class="uri">https://github.com/keycloak/keycloak/issues/43690</a> - as
+of 2025-10-24</li>
+<li>Integrate Quantum Computing Resistnt Password Hashing Algorithm to
+Keycloak · Issue #32008 · keycloak/keycloak - <a
+href="https://github.com/keycloak/keycloak/issues/32008"
+class="uri">https://github.com/keycloak/keycloak/issues/32008</a> - as
+of 2024-08-08</li>
+<li>Bump bouncycastle from 1.68 to 1.70 · Issue #14148 ·
+keycloak/keycloak - <a
+href="https://github.com/keycloak/keycloak/issues/14148"
+class="uri">https://github.com/keycloak/keycloak/issues/14148</a> - as
+of 2022-09-01</li>
+<li>Investigate and plan what is needed for SAML 2.0 to be PQC ready ·
+Issue #48825 · keycloak/keycloak - <a
+href="https://github.com/keycloak/keycloak/issues/48825"
+class="uri">https://github.com/keycloak/keycloak/issues/48825</a> - as
+of 2026-05-08</li>
+<li>Review what is needed for PQC readiness in Keycloak · Issue #45168 ·
+keycloak/keycloak - <a
+href="https://github.com/keycloak/keycloak/issues/45168"
+class="uri">https://github.com/keycloak/keycloak/issues/45168</a> - as
+of 2026-01-06</li>
+<li>github.com — 40496 - <a
+href="https://github.com/keycloak/keycloak/discussions/40496"
+class="uri">https://github.com/keycloak/keycloak/discussions/40496</a></li>
+<li>moselwal.com — post quantum security rfc 9964 ml dsa crypto agility
+- <a
+href="https://moselwal.com/blog/post-quantum-security-rfc-9964-ml-dsa-crypto-agility"
+class="uri">https://moselwal.com/blog/post-quantum-security-rfc-9964-ml-dsa-crypto-agility</a>
+- as of 2026-05-22</li>
+<li>okta.com — quantum computing identity security risks - <a
+href="https://www.okta.com/en-in/blog/product-innovation/quantum-computing-identity-security-risks/"
+class="uri">https://www.okta.com/en-in/blog/product-innovation/quantum-computing-identity-security-risks/</a></li>
+<li>cantechletter.com — industry leaders demonstrate integrated post
+quantum security solutions at ofc 2026 - <a
+href="https://www.cantechletter.com/newswires/industry-leaders-demonstrate-integrated-post-quantum-security-solutions-at-ofc-2026/"
+class="uri">https://www.cantechletter.com/newswires/industry-leaders-demonstrate-integrated-post-quantum-security-solutions-at-ofc-2026/</a>
+- as of 2026-05-06</li>
+<li>Identity is the Foundation for Secure Quantum Innovation | Ping
+Identity - <a
+href="https://www.pingidentity.com/en/resources/blog/post/identity-foundation-secure-quantum-innovation.html"
+class="uri">https://www.pingidentity.com/en/resources/blog/post/identity-foundation-secure-quantum-innovation.html</a></li>
+<li>What Happens When Quantum Becomes Practical - <a
+href="https://thequantuminsider.com/2026/01/06/what-happens-when-quantum-becomes-practical/"
+class="uri">https://thequantuminsider.com/2026/01/06/what-happens-when-quantum-becomes-practical/</a></li>
+<li>Council Post: Post-Quantum Cryptography: How To Prepare Your
+Organization Now - <a
+href="https://www.forbes.com/councils/forbestechcouncil/2026/05/26/post-quantum-cryptography-how-to-prepare-your-organization-now/"
+class="uri">https://www.forbes.com/councils/forbestechcouncil/2026/05/26/post-quantum-cryptography-how-to-prepare-your-organization-now/</a>
+- as of 2026-05-26</li>
+<li>forbes.com — post quantum cryptography how to prepare your
+organization now - <a
+href="https://www.forbes.com/councils/forbestechcouncil/2026/05/26/post-quantum-cryptography-how-to-prepare-your-organization-now/"
+class="uri">https://www.forbes.com/councils/forbestechcouncil/2026/05/26/post-quantum-cryptography-how-to-prepare-your-organization-now/</a>
+- as of 2026-05-26</li>
+<li>Shrinking PQC timeline highlights immediate risk to data security |
+Computer Weekly - <a
+href="https://www.computerweekly.com/news/366640684/Shrinking-PQC-timeline-highlights-immediate-risk-to-data-security"
+class="uri">https://www.computerweekly.com/news/366640684/Shrinking-PQC-timeline-highlights-immediate-risk-to-data-security</a></li>
+<li>Post-Quantum Signature Experiments and Migration Considerations for
+the Resource Public Key Infrastructure (RPKI) - <a
+href="https://ftp.funet.fi/pub/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-yoshikawa-sidrops-pqc-rpki-02.html"
+class="uri">https://ftp.funet.fi/pub/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-yoshikawa-sidrops-pqc-rpki-02.html</a>
+- as of 2026-08-20</li>
+<li>Post-Quantum Key Management Architecture - QCecuring - <a
+href="https://www.qcecuring.com/blog/post-quantum-key-management-architecture"
+class="uri">https://www.qcecuring.com/blog/post-quantum-key-management-architecture</a>
+- as of 2026-06-11</li>
+<li>draft-ietf-plants-merkle-tree-certs-05 - Merkle Tree Certificates -
+<a
+href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/</a>
+- as of 2026-07-06</li>
+<li>draft-gray-plants-mtc-deploy-use-cases-00 - Merkle Tree Certificates
+Deployment Use Cases - <a
+href="https://datatracker.ietf.org/doc/draft-gray-plants-mtc-deploy-use-cases/"
+class="uri">https://datatracker.ietf.org/doc/draft-gray-plants-mtc-deploy-use-cases/</a>
+- as of 2026-07-06</li>
+<li>Bulk Subtree Consistency Proofs for Merkle Tree Certificates - <a
+href="https://datatracker.ietf.org/doc/draft-reilly-plants-bulk-subtree-proofs-01"
+class="uri">https://datatracker.ietf.org/doc/draft-reilly-plants-bulk-subtree-proofs-01</a>
+- as of 2026-07-27</li>
+<li>Page 242 – GBHackers Security - <a
+href="https://gbhackers.com/page/242/?post_type=post"
+class="uri">https://gbhackers.com/page/242/?post_type=post</a> - as of
+2026-08-22</li>
+<li>DRL TLS Stapling - <a
+href="https://ftp.funet.fi/pub/files/index/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-premont-lamps-drl-stapling-00.txt"
+class="uri">https://ftp.funet.fi/pub/files/index/files/index/files/Historical/pub/index/files/index/internet-drafts/draft-premont-lamps-drl-stapling-00.txt</a>
+- as of 2026-07-06</li>
+<li>Certificate Best Practices for 2026 and Beyond: A Guide … - Oracle -
+<a
+href="https://blogs.oracle.com/cloud-infrastructure/certificate-best-practices-for-2026-and-beyond"
+class="uri">https://blogs.oracle.com/cloud-infrastructure/certificate-best-practices-for-2026-and-beyond</a>
+- as of 2026-06-18</li>
+<li>Post-Quantum Cryptography (PQC) Guide | Evertrust - <a
+href="https://evertrust.io/guide/pqc/"
+class="uri">https://evertrust.io/guide/pqc/</a></li>
+<li>Pruning the Tree: Rethinking RPKI Architecture From The Ground Up -
+<a href="https://arxiv.org/pdf/2507.01465"
+class="uri">https://arxiv.org/pdf/2507.01465</a></li>
+<li>ML-DSA Support in AD CS: What It Means for Your PKI - <a
+href="https://www.encryptionconsulting.com/ml-dsa-support-for-your-microsoft-pki/"
+class="uri">https://www.encryptionconsulting.com/ml-dsa-support-for-your-microsoft-pki/</a>
+- as of 2026-05-12</li>
+<li>Additional SLH-DSA Parameter Sets for Limited-Signature Use Cases -
+<a
+href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-230.ipd.pdf"
+class="uri">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-230.ipd.pdf</a>
+- as of 2026-04-10</li>
+<li>Discussion Period Begins | SC-081: Introduce Schedule of Reducing
+Validity and Data Reuse Periods - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/a6A2Wmu0gUw/m/eDGxwthmBQAJ"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/a6A2Wmu0gUw/m/eDGxwthmBQAJ</a></li>
+<li>What Is OCSP? How Certificate Revocation Works - <a
+href="https://securew2.com/blog/what-is-ocsp"
+class="uri">https://securew2.com/blog/what-is-ocsp</a> - as of
+2023-08-01</li>
+<li>Ending OCSP Support in 2025 - Let’s Encrypt - <a
+href="https://letsencrypt.org/2024/12/05/ending-ocsp"
+class="uri">https://letsencrypt.org/2024/12/05/ending-ocsp</a> - as of
+2025-08-06</li>
+<li>Certificate Revocation Deep Dive: CRL, OCSP, OCSP Stapling, and
+Short-Lived Certs | Axelspire - <a
+href="https://axelspire.com/vault/operations/certificate-revocation-crl-ocsp/"
+class="uri">https://axelspire.com/vault/operations/certificate-revocation-crl-ocsp/</a>
+- as of 2025-05-07</li>
+<li>Post-Quantum TLS: What Changes and What Stays the Same | Quantum
+Security Defence - <a
+href="https://quantumsecuritydefence.com/insights/post-quantum-tls-what-changes-stays-same/"
+class="uri">https://quantumsecuritydefence.com/insights/post-quantum-tls-what-changes-stays-same/</a></li>
+<li>Post-Quantum TLS: How PQC Changes Certificates, Handshakes, and
+Performance | AxelSpire - <a
+href="https://axelspire.com/business/pqc-tls-certificate-impact/"
+class="uri">https://axelspire.com/business/pqc-tls-certificate-impact/</a></li>
+<li>SC-081v3 and the End of the One-Year Certificate: A Field Guide to
+the 2026-2029 Lifetime Reductions - <a
+href="https://certpulse.dev/blog/sc-081v3-and-the-end-of-the-one-year-certificate-a-field-guide-to-the-2026-2029-"
+class="uri">https://certpulse.dev/blog/sc-081v3-and-the-end-of-the-one-year-certificate-a-field-guide-to-the-2026-2029-</a></li>
+<li>Shorter SSL/TLS Certificate Lifetimes 2026 | BrandShelter - <a
+href="https://www.brandshelter.com/blog/shorter-ssl-certificate-lifetimes-2026/"
+class="uri">https://www.brandshelter.com/blog/shorter-ssl-certificate-lifetimes-2026/</a>
+- as of 2025-04-11</li>
+<li>SSL Certificate Lifetimes Shrink to 47 Days by 2029 | InMotion
+Hosting - <a
+href="https://www.inmotionhosting.com/support/website/ssl/ssl-certificate-47-day-lifetime-schedule/"
+class="uri">https://www.inmotionhosting.com/support/website/ssl/ssl-certificate-47-day-lifetime-schedule/</a>
+- as of 2025-04-11</li>
+<li>CA/Browser Forum and 47 Days: Everything you need to know - <a
+href="https://www.appviewx.com/blogs/https-www-appviewx-com-blogs-its-official-ca-b-forum-votes-yes-to-47-day-tls-certificates/"
+class="uri">https://www.appviewx.com/blogs/https-www-appviewx-com-blogs-its-official-ca-b-forum-votes-yes-to-47-day-tls-certificates/</a></li>
+<li>Ballot SC081v3: Introduce Schedule of Reducing Validity and Data
+Reuse Periods | CA/Browser Forum - <a
+href="https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/"
+class="uri">https://cabforum.org/2025/04/11/ballot-sc081v3-introduce-schedule-of-reducing-validity-and-data-reuse-periods/</a>
+- as of 2025-04-11</li>
+<li>TLS Certificates Cut to 47 Days: SC-081v3 Explained (2026-2029) - <a
+href="https://www.captaindns.com/en/blog/tls-certificate-validity-reduction-47-days"
+class="uri">https://www.captaindns.com/en/blog/tls-certificate-validity-reduction-47-days</a></li>
+<li>draft-davidben-tls-merkle-tree-certs-01.xml - <a
+href="https://www.ietf.org/archive/id/draft-davidben-tls-merkle-tree-certs-01.xml"
+class="uri">https://www.ietf.org/archive/id/draft-davidben-tls-merkle-tree-certs-01.xml</a></li>
+<li>draft-ietf-plants-merkle-tree-certs-03 - <a
+href="https://datatracker.ietf.org/doc/html/draft-ietf-plants-merkle-tree-certs-03"
+class="uri">https://datatracker.ietf.org/doc/html/draft-ietf-plants-merkle-tree-certs-03</a></li>
+<li>draft-ietf-plants-merkle-tree-certs-04 - Merkle Tree Certificates -
+<a
+href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/</a>
+- as of 2026-05-01</li>
+<li>Network Impact of Post-Quantum Certificate Chain sizes on Time to
+First Byte in TLS Deployments - <a
+href="https://arxiv.org/pdf/2604.24869"
+class="uri">https://arxiv.org/pdf/2604.24869</a></li>
+<li>Configure Online Responders (OCSP) to use ML-DSA in Windows Server |
+Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/configure-ml-dsa-online-responder"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/configure-ml-dsa-online-responder</a>
+- as of 2026-05-12</li>
+<li>What is ML-DSA support in AD CS? - Windows Server | Microsoft Learn
+- <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/ml-dsa-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/ml-dsa-overview</a>
+- as of 2026-05-20</li>
+<li>ETSI TS 119 312 V2.1.1 (2026-06) - <a
+href="https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/02.01.01_60/ts_119312v020101p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/02.01.01_60/ts_119312v020101p.pdf</a>
+- as of 2026-06-30</li>
+<li>SafeShark updates cryptographic assessment policy following new ETSI
+guidance - <a
+href="https://www.safeshark.co.uk/news/safeshark-updates-cryptographic-assessment-policy-following-new-etsi-guidance/"
+class="uri">https://www.safeshark.co.uk/news/safeshark-updates-cryptographic-assessment-policy-following-new-etsi-guidance/</a>
+- as of 2026-07-21</li>
+<li>Work Programme - Work Item Plan - <a
+href="https://portal.etsi.org/webapp/WORKPROGRAM/TUBEReport.asp?qSORT=REFNB&amp;qETSI_ALL=&amp;SearchPage=TRUE&amp;qTB_ID=607%3BESI&amp;qINCLUDE_SUB_TB=True&amp;qINCLUDE_MOVED_ON=&amp;qEND_CURRENT_STATUS_CODE=11+WI%3BM58&amp;qSTOP_FLG=N&amp;qKEYWORD_BOOLEAN=OR&amp;qCLUSTER_BOOLEAN=OR&amp;qFREQUENCIES_BOOLEAN=OR&amp;qSTOPPING_OUTDATED=&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;qREPORT_TYPE=SUMMARY&amp;optDisplay=ALL"
+class="uri">https://portal.etsi.org/webapp/WORKPROGRAM/TUBEReport.asp?qSORT=REFNB&amp;qETSI_ALL=&amp;SearchPage=TRUE&amp;qTB_ID=607%3BESI&amp;qINCLUDE_SUB_TB=True&amp;qINCLUDE_MOVED_ON=&amp;qEND_CURRENT_STATUS_CODE=11+WI%3BM58&amp;qSTOP_FLG=N&amp;qKEYWORD_BOOLEAN=OR&amp;qCLUSTER_BOOLEAN=OR&amp;qFREQUENCIES_BOOLEAN=OR&amp;qSTOPPING_OUTDATED=&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;qREPORT_TYPE=SUMMARY&amp;optDisplay=ALL</a>
+- as of 2026-08-29</li>
+<li>Post Quantum Cryptography: How Docusign Is Securing Digital
+Agreements for the Quantum Era - <a
+href="https://www.docusign.com/en-gb/blog/post-quantum-cryptography-how-docusign-is-securing-digital-agreements-for"
+class="uri">https://www.docusign.com/en-gb/blog/post-quantum-cryptography-how-docusign-is-securing-digital-agreements-for</a>
+- as of 2026-08-18</li>
+<li>Post quantum cryptography (PQC) in PDF signatures - Adobe Community
+- <a
+href="https://community.adobe.com/t5/acrobat-discussions/post-quantum-cryptography-pqc-in-pdf-signatures/td-p/15525520"
+class="uri">https://community.adobe.com/t5/acrobat-discussions/post-quantum-cryptography-pqc-in-pdf-signatures/td-p/15525520</a></li>
+<li>ETSI EN 319 142-1 v1.2.1 (2024-01) - PAdES digital signatures - <a
+href="https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/69"
+class="uri">https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/69</a>
+- as of 2024-01-01</li>
+<li>ETSI EN 319 142-1 V1.1.1 (2016-04) - <a
+href="https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.01.01_60/en_31914201v010101p.pdf</a></li>
+<li>ETSI EN 319 142-1 V1.2.1 (2024-01) - <a
+href="https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.02.01_60/en_31914201v010201p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.02.01_60/en_31914201v010201p.pdf</a>
+- as of 2024-01-01</li>
+<li>PAdES and Long-Term Archival (LTA) Compliance - <a
+href="https://www.cryptomathic.com/blog/pades-and-long-term-archival-lta"
+class="uri">https://www.cryptomathic.com/blog/pades-and-long-term-archival-lta</a></li>
+<li>XAdES — Grokipedia - <a href="https://grokipedia.com/page/XAdES"
+class="uri">https://grokipedia.com/page/XAdES</a> - as of
+2024-07-01</li>
+<li>Draft ETSI EN 319 132-2 V1.0.0 (2015-06) - <a
+href="https://www.etsi.org/deliver/etsi_en/319100_319199/31913202/01.00.00_20/en_31913202v010000a.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_en/319100_319199/31913202/01.00.00_20/en_31913202v010000a.pdf</a></li>
+<li>ETSI EN 319 142-2 V1.2.1 (2025-07) - <a
+href="https://www.etsi.org/deliver/etsi_en/319100_319199/31914202/01.02.01_60/en_31914202v010201p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_en/319100_319199/31914202/01.02.01_60/en_31914202v010201p.pdf</a>
+- as of 2025-07-01</li>
+<li>ETSI EN 319 122-1 V1.3.1 (2023-06) - <a
+href="https://www.etsi.org/deliver/etsi_en/319100_319199/31912201/01.03.01_60/en_31912201v010301p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_en/319100_319199/31912201/01.03.01_60/en_31912201v010301p.pdf</a>
+- as of 2023-06-01</li>
+<li>ETSI EN 319 122-1 V1.2.1 (2021-10) - <a
+href="https://www.etsi.org/deliver/etsi_en/319100_319199/31912201/01.02.01_60/en_31912201v010201p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_en/319100_319199/31912201/01.02.01_60/en_31912201v010201p.pdf</a>
+- as of 2021-10-01</li>
+<li>ETSI TS 119 152-1 V1.1.1 (2026-03) - <a
+href="https://www.etsi.org/deliver/etsi_ts/119100_119199/11915201/01.01.01_60/ts_11915201v010101p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_ts/119100_119199/11915201/01.01.01_60/ts_11915201v010101p.pdf</a>
+- as of 2026-03-01</li>
+<li>ETSI TS 119 312 V1.5.1 (2024-12) - <a
+href="https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/01.05.01_60/ts_119312v010501p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/01.05.01_60/ts_119312v010501p.pdf</a>
+- as of 2024-12-01</li>
+<li>ETSI TS 119 312 v1.5.1 (2024-12) - Cryptographic Suites - <a
+href="https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/328"
+class="uri">https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/328</a>
+- as of 2026-03-10</li>
+<li>ETSI TS 119 322 V1.1.1 (2022-11) - <a
+href="https://www.etsi.org/deliver/etsi_ts/119300_119399/119322/01.01.01_60/ts_119322v010101p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_ts/119300_119399/119322/01.01.01_60/ts_119322v010101p.pdf</a>
+- as of 2022-11-01</li>
+<li>Post quantum cryptography (PQC) in PDF signatures | Adobe Community
+- <a
+href="https://community.adobe.com/questions-9/post-quantum-cryptography-pqc-in-pdf-signatures-1304833"
+class="uri">https://community.adobe.com/questions-9/post-quantum-cryptography-pqc-in-pdf-signatures-1304833</a>
+- as of 2026-03-30</li>
+<li>Post-Quantum Cryptography is coming to PDF - <a
+href="https://bfo.com/blog/2025/09/30/post_quantum_cryptography_is_coming_to_pdf/"
+class="uri">https://bfo.com/blog/2025/09/30/post_quantum_cryptography_is_coming_to_pdf/</a>
+- as of 2025-09-01</li>
+<li>Enhancing Security for Agreements: Acrobat Sign Transport Layer
+Security (TLS) - <a
+href="https://community.adobe.com/announcements-34/enhancing-security-for-agreements-acrobat-sign-transport-layer-security-tls-20681"
+class="uri">https://community.adobe.com/announcements-34/enhancing-security-for-agreements-acrobat-sign-transport-layer-security-tls-20681</a></li>
+<li>EUDI Wallet 2026: Five Things Private PKI Teams Need to Know - <a
+href="https://evertrust.io/blog/eudi-wallet-private-pki/"
+class="uri">https://evertrust.io/blog/eudi-wallet-private-pki/</a> - as
+of 2024-05-20</li>
+<li>eIDAS 2.0 FAQ - <a href="https://eidasreadiness.com/faq"
+class="uri">https://eidasreadiness.com/faq</a></li>
+<li>eIDAS 2.0 Digital Identity Wallet: Compliance 2026 - <a
+href="https://youtrust.com/blog/eidas-2-0-digital-identity-wallet-compliance-requirements"
+class="uri">https://youtrust.com/blog/eidas-2-0-digital-identity-wallet-compliance-requirements</a></li>
+<li>eIDAS 2.0: What is Changing for QES in 2025-2026 - <a
+href="https://www.qualified-electronic-signature.com/eidas-2-0-changes-qes-2025-2026/"
+class="uri">https://www.qualified-electronic-signature.com/eidas-2-0-changes-qes-2025-2026/</a></li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="06-network-transport.html"><span>Previous</span>Part 6 - Network &amp; Transport Protocols</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="08-app-dev-stacks.html"><span>Next</span>Part 8 - Application Dev Stacks &amp; Languages</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/07-pki-identity.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

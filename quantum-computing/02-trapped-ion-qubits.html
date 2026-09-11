@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 2 - Trapped Ion Qubits | Quantum Computing</title>
+  <meta name="description" content="Quantum Computing, Part 2: Trapped Ion Qubits.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Quantum Computing</a><span class="sep">/</span>Part 2</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Quantum Computing &middot; Part 2</p>
+    <h1>Trapped Ion Qubits</h1>
+    <p class="updated">Last updated: 2026-08-30</p>
+    <p class="actions"><a class="pdf" href="latest/02-trapped-ion-qubits.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#ionq" id="toc-ionq">1. IonQ</a></li>
+<li><a href="#quantinuum" id="toc-quantinuum">2. Quantinuum</a></li>
+<li><a href="#aqt" id="toc-aqt">3. AQT</a></li>
+<li><a href="#eleqtron" id="toc-eleqtron">4. eleQtron</a></li>
+<li><a href="#university-of-oxford" id="toc-university-of-oxford">5.
+University of Oxford</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>A trapped-ion quantum computer uses individual charged atoms, held in
+place by electric fields inside a vacuum chamber, as its qubits. Every
+ion of a given element is identical, which removes the manufacturing
+variation that troubles the chips in Part 1. Ions also hold their state
+far longer, and any ion in a chain can interact with any other rather
+than only its neighbours.</p>
+<p>The cost is speed. Operations take microseconds where superconducting
+gates take nanoseconds, roughly a thousandfold difference. The field’s
+central engineering question is whether that penalty can be reduced
+faster than superconducting machines can improve their fidelity.</p>
+<p>A second theme runs through this part. Most trapped-ion systems
+control their ions with lasers, which are bulky and hard to scale.
+Several groups are replacing lasers with electronics or microwaves, and
+Sections 1, 4 and 5 are all, in part, about that shift.</p>
+<p>Section 1 covers IonQ, Section 2 Quantinuum, Section 3 AQT, Section 4
+eleQtron, and Section 5 the University of Oxford.</p>
+<h2 id="ionq">1. IonQ</h2>
+<p><em>IonQ’s recent work is about removing lasers from the control
+path. Its electronic control approach produced the highest two-qubit
+gate fidelity in this part, and did it without the elaborate cooling
+that such results normally require.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>IonQ demonstrated electronically controlled two-qubit gates with an
+estimated error of 8.4(7)×10⁻⁵, which is a fidelity above 99.99% [1].
+The result did not require ground-state cooling. Error stayed at or
+below 5×10⁻⁴ even with average phonon occupation as high as 9.4(3) on
+the gate mode.</p>
+<p>That second sentence carries the significance. Ground-state cooling
+means chilling an ion’s motion to its lowest possible level before
+operating on it, and it is slow. A gate that tolerates a warm, vibrating
+ion removes a step from every operation.</p>
+<h3 id="current-state">Current State</h3>
+<p>IonQ’s architecture gives every qubit in a single ion chain access to
+every other, through a shared motional bus [2]. For electronically
+controlled gates between distant qubits, ions must first be shuttled to
+the same physical location, a principle the company compares to
+charge-coupled devices.</p>
+<p>The commercial machines are smaller than that headline result
+suggests. IonQ’s Forte and Forte Enterprise processors each hold 36
+qubits, built from trapped ytterbium ions in a compact surface linear
+Paul trap and controlled by 355-nanometre laser transitions [3]. Median
+two-qubit fidelities measured 99.3% on Forte and 99.5% on Forte
+Enterprise, with single-qubit rotations around 99.98%.</p>
+<p>An independent benchmark supports the connectivity claim. A
+peer-reviewed paper in the journal Quantum tested a Forte system
+configured as a single 30-qubit chain and benchmarked all 435 possible
+qubit pairs [4]. Testing every pair rather than a sample is what
+distinguishes a genuine all-to-all claim from an average.</p>
+<p>The electronic control technology replaces laser-based control with
+precision electronics manufactured on standard semiconductor chips,
+putting the control components directly onto microfabricated chips
+[5].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="quantinuum">2. Quantinuum</h2>
+<p><em>Quantinuum builds the highest-performing trapped-ion machines in
+this part and physically moves its ions around the chip to do it. Its
+current system is also the hardware behind the logical-qubit results in
+Part 6.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>Quantinuum’s Helios system is a 98-qubit processor using barium
+hyperfine qubits, with all-to-all connectivity provided by a rotatable
+ion storage ring and a four-way junction [6]. Average two-qubit gate
+infidelity is 7.9(2)×10⁻⁴, which is about 99.921% fidelity. Single-qubit
+infidelity is 2.5(1)×10⁻⁵, about 99.9975%. State preparation and
+measurement infidelity is 3.3(5)×10⁻⁴.</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Helios uses a quantum charge-coupled device architecture, usually
+shortened to QCCD, which physically transports ions within the trap
+rather than relying only on optical addressing [5]. The architecture
+organizes ions into separate zones for computation, storage and readout,
+and shuttles them between zones as needed [9]. That keeps interaction
+zones small and high-fidelity while the total qubit count grows on a
+single chip.</p>
+<p>The previous generation set the standing benchmark. Quantinuum’s H2
+system, with 56 all-to-all connected qubits, reached a quantum volume of
+2²⁵ in September 2025 [5]. Quantum volume is a single number combining
+qubit count, fidelity and connectivity. That value is the highest
+reported for any machine in this collection.</p>
+<p>H2’s component error rates are documented in detail. It has a
+state-preparation-and-measurement error rate of 0.15%, a two-qubit gate
+error rate of 0.14(1)%, long-range connectivity, and mid-circuit
+measurement and reset crosstalk errors at or below 2×10⁻⁵ [7].
+Mid-circuit measurement means reading one qubit while others keep
+computing, which error correction depends on.</p>
+<p>Two benchmarking figures round out the picture. The 20-qubit H1-1
+system reported median single-qubit fidelity of 99.996% and median
+two-qubit fidelity of 99.9% [8]. The 56-qubit H2 device showed 99.997%
+and 99.87% for the same two measures [8].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="aqt">3. AQT</h2>
+<p><em>AQT’s contribution is not peak performance but form factor. Its
+machines run at room temperature in standard equipment racks, which
+changes where a quantum computer can be installed.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>AQT’s LYNX series reached a quantum volume of 32,768 with all-to-all
+connectivity [10]. The system fits a 19-inch rack-mounted enclosure and
+operates at room temperature.</p>
+<h3 id="current-state-2">Current State</h3>
+<p>AQT builds compact, rack-mountable trapped-ion systems using calcium
+ions [11]. Its PINE system fits into two 19-inch racks, supports up to
+50 qubits, and runs at room temperature drawing under 2 kilowatts.
+Compare that with the dilution refrigerators the superconducting systems
+in Part 1 require. A machine that runs on rack power in a normal room
+has a different installation cost than one that does not.</p>
+<p>The company was spun out of the University of Innsbruck by Rainer
+Blatt, Peter Zoller and Thomas Monz, continuing that university’s
+calcium-ion research line [11].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="eleqtron">4. eleQtron</h2>
+<p><em>eleQtron replaces lasers with magnetic gradients and microwave
+fields. The approach is less proven than the alternatives in this part,
+and several of its strongest claims come from the company and its
+funding consortium rather than from independent publication.</em></p>
+<h3 id="current-state-3">Current State</h3>
+<p>The core technology is called magnetic gradient induced coupling, and
+it uses microwave fields rather than lasers to control trapped-ion
+qubits [14].</p>
+<p>The strongest published result is a speed improvement. A Physical
+Review X paper from June 2025, co-authored by a researcher now at
+eleQtron, demonstrated a laser-free radio-frequency two-qubit entangling
+gate [12]. It ran roughly an order of magnitude faster than the previous
+best radio-frequency gate, which took 740 microseconds. The same work
+increased qubit coherence time by three orders of magnitude by
+decoupling from field noise.</p>
+<p>That gate reached an experimental entanglement negativity of 0.48,
+with an uncertainty range from plus 0.02 to minus 0.06 [13]. The maximum
+possible value is 0.5, so the result sits close to a maximally entangled
+two-qubit state. It used only a single continuous radio-frequency field
+per qubit, which matters for scaling.</p>
+<p>The broader performance claims are weaker evidence. eleQtron’s EU
+project documentation reports record-low crosstalk between qubits, high
+single- and two-qubit gate fidelities, and coherence times up to 10
+seconds [14]. It also claims all-to-all connectivity and operation at
+higher temperatures than superconducting systems. These are company and
+consortium statements rather than independently published results, and
+should be read as such.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="university-of-oxford">5. University of Oxford</h2>
+<p><em>Oxford holds the reference results in this field, both the
+laser-driven benchmark that stood for years and the all-electronic work
+that displaced it. Its spinout was acquired by IonQ, which connects this
+section back to Section 1.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Oxford demonstrated microwave-driven two-qubit gates on calcium
+hyperfine qubits in a cryogenic surface trap [15]. Two operating points
+were reported: a 154-microsecond gate with 1.0(2)% error, and a slower
+331-microsecond gate with 0.5(1)% error. The trade between speed and
+accuracy is visible directly in those two numbers.</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The single-qubit result is the strongest in this collection. An
+Oxford-based team demonstrated all-electronic control of trapped-ion
+qubits in a microfabricated seven-zone trap, reaching an average
+single-qubit gate fidelity of at least 99.99912(8)% [16]. It worked by
+switching interaction fields on and off between zones, and was published
+in PRX Quantum in October 2025.</p>
+<p>The history explains why the recent results matter. Oxford’s 2016
+laser-driven two-qubit gate reached 99.9(1)% fidelity, with single-qubit
+fidelity of 99.9934(3)%, on calcium hyperfine qubits [17]. That was the
+standing reference point for trapped-ion gate fidelity for years.</p>
+<p>It has since been passed twice. Oxford Ionics, an Oxford spinout now
+part of IonQ, demonstrated 99.97% two-qubit fidelity on a calcium system
+using electronic qubit control [11]. IonQ’s own result on ytterbium
+hardware, in Section 1, then exceeded that.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Trapped-ion two-qubit gates with &gt;99.99% fidelity without
+ground-state cooling - <a href="https://arxiv.org/html/2510.17286"
+class="uri">https://arxiv.org/html/2510.17286</a> (as of
+2025-10-20)</li>
+<li>IonQ: Accelerating Towards Fault Tolerance, Unlocking 99.99%
+Two-Qubit Gate Fidelities - <a
+href="https://www.ionq.com/blog/accelerating-towards-fault-tolerance-unlocking-99-99-two-qubit-gate"
+class="uri">https://www.ionq.com/blog/accelerating-towards-fault-tolerance-unlocking-99-99-two-qubit-gate</a>
+(as of 2025-10-21)</li>
+<li>Protein folding with an all-to-all trapped-ion quantum computer - <a
+href="https://arxiv.org/pdf/2506.07866"
+class="uri">https://arxiv.org/pdf/2506.07866</a> (as of 2025-06-09)</li>
+<li>Benchmarking a trapped-ion quantum computer with 30 qubits - <a
+href="https://quantum-journal.org/papers/q-2024-11-07-1516/"
+class="uri">https://quantum-journal.org/papers/q-2024-11-07-1516/</a>
+(as of 2024-11-07)</li>
+<li>Trapped-Ion Quantum Computing Companies, Technology and Where It
+Stands in 2026 - <a
+href="https://thequantuminsider.com/2026/06/12/trapped-ion-quantum-computing-companies-technology-and-where-it-stands-in-2026/"
+class="uri">https://thequantuminsider.com/2026/06/12/trapped-ion-quantum-computing-companies-technology-and-where-it-stands-in-2026/</a>
+(as of 2025-11-01)</li>
+<li>A 98-qubit trapped-ion quantum computer with all-to-all connectivity
+- <a href="https://www.nature.com/articles/s41586-026-10676-4"
+class="uri">https://www.nature.com/articles/s41586-026-10676-4</a> (as
+of 2026-06-17)</li>
+<li>Demonstration of logical qubits and repeated error correction with
+better-than-physical error rates - <a
+href="https://arxiv.org/pdf/2404.02280"
+class="uri">https://arxiv.org/pdf/2404.02280</a> (undated)</li>
+<li>Quantum Image Classification: Experiments on Utility-Scale Quantum
+Computers - <a href="https://arxiv.org/pdf/2504.10595"
+class="uri">https://arxiv.org/pdf/2504.10595</a> (undated)</li>
+<li>Trapped-Ion Quantum Computing - <a
+href="https://entangledfuture.com/guides/trapped-ion-quantum-computing/"
+class="uri">https://entangledfuture.com/guides/trapped-ion-quantum-computing/</a>
+(undated)</li>
+<li>AQT Sets New European Industry Standard: Introducing the LYNX Series
+with Record-Breaking Quantum Volume - <a
+href="https://www.aqt.eu/lynx-quantum-volume-record/"
+class="uri">https://www.aqt.eu/lynx-quantum-volume-record/</a> (as of
+2026-05-05)</li>
+<li>Trapped-Ion Quantum Computing: How It Works, Who Builds It - <a
+href="https://postquantum.com/quantum-modalities/trapped-ion-qubits/"
+class="uri">https://postquantum.com/quantum-modalities/trapped-ion-qubits/</a>
+(undated)</li>
+<li>Fast, Robust, and Laser-Free Universal Entangling Gates for
+Trapped-Ion Quantum Computing - <a
+href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.15.021079"
+class="uri">https://journals.aps.org/prx/abstract/10.1103/PhysRevX.15.021079</a>
+(as of 2025-06-03)</li>
+<li>Fast, Robust and Laser-Free Universal Entangling Gates for
+Trapped-Ion Quantum Computing, preprint - <a
+href="https://arxiv.org/html/2403.04730"
+class="uri">https://arxiv.org/html/2403.04730</a> (as of
+2025-06-27)</li>
+<li>All-integrated on-chip ion trap towards fault-tolerant quantum
+computing, MAGICAL project fact sheet - <a
+href="https://cordis.europa.eu/project/id/101218305"
+class="uri">https://cordis.europa.eu/project/id/101218305</a>
+(undated)</li>
+<li>Robust and fast microwave-driven quantum logic for trapped-ion
+qubits - <a href="https://arxiv.org/html/2402.12955v1"
+class="uri">https://arxiv.org/html/2402.12955v1</a> (as of
+2026-08-24)</li>
+<li>Scalable, High-Fidelity All-Electronic Control of Trapped-Ion Qubits
+- <a href="https://link.aps.org/doi/10.1103/h4wk-v31j"
+class="uri">https://link.aps.org/doi/10.1103/h4wk-v31j</a> (as of
+2025-10-20)</li>
+<li>High-fidelity quantum logic gates using trapped-ion hyperfine qubits
+- <a href="https://arxiv.org/pdf/1512.04600"
+class="uri">https://arxiv.org/pdf/1512.04600</a> (as of 2016-06-21)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="01-superconducting-qubits.html"><span>Previous</span>Part 1 - Superconducting Qubits</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Quantum Computing</a>
+    <a class="pager-next" href="03-neutral-atom-qubits.html"><span>Next</span>Part 3 - Neutral Atom Qubits</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/02-trapped-ion-qubits.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

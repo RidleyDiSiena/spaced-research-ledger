@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 8 - Application Dev Stacks & Languages | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 8: Application Dev Stacks & Languages.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 8</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 8</p>
+    <h1>Application Dev Stacks &amp; Languages</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/08-app-dev-stacks.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#web-servers-proxies" id="toc-web-servers-proxies">1. Web
+Servers &amp; Proxies</a></li>
+<li><a href="#language-runtime-tls-surfaces"
+id="toc-language-runtime-tls-surfaces">2. Language Runtime TLS
+Surfaces</a></li>
+<li><a href="#database-messaging-drivers"
+id="toc-database-messaging-drivers">3. Database &amp; Messaging
+Drivers</a></li>
+<li><a href="#browsers" id="toc-browsers">4. Browsers</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>The software that developers actually build with, web servers,
+language runtimes, database drivers, and browsers, mostly does not
+implement cryptography. It inherits it. When OpenSSL, Go, or the
+operating system’s TLS stack turns post-quantum on, thousands of
+products above them change behavior at once.</p>
+<p>This report follows that inheritance through four layers. Section 1
+covers web servers and proxies, Section 2 the language runtimes, Section
+3 database and messaging drivers, and Section 4 the browsers.</p>
+<p>The inheritance is now mostly delivered for key exchange. Browsers
+have shipped hybrid post-quantum by default for over a year, and Edge
+has gone further, removing the off switch entirely. Servers built on
+OpenSSL 3.5, Go, or Apple’s frameworks negotiate it without code
+changes. The visible gap runs along one seam: whatever sits on Windows
+or Java waits for opt-in settings or a September release.</p>
+<p>The stragglers matter because they are load-bearing. Envoy, the proxy
+inside most service meshes, closed its post-quantum tracking issue as
+not planned. MongoDB documents nothing newer than OpenSSL 3.0. And
+signatures trail key exchange everywhere, with servers only now growing
+the code to select an ML-DSA certificate.</p>
+<h2 id="web-servers-proxies">1. Web Servers &amp; Proxies</h2>
+<p><em>Web servers and reverse proxies terminate the world’s TLS
+connections, so their support decides whether a website can actually
+speak post-quantum. Almost none of them implement TLS themselves. Each
+inherits from a cryptographic library, which makes this section a map of
+who links against what, and who has wired the new options
+through.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The Windows side arrived last but arrived. IIS relies on the Schannel
+component, whose hybrid post-quantum support reached general
+availability in July 2026 [1]. Three hybrid groups are exposed, none
+enabled by default, and administrators must switch one on explicitly
+[1]. Only TLS 1.3 qualifies, with older versions permanently excluded
+[1].</p>
+<p>Caddy, at the other pole, has key agreement on by default and waits
+only on Go’s signature support [2]. Tomcat’s pure-Java path is capped by
+the JDK, whose hybrid TLS lands with JDK 27 [3].</p>
+<h3 id="current-state">Current State</h3>
+<p>The OpenSSL family inherits cleanly. Apache httpd gains support
+transparently through the library it links, with a one-line
+configuration directive to enable the hybrid group [4]. Researchers have
+built fully post-quantum Apache stacks for experimentation [5].
+Open-source nginx picks the algorithms up from OpenSSL 3.5 [6], while
+the commercial NGINX Plus added support earlier through the add-on
+provider [7], covering whatever the provider offers [8]. Verification is
+a handshake check away [9], and Ubuntu’s newest releases enable the
+hybrid group for nginx by default [10].</p>
+<p>The Go and AWS-LC camps default on. Caddy shipped the standardized
+hybrid group by default in April 2025 [11]. It tracks the newest Go
+release specifically to inherit security features fast [11], and retired
+the pre-standard group as ML-KEM finalized [12]. HAProxy ships AWS-LC as
+its library, which carries the post-quantum curves natively [13]. Its
+maintainers closed a feature request as working as designed, treating
+post-quantum as the library’s job [14].</p>
+<p>Envoy is the notable holdout. Upstream Envoy does not support the
+standardized algorithms, and its tracking issue, which named the exact
+library commits needed, was closed as not planned [15]. Its TLS
+documentation does not mention post-quantum at all [16]. Tomcat,
+meanwhile, is building the signature side: recent releases select ML-DSA
+certificates from the client hello [17] and restrict TLS groups per host
+configuration [18].</p>
+<p>They also layer post-quantum certificates onto classical contexts in
+the OpenSSL connector [19]. Windows completes the picture with
+certificate issuance now generally available beneath IIS [20].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Envoy’s status depends on who you ask. Upstream closed its
+post-quantum issue as not planned [15]. Yet Red Hat’s OpenShift Service
+Mesh, built on Envoy, announced configurable hybrid key exchange for its
+gateways and proxies in March 2026 [21].</p>
+<p>A downstream build carrying newer BoringSSL would explain both, but
+neither source says so. Separately, a deployment guide asserts Envoy’s
+library has shipped Kyber support since 2023 under the draft name, a
+claim in tension with the upstream issue [22]. A negotiated handshake
+against a stock Envoy build would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="language-runtime-tls-surfaces">2. Language Runtime TLS
+Surfaces</h2>
+<p><em>Most applications make secure connections through their
+language’s standard library. Whatever Go, Java, .NET, Python, or Swift
+negotiate becomes what millions of programs negotiate. This section
+covers each runtime’s TLS surface, where the pattern is a familiar one:
+key exchange is largely done, signatures are just beginning, and Java’s
+calendar matters to everyone downstream.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The runtimes converged within a few months of each other. Go 1.26 put
+all three hybrid groups in its defaults [23], and Go 1.27 added a
+standard ML-DSA package reaching into certificates and TLS [24]. Java’s
+hybrid key exchange was delivered for JDK 27 [25], with backports
+planned to every long-term release through 2027 [26]. Windows Schannel,
+the stack beneath .NET’s default TLS, went generally available in July,
+disabled by default and TLS 1.3 only [27][27].</p>
+<p>Node.js now statically links OpenSSL 3.5, turning post-quantum on by
+default for its AWS connections [28], where the AWS SDK had supported
+hybrid key exchange since April [29]. Python’s main cryptography package
+added native ML-KEM and ML-DSA, one pip install away [30]. Apple enabled
+hybrid key exchange by default across its 26-generation networking APIs
+[31], with the Swift server stack matching [32]. In C, wolfSSL went
+fully native [33] and its provider adds validated algorithms to any
+OpenSSL application [34].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Go remains the cleanest story. Hybrid key exchange has been on by
+default since Go 1.24 whenever preferences are unset [35], a change that
+also removed the draft group [36]. The named constants are registered
+[37], with an escape hatch to revert [38]. The blemish is FIPS mode: the
+X25519 hybrid is listed as approved but always fails under the strictest
+setting [39], and the workaround disables the valid alternatives too
+[40].</p>
+<p>Java is primitives now, TLS in September. The algorithms arrived in
+JDK 24 [41], with TLS integration deliberately deferred because the
+standards did not exist yet [42]. JEP 527 integrated into early-access
+builds [43], enabling the X25519 hybrid by default with no code changes
+[44], but general availability waits for the JDK 27 release [45].</p>
+<p>.NET pairs native algorithms with an opt-in transport. .NET 10 ships
+all three standards in its cryptography namespace [46], as new types
+outside the classical base class [47], with Bouncy Castle remaining the
+cross-platform alternative [48]. C and C++ applications inherit from
+OpenSSL’s defaults [49], on a long-term release supported to 2030 [49].
+They can equally inherit from BoringSSL’s earlier rollout in the
+Chromium world [50], or from liboqs through the provider [51]. Linux
+crypto policies steer the result on enterprise distributions [52].</p>
+<p>The others range from transparent to vacant. Python’s TLS behavior is
+entirely the linked OpenSSL’s [53], with tooling to verify what was
+negotiated [53] and a hybrid-by-default research library at the fringe
+[54]. Rust’s mainstream TLS ships the hybrid group behind a feature flag
+[55], superseding the experimental crate [56]. A survey finds core Rust
+crypto crates not prioritizing the standards [57], and wolfSSL’s Rust
+support is still a roadmap item [58]. For Elixir, PHP, and Ruby, no
+established post-quantum information was found at all [49].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="database-messaging-drivers">3. Database &amp; Messaging
+Drivers</h2>
+<p><em>Between applications and their data sit drivers and brokers, the
+connections that carry credentials and every query. Almost all of them
+borrow TLS from OpenSSL or a language runtime, so their post-quantum
+status is inherited, undocumented, or both. This section covers the data
+layer, where one database vendor has actually done the work.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>MySQL became the first major database to ship deliberate support.
+From version 26.7.0 it uses the post-quantum algorithms OpenSSL 3.5
+provides, covering TLS 1.3 key exchange with optional signature
+advertisement [59], preferring hybrid groups by default with classical
+fallback [60]. The signature side is explicitly opt-in and does not
+conjure certificates [59]. One caution travels with it: key exchange is
+on by default, signatures are not, and collapsing the two into one
+support claim overstates the default [59].</p>
+<p>Elsewhere the motion is inherited or requested. gRPC’s C core
+defaulted to post-quantum key exchange in its July release [61], Kafka’s
+ceiling tracks the JDK backport schedule [62], and Redis has an open
+feature request [63]. Postgres shows the edges: a client tool fails on
+ML-DSA server certificates that the command line accepts [64]. A JDBC
+security release fixed a channel-binding bug touching the new algorithms
+[65].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Inheritance does the quiet work. Postgres’s libpq has no TLS of its
+own, linking the system OpenSSL unchanged across versions [66]. Hybrid
+key exchange therefore works transparently in Python drivers once the
+library is new enough [67]. Redis has required OpenSSL for TLS since
+version 6 with the same dependency structure [68].</p>
+<p>Kafka inherits from the JVM’s TLS entirely [69], which means JDK 27’s
+default hybrid groups reach it with no Kafka changes [70]. gRPC splits
+by language: the C core vendors BoringSSL [71], which shipped ML-KEM
+after standardization [72]. grpc-go rides Go’s defaults, confirmed by
+its appearance in the Go FIPS bug report [73][74].</p>
+<p>The gaps are documentation-shaped. MongoDB’s TLS pages reference
+nothing newer than OpenSSL 3.0 and no post-quantum group [75]. MySQL’s
+own engineers had noted that upgrading the bundled library alone would
+not enable support, a plan the 26.7.0 release then fulfilled [76].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="browsers">4. Browsers</h2>
+<p><em>Browsers are where the migration touched the public first, and
+where it is furthest along. Every major engine now negotiates hybrid
+post-quantum key exchange by default, which is why most people are
+already protected without knowing it. This section covers the rollout,
+the disappearing off switches, and the one vendor whose story does not
+quite agree with itself.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>The rollout is entering its no-going-back phase. Chrome’s default
+dates to version 124 with the draft group [77]. On Windows, the
+operating system beneath Edge gained its own configurable hybrid groups
+in July [78]. Apple’s 26-generation release extends past the browser
+entirely, with the algorithms in its developer framework and even the
+iPhone-to-Watch link [79].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>Chrome set the pattern everyone follows. It shipped the standardized
+hybrid group as default in version 131 [80], and its enterprise override
+policy is deprecated with a version 146 end date [81]. Its certificate
+plan runs through Merkle Tree Certificates rather than traditional
+post-quantum X.509, with phases sketched into 2027 [82]. The measured
+result: over two-thirds of human TLS traffic to one large network now
+uses hybrid key exchange [83].</p>
+<p>Edge mirrors Chrome and then leads it. The same default arrived at
+version 131 [80], the override policy died on schedule [84], and as of
+version 147 it is removed entirely, making post-quantum key agreement
+mandatory [85]. A separate WebRTC policy waits in the wings, not yet
+default [86].</p>
+<p>Firefox covered the most surfaces. Desktop default came at version
+132, behind a preference [80], extending to Android and to QUIC
+connections [80], and to WebRTC’s handshake in version 146 [87]. Tor
+Browser inherits the default from its Firefox base [80].</p>
+<p>Safari ships defaults with a compatibility warning. Connections on
+the 26-generation systems automatically advertise the hybrid group
+through the system networking frameworks beneath Safari [88]. Apple
+itself flags the risk: some legacy servers cannot handle the larger
+hello message and will fail to connect [88].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>Apple’s rollout description is self-inconsistent. Its support
+documentation says qualifying systems advertise the hybrid exchange
+automatically and uniformly [88]. An industry survey instead calls the
+Safari and WebKit rollout uneven across builds with no user-facing
+toggle [83]. Packet captures across current Apple builds would settle
+which is right.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>techcommunity.microsoft.com — 4536649 - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
+- as of 2026-07-14</li>
+<li>PQC support - SSL/TLS - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/</a>
+- as of 2026-06-24</li>
+<li>sweharris.org — 2026 06 07 pqc compliant - <a
+href="https://www.sweharris.org/post/2026-06-07-pqc-compliant/"
+class="uri">https://www.sweharris.org/post/2026-06-07-pqc-compliant/</a>
+- as of 2026-06-07</li>
+<li>brnrd.eu — openssl 35 is pqc enabled and an lts release - <a
+href="https://brnrd.eu/security/2025-03-22/openssl-35-is-pqc-enabled-and-an-lts-release.html"
+class="uri">https://brnrd.eu/security/2025-03-22/openssl-35-is-pqc-enabled-and-an-lts-release.html</a>
+- as of 2025-03-22</li>
+<li>researchgate.net — 397973435 Development of an HTTP3 Web Server
+Supporting Post Quantum Cryptography - <a
+href="https://www.researchgate.net/publication/397973435_Development_of_an_HTTP3_Web_Server_Supporting_Post-Quantum_Cryptography"
+class="uri">https://www.researchgate.net/publication/397973435_Development_of_an_HTTP3_Web_Server_Supporting_Post-Quantum_Cryptography</a>
+- as of 2025-11-24</li>
+<li>blog.nginx.org — pqc nginx - <a
+href="https://blog.nginx.org/blog/pqc-nginx"
+class="uri">https://blog.nginx.org/blog/pqc-nginx</a></li>
+<li>docs.nginx.com — releases - <a
+href="https://docs.nginx.com/nginx/releases/"
+class="uri">https://docs.nginx.com/nginx/releases/</a></li>
+<li>community.f5.com — 341048 - <a
+href="https://community.f5.com/kb/technicalarticles/post-quantum-cryptography-building-resilience-against-tomorrow%E2%80%99s-threats/341048"
+class="uri">https://community.f5.com/kb/technicalarticles/post-quantum-cryptography-building-resilience-against-tomorrow%E2%80%99s-threats/341048</a></li>
+<li>linode.com — post quantum encryption nginx ubuntu2404 - <a
+href="https://www.linode.com/docs/guides/post-quantum-encryption-nginx-ubuntu2404/"
+class="uri">https://www.linode.com/docs/guides/post-quantum-encryption-nginx-ubuntu2404/</a></li>
+<li>Post Quantum Support in the upcoming 26.04 LTS - <a
+href="https://discourse.ubuntu.com/t/post-quantum-support-in-the-upcoming-26-04-lts/76840"
+class="uri">https://discourse.ubuntu.com/t/post-quantum-support-in-the-upcoming-26-04-lts/76840</a>
+- as of 2026-02-12</li>
+<li>github.com — releases - <a
+href="https://github.com/caddyserver/caddy/releases"
+class="uri">https://github.com/caddyserver/caddy/releases</a> - as of
+2025-04-18</li>
+<li>github.com — 6540 - <a
+href="https://github.com/caddyserver/caddy/issues/6540"
+class="uri">https://github.com/caddyserver/caddy/issues/6540</a> - as of
+2024-08-26</li>
+<li>haproxy.com — how to enable post quantum cryptography and tls
+termination with haproxy - <a
+href="https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography-and-tls-termination-with-haproxy"
+class="uri">https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography-and-tls-termination-with-haproxy</a></li>
+<li>github.com — 3171 - <a
+href="https://github.com/haproxy/haproxy/issues/3171"
+class="uri">https://github.com/haproxy/haproxy/issues/3171</a> - as of
+2025-10-24</li>
+<li>github.com — 42893 - <a
+href="https://github.com/envoyproxy/envoy/issues/42893"
+class="uri">https://github.com/envoyproxy/envoy/issues/42893</a> - as of
+2026-01-07</li>
+<li>envoyproxy.io — ssl - <a
+href="https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/ssl"
+class="uri">https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/ssl</a></li>
+<li>mail-archive.com — msg186762 - <a
+href="https://www.mail-archive.com/dev@tomcat.apache.org/msg186762.html"
+class="uri">https://www.mail-archive.com/dev@tomcat.apache.org/msg186762.html</a></li>
+<li>mail-archive.com — msg186657 - <a
+href="https://www.mail-archive.com/dev@tomcat.apache.org/msg186657.html"
+class="uri">https://www.mail-archive.com/dev@tomcat.apache.org/msg186657.html</a></li>
+<li>tomcat.apache.org — changelog - <a
+href="https://tomcat.apache.org/tomcat-10.1-doc/changelog.html"
+class="uri">https://tomcat.apache.org/tomcat-10.1-doc/changelog.html</a></li>
+<li>directaccess.richardhicks.com — amp - <a
+href="https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/amp/"
+class="uri">https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/amp/</a>
+- as of 2026-05-18</li>
+<li>Introducing OpenShift Service Mesh 3.3 with post-quantum
+cryptography - <a
+href="https://www.redhat.com/en/blog/openshift-service-mesh-33-adds-post-quantum-cryptography"
+class="uri">https://www.redhat.com/en/blog/openshift-service-mesh-33-adds-post-quantum-cryptography</a>
+- as of 2026-03-17</li>
+<li>systemshardening.com — tls post quantum hybrid deployment - <a
+href="https://www.systemshardening.com/articles/network/tls-post-quantum-hybrid-deployment/"
+class="uri">https://www.systemshardening.com/articles/network/tls-post-quantum-hybrid-deployment/</a>
+- as of 2026-05-08</li>
+<li>common.go - Go - <a
+href="https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go"
+class="uri">https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go</a>
+- as of 2026-08-25</li>
+<li>Go 1.27 brings generic methods, post-quantum crypto and a new JSON
+engine - Northeast Times - <a
+href="https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/"
+class="uri">https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/</a>
+- as of 2026-08-02</li>
+<li>JEP 527: Post-Quantum Hybrid Key Exchange for TLS 1.3 - <a
+href="https://openjdk.org/jeps/527"
+class="uri">https://openjdk.org/jeps/527</a> - as of 2026-08-17</li>
+<li>Post-Quantum Cryptography in Long-Term Support JDK Releases - <a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
+- as of 2026-08-06</li>
+<li>ASP.NET, Kestrel and Schannel GA with TLS 1.3 Post-Quantum
+Cryptography (Microsoft) - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
+- as of 2026-07-14</li>
+<li>Enabling hybrid post-quantum TLS - AWS SDKs and Tools - <a
+href="https://docs.aws.amazon.com/sdkref/latest/guide/pqtls-details.html"
+class="uri">https://docs.aws.amazon.com/sdkref/latest/guide/pqtls-details.html</a>
+- as of 2026-08-26</li>
+<li>AWS Secrets Manager clients now support hybrid post-quantum TLS - <a
+href="https://aws.amazon.com/about-aws/whats-new/2026/04/aws-secrets-manager-post-quantum-tls/"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2026/04/aws-secrets-manager-post-quantum-tls/</a>
+- as of 2026-04-14</li>
+<li>Shipping post-quantum cryptography to Python - The Trail of Bits
+Blog - <a
+href="https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/"
+class="uri">https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/</a>
+- as of 2026-06-30</li>
+<li>Prepare your network for quantum-secure encryption in TLS - <a
+href="https://support.apple.com/en-us/122756"
+class="uri">https://support.apple.com/en-us/122756</a> - as of
+2026-06-18</li>
+<li>swift-nio-ssl – Swift Package Index - <a
+href="https://swiftpackageindex.com/apple/swift-nio-ssl"
+class="uri">https://swiftpackageindex.com/apple/swift-nio-ssl</a> - as
+of 2026-06-08</li>
+<li>wolfSSL 5.9.2 release blog - wolfSSL - <a
+href="https://www.wolfssl.com/wolfssl-5-9-2-release-blog/"
+class="uri">https://www.wolfssl.com/wolfssl-5-9-2-release-blog/</a> - as
+of 2026-06-30</li>
+<li>wolfProvider Post-Quantum Cryptography: ML-KEM and ML-DSA - wolfSSL
+- <a
+href="https://www.wolfssl.com/wolfprovider-post-quantum-cryptography-ml-kem-and-ml-dsa/"
+class="uri">https://www.wolfssl.com/wolfprovider-post-quantum-cryptography-ml-kem-and-ml-dsa/</a>
+- as of 2026-07-02</li>
+<li>Post-Quantum Cryptography in Kubernetes | Kubernetes - <a
+href="https://kubernetes.io/blog/2025/07/18/pqc-in-k8s/"
+class="uri">https://kubernetes.io/blog/2025/07/18/pqc-in-k8s/</a> - as
+of 2025-02-01</li>
+<li>crypto/tls: add X25519MLKEM768 and use by default; remove
+x25519Kyber768Draft00 · Issue #69985 · golang/go - <a
+href="https://github.com/golang/go/issues/69985"
+class="uri">https://github.com/golang/go/issues/69985</a> - as of
+2024-10-22</li>
+<li>tls package - crypto/tls - Go Packages - <a
+href="https://pkg.go.dev/crypto/tls"
+class="uri">https://pkg.go.dev/crypto/tls</a></li>
+<li>crypto/tls: X25519MLKEM768 not enabled by default #75453 - <a
+href="https://github.com/golang/go/issues/75453"
+class="uri">https://github.com/golang/go/issues/75453</a></li>
+<li>crypto/tls: 25519MLKEM768 breaks fips140 · Issue #78298 · golang/go
+- <a href="https://github.com/golang/go/issues/78298"
+class="uri">https://github.com/golang/go/issues/78298</a> - as of
+2026-03-23</li>
+<li>crypto/tls: X25519MLKEM768 listed in allowedCurvePreferencesFIPS but
+always fails under GODEBUG=fips140=only · Issue #78178 · golang/go - <a
+href="https://github.com/golang/go/issues/78178"
+class="uri">https://github.com/golang/go/issues/78178</a> - as of
+2026-03-16</li>
+<li>Post-Quantum Cryptography in Long-Term Support JDK Releases | java -
+<a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
+- as of 2025-03-01</li>
+<li>JEP 496: Quantum-Resistant Module-Lattice-Based Key Encapsulation
+Mechanism - <a href="https://openjdk.org/jeps/496"
+class="uri">https://openjdk.org/jeps/496</a></li>
+<li>Post-Quantum Hybrid Key Exchange for TLS 1.3 - Inside.java - <a
+href="https://inside.java/2026/02/17/tls-post-quantum-hybrid-key-exchange/"
+class="uri">https://inside.java/2026/02/17/tls-post-quantum-hybrid-key-exchange/</a>
+- as of 2026-02-17</li>
+<li>Quality Outreach Heads-up - JDK 27: Post-Quantum Hybrid Key Exchange
+for TLS 1.3 - Inside.java - <a
+href="https://inside.java/2026/05/17/quality-heads-up/"
+class="uri">https://inside.java/2026/05/17/quality-heads-up/</a> - as of
+2026-05-17</li>
+<li>The Post-Quantum Security Timeline for Java: JEP 496, JEP 527, and
+What Teams Should Do Now - Java Code Geeks - <a
+href="https://www.javacodegeeks.com/2026/04/the-post-quantum-security-timeline-for-java-jep-496-jep-527-and-what-teams-should-do-now.html"
+class="uri">https://www.javacodegeeks.com/2026/04/the-post-quantum-security-timeline-for-java-jep-496-jep-527-and-what-teams-should-do-now.html</a></li>
+<li>Post-Quantum Cryptography APIs Now Generally Available on Microsoft
+Platforms | Microsoft Community Hub - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093</a>
+- as of 2025-11-18</li>
+<li>Post-Quantum Cryptography in .NET 10 | by Anderson Godoy | Medium -
+<a
+href="https://medium.com/@anderson.buenogod/post-quantum-cryptography-in-net-10-4da2779dcd2a"
+class="uri">https://medium.com/@anderson.buenogod/post-quantum-cryptography-in-net-10-4da2779dcd2a</a></li>
+<li>ML-KEM and ML-DSA Post-Quantum Cryptography in Windows | Strathweb.
+A free flowing tech monologue. - <a
+href="https://www.strathweb.com/2025/08/ml-kem-and-ml-dsa-post-quantum-cryptography-in-windows/"
+class="uri">https://www.strathweb.com/2025/08/ml-kem-and-ml-dsa-post-quantum-cryptography-in-windows/</a></li>
+<li>Post-Quantum Readiness · OpenSSL Corporation - <a
+href="https://openssl-corporation.org/post-quantum.html"
+class="uri">https://openssl-corporation.org/post-quantum.html</a> - as
+of 2026-08-15</li>
+<li>A Survey of Post-Quantum Cryptography Support in Cryptographic
+Libraries - <a href="https://arxiv.org/pdf/2508.16078"
+class="uri">https://arxiv.org/pdf/2508.16078</a> - as of 2024-09-01</li>
+<li>Faster Post-Quantum TLS 1.3 Based on ML-KEM: Implementation and
+Assessment - <a href="https://arxiv.org/pdf/2404.13544"
+class="uri">https://arxiv.org/pdf/2404.13544</a></li>
+<li>Post-Quantum Cryptography in Linux: ML-KEM, TLS &amp; SSH - <a
+href="https://www.golinuxcloud.com/post-quantum-cryptography-linux/"
+class="uri">https://www.golinuxcloud.com/post-quantum-cryptography-linux/</a></li>
+<li>Verify Post-Quantum TLS Negotiation from Python
+<code>requests</code> on Linux - DEV Community - <a
+href="https://dev.to/daan_acohen/verify-post-quantum-tls-negotiation-from-python-requests-on-linux-719"
+class="uri">https://dev.to/daan_acohen/verify-post-quantum-tls-negotiation-from-python-requests-on-linux-719</a></li>
+<li>quantum-safe: Bridging the Post-Quantum Production Gap with a
+Hybrid-by-Default Python Cryptography Library - <a
+href="https://arxiv.org/pdf/2605.17061"
+class="uri">https://arxiv.org/pdf/2605.17061</a></li>
+<li>rustls_post_quantum - Rust - <a
+href="https://docs.rs/rustls-post-quantum/latest/rustls_post_quantum/"
+class="uri">https://docs.rs/rustls-post-quantum/latest/rustls_post_quantum/</a></li>
+<li>rustls-post-quantum - crates.io: Rust Package Registry - <a
+href="https://crates.io/crates/rustls-post-quantum/0.2.1"
+class="uri">https://crates.io/crates/rustls-post-quantum/0.2.1</a> - as
+of 2024-12-11</li>
+<li>The State of Post-Quantum Cryptography in Rust: The Belt is Vacant |
+Project Eleven - <a
+href="https://www.projecteleven.com/blog/the-state-of-post-quantum-cryptography-in-rust-the-belt-is-vacant"
+class="uri">https://www.projecteleven.com/blog/the-state-of-post-quantum-cryptography-in-rust-the-belt-is-vacant</a>
+- as of 2026-05-05</li>
+<li>Rust support for post-quantum cryptography - wolfSSL - <a
+href="https://www.wolfssl.com/rust-support-for-post-quantum-cryptography/"
+class="uri">https://www.wolfssl.com/rust-support-for-post-quantum-cryptography/</a>
+- as of 2026-03-12</li>
+<li>blogs.oracle.com — post quantum cryptography support in mysql - <a
+href="https://blogs.oracle.com/mysql/post-quantum-cryptography-support-in-mysql"
+class="uri">https://blogs.oracle.com/mysql/post-quantum-cryptography-support-in-mysql</a>
+- as of 2026-07-28</li>
+<li>blogs.oracle.com — mysql july 2026 ga releases now available - <a
+href="https://blogs.oracle.com/mysql/mysql-july-2026-ga-releases-now-available"
+class="uri">https://blogs.oracle.com/mysql/mysql-july-2026-ga-releases-now-available</a>
+- as of 2026-07-28</li>
+<li>Releases · grpc/grpc - <a
+href="https://github.com/grpc/grpc/releases"
+class="uri">https://github.com/grpc/grpc/releases</a> - as of
+2026-07-22</li>
+<li>blogs.oracle.com — post quantum cryptography in long term support
+jdk releases - <a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
+- as of 2026-08-06</li>
+<li>[NEW] support for post-quantum TLS · Issue #15474 · redis/redis - <a
+href="https://github.com/redis/redis/issues/15474"
+class="uri">https://github.com/redis/redis/issues/15474</a> - as of
+2026-07-16</li>
+<li>Postgres post-quantum SSL support with ML-DSA-44, ML-DSA-65,
+ML-DSA-87 server-certs · Issue #41720 · dbeaver/dbeaver - <a
+href="https://github.com/dbeaver/dbeaver/issues/41720"
+class="uri">https://github.com/dbeaver/dbeaver/issues/41720</a> - as of
+2026-08-09</li>
+<li>PostgreSQL JDBC 42.7.12 Security Release - <a
+href="https://www.postgresql.org/about/news/postgresql-jdbc-42712-security-release-3340/"
+class="uri">https://www.postgresql.org/about/news/postgresql-jdbc-42712-security-release-3340/</a>
+- as of 2026-07-06</li>
+<li>postgresql.org — libpq ssl - <a
+href="https://www.postgresql.org/docs/current/libpq-ssl.html"
+class="uri">https://www.postgresql.org/docs/current/libpq-ssl.html</a></li>
+<li>Post-Quantum TLS documentation and testing for PostgreSQL
+connections · Issue #1844 · psycopg/psycopg2 - <a
+href="https://github.com/psycopg/psycopg2/issues/1844"
+class="uri">https://github.com/psycopg/psycopg2/issues/1844</a> - as of
+2026-06-24</li>
+<li>redis.io — encryption - <a
+href="https://redis.io/docs/latest/operate/oss_and_stack/management/security/encryption/"
+class="uri">https://redis.io/docs/latest/operate/oss_and_stack/management/security/encryption/</a></li>
+<li>kafka.apache.org — encryption and authentication using ssl - <a
+href="https://kafka.apache.org/39/security/encryption-and-authentication-using-ssl/"
+class="uri">https://kafka.apache.org/39/security/encryption-and-authentication-using-ssl/</a>
+- as of 2025-12-20</li>
+<li>inside.java — quality heads up - <a
+href="https://inside.java/2026/05/17/quality-heads-up/"
+class="uri">https://inside.java/2026/05/17/quality-heads-up/</a> - as of
+2026-05-17</li>
+<li>crates.io — grpcio - <a href="https://crates.io/crates/grpcio"
+class="uri">https://crates.io/crates/grpcio</a></li>
+<li>arxiv.org — 2508.16078 - <a href="https://arxiv.org/pdf/2508.16078"
+class="uri">https://arxiv.org/pdf/2508.16078</a></li>
+<li>pkg.go.dev — tls - <a href="https://pkg.go.dev/crypto/tls"
+class="uri">https://pkg.go.dev/crypto/tls</a> - as of 2026-06-02</li>
+<li>github.com — 78298 - <a
+href="https://github.com/golang/go/issues/78298"
+class="uri">https://github.com/golang/go/issues/78298</a> - as of
+2026-03-23</li>
+<li>mongodb.com — security transport encryption - <a
+href="https://www.mongodb.com/docs/v8.0/core/security-transport-encryption/"
+class="uri">https://www.mongodb.com/docs/v8.0/core/security-transport-encryption/</a></li>
+<li>blogs.oracle.com — upgrade to openssl 3 5 - <a
+href="https://blogs.oracle.com/mysql/upgrade-to-openssl-3-5"
+class="uri">https://blogs.oracle.com/mysql/upgrade-to-openssl-3-5</a> -
+as of 2026-04-22</li>
+<li>evertrust.io — hybrid post quantum certificates - <a
+href="https://evertrust.io/blog/hybrid-post-quantum-certificates/"
+class="uri">https://evertrust.io/blog/hybrid-post-quantum-certificates/</a>
+- as of 2026-06-03</li>
+<li>ASP.NET, Kestrel and Schannel GA with TLS 1.3 Post-Quantum
+Cryptography (Microsoft) - <a
+href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
+class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
+- as of 2026-07-14</li>
+<li>apple.gadgethacks.com — apple post quantum cryptography github code
+explained imessage tls and vpn - <a
+href="https://apple.gadgethacks.com/news/apple-post-quantum-cryptography-github-code-explained-imessage-tls-and-vpn/"
+class="uri">https://apple.gadgethacks.com/news/apple-post-quantum-cryptography-github-code-explained-imessage-tls-and-vpn/</a>
+- as of 2026-06-01</li>
+<li>developers.cloudflare.com — pqc support - <a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/</a></li>
+<li>support.google.com — 2657289 - <a
+href="https://support.google.com/chrome/a/answer/2657289?hl=en"
+class="uri">https://support.google.com/chrome/a/answer/2657289?hl=en</a></li>
+<li>blog.google — cultivating a robust and efficient quantum safe https
+- <a
+href="https://blog.google/security/cultivating-a-robust-and-efficient-quantum-safe-https/"
+class="uri">https://blog.google/security/cultivating-a-robust-and-efficient-quantum-safe-https/</a>
+- as of 2026-02-27</li>
+<li>Post-Quantum Cryptography Support in Web Browsers - <a
+href="https://www.encryptionconsulting.com/pqc-support-in-web-browsers/"
+class="uri">https://www.encryptionconsulting.com/pqc-support-in-web-browsers/</a>
+- as of 2026-03-31</li>
+<li>learn.microsoft.com — postquantumkeyagreementenabled - <a
+href="https://learn.microsoft.com/en-us/deployedge/microsoft-edge-browser-policies/postquantumkeyagreementenabled"
+class="uri">https://learn.microsoft.com/en-us/deployedge/microsoft-edge-browser-policies/postquantumkeyagreementenabled</a>
+- as of 2026-03-20</li>
+<li>PostQuantumKeyAgreementEnabled - <a
+href="https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/postquantumkeyagreementenabled"
+class="uri">https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/postquantumkeyagreementenabled</a>
+- as of 2026-05-21</li>
+<li>learn.microsoft.com — webrtcpostquantumkeyagreement - <a
+href="https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/webrtcpostquantumkeyagreement"
+class="uri">https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/webrtcpostquantumkeyagreement</a></li>
+<li>firefox.com — releasenotes - <a
+href="https://www.firefox.com/en-US/firefox/146.0/releasenotes/"
+class="uri">https://www.firefox.com/en-US/firefox/146.0/releasenotes/</a></li>
+<li>support.apple.com — 122756 - <a
+href="https://support.apple.com/en-us/122756"
+class="uri">https://support.apple.com/en-us/122756</a></li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="07-pki-identity.html"><span>Previous</span>Part 7 - PKI, Certificates, Identity &amp; Authentication</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="09-software-supply-chain.html"><span>Next</span>Part 9 - Software Supply Chain</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/08-app-dev-stacks.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

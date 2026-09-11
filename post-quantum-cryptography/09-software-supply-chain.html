@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 9 - Software Supply Chain | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 9: Software Supply Chain.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 9</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 9</p>
+    <h1>Software Supply Chain</h1>
+    <p class="updated">Last updated: 2026-08-31</p>
+    <p class="actions"><a class="pdf" href="latest/09-software-supply-chain.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#artifact-signing-frameworks"
+id="toc-artifact-signing-frameworks">1. Artifact Signing
+Frameworks</a></li>
+<li><a href="#package-ecosystem-signing"
+id="toc-package-ecosystem-signing">2. Package Ecosystem Signing</a></li>
+<li><a href="#platform-code-signing" id="toc-platform-code-signing">3.
+Platform Code Signing</a></li>
+<li><a href="#container-signing-cicd" id="toc-container-signing-cicd">4.
+Container Signing &amp; CI/CD</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Every piece of software you install was vouched for by a signature:
+the package manager checked it, the app store checked it, the container
+runtime checked it. Those signatures are almost all classical, and
+unlike a TLS session they must stay valid for years. Forging one
+retroactively would poison the supply chain at its source.</p>
+<p>This report covers the signing infrastructure in four sections.
+Section 1 covers the artifact-signing frameworks, Section 2 the package
+ecosystems, Section 3 the platform code-signing regimes, and Section 4
+container signing and the CI/CD pipelines.</p>
+<p>Two real firsts landed this year. Red Hat began signing production
+RPM packages with a hybrid post-quantum key, calling itself the first
+major Linux distribution to do so. And Android 17 ships a hybrid APK
+signature scheme pairing a classical key with ML-DSA, enforced on new
+devices while old ones ignore it.</p>
+<p>The center of the ecosystem still waits on one dependency. Sigstore,
+which signs npm packages, Python attestations, and GitHub’s build
+provenance, has tied its public instance’s migration to ML-DSA landing
+in Go’s standard library. That package is now in a release candidate,
+which is why the second half of 2026 keeps appearing in every plan.</p>
+<h2 id="artifact-signing-frameworks">1. Artifact Signing Frameworks</h2>
+<p><em>A few frameworks define how modern software gets signed. Sigstore
+issues short-lived certificates tied to identities and logs every
+signature publicly. TUF secures update systems with layered signing
+roles. Notary signs container artifacts. What these projects decide
+about post-quantum algorithms flows downstream into every ecosystem
+built on them.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The frameworks’ specifications remain classical, deliberately. The
+current TUF specification defines only RSA, Ed25519, and ECDSA as
+recommended, while stating the format is architecturally open to any
+scheme [1]. The action is in Sigstore’s engineering, described below,
+where the crypto-agility groundwork is complete and the algorithm
+decisions are being contested in public.</p>
+<h3 id="current-state">Current State</h3>
+<p>Sigstore has done the plumbing ahead of the policy. Its leadership’s
+roadmap commits to post-quantum signing as soon as possible, while
+gating the shared public services on vetted implementations in Go’s
+standard library [2]. It chose ML-DSA over SLH-DSA for its smaller
+signatures [2], and its project policy selects both for experiments
+while excluding stateful schemes from ephemeral use [3]. Trail of Bits
+spent roughly two years building the agility: a centralized algorithm
+registry, server flags restricting accepted algorithms, and a client
+signing-algorithm flag [4]. The work was demonstrated end to end with
+working Go implementations of LMS and ML-DSA [4].</p>
+<p>Conference talks show two prototype paths: a hybrid transparency log
+roughly doubling bundle size, and hybrid certificate extensions at the
+CA layer [5]. They name the codebase’s hardcoded algorithm assumptions
+as the structural obstacle [5]. Cloud key services are ready when
+Sigstore is, with AWS signing ML-DSA since mid-2025 [6]. A community
+proof of concept already signs and verifies with ML-DSA-65 on a patched
+Go build [7]. The registry lists the ML-DSA variants as experimental and
+not yet functional [8].</p>
+<p>TUF and Notary are the quiet dependencies. Researchers modeled TUF’s
+four-role signature chain under post-quantum sizes [9], recommending
+stateful hash-based schemes for update security [9], and peer-reviewed
+work maps phased migrations for TUF and Notary hierarchies [10][11].
+Sigstore itself flags an unresolved question: its own trusted-root
+distribution runs on TUF, and nobody has settled how that material
+accommodates hybrid keys [2]. Notary’s specification still defines only
+RSA and ECDSA, with no post-quantum entry [12]. In the background sits
+the standards history: the 2024 finalization gave these ecosystems their
+first stateless targets after years when hash-based schemes were the
+only vetted option [2].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>Sigstore’s timeline is told two ways. One source asserts its
+Technical Advisory Committee formally approved ML-DSA with certificates
+flowing in 2025 to 2026 and full support in the second half of 2026
+[13]. The project’s own roadmap describes public-instance adoption as
+gated on the Go standard library, with open design questions [2].</p>
+<p>A dated statement from the project would settle it. Two related
+disputes ride along. One is whether the public instance moves before or
+after that library milestone [2]. The other is whether lattice or
+stateful hash-based signatures are the right long-term supply-chain
+choice at all [14].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="package-ecosystem-signing">2. Package Ecosystem Signing</h2>
+<p><em>Package managers are how code actually reaches machines: apt and
+rpm on servers, PyPI and npm for developers, Maven for the Java world.
+Each has its own signing lineage, from decades-old PGP to Sigstore-born
+attestations. This section covers the first production post-quantum
+packages, and the OpenPGP standard that finally makes them
+official.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>OpenPGP got its post-quantum RFC. RFC 9980, published June 2026,
+assigns signature algorithm identifiers for composite ML-DSA with
+Edwards curves and for the SLH-DSA variants [15]. It confines all
+post-quantum signatures to the new version-6 keys, with only the
+encryption subkey allowed on legacy keys [15]. The gap is tooling: GnuPG
+ships post-quantum encryption but reportedly no post-quantum signatures,
+exactly the piece package verification needs [16].</p>
+<p>Python’s packaging world gained the primitives, with ML-KEM and
+ML-DSA shipped into its main cryptography library [17], though the
+current attestation signature remains classical ECDSA [18]. Sigstore is
+deliberately holding its public log on the stable version to minimize
+disruption ahead of post-quantum breaking changes [19].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>Red Hat crossed the line first. It modernized its signing
+infrastructure, created a hybrid ML-DSA-87 plus Ed448 key, and began
+dual-signing RHEL packages, starting with a named package that also
+keeps its RSA signature [20]. It funded the post-quantum work in
+Sequoia-PGP and shipped hardware-backed signing support [20].
+Verification shows both signature generations side by side, with
+guidance to trust both certificates so either algorithm’s compromise
+survives [21].</p>
+<p>Downstream rebuilds inherit the capability, with AlmaLinux and Oracle
+Linux documenting the new signature format and generation commands
+[22][23]. Debian and Ubuntu, by contrast, show no post-quantum
+archive-signing plan, only routine classical key rotation [24].</p>
+<p>The developer ecosystems ride Sigstore’s schedule. PyPI’s
+attestations are identity-bound statements signed through Sigstore, not
+maintainer keys [25]. PGP uploads have been disabled there since 2023,
+so the OpenPGP RFC has nothing to inherit into PyPI [26]. npm’s
+provenance flows through the public Sigstore servers [27], which
+historically hardcoded one classical algorithm until the agility work
+landed [4].</p>
+<p>Those servers added ML-DSA to the specification [2] and wait on the
+Go library for the services themselves [2]. Maven Central still requires
+detached PGP signatures [28] while accepting Sigstore bundles alongside
+[29]. The Java platform is ready above it, with JDK 26 signing and
+verifying ML-DSA JARs [30] and a community plugin doing hybrid Maven
+signing today [31].</p>
+<p>The Go dependency is nearly resolved, with caveats. Go 1.26 carries
+an internal ML-DSA implementation, with the public package proposed for
+1.27 [32]. The package is excluded from the certified FIPS module until
+a later version, constraining FIPS-mode deployments [33]. And the GnuPG
+signature gap rests on secondary sources, with a comparison page
+corroborating that the algorithms are reachable only through an
+experimental engine [34].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>Red Hat’s own status labels disagree. One page classifies
+post-quantum RPM signing as a technology preview not for production
+[35], while another describes it as remaining in production with dual
+signatures [36]. The likeliest reading is a preview feature running in
+Red Hat’s own production signing, but the sources do not say so. A Red
+Hat support statement would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="platform-code-signing">3. Platform Code Signing</h2>
+<p><em>Operating systems enforce their own signing regimes: Authenticode
+on Windows, notarization on macOS, APK signatures on Android. These are
+the gates malware must pass, and their algorithms are baked into
+billions of devices. This section covers the first hybrid platform
+scheme shipping on Android, Windows moving in stages, Apple saying
+nothing, and the C2PA content-credential regime planning its
+move.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>Android shipped the first hybrid platform signature. Android 17’s new
+APK scheme pairs a classical key with ML-DSA, backward-compatible
+because older versions verify only the classical half, and requiring a
+fresh classical key rather than reuse [37]. The published specification
+pins the details: exactly two signers, the larger ML-DSA parameter sets,
+stripping protection, and version-gated verification rules [38].</p>
+<p>Windows moved the certificate layer and set a date. ML-DSA
+certificate issuance is generally available, in all parameter sets, with
+size tradeoffs left to the operator [39]. Composite algorithm support
+reached current Windows through July updates [39]. Consulting analysis
+calls the release end-to-end for the signing plane, including
+Authenticode with ML-DSA, with no in-place migration and no backports
+[40].</p>
+<p>Microsoft’s servicing documentation says Windows production signing
+transitions to post-quantum in 2027, possibly with hybrids [41]. Apple,
+meanwhile, is described by third parties as a classical Developer ID
+plus notarization pipeline, with post-quantum signing an industry gap
+rather than an Apple option [42].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>Android’s rollout is deliberately staged. Google announced the
+platform will verify post-quantum APK signatures so installs resist
+quantum-era forgery [43], with beta testing ahead of the production
+release [43]. Play documentation names the hybrid block and its opt-in
+at key upgrade [44]. Enforcement tiers by version, strict on Android 17,
+classical-only in the middle, and unenforced on the oldest [44], with
+one compatibility exclusion around the newest distribution format
+[44].</p>
+<p>Google Play generates the ML-DSA keys through its cloud key service
+during the rollout, with developer-owned keys later and rotation prompts
+every two years [43]. The surrounding platform moved in the same
+release, with verified boot, attestation, and the key store all gaining
+ML-DSA [43].</p>
+<p>Windows has working signatures and an unfinished public-trust story.
+The certificate service supports ML-DSA across every CA role and OCSP
+signing [45], templates can issue ML-DSA code-signing certificates with
+signing-only usage [46], and enrollment requires current clients [46].
+Hands-on testing signed a PowerShell script with an ML-DSA certificate
+successfully while a TLS binding failed in the same session [47].
+Publicly trusted ML-DSA remains in drafting at the CA/Browser Forum,
+where Microsoft backs the ballot and is piloting certificates while
+suggesting they stay out of transparency logs [48].</p>
+<p>Separately, code-signing certificate lifetimes were capped at 460
+days for unrelated reasons [49]. All of it builds on the primitive layer
+shipped in November 2025 [50].</p>
+<p>Apple’s silence is nearly total. Its concrete movement is at the
+bottom of the stack, publishing its verified ML-KEM and ML-DSA
+implementations [51]. Its own description of the post-quantum program
+lists messaging, VPN, TLS, and developer APIs, never code signing or
+notarization [52], continuing the emphasis it set in 2024 [53].</p>
+<p>C2PA content credentials, the provenance-signing regime attached to
+media, sit a step earlier than any of them. The coalition’s
+specification explainer says future support for the ML-DSA algorithms,
+in all three parameter sets defined by FIPS 204, is planned for the
+standard [77]. The stated gate is library maturity rather than
+standardization: ML-DSA joins the supported set when stable
+implementations are broadly available in common cryptographic libraries
+[77]. Today’s credentials rest on standard X.509 certificates with SHA-2
+hashing, and no post-quantum algorithm is in the supported set [77].</p>
+<h3 id="unresolved-conflicts-2">Unresolved Conflicts</h3>
+<p>Microsoft’s code-signing timeline exists in three versions. An
+aggregator describes kernel-driver dual-signing acceptance starting 2025
+to 2026 with named system binaries and a 2029 readiness target,
+unconfirmed by any Microsoft primary source [54]. Microsoft’s own
+servicing document says production signing transitions in 2027 [41]. And
+a vendor blog attributes ML-DSA Authenticode to a specific tool release
+and a Forum ballot number that does not match the working group’s naming
+convention, both uncorroborated [55]. Only Microsoft’s published plan
+carries primary authority, and a consolidated Microsoft timeline would
+settle the rest.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="container-signing-cicd">4. Container Signing &amp; CI/CD</h2>
+<p><em>Modern build pipelines sign what they produce: container images
+through cosign, build provenance through GitHub’s attestations,
+artifacts through cloud key services. The keys often live for minutes,
+but the verification infrastructure must last. This section covers the
+transparency logs already accepting post-quantum signatures, and the
+cloud services that got there first.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>The transparency-log layer moved before the signing layer. The
+checkpoint specification now supports ML-DSA, with logs recommended to
+use its smallest variant for cosignatures [56]. The Tessera log
+implementation accepts ML-DSA keys with classical deprecation planned,
+and ecosystem witnesses already return ML-DSA cosignatures [56][56].
+Meanwhile the Go dependency arrived in release-candidate form: the
+standard-library ML-DSA package exists with all parameter sets and
+pre-hash signing [33].</p>
+<p>Its published sizes confirm the bundle-bloat arithmetic, with
+signatures around 2.4 to 4.6 kilobytes [33]. cosign’s native ML-DSA
+proposal is accepted and planned for late summer 2026 [57]. The public
+Sigstore instance stays on its stable log version to spare clients churn
+before the transition [58].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The CI platforms already run the target architecture. GitHub’s
+artifact attestations use ephemeral in-memory keys, an identity-bound
+short-lived certificate, a timestamped envelope, and immediate key
+disposal [59], with private repositories served by an internal CA [60].
+That design migrates by swapping algorithms, not architecture.
+Practitioners are not waiting.</p>
+<p>A documented GitLab pipeline dual-signs artifacts with a classical
+Vault signature plus a lattice signature today [61], and commercial
+signing services advertise ML-DSA and LMS with pipeline integrations
+[62]. One gap is infrastructural rather than cryptographic: Azure
+DevOps’s hosted Git SSH endpoint negotiates no post-quantum key
+exchange, and new OpenSSH clients warn about it [63].</p>
+<p>The cloud key services are the mature layer. AWS KMS signs with all
+three ML-DSA parameter sets inside validated HSMs, with a size threshold
+above which callers pre-hash externally [6][64]. Its private CA issues
+ML-DSA certificates with code signing as a named use, across every
+region [65], and the pair is positioned as a quantum-resistant signing
+chain [66]. Google Cloud KMS reached general availability for all three
+NIST algorithms [67], offering ML-DSA and a compact SLH-DSA variant
+across the security categories [68].</p>
+<p>It deliberately omits hybrid signatures pending community consensus
+[69]. Vault documents ML-DSA, SLH-DSA, and a hybrid key type pairing a
+lattice key with a classical curve [70], grown from an explicitly
+experimental start [71].</p>
+<p>Sigstore’s remaining work is choices, not code. The public instance
+waits on the vetted library [2], the specification carries ML-DSA for
+client-provided keys [2]. The agility layer is shipped, with out-of-band
+algorithm suites chosen specifically to avoid the confusion attacks of
+in-band signaling [4][4]. No post-quantum suite is in the shipped
+registry yet, and the demonstrations remain on the blob path rather than
+the container path [4][4]. Red Hat’s prototypes quantify the hybrid cost
+at roughly double the bundle size, with legacy clients unharmed but
+unprotected [5].</p>
+<p>The project’s published open questions are the honest list [2]. They
+cover how the trusted root carries mixed material, whether services
+dual-return signatures without enabling stripping, and how users express
+policy over the mix [2]. The newer tile-backed log design trims entry
+types with client support in current tools [72]. Notary cannot
+participate at all yet, with both its signature and envelope
+specifications enumerating only classical algorithms [12][73]. Full
+first-class cosign support is expected in the second half of 2026
+[74].</p>
+<p>Azure’s key services stay classical for signing. One analysis says
+its vaults and managed HSM support only classical key types, with
+post-quantum requiring an external hardware path [75]. Microsoft’s own
+key-service documentation, checked directly, lists no ML-DSA key type
+and discusses quantum resistance only for symmetric keys [76]. The two
+agree by omission, and a Microsoft announcement would settle when that
+changes.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>github.com — tuf spec - <a
+href="https://github.com/theupdateframework/specification/blob/master/tuf-spec.md"
+class="uri">https://github.com/theupdateframework/specification/blob/master/tuf-spec.md</a>
+- as of 2026-07-15</li>
+<li>blog.sigstore.dev — post quantum 2025 - <a
+href="https://blog.sigstore.dev/post-quantum-2025/"
+class="uri">https://blog.sigstore.dev/post-quantum-2025/</a> - as of
+2025-06-06</li>
+<li>github.com — POLICY - <a
+href="https://github.com/sigstore/sigstore/blob/main/POLICY.md"
+class="uri">https://github.com/sigstore/sigstore/blob/main/POLICY.md</a></li>
+<li>blog.trailofbits.com — building cryptographic agility into sigstore
+- <a
+href="https://blog.trailofbits.com/2026/01/29/building-cryptographic-agility-into-sigstore/"
+class="uri">https://blog.trailofbits.com/2026/01/29/building-cryptographic-agility-into-sigstore/</a>
+- as of 2026-01-29</li>
+<li>tldrecap.tech — quantum proofing sigstore post quantum cryptography
+- <a
+href="https://tldrecap.tech/posts/2026/opensource-securitycon/quantum-proofing-sigstore-post-quantum-cryptography/"
+class="uri">https://tldrecap.tech/posts/2026/opensource-securitycon/quantum-proofing-sigstore-post-quantum-cryptography/</a>
+- as of 2026-03-24</li>
+<li>aws.amazon.com — aws kms post quantum ml dsa digital signatures - <a
+href="https://aws.amazon.com/about-aws/whats-new/2025/06/aws-kms-post-quantum-ml-dsa-digital-signatures"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2025/06/aws-kms-post-quantum-ml-dsa-digital-signatures</a>
+- as of 2025-06-13</li>
+<li>cosign with post-quantum MLDSA sample · sigstore/cosign · Discussion
+#4771 - <a href="https://github.com/sigstore/cosign/discussions/4771"
+class="uri">https://github.com/sigstore/cosign/discussions/4771</a> - as
+of 2026-03-16</li>
+<li>architecture-docs/algorithm-registry.md at main ·
+sigstore/architecture-docs - <a
+href="https://github.com/sigstore/architecture-docs/blob/main/algorithm-registry.md"
+class="uri">https://github.com/sigstore/architecture-docs/blob/main/algorithm-registry.md</a></li>
+<li>arxiv.org — 2502.18092 - <a href="https://arxiv.org/abs/2502.18092"
+class="uri">https://arxiv.org/abs/2502.18092</a> - as of 2025-02-25</li>
+<li>Quantum-Resilient PKI for Container Supply Chains: Post-Quantum
+Cryptography in TUF and Notary Frameworks - <a
+href="https://www.ijirset.com/upload/2025/november/187_Quantum-Resilient%20PKI%20for%20Container%20Supply%20Chains%20Post-Quantum%20Cryptography%20in%20TUF%20and%20Notary%20Frameworks.pdf"
+class="uri">https://www.ijirset.com/upload/2025/november/187_Quantum-Resilient%20PKI%20for%20Container%20Supply%20Chains%20Post-Quantum%20Cryptography%20in%20TUF%20and%20Notary%20Frameworks.pdf</a>
+- as of 2025-11-01</li>
+<li>Post-Quantum Software Updates with Stateful Hash-Based Signatures
+and The Update Framework - <a
+href="https://www.computer.org/csdl/magazine/sp/2026/02/11111737/28UtqfViOWc"
+class="uri">https://www.computer.org/csdl/magazine/sp/2026/02/11111737/28UtqfViOWc</a>
+- as of 2026-03-01</li>
+<li>github.com — signature specification - <a
+href="https://github.com/notaryproject/specifications/blob/main/specs/signature-specification.md"
+class="uri">https://github.com/notaryproject/specifications/blob/main/specs/signature-specification.md</a></li>
+<li>Post-Quantum Artifact Signing in CI/CD: Migrating cosign and
+Sigstore to ML-DSA - <a
+href="https://www.systemshardening.com/articles/cicd/post-quantum-artifact-signing/"
+class="uri">https://www.systemshardening.com/articles/cicd/post-quantum-artifact-signing/</a>
+- as of 2026-05-08</li>
+<li>postquantum.com — signature supply chain - <a
+href="https://postquantum.com/post-quantum/signature-supply-chain/"
+class="uri">https://postquantum.com/post-quantum/signature-supply-chain/</a>
+- as of 2026-05-03</li>
+<li>datatracker.ietf.org — rfc9980 - <a
+href="https://datatracker.ietf.org/doc/rfc9980/"
+class="uri">https://datatracker.ietf.org/doc/rfc9980/</a> - as of
+2026-06-30</li>
+<li>postquantum.com — post quantum openpgp rfc 9980 - <a
+href="https://postquantum.com/security-pqc/post-quantum-openpgp-rfc-9980/"
+class="uri">https://postquantum.com/security-pqc/post-quantum-openpgp-rfc-9980/</a>
+- as of 2026-07-11</li>
+<li>blog.trailofbits.com — shipping post quantum cryptography to python
+- <a
+href="https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/"
+class="uri">https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/</a>
+- as of 2026-06-30</li>
+<li>pydevtools.com — what is pep 740 - <a
+href="https://pydevtools.com/handbook/explanation/what-is-pep-740/"
+class="uri">https://pydevtools.com/handbook/explanation/what-is-pep-740/</a>
+- as of 2026-06-24</li>
+<li>blog.sigstore.dev — rekor evolution - <a
+href="https://blog.sigstore.dev/rekor-evolution/"
+class="uri">https://blog.sigstore.dev/rekor-evolution/</a> - as of
+2026-06-28</li>
+<li>redhat.com — whats new post quantum cryptography rhel 101 - <a
+href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
+class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
+- as of 2026-02-17</li>
+<li>docs.redhat.com — verifying rpm packages with post quantum
+signatures security hardening - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/verifying-rpm-packages-with-post-quantum-signatures_security-hardening"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/security_hardening/verifying-rpm-packages-with-post-quantum-signatures_security-hardening</a></li>
+<li>wiki.almalinux.org — 10.1 - <a
+href="https://wiki.almalinux.org/release-notes/10.1.html"
+class="uri">https://wiki.almalinux.org/release-notes/10.1.html</a> - as
+of 2025-11-24</li>
+<li>docs.oracle.com — ol10 features Security - <a
+href="https://docs.oracle.com/en/operating-systems/oracle-linux/10/relnotes10.1/ol10-features-Security.html"
+class="uri">https://docs.oracle.com/en/operating-systems/oracle-linux/10/relnotes10.1/ol10-features-Security.html</a>
+- as of 2026-01-26</li>
+<li>ftp-master.debian.org — keys - <a
+href="https://ftp-master.debian.org/keys.html"
+class="uri">https://ftp-master.debian.org/keys.html</a></li>
+<li>docs.pypi.org — attestations - <a
+href="https://docs.pypi.org/attestations/"
+class="uri">https://docs.pypi.org/attestations/</a></li>
+<li>peps.python.org — pep 0740 - <a
+href="https://peps.python.org/pep-0740/"
+class="uri">https://peps.python.org/pep-0740/</a></li>
+<li>docs.npmjs.com — generating provenance statements - <a
+href="https://docs.npmjs.com/generating-provenance-statements/"
+class="uri">https://docs.npmjs.com/generating-provenance-statements/</a></li>
+<li>central.sonatype.org — 20220310 sigstore - <a
+href="https://central.sonatype.org/news/20220310_sigstore/"
+class="uri">https://central.sonatype.org/news/20220310_sigstore/</a></li>
+<li>central.sonatype.org — 20250128 sigstore signature validation via
+portal - <a
+href="https://central.sonatype.org/news/20250128_sigstore_signature_validation_via_portal/"
+class="uri">https://central.sonatype.org/news/20250128_sigstore_signature_validation_via_portal/</a>
+- as of 2025-01-28</li>
+<li>Release Note: Signed JAR Support for ML-DSA - <a
+href="https://bugs.openjdk.org/browse/JDK-8371578"
+class="uri">https://bugs.openjdk.org/browse/JDK-8371578</a> - as of
+2026-01-27</li>
+<li>io.github.aloubyansky.pqc.maven:pqc-sign-maven-plugin 0.0.2 on Maven
+- <a
+href="https://libraries.io/maven/io.github.aloubyansky.pqc.maven:pqc-sign-maven-plugin"
+class="uri">https://libraries.io/maven/io.github.aloubyansky.pqc.maven:pqc-sign-maven-plugin</a>
+- as of 2026-05-12</li>
+<li>github.com — 77626 - <a
+href="https://github.com/golang/go/issues/77626"
+class="uri">https://github.com/golang/go/issues/77626</a> - as of
+2026-02-15</li>
+<li>pkg.go.dev — mldsa - <a href="https://pkg.go.dev/crypto/mldsa"
+class="uri">https://pkg.go.dev/crypto/mldsa</a> - as of 2026-07-07</li>
+<li>gpgfrontend.bktus.com — algorithms comparison - <a
+href="https://gpgfrontend.bktus.com/extra/algorithms-comparison/"
+class="uri">https://gpgfrontend.bktus.com/extra/algorithms-comparison/</a></li>
+<li>developers.redhat.com — signing rpm packages using quantum resistant
+cryptography - <a
+href="https://developers.redhat.com/articles/2025/10/07/signing-rpm-packages-using-quantum-resistant-cryptography"
+class="uri">https://developers.redhat.com/articles/2025/10/07/signing-rpm-packages-using-quantum-resistant-cryptography</a>
+- as of 2026-02-27</li>
+<li>Signing RPM packages using quantum-resistant cryptography - <a
+href="https://developers.redhat.com/articles/2025/10/07/signing-rpm-packages-using-quantum-resistant-cryptography"
+class="uri">https://developers.redhat.com/articles/2025/10/07/signing-rpm-packages-using-quantum-resistant-cryptography</a>
+- as of 2025-10-07</li>
+<li>developer.android.com — features - <a
+href="https://developer.android.com/about/versions/17/features"
+class="uri">https://developer.android.com/about/versions/17/features</a>
+- as of 2026-07-13</li>
+<li>APK signature scheme v3.2 | Android Open Source Project - <a
+href="https://source.android.com/docs/security/features/apksigning/v3-2"
+class="uri">https://source.android.com/docs/security/features/apksigning/v3-2</a>
+- as of 2026-07-29</li>
+<li>techcommunity.microsoft.com — 4523370 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370</a>
+- as of 2026-07-14</li>
+<li>encryptionconsulting.com — ml dsa support for your microsoft pki -
+<a
+href="https://www.encryptionconsulting.com/ml-dsa-support-for-your-microsoft-pki/"
+class="uri">https://www.encryptionconsulting.com/ml-dsa-support-for-your-microsoft-pki/</a>
+- as of 2026-06-30</li>
+<li>Preparing the Windows ecosystem for next-generation code signing -
+<a
+href="https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/08/next-generation-code-signing"
+class="uri">https://support.microsoft.com/en-us/servicing/os/windows/docs/2026/08/next-generation-code-signing</a>
+- as of 2026-08-20</li>
+<li>encryptionconsulting.com — every code signing format codesign secure
+supports - <a
+href="https://www.encryptionconsulting.com/every-code-signing-format-codesign-secure-supports/"
+class="uri">https://www.encryptionconsulting.com/every-code-signing-format-codesign-secure-supports/</a>
+- as of 2026-08-07</li>
+<li>blog.google — security for the quantum era implementing post quantum
+cryptography in android - <a
+href="https://blog.google/security/security-for-the-quantum-era-implementing-post-quantum-cryptography-in-android/"
+class="uri">https://blog.google/security/security-for-the-quantum-era-implementing-post-quantum-cryptography-in-android/</a>
+- as of 2026-03-25</li>
+<li>support.google.com — 9842756 - <a
+href="https://support.google.com/googleplay/android-developer/answer/9842756"
+class="uri">https://support.google.com/googleplay/android-developer/answer/9842756</a></li>
+<li>learn.microsoft.com — ml dsa overview - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/ml-dsa-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/ml-dsa-overview</a>
+- as of 2026-05-20</li>
+<li>learn.microsoft.com — configure ml dsa certificate templates - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/configure-ml-dsa-certificate-templates"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/configure-ml-dsa-certificate-templates</a>
+- as of 2026-05-21</li>
+<li>directaccess.richardhicks.com — microsoft ad cs adds post quantum
+cryptography support with ml dsa - <a
+href="https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/"
+class="uri">https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/</a>
+- as of 2026-05-18</li>
+<li>cabforum.org — 2026 05 21 minutes of the server certificate working
+group - <a
+href="https://cabforum.org/2026/05/21/2026-05-21-minutes-of-the-server-certificate-working-group/"
+class="uri">https://cabforum.org/2026/05/21/2026-05-21-minutes-of-the-server-certificate-working-group/</a>
+- as of 2026-05-21</li>
+<li>accutivesecurity.com — code signing 2026 - <a
+href="https://accutivesecurity.com/code-signing-2026/"
+class="uri">https://accutivesecurity.com/code-signing-2026/</a> - as of
+2026-05-06</li>
+<li>techcommunity.microsoft.com — 4469093 - <a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093</a>
+- as of 2025-11-12</li>
+<li>security.apple.com — formal verification corecrypto - <a
+href="https://security.apple.com/blog/formal-verification-corecrypto/"
+class="uri">https://security.apple.com/blog/formal-verification-corecrypto/</a>
+- as of 2026-05-22</li>
+<li>appleinsider.com — how apple turned to math to defend against next
+gen attacks on encryption - <a
+href="https://appleinsider.com/articles/26/05/26/how-apple-turned-to-math-to-defend-against-next-gen-attacks-on-encryption"
+class="uri">https://appleinsider.com/articles/26/05/26/how-apple-turned-to-math-to-defend-against-next-gen-attacks-on-encryption</a>
+- as of 2026-05-27</li>
+<li>helpnetsecurity.com — apple quantum resistant encryption open source
+- <a
+href="https://www.helpnetsecurity.com/2026/05/27/apple-quantum-resistant-encryption-open-source/"
+class="uri">https://www.helpnetsecurity.com/2026/05/27/apple-quantum-resistant-encryption-open-source/</a>
+- as of 2026-05-27</li>
+<li>windowsnews.ai — microsoft sets 2029 deadline for post quantum
+cryptography readiness across tls 13 code signing and .433564 - <a
+href="https://windowsnews.ai/article/microsoft-sets-2029-deadline-for-post-quantum-cryptography-readiness-across-tls-13-code-signing-and-.433564"
+class="uri">https://windowsnews.ai/article/microsoft-sets-2029-deadline-for-post-quantum-cryptography-readiness-across-tls-13-code-signing-and-.433564</a>
+- as of 2026-07-02</li>
+<li>evertrust.io — hybrid post quantum certificates - <a
+href="https://evertrust.io/blog/hybrid-post-quantum-certificates/"
+class="uri">https://evertrust.io/blog/hybrid-post-quantum-certificates/</a>
+- as of 2026-06-03</li>
+<li>TrustFabric and Post-Quantum - <a
+href="https://blog.transparency.dev/trustfabric-and-post-quantum"
+class="uri">https://blog.transparency.dev/trustfabric-and-post-quantum</a>
+- as of 2026-07-10</li>
+<li>[Feature Request] ML-DSA (FIPS 204) post-quantum signing and
+verification support - <a
+href="https://github.com/sigstore/cosign/issues/4960"
+class="uri">https://github.com/sigstore/cosign/issues/4960</a> - as of
+2026-06-21</li>
+<li>sigstore.dev and Rekor evolution - <a
+href="https://blog.sigstore.dev/rekor-evolution/"
+class="uri">https://blog.sigstore.dev/rekor-evolution/</a> - as of
+2026-06-28</li>
+<li>github.blog — introducing artifact attestations now in public beta -
+<a
+href="https://github.blog/news-insights/product-news/introducing-artifact-attestations-now-in-public-beta/"
+class="uri">https://github.blog/news-insights/product-news/introducing-artifact-attestations-now-in-public-beta/</a></li>
+<li>openssf.org — introducing artifact attestations now in public beta -
+<a
+href="https://openssf.org/blog/2024/05/24/introducing-artifact-attestations-now-in-public-beta/"
+class="uri">https://openssf.org/blog/2024/05/24/introducing-artifact-attestations-now-in-public-beta/</a></li>
+<li>authorea-prod.literatumonline.com — v2 - <a
+href="https://authorea-prod.literatumonline.com/doi/full/10.22541/au.177153860.05574964/v2"
+class="uri">https://authorea-prod.literatumonline.com/doi/full/10.22541/au.177153860.05574964/v2</a>
+- as of 2026-02-23</li>
+<li>encryptionconsulting.com — the 2023 msi code signing data theft - <a
+href="https://www.encryptionconsulting.com/the-2023-msi-code-signing-data-theft/"
+class="uri">https://www.encryptionconsulting.com/the-2023-msi-code-signing-data-theft/</a></li>
+<li>learn.microsoft.com — when will azure devops ssh support post
+quantum ke - <a
+href="https://learn.microsoft.com/en-us/answers/questions/5898339/when-will-azure-devops-ssh-support-post-quantum-ke"
+class="uri">https://learn.microsoft.com/en-us/answers/questions/5898339/when-will-azure-devops-ssh-support-post-quantum-ke</a>
+- as of 2026-05-22</li>
+<li>docs.aws.amazon.com — mldsa - <a
+href="https://docs.aws.amazon.com/kms/latest/developerguide/mldsa.html"
+class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/mldsa.html</a></li>
+<li>aws.amazon.com — aws private ca post quantum digital certificates -
+<a
+href="https://aws.amazon.com/about-aws/whats-new/2025/11/aws-private-ca-post-quantum-digital-certificates/"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2025/11/aws-private-ca-post-quantum-digital-certificates/</a>
+- as of 2025-11-10</li>
+<li>aws.amazon.com — post quantum cryptography - <a
+href="https://aws.amazon.com/security/post-quantum-cryptography/"
+class="uri">https://aws.amazon.com/security/post-quantum-cryptography/</a></li>
+<li>cloud.google.com — pqc in plaintext google clouds post quantum
+cryptography roadmap - <a
+href="https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap"
+class="uri">https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap</a></li>
+<li>cloud.google.com — future proofing data integrity quantum safe
+digital signatures in cloud kms - <a
+href="https://cloud.google.com/blog/products/identity-security/future-proofing-data-integrity-quantum-safe-digital-signatures-in-cloud-kms"
+class="uri">https://cloud.google.com/blog/products/identity-security/future-proofing-data-integrity-quantum-safe-digital-signatures-in-cloud-kms</a></li>
+<li>globalsecuritymag.com — announcing quantum safe digital signatures
+in cloud kms - <a
+href="https://www.globalsecuritymag.com/announcing-quantum-safe-digital-signatures-in-cloud-kms.html"
+class="uri">https://www.globalsecuritymag.com/announcing-quantum-safe-digital-signatures-in-cloud-kms.html</a></li>
+<li>developer.hashicorp.com — transit - <a
+href="https://developer.hashicorp.com/vault/api-docs/secret/transit"
+class="uri">https://developer.hashicorp.com/vault/api-docs/secret/transit</a></li>
+<li>hashicorp.com — vault enterprise 1 19 reduces risk encryption
+updates automated root rotation - <a
+href="https://www.hashicorp.com/en/blog/vault-enterprise-1-19-reduces-risk-encryption-updates-automated-root-rotation"
+class="uri">https://www.hashicorp.com/en/blog/vault-enterprise-1-19-reduces-risk-encryption-updates-automated-root-rotation</a></li>
+<li>blog.sigstore.dev - <a href="https://blog.sigstore.dev/"
+class="uri">https://blog.sigstore.dev/</a></li>
+<li>github.com — signature envelope cose - <a
+href="https://github.com/notaryproject/notaryproject/blob/main/specs/signature-envelope-cose.md"
+class="uri">https://github.com/notaryproject/notaryproject/blob/main/specs/signature-envelope-cose.md</a></li>
+<li>Post-Quantum Artifact Signing in CI/CD: Migrating cosign … - <a
+href="https://www.systemshardening.com/articles/cicd/post-quantum-artifact-signing/"
+class="uri">https://www.systemshardening.com/articles/cicd/post-quantum-artifact-signing/</a>
+- as of 2026-05-08</li>
+<li>quantumsecuritydefence.com — cloud kms pqc readiness aws azure gcp -
+<a
+href="https://quantumsecuritydefence.com/insights/cloud-kms-pqc-readiness-aws-azure-gcp/"
+class="uri">https://quantumsecuritydefence.com/insights/cloud-kms-pqc-readiness-aws-azure-gcp/</a>
+- as of 2026-07-13</li>
+<li>learn.microsoft.com — about keys - <a
+href="https://learn.microsoft.com/en-us/azure/key-vault/keys/about-keys"
+class="uri">https://learn.microsoft.com/en-us/azure/key-vault/keys/about-keys</a></li>
+<li>C2PA and Content Credentials Explainer - <a
+href="https://spec.c2pa.org/specifications/specifications/2.4/explainer/Explainer.html"
+class="uri">https://spec.c2pa.org/specifications/specifications/2.4/explainer/Explainer.html</a>
+- as of 2026-08-31</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="08-app-dev-stacks.html"><span>Previous</span>Part 8 - Application Dev Stacks &amp; Languages</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="10-containers-orchestration.html"><span>Next</span>Part 10 - Containers, Orchestration, Service Mesh</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/09-software-supply-chain.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

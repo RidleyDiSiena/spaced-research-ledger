@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 18 - Developer & Migration Tooling | Post-Quantum Cryptography Migration</title>
+  <meta name="description" content="Post-Quantum Cryptography Migration, Part 18: Developer & Migration Tooling.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">Post-Quantum Cryptography Migration</a><span class="sep">/</span>Part 18</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Post-Quantum Cryptography Migration &middot; Part 18</p>
+    <h1>Developer &amp; Migration Tooling</h1>
+    <p class="updated">Last updated: 2026-08-29</p>
+    <p class="actions"><a class="pdf" href="latest/18-migration-tooling.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#crypto-discovery-cbom" id="toc-crypto-discovery-cbom">1.
+Crypto Discovery &amp; CBOM</a></li>
+<li><a href="#commercial-discovery-scanners"
+id="toc-commercial-discovery-scanners">2. Commercial Discovery
+Scanners</a></li>
+<li><a href="#algorithm-validation-programs"
+id="toc-algorithm-validation-programs">3. Algorithm Validation
+Programs</a></li>
+<li><a href="#interop-test-tooling" id="toc-interop-test-tooling">4.
+Interop &amp; Test Tooling</a></li>
+<li><a href="#performance-side-channel-tooling"
+id="toc-performance-side-channel-tooling">5. Performance &amp;
+Side-Channel Tooling</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Before an organization can migrate anything, it has to find its
+cryptography, and almost none can. Asking which systems use RSA is a
+question most enterprises cannot answer in minutes, or at all. The tools
+that fix that, inventories, scanners, validators, and test rigs, are
+this report’s subject.</p>
+<p>Five sections cover the toolchain. Section 1 covers the cryptographic
+bill of materials, Section 2 the commercial discovery scanners, and
+Section 3 the government validation programs. Section 4 covers
+interoperability and test tooling, and Section 5 performance and
+side-channel research.</p>
+<p>The format war is over and the mandate arrived. The cryptographic
+bill of materials, CBOM, is an internationally ratified standard inside
+CycloneDX. The June 2026 executive order made it a federally defined
+artifact, with minimum elements due from CISA in 2027. The scanner
+market consolidated around it, with a billion-dollar funding round and
+IBM scanning 47 million of its own lines of code as the proof case.</p>
+<p>The measurement layer carries this collection’s sharpest warning. One
+paper recovered a full ML-KEM secret key from fifteen power traces in
+under ten minutes. The algorithms are sound, and unprotected
+implementations leak anyway, which is why the tooling in Section 5
+exists.</p>
+<h2 id="crypto-discovery-cbom">1. Crypto Discovery &amp; CBOM</h2>
+<p><em>A cryptographic bill of materials is an inventory of every
+algorithm, key, and certificate a piece of software uses,
+machine-readable and exchangeable like the software bills of materials
+before it. In two years it went from a proposal to a ratified standard
+to an executive-order requirement. This section covers that
+ascent.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The executive order made CBOM policy. Executive Order 14412, signed
+June 22, 2026, is the first federal directive naming CBOM as a defined
+artifact, ordering minimum required elements within 270 days [1]. It
+requires agencies to migrate high-value assets to post-quantum key
+establishment by the end of 2030 [1]. The standard beneath it was
+already ratified: CycloneDX 1.6, carrying native CBOM support, published
+as an ECMA standard in 2024 [1].</p>
+<p>Version 1.7 added provenance and a wider cryptography registry [2],
+and version 2.0 is announced for fall with threat models and controls as
+exchangeable data [3]. NIST’s discovery practice guide remains in
+preliminary draft [4]. The tool ecosystem keeps pace, with commercial
+platforms adding readiness classification [5] and multiple tools
+generating classified CBOMs across dozens of algorithms [6]. CISA’s
+final SBOM minimum elements require post-build artifact scanning and
+narrow the accepted formats [7][7].</p>
+<h3 id="current-state">Current State</h3>
+<p>The lineage is short and open-source. CBOM began as an OWASP
+working-group proposal in October 2023, folding IBM’s open-sourced
+project into CycloneDX [8]. It models cryptographic assets as a
+first-class component type with dependency relationships, producible by
+existing build tooling [9]. IBM’s research paper places it in a wider
+bill-of-materials ecosystem aimed at full-stack transparency [10]. The
+reference documentation is public [11], and an IETF draft defines an
+inventory output schema built on it [12].</p>
+<p>The practical advice is consistent: discovery is the slowest part,
+mature SBOM programs have a head start, and starting before the federal
+guidance lands is the right call [1]. Open-source kit generates a basic
+CBOM fastest, with commercial platforms layering break-year forecasts
+and compliance mapping [13], all in service of finally answering the RSA
+question [13].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="commercial-discovery-scanners">2. Commercial Discovery
+Scanners</h2>
+<p><em>A market of scanners now hunts cryptography through source code,
+binaries, networks, and cloud workloads. Its short history is a
+consolidation story: the pioneering startups were acquired, the
+acquirers raised big, and the tools are converging on CBOM as their
+output format. This section covers the three main camps.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The market matured visibly this summer. IBM’s Quantum Safe Explorer
+shipped successive releases adding Python analysis, JavaScript
+compliance reporting, and improved detection through loops and arrays
+[14][15], with expanded API discovery and customizable severities [16].
+A security bulletin patched vulnerabilities in the scanner’s own
+dependencies across earlier versions [17]. IBM ate its own cooking,
+scanning 5,815 repositories and 47 million lines of code, surfacing
+thousands of findings and generating CBOMs [18]. It is standing up a
+quantum-safe center in Singapore around the tooling [19].</p>
+<p>Keyfactor shipped AgileSec 3.6 with post-quantum detection and CBOM
+export improvements [20]. It raised more than a billion dollars to
+accelerate the platform [21], and extended its partner program with lab
+access [22]. SandboxAQ aligned itself publicly with the executive order
+[23].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>The camps trace back to two acquisitions. Cryptosense, the Inria
+spin-off whose analyzer covered both static code and runtime invocation,
+reportedly sat behind most EU interbank messaging compliance before
+SandboxAQ bought it [24]. SandboxAQ fused it into an integrated suite
+spanning filesystem, application, and network inventory [25], and joined
+NIST’s migration project as an official collaborator [24]. It published
+a public database of cryptographic risk across open-source software with
+nearly a billion entries [26]. The product has since expanded toward AI
+and non-human identity posture [27].</p>
+<p>Keyfactor built its position by buying discovery. It acquired InfoSec
+Global and CipherInsights in 2025, folding cryptographic discovery and
+no-code-change agility management into its platform [28][29], and added
+workflow integration through ServiceNow [30]. It partnered with IBM
+Consulting on end-to-end discovery, CBOM construction, and
+prioritization [31]. It also keeps a free sandbox for post-quantum
+certificate testing alongside its stewardship of Bouncy Castle [32].
+IBM’s own scanner rounds out the field, extended to mainframe Linux [33]
+and feeding its cryptography-management product through import profiles
+[34].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="algorithm-validation-programs">3. Algorithm Validation
+Programs</h2>
+<p><em>Before a cryptographic implementation can be sold to the U.S.
+government, its algorithms pass automated validation. The testing
+machinery for the post-quantum algorithms is now routine infrastructure,
+which is its own kind of milestone. This section is short because the
+system simply works.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The specifications keep pace with the standards. The automated
+validation protocol’s ML-DSA test specification published in August,
+covering key generation, signing, and verification under the standard
+and its technical revision [35]. The validation search already lists
+ML-KEM and ML-DSA validations through June 2026, including silicon
+implementations [36].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>The machinery is complete end to end. The ML-KEM test specification
+defines its schema [37], and the validation server supports the
+technical-revision test modes including both private-key formats [38].
+The prerequisite tables wire the algorithms into the broader validation
+graph [39], and full test vectors are public [40].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="interop-test-tooling">4. Interop &amp; Test Tooling</h2>
+<p><em>Standards only matter if implementations actually talk to each
+other, and a small ecosystem of test servers, scanners, and dissectors
+exists to prove it. Much of it traces to one university project that
+became the field’s shared infrastructure. This section covers how
+post-quantum interoperability actually gets checked.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>The scanning tools went mainstream. pqcscan, an open-source scanner,
+checks TLS and SSH servers for post-quantum algorithm support with
+exportable reports [41], and is referenced in NIST’s own migration FAQ
+[42]. A free web tool performs a real hybrid handshake against any
+public server [43]. Wireshark fixed its reporting of post-quantum
+signature algorithms [44], and OpenShift’s TLS scanner gained a
+dedicated post-quantum readiness check with a failing exit code
+[45].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>Open Quantum Safe is the shared test bench. Its public
+interoperability server exposes a port per algorithm combination,
+explicitly for test-driving rather than production [46]. Its C library
+ships benchmarking as a first-class feature [47]. The institutional base
+is broad, founded at Waterloo with contributors and funders across the
+major vendors, now under the Linux Foundation’s post-quantum alliance
+[48].</p>
+<p>Its demo pipeline retests the third-party integrations weekly [49],
+with one documented gap where the BoringSSL fork’s algorithm set has
+drifted from the rest [49]. The IETF Hackathon’s certificate project
+complements it, a compatibility-matrix repository where vendors upload
+artifacts validated by automation, feeding results to standards groups
+[50]. NIST frames the whole ecosystem as how interoperable post-quantum
+reaches commercial products [51]. Even the venerable testssl.sh has an
+open request to call out missing post-quantum support [52].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="performance-side-channel-tooling">5. Performance &amp;
+Side-Channel Tooling</h2>
+<p><em>The last mile of trust is measurement: how fast the algorithms
+really run, and whether their implementations leak secrets through power
+draw and timing. The benchmark numbers are increasingly encouraging. The
+side-channel results are the collection’s starkest warning. This section
+covers both.</em></p>
+<h3 id="recent-developments-4">Recent Developments</h3>
+<p>The measurement infrastructure keeps current. The SUPERCOP benchmark
+suite carries current ML-KEM results with constant-time checking flags
+[53]. A defense-research framework proposes standardized side-channel
+testing for ML-KEM in military communications, warning the algorithms’
+benefits are wasted without countermeasure evaluation [54]. A unified
+masked hardware implementation of ML-DSA and ML-KEM published with
+formal proofs and no detected first-order leakage [55], while liboqs
+retired a legacy constant-time test in its cleanup [56].</p>
+<h3 id="current-state-4">Current State</h3>
+<p>The performance news is mostly good. On the weakest common
+microcontroller, ML-KEM-512 completes a key exchange in 36 milliseconds
+at a fraction of classical ECDH’s energy [57]. ML-DSA signing shows wild
+latency variance from rejection sampling, with worst percentiles over a
+second [57]. At the opposite scale, GPUs push millions of key
+generations per second for telecom loads [58]. A 5G handset study finds
+ML-DSA cheapest on CPU and latency while the hash-based combinations
+miss the strictest latency budgets [59].</p>
+<p>AWS’s first-party numbers put hybrid overhead at kilobytes and
+microseconds, amortizing toward zero with connection reuse [60]. The
+constrained-platform caveat stands: classical X25519 still wins on a
+Raspberry Pi, reflecting immature ARM optimization, with conservative
+alternatives paying more [61]. Pre-silicon verification methods now
+certify masked hardware structurally [62].</p>
+<p>The side-channel results demand attention. Full ML-KEM key recovery
+from fifteen power traces in under ten minutes defines the gap between
+algorithmic and implementation security [63]. The same work proposes
+adaptive defense, detecting attacks in real time and scaling
+countermeasures at a fraction of always-on masking’s cost [63]. A CRYPTO
+paper showed masking alone does not guarantee safety, attacking an
+intermediate value in masked ML-DSA on physical devices [64].</p>
+<p>A template attack builds its leakage profiles from public data on the
+target itself, no clone device required [65]. The community response is
+infrastructure. Public trace datasets support reproducible leakage
+research [66], and one study frames ciphertext malleability as both
+attack surface and countermeasure [67]. Mentorship work is wiring
+constant-time analysis into continuous integration [68], and formal
+verification of vectorized sampling is headed for Signal’s backend [69].
+Differential fuzzing found real bugs in the backup KEM [70], and a
+framework ran over a hundred million generated test cases across the
+major libraries [71].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger is an automated system that gathers claims
+from live public sources, checks each one against its origin, and
+records every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from four to seven systems across competing
+labs, so no single model both finds a claim and judges it. The Spaced
+Research Ledger is designed and maintained by Ridley DiSiena.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>cycode.com — cryptographic bill of materials cbom - <a
+href="https://cycode.com/blog/cryptographic-bill-of-materials-cbom/"
+class="uri">https://cycode.com/blog/cryptographic-bill-of-materials-cbom/</a>
+- as of 2026-07-07</li>
+<li>CycloneDX vs SPDX: Which SBOM Format to Choose in … - <a
+href="https://www.interlynk.io/resources/cyclonedx-vs-spdx-sbom-format"
+class="uri">https://www.interlynk.io/resources/cyclonedx-vs-spdx-sbom-format</a>
+- as of 2026-06-23</li>
+<li>CycloneDX Newsroom - <a href="https://cyclonedx.org/news/"
+class="uri">https://cyclonedx.org/news/</a> - as of 2026-08-05</li>
+<li>Cryptography Bill of Materials (CBOM) - <a
+href="https://cyclonedx.org/capabilities/cbom/"
+class="uri">https://cyclonedx.org/capabilities/cbom/</a> - as of
+2026-08-08</li>
+<li>Announcing sbomify v26.7.0: The One That Gets Quantum-Ready |
+Sbomify - <a
+href="https://sbomify.com/2026/07/07/announcing-sbomify-v26-7-0-the-one-that-gets-quantum-ready/"
+class="uri">https://sbomify.com/2026/07/07/announcing-sbomify-v26-7-0-the-one-that-gets-quantum-ready/</a>
+- as of 2026-07-07</li>
+<li>CycloneDX Tool Center - <a href="https://cyclonedx.org/tool-center/"
+class="uri">https://cyclonedx.org/tool-center/</a> - as of
+2026-08-13</li>
+<li>CISA’s 2026 SBOM Minimum Elements Now Require Post-Build Data -
+OPSWAT - <a
+href="https://www.opswat.com/blog/cisas-2026-sbom-minimum-elements-now-require-post-build-data"
+class="uri">https://www.opswat.com/blog/cisas-2026-sbom-minimum-elements-now-require-post-build-data</a>
+- as of 2026-07-29</li>
+<li>owasp.org — CycloneDX Cryptography CBOM - <a
+href="https://owasp.org/blog/2023/10/03/CycloneDX-Cryptography-CBOM"
+class="uri">https://owasp.org/blog/2023/10/03/CycloneDX-Cryptography-CBOM</a>
+- as of 2023-10-03</li>
+<li>github.com — CBOM - <a href="https://github.com/IBM/CBOM"
+class="uri">https://github.com/IBM/CBOM</a> - as of 2024-04-09</li>
+<li>research.ibm.com — the anatomy of cryptography bills of materials
+standardization and practice in cyclonedx - <a
+href="https://research.ibm.com/publications/the-anatomy-of-cryptography-bills-of-materials-standardization-and-practice-in-cyclonedx"
+class="uri">https://research.ibm.com/publications/the-anatomy-of-cryptography-bills-of-materials-standardization-and-practice-in-cyclonedx</a>
+- as of 2026-05-10</li>
+<li>en.wikipedia.org — Cryptographic bill of materials - <a
+href="https://en.wikipedia.org/wiki/Cryptographic_bill_of_materials"
+class="uri">https://en.wikipedia.org/wiki/Cryptographic_bill_of_materials</a></li>
+<li>draft-dev-xipher-cbom-extension-00 - <a
+href="https://datatracker.ietf.org/doc/draft-dev-xipher-cbom-extension/00/"
+class="uri">https://datatracker.ietf.org/doc/draft-dev-xipher-cbom-extension/00/</a>
+- as of 2026-04-20</li>
+<li>o3.security — cbom cryptographic bill of materials - <a
+href="https://o3.security/academy/cbom-cryptographic-bill-of-materials"
+class="uri">https://o3.security/academy/cbom-cryptographic-bill-of-materials</a>
+- as of 2026-06-07</li>
+<li>What’s new - IBM Documentation - <a
+href="https://www.ibm.com/docs/en/quantum-safe/quantum-safe-explorer/2.x?topic=whats-new"
+class="uri">https://www.ibm.com/docs/en/quantum-safe/quantum-safe-explorer/2.x?topic=whats-new</a>
+- as of 2026-07-24</li>
+<li>What’s new - IBM Quantum Safe Explorer - <a
+href="https://www.ibm.com/docs/en/quantum-safe/quantum-safe-explorer/2.x?topic=whats-new"
+class="uri">https://www.ibm.com/docs/en/quantum-safe/quantum-safe-explorer/2.x?topic=whats-new</a>
+- as of 2026-07-24</li>
+<li>Empowering CIOs to accelerate crypto-agility with IBM Quantum Safe
+Explorer - <a
+href="https://www.ibm.com/new/product-blog/empowering-cios-to-accelerate-crypto-agility-with-ibm-quantum-safe-explorer"
+class="uri">https://www.ibm.com/new/product-blog/empowering-cios-to-accelerate-crypto-agility-with-ibm-quantum-safe-explorer</a>
+- as of 2026-08-15</li>
+<li>Security Bulletin: IBM Quantum Safe Explorer is affected by multiple
+vulnerabilites - <a
+href="https://www.ibm.com/support/pages/security-bulletin-ibm-quantum-safe-explorer-affected-multiple-vulnerabilites"
+class="uri">https://www.ibm.com/support/pages/security-bulletin-ibm-quantum-safe-explorer-affected-multiple-vulnerabilites</a>
+- as of 2026-07-26</li>
+<li>Empowering CIOs to accelerate crypto-agility with IBM Quantum Safe
+Explorer - <a
+href="https://www.ibm.com/jp-ja/new/product-blog/empowering-cios-to-accelerate-crypto-agility-with-ibm-quantum-safe-explorer"
+class="uri">https://www.ibm.com/jp-ja/new/product-blog/empowering-cios-to-accelerate-crypto-agility-with-ibm-quantum-safe-explorer</a>
+- as of 2026-08-15</li>
+<li>Singapore Institute of Technology and IBM Aim to Establish
+Quantum-Safe Centre that Addresses Post-Quantum Risks and Advances
+Singapore’s Quantum-Safe Resilience - <a
+href="https://www.prnewswire.com/apac/news-releases/singapore-institute-of-technology-and-ibm-aim-to-establish-quantum-safe-centre-that-addresses-post-quantum-risks-and-advances-singapores-quantum-safe-resilience-302857243.html"
+class="uri">https://www.prnewswire.com/apac/news-releases/singapore-institute-of-technology-and-ibm-aim-to-establish-quantum-safe-centre-that-addresses-post-quantum-risks-and-advances-singapores-quantum-safe-resilience-302857243.html</a>
+- as of 2026-08-21</li>
+<li>AgileSec 3.6 Gives Security Teams More Visibility, More Control, and
+a Faster Path to Cryptographic-Agility - <a
+href="https://www.keyfactor.com/blog/agilesec-3-6-gives-security-teams-more-visibility-more-control-and-a-faster-path-to-cryptographic-agility/"
+class="uri">https://www.keyfactor.com/blog/agilesec-3-6-gives-security-teams-more-visibility-more-control-and-a-faster-path-to-cryptographic-agility/</a>
+- as of 2026-07-06</li>
+<li>Keyfactor Scores $1 Billion+ Investment for AI, Post-Quantum
+Security - <a
+href="https://www.securityweek.com/keyfactor-scores-1-billion-investment-for-ai-post-quantum-security/"
+class="uri">https://www.securityweek.com/keyfactor-scores-1-billion-investment-for-ai-post-quantum-security/</a>
+- as of 2026-07-07</li>
+<li>Keyfactor Expands Global Partner Program to Equip Partners for AI
+and Post-Quantum Cryptography Transition - <a
+href="https://thequbitreport.com/security-policy/2026/07/22/keyfactor-expands-global-partner-program-to-equip-partners-for-ai-and-post-quantum-cryptography-transition/"
+class="uri">https://thequbitreport.com/security-policy/2026/07/22/keyfactor-expands-global-partner-program-to-equip-partners-for-ai-and-post-quantum-cryptography-transition/</a>
+- as of 2026-07-22</li>
+<li>SandboxAQ Supports White House Executive Order as Post-Quantum
+Cryptography Moves to Implementation - <a
+href="https://www.prnewswire.com/news-releases/sandboxaq-supports-white-house-executive-order-as-post-quantum-cryptography-moves-to-implementation-for-national-security-302807077.html"
+class="uri">https://www.prnewswire.com/news-releases/sandboxaq-supports-white-house-executive-order-as-post-quantum-cryptography-moves-to-implementation-for-national-security-302807077.html</a>
+- as of 2026-06-22</li>
+<li>eetimes.com — sandboxaq buys cryptosense to deploy post quantum
+cryptography - <a
+href="https://www.eetimes.com/sandboxaq-buys-cryptosense-to-deploy-post-quantum-cryptography/"
+class="uri">https://www.eetimes.com/sandboxaq-buys-cryptosense-to-deploy-post-quantum-cryptography/</a>
+- as of 2023-08-14</li>
+<li>sandboxaq.com — sandboxaq unveils end to end security suite
+delivering advanced cryptographic management to the global 1000 and
+governments - <a
+href="https://www.sandboxaq.com/press/sandboxaq-unveils-end-to-end-security-suite-delivering-advanced-cryptographic-management-to-the-global-1000-and-governments"
+class="uri">https://www.sandboxaq.com/press/sandboxaq-unveils-end-to-end-security-suite-delivering-advanced-cryptographic-management-to-the-global-1000-and-governments</a>
+- as of 2023-04-19</li>
+<li>SandboxAQ Unveils OpenCryptography.com: The First Public Database
+Exposing Cryptographic Risks in Open-Source Software - <a
+href="https://www.sandboxaq.com/press/sandboxaq-unveils-opencryptography-com-the-first-public-database-exposing-cryptographic-risks-in-open-source-software"
+class="uri">https://www.sandboxaq.com/press/sandboxaq-unveils-opencryptography-com-the-first-public-database-exposing-cryptographic-risks-in-open-source-software</a>
+- as of 2025-10-30</li>
+<li>SandboxAQ AQtive Guard - <a
+href="https://www.sandboxaq.com/solutions/aqtive-guard"
+class="uri">https://www.sandboxaq.com/solutions/aqtive-guard</a> - as of
+2026-03-03</li>
+<li>Keyfactor Acquires InfoSec Global and CipherInsights to Lead the
+Market in Quantum-Safe Security - <a
+href="https://www.keyfactor.com/press-releases/keyfactor-acquires-infosec-global-and-cipherinsights/"
+class="uri">https://www.keyfactor.com/press-releases/keyfactor-acquires-infosec-global-and-cipherinsights/</a>
+- as of 2025-05-13</li>
+<li>Keyfactor Infosec Global Cipherinsights Acquisition - <a
+href="https://www.keyfactor.com/infosec-global-cipherinsights-acquisition/"
+class="uri">https://www.keyfactor.com/infosec-global-cipherinsights-acquisition/</a>
+- as of 2025-05-13</li>
+<li>AgileSec and ServiceNow Enable Enterprise Quantum-Readiness with
+Cryptographic Posture Management - <a
+href="https://www.keyfactor.com/blog/agilesec-and-servicenow-enable-enterprise-quantum-readiness-with-cryptographic-posture-management/"
+class="uri">https://www.keyfactor.com/blog/agilesec-and-servicenow-enable-enterprise-quantum-readiness-with-cryptographic-posture-management/</a>
+- as of 2025-10-30</li>
+<li>keyfactor.com — keyfactor and ibm consulting launch joint solution
+to accelerate enterprise quantum safe transformation - <a
+href="https://www.keyfactor.com/press-releases/keyfactor-and-ibm-consulting-launch-joint-solution-to-accelerate-enterprise-quantum-safe-transformation/"
+class="uri">https://www.keyfactor.com/press-releases/keyfactor-and-ibm-consulting-launch-joint-solution-to-accelerate-enterprise-quantum-safe-transformation/</a>
+- as of 2026-01-28</li>
+<li>businesswire.com — en - <a
+href="https://www.businesswire.com/news/home/20240314254136/en"
+class="uri">https://www.businesswire.com/news/home/20240314254136/en</a></li>
+<li>Extending quantum-safe visibility to LinuxONE: IBM Quantum Safe™
+Explorer now available with CLI support on Z-Linux - <a
+href="https://community.ibm.com/community/user/blogs/vinaya-patil/2025/10/08/extending-quantum-safe-visibility-to-linuxone"
+class="uri">https://community.ibm.com/community/user/blogs/vinaya-patil/2025/10/08/extending-quantum-safe-visibility-to-linuxone</a>
+- as of 2025-10-08</li>
+<li>IBM Guardium Cryptography Manager announcement - <a
+href="https://community.ibm.com/community/user/blogs/ivana-pham/2026/03/26/we-are-excited-to-announce-ibm-guardium-cryptograp"
+class="uri">https://community.ibm.com/community/user/blogs/ivana-pham/2026/03/26/we-are-excited-to-announce-ibm-guardium-cryptograp</a>
+- as of 2026-03-27</li>
+<li>ACVP ML-DSA JSON Specification - <a
+href="https://pages.nist.gov/ACVP/draft-celi-acvp-ml-dsa.html"
+class="uri">https://pages.nist.gov/ACVP/draft-celi-acvp-ml-dsa.html</a>
+- as of 2026-08-14</li>
+<li>Cryptographic Algorithm Validation Program CAVP - <a
+href="https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/validation-search"
+class="uri">https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/validation-search</a>
+- as of 2026-08-12</li>
+<li>ACVP ML-KEM JSON Specification - <a
+href="https://pages.nist.gov/ACVP/draft-celi-acvp-ml-kem.html"
+class="uri">https://pages.nist.gov/ACVP/draft-celi-acvp-ml-kem.html</a></li>
+<li>Releases · usnistgov/ACVP-Server - <a
+href="https://github.com/usnistgov/ACVP-Server/releases"
+class="uri">https://github.com/usnistgov/ACVP-Server/releases</a></li>
+<li>Cryptographic Algorithm Validation Program CAVP - Prerequisites - <a
+href="https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/prerequisites"
+class="uri">https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/prerequisites</a></li>
+<li>PQC Archive - Post-Quantum Cryptography - <a
+href="https://csrc.nist.gov/projects/post-quantum-cryptography/pqc-archive"
+class="uri">https://csrc.nist.gov/projects/post-quantum-cryptography/pqc-archive</a></li>
+<li>anvilsecure/pqcscan: Post-Quantum Cryptography Scanner - <a
+href="https://github.com/anvilsecure/pqcscan"
+class="uri">https://github.com/anvilsecure/pqcscan</a> - as of
+2026-08-14</li>
+<li>Frequently Asked Questions about Post-Quantum Cryptography - <a
+href="https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/"
+class="uri">https://pages.nist.gov/nccoe-migration-post-quantum-cryptography/</a>
+- as of 2026-08-13</li>
+<li>Post-Quantum Server Test | Myles Agnew - <a
+href="https://www.mylesagnew.com/pqctest/"
+class="uri">https://www.mylesagnew.com/pqctest/</a> - as of
+2026-08-25</li>
+<li>Wireshark 4.6.7 Release Notes - <a
+href="https://www.wireshark.org/docs/relnotes/wireshark-4.6.7.html"
+class="uri">https://www.wireshark.org/docs/relnotes/wireshark-4.6.7.html</a>
+- as of 2026-08-12</li>
+<li>tls-scanner module - github.com/openshift/tls-scanner - <a
+href="https://pkg.go.dev/github.com/openshift/tls-scanner"
+class="uri">https://pkg.go.dev/github.com/openshift/tls-scanner</a> - as
+of 2026-08-25</li>
+<li>test.openquantumsafe.org - <a
+href="https://test.openquantumsafe.org/"
+class="uri">https://test.openquantumsafe.org/</a></li>
+<li>openquantumsafe.org — liboqs - <a
+href="https://openquantumsafe.org/liboqs/"
+class="uri">https://openquantumsafe.org/liboqs/</a></li>
+<li>github.com — liboqs - <a
+href="https://github.com/open-quantum-safe/liboqs"
+class="uri">https://github.com/open-quantum-safe/liboqs</a></li>
+<li>github.com — oqs demos - <a
+href="https://github.com/open-quantum-safe/oqs-demos"
+class="uri">https://github.com/open-quantum-safe/oqs-demos</a></li>
+<li>github.com — pqc certificates - <a
+href="https://github.com/IETF-Hackathon/pqc-certificates"
+class="uri">https://github.com/IETF-Hackathon/pqc-certificates</a></li>
+<li>nist.gov — pqc - <a href="https://www.nist.gov/pqc"
+class="uri">https://www.nist.gov/pqc</a> - as of 2025-12-03</li>
+<li>[Feature request] TestSSL pointing out missing support for PQC/KEM
+(NIST FIPS 203) - <a
+href="https://github.com/testssl/testssl.sh/issues/2960"
+class="uri">https://github.com/testssl/testssl.sh/issues/2960</a> - as
+of 2025-12-08</li>
+<li>Measurements of key-encapsulation mechanisms - <a
+href="https://bench.cr.yp.to/results-kem.html"
+class="uri">https://bench.cr.yp.to/results-kem.html</a> - as of
+2026-08-05</li>
+<li>papers.academic-conferences.org — 4907 - <a
+href="https://papers.academic-conferences.org/index.php/eccws/article/view/4907"
+class="uri">https://papers.academic-conferences.org/index.php/eccws/article/view/4907</a>
+- as of 2026-06-15</li>
+<li>peerj.com — cs 4003 - <a href="https://peerj.com/articles/cs-4003/"
+class="uri">https://peerj.com/articles/cs-4003/</a> - as of
+2026-07-03</li>
+<li>liboqs/RELEASE.md - <a
+href="https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md"
+class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md</a>
+- as of 2026-07-09</li>
+<li>arxiv.org — 2603.19340v1 - <a
+href="https://arxiv.org/abs/2603.19340v1"
+class="uri">https://arxiv.org/abs/2603.19340v1</a> - as of
+2026-03-19</li>
+<li>arxiv.org — 2510.19982 - <a href="https://arxiv.org/pdf/2510.19982"
+class="uri">https://arxiv.org/pdf/2510.19982</a></li>
+<li>arxiv.org — 2507.17074 - <a href="https://arxiv.org/pdf/2507.17074"
+class="uri">https://arxiv.org/pdf/2507.17074</a></li>
+<li>factualminds.com — aws kms post quantum cryptography ml kem ml dsa -
+<a
+href="https://www.factualminds.com/blog/aws-kms-post-quantum-cryptography-ml-kem-ml-dsa/"
+class="uri">https://www.factualminds.com/blog/aws-kms-post-quantum-cryptography-ml-kem-ml-dsa/</a></li>
+<li>arxiv.org — 2605.06881 - <a href="https://arxiv.org/pdf/2605.06881"
+class="uri">https://arxiv.org/pdf/2605.06881</a></li>
+<li>arxiv.org — 2604.15249 - <a href="https://arxiv.org/pdf/2604.15249"
+class="uri">https://arxiv.org/pdf/2604.15249</a></li>
+<li>researchsquare.com — v1 - <a
+href="https://www.researchsquare.com/article/rs-9533349/v1"
+class="uri">https://www.researchsquare.com/article/rs-9533349/v1</a> -
+as of 2026-05-13</li>
+<li>eprint.iacr.org — 276 - <a href="https://eprint.iacr.org/2025/276"
+class="uri">https://eprint.iacr.org/2025/276</a> - as of 2025-06-04</li>
+<li>eprint.iacr.org — 056 - <a href="https://eprint.iacr.org/2026/056"
+class="uri">https://eprint.iacr.org/2026/056</a> - as of 2026-01-16</li>
+<li>zenodo.org — 18681117 - <a
+href="https://zenodo.org/records/18681117"
+class="uri">https://zenodo.org/records/18681117</a> - as of
+2026-02-18</li>
+<li>arxiv.org — 2409.16107 - <a href="https://arxiv.org/pdf/2409.16107"
+class="uri">https://arxiv.org/pdf/2409.16107</a></li>
+<li>In Open Quantum Safe LFX Mentorship – Enhancing Constant-Time
+Analysis Tooling in liboqs - <a
+href="https://pqca.org/blog/2026/lfx-mentorship-enhancing-constant-time-analysis-tooling-in-liboqs/"
+class="uri">https://pqca.org/blog/2026/lfx-mentorship-enhancing-constant-time-analysis-tooling-in-liboqs/</a>
+- as of 2026-02-25</li>
+<li>Formally verifying AVX2 rejection sampling for ML-KEM - <a
+href="https://pqshield.com/post-quantum-cryptography-verification-for-ml-kem/"
+class="uri">https://pqshield.com/post-quantum-cryptography-verification-for-ml-kem/</a>
+- as of 2025-12-17</li>
+<li>Finding bugs in implementations of HQC, the fifth post-quantum
+standard - <a
+href="https://blog.quarkslab.com/finding-bugs-in-implementations-of-hqc-the-fifth-post-quantum-standard.html"
+class="uri">https://blog.quarkslab.com/finding-bugs-in-implementations-of-hqc-the-fifth-post-quantum-standard.html</a>
+- as of 2025-03-21</li>
+<li>A DIFFERENTIAL FUZZING FRAMEWORK FOR ML-KEM AND ML-DSA
+IMPLEMENTATIONS IN CRYPTOGRAPHIC LIBRARIES - <a
+href="https://oulurepo.oulu.fi/bitstream/handle/10024/63293/nbnfioulu-202606114145.pdf?sequence=1&amp;isAllowed=y"
+class="uri">https://oulurepo.oulu.fi/bitstream/handle/10024/63293/nbnfioulu-202606114145.pdf?sequence=1&amp;isAllowed=y</a>
+- as of 2026-05-01</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="17-financial-sector-rails.html"><span>Previous</span>Part 17 - Financial Messaging &amp; Sector Rails</a>
+    <a class="pager-up" href="index.html"><span>Up</span>Post-Quantum Cryptography Migration</a>
+    <a class="pager-next" href="19-governance-mandates.html"><span>Next</span>Part 19 - Governance, Mandates &amp; Timelines</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/18-migration-tooling.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>
