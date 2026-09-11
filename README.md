@@ -9,6 +9,12 @@ These reports state what their sources say, with every statement cited. They tak
 
 The Spaced Research Ledger is designed and maintained by Ridley DiSiena.
 
+<!-- site:start -->
+## Read on the web
+
+Every report is published as a web page at **[https://ridleydisiena.github.io/spaced-research-ledger/](https://ridleydisiena.github.io/spaced-research-ledger/)**, interlinked part to part, with the PDF alongside each one and the podcast episode list in the same place.
+<!-- site:end -->
+
 <!-- podcast:start -->
 ## Listen
 

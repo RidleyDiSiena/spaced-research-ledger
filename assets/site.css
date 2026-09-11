@@ -493,3 +493,46 @@ a:focus-visible {
   .banner img { filter: invert(1); opacity: 0.62; }
   .mark img   { filter: invert(1); opacity: 0.45; }
 }
+
+/* ------------------------------------------------------------- podcast */
+
+.cover { margin: 0 0 1.75rem; line-height: 0; }
+.cover img {
+  width: 100%;
+  max-width: 13rem;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+
+/* The cover is the only colour on the site, and deliberately so: it is the
+   show's own artwork and the thing a listener recognises in an app. */
+.listen { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.group-count {
+  margin-left: 0.6rem;
+  color: var(--ink-mute);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.contents .group-count { margin-left: 0.4rem; }
+
+/* The podcast card sits in the same group as the reports but is not one:
+   a dashed edge and a badge say so without a second card style. */
+.card-podcast .card-link { border-style: dashed; }
+
+.badge {
+  display: inline-block;
+  margin-left: 0.55rem;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  color: var(--ink-mute);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  vertical-align: 0.18em;
+}
