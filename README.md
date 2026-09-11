@@ -15,21 +15,6 @@ The Spaced Research Ledger is designed and maintained by Ridley DiSiena.
 Every report is published as a web page at **[https://ridleydisiena.github.io/spaced-research-ledger/](https://ridleydisiena.github.io/spaced-research-ledger/)**, interlinked part to part, with the PDF alongside each one and the podcast episode list in the same place.
 <!-- site:end -->
 
-<!-- podcast:start -->
-## Listen
-
-<a href="https://podcasts.apple.com/podcast/id6809122100"><img src="https://research.perikron.com/pqc/podcast/cover.jpg" alt="SRL-Pod: Post Quantum" width="160" align="right"></a>
-
-**SRL-Pod: Post Quantum** reads every part of the quantum group aloud: PQC Migration, PQC Mathematics, CAB-Forum Watch, Quantum Computing, and PQC & Digital Assets. 44 episodes, each with a transcript.
-
-- [Apple Podcasts](https://podcasts.apple.com/podcast/id6809122100)
-- [Spotify](https://open.spotify.com/show/6a11V387TOHMV24xxl3p8v)
-- [Amazon Music](https://music.amazon.com/podcasts/d85e7079-bd78-4e57-a12c-af19fcf97252/srlpod-post-quantum)
-- RSS feed, for any podcast app: `https://research.perikron.com/pqc/podcast/feed.xml`
-- [Episode list and direct downloads](post-quantum-cryptography/podcast/)
-<br clear="all">
-<!-- podcast:end -->
-
 <!-- research-topics:start -->
 
 ## Quantum and Crypto: Research Topics
@@ -50,6 +35,20 @@ Every report is published as a web page at **[https://ridleydisiena.github.io/sp
 
 <!-- research-topics:end -->
 
+<!-- podcast:start -->
+## Listen
+
+<a href="https://podcasts.apple.com/podcast/id6809122100"><img src="https://research.perikron.com/pqc/podcast/cover.jpg" alt="SRL-Pod: Post Quantum" width="160" align="right"></a>
+
+**SRL-Pod: Post Quantum** reads every part of the quantum group aloud: PQC Migration, PQC Mathematics, CAB-Forum Watch, Quantum Computing, and PQC & Digital Assets. 44 episodes, each with a transcript.
+
+- [Apple Podcasts](https://podcasts.apple.com/podcast/id6809122100)
+- [Spotify](https://open.spotify.com/show/6a11V387TOHMV24xxl3p8v)
+- [Amazon Music](https://music.amazon.com/podcasts/d85e7079-bd78-4e57-a12c-af19fcf97252/srlpod-post-quantum)
+- RSS feed, for any podcast app: `https://research.perikron.com/pqc/podcast/feed.xml`
+- [Every episode, with transcripts](https://ridleydisiena.github.io/spaced-research-ledger/podcast/)
+<br clear="all">
+<!-- podcast:end -->
 ## How This Repository Is Organized
 
 Each topic has its own folder with the same shape:
