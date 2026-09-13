@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>libsodium | PQC Readiness Register</title>
+  <meta name="description" content="libsodium: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>libsodium</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; library</p>
+    <h1>libsodium</h1>
+    <p class="standfirst">Maintained by Frank Denis. Numbered 1.0.x releases. Home: https://libsodium.org/</p>
+    <p class="updated">1 of 66 cells cited</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Primitive</th>
+<th>TLS 1.3</th>
+<th>X.509</th>
+<th>SSH</th>
+<th>IPsec / IKEv2</th>
+<th>FIPS 140-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td>available since 1.0.22 [1] [2]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, Primitive</strong>: ML-KEM768 plus X-Wing (ML-KEM768
+with X25519); the library’s first post-quantum primitive.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>1.0.22, 2026-04-09 [1]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet.</p>
+<ul>
+<li>ml-dsa / primitive: no claim; the maintainer had given no signature
+roadmap</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://github.com/jedisct1/libsodium/releases/tag/1.0.22-RELEASE"
+class="uri">https://github.com/jedisct1/libsodium/releases/tag/1.0.22-RELEASE</a>
+(as of 2026-04-09; ledger claim
+pqc/embedded-alternative-libraries/d0001:16)</li>
+<li><a href="https://arxiv.org/html/2508.16078v1"
+class="uri">https://arxiv.org/html/2508.16078v1</a> (as of 2025-08-22;
+ledger claim pqc/embedded-alternative-libraries/d0001:15)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

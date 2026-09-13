@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mlkem-native | PQC Readiness Register</title>
+  <meta name="description" content="mlkem-native: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>mlkem-native</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; library</p>
+    <h1>mlkem-native</h1>
+    <p class="standfirst">Maintained by PQ Code Package (PQCA). Numbered releases; consumed by liboqs and AWS-LC. Home: https://github.com/pq-code-package/mlkem-native</p>
+    <p class="updated">1 of 66 cells cited</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Primitive</th>
+<th>TLS 1.3</th>
+<th>X.509</th>
+<th>SSH</th>
+<th>IPsec / IKEv2</th>
+<th>FIPS 140-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td>available since 1.0.0 [1] [2] [3]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, Primitive</strong>: C proved memory- and type-safe
+with CBMC; AArch64 and x86_64 assembly proved correct and constant-time
+with HOL-Light; v2.0.0 is a breaking API release. SOUNDNESS.md lists
+open verification gaps (d0001:19).</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>2.0.0 [3]</li>
+<li>1.2.0, 2026-08-10 [4]</li>
+<li>1.0.0, 2025-07-10 [1]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/"
+class="uri">https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/</a>
+(as of 2025-07-10; ledger claim
+pqc/pq-reference-implementations/d0001:3)</li>
+<li><a href="https://github.com/pq-code-package/mlkem-native"
+class="uri">https://github.com/pq-code-package/mlkem-native</a> (date
+not recorded; ledger claim
+pqc/pq-reference-implementations/d0001:18)</li>
+<li><a
+href="https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md"
+class="uri">https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md</a>
+(date not recorded; ledger claim
+pqc/pq-reference-implementations/d0004:2)</li>
+<li><a
+href="https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md"
+class="uri">https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md</a>
+(as of 2026-08-10; ledger claim
+pqc/pq-reference-implementations/d0002:5)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

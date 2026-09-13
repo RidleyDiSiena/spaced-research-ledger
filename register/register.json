@@ -1,0 +1,3689 @@
+{
+  "register": "PQC Readiness Register",
+  "generated": "2026-09-12",
+  "commit": "491ae09",
+  "statuses": [
+    "none",
+    "planned",
+    "experimental",
+    "available",
+    "default"
+  ],
+  "capabilities": [
+    {
+      "id": "primitive",
+      "label": "Primitive",
+      "means": "Key generation, encapsulation or signing, and the matching decapsulation or verification, through the component's own API.",
+      "applies_to": [
+        "library",
+        "language-stack"
+      ],
+      "default_means": "Registered and selectable through the default provider or backend with no build flag or opt-in."
+    },
+    {
+      "id": "tls",
+      "label": "TLS 1.3",
+      "means": "Use in a TLS 1.3 handshake -- key exchange for a KEM or hybrid group, authentication for a signature scheme.",
+      "applies_to": [
+        "library",
+        "language-stack",
+        "tls-stack",
+        "tls-terminator"
+      ],
+      "default_means": "In the default supported-groups list (key exchange) or the default signature-algorithms list (authentication) as shipped."
+    },
+    {
+      "id": "x509",
+      "label": "X.509",
+      "means": "Certificates and keys -- generating, parsing, signing, verifying and chain-building with the algorithm; composite and hybrid forms where the algorithm is one.",
+      "applies_to": [
+        "library",
+        "language-stack",
+        "tls-stack",
+        "pki-tool"
+      ],
+      "default_means": "Accepted in chain verification without an opt-in."
+    },
+    {
+      "id": "ssh",
+      "label": "SSH",
+      "means": "Use in the SSH key exchange or as a host or user key type.",
+      "applies_to": [
+        "ssh-stack",
+        "library"
+      ],
+      "default_means": "In the default key-exchange or key-type preference list as shipped."
+    },
+    {
+      "id": "ipsec",
+      "label": "IPsec / IKEv2",
+      "means": "Use in IKEv2 key exchange or authentication.",
+      "applies_to": [
+        "ipsec-stack",
+        "library"
+      ],
+      "default_means": "In the default IKEv2 proposal as shipped."
+    },
+    {
+      "id": "fips",
+      "label": "FIPS 140-3",
+      "means": "Standing of the algorithm inside a FIPS 140-3 validated module of the component. See the file header for how the scale reads here.",
+      "applies_to": [
+        "library",
+        "language-stack",
+        "tls-stack"
+      ],
+      "default_means": "Inside the validated boundary and enabled in the module's approved mode."
+    }
+  ],
+  "algorithms": [
+    {
+      "id": "ml-kem",
+      "label": "ML-KEM",
+      "family": "kem",
+      "standard": "FIPS 203",
+      "parameter_sets": [
+        "ML-KEM-512",
+        "ML-KEM-768",
+        "ML-KEM-1024"
+      ],
+      "note": ""
+    },
+    {
+      "id": "x25519mlkem768",
+      "label": "X25519MLKEM768",
+      "family": "hybrid-kex",
+      "standard": "draft-ietf-tls-ecdhe-mlkem; IANA 0x11EC, RFC 10024 registration (Recommended Y)",
+      "parameter_sets": [],
+      "note": "The hybrid group browsers and CDNs deploy. Pre-standard name X25519Kyber768."
+    },
+    {
+      "id": "secp256r1mlkem768",
+      "label": "SecP256r1MLKEM768",
+      "family": "hybrid-kex",
+      "standard": "draft-ietf-tls-ecdhe-mlkem; IANA 0x11EB",
+      "parameter_sets": [],
+      "note": ""
+    },
+    {
+      "id": "secp384r1mlkem1024",
+      "label": "SecP384r1MLKEM1024",
+      "family": "hybrid-kex",
+      "standard": "draft-ietf-tls-ecdhe-mlkem; IANA 0x11ED",
+      "parameter_sets": [],
+      "note": ""
+    },
+    {
+      "id": "sm2mlkem768",
+      "label": "curveSM2MLKEM768",
+      "family": "hybrid-kex",
+      "standard": "tls-hybrid-sm2-mlkem (IETF draft)",
+      "parameter_sets": [],
+      "note": "Added so a component that ships it (OpenSSL 4.0) can be recorded; expect few cells."
+    },
+    {
+      "id": "ml-dsa",
+      "label": "ML-DSA",
+      "family": "signature",
+      "standard": "FIPS 204",
+      "parameter_sets": [
+        "ML-DSA-44",
+        "ML-DSA-65",
+        "ML-DSA-87"
+      ],
+      "note": "External-mu (pre-hashed mu) signing is recorded in the cell note, not as a row, until two components track it."
+    },
+    {
+      "id": "slh-dsa",
+      "label": "SLH-DSA",
+      "family": "signature",
+      "standard": "FIPS 205",
+      "parameter_sets": [
+        "SHA2 and SHAKE",
+        "128/192/256",
+        "s and f"
+      ],
+      "note": ""
+    },
+    {
+      "id": "fn-dsa",
+      "label": "FN-DSA (Falcon)",
+      "family": "signature",
+      "standard": "FIPS 206 (draft)",
+      "parameter_sets": [],
+      "note": "Pre-standard Falcon-512/1024 support is recorded here with the note saying so."
+    },
+    {
+      "id": "composite-ml-dsa",
+      "label": "Composite ML-DSA",
+      "family": "composite",
+      "standard": "draft-ietf-lamps-pq-composite-sigs",
+      "parameter_sets": [],
+      "note": "ML-DSA paired with an ECDSA, EdDSA or RSA component in one X.509 signature."
+    },
+    {
+      "id": "lms-hss",
+      "label": "LMS / HSS",
+      "family": "stateful-hbs",
+      "standard": "SP 800-208, RFC 8554",
+      "parameter_sets": [],
+      "note": ""
+    },
+    {
+      "id": "xmss",
+      "label": "XMSS / XMSS^MT",
+      "family": "stateful-hbs",
+      "standard": "SP 800-208, RFC 8391",
+      "parameter_sets": [],
+      "note": ""
+    }
+  ],
+  "families": [
+    {
+      "id": "kem",
+      "label": "KEM",
+      "headline": "primitive"
+    },
+    {
+      "id": "hybrid-kex",
+      "label": "Hybrid key exchange",
+      "headline": "tls"
+    },
+    {
+      "id": "signature",
+      "label": "Signatures",
+      "headline": "primitive"
+    },
+    {
+      "id": "composite",
+      "label": "Composite signatures",
+      "headline": "x509"
+    },
+    {
+      "id": "stateful-hbs",
+      "label": "Stateful hash-based signatures",
+      "headline": "primitive"
+    }
+  ],
+  "components": [
+    {
+      "id": "aws-lc-rs",
+      "name": "aws-lc-rs",
+      "kind": "library",
+      "maintainer": "Amazon Web Services",
+      "homepage": "https://github.com/aws/aws-lc-rs",
+      "release_channel": "Rust crate over AWS-LC; numbered releases.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "openssl-and-forks"
+        }
+      ],
+      "aliases": [
+        "aws-lc-rs"
+      ],
+      "version_pattern": "aws-lc-rs\\s+v?(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "1.18.1",
+          "date": "2026-09-01",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0006:3",
+              "source": null,
+              "url": "https://github.com/aws/aws-lc-rs/releases",
+              "as_of": "2026-09-01",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.18.1",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0006:3",
+              "source": null,
+              "url": "https://github.com/aws/aws-lc-rs/releases",
+              "as_of": "2026-09-01",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0001:18",
+              "source": null,
+              "url": "https://github.com/LatticeArc/latticearc/issues/17",
+              "as_of": "2026-02-08",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Stable API without the unstable feature flag from 1.18.1; described as not fully stabilised in February 2026."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "fips",
+          "status": "available",
+          "since": "1.18.1",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0006:3",
+              "source": null,
+              "url": "https://github.com/aws/aws-lc-rs/releases",
+              "as_of": "2026-09-01",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-DSA APIs available under the crate's FIPS build."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "why": "no claim on the crate itself (AWS-LC underneath has it)"
+        }
+      ],
+      "roll_up": {
+        "kem": null,
+        "hybrid-kex": null,
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "aws-lc",
+      "name": "AWS-LC",
+      "kind": "library",
+      "maintainer": "Amazon Web Services",
+      "homepage": "https://github.com/aws/aws-lc",
+      "release_channel": "Numbered releases; a separate FIPS module line (AWS-LC FIPS 3.0).",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "openssl-and-forks"
+        }
+      ],
+      "aliases": [
+        "AWS-LC",
+        "aws-lc"
+      ],
+      "version_pattern": "AWS-LC(?: FIPS)?\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:13",
+              "source": null,
+              "url": "https://github.com/aws/aws-lc/blob/main/crypto/fipsmodule/PQREADME.md",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0001:14",
+              "source": null,
+              "url": "https://github.com/aws/aws-lc/releases",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-KEM-512/768/1024; implementation imported from mlkem-native v1.1.0 into the FIPS module."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:13",
+              "source": null,
+              "url": "https://github.com/aws/aws-lc/blob/main/crypto/fipsmodule/PQREADME.md",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-DSA-44/65/87."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:15",
+              "source": null,
+              "url": "https://github.com/aws/aws-lc/releases",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "TLS 1.3 signature scheme, per the project's release history."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "fips",
+          "status": "available",
+          "since": "AWS-LC FIPS 3.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0004:3",
+              "source": null,
+              "url": "https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4631",
+              "as_of": "2026-08-25",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0001:16",
+              "source": null,
+              "url": "https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-KEM inside validated FIPS 140-3 modules (certificates 4631, 5314, 5298 as of August 2026). Whether it is on in approved mode by default is not in the claims, so 'available' not 'default'."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "why": "the hybrid TLS group is exercised through s2n-tls; AWS-LC's own group list not in the leaf's claims"
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "fips",
+          "why": "ML-DSA's standing inside the validated modules not in the leaf's claims"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": null,
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "boringssl",
+      "name": "BoringSSL",
+      "kind": "library",
+      "maintainer": "Google",
+      "homepage": "https://boringssl.googlesource.com/boringssl/",
+      "release_channel": "Rolling, no numbered releases; consumers pin commits (Chrome, Android, Envoy).",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "openssl-and-forks"
+        }
+      ],
+      "aliases": [
+        "BoringSSL"
+      ],
+      "version_pattern": null,
+      "releases": [],
+      "cells": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "available",
+          "since": "rolling since 2023 (pre-standard name X25519Kyber768)",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:10",
+              "source": null,
+              "url": "https://quantumsecuritydefence.com/insights/fips-203-205-implementation-c-rust-libraries/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0001:11",
+              "source": null,
+              "url": "https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Chrome shipped it by default from 131 with the standard codepoint; whether BoringSSL's own default group list carries it is a conflict in the ledger (d0001:23)."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "rolling",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0002:2",
+              "source": null,
+              "url": "https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/",
+              "as_of": "2026-06-24",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "rolling, commits of October 2025",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0002:1",
+              "source": null,
+              "url": "https://github.com/envoyproxy/envoy/issues/42893",
+              "as_of": "2026-01-07",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0004:2",
+              "source": null,
+              "url": "https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/",
+              "as_of": "2026-06-24",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "One source dates ML-DSA to April 2026 instead (ledger conflict d0005:1)."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "status": "available",
+          "since": "rolling, commits of October 2025",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0002:1",
+              "source": null,
+              "url": "https://github.com/envoyproxy/envoy/issues/42893",
+              "as_of": "2026-01-07",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-DSA-87 certificate validation plus OIDs/NIDs for ML-DSA and ML-KEM."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "why": "pure ML-KEM group standing not in the leaf's claims"
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "why": "TLS signature-scheme standing not in the leaf's claims"
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "fips",
+          "why": "BoringSSL's FIPS module status for PQC not in the leaf's claims"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": "available",
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "botan",
+      "name": "Botan",
+      "kind": "library",
+      "maintainer": "Jack Lloyd (randombit)",
+      "homepage": "https://botan.randombit.net/",
+      "release_channel": "Numbered 3.x releases, roughly bi-monthly.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "embedded-alternative-libraries"
+        }
+      ],
+      "aliases": [
+        "Botan"
+      ],
+      "version_pattern": "Botan\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "3.13.0",
+          "date": "2026-08-13",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0002:4",
+              "source": null,
+              "url": "https://botan.randombit.net/",
+              "as_of": "2026-08-13",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "3.7.0",
+          "date": "2025-02-04",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:11",
+              "source": null,
+              "url": "https://botan.randombit.net/news.html",
+              "as_of": "2025-02-04",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "3.6.0",
+          "date": "2024-10-21",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:10",
+              "source": null,
+              "url": "https://botan.randombit.net/news.html",
+              "as_of": "2024-10-21",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.6.0",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:10",
+              "source": null,
+              "url": "https://botan.randombit.net/news.html",
+              "as_of": "2024-10-21",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:14",
+              "source": null,
+              "url": "https://botan.randombit.net/handbook/api_ref/pubkey.html",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.6.0",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:10",
+              "source": null,
+              "url": "https://botan.randombit.net/news.html",
+              "as_of": "2024-10-21",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:14",
+              "source": null,
+              "url": "https://botan.randombit.net/handbook/api_ref/pubkey.html",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.6.0",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:10",
+              "source": null,
+              "url": "https://botan.randombit.net/news.html",
+              "as_of": "2024-10-21",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "default",
+          "since": "3.7.0",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:11",
+              "source": null,
+              "url": "https://botan.randombit.net/news.html",
+              "as_of": "2025-02-04",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Hybrid x25519/ML-KEM-768 on by default for TLS clients and servers."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "status": "available",
+          "since": "3.7.0",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:11",
+              "source": null,
+              "url": "https://botan.randombit.net/news.html",
+              "as_of": "2025-02-04",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Pure (non-hybrid) ML-KEM key exchange added in the same release."
+        },
+        {
+          "algorithm": "xmss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.7.1",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:12",
+              "source": null,
+              "url": "https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Kryptografie/Kryptobibliothek-Botan/kryptobibliothek-botan_dvl.html",
+              "as_of": "2025-06-02",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Confirmed by BSI's code review of 3.7.1-RSCS1."
+        },
+        {
+          "algorithm": "lms-hss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.7.1",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:12",
+              "source": null,
+              "url": "https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Kryptografie/Kryptobibliothek-Botan/kryptobibliothek-botan_dvl.html",
+              "as_of": "2025-06-02",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "why": "no claim"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": "default",
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": "available"
+      }
+    },
+    {
+      "id": "bouncycastle-java",
+      "name": "Bouncy Castle (Java)",
+      "kind": "library",
+      "maintainer": "Legion of the Bouncy Castle",
+      "homepage": "https://www.bouncycastle.org/",
+      "release_channel": "Numbered 1.8x releases; a separate FIPS-track line (bc-fips).",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-native-crypto-stacks"
+        }
+      ],
+      "aliases": [
+        "Bouncy Castle",
+        "BouncyCastle",
+        "bc-fips"
+      ],
+      "version_pattern": "Bouncy ?Castle(?: Java)?\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "1.86",
+          "date": "2026-09-11",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0005:1",
+              "source": null,
+              "url": "https://www.bouncycastle.org/download/bouncy-castle-java/",
+              "as_of": "2026-09-11",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "1.85",
+          "date": "2026-07-28",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0003:4",
+              "source": null,
+              "url": "https://www.bouncycastle.org/resources/new-release-bouncy-castle-java-1-85/",
+              "as_of": "2026-07-28",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.78",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:13",
+              "source": null,
+              "url": "https://evertrust.io/blog/hybrid-post-quantum-certificates/",
+              "as_of": "2026-06-03",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:15",
+              "source": null,
+              "url": "https://www.bouncycastle.org/documentation/specification_interoperability/",
+              "as_of": "2026-03-10",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.79",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:13",
+              "source": null,
+              "url": "https://evertrust.io/blog/hybrid-post-quantum-certificates/",
+              "as_of": "2026-06-03",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:15",
+              "source": null,
+              "url": "https://www.bouncycastle.org/documentation/specification_interoperability/",
+              "as_of": "2026-03-10",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:15",
+              "source": null,
+              "url": "https://www.bouncycastle.org/documentation/specification_interoperability/",
+              "as_of": "2026-03-10",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Listed on the project's specification page as a supported standardised algorithm."
+        },
+        {
+          "algorithm": "composite-ml-dsa",
+          "capability": "x509",
+          "status": "available",
+          "since": "1.80",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:13",
+              "source": null,
+              "url": "https://evertrust.io/blog/hybrid-post-quantum-certificates/",
+              "as_of": "2026-06-03",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Composite signature OIDs from 1.80 with a non-default JcaCompositeSignerInfoGeneratorBuilder."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "status": "available",
+          "since": "1.81",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0002:1",
+              "source": null,
+              "url": "https://www.bouncycastle.org/resources/bouncy-castle-releases-java-1-81-and-c-net-2-6-1/",
+              "as_of": "2025-06-09",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-KEM-only and hybrid ML-KEM/classical suites in the JSSE provider, aligned with IETF drafts; group names not in the claim."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "status": "available",
+          "since": "1.85",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0004:1",
+              "source": null,
+              "url": "https://www.bouncycastle.org/resources/new-release-bouncy-castle-java-1-85/",
+              "as_of": "2026-07-28",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Hybrid certificates and post-quantum keys and signatures in X.509."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "fips",
+          "status": "experimental",
+          "since": "bc-fips-core 3.0.0 early access",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:14",
+              "source": null,
+              "url": "https://www.bouncycastle.org/download/bouncy-castle-java-fips/roadmap/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "FIPS-track library in early access; a separate bcpqc-fips artifact is described as non-certified."
+        }
+      ],
+      "extra": [],
+      "gaps": [],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": null,
+        "signature": "available",
+        "composite": "available",
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "dotnet",
+      "name": ".NET",
+      "kind": "language-stack",
+      "maintainer": "Microsoft",
+      "homepage": "https://dotnet.microsoft.com/",
+      "release_channel": "Annual releases (.NET 10 in November 2025); PQC needs CNG or OpenSSL underneath.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-native-crypto-stacks"
+        }
+      ],
+      "aliases": [
+        ".NET",
+        ".NET 10",
+        "System.Security.Cryptography"
+      ],
+      "version_pattern": "\\.NET\\s+(\\d+(?:\\.\\d+)?)",
+      "releases": [],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "10",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:18",
+              "source": null,
+              "url": "https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10",
+              "as_of": "2026-05-14",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Requires Windows with CNG PQC support or an OpenSSL with the algorithms."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "10",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:18",
+              "source": null,
+              "url": "https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10",
+              "as_of": "2026-05-14",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0004:2",
+              "source": null,
+              "url": "https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptography/10.0/mldsa-slhdsa-secretkey-to-privatekey",
+              "as_of": "2026-07-31",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "MLDsa members renamed SecretKey* to PrivateKey* in .NET 10, a breaking change."
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "10",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:18",
+              "source": null,
+              "url": "https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10",
+              "as_of": "2026-05-14",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "composite-ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "10",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:18",
+              "source": null,
+              "url": "https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10",
+              "as_of": "2026-05-14",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Composite ML-DSA in System.Security.Cryptography; PEM import/export helpers still experimental behind SYSLIB5006 (d0001:20)."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "why": "no claim on SslStream / TLS surfaces"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": null,
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "gnutls",
+      "name": "GnuTLS",
+      "kind": "library",
+      "maintainer": "GnuTLS project (Red Hat maintainers)",
+      "homepage": "https://www.gnutls.org/",
+      "release_channel": "Numbered 3.8.x releases; PQC via liboqs or leancrypto backends.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "embedded-alternative-libraries"
+        }
+      ],
+      "aliases": [
+        "GnuTLS"
+      ],
+      "version_pattern": "GnuTLS\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "3.8.13",
+          "date": "2026-04-29",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0004:5",
+              "source": null,
+              "url": "https://gitlab.com/gnutls/gnutls/-/blame/master/NEWS",
+              "as_of": "2026-04-29",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "3.8.9",
+          "date": "2025-02-07",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:18",
+              "source": null,
+              "url": "https://patchwork.yoctoproject.org/project/oe-core/patch/20250217192141.1383722-1-peter.marko@siemens.com/",
+              "as_of": "2025-02-07",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "experimental",
+          "since": "3.8.8",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:17",
+              "source": null,
+              "url": "https://patchwork.ipfire.org/project/ipfire/patch/20241109173814.1058040-4-adolf.belka@ipfire.org/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Experimental in 3.8.8; minimum liboqs 0.11.0."
+        },
+        {
+          "algorithm": "secp256r1mlkem768",
+          "capability": "tls",
+          "status": "experimental",
+          "since": "3.8.8",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:17",
+              "source": null,
+              "url": "https://patchwork.ipfire.org/project/ipfire/patch/20241109173814.1058040-4-adolf.belka@ipfire.org/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "experimental",
+          "since": "3.8.9",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:18",
+              "source": null,
+              "url": "https://patchwork.yoctoproject.org/project/oe-core/patch/20250217192141.1383722-1-peter.marko@siemens.com/",
+              "as_of": "2025-02-07",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0004:5",
+              "source": null,
+              "url": "https://gitlab.com/gnutls/gnutls/-/blame/master/NEWS",
+              "as_of": "2026-04-29",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Experimental ML-DSA from 3.8.9 via the leancrypto backend; 3.8.13 derives the public key from an expanded private key per RFC 9881."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "why": "only a RHEL 9.8 downstream claim (d0001:20), gated behind a subpolicy; upstream default standing not in the claims"
+        }
+      ],
+      "roll_up": {
+        "kem": null,
+        "hybrid-kex": "experimental",
+        "signature": "experimental",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "go",
+      "name": "Go standard library",
+      "kind": "language-stack",
+      "maintainer": "The Go project (Google)",
+      "homepage": "https://go.dev/",
+      "release_channel": "Two releases a year (1.N); crypto/tls defaults change with them.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-native-crypto-stacks"
+        },
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-runtime-tls-surfaces"
+        }
+      ],
+      "aliases": [
+        "Go",
+        "Golang",
+        "crypto/tls",
+        "crypto/mlkem",
+        "crypto/mldsa"
+      ],
+      "version_pattern": "Go\\s+(1\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "1.27",
+          "date": "2026-08-22",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0003:1",
+              "source": null,
+              "url": "https://go.dev/doc/go1.27",
+              "as_of": "2026-08-22",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "1.26",
+          "date": "2026-02-19",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:3",
+              "source": null,
+              "url": "https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a",
+              "as_of": "2026-02-19",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "default",
+          "since": "1.24",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:1",
+              "source": null,
+              "url": "https://pkg.go.dev/crypto/tls",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:2",
+              "source": null,
+              "url": "https://golang.bg/src/crypto/tls/defaults.go",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "On when CurvePreferences is nil; GODEBUG tlsmlkem=0 reverts."
+        },
+        {
+          "algorithm": "secp256r1mlkem768",
+          "capability": "tls",
+          "status": "default",
+          "since": "1.26",
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0002:1",
+              "source": null,
+              "url": "https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go",
+              "as_of": "2026-08-25",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:2",
+              "source": null,
+              "url": "https://golang.bg/src/crypto/tls/defaults.go",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "secp384r1mlkem1024",
+          "capability": "tls",
+          "status": "default",
+          "since": "1.26",
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0002:1",
+              "source": null,
+              "url": "https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go",
+              "as_of": "2026-08-25",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:2",
+              "source": null,
+              "url": "https://golang.bg/src/crypto/tls/defaults.go",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "status": "available",
+          "since": "1.27",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0003:2",
+              "source": null,
+              "url": "https://go.dev/doc/go1.27",
+              "as_of": "2026-08-22",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0004:2",
+              "source": null,
+              "url": "https://www.51cto.com/article/843365.html",
+              "as_of": null,
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Pure MLKEM1024 key exchange."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.24",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:1",
+              "source": null,
+              "url": "https://pkg.go.dev/crypto/tls",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:3",
+              "source": null,
+              "url": "https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a",
+              "as_of": "2026-02-19",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-KEM-768/1024 behind the TLS hybrid from 1.24; crypto/hpke with the X-Wing option from 1.26."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.27",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0003:1",
+              "source": null,
+              "url": "https://go.dev/doc/go1.27",
+              "as_of": "2026-08-22",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0003:1",
+              "source": null,
+              "url": "https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/",
+              "as_of": "2026-08-02",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "crypto/mldsa with MLDSA44/65/87."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "status": "available",
+          "since": "1.27",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0003:1",
+              "source": null,
+              "url": "https://go.dev/doc/go1.27",
+              "as_of": "2026-08-22",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "status": "available",
+          "since": "1.27",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0003:1",
+              "source": null,
+              "url": "https://go.dev/doc/go1.27",
+              "as_of": "2026-08-22",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0004:2",
+              "source": null,
+              "url": "https://www.51cto.com/article/843365.html",
+              "as_of": null,
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-DSA signature schemes for TLS 1.3."
+        },
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "fips",
+          "status": "experimental",
+          "since": "FIPS 140 mode (issue 78178)",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:5",
+              "source": null,
+              "url": "https://github.com/golang/go/issues/78178",
+              "as_of": "2026-03-16",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Listed as FIPS-allowed but unreachable under GODEBUG=fips140=only per an open March 2026 issue."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "why": "no claim"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": "default",
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "jdk",
+      "name": "Java (OpenJDK)",
+      "kind": "language-stack",
+      "maintainer": "Oracle and the OpenJDK community",
+      "homepage": "https://openjdk.org/",
+      "release_channel": "Two feature releases a year; LTS every two years with backports via quarterly CPUs.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-native-crypto-stacks"
+        },
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-runtime-tls-surfaces"
+        }
+      ],
+      "aliases": [
+        "JDK",
+        "OpenJDK",
+        "JEP 496",
+        "JEP 497",
+        "JEP 527"
+      ],
+      "version_pattern": "JDK\\s+(\\d+(?:\\.\\d+)*)",
+      "releases": [
+        {
+          "version": "27",
+          "date": "2026-09-01",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0002:2",
+              "source": null,
+              "url": "https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases",
+              "as_of": "2026-08-06",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "26",
+          "date": "2026-03-17",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:11",
+              "source": null,
+              "url": "https://seanjmullan.org/blog/2026/03/16/jdk26",
+              "as_of": "2026-03-16",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "24",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:9",
+              "source": null,
+              "url": "https://www.baeldung.com/jdk-security-enhancements",
+              "as_of": "2026-06-05",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "JEP 496: native JCA engine classes, ML-KEM-512/768/1024."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "24",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:9",
+              "source": null,
+              "url": "https://www.baeldung.com/jdk-security-enhancements",
+              "as_of": "2026-06-05",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:11",
+              "source": null,
+              "url": "https://seanjmullan.org/blog/2026/03/16/jdk26",
+              "as_of": "2026-03-16",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "JEP 497; JAR signing with ML-DSA from JDK 26."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "x509",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:10",
+              "source": null,
+              "url": "https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quantum-cryptography/",
+              "as_of": "2026-05-18",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "keytool generates ML-KEM key pairs and certificates; the certificate must be signed with a signature algorithm."
+        },
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "available",
+          "since": "27",
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0002:2",
+              "source": null,
+              "url": "https://openjdk.org/jeps/527",
+              "as_of": "2026-08-17",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0005:2",
+              "source": null,
+              "url": "https://inside.java/2026/09/03/java-acceleration-curve25519-field-operations",
+              "as_of": "2026-09-03",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "JEP 527 delivers hybrid TLS 1.3 key exchange in JDK 27, and the Curve25519 optimisation claim names X25519MLKEM768 as a group whose key generation it speeds up. Neither claim states the default group list, so 'available', not 'default'."
+        }
+      ],
+      "extra": [
+        {
+          "id": "lts_backport_plan",
+          "label": "LTS backports of ML-KEM, ML-DSA and hybrid TLS",
+          "value": "JDK 25 in October 2026; JDK 21 and 17 in H1 2027; JDK 11 and 8 in H2 2027",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0003:3",
+              "source": null,
+              "url": "https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases",
+              "as_of": "2026-08-06",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0001:1",
+              "source": null,
+              "url": "https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases",
+              "as_of": "2026-08-06",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "gaps": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "why": "no claim beyond JAR signing"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": "available",
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "liboqs",
+      "name": "liboqs",
+      "kind": "library",
+      "maintainer": "Open Quantum Safe / PQCA",
+      "homepage": "https://github.com/open-quantum-safe/liboqs",
+      "release_channel": "Numbered 0.x releases about twice a year; oqs-provider is released alongside.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "pq-reference-implementations"
+        }
+      ],
+      "aliases": [
+        "liboqs",
+        "oqs-provider"
+      ],
+      "version_pattern": "liboqs\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "0.16.0",
+          "date": "2026-07-09",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:1",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/liboqs/releases",
+              "as_of": "2026-07-09",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "0.15.0",
+          "date": "2025-11-14",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:2",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md",
+              "as_of": "2025-11-14",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "0.14.0",
+          "date": "2025-07-10",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:3",
+              "source": null,
+              "url": "https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/",
+              "as_of": "2025-07-10",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "0.14.0 (mlkem-native 1.0.0 underneath)",
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:3",
+              "source": null,
+              "url": "https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/",
+              "as_of": "2025-07-10",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/pq-reference-implementations/d0002:4",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md",
+              "as_of": "2026-07-09",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:17",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/liboqs/releases",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "mlkem-native is the default implementation; updated to v1.2.0 in 0.16.0."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "0.16.0 (mldsa-native underneath)",
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0002:3",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md",
+              "as_of": "2026-07-09",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "0.15.0",
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:2",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md",
+              "as_of": "2025-11-14",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:1",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/liboqs/releases",
+              "as_of": "2026-07-09",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "0.15.0 was the last release with pre-standard SPHINCS+; SLH-DSA supersedes it and SPHINCS+ was removed in 0.16.0."
+        },
+        {
+          "algorithm": "xmss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:4",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/liboqs/releases",
+              "as_of": "2026-07-09",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "0.16.0 fixed an out-of-bounds read in XMSS/XMSS^MT verification."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "why": "TLS is provided through oqs-provider on OpenSSL, not liboqs itself; oqs-provider is a component for a later phase"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": null,
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": "available"
+      }
+    },
+    {
+      "id": "libressl",
+      "name": "LibreSSL",
+      "kind": "library",
+      "maintainer": "OpenBSD project",
+      "homepage": "https://www.libressl.org/",
+      "release_channel": "Numbered releases with OpenBSD; 4.x current.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "openssl-and-forks"
+        }
+      ],
+      "aliases": [
+        "LibreSSL"
+      ],
+      "version_pattern": "LibreSSL\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "4.3.0",
+          "date": "2026-04-18",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:9",
+              "source": null,
+              "url": "https://ianix.com/pqcrypto/pqcrypto-deployment.html",
+              "as_of": "2026-04-18",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "4.2.0",
+          "date": "2025-10-14",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:8",
+              "source": null,
+              "url": "https://ianix.com/pqcrypto/pqcrypto-deployment.html",
+              "as_of": "2025-10-14",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "4.2.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:8",
+              "source": null,
+              "url": "https://ianix.com/pqcrypto/pqcrypto-deployment.html",
+              "as_of": "2025-10-14",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Public ML-KEM API added to support the hybrid group in libssl."
+        },
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "available",
+          "since": "4.3.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:9",
+              "source": null,
+              "url": "https://ianix.com/pqcrypto/pqcrypto-deployment.html",
+              "as_of": "2026-04-18",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Keyshare MLKEM768_X25519 in TLS; default standing not in the claim."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "why": "no claim"
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "why": "no claim"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": "available",
+        "signature": null,
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "libsodium",
+      "name": "libsodium",
+      "kind": "library",
+      "maintainer": "Frank Denis",
+      "homepage": "https://libsodium.org/",
+      "release_channel": "Numbered 1.0.x releases.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "embedded-alternative-libraries"
+        }
+      ],
+      "aliases": [
+        "libsodium"
+      ],
+      "version_pattern": "libsodium\\s+(\\d+\\.\\d+\\.\\d+)",
+      "releases": [
+        {
+          "version": "1.0.22",
+          "date": "2026-04-09",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:16",
+              "source": null,
+              "url": "https://github.com/jedisct1/libsodium/releases/tag/1.0.22-RELEASE",
+              "as_of": "2026-04-09",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.0.22",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:16",
+              "source": null,
+              "url": "https://github.com/jedisct1/libsodium/releases/tag/1.0.22-RELEASE",
+              "as_of": "2026-04-09",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:15",
+              "source": null,
+              "url": "https://arxiv.org/html/2508.16078v1",
+              "as_of": "2025-08-22",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-KEM768 plus X-Wing (ML-KEM768 with X25519); the library's first post-quantum primitive."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "why": "no claim; the maintainer had given no signature roadmap"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": null,
+        "signature": null,
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "mbedtls",
+      "name": "Mbed TLS",
+      "kind": "library",
+      "maintainer": "TrustedFirmware / Arm (PSA Crypto)",
+      "homepage": "https://www.trustedfirmware.org/projects/mbed-tls/",
+      "release_channel": "Numbered releases; roadmap published quarterly.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "embedded-alternative-libraries"
+        }
+      ],
+      "aliases": [
+        "Mbed TLS",
+        "mbedTLS",
+        "mbedtls"
+      ],
+      "version_pattern": "[Mm]bed ?TLS\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [],
+      "cells": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "planned",
+          "since": "roadmap: initial support 2026 CQ2",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:8",
+              "source": null,
+              "url": "https://mbed-tls.readthedocs.io/en/latest/project/roadmap/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:9",
+              "source": null,
+              "url": "https://lists.trustedfirmware.org/archives/list/mbed-tls@lists.trustedfirmware.org/thread/D73QWEQBW5LHMFMG35S3IPV62NTKR4SO/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Roadmap items only; a 2026 mailing-list thread shows users still asking."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "planned",
+          "since": "roadmap: unscheduled Future",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:8",
+              "source": null,
+              "url": "https://mbed-tls.readthedocs.io/en/latest/project/roadmap/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:7",
+              "source": null,
+              "url": "https://arxiv.org/html/2508.16078v1",
+              "as_of": "2025-08-22",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "No NIST-finalised PQC algorithm in an official release as of the 2025 survey."
+        },
+        {
+          "algorithm": "lms-hss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "about 3.2",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:7",
+              "source": null,
+              "url": "https://arxiv.org/html/2508.16078v1",
+              "as_of": "2025-08-22",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Stateful hash-based signatures, for firmware update use cases."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "why": "no claim"
+        }
+      ],
+      "roll_up": {
+        "kem": "planned",
+        "hybrid-kex": null,
+        "signature": "planned",
+        "composite": null,
+        "stateful-hbs": "available"
+      }
+    },
+    {
+      "id": "mlkem-native",
+      "name": "mlkem-native",
+      "kind": "library",
+      "maintainer": "PQ Code Package (PQCA)",
+      "homepage": "https://github.com/pq-code-package/mlkem-native",
+      "release_channel": "Numbered releases; consumed by liboqs and AWS-LC.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "pq-reference-implementations"
+        }
+      ],
+      "aliases": [
+        "mlkem-native"
+      ],
+      "version_pattern": "mlkem-native\\s+v?(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "2.0.0",
+          "date": null,
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0004:2",
+              "source": null,
+              "url": "https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md",
+              "as_of": null,
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "1.2.0",
+          "date": "2026-08-10",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0002:5",
+              "source": null,
+              "url": "https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md",
+              "as_of": "2026-08-10",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "1.0.0",
+          "date": "2025-07-10",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:3",
+              "source": null,
+              "url": "https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/",
+              "as_of": "2025-07-10",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.0.0",
+          "evidence": [
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:3",
+              "source": null,
+              "url": "https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/",
+              "as_of": "2025-07-10",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/pq-reference-implementations/d0001:18",
+              "source": null,
+              "url": "https://github.com/pq-code-package/mlkem-native",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/pq-reference-implementations/d0004:2",
+              "source": null,
+              "url": "https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md",
+              "as_of": null,
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "C proved memory- and type-safe with CBMC; AArch64 and x86_64 assembly proved correct and constant-time with HOL-Light; v2.0.0 is a breaking API release. SOUNDNESS.md lists open verification gaps (d0001:19)."
+        }
+      ],
+      "extra": [],
+      "gaps": [],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": null,
+        "signature": null,
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "kind": "language-stack",
+      "maintainer": "OpenJS Foundation",
+      "homepage": "https://nodejs.org/",
+      "release_channel": "Even-numbered LTS lines; TLS comes from the statically linked OpenSSL.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-runtime-tls-surfaces"
+        }
+      ],
+      "aliases": [
+        "Node.js",
+        "Node"
+      ],
+      "version_pattern": "Node\\.js\\s+v?(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [],
+      "cells": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "default",
+          "since": "22.20 and 24.9.0",
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0002:3",
+              "source": null,
+              "url": "https://docs.aws.amazon.com/sdkref/latest/guide/pqtls-details.html",
+              "as_of": "2026-08-26",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Inherited from the statically linked OpenSSL 3.5 default group list."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "why": "no claim on the node:crypto surface"
+        }
+      ],
+      "roll_up": {
+        "kem": null,
+        "hybrid-kex": "default",
+        "signature": null,
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "nss",
+      "name": "NSS",
+      "kind": "library",
+      "maintainer": "Mozilla",
+      "homepage": "https://firefox-source-docs.mozilla.org/security/nss/",
+      "release_channel": "Numbered 3.1xx releases roughly monthly, consumed by Firefox.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "embedded-alternative-libraries"
+        }
+      ],
+      "aliases": [
+        "NSS",
+        "Network Security Services"
+      ],
+      "version_pattern": "NSS\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "3.124",
+          "date": "2026-05-15",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:25",
+              "source": null,
+              "url": "https://en.wikipedia.org/wiki/Network_Security_Services",
+              "as_of": "2026-05-15",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "3.118",
+          "date": "2025-11-18",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:23",
+              "source": null,
+              "url": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html",
+              "as_of": "2025-11-18",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "3.105",
+          "date": "2024-09-26",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:22",
+              "source": null,
+              "url": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_105.html",
+              "as_of": "2024-09-26",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.105",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:22",
+              "source": null,
+              "url": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_105.html",
+              "as_of": "2024-09-26",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:23",
+              "source": null,
+              "url": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html",
+              "as_of": "2025-11-18",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-KEM-768 in softoken/FreeBL from 3.105 (vendored Libcrux); ML-KEM-1024 from 3.118."
+        },
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "default",
+          "since": "3.118",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:23",
+              "source": null,
+              "url": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html",
+              "as_of": "2025-11-18",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:22",
+              "source": null,
+              "url": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_105.html",
+              "as_of": "2024-09-26",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Group mlkem768x25519 available from 3.105, default from 3.118."
+        },
+        {
+          "algorithm": "secp384r1mlkem1024",
+          "capability": "tls",
+          "status": "available",
+          "since": "3.118",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:23",
+              "source": null,
+              "url": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html",
+              "as_of": "2025-11-18",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.118",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:23",
+              "source": null,
+              "url": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html",
+              "as_of": "2025-11-18",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Sign/verify interfaces."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "why": "no claim"
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "why": "no claim"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": "default",
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "openssl",
+      "name": "OpenSSL",
+      "kind": "library",
+      "maintainer": "OpenSSL Corporation and Foundation (openssl-library.org)",
+      "homepage": "https://openssl-library.org/",
+      "release_channel": "LTS every two years, feature releases between. 3.5 is the current LTS.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "openssl-and-forks"
+        }
+      ],
+      "aliases": [
+        "OpenSSL",
+        "libssl",
+        "libcrypto",
+        "OpenSSL 3.5",
+        "OpenSSL 3.6",
+        "OpenSSL 4.0"
+      ],
+      "version_pattern": "OpenSSL\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "4.0.0",
+          "date": "2026-04-14",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0006:1",
+              "source": null,
+              "url": null,
+              "as_of": "2026-04-14",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "3.6.3",
+          "date": "2026-06-09",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0006:2",
+              "source": null,
+              "url": null,
+              "as_of": "2026-06-09",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "3.6.0",
+          "date": "2025-10-01",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0004:1",
+              "source": null,
+              "url": null,
+              "as_of": "2025-10-01",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "version": "3.5.0",
+          "date": "2025-04-08",
+          "lts": true,
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:3",
+              "source": null,
+              "url": null,
+              "as_of": "2025-04-08",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:3",
+              "source": null,
+              "url": "https://postquantum.com/security-pqc/openssl-3-5-pqc-default/",
+              "as_of": "2025-04-08",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:3",
+              "source": null,
+              "url": "https://postquantum.com/security-pqc/openssl-3-5-pqc-default/",
+              "as_of": "2025-04-08",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0006:1",
+              "source": null,
+              "url": "https://openssl-library.org/post/2026-04-14-openssl-40-final-release",
+              "as_of": "2026-04-14",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "External-mu (ML-DSA-MU) digest support from 4.0."
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:3",
+              "source": null,
+              "url": "https://postquantum.com/security-pqc/openssl-3-5-pqc-default/",
+              "as_of": "2025-04-08",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "tls",
+          "status": "none",
+          "since": null,
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:7",
+              "source": null,
+              "url": "https://github.com/open-quantum-safe/oqs-provider",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Not offered natively for TLS in 3.5; oqs-provider bridged it on 3.2 to 3.4 and disables those combinations on 3.5 and later."
+        },
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "default",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:4",
+              "source": null,
+              "url": "https://postquantum.com/security-pqc/openssl-3-5-pqc-default/",
+              "as_of": "2025-04-08",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "In the default supported-groups list with X25519 as the default keyshares."
+        },
+        {
+          "algorithm": "sm2mlkem768",
+          "capability": "tls",
+          "status": "available",
+          "since": "4.0.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0006:1",
+              "source": null,
+              "url": "https://openssl-library.org/post/2026-04-14-openssl-40-final-release",
+              "as_of": "2026-04-14",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "lms-hss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "3.6.0",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0004:1",
+              "source": null,
+              "url": "https://www.openssl.org/news/openssl-3.6-notes.html",
+              "as_of": "2025-10-01",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Verification only, per SP 800-208, in both the FIPS and default providers."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "status": "default",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://raw.githubusercontent.com/openssl/openssl/openssl-3.5/CHANGES.md",
+              "url": null,
+              "as_of": "2025-04-08",
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "CHANGES 3.5.0: the TLS signature algorithm defaults include all three ML-DSA variants as first algorithms."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "status": "available",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/openssl/openssl/pull/26575",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Project PR 26575 (merged for 3.5): X.509 certificate generation with ML-DSA keys via the openssl command line (openssl req -x509 -newkey mldsa65). Chain-verification default standing not checked."
+        },
+        {
+          "algorithm": "secp256r1mlkem768",
+          "capability": "tls",
+          "status": "available",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://raw.githubusercontent.com/openssl/openssl/openssl-3.5/CHANGES.md",
+              "url": null,
+              "as_of": "2025-04-08",
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Shipped in 3.5.0; not in the default group list (only X25519MLKEM768 is)."
+        },
+        {
+          "algorithm": "secp384r1mlkem1024",
+          "capability": "tls",
+          "status": "available",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://raw.githubusercontent.com/openssl/openssl/openssl-3.5/CHANGES.md",
+              "url": null,
+              "as_of": "2025-04-08",
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Shipped in 3.5.0; not in the default group list. Larger key exchange messages, about 1700 bytes."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "fips",
+          "status": "planned",
+          "since": null,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://openssl-library.org/post/2025-10-09-ossl3.5.4-fips-submission/",
+              "url": null,
+              "as_of": "2025-10-09",
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "OpenSSL 3.5.4 FIPS Object Module submitted for FIPS 140-3 validation with ML-KEM, ML-DSA and SLH-DSA; certificate issuance NOT found on 2026-09-12 in two searches."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "fips",
+          "status": "planned",
+          "since": null,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://openssl-library.org/post/2025-10-09-ossl3.5.4-fips-submission/",
+              "url": null,
+              "as_of": "2025-10-09",
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Same submission as the ML-KEM FIPS cell; certificate issuance not found on 2026-09-12."
+        }
+      ],
+      "extra": [
+        {
+          "id": "lts_support_until",
+          "label": "LTS support ends",
+          "value": "2030-04",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0001:5",
+              "source": null,
+              "url": "https://openssl-corporation.org/post-quantum.html",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "3.5 LTS, five-year window, final year security fixes only."
+        }
+      ],
+      "gaps": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "why": "bootstrap 2026-09-12, two passes: pure MLKEM512/768/1024 TLS group names are not in CHANGES.md 3.5.0 nor SSL_CTX_set1_curves.pod (only the three hybrids are); a secondary blog lists them, below the source bar"
+        },
+        {
+          "algorithm": "composite-ml-dsa",
+          "capability": "x509",
+          "why": "bootstrap 2026-09-12, two passes: no composite ML-DSA in CHANGES.md 3.5.0, the 3.6 notes, or the openssl repo search"
+        },
+        {
+          "algorithm": "xmss",
+          "capability": "primitive",
+          "why": "bootstrap 2026-09-12, two passes: XMSS absent from CHANGES.md 3.5.0 and the 3.6 notes (3.6 added LMS verification only); openssl issue 21360 is the open request"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": "default",
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": "available"
+      }
+    },
+    {
+      "id": "pyca-cryptography",
+      "name": "pyca/cryptography (Python)",
+      "kind": "language-stack",
+      "maintainer": "Python Cryptographic Authority",
+      "homepage": "https://cryptography.io/",
+      "release_channel": "Numbered releases; Rust bindings over an AWS-LC or OpenSSL backend.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-runtime-tls-surfaces"
+        }
+      ],
+      "aliases": [
+        "pyca/cryptography",
+        "cryptography (Python)"
+      ],
+      "version_pattern": "cryptography\\s*>?=?\\s*(\\d+(?:\\.\\d+)*)",
+      "releases": [
+        {
+          "version": "48",
+          "date": "2026-06-30",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0003:2",
+              "source": null,
+              "url": "https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/",
+              "as_of": "2026-06-30",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "48",
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0003:2",
+              "source": null,
+              "url": "https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/",
+              "as_of": "2026-06-30",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Native support via Rust bindings and the AWS-LC backend."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "48",
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0003:2",
+              "source": null,
+              "url": "https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/",
+              "as_of": "2026-06-30",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "why": "no claim"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": null,
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "rustls",
+      "name": "rustls",
+      "kind": "tls-stack",
+      "maintainer": "rustls project (Prossimo / ISRG)",
+      "homepage": "https://github.com/rustls/rustls",
+      "release_channel": "Numbered 0.23.x releases; crypto via a provider crate (aws-lc-rs or ring).",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-native-crypto-stacks"
+        },
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-runtime-tls-surfaces"
+        }
+      ],
+      "aliases": [
+        "rustls",
+        "rustls-post-quantum"
+      ],
+      "version_pattern": "[Rr]ustls\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "0.23.44",
+          "date": "2026-09-07",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0004:1",
+              "source": null,
+              "url": "https://lxer.com/module/newswire/ext_link.php?rid=367325",
+              "as_of": "2026-09-07",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "status": "available",
+          "since": "0.23.22",
+          "evidence": [
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:6",
+              "source": null,
+              "url": "https://docs.rs/rustls-post-quantum/latest/rustls_post_quantum/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/language-native-crypto-stacks/d0001:7",
+              "source": null,
+              "url": "https://lib.rs/crates/rustls-post-quantum",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Hybrid ML-KEM key exchange in the core crate from 0.23.22, toggled by the prefer-post-quantum Cargo feature; earlier only in the experimental rustls-post-quantum crate."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "status": "default",
+          "since": "0.23.44",
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0004:1",
+              "source": null,
+              "url": "https://lxer.com/module/newswire/ext_link.php?rid=367325",
+              "as_of": "2026-09-07",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-DSA certificates enabled by default with the aws-lc-rs provider."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "why": "the claims say hybrid ML-KEM without naming the group or its default standing"
+        }
+      ],
+      "roll_up": {
+        "kem": null,
+        "hybrid-kex": null,
+        "signature": null,
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "s2n-tls",
+      "name": "s2n-tls",
+      "kind": "tls-stack",
+      "maintainer": "Amazon Web Services",
+      "homepage": "https://github.com/aws/s2n-tls",
+      "release_channel": "Continuous; behaviour is selected by named security policies.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "openssl-and-forks"
+        }
+      ],
+      "aliases": [
+        "s2n-tls",
+        "s2n"
+      ],
+      "version_pattern": null,
+      "releases": [],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0003:1",
+              "source": null,
+              "url": "https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html",
+              "as_of": "2026-06-15",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0001:19",
+              "source": null,
+              "url": "https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Hybrid ECDH+ML-KEM and pure ML-KEM key exchange; used across AWS service endpoints. Hybrid suites supported only on Linux per AWS KMS documentation (d0001:21)."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "status": "available",
+          "since": "security policy default_pq 20250721",
+          "evidence": [
+            {
+              "claim": "pqc/openssl-and-forks/d0003:1",
+              "source": null,
+              "url": "https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html",
+              "as_of": "2026-06-15",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0005:2",
+              "source": null,
+              "url": "https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html",
+              "as_of": "2026-06-15",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/openssl-and-forks/d0004:4",
+              "source": null,
+              "url": "https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html",
+              "as_of": "2026-06-15",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "ML-DSA certificates for TLS 1.3 authentication in the default_pq and cnsa_2 policies. Those are named policies, not the library default, so 'available'."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "why": "the claims say hybrid ECDH+ML-KEM without naming the group"
+        }
+      ],
+      "roll_up": {
+        "kem": null,
+        "hybrid-kex": null,
+        "signature": null,
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "swift-nio-ssl",
+      "name": "swift-nio-ssl",
+      "kind": "tls-stack",
+      "maintainer": "Apple",
+      "homepage": "https://github.com/apple/swift-nio-ssl",
+      "release_channel": "Numbered 2.x releases over a vendored BoringSSL.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-runtime-tls-surfaces"
+        }
+      ],
+      "aliases": [
+        "swift-nio-ssl",
+        "SwiftNIO SSL"
+      ],
+      "version_pattern": "swift-nio-ssl\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "2.37.1",
+          "date": "2026-06-08",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0002:4",
+              "source": null,
+              "url": "https://swiftpackageindex.com/apple/swift-nio-ssl",
+              "as_of": "2026-06-08",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "status": "default",
+          "since": "2.37.1",
+          "evidence": [
+            {
+              "claim": "pqc/language-runtime-tls-surfaces/d0002:4",
+              "source": null,
+              "url": "https://swiftpackageindex.com/apple/swift-nio-ssl",
+              "as_of": "2026-06-08",
+              "confidence": "high",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        }
+      ],
+      "extra": [],
+      "gaps": [],
+      "roll_up": {
+        "kem": null,
+        "hybrid-kex": "default",
+        "signature": null,
+        "composite": null,
+        "stateful-hbs": null
+      }
+    },
+    {
+      "id": "wolfssl",
+      "name": "wolfSSL / wolfCrypt",
+      "kind": "library",
+      "maintainer": "wolfSSL Inc.",
+      "homepage": "https://www.wolfssl.com/",
+      "release_channel": "Numbered releases (5.9.x); a separate FIPS 140-3 module line.",
+      "feeds": [
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "embedded-alternative-libraries"
+        },
+        {
+          "topic": "post-quantum-cryptography",
+          "leaf": "language-runtime-tls-surfaces"
+        }
+      ],
+      "aliases": [
+        "wolfSSL",
+        "wolfCrypt",
+        "wolfProvider"
+      ],
+      "version_pattern": "wolfSSL\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
+      "releases": [
+        {
+          "version": "5.9.2",
+          "date": "2026-06-30",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0004:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfssl-5-9-2-release-blog/",
+              "as_of": "2026-06-30",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "cells": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "primitive",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0002:3",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfssl-adds-frodokem-post-quantum-key-encapsulation/",
+              "as_of": "2026-08-13",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0003:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/",
+              "as_of": "2026-08-19",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Native implementation; the liboqs dependency was removed by August 2026."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "5.9.2 under the ML-DSA name",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0004:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfssl-5-9-2-release-blog/",
+              "as_of": "2026-06-30",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0003:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/",
+              "as_of": "2026-08-19",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Renamed from Dilithium in 5.9.2."
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "5.9.2",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0004:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfssl-5-9-2-release-blog/",
+              "as_of": "2026-06-30",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Sign/verify APIs take pre-hashed digests from 5.9.2."
+        },
+        {
+          "algorithm": "lms-hss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "5.9.2",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0002:2",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfssl-5-9-2-release-blog/",
+              "as_of": "2026-06-30",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0003:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/",
+              "as_of": "2026-08-19",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "xmss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "5.9.2",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0002:2",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfssl-5-9-2-release-blog/",
+              "as_of": "2026-06-30",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0003:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/",
+              "as_of": "2026-08-19",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "lms-hss",
+          "capability": "x509",
+          "status": "available",
+          "since": "5.9.2",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0004:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfssl-5-9-2-release-blog/",
+              "as_of": "2026-06-30",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "RFC 9802 LMS/XMSS in X.509 certificate and CSR generation."
+        },
+        {
+          "algorithm": "xmss",
+          "capability": "x509",
+          "status": "available",
+          "since": "5.9.2",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0004:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/wolfssl-5-9-2-release-blog/",
+              "as_of": "2026-06-30",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/support-for-the-official-post-quantum-standards-ml-kem-and-ml-dsa/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0004:4",
+              "source": null,
+              "url": "https://www.wolfssl.com/post-quantum-cryptography-in-curl/",
+              "as_of": "2026-06-16",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "TLS 1.3 hybrid and pure groups (multiple SecP*MLKEM* and X*MLKEM*), shown through curl built with wolfSSL."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "status": "available",
+          "since": "not recorded",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/support-for-the-official-post-quantum-standards-ml-kem-and-ml-dsa/",
+              "as_of": null,
+              "confidence": "low",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "tls",
+          "status": "available",
+          "since": "September 2026 (version not stated)",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0005:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/category/post-quantum/",
+              "as_of": "2026-09-04",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "CertificateVerify and peer certificate verification in TLS 1.3 and DTLS 1.3."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "fips",
+          "status": "planned",
+          "since": "PQC-enabled wolfCrypt FIPS 140-3 module announced 2026-08-04",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:3",
+              "source": null,
+              "url": "https://www.prweb.com/releases/wolfssl-advances-post-quantum-encryption-and-fips-140-3-across-embedded-and-enterprise-systems-to-facilitate-cnsa-2-0-compliance-302840890.html",
+              "as_of": "2026-08-04",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0003:2",
+              "source": null,
+              "url": "https://www.wolfssl.com/category/post-quantum/",
+              "as_of": "2026-08-13",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "CAVP algorithm certificate A8437 covers ML-KEM, ML-DSA, SLH-DSA and LMS; the module validation itself is announced, not shown as issued."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "fips",
+          "status": "planned",
+          "since": "as ML-KEM",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0001:3",
+              "source": null,
+              "url": "https://www.prweb.com/releases/wolfssl-advances-post-quantum-encryption-and-fips-140-3-across-embedded-and-enterprise-systems-to-facilitate-cnsa-2-0-compliance-302840890.html",
+              "as_of": "2026-08-04",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            },
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0003:2",
+              "source": null,
+              "url": "https://www.wolfssl.com/category/post-quantum/",
+              "as_of": "2026-08-13",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": ""
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "x509",
+          "status": "available",
+          "since": "September 2026 (version not stated)",
+          "evidence": [
+            {
+              "claim": "pqc/embedded-alternative-libraries/d0005:1",
+              "source": null,
+              "url": "https://www.wolfssl.com/category/post-quantum/",
+              "as_of": "2026-09-04",
+              "confidence": "medium",
+              "checked_on": null,
+              "note": ""
+            }
+          ],
+          "note": "Peer certificate verification with SLH-DSA, from the same end-to-end support claim as the TLS cell."
+        }
+      ],
+      "extra": [],
+      "gaps": [
+        {
+          "algorithm": "x25519mlkem768",
+          "capability": "tls",
+          "why": "group names appear only as a pattern in the curl claim"
+        }
+      ],
+      "roll_up": {
+        "kem": "available",
+        "hybrid-kex": null,
+        "signature": "available",
+        "composite": null,
+        "stateful-hbs": "available"
+      }
+    }
+  ]
+}

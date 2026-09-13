@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PQC Readiness Register | Spaced Research Ledger</title>
+  <meta name="description" content="Where each cryptographic component stands on post-quantum support, cell by cell, every cell cited to a public source or left unknown. A companion to the…">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span>PQC Readiness Register</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">Register</p>
+    <h1>PQC Readiness Register</h1>
+    <p class="standfirst">Where each cryptographic component stands on post-quantum support, cell by cell, every cell cited to a public source or left unknown. A companion to the reports above: the reports say what sources said, the register says where each named thing stands.</p>
+    <p class="updated">22 components &middot; JSON: <a href="register.json">register.json</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#components" id="toc-components">Components</a></li>
+<li><a href="#reading-the-table" id="toc-reading-the-table">Reading the
+Table</a></li>
+<li><a href="#recent-changes" id="toc-recent-changes">Recent
+Changes</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="components">Components</h2>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>KEM</th>
+<th>Hybrid key exchange</th>
+<th>Signatures</th>
+<th>Composite signatures</th>
+<th>Stateful hash-based signatures</th>
+<th>Cells</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="dotnet.html">.NET</a></td>
+<td>language-stack</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>4 of 44</td>
+</tr>
+<tr>
+<td><a href="aws-lc.html">AWS-LC</a></td>
+<td>library</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>4 of 66</td>
+</tr>
+<tr>
+<td><a href="aws-lc-rs.html">aws-lc-rs</a></td>
+<td>library</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>2 of 66</td>
+</tr>
+<tr>
+<td><a href="boringssl.html">BoringSSL</a></td>
+<td>library</td>
+<td>available</td>
+<td>available</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>4 of 66</td>
+</tr>
+<tr>
+<td><a href="botan.html">Botan</a></td>
+<td>library</td>
+<td>available</td>
+<td>default</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>7 of 66</td>
+</tr>
+<tr>
+<td><a href="bouncycastle-java.html">Bouncy Castle (Java)</a></td>
+<td>library</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>available</td>
+<td>unknown</td>
+<td>7 of 66</td>
+</tr>
+<tr>
+<td><a href="gnutls.html">GnuTLS</a></td>
+<td>library</td>
+<td>unknown</td>
+<td>experimental</td>
+<td>experimental</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>3 of 66</td>
+</tr>
+<tr>
+<td><a href="go.html">Go standard library</a></td>
+<td>language-stack</td>
+<td>available</td>
+<td>default</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>9 of 44</td>
+</tr>
+<tr>
+<td><a href="jdk.html">Java (OpenJDK)</a></td>
+<td>language-stack</td>
+<td>available</td>
+<td>available</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>4 of 44</td>
+</tr>
+<tr>
+<td><a href="liboqs.html">liboqs</a></td>
+<td>library</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>4 of 66</td>
+</tr>
+<tr>
+<td><a href="libressl.html">LibreSSL</a></td>
+<td>library</td>
+<td>available</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>2 of 66</td>
+</tr>
+<tr>
+<td><a href="libsodium.html">libsodium</a></td>
+<td>library</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>1 of 66</td>
+</tr>
+<tr>
+<td><a href="mbedtls.html">Mbed TLS</a></td>
+<td>library</td>
+<td>planned</td>
+<td>unknown</td>
+<td>planned</td>
+<td>unknown</td>
+<td>available</td>
+<td>3 of 66</td>
+</tr>
+<tr>
+<td><a href="mlkem-native.html">mlkem-native</a></td>
+<td>library</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>1 of 66</td>
+</tr>
+<tr>
+<td><a href="nodejs.html">Node.js</a></td>
+<td>language-stack</td>
+<td>unknown</td>
+<td>default</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>1 of 44</td>
+</tr>
+<tr>
+<td><a href="nss.html">NSS</a></td>
+<td>library</td>
+<td>available</td>
+<td>default</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>4 of 66</td>
+</tr>
+<tr>
+<td><a href="openssl.html">OpenSSL</a></td>
+<td>library</td>
+<td>available</td>
+<td>default</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>13 of 66</td>
+</tr>
+<tr>
+<td><a href="pyca-cryptography.html">pyca/cryptography (Python)</a></td>
+<td>language-stack</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>2 of 44</td>
+</tr>
+<tr>
+<td><a href="rustls.html">rustls</a></td>
+<td>tls-stack</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>2 of 33</td>
+</tr>
+<tr>
+<td><a href="s2n-tls.html">s2n-tls</a></td>
+<td>tls-stack</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>2 of 33</td>
+</tr>
+<tr>
+<td><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
+<td>tls-stack</td>
+<td>unknown</td>
+<td>default</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>1 of 33</td>
+</tr>
+<tr>
+<td><a href="wolfssl.html">wolfSSL / wolfCrypt</a></td>
+<td>library</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>unknown</td>
+<td>available</td>
+<td>13 of 66</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="reading-the-table">Reading the Table</h2>
+<p>Each family column shows the highest standing any member algorithm
+reaches in the family’s headline capability. Open a component for every
+row and its evidence. The scale, lowest first:</p>
+<ul>
+<li><strong>None</strong>: A source states the component does not
+support it, or has decided not to. Not the same as unknown: this needs a
+citation too.</li>
+<li><strong>Planned</strong>: Announced, roadmapped, or in an open pull
+request or draft release note. Nothing a user can run yet.</li>
+<li><strong>Experimental</strong>: Runnable but gated: a build flag, an
+unstable feature, a preview or beta channel, a separate provider or
+plugin that the project itself ships or endorses.</li>
+<li><strong>Available</strong>: Shipped in a general release, usable
+through the normal API or configuration, but not selected unless the
+user asks for it.</li>
+<li><strong>Default</strong>: On without configuration in the
+capability’s own context (see capabilities.yaml). For a TLS key exchange
+this means offered in the default group list; for a signature it means
+accepted by default in verification paths; for a FIPS module it means
+inside the validated boundary.</li>
+<li><strong>unknown</strong>: no cited cell. The register never writes
+it; it is what an empty cell reads as.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="recent-changes">Recent Changes</h2>
+<ul>
+<li>2026-09-12: register: first review turn – 2 proposals applied, 8
+rejected, 2 matcher defects fixed</li>
+<li>2026-09-12: feat(register): phase 3 – 21 library and language-stack
+components seeded from the ledger (91 cells, 0 problems); KEM rolls up
+on the primitive</li>
+<li>2026-09-12: feat(register): bootstrap run on OpenSSL – 6 cited
+cells, 3 genuine absences; notes quoted; PLAN phase 2 logged</li>
+<li>2026-09-12: feat(register): phase 2 – schema, validator with claim
+resolution, roll-up, CLI (validate, overview, gaps, add-cell); 9
+tests</li>
+<li>2026-09-12: plan(register): phase 1 – vocabulary files and the
+OpenSSL example component, on paper</li>
+</ul>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="../index.html"><span>Up</span>All research topics</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

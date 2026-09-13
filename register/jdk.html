@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Java (OpenJDK) | PQC Readiness Register</title>
+  <meta name="description" content="Java (OpenJDK): post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Java (OpenJDK)</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; language-stack</p>
+    <h1>Java (OpenJDK)</h1>
+    <p class="standfirst">Maintained by Oracle and the OpenJDK community. Two feature releases a year; LTS every two years with backports via quarterly CPUs. Home: https://openjdk.org/</p>
+    <p class="updated">4 of 44 cells cited</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
+<li><a href="#also-tracked" id="toc-also-tracked">Also Tracked</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Primitive</th>
+<th>TLS 1.3</th>
+<th>X.509</th>
+<th>FIPS 140-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td>available since 24 [1]</td>
+<td>unknown</td>
+<td>available since not recorded [2]</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td>unknown</td>
+<td>available since 27 [3] [4]</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td>available since 24 [1] [5]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, Primitive</strong>: JEP 496: native JCA engine
+classes, ML-KEM-512/768/1024.</li>
+<li><strong>ML-KEM, X.509</strong>: keytool generates ML-KEM key pairs
+and certificates; the certificate must be signed with a signature
+algorithm.</li>
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: JEP 527 delivers hybrid
+TLS 1.3 key exchange in JDK 27, and the Curve25519 optimisation claim
+names X25519MLKEM768 as a group whose key generation it speeds up.
+Neither claim states the default group list, so ‘available’, not
+‘default’.</li>
+<li><strong>ML-DSA, Primitive</strong>: JEP 497; JAR signing with ML-DSA
+from JDK 26.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>27, 2026-09-01 [6]</li>
+<li>26, 2026-03-17 [5]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="also-tracked">Also Tracked</h2>
+<ul>
+<li><strong>LTS backports of ML-KEM, ML-DSA and hybrid TLS</strong>: JDK
+25 in October 2026; JDK 21 and 17 in H1 2027; JDK 11 and 8 in H2 2027
+[7] [8]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet.</p>
+<ul>
+<li>ml-dsa / x509: no claim beyond JAR signing</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a href="https://www.baeldung.com/jdk-security-enhancements"
+class="uri">https://www.baeldung.com/jdk-security-enhancements</a> (as
+of 2026-06-05; ledger claim
+pqc/language-native-crypto-stacks/d0001:9)</li>
+<li><a
+href="https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quantum-cryptography/"
+class="uri">https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quantum-cryptography/</a>
+(as of 2026-05-18; ledger claim
+pqc/language-native-crypto-stacks/d0001:10)</li>
+<li><a href="https://openjdk.org/jeps/527"
+class="uri">https://openjdk.org/jeps/527</a> (as of 2026-08-17; ledger
+claim pqc/language-runtime-tls-surfaces/d0002:2)</li>
+<li><a
+href="https://inside.java/2026/09/03/java-acceleration-curve25519-field-operations"
+class="uri">https://inside.java/2026/09/03/java-acceleration-curve25519-field-operations</a>
+(as of 2026-09-03; ledger claim
+pqc/language-native-crypto-stacks/d0005:2)</li>
+<li><a href="https://seanjmullan.org/blog/2026/03/16/jdk26"
+class="uri">https://seanjmullan.org/blog/2026/03/16/jdk26</a> (as of
+2026-03-16; ledger claim
+pqc/language-native-crypto-stacks/d0001:11)</li>
+<li><a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
+(as of 2026-08-06; ledger claim
+pqc/language-native-crypto-stacks/d0002:2)</li>
+<li><a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
+(as of 2026-08-06; ledger claim
+pqc/language-native-crypto-stacks/d0003:3)</li>
+<li><a
+href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
+class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
+(as of 2026-08-06; ledger claim
+pqc/language-runtime-tls-surfaces/d0001:1)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

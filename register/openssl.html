@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenSSL | PQC Readiness Register</title>
+  <meta name="description" content="OpenSSL: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>OpenSSL</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; library</p>
+    <h1>OpenSSL</h1>
+    <p class="standfirst">Maintained by OpenSSL Corporation and Foundation (openssl-library.org). LTS every two years, feature releases between. 3.5 is the current LTS. Home: https://openssl-library.org/</p>
+    <p class="updated">13 of 66 cells cited</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
+<li><a href="#also-tracked" id="toc-also-tracked">Also Tracked</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Primitive</th>
+<th>TLS 1.3</th>
+<th>X.509</th>
+<th>SSH</th>
+<th>IPsec / IKEv2</th>
+<th>FIPS 140-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td>available since 3.5.0 [1]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>planned [2]</td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td>unknown</td>
+<td>default since 3.5.0 [3]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td>unknown</td>
+<td>available since 3.5.0 [4]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td>unknown</td>
+<td>available since 3.5.0 [4]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td>unknown</td>
+<td>available since 4.0.0 [5]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td>available since 3.5.0 [1] [5]</td>
+<td>default since 3.5.0 [4]</td>
+<td>available since 3.5.0 [6]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>planned [2]</td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td>available since 3.5.0 [1]</td>
+<td>none [7]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td>available since 3.6.0 [8]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, FIPS 140-3</strong>: OpenSSL 3.5.4 FIPS Object
+Module submitted for FIPS 140-3 validation with ML-KEM, ML-DSA and
+SLH-DSA; certificate issuance NOT found on 2026-09-12 in two
+searches.</li>
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: In the default
+supported-groups list with X25519 as the default keyshares.</li>
+<li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: Shipped in 3.5.0; not
+in the default group list (only X25519MLKEM768 is).</li>
+<li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: Shipped in 3.5.0; not
+in the default group list. Larger key exchange messages, about 1700
+bytes.</li>
+<li><strong>ML-DSA, Primitive</strong>: External-mu (ML-DSA-MU) digest
+support from 4.0.</li>
+<li><strong>ML-DSA, TLS 1.3</strong>: CHANGES 3.5.0: the TLS signature
+algorithm defaults include all three ML-DSA variants as first
+algorithms.</li>
+<li><strong>ML-DSA, X.509</strong>: Project PR 26575 (merged for 3.5):
+X.509 certificate generation with ML-DSA keys via the openssl command
+line (openssl req -x509 -newkey mldsa65). Chain-verification default
+standing not checked.</li>
+<li><strong>ML-DSA, FIPS 140-3</strong>: Same submission as the ML-KEM
+FIPS cell; certificate issuance not found on 2026-09-12.</li>
+<li><strong>SLH-DSA, TLS 1.3</strong>: Not offered natively for TLS in
+3.5; oqs-provider bridged it on 3.2 to 3.4 and disables those
+combinations on 3.5 and later.</li>
+<li><strong>LMS / HSS, Primitive</strong>: Verification only, per SP
+800-208, in both the FIPS and default providers.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>4.0.0, 2026-04-14 [9]</li>
+<li>3.6.3, 2026-06-09 [10]</li>
+<li>3.6.0, 2025-10-01 [11]</li>
+<li>3.5.0, 2025-04-08, LTS [12]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="also-tracked">Also Tracked</h2>
+<ul>
+<li><strong>LTS support ends</strong>: 2030-04 [13] 3.5 LTS, five-year
+window, final year security fixes only.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet.</p>
+<ul>
+<li>ml-kem / tls: bootstrap 2026-09-12, two passes: pure
+MLKEM512/768/1024 TLS group names are not in CHANGES.md 3.5.0 nor
+SSL_CTX_set1_curves.pod (only the three hybrids are); a secondary blog
+lists them, below the source bar</li>
+<li>composite-ml-dsa / x509: bootstrap 2026-09-12, two passes: no
+composite ML-DSA in CHANGES.md 3.5.0, the 3.6 notes, or the openssl repo
+search</li>
+<li>xmss / primitive: bootstrap 2026-09-12, two passes: XMSS absent from
+CHANGES.md 3.5.0 and the 3.6 notes (3.6 added LMS verification only);
+openssl issue 21360 is the open request</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://postquantum.com/security-pqc/openssl-3-5-pqc-default/"
+class="uri">https://postquantum.com/security-pqc/openssl-3-5-pqc-default/</a>
+(as of 2025-04-08; ledger claim pqc/openssl-and-forks/d0001:3)</li>
+<li><a
+href="https://openssl-library.org/post/2025-10-09-ossl3.5.4-fips-submission/"
+class="uri">https://openssl-library.org/post/2025-10-09-ossl3.5.4-fips-submission/</a>
+(as of 2025-10-09; checked 2026-09-12)</li>
+<li><a
+href="https://postquantum.com/security-pqc/openssl-3-5-pqc-default/"
+class="uri">https://postquantum.com/security-pqc/openssl-3-5-pqc-default/</a>
+(as of 2025-04-08; ledger claim pqc/openssl-and-forks/d0001:4)</li>
+<li><a
+href="https://raw.githubusercontent.com/openssl/openssl/openssl-3.5/CHANGES.md"
+class="uri">https://raw.githubusercontent.com/openssl/openssl/openssl-3.5/CHANGES.md</a>
+(as of 2025-04-08; checked 2026-09-12)</li>
+<li><a
+href="https://openssl-library.org/post/2026-04-14-openssl-40-final-release"
+class="uri">https://openssl-library.org/post/2026-04-14-openssl-40-final-release</a>
+(as of 2026-04-14; ledger claim pqc/openssl-and-forks/d0006:1)</li>
+<li><a href="https://github.com/openssl/openssl/pull/26575"
+class="uri">https://github.com/openssl/openssl/pull/26575</a> (date not
+recorded; checked 2026-09-12)</li>
+<li><a href="https://github.com/open-quantum-safe/oqs-provider"
+class="uri">https://github.com/open-quantum-safe/oqs-provider</a> (date
+not recorded; ledger claim pqc/openssl-and-forks/d0001:7)</li>
+<li><a href="https://www.openssl.org/news/openssl-3.6-notes.html"
+class="uri">https://www.openssl.org/news/openssl-3.6-notes.html</a> (as
+of 2025-10-01; ledger claim pqc/openssl-and-forks/d0004:1)</li>
+<li>(as of 2026-04-14; ledger claim pqc/openssl-and-forks/d0006:1)</li>
+<li>(as of 2026-06-09; ledger claim pqc/openssl-and-forks/d0006:2)</li>
+<li>(as of 2025-10-01; ledger claim pqc/openssl-and-forks/d0004:1)</li>
+<li>(as of 2025-04-08; ledger claim pqc/openssl-and-forks/d0001:3)</li>
+<li><a href="https://openssl-corporation.org/post-quantum.html"
+class="uri">https://openssl-corporation.org/post-quantum.html</a> (date
+not recorded; ledger claim pqc/openssl-and-forks/d0001:5)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

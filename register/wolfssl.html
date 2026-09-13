@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wolfSSL / wolfCrypt | PQC Readiness Register</title>
+  <meta name="description" content="wolfSSL / wolfCrypt: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>wolfSSL / wolfCrypt</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; library</p>
+    <h1>wolfSSL / wolfCrypt</h1>
+    <p class="standfirst">Maintained by wolfSSL Inc.. Numbered releases (5.9.x); a separate FIPS 140-3 module line. Home: https://www.wolfssl.com/</p>
+    <p class="updated">13 of 66 cells cited</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Primitive</th>
+<th>TLS 1.3</th>
+<th>X.509</th>
+<th>SSH</th>
+<th>IPsec / IKEv2</th>
+<th>FIPS 140-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td>available since not recorded [1] [2]</td>
+<td>available since not recorded [3] [4]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>planned since PQC-enabled wolfCrypt FIPS 140-3 module announced
+2026-08-04 [5] [6]</td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td>available since 5.9.2 under the ML-DSA name [7] [2]</td>
+<td>available since not recorded [3]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>planned since as ML-KEM [5] [6]</td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td>available since 5.9.2 [7]</td>
+<td>available since September 2026 (version not stated) [8]</td>
+<td>available since September 2026 (version not stated) [8]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td>available since 5.9.2 [9] [2]</td>
+<td>unknown</td>
+<td>available since 5.9.2 [7]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td>available since 5.9.2 [9] [2]</td>
+<td>unknown</td>
+<td>available since 5.9.2 [7]</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, Primitive</strong>: Native implementation; the
+liboqs dependency was removed by August 2026.</li>
+<li><strong>ML-KEM, TLS 1.3</strong>: TLS 1.3 hybrid and pure groups
+(multiple SecP<em>MLKEM</em> and X<em>MLKEM</em>), shown through curl
+built with wolfSSL.</li>
+<li><strong>ML-KEM, FIPS 140-3</strong>: CAVP algorithm certificate
+A8437 covers ML-KEM, ML-DSA, SLH-DSA and LMS; the module validation
+itself is announced, not shown as issued.</li>
+<li><strong>ML-DSA, Primitive</strong>: Renamed from Dilithium in
+5.9.2.</li>
+<li><strong>SLH-DSA, Primitive</strong>: Sign/verify APIs take
+pre-hashed digests from 5.9.2.</li>
+<li><strong>SLH-DSA, TLS 1.3</strong>: CertificateVerify and peer
+certificate verification in TLS 1.3 and DTLS 1.3.</li>
+<li><strong>SLH-DSA, X.509</strong>: Peer certificate verification with
+SLH-DSA, from the same end-to-end support claim as the TLS cell.</li>
+<li><strong>LMS / HSS, X.509</strong>: RFC 9802 LMS/XMSS in X.509
+certificate and CSR generation.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>5.9.2, 2026-06-30 [7]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet.</p>
+<ul>
+<li>x25519mlkem768 / tls: group names appear only as a pattern in the
+curl claim</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://www.wolfssl.com/wolfssl-adds-frodokem-post-quantum-key-encapsulation/"
+class="uri">https://www.wolfssl.com/wolfssl-adds-frodokem-post-quantum-key-encapsulation/</a>
+(as of 2026-08-13; ledger claim
+pqc/embedded-alternative-libraries/d0002:3)</li>
+<li><a
+href="https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/"
+class="uri">https://www.wolfssl.com/wolfcrypt-retires-liboqs-as-native-post-quantum-support-expands/</a>
+(as of 2026-08-19; ledger claim
+pqc/embedded-alternative-libraries/d0003:1)</li>
+<li><a
+href="https://www.wolfssl.com/support-for-the-official-post-quantum-standards-ml-kem-and-ml-dsa/"
+class="uri">https://www.wolfssl.com/support-for-the-official-post-quantum-standards-ml-kem-and-ml-dsa/</a>
+(date not recorded; ledger claim
+pqc/embedded-alternative-libraries/d0001:1)</li>
+<li><a href="https://www.wolfssl.com/post-quantum-cryptography-in-curl/"
+class="uri">https://www.wolfssl.com/post-quantum-cryptography-in-curl/</a>
+(as of 2026-06-16; ledger claim
+pqc/embedded-alternative-libraries/d0004:4)</li>
+<li><a
+href="https://www.prweb.com/releases/wolfssl-advances-post-quantum-encryption-and-fips-140-3-across-embedded-and-enterprise-systems-to-facilitate-cnsa-2-0-compliance-302840890.html"
+class="uri">https://www.prweb.com/releases/wolfssl-advances-post-quantum-encryption-and-fips-140-3-across-embedded-and-enterprise-systems-to-facilitate-cnsa-2-0-compliance-302840890.html</a>
+(as of 2026-08-04; ledger claim
+pqc/embedded-alternative-libraries/d0001:3)</li>
+<li><a href="https://www.wolfssl.com/category/post-quantum/"
+class="uri">https://www.wolfssl.com/category/post-quantum/</a> (as of
+2026-08-13; ledger claim
+pqc/embedded-alternative-libraries/d0003:2)</li>
+<li><a href="https://www.wolfssl.com/wolfssl-5-9-2-release-blog/"
+class="uri">https://www.wolfssl.com/wolfssl-5-9-2-release-blog/</a> (as
+of 2026-06-30; ledger claim
+pqc/embedded-alternative-libraries/d0004:1)</li>
+<li><a href="https://www.wolfssl.com/category/post-quantum/"
+class="uri">https://www.wolfssl.com/category/post-quantum/</a> (as of
+2026-09-04; ledger claim
+pqc/embedded-alternative-libraries/d0005:1)</li>
+<li><a href="https://www.wolfssl.com/wolfssl-5-9-2-release-blog/"
+class="uri">https://www.wolfssl.com/wolfssl-5-9-2-release-blog/</a> (as
+of 2026-06-30; ledger claim
+pqc/embedded-alternative-libraries/d0002:2)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Go standard library | PQC Readiness Register</title>
+  <meta name="description" content="Go standard library: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Go standard library</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; language-stack</p>
+    <h1>Go standard library</h1>
+    <p class="standfirst">Maintained by The Go project (Google). Two releases a year (1.N); crypto/tls defaults change with them. Home: https://go.dev/</p>
+    <p class="updated">9 of 44 cells cited</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Primitive</th>
+<th>TLS 1.3</th>
+<th>X.509</th>
+<th>FIPS 140-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td>available since 1.24 [1] [2]</td>
+<td>available since 1.27 [3] [4]</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td>unknown</td>
+<td>default since 1.24 [1] [5]</td>
+<td>unknown</td>
+<td>experimental since FIPS 140 mode (issue 78178) [6]</td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td>unknown</td>
+<td>default since 1.26 [7] [5]</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td>unknown</td>
+<td>default since 1.26 [7] [5]</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td>available since 1.27 [8] [9]</td>
+<td>available since 1.27 [8] [4]</td>
+<td>available since 1.27 [8]</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+<td>unknown</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, Primitive</strong>: ML-KEM-768/1024 behind the TLS
+hybrid from 1.24; crypto/hpke with the X-Wing option from 1.26.</li>
+<li><strong>ML-KEM, TLS 1.3</strong>: Pure MLKEM1024 key exchange.</li>
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: On when CurvePreferences
+is nil; GODEBUG tlsmlkem=0 reverts.</li>
+<li><strong>X25519MLKEM768, FIPS 140-3</strong>: Listed as FIPS-allowed
+but unreachable under GODEBUG=fips140=only per an open March 2026
+issue.</li>
+<li><strong>ML-DSA, Primitive</strong>: crypto/mldsa with
+MLDSA44/65/87.</li>
+<li><strong>ML-DSA, TLS 1.3</strong>: ML-DSA signature schemes for TLS
+1.3.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>1.27, 2026-08-22 [8]</li>
+<li>1.26, 2026-02-19 [2]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet.</p>
+<ul>
+<li>slh-dsa / primitive: no claim</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a href="https://pkg.go.dev/crypto/tls"
+class="uri">https://pkg.go.dev/crypto/tls</a> (date not recorded; ledger
+claim pqc/language-native-crypto-stacks/d0001:1)</li>
+<li><a
+href="https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a"
+class="uri">https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a</a>
+(as of 2026-02-19; ledger claim
+pqc/language-native-crypto-stacks/d0001:3)</li>
+<li><a href="https://go.dev/doc/go1.27"
+class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
+claim pqc/language-native-crypto-stacks/d0003:2)</li>
+<li><a href="https://www.51cto.com/article/843365.html"
+class="uri">https://www.51cto.com/article/843365.html</a> (date not
+recorded; ledger claim pqc/language-runtime-tls-surfaces/d0004:2)</li>
+<li><a href="https://golang.bg/src/crypto/tls/defaults.go"
+class="uri">https://golang.bg/src/crypto/tls/defaults.go</a> (date not
+recorded; ledger claim pqc/language-native-crypto-stacks/d0001:2)</li>
+<li><a href="https://github.com/golang/go/issues/78178"
+class="uri">https://github.com/golang/go/issues/78178</a> (as of
+2026-03-16; ledger claim pqc/language-native-crypto-stacks/d0001:5)</li>
+<li><a
+href="https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go"
+class="uri">https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go</a>
+(as of 2026-08-25; ledger claim
+pqc/language-runtime-tls-surfaces/d0002:1)</li>
+<li><a href="https://go.dev/doc/go1.27"
+class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
+claim pqc/language-native-crypto-stacks/d0003:1)</li>
+<li><a
+href="https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/"
+class="uri">https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/</a>
+(as of 2026-08-02; ledger claim
+pqc/language-runtime-tls-surfaces/d0003:1)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>
