@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thales Luna HSM | PQC Readiness Register</title>
+  <meta name="description" content="Thales Luna HSM: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Thales Luna HSM</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; hsm</p>
+    <h1>Thales Luna HSM</h1>
+    <p class="standfirst">Maintained by Thales. Firmware releases on the 7.x line, with a matching Luna HSM Client. Post-quantum support arrived in two steps: LMS-HSS in firmware 7.8.9, ML-KEM and ML-DSA in 7.9.0. Home: https://cpl.thalesgroup.com/encryption/hardware-security-modules</p>
+    <p class="updated">10 cited cells &middot; 3 open</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Primitive</th>
+<th>FIPS 140-3</th>
+<th>PKCS#11</th>
+<th>Firmware signing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td><span class="st st-available">available</span> since Luna HSM
+Firmware 7.9.0 [1] [2]</td>
+<td><span class="st st-available">available</span> since certificate
+5450 [3]</td>
+<td><span class="st st-available">available</span> since Luna HSM
+Firmware 7.9.0 with Client 10.9.0 [4]</td>
+<td><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td><span class="st st-available">available</span> since Luna HSM
+Firmware 7.9.0 [5]</td>
+<td><span class="st st-available">available</span> since certificate
+5450 [3]</td>
+<td><span class="st st-available">available</span> since Luna HSM
+Firmware 7.9.0 with Client 10.9.0 [6]</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [7]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- PKCS#11 defines no composite-signature mechanism. A caller assembles a composite from its component signatures, each of which is its own mechanism call, so the signature rows carry it.">n/a</abbr></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td><span class="st st-available">available</span> since Luna HSM
+Firmware 7.8.9 [8]</td>
+<td><span class="st st-available">available</span> since certificate
+5450 [3]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [7]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, Primitive</strong>: In firmware rather than a
+loadable functionality module, which is the difference between a
+supported algorithm and an add-on somebody has to deploy.</li>
+<li><strong>ML-KEM, FIPS 140-3</strong>: Inside Luna T7, Thales Trusted
+Cyber Technologies, FIPS 140-3 certificate 5450 issued 2026-07-29.
+Sunset 2031-07-28.</li>
+<li><strong>ML-KEM, PKCS#11</strong>: Through the STANDARD interface
+rather than a vendor extension, which is the distinction this column
+exists to make: compare Utimaco, which reaches the same algorithms
+through vendor-defined mechanisms, and Entrust, which reaches ML-KEM
+only through its proprietary nCore API.</li>
+<li><strong>ML-DSA, Primitive</strong>: Backup, cloning and high
+availability all work, which is NOT true of the stateful hash-based keys
+below – see the LMS/HSS note. One documented limitation: firmware 7.9.0
+does not support wrapping or unwrapping ML-DSA private key objects,
+pending standardisation.</li>
+<li><strong>ML-DSA, FIPS 140-3</strong>: Inside Luna T7, Thales Trusted
+Cyber Technologies, FIPS 140-3 certificate 5450 issued 2026-07-29.
+Sunset 2031-07-28.</li>
+<li><strong>SLH-DSA, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-13 and name none carrying it.</li>
+<li><strong>LMS / HSS, Primitive</strong>: Shipped BEFORE the lattice
+algorithms, which is the pattern across this category: stateful
+hash-based signatures were standardised first (SP 800-208) and the
+hardware followed first. Thales states the trade-off plainly on the same
+page – LMS-HSS keys are “not being copyable, thus no backup and no HA
+replication are possible”, which is state management showing through
+into operations.</li>
+<li><strong>LMS / HSS, FIPS 140-3</strong>: Inside Luna T7, Thales
+Trusted Cyber Technologies, FIPS 140-3 certificate 5450 issued
+2026-07-29. Sunset 2031-07-28.</li>
+<li><strong>XMSS / XMSS^MT, FIPS 140-3</strong>: Not in any module of
+this project: the CMVP validated list and the Modules In Process list
+were scanned on 2026-09-13 and name none carrying it.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet. <strong>not checked</strong> means nobody has searched.
+<strong>searching</strong> means fewer than 2 passes are done.
+<strong>none found</strong> means the search was completed and came back
+empty, and the artifacts examined are named; a result older than 90 days
+is marked for recheck.</p>
+<ul>
+<li>slh-dsa / primitive – <strong>searching, 1 of 2 passes</strong>: The
+post-quantum page names LMS-HSS, ML-KEM and ML-DSA and does not mention
+SLH-DSA. It is a narrative overview rather than an algorithm
+enumeration, so this is unknown rather than absent – and the contrast is
+worth checking, because Crypto4A has SLH-DSA on an issued certificate.
+Second pass: the Luna mechanism list or a firmware release note naming
+FIPS 205. Examined: Thales Luna Post Quantum Algorithms documentation,
+Luna HSM Firmware 7.9.0 release notes.</li>
+<li>xmss / primitive – <strong>searching, 1 of 2 passes</strong>: Thales
+names LMS-HSS only among the stateful schemes. Utimaco’s competing
+package offers XMSS and XMSS-MT alongside LMS/HSS, so the absence here
+may be a real product difference rather than a documentation gap. Second
+pass: the Luna mechanism list. Examined: Thales Luna Post Quantum
+Algorithms documentation.</li>
+<li>lms-hss / firmware – <strong>searching, 1 of 2 passes</strong>:
+Whether the Luna firmware image is ITSELF signed with a post-quantum
+algorithm is not stated in the documentation read. It is a different
+question from what the device will sign for a customer, and the one that
+decides whether the root of trust survives. Compare Crypto4A, which
+states its answer explicitly. Second pass: the Luna security policy for
+certificate 5450, which describes the firmware load test. Examined:
+Thales Luna Post Quantum Algorithms documentation, Luna HSM Firmware
+7.9.0 release notes.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-0.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-0.htm</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5450"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5450</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-0.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-0.htm</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-0.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-0.htm</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
+class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm</a>
+(date not recorded; checked 2026-09-13)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

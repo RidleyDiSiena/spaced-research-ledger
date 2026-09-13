@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Libreswan | PQC Readiness Register</title>
+  <meta name="description" content="Libreswan: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Libreswan</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; ipsec-stack</p>
+    <h1>Libreswan</h1>
+    <p class="standfirst">Maintained by The Libreswan project. Numbered releases; ML-KEM arrived in v5.4 (13 August 2026). Home: https://libreswan.org/</p>
+    <p class="updated">1 cited cell &middot; 1 confirmed absent</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#where-the-cryptography-comes-from"
+id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
+From</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>IPsec / IKEv2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td><span class="st st-available">available</span> since 5.4 [1]</td>
+</tr>
+<tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td><span class="st st-absent">none found 2026-09-13</span></td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td><abbr class="st-na" title="Not a real question -- No IKEv2 implementation or draft defines a composite signature for RFC 7427 authentication. The ASN.1 encoding could in principle carry one, so flip this the day a draft says so.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-cryptography-comes-from">Where the Cryptography Comes
+From</h2>
+<p>This component does not implement everything it is asked about. What
+it inherits, from what, and at which version:</p>
+<ul>
+<li><strong><a href="nss.html">NSS</a></strong> – linked, pinned at NSS
+&gt;= 3.118.1 for ML-KEM. Inherits: IPsec / IKEv2. Libreswan does its
+cryptography through NSS, and for ML-KEM it says exactly which NSS it
+needs: the v5.4 changelog puts “requires NSS &gt;= 3.118.1” directly
+under the ML-KEM entry. That is a firmer pin than most edges in this
+register carry, because it is a minimum stated by the downstream rather
+than a version inferred from a bundle. [2]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, IPsec / IKEv2</strong>: ML-KEM-768 only – the
+changelog names one parameter set where strongSwan offers three. And the
+version requirement is the interesting part: the algorithm is NSS’s, so
+a Libreswan new enough to ask for it on a system whose NSS is older
+simply does not have it. That is the coupling recorded as a derives_from
+edge below, and it is a rare case of a project stating its upstream
+version requirement precisely enough to pin.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet. <strong>not checked</strong> means nobody has searched.
+<strong>searching</strong> means fewer than 2 passes are done.
+<strong>none found</strong> means the search was completed and came back
+empty, and the artifacts examined are named; a result older than 90 days
+is marked for recheck.</p>
+<ul>
+<li>ml-dsa / ipsec – <strong>none found 2026-09-13</strong>: Searched
+twice, no implementation found, and the shape of the gap is the same as
+SSH’s: the KEY EXCHANGE half is standardised and shipping (RFC 9370
+additional key exchanges, which both components implement) while
+post-quantum AUTHENTICATION is not. RFC 7427 signature authentication
+carries an ASN.1 AlgorithmIdentifier, so ML-DSA is expressible in IKEv2
+in principle – which makes the absence a choice about deployment rather
+than a protocol limitation. Neither project’s release notes mention it.
+Recheck alongside the SSH signature question; they are likely to move
+together, because both are waiting on certificate ecosystems rather than
+on code. Examined: strongSwan 6.0.0 release announcement and IKEv2
+cipher suite documentation, Libreswan CHANGES through v5.5 (unreleased),
+RFC 7427 signature authentication (the mechanism that would carry
+it).</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a href="https://github.com/libreswan/libreswan/blob/main/CHANGES"
+class="uri">https://github.com/libreswan/libreswan/blob/main/CHANGES</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a href="https://github.com/libreswan/libreswan/blob/main/CHANGES"
+class="uri">https://github.com/libreswan/libreswan/blob/main/CHANGES</a>
+(date not recorded; checked 2026-09-13)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

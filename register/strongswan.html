@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>strongSwan | PQC Readiness Register</title>
+  <meta name="description" content="strongSwan: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>strongSwan</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; ipsec-stack</p>
+    <h1>strongSwan</h1>
+    <p class="standfirst">Maintained by The strongSwan project. Numbered releases; post-quantum key exchange arrived in 6.0.0 (December 2024) together with RFC 9370 support. Home: https://strongswan.org/</p>
+    <p class="updated">1 cited cell &middot; 1 confirmed absent</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>IPsec / IKEv2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td><span class="st st-available">available</span> since 6.0.0 [1]
+[2]</td>
+</tr>
+<tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td><span class="st st-absent">none found 2026-09-13</span></td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td><abbr class="st-na" title="Not a real question -- No IKEv2 implementation or draft defines a composite signature for RFC 7427 authentication. The ASN.1 encoding could in principle carry one, so flip this the day a draft says so.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, IPsec / IKEv2</strong>: <code>available</code>
+rather than <code>default</code>: you write it into a proposal. WHY
+IPSEC IS THE EASY CASE, and worth understanding because it is the
+opposite of TLS: RFC 9370 lets up to seven ADDITIONAL key exchanges be
+layered on after the first, so ML-KEM is appended to a classical
+exchange rather than replacing it, and a deployment keeps its existing
+security properties while adding the new one. The hybrid is built by
+configuration rather than baked into a named group, which is why this
+register records it on the ML-KEM row and has no hybrid-group rows for
+IPsec at all. Four different implementations can supply the mathematics
+– Botan, wolfSSL, AWS-LC or strongSwan’s own <code>ml</code> plugin – so
+the answer travels with the build; that is prose here rather than a
+derives_from edge because strongSwan ships an implementation of its
+own.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet. <strong>not checked</strong> means nobody has searched.
+<strong>searching</strong> means fewer than 2 passes are done.
+<strong>none found</strong> means the search was completed and came back
+empty, and the artifacts examined are named; a result older than 90 days
+is marked for recheck.</p>
+<ul>
+<li>ml-dsa / ipsec – <strong>none found 2026-09-13</strong>: Searched
+twice, no implementation found, and the shape of the gap is the same as
+SSH’s: the KEY EXCHANGE half is standardised and shipping (RFC 9370
+additional key exchanges, which both components implement) while
+post-quantum AUTHENTICATION is not. RFC 7427 signature authentication
+carries an ASN.1 AlgorithmIdentifier, so ML-DSA is expressible in IKEv2
+in principle – which makes the absence a choice about deployment rather
+than a protocol limitation. Neither project’s release notes mention it.
+Recheck alongside the SSH signature question; they are likely to move
+together, because both are waiting on certificate ecosystems rather than
+on code. Examined: strongSwan 6.0.0 release announcement and IKEv2
+cipher suite documentation, Libreswan CHANGES through v5.5 (unreleased),
+RFC 7427 signature authentication (the mechanism that would carry
+it).</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://strongswan.org/blog/2024/12/03/strongswan-6.0.0-released.html"
+class="uri">https://strongswan.org/blog/2024/12/03/strongswan-6.0.0-released.html</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://strongswan.org/blog/2024/12/03/strongswan-6.0.0-released.html"
+class="uri">https://strongswan.org/blog/2024/12/03/strongswan-6.0.0-released.html</a>
+(date not recorded; checked 2026-09-13)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

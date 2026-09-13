@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Amazon Web Services | PQC Readiness Register</title>
-  <meta name="description" content="Amazon Web Services: post-quantum readiness across 3 components.">
+  <meta name="description" content="Amazon Web Services: post-quantum readiness across 4 components.">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
@@ -18,8 +18,8 @@
     <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
     <p class="kicker">PQC Readiness Register &middot; Vendor</p>
     <h1>Amazon Web Services</h1>
-    <p class="standfirst">Everything this register holds on Amazon Web Services: AWS-LC, aws-lc-rs, s2n-tls. The register splits a vendor&#x27;s stack by subsystem, which answers what each one does and answers nowhere where the platform as a whole stands.</p>
-    <p class="updated">3 components &middot; 17 cited cells</p>
+    <p class="standfirst">Everything this register holds on Amazon Web Services: AWS KMS, AWS-LC, aws-lc-rs, s2n-tls. The register splits a vendor&#x27;s stack by subsystem, which answers what each one does and answers nowhere where the platform as a whole stands.</p>
+    <p class="updated">4 components &middot; 23 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -62,6 +62,17 @@ id="toc-where-the-fips-modules-are">Where the FIPS Modules Are</a></li>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="aws-kms.html">AWS KMS</a></td>
+<td>kms</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>6 cited</td>
+<td>2</td>
+</tr>
 <tr>
 <td><a href="aws-lc.html">AWS-LC</a></td>
 <td>library</td>
@@ -163,6 +174,8 @@ line is 3.1.0</td>
 a stack split by subsystem that is the whole point: the others point
 here rather than holding a standing of their own.</p>
 <ul>
+<li><strong><a href="aws-kms.html">AWS KMS</a></strong> holds 3 issued
+certificates (4884, 4523, 4177).</li>
 <li><strong><a href="aws-lc.html">AWS-LC</a></strong> holds 6 issued
 certificates (5429, 5314, 5298, 5146, 4816, 4631), and has 2 modules in
 the CMVP queue.</li>

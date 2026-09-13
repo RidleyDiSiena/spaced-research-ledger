@@ -64,6 +64,13 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
+</tr>
+<tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -151,12 +158,11 @@ boundary. AD CS states the dependency for the whole Windows PQC surface:
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>Windows CryptoAPI (CAPI2) holds no FIPS 140-3 certificate of its own.
 It takes its cryptography from Windows CNG (platform), and Windows CNG
-holds FIPS 140-3 certificates 5313, 5410, 5408, 4825, 4766, 4687, 4670,
-4536, 4515, and has a module in the CMVP queue. Whether a given
-algorithm is inside that validated boundary is Windows CNG’s answer, not
-this component’s: see the Windows CNG page. Running in an approved mode
-also needs the validated version on a tested operating environment,
-which no register can tell you.</p>
+holds FIPS 140-3 certificate 5313. Whether a given algorithm is inside
+that validated boundary is Windows CNG’s answer, not this component’s:
+see the Windows CNG page. Running in an approved mode also needs the
+validated version on a tested operating environment, which no register
+can tell you.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
 <li><strong>ML-DSA, X.509</strong>: Read narrowly, and the narrowness is

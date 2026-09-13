@@ -18,8 +18,8 @@
     <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
     <p class="kicker">Register</p>
     <h1>PQC Readiness Register</h1>
-    <p class="standfirst">Where each cryptographic component stands on post-quantum support, cell by cell, every cell cited to a public source or left unknown. A companion to the reports above: the reports say what sources said, the register says where each named thing stands. Covering libraries and language stacks and platforms and edge today. Not yet covered: hardware and key management. Those sections appear when their first component is recorded.</p>
-    <p class="updated">29 components &middot; 5 questions &middot; JSON: <a href="register.json">register.json</a></p>
+    <p class="standfirst">Where each cryptographic component stands on post-quantum support, cell by cell, every cell cited to a public source or left unknown. A companion to the reports above: the reports say what sources said, the register says where each named thing stands. Covering libraries and language stacks, hardware and key management, and platforms and edge today.</p>
+    <p class="updated">43 components &middot; 5 questions &middot; JSON: <a href="register.json">register.json</a></p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -27,6 +27,8 @@
 <ul>
 <li><a href="#cat-libraries" id="toc-cat-libraries">Libraries and
 Language Stacks</a></li>
+<li><a href="#cat-hardware" id="toc-cat-hardware">Hardware and Key
+Management</a></li>
 <li><a href="#cat-platforms" id="toc-cat-platforms">Platforms and
 Edge</a></li>
 <li><a href="#reading-the-table" id="toc-reading-the-table">Reading the
@@ -45,6 +47,9 @@ Sections
 <ul class="jumpbar-links">
 <li>
 <a href="#cat-libraries">Libraries and Language Stacks</a>
+</li>
+<li>
+<a href="#cat-hardware">Hardware and Key Management</a>
 </li>
 <li>
 <a href="#cat-platforms">Platforms and Edge</a>
@@ -100,6 +105,9 @@ Questions
 <a href="vendor-amazon-web-services.html">Amazon Web Services</a>
 </p>
 <ul class="jumpbar-links">
+<li>
+<a href="aws-kms.html">AWS KMS</a>
+</li>
 <li>
 <a href="aws-lc.html">AWS-LC</a>
 </li>
@@ -294,6 +302,17 @@ URLSession</a></td>
 <td>–</td>
 </tr>
 <tr>
+<td><a href="libreswan.html">Libreswan</a></td>
+<td>ipsec-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>1 cited, 1 absent</td>
+<td>–</td>
+</tr>
+<tr>
 <td><a href="libsodium.html">libsodium</a></td>
 <td>library</td>
 <td><span class="st st-available">available</span></td>
@@ -302,6 +321,17 @@ URLSession</a></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td>7 cited, 1 absent</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="libssh.html">libssh</a></td>
+<td>ssh-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>1 cited, 1 absent</td>
 <td>–</td>
 </tr>
 <tr>
@@ -349,6 +379,17 @@ URLSession</a></td>
 <td>–</td>
 </tr>
 <tr>
+<td><a href="openssh.html">OpenSSH</a></td>
+<td>ssh-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>2 cited, 1 absent</td>
+<td>–</td>
+</tr>
+<tr>
 <td><a href="openssl.html">OpenSSL</a></td>
 <td>library</td>
 <td><span class="st st-available">available</span></td>
@@ -357,6 +398,17 @@ URLSession</a></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span></td>
 <td>14 cited, 3 absent</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="putty.html">PuTTY</a></td>
+<td>ssh-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>1 cited, 1 absent</td>
 <td>–</td>
 </tr>
 <tr>
@@ -404,6 +456,17 @@ URLSession</a></td>
 <td>1</td>
 </tr>
 <tr>
+<td><a href="strongswan.html">strongSwan</a></td>
+<td>ipsec-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>1 cited, 1 absent</td>
+<td>–</td>
+</tr>
+<tr>
 <td><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
 <td>tls-stack</td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -424,6 +487,106 @@ URLSession</a></td>
 <td><span class="st st-available">available</span></td>
 <td>14 cited</td>
 <td>–</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="cat-hardware">Hardware and Key Management</h2>
+<p>Where keys are generated and held rather than used: hardware security
+modules and the cloud key management services built on them. Readiness
+here gates what a regulated deployment may do at all, and it moves on
+validation timelines rather than release timelines.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>KEM</th>
+<th>Hybrid key exchange</th>
+<th>Signatures</th>
+<th>Composite signatures</th>
+<th>Stateful hash-based signatures</th>
+<th>Answers</th>
+<th>Open</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="aws-kms.html">AWS KMS</a></td>
+<td>kms</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>6 cited</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="crypto4a-qasm.html">Crypto4A QASM</a></td>
+<td>hsm</td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td>11 cited</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="entrust-nshield.html">Entrust nShield</a></td>
+<td>hsm</td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>5 cited</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="google-cloud-kms.html">Google Cloud KMS</a></td>
+<td>kms</td>
+<td><span class="st st-experimental">experimental</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>3 cited</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="thales-luna.html">Thales Luna HSM</a></td>
+<td>hsm</td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td>10 cited</td>
+<td>3</td>
+</tr>
+<tr>
+<td><a href="utimaco-hsm.html">Utimaco u.trust General Purpose
+HSM</a></td>
+<td>hsm</td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td>6 cited</td>
+<td>2</td>
 </tr>
 </tbody>
 </table>
@@ -478,9 +641,42 @@ corecrypto</a></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span></td>
+<td>5 cited</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="cloudflare-edge.html">Cloudflare edge</a></td>
+<td>tls-terminator</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-default">default</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td>2 cited</td>
-<td>4</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="haproxy.html">HAProxy</a></td>
+<td>tls-terminator</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>2 cited, 3 inherited</td>
+<td>1</td>
+</tr>
+<tr>
+<td><a href="nginx.html">nginx</a></td>
+<td>tls-terminator</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>1 cited, 5 inherited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="rhel-crypto-policies.html">RHEL system-wide
@@ -501,9 +697,9 @@ crypto-policies</a></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td>2 cited</td>
-<td>5</td>
+<td><span class="st st-none">none</span></td>
+<td>5 cited</td>
+<td>2</td>
 </tr>
 <tr>
 <td><a href="windows-capi2.html">Windows CryptoAPI (CAPI2)</a></td>
@@ -574,6 +770,12 @@ shortcut rather than the message: the table reads the same in greyscale,
 in print, and to a reader who does not separate the hues.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="recent-changes">Recent Changes</h2>
 <ul>
+<li>2026-09-13: register: work the bootstrap list – 36 open gaps to
+24</li>
+<li>2026-09-13: register: fill the last three empty kinds – SSH, IPsec
+and TLS terminators</li>
+<li>2026-09-13: register: hardware and key management – validated PQC is
+mostly in hardware</li>
 <li>2026-09-13: register: the platform pass – Windows, Apple and RHEL,
 22 components to 29</li>
 <li>2026-09-13: register: resolve the aws-lc-rs ML-DSA flag and record
@@ -597,13 +799,6 @@ again</li>
 sources</li>
 <li>2026-09-12: register: record whether a gap was searched, and drop
 the false percentage</li>
-<li>2026-09-12: register: first review turn – 2 proposals applied, 8
-rejected, 2 matcher defects fixed</li>
-<li>2026-09-12: feat(register): phase 3 – 21 library and language-stack
-components seeded from the ledger (91 cells, 0 problems); KEM rolls up
-on the primitive</li>
-<li>2026-09-12: feat(register): bootstrap run on OpenSSL – 6 cited
-cells, 3 genuine absences; notes quoted; PLAN phase 2 logged</li>
 </ul>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

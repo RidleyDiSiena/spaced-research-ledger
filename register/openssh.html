@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenSSH | PQC Readiness Register</title>
+  <meta name="description" content="OpenSSH: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>OpenSSH</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; ssh-stack</p>
+    <h1>OpenSSH</h1>
+    <p class="standfirst">Maintained by The OpenBSD project. Numbered releases roughly twice a year, shipped with OpenBSD and packaged everywhere else. Post-quantum key agreement arrived in 9.9 and became the default in 10.0. Home: https://www.openssh.com/</p>
+    <p class="updated">2 cited cells &middot; 1 confirmed absent</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>SSH</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td><span class="st st-default">default</span> since 10.0 (available
+since 9.9) [1] [2]</td>
+</tr>
+<tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td><span class="st st-absent">none found 2026-09-13</span></td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH defines no key type or key-exchange method using a composite signature; the composite work is X.509 and CMS.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td><span class="st st-none">none</span> [3]</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, SSH</strong>: Recorded on the ML-KEM row rather than
+a hybrid-group row, which is what the vocabulary’s
+<code>meaningful</code> grid says to do and why: SSH names its own
+hybrid methods (mlkem768x25519-sha256) instead of borrowing the IANA TLS
+group names the hybrid-kex rows hold. OpenSSH also ships
+sntrup761x25519-sha512, a hybrid over NTRU Prime, which has no row here
+– one component carrying an algorithm is not two, which is the bar for
+adding one. Worth stating plainly because it is rare: this is
+post-quantum key agreement that happens whether or not the operator has
+heard of it.</li>
+<li><strong>XMSS / XMSS^MT, SSH</strong>: A CELL THIS REGISTER ALMOST
+COULD NOT HOLD. Until 2026-09-13 the meaningful grid called stateful
+hash-based signatures over SSH not-a-question, on the reasoning that SSH
+registers no such key type – and OpenSSH had carried <a
+href="mailto:ssh-xmss@openssh.com"
+class="email">ssh-xmss@openssh.com</a> for years before removing it
+here. The validator refuses a cell in a pair marked meaningless, so the
+grid was corrected first and this cell written second. The status is
+<code>none</code> rather than a gap because the project states the
+removal outright; and note what it is NOT evidence of – OpenSSH says in
+the same breath that it expects to implement a post-quantum signature
+scheme, so this is a retreat from one approach rather than from the
+problem.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet. <strong>not checked</strong> means nobody has searched.
+<strong>searching</strong> means fewer than 2 passes are done.
+<strong>none found</strong> means the search was completed and came back
+empty, and the artifacts examined are named; a result older than 90 days
+is marked for recheck.</p>
+<ul>
+<li>ml-dsa / ssh – <strong>none found 2026-09-13</strong>: Searched
+twice and found no implementation, and the second pass found the reason:
+THERE IS NO SETTLED STANDARD TO IMPLEMENT. ML-DSA for SSH sits in
+competing INDIVIDUAL drafts – draft-rpe-ssh-mldsa-03 (16 April 2026,
+standards track, names mldsa-44/65/87 and says implementations SHOULD do
+mldsa-65) and draft-sfluhrer-ssh-mldsa-06 – with neither adopted by the
+sshm working group, while the hybrid KEY EXCHANGE half went the other
+way and is an adopted working-group document
+(draft-ietf-sshm-mlkem-hybrid-kex-10). That asymmetry is the finding:
+SSH’s post-quantum key agreement is standardised and shipping by
+default, and its post-quantum AUTHENTICATION has not converged on a name
+yet. Recheck when a draft is adopted, not before – the implementations
+are waiting on the same thing. Examined: IETF datatracker:
+draft-rpe-ssh-mldsa-03 (individual, standards track), IETF datatracker:
+draft-sfluhrer-ssh-mldsa-06 (competing individual draft), IETF
+datatracker: draft-ietf-sshm-mlkem-hybrid-kex-10 (adopted, for
+contrast), OpenSSH release notes 10.1, 10.0, 9.9, libssh 0.12.0 release
+announcement, PuTTY change log and wishlist.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a href="https://www.openssh.com/txt/release-10.0"
+class="uri">https://www.openssh.com/txt/release-10.0</a> (date not
+recorded; checked 2026-09-13)</li>
+<li><a href="https://www.openssh.com/txt/release-9.9"
+class="uri">https://www.openssh.com/txt/release-9.9</a> (date not
+recorded; checked 2026-09-13)</li>
+<li><a href="https://www.openssh.com/txt/release-10.1"
+class="uri">https://www.openssh.com/txt/release-10.1</a> (date not
+recorded; checked 2026-09-13)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

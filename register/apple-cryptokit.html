@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; os</p>
     <h1>Apple CryptoKit and corecrypto</h1>
     <p class="standfirst">Maintained by Apple. Annual operating system releases. Post-quantum support arrived across the board in the 26 releases. Home: https://developer.apple.com/documentation/cryptokit</p>
-    <p class="updated">2 cited cells &middot; 4 open</p>
+    <p class="updated">5 cited cells &middot; 2 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -62,6 +62,14 @@ Unknowns</a></li>
 <td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 </tr>
 <tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-available">available</span> since iOS 26, iPadOS
+26, macOS 26, tvOS 26 and watchOS 26 [2]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
+</tr>
+<tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -92,14 +100,14 @@ Unknowns</a></li>
 <tr>
 <td><strong>ML-DSA</strong></td>
 <td><span class="st st-available">available</span> since iOS 26, iPadOS
-26, macOS 26, tvOS 26 and watchOS 26 [2]</td>
+26, macOS 26, tvOS 26 and watchOS 26 [3]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [2]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -120,7 +128,7 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>LMS / HSS</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [2]</td>
 <td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -141,9 +149,39 @@ ML-KEM-768 and ML-KEM-1024. ML-KEM-512 is not named, which for a
 platform that ships one curated API surface is worth reading as a
 deliberate omission rather than an oversight, though the page does not
 say so.</li>
+<li><strong>X-Wing, Primitive</strong>: CryptoKit’s symbol index lists
+XWingMLKEM768X25519 among its five post-quantum types. This is the
+SECOND component in the register to carry X-Wing – libsodium shipped it
+in 1.0.22 – which is what promoted it from a note on the wrong row to an
+algorithm row of its own on 2026-09-13. Apple’s framing is worth
+keeping: the security guide describes the high-level API as post-quantum
+hybrid HPKE, so X-Wing here is the KEM underneath an encryption
+interface rather than something an app assembles itself.</li>
 <li><strong>ML-DSA, Primitive</strong>: ML-DSA-65 and ML-DSA-87 only;
 ML-DSA-44 is not named. The same curation as the KEM parameter
 sets.</li>
+<li><strong>SLH-DSA, Primitive</strong>: A CITED ABSENCE FROM AN
+ENUMERATION, which is the bar this register sets for <code>none</code>.
+CryptoKit’s own symbol index lists exactly five post-quantum types –
+MLDSA65, MLDSA87, MLKEM768, MLKEM1024 and XWingMLKEM768X25519 – and no
+stateless or stateful hash-based signature scheme appears among them.
+That agrees with the second source read on 2026-09-13, Apple’s Platform
+Security guide, which names ML-KEM and ML-DSA and no other family: two
+independent Apple documents, neither mentioning it, one of them an
+enumeration. Note what the same index shows about parameter sets –
+ML-DSA-44 and ML-KEM-512 are absent too, so Apple ships a curated subset
+rather than the standards entire.</li>
+<li><strong>LMS / HSS, Primitive</strong>: A CITED ABSENCE FROM AN
+ENUMERATION, which is the bar this register sets for <code>none</code>.
+CryptoKit’s own symbol index lists exactly five post-quantum types –
+MLDSA65, MLDSA87, MLKEM768, MLKEM1024 and XWingMLKEM768X25519 – and no
+stateless or stateful hash-based signature scheme appears among them.
+That agrees with the second source read on 2026-09-13, Apple’s Platform
+Security guide, which names ML-KEM and ML-DSA and no other family: two
+independent Apple documents, neither mentioning it, one of them an
+enumeration. Note what the same index shows about parameter sets –
+ML-DSA-44 and ML-KEM-512 are absent too, so Apple ships a curated subset
+rather than the standards entire.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -170,25 +208,16 @@ ML-KEM, and for the same reason: shipped in CryptoKit with the 26
 releases, absent from every issued corecrypto certificate, and blocked
 from absence by the OS 26 modules still in Review. Examined: certificate
 page 5387 (approved-algorithm list), CMVP Modules In Process list.</li>
-<li>slh-dsa / primitive – <strong>searching, 1 of 2 passes</strong>: The
-Apple Platform Security page names ML-KEM and ML-DSA and no other
-post-quantum family. It is an overview rather than an API enumeration,
-so this is unknown, NOT a cited absence – the distinction the register
-exists to keep. Second pass: the CryptoKit framework reference on
-developer.apple.com, which does enumerate types. Examined: Apple
-Platform Security, Quantum-secure cryptography in Apple operating
-systems.</li>
-<li>lms-hss / primitive – <strong>searching, 1 of 2 passes</strong>: As
-SLH-DSA: not named on the page read, and the page does not enumerate.
-Apple signs firmware, so stateful hash-based signatures are a question
-worth asking of corecrypto specifically. Examined: Apple Platform
-Security, Quantum-secure cryptography in Apple operating systems.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
 <li><a
 href="https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web"
 class="uri">https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://developer.apple.com/tutorials/data/documentation/cryptokit.json"
+class="uri">https://developer.apple.com/tutorials/data/documentation/cryptokit.json</a>
 (date not recorded; checked 2026-09-13)</li>
 <li><a
 href="https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web"

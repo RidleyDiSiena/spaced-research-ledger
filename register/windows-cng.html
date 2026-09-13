@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; os</p>
     <h1>Windows CNG</h1>
     <p class="standfirst">Maintained by Microsoft. Windows servicing updates. Post-quantum support arrived in the November 2025 update to Windows Server 2025 and Windows 11 24H2 and 25H2. Home: https://learn.microsoft.com/en-us/windows/win32/seccng/cng-portal</p>
-    <p class="updated">2 cited cells &middot; 5 open</p>
+    <p class="updated">5 cited cells &middot; 2 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -62,6 +62,13 @@ Unknowns</a></li>
 <td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 </tr>
 <tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
+</tr>
+<tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -99,7 +106,7 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [4]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -120,14 +127,14 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>LMS / HSS</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [4]</td>
 <td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [4]</td>
 <td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -149,6 +156,54 @@ instead.</li>
 <li><strong>ML-DSA, Primitive</strong>: All three parameter sets are
 selectable: the example sets BCRYPT_MLDSA_PARAMETER_SET_44, and 65 and
 87 are named alongside it.</li>
+<li><strong>SLH-DSA, Primitive</strong>: A PRECISE AND UNUSUAL NEGATIVE,
+from the enumeration that settles it: CNG’s algorithm identifier list
+DEFINES BCRYPT_SLHDSA_ALGORITHM (L”SLH-DSA”, FIPS 205) and says of it
+“This algorithm is not currently implemented by the default CNG
+provider.” So the name exists and the default provider does not answer
+to it. That is deliberate rather than an oversight – CNG is a provider
+architecture, and defining the identifier is what lets a hardware key
+storage provider expose the algorithm under a name Windows software
+already knows. Which is exactly the join between this register’s
+platform and hardware categories: the identifier Windows publishes is
+the one an HSM’s KSP would implement. <code>none</code> is the right
+status because this column asks what the component itself does; it is
+NOT evidence that the algorithm is unreachable on Windows. Note also
+that Microsoft’s own SymCrypt – the library under CNG – does implement
+LMS, XMSS and ML-DSA per its changelog, so the gap here is the provider
+surface rather than the mathematics.</li>
+<li><strong>LMS / HSS, Primitive</strong>: A PRECISE AND UNUSUAL
+NEGATIVE, from the enumeration that settles it: CNG’s algorithm
+identifier list DEFINES BCRYPT_LMS_ALGORITHM (L”LMS”, RFC 8554) and says
+of it “This algorithm is not currently implemented by the default CNG
+provider.” So the name exists and the default provider does not answer
+to it. That is deliberate rather than an oversight – CNG is a provider
+architecture, and defining the identifier is what lets a hardware key
+storage provider expose the algorithm under a name Windows software
+already knows. Which is exactly the join between this register’s
+platform and hardware categories: the identifier Windows publishes is
+the one an HSM’s KSP would implement. <code>none</code> is the right
+status because this column asks what the component itself does; it is
+NOT evidence that the algorithm is unreachable on Windows. Note also
+that Microsoft’s own SymCrypt – the library under CNG – does implement
+LMS, XMSS and ML-DSA per its changelog, so the gap here is the provider
+surface rather than the mathematics.</li>
+<li><strong>XMSS / XMSS^MT, Primitive</strong>: A PRECISE AND UNUSUAL
+NEGATIVE, from the enumeration that settles it: CNG’s algorithm
+identifier list DEFINES BCRYPT_XMSS_ALGORITHM (L”XMSS”, RFC 8391) and
+says of it “This algorithm is not currently implemented by the default
+CNG provider.” So the name exists and the default provider does not
+answer to it. That is deliberate rather than an oversight – CNG is a
+provider architecture, and defining the identifier is what lets a
+hardware key storage provider expose the algorithm under a name Windows
+software already knows. Which is exactly the join between this
+register’s platform and hardware categories: the identifier Windows
+publishes is the one an HSM’s KSP would implement. <code>none</code> is
+the right status because this column asks what the component itself
+does; it is NOT evidence that the algorithm is unreachable on Windows.
+Note also that Microsoft’s own SymCrypt – the library under CNG – does
+implement LMS, XMSS and ML-DSA per its changelog, so the gap here is the
+provider surface rather than the mathematics.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -179,26 +234,6 @@ from being called absent by the same submission at Finalization. The two
 move together in Microsoft’s announcements, so they will likely be
 answered by the same certificate. Examined: certificate pages 5410, 5408
 and 5313 (approved-algorithm lists), CMVP Modules In Process list.</li>
-<li>slh-dsa / primitive – <strong>searching, 1 of 2 passes</strong>: Not
-named in the GA announcement, which lists ML-KEM and ML-DSA only, and
-not in the CNG examples. That announcement is not an enumeration of
-everything CNG holds – it says SymCrypt “will continue to incorporate
-additional quantum-resistant algorithms” – so this is unknown rather
-than absent. The entity-and-artifact query for the second pass is:
-SymCrypt or CNG algorithm identifier documentation naming SLH-DSA.
-Examined: Microsoft PQC GA announcement, 2025-11-18, Microsoft Learn CNG
-ML-DSA examples.</li>
-<li>lms-hss / primitive – <strong>searching, 1 of 2 passes</strong>:
-Same as SLH-DSA: not named in either document read. Stateful hash-based
-signatures matter here specifically because Windows signs firmware and
-software, which is the use SP 800-208 exists for, so this is worth a
-second pass against SymCrypt’s own algorithm list rather than the
-Windows announcements. Examined: Microsoft PQC GA announcement,
-2025-11-18.</li>
-<li>xmss / primitive – <strong>searching, 1 of 2 passes</strong>: As
-LMS/HSS – the same document read, the same silence, and the same second
-pass outstanding. Examined: Microsoft PQC GA announcement,
-2025-11-18.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -213,6 +248,10 @@ class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/pos
 <li><a
 href="https://learn.microsoft.com/en-us/windows/win32/seccng/cng-mldsa-examples"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/seccng/cng-mldsa-examples</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://learn.microsoft.com/en-us/windows/win32/seccng/cng-algorithm-identifiers"
+class="uri">https://learn.microsoft.com/en-us/windows/win32/seccng/cng-algorithm-identifiers</a>
 (date not recorded; checked 2026-09-13)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>

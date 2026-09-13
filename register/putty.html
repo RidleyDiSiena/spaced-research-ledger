@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PuTTY | PQC Readiness Register</title>
+  <meta name="description" content="PuTTY: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>PuTTY</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; ssh-stack</p>
+    <h1>PuTTY</h1>
+    <p class="standfirst">Maintained by Simon Tatham. Numbered releases. NTRU Prime hybrid key exchange since 0.78; ML-KEM hybrids since 0.83. Home: https://www.chiark.greenend.org.uk/~sgtatham/putty/</p>
+    <p class="updated">1 cited cell &middot; 1 confirmed absent</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>SSH</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td><span class="st st-available">available</span> since 0.83 [1]</td>
+</tr>
+<tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td><span class="st st-absent">none found 2026-09-13</span></td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td><abbr class="st-na" title="Not a real question -- SSH defines no key type or key-exchange method using a composite signature; the composite work is X.509 and CMS.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, SSH</strong>: HYBRID ONLY, BY POLICY, and the
+project says why in the same breath: the classical half runs in parallel
+and both outputs are hashed, so a break in the lattice half is not
+fatal. <code>available</code> rather than <code>default</code> because
+the page read does not state where the ML-KEM hybrids sit in PuTTY’s key
+exchange preference order, and this register does not infer a default
+from the presence of a feature – see the gap below. PuTTY shipped an
+NTRU Prime hybrid in 0.78, which predates most of the libraries in this
+register; that algorithm has no row here. WHAT WOULD SHARPEN THIS CELL:
+whether the ML-KEM hybrids sit at the top of PuTTY’s key exchange
+preference order, which is the difference between <code>available</code>
+and <code>default</code> and so between a feature and a deployment. That
+belongs here rather than in the gap list – a gap is a pair nobody has
+answered, not an answer somebody wants to be more precise about, and the
+validator enforces the distinction.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet. <strong>not checked</strong> means nobody has searched.
+<strong>searching</strong> means fewer than 2 passes are done.
+<strong>none found</strong> means the search was completed and came back
+empty, and the artifacts examined are named; a result older than 90 days
+is marked for recheck.</p>
+<ul>
+<li>ml-dsa / ssh – <strong>none found 2026-09-13</strong>: Searched
+twice and found no implementation, and the second pass found the reason:
+THERE IS NO SETTLED STANDARD TO IMPLEMENT. ML-DSA for SSH sits in
+competing INDIVIDUAL drafts – draft-rpe-ssh-mldsa-03 (16 April 2026,
+standards track, names mldsa-44/65/87 and says implementations SHOULD do
+mldsa-65) and draft-sfluhrer-ssh-mldsa-06 – with neither adopted by the
+sshm working group, while the hybrid KEY EXCHANGE half went the other
+way and is an adopted working-group document
+(draft-ietf-sshm-mlkem-hybrid-kex-10). That asymmetry is the finding:
+SSH’s post-quantum key agreement is standardised and shipping by
+default, and its post-quantum AUTHENTICATION has not converged on a name
+yet. Recheck when a draft is adopted, not before – the implementations
+are waiting on the same thing. Examined: IETF datatracker:
+draft-rpe-ssh-mldsa-03 (individual, standards track), IETF datatracker:
+draft-sfluhrer-ssh-mldsa-06 (competing individual draft), IETF
+datatracker: draft-ietf-sshm-mlkem-hybrid-kex-10 (adopted, for
+contrast), OpenSSH release notes 10.1, 10.0, 9.9, libssh 0.12.0 release
+announcement, PuTTY change log and wishlist.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://www.chiark.greenend.org.uk/~sgtatham/putty/wishlist/ml-kem.html"
+class="uri">https://www.chiark.greenend.org.uk/~sgtatham/putty/wishlist/ml-kem.html</a>
+(date not recorded; checked 2026-09-13)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

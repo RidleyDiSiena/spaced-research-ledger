@@ -19,17 +19,17 @@
     <p class="kicker">PQC Readiness Register &middot; Question</p>
     <h1>Which components have ML-KEM inside a FIPS 140-3 validated module?</h1>
     <p class="standfirst">ML-KEM named in the approved-algorithm list of a module with an ISSUED CMVP certificate -- not a FIPS build, not a submission in the queue, not a vendor&#x27;s announcement. The bar is `available`, which on the FIPS scale means inside the…</p>
-    <p class="updated">2 yes &middot; 13 no &middot; 10 answered by something else &middot; 3 not checked</p>
+    <p class="updated">4 yes &middot; 14 no &middot; 10 answered by something else &middot; 6 not checked</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
-<li><a href="#yes" id="toc-yes">Yes (2)</a></li>
-<li><a href="#no" id="toc-no">No (13)</a></li>
+<li><a href="#yes" id="toc-yes">Yes (4)</a></li>
+<li><a href="#no" id="toc-no">No (14)</a></li>
 <li><a href="#inherited" id="toc-inherited">Answered by something else
 (10)</a></li>
-<li><a href="#not-checked" id="toc-not-checked">Not checked (3)</a></li>
+<li><a href="#not-checked" id="toc-not-checked">Not checked (6)</a></li>
 <li><a href="#not-applicable" id="toc-not-applicable">Not
 applicable</a></li>
 </ul>
@@ -43,7 +43,7 @@ which on the FIPS scale means inside the validated boundary. Running in
 an approved mode additionally needs the validated version on a tested
 operating environment, which no register can tell you; this question
 answers only whether the algorithm is inside the boundary at all.</p>
-<h2 id="yes">Yes (2)</h2>
+<h2 id="yes">Yes (4)</h2>
 <p>At or above the bar the question sets, with the cell it rests on.</p>
 <table>
 <colgroup>
@@ -66,14 +66,26 @@ answers only whether the algorithm is inside the boundary at all.</p>
 3.0</td>
 </tr>
 <tr>
+<td><a href="crypto4a-qasm.html">Crypto4A QASM</a></td>
+<td>hsm</td>
+<td><span class="st st-available">available</span> since certificate
+5497</td>
+</tr>
+<tr>
 <td><a href="go.html">Go standard library</a></td>
 <td>language-stack</td>
 <td><span class="st st-available">available</span> since certificate
 5247</td>
 </tr>
+<tr>
+<td><a href="thales-luna.html">Thales Luna HSM</a></td>
+<td>hsm</td>
+<td><span class="st st-available">available</span> since certificate
+5450</td>
+</tr>
 </tbody>
 </table>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="no">No (13)</h2>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="no">No (14)</h2>
 <p>A cited cell that falls short. The status is shown rather than
 flattened: <code>planned</code> and <code>none</code> are different
 answers to the same question.</p>
@@ -91,6 +103,11 @@ answers to the same question.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="aws-kms.html">AWS KMS</a></td>
+<td>kms</td>
+<td><span class="st st-none">none</span></td>
+</tr>
 <tr>
 <td><a href="boringssl.html">BoringSSL</a></td>
 <td>library</td>
@@ -231,7 +248,7 @@ URLSession</a></td>
 </tr>
 </tbody>
 </table>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-checked">Not checked (3)</h2>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-checked">Not checked (6)</h2>
 <p>Nobody has settled it here yet, and each line says what was done
 about it. Not the same as no.</p>
 <table>
@@ -255,9 +272,25 @@ corecrypto</a></td>
 <td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 </tr>
 <tr>
+<td><a href="entrust-nshield.html">Entrust nShield</a></td>
+<td>hsm</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="google-cloud-kms.html">Google Cloud KMS</a></td>
+<td>kms</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td><a href="rhel-crypto-policies.html">RHEL system-wide
 crypto-policies</a></td>
 <td>os</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="utimaco-hsm.html">Utimaco u.trust General Purpose
+HSM</a></td>
+<td>hsm</td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -273,7 +306,8 @@ does not apply to what they are, or the pair is one nobody would build.
 They are named here so the counts above account for every component in
 the register, and listed apart so they are never read as a failure to
 answer.</p>
-<p>AD CS.</p>
+<p>Cloudflare edge, HAProxy, Libreswan, libssh, nginx, OpenSSH, PuTTY,
+strongSwan, AD CS.</p>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 
 

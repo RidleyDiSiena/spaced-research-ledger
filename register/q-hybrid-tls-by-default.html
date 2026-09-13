@@ -19,14 +19,14 @@
     <p class="kicker">PQC Readiness Register &middot; Question</p>
     <h1>Which components offer a hybrid post-quantum TLS group with no configuration?</h1>
     <p class="standfirst">The same three groups as the previous question, but at the bar that matters for traffic actually on the wire: `default`, meaning the group is in the supported-groups list as shipped. This is the question behind &quot;is my fleet already…</p>
-    <p class="updated">7 yes &middot; 8 no &middot; 13 not checked</p>
+    <p class="updated">8 yes &middot; 10 no &middot; 13 not checked</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
-<li><a href="#yes" id="toc-yes">Yes (7)</a></li>
-<li><a href="#no" id="toc-no">No (8)</a></li>
+<li><a href="#yes" id="toc-yes">Yes (8)</a></li>
+<li><a href="#no" id="toc-no">No (10)</a></li>
 <li><a href="#not-checked" id="toc-not-checked">Not checked
 (13)</a></li>
 <li><a href="#not-applicable" id="toc-not-applicable">Not
@@ -40,7 +40,7 @@ matters for traffic actually on the wire: <code>default</code>, meaning
 the group is in the supported-groups list as shipped. This is the
 question behind “is my fleet already protected against harvest now,
 decrypt later?”, because a group nobody enables protects nobody.</p>
-<h2 id="yes">Yes (7)</h2>
+<h2 id="yes">Yes (8)</h2>
 <p>At or above the bar the question sets, with the cell it rests on.</p>
 <table>
 <colgroup>
@@ -60,6 +60,12 @@ decrypt later?”, because a group nobody enables protects nobody.</p>
 <td><a href="botan.html">Botan</a></td>
 <td>library</td>
 <td><span class="st st-default">default</span> since 3.7.0</td>
+</tr>
+<tr>
+<td><a href="cloudflare-edge.html">Cloudflare edge</a></td>
+<td>tls-terminator</td>
+<td><span class="st st-default">default</span> since on for all existing
+zones and by default for new ones</td>
 </tr>
 <tr>
 <td><a href="go.html">Go standard library</a></td>
@@ -95,7 +101,7 @@ crypto-policies</a></td>
 </tr>
 </tbody>
 </table>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="no">No (8)</h2>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="no">No (10)</h2>
 <p>A cited cell that falls short. The status is shown rather than
 flattened: <code>planned</code> and <code>none</code> are different
 answers to the same question.</p>
@@ -132,6 +138,12 @@ recorded</td>
 3.8.8</td>
 </tr>
 <tr>
+<td><a href="haproxy.html">HAProxy</a></td>
+<td>tls-terminator</td>
+<td><span class="st st-available">available</span> since Enterprise 3.2
+/ Community 3.3, vendor-built packages only</td>
+</tr>
+<tr>
 <td><a href="jdk.html">Java (OpenJDK)</a></td>
 <td>language-stack</td>
 <td><span class="st st-available">available</span> since 27</td>
@@ -140,6 +152,12 @@ recorded</td>
 <td><a href="libressl.html">LibreSSL</a></td>
 <td>library</td>
 <td><span class="st st-available">available</span> since 4.3.0</td>
+</tr>
+<tr>
+<td><a href="nginx.html">nginx</a></td>
+<td>tls-terminator</td>
+<td><span class="st st-available">available</span> since no nginx
+version – OpenSSL 3.5 underneath</td>
 </tr>
 <tr>
 <td><a href="rustls.html">rustls</a></td>
@@ -252,7 +270,9 @@ does not apply to what they are, or the pair is one nobody would build.
 They are named here so the counts above account for every component in
 the register, and listed apart so they are never read as a failure to
 answer.</p>
-<p>AD CS.</p>
+<p>AWS KMS, Crypto4A QASM, Entrust nShield, Google Cloud KMS, Libreswan,
+libssh, OpenSSH, PuTTY, strongSwan, Thales Luna HSM, Utimaco u.trust
+General Purpose HSM, AD CS.</p>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 
 

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrust nShield | PQC Readiness Register</title>
+  <meta name="description" content="Entrust nShield: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Entrust nShield</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; hsm</p>
+    <h1>Entrust nShield</h1>
+    <p class="standfirst">Maintained by Entrust. nShield firmware with a matching Security World software release. Post-quantum algorithms landed natively in firmware 13.8.0 (22 August 2025) and Security World 13.9. Home: https://www.entrust.com/products/hsm/nshield-5s</p>
+    <p class="updated">5 cited cells &middot; 2 open</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#known-unknowns" id="toc-known-unknowns">Known
+Unknowns</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Primitive</th>
+<th>FIPS 140-3</th>
+<th>PKCS#11</th>
+<th>Firmware signing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td><span class="st st-available">available</span> since nShield
+firmware 13.8.0 / Security World 13.9 [1]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [2]</td>
+<td><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td><span class="st st-available">available</span> since nShield
+firmware 13.8.0 / Security World 13.9 [3]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span> since Security World
+13.9 [4]</td>
+<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td><span class="st st-available">available</span> since nShield
+firmware 13.8.0 / Security World 13.9 [5]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- PKCS#11 defines no composite-signature mechanism. A caller assembles a composite from its component signatures, each of which is its own mechanism call, so the signature rows carry it.">n/a</abbr></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, PKCS#11</strong>: A CITED <code>none</code>, and the
+sharpest justification for this column in the register. The device
+implements ML-KEM – the primitive cell above says so on the same
+vendor’s word – and an application cannot reach it through PKCS#11 at
+all, only through Entrust’s proprietary nCore API. A register with only
+a <code>primitive</code> column would show this device as ML-KEM-capable
+and leave the reader to discover the interface gap after buying it.
+“Currently” is the vendor’s word and this cell should be rechecked when
+Security World moves.</li>
+<li><strong>ML-DSA, Primitive</strong>: Natively in firmware, which
+Entrust distinguishes from its earlier Post-Quantum Option Pack – that
+pack made the pre-standard candidates (Dilithium, Kyber, SPHINCS+,
+Falcon) available inside the CodeSafe execution environment from 2022,
+which is a different and weaker claim than firmware support for the
+ratified standards.</li>
+<li><strong>ML-DSA, PKCS#11</strong>: All three parameter sets, through
+the standard interface.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
+<p>Cells an engineer would ask about that no cited source has settled
+yet. <strong>not checked</strong> means nobody has searched.
+<strong>searching</strong> means fewer than 2 passes are done.
+<strong>none found</strong> means the search was completed and came back
+empty, and the artifacts examined are named; a result older than 90 days
+is marked for recheck.</p>
+<ul>
+<li>lms-hss / primitive – <strong>searching, 1 of 2 passes</strong>: The
+Post-Quantum Option Pack is described as enabling “NIST approved
+code-signing with the Leighton-Micali Signature (LMS)”, which is LMS
+reachable through a product rather than a statement about firmware
+support in the 13.8 line. The two are different claims and the sources
+read do not settle which applies now. Second pass: the Security World
+13.9 release notes’ algorithm list, or the option pack integration
+guide’s current edition. Examined: Entrust nShield 5 CAVP announcement
+(2025-09), nShield Security World v13.9.0 release notes, nShield
+Post-Quantum Cryptography Option Pack integration guide.</li>
+<li>ml-dsa / firmware – <strong>searching, 1 of 2 passes</strong>:
+Whether the nShield firmware image is itself signed post-quantum is
+unstated in the material read. Second pass: the nShield 5s security
+policy for certificate 5329, which describes the firmware load test.
+Examined: Entrust nShield 5 CAVP announcement (2025-09).</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified"
+class="uri">https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html"
+class="uri">https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified"
+class="uri">https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html"
+class="uri">https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified"
+class="uri">https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified</a>
+(date not recorded; checked 2026-09-13)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

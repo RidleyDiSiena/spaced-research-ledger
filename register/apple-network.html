@@ -62,6 +62,12 @@ macOS 26, tvOS 26 and watchOS 26 [1]</td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
+<td><strong>X-Wing</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
+</tr>
+<tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 <td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
@@ -137,12 +143,9 @@ therefore CryptoKit and corecrypto’s. [2]</li>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>Apple Network framework and URLSession holds no FIPS 140-3
 certificate of its own. It takes its cryptography from Apple CryptoKit
-and corecrypto (platform), and Apple CryptoKit and corecrypto holds FIPS
-140-3 certificates 5387, 5348, 5347, 5307, 5306, 5305, 5304, 5303, 5289,
-5263, 5218, 5217, 5216, 5202, 5201, 5184, 5108, 5101, 5065, 5050, 5030,
-5025, 4956, 4951, 4854, 4817, 4392, 4391, 4390, 4389, and has 2 modules
-in the CMVP queue. Whether a given algorithm is inside that validated
-boundary is Apple CryptoKit and corecrypto’s answer, not this
+and corecrypto (platform), and Apple CryptoKit and corecrypto holds no
+certificate of its own. Whether a given algorithm is inside that
+validated boundary is Apple CryptoKit and corecrypto’s answer, not this
 component’s: see the Apple CryptoKit and corecrypto page. Running in an
 approved mode also needs the validated version on a tested operating
 environment, which no register can tell you.</p>
