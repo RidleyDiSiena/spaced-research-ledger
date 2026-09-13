@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>AWS-LC</h1>
     <p class="standfirst">Maintained by Amazon Web Services. Numbered releases; a separate FIPS module line (AWS-LC FIPS 3.0). Home: https://github.com/aws/aws-lc</p>
-    <p class="updated">4 of 66 cells cited</p>
+    <p class="updated">4 cited cells &middot; 2 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -69,7 +69,7 @@ Unknowns</a></li>
 <tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td>unknown</td>
-<td>unknown</td>
+<td>not checked</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -109,7 +109,7 @@ Unknowns</a></li>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>unknown</td>
+<td>not checked</td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
@@ -173,12 +173,17 @@ project’s release history.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
-yet.</p>
+yet. <strong>not checked</strong> means nobody has searched.
+<strong>searching</strong> means fewer than 2 passes are done.
+<strong>none found</strong> means the search was completed and came back
+empty, and the artifacts examined are named; a result older than 90 days
+is marked for recheck.</p>
 <ul>
-<li>x25519mlkem768 / tls: the hybrid TLS group is exercised through
-s2n-tls; AWS-LC’s own group list not in the leaf’s claims</li>
-<li>ml-dsa / fips: ML-DSA’s standing inside the validated modules not in
-the leaf’s claims</li>
+<li>x25519mlkem768 / tls – <strong>not checked</strong>: the hybrid TLS
+group is exercised through s2n-tls; AWS-LC’s own group list not in the
+leaf’s claims</li>
+<li>ml-dsa / fips – <strong>not checked</strong>: ML-DSA’s standing
+inside the validated modules not in the leaf’s claims</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

@@ -18,14 +18,16 @@
     <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
     <p class="kicker">Register</p>
     <h1>PQC Readiness Register</h1>
-    <p class="standfirst">Where each cryptographic component stands on post-quantum support, cell by cell, every cell cited to a public source or left unknown. A companion to the reports above: the reports say what sources said, the register says where each named thing stands.</p>
+    <p class="standfirst">Where each cryptographic component stands on post-quantum support, cell by cell, every cell cited to a public source or left unknown. A companion to the reports above: the reports say what sources said, the register says where each named thing stands. Covering libraries and language stacks today. Not yet covered: hardware and key management, platforms and edge. Those sections appear when their first component is recorded.</p>
     <p class="updated">22 components &middot; JSON: <a href="register.json">register.json</a></p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
-<li><a href="#components" id="toc-components">Components</a></li>
+<li><a href="#libraries-and-language-stacks"
+id="toc-libraries-and-language-stacks">Libraries and Language
+Stacks</a></li>
 <li><a href="#reading-the-table" id="toc-reading-the-table">Reading the
 Table</a></li>
 <li><a href="#recent-changes" id="toc-recent-changes">Recent
@@ -34,17 +36,24 @@ Changes</a></li>
   </nav>
 
   <article class="prose">
-<h2 id="components">Components</h2>
-<table>
+<h2 id="libraries-and-language-stacks">Libraries and Language
+Stacks</h2>
+<p>The code almost everything else inherits its cryptography from: the
+general-purpose libraries, the language standard libraries and runtimes,
+and the protocol implementations that sit directly on them. This is
+where a migration usually starts, because a component here decides what
+thousands of applications can negotiate.</p>
+<table style="width:100%;">
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
 </colgroup>
 <thead>
 <tr>
@@ -55,7 +64,8 @@ Changes</a></li>
 <th>Signatures</th>
 <th>Composite signatures</th>
 <th>Stateful hash-based signatures</th>
-<th>Cells</th>
+<th>Answers</th>
+<th>Open</th>
 </tr>
 </thead>
 <tbody>
@@ -67,7 +77,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>4 of 44</td>
+<td>4 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="aws-lc.html">AWS-LC</a></td>
@@ -77,7 +88,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>4 of 66</td>
+<td>4 cited</td>
+<td>2</td>
 </tr>
 <tr>
 <td><a href="aws-lc-rs.html">aws-lc-rs</a></td>
@@ -87,7 +99,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>2 of 66</td>
+<td>2 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="boringssl.html">BoringSSL</a></td>
@@ -97,7 +110,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>4 of 66</td>
+<td>4 cited</td>
+<td>3</td>
 </tr>
 <tr>
 <td><a href="botan.html">Botan</a></td>
@@ -107,7 +121,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>available</td>
-<td>7 of 66</td>
+<td>7 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="bouncycastle-java.html">Bouncy Castle (Java)</a></td>
@@ -117,7 +132,8 @@ Changes</a></li>
 <td>available</td>
 <td>available</td>
 <td>unknown</td>
-<td>7 of 66</td>
+<td>7 cited</td>
+<td>–</td>
 </tr>
 <tr>
 <td><a href="gnutls.html">GnuTLS</a></td>
@@ -127,7 +143,8 @@ Changes</a></li>
 <td>experimental</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>3 of 66</td>
+<td>3 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="go.html">Go standard library</a></td>
@@ -137,7 +154,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>9 of 44</td>
+<td>9 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="jdk.html">Java (OpenJDK)</a></td>
@@ -147,7 +165,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>4 of 44</td>
+<td>4 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="liboqs.html">liboqs</a></td>
@@ -157,7 +176,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>available</td>
-<td>4 of 66</td>
+<td>4 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="libressl.html">LibreSSL</a></td>
@@ -167,7 +187,8 @@ Changes</a></li>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>2 of 66</td>
+<td>2 cited</td>
+<td>2</td>
 </tr>
 <tr>
 <td><a href="libsodium.html">libsodium</a></td>
@@ -177,7 +198,8 @@ Changes</a></li>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>1 of 66</td>
+<td>1 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="mbedtls.html">Mbed TLS</a></td>
@@ -187,7 +209,8 @@ Changes</a></li>
 <td>planned</td>
 <td>unknown</td>
 <td>available</td>
-<td>3 of 66</td>
+<td>3 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="mlkem-native.html">mlkem-native</a></td>
@@ -197,7 +220,8 @@ Changes</a></li>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>1 of 66</td>
+<td>1 cited</td>
+<td>–</td>
 </tr>
 <tr>
 <td><a href="nodejs.html">Node.js</a></td>
@@ -207,7 +231,8 @@ Changes</a></li>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>1 of 44</td>
+<td>1 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="nss.html">NSS</a></td>
@@ -217,7 +242,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>4 of 66</td>
+<td>4 cited</td>
+<td>2</td>
 </tr>
 <tr>
 <td><a href="openssl.html">OpenSSL</a></td>
@@ -227,7 +253,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>available</td>
-<td>13 of 66</td>
+<td>13 cited, 3 absent</td>
+<td>–</td>
 </tr>
 <tr>
 <td><a href="pyca-cryptography.html">pyca/cryptography (Python)</a></td>
@@ -237,7 +264,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>2 of 44</td>
+<td>2 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="rustls.html">rustls</a></td>
@@ -247,7 +275,8 @@ Changes</a></li>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>2 of 33</td>
+<td>2 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="s2n-tls.html">s2n-tls</a></td>
@@ -257,7 +286,8 @@ Changes</a></li>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>2 of 33</td>
+<td>2 cited</td>
+<td>1</td>
 </tr>
 <tr>
 <td><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
@@ -267,7 +297,8 @@ Changes</a></li>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>1 of 33</td>
+<td>1 cited</td>
+<td>–</td>
 </tr>
 <tr>
 <td><a href="wolfssl.html">wolfSSL / wolfCrypt</a></td>
@@ -277,7 +308,8 @@ Changes</a></li>
 <td>available</td>
 <td>unknown</td>
 <td>available</td>
-<td>13 of 66</td>
+<td>13 cited</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>
@@ -302,11 +334,25 @@ capability’s own context (see capabilities.yaml). For a TLS key exchange
 this means offered in the default group list; for a signature it means
 accepted by default in verification paths; for a FIPS module it means
 inside the validated boundary.</li>
-<li><strong>unknown</strong>: no cited cell. The register never writes
-it; it is what an empty cell reads as.</li>
+<li><strong>unknown</strong>: no cited cell and no gap recorded – the
+question has not been asked.</li>
 </ul>
+<p><strong>Answers</strong> counts what the register knows about a
+component: cells backed by a cited source, plus absences somebody
+searched for and confirmed. <strong>Open</strong> counts the questions
+still to be worked. There is no percentage, because there is no honest
+denominator: most algorithm and capability pairs are combinations nobody
+would implement, and counting them would understate the work done.</p>
+<p>An empty cell says what was done about it: <strong>not
+checked</strong> (nobody has looked), <strong>searching</strong> (a pass
+is done, not yet the second), or <strong>none found <date></strong>
+(searched to completion, came back empty, artifacts named on the
+component page). A completed search older than 90 days is marked for
+recheck.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="recent-changes">Recent Changes</h2>
 <ul>
+<li>2026-09-12: register: record whether a gap was searched, and drop
+the false percentage</li>
 <li>2026-09-12: register: first review turn – 2 proposals applied, 8
 rejected, 2 matcher defects fixed</li>
 <li>2026-09-12: feat(register): phase 3 – 21 library and language-stack

@@ -1,7 +1,8 @@
 {
+  "schema_version": 1,
   "register": "PQC Readiness Register",
   "generated": "2026-09-12",
-  "commit": "491ae09",
+  "commit": "d3031b2",
   "statuses": [
     "none",
     "planned",
@@ -205,6 +206,39 @@
       "headline": "primitive"
     }
   ],
+  "categories": [
+    {
+      "id": "libraries",
+      "label": "Libraries and Language Stacks",
+      "blurb": "The code almost everything else inherits its cryptography from: the general-purpose libraries, the language standard libraries and runtimes, and the protocol implementations that sit directly on them. This is where a migration usually starts, because a component here decides what thousands of applications can negotiate.",
+      "kinds": [
+        "library",
+        "language-stack",
+        "tls-stack",
+        "ssh-stack",
+        "ipsec-stack"
+      ]
+    },
+    {
+      "id": "hardware",
+      "label": "Hardware and Key Management",
+      "blurb": "Where keys are generated and held rather than used: hardware security modules and the cloud key management services built on them. Readiness here gates what a regulated deployment may do at all, and it moves on validation timelines rather than release timelines.",
+      "kinds": [
+        "hsm",
+        "kms"
+      ]
+    },
+    {
+      "id": "platforms",
+      "label": "Platforms and Edge",
+      "blurb": "The systems and intermediaries between an application and the wire: operating system cryptographic stacks, the proxies and load balancers that terminate TLS, and the tooling that issues certificates. A component here can enable post-quantum protection for software that knows nothing about it.",
+      "kinds": [
+        "os",
+        "tls-terminator",
+        "pki-tool"
+      ]
+    }
+  ],
   "components": [
     {
       "id": "aws-lc-rs",
@@ -293,7 +327,10 @@
         {
           "algorithm": "ml-kem",
           "capability": "primitive",
-          "why": "no claim on the crate itself (AWS-LC underneath has it)"
+          "why": "no claim on the crate itself (AWS-LC underneath has it)",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -302,7 +339,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 2,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "aws-lc",
@@ -420,12 +468,18 @@
         {
           "algorithm": "x25519mlkem768",
           "capability": "tls",
-          "why": "the hybrid TLS group is exercised through s2n-tls; AWS-LC's own group list not in the leaf's claims"
+          "why": "the hybrid TLS group is exercised through s2n-tls; AWS-LC's own group list not in the leaf's claims",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         },
         {
           "algorithm": "ml-dsa",
           "capability": "fips",
-          "why": "ML-DSA's standing inside the validated modules not in the leaf's claims"
+          "why": "ML-DSA's standing inside the validated modules not in the leaf's claims",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -434,7 +488,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 4,
+        "confirmed_absent": 0,
+        "open": 2
+      },
+      "gap_states": {
+        "unexamined": 2,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "boringssl",
@@ -551,17 +616,26 @@
         {
           "algorithm": "ml-kem",
           "capability": "tls",
-          "why": "pure ML-KEM group standing not in the leaf's claims"
+          "why": "pure ML-KEM group standing not in the leaf's claims",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         },
         {
           "algorithm": "ml-dsa",
           "capability": "tls",
-          "why": "TLS signature-scheme standing not in the leaf's claims"
+          "why": "TLS signature-scheme standing not in the leaf's claims",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         },
         {
           "algorithm": "ml-kem",
           "capability": "fips",
-          "why": "BoringSSL's FIPS module status for PQC not in the leaf's claims"
+          "why": "BoringSSL's FIPS module status for PQC not in the leaf's claims",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -570,7 +644,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 4,
+        "confirmed_absent": 0,
+        "open": 3
+      },
+      "gap_states": {
+        "unexamined": 3,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "botan",
@@ -790,7 +875,10 @@
         {
           "algorithm": "ml-dsa",
           "capability": "x509",
-          "why": "no claim"
+          "why": "no claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -799,7 +887,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": "available"
-      }
+      },
+      "knowledge": {
+        "cited": 7,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "bouncycastle-java",
@@ -1008,7 +1107,18 @@
         "signature": "available",
         "composite": "available",
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 7,
+        "confirmed_absent": 0,
+        "open": 0
+      },
+      "gap_states": {
+        "unexamined": 0,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "dotnet",
@@ -1118,7 +1228,10 @@
         {
           "algorithm": "ml-kem",
           "capability": "tls",
-          "why": "no claim on SslStream / TLS surfaces"
+          "why": "no claim on SslStream / TLS surfaces",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -1127,7 +1240,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 4,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "gnutls",
@@ -1250,7 +1374,10 @@
         {
           "algorithm": "ml-dsa",
           "capability": "tls",
-          "why": "only a RHEL 9.8 downstream claim (d0001:20), gated behind a subpolicy; upstream default standing not in the claims"
+          "why": "only a RHEL 9.8 downstream claim (d0001:20), gated behind a subpolicy; upstream default standing not in the claims",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -1259,7 +1386,18 @@
         "signature": "experimental",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 3,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "go",
@@ -1552,7 +1690,10 @@
         {
           "algorithm": "slh-dsa",
           "capability": "primitive",
-          "why": "no claim"
+          "why": "no claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -1561,7 +1702,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 9,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "jdk",
@@ -1746,7 +1898,10 @@
         {
           "algorithm": "ml-dsa",
           "capability": "x509",
-          "why": "no claim beyond JAR signing"
+          "why": "no claim beyond JAR signing",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -1755,7 +1910,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 4,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "liboqs",
@@ -1931,7 +2097,10 @@
         {
           "algorithm": "ml-kem",
           "capability": "tls",
-          "why": "TLS is provided through oqs-provider on OpenSSL, not liboqs itself; oqs-provider is a component for a later phase"
+          "why": "TLS is provided through oqs-provider on OpenSSL, not liboqs itself; oqs-provider is a component for a later phase",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -1940,7 +2109,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": "available"
-      }
+      },
+      "knowledge": {
+        "cited": 4,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "libressl",
@@ -2036,12 +2216,18 @@
         {
           "algorithm": "ml-dsa",
           "capability": "primitive",
-          "why": "no claim"
+          "why": "no claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         },
         {
           "algorithm": "slh-dsa",
           "capability": "primitive",
-          "why": "no claim"
+          "why": "no claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -2050,7 +2236,18 @@
         "signature": null,
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 2,
+        "confirmed_absent": 0,
+        "open": 2
+      },
+      "gap_states": {
+        "unexamined": 2,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "libsodium",
@@ -2121,7 +2318,10 @@
         {
           "algorithm": "ml-dsa",
           "capability": "primitive",
-          "why": "no claim; the maintainer had given no signature roadmap"
+          "why": "no claim; the maintainer had given no signature roadmap",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -2130,7 +2330,18 @@
         "signature": null,
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 1,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "mbedtls",
@@ -2231,7 +2442,10 @@
         {
           "algorithm": "slh-dsa",
           "capability": "primitive",
-          "why": "no claim"
+          "why": "no claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -2240,7 +2454,18 @@
         "signature": "planned",
         "composite": null,
         "stateful-hbs": "available"
-      }
+      },
+      "knowledge": {
+        "cited": 3,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "mlkem-native",
@@ -2355,7 +2580,18 @@
         "signature": null,
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 1,
+        "confirmed_absent": 0,
+        "open": 0
+      },
+      "gap_states": {
+        "unexamined": 0,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "nodejs",
@@ -2401,7 +2637,10 @@
         {
           "algorithm": "ml-dsa",
           "capability": "primitive",
-          "why": "no claim on the node:crypto surface"
+          "why": "no claim on the node:crypto surface",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -2410,7 +2649,18 @@
         "signature": null,
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 1,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "nss",
@@ -2577,12 +2827,18 @@
         {
           "algorithm": "ml-dsa",
           "capability": "tls",
-          "why": "no claim"
+          "why": "no claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         },
         {
           "algorithm": "ml-dsa",
           "capability": "x509",
-          "why": "no claim"
+          "why": "no claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -2591,7 +2847,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 4,
+        "confirmed_absent": 0,
+        "open": 2
+      },
+      "gap_states": {
+        "unexamined": 2,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "openssl",
@@ -2949,17 +3216,38 @@
         {
           "algorithm": "ml-kem",
           "capability": "tls",
-          "why": "bootstrap 2026-09-12, two passes: pure MLKEM512/768/1024 TLS group names are not in CHANGES.md 3.5.0 nor SSL_CTX_set1_curves.pod (only the three hybrids are); a secondary blog lists them, below the source bar"
+          "why": "Searched twice on 2026-09-12 and found nothing: the pure MLKEM512/768/1024 TLS group names appear in neither the 3.5.0 changelog nor the supported-groups manual page, which list only the three hybrid groups. A secondary blog lists them, below the source bar.",
+          "passes": 2,
+          "checked": "2026-09-12",
+          "sources": [
+            "OpenSSL CHANGES.md, 3.5.0 section",
+            "doc/man3/SSL_CTX_set1_curves.pod (3.5 branch)",
+            "OpenSSL 3.5 release notes"
+          ]
         },
         {
           "algorithm": "composite-ml-dsa",
           "capability": "x509",
-          "why": "bootstrap 2026-09-12, two passes: no composite ML-DSA in CHANGES.md 3.5.0, the 3.6 notes, or the openssl repo search"
+          "why": "Searched twice on 2026-09-12 and found nothing: no composite ML-DSA in the 3.5.0 changelog, the 3.6 notes, or a repository search.",
+          "passes": 2,
+          "checked": "2026-09-12",
+          "sources": [
+            "OpenSSL CHANGES.md, 3.5.0 section",
+            "OpenSSL 3.6 release notes",
+            "openssl/openssl repository search"
+          ]
         },
         {
           "algorithm": "xmss",
           "capability": "primitive",
-          "why": "bootstrap 2026-09-12, two passes: XMSS absent from CHANGES.md 3.5.0 and the 3.6 notes (3.6 added LMS verification only); openssl issue 21360 is the open request"
+          "why": "Searched twice on 2026-09-12 and found nothing: XMSS is absent from the 3.5.0 changelog and from the 3.6 notes, which added LMS verification only. Issue 21360 is the open request.",
+          "passes": 2,
+          "checked": "2026-09-12",
+          "sources": [
+            "OpenSSL CHANGES.md, 3.5.0 section",
+            "OpenSSL 3.6 release notes",
+            "openssl/openssl issue 21360"
+          ]
         }
       ],
       "roll_up": {
@@ -2968,7 +3256,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": "available"
-      }
+      },
+      "knowledge": {
+        "cited": 13,
+        "confirmed_absent": 3,
+        "open": 0
+      },
+      "gap_states": {
+        "unexamined": 0,
+        "searched": 0,
+        "confirmed-absent": 3
+      },
+      "category": "libraries"
     },
     {
       "id": "pyca-cryptography",
@@ -3049,7 +3348,10 @@
         {
           "algorithm": "slh-dsa",
           "capability": "primitive",
-          "why": "no claim"
+          "why": "no claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -3058,7 +3360,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 2,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "rustls",
@@ -3152,7 +3465,10 @@
         {
           "algorithm": "x25519mlkem768",
           "capability": "tls",
-          "why": "the claims say hybrid ML-KEM without naming the group or its default standing"
+          "why": "the claims say hybrid ML-KEM without naming the group or its default standing",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -3161,7 +3477,18 @@
         "signature": null,
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 2,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "s2n-tls",
@@ -3252,7 +3579,10 @@
         {
           "algorithm": "x25519mlkem768",
           "capability": "tls",
-          "why": "the claims say hybrid ECDH+ML-KEM without naming the group"
+          "why": "the claims say hybrid ECDH+ML-KEM without naming the group",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -3261,7 +3591,18 @@
         "signature": null,
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 2,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "swift-nio-ssl",
@@ -3327,7 +3668,18 @@
         "signature": null,
         "composite": null,
         "stateful-hbs": null
-      }
+      },
+      "knowledge": {
+        "cited": 1,
+        "confirmed_absent": 0,
+        "open": 0
+      },
+      "gap_states": {
+        "unexamined": 0,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     },
     {
       "id": "wolfssl",
@@ -3674,7 +4026,10 @@
         {
           "algorithm": "x25519mlkem768",
           "capability": "tls",
-          "why": "group names appear only as a pattern in the curl claim"
+          "why": "group names appear only as a pattern in the curl claim",
+          "passes": 0,
+          "checked": null,
+          "sources": []
         }
       ],
       "roll_up": {
@@ -3683,7 +4038,18 @@
         "signature": "available",
         "composite": null,
         "stateful-hbs": "available"
-      }
+      },
+      "knowledge": {
+        "cited": 13,
+        "confirmed_absent": 0,
+        "open": 1
+      },
+      "gap_states": {
+        "unexamined": 1,
+        "searched": 0,
+        "confirmed-absent": 0
+      },
+      "category": "libraries"
     }
   ]
 }

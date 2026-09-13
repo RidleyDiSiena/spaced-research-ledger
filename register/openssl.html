@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>OpenSSL</h1>
     <p class="standfirst">Maintained by OpenSSL Corporation and Foundation (openssl-library.org). LTS every two years, feature releases between. 3.5 is the current LTS. Home: https://openssl-library.org/</p>
-    <p class="updated">13 of 66 cells cited</p>
+    <p class="updated">13 cited cells &middot; 3 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -62,7 +62,7 @@ Unknowns</a></li>
 <tr>
 <td><strong>ML-KEM</strong></td>
 <td>available since 3.5.0 [1]</td>
-<td>unknown</td>
+<td>none found 2026-09-12</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -135,7 +135,7 @@ Unknowns</a></li>
 <td><strong>Composite ML-DSA</strong></td>
 <td>unknown</td>
 <td>unknown</td>
-<td>unknown</td>
+<td>none found 2026-09-12</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -151,7 +151,7 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
-<td>unknown</td>
+<td>none found 2026-09-12</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -204,18 +204,29 @@ window, final year security fixes only.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
-yet.</p>
+yet. <strong>not checked</strong> means nobody has searched.
+<strong>searching</strong> means fewer than 2 passes are done.
+<strong>none found</strong> means the search was completed and came back
+empty, and the artifacts examined are named; a result older than 90 days
+is marked for recheck.</p>
 <ul>
-<li>ml-kem / tls: bootstrap 2026-09-12, two passes: pure
-MLKEM512/768/1024 TLS group names are not in CHANGES.md 3.5.0 nor
-SSL_CTX_set1_curves.pod (only the three hybrids are); a secondary blog
-lists them, below the source bar</li>
-<li>composite-ml-dsa / x509: bootstrap 2026-09-12, two passes: no
-composite ML-DSA in CHANGES.md 3.5.0, the 3.6 notes, or the openssl repo
-search</li>
-<li>xmss / primitive: bootstrap 2026-09-12, two passes: XMSS absent from
-CHANGES.md 3.5.0 and the 3.6 notes (3.6 added LMS verification only);
-openssl issue 21360 is the open request</li>
+<li>ml-kem / tls – <strong>none found 2026-09-12</strong>: Searched
+twice on 2026-09-12 and found nothing: the pure MLKEM512/768/1024 TLS
+group names appear in neither the 3.5.0 changelog nor the
+supported-groups manual page, which list only the three hybrid groups. A
+secondary blog lists them, below the source bar. Examined: OpenSSL
+CHANGES.md, 3.5.0 section, doc/man3/SSL_CTX_set1_curves.pod (3.5
+branch), OpenSSL 3.5 release notes.</li>
+<li>composite-ml-dsa / x509 – <strong>none found 2026-09-12</strong>:
+Searched twice on 2026-09-12 and found nothing: no composite ML-DSA in
+the 3.5.0 changelog, the 3.6 notes, or a repository search. Examined:
+OpenSSL CHANGES.md, 3.5.0 section, OpenSSL 3.6 release notes,
+openssl/openssl repository search.</li>
+<li>xmss / primitive – <strong>none found 2026-09-12</strong>: Searched
+twice on 2026-09-12 and found nothing: XMSS is absent from the 3.5.0
+changelog and from the 3.6 notes, which added LMS verification only.
+Issue 21360 is the open request. Examined: OpenSSL CHANGES.md, 3.5.0
+section, OpenSSL 3.6 release notes, openssl/openssl issue 21360.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
