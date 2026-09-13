@@ -156,6 +156,9 @@ h1 {
 }
 
 .updated { margin: 1rem 0 0; color: var(--ink-mute); font-size: 0.8125rem; }
+/* The What's New page: under each topic section, the way to that topic's
+   full report. Set like a dateline so it reads as wayfinding, not prose. */
+.full-report { margin: -0.5rem 0 1.25rem; color: var(--ink-mute); font-size: 0.8125rem; }
 
 .actions { margin: 1.5rem 0 0; }
 /* The hub's guide PDF sits after the prose it belongs to, not before it. */

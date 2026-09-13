@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What's New in Quantum | Spaced Research Ledger</title>
+  <meta name="description" content="The latest incremental update across all the quantum topics above, dated 12 September 2026. It is a published cross-topic change report, every statement cited…">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span>What&#x27;s New in Quantum</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">What&#x27;s New &middot; 2026-09-12</p>
+    <h1>What&#x27;s New in Quantum</h1>
+    <p class="standfirst">The latest incremental update across all the quantum topics above, dated 12 September 2026. It is a published cross-topic change report, every statement cited, covering what moved in each topic since its last full edition. The same update is the podcast episode of the same date. <a href="https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.mp3">Listen to the episode</a> &middot; <a href="https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.vtt">Transcript</a></p>
+    <p class="updated">Last updated: 2026-09-12</p>
+    <p class="actions"><a class="pdf" href="quantum-crypto-diff-2026-09-12.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#what-matters-most" id="toc-what-matters-most">1. What
+Matters Most</a></li>
+<li><a
+href="#post-quantum-migration-certificates-identity-and-standards"
+id="toc-post-quantum-migration-certificates-identity-and-standards">2.
+Post-Quantum Migration: Certificates, Identity and Standards</a></li>
+<li><a href="#post-quantum-migration-libraries-platforms-and-silicon"
+id="toc-post-quantum-migration-libraries-platforms-and-silicon">3.
+Post-Quantum Migration: Libraries, Platforms and Silicon</a></li>
+<li><a href="#post-quantum-migration-networks-cloud-and-appliances"
+id="toc-post-quantum-migration-networks-cloud-and-appliances">4.
+Post-Quantum Migration: Networks, Cloud and Appliances</a></li>
+<li><a href="#post-quantum-migration-sectors-tooling-and-governments"
+id="toc-post-quantum-migration-sectors-tooling-and-governments">5.
+Post-Quantum Migration: Sectors, Tooling and Governments</a></li>
+<li><a href="#quantum-computing-money-machines-and-theory"
+id="toc-quantum-computing-money-machines-and-theory">6. Quantum
+Computing: Money, Machines and Theory</a></li>
+<li><a href="#post-quantum-mathematics-standards-and-curves"
+id="toc-post-quantum-mathematics-standards-and-curves">7. Post-Quantum
+Mathematics: Standards and Curves</a></li>
+<li><a href="#cabrowser-forum-root-programs-ballots-and-audits"
+id="toc-cabrowser-forum-root-programs-ballots-and-audits">8. CA/Browser
+Forum: Root Programs, Ballots and Audits</a></li>
+<li><a href="#digital-assets-ethereum-bitcoin-and-the-other-chains"
+id="toc-digital-assets-ethereum-bitcoin-and-the-other-chains">9. Digital
+Assets: Ethereum, Bitcoin and the Other Chains</a></li>
+<li><a href="#now-in-the-record" id="toc-now-in-the-record">10. Now in
+the Record</a></li>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>This report covers what changed across the five quantum topics
+between each topic’s last full edition and 12 September 2026. It is a
+supplement, not a replacement. The full collections remain the record,
+and this document reads against them. Each topic has its own window,
+opening the day after its own edition, so nothing a full edition already
+published is repeated here as new.</p>
+<p>The five topics are post-quantum cryptography migration, quantum
+computing, post-quantum mathematics, the CA/Browser Forum, and digital
+asset cryptography. The report opens with the handful of developments
+that matter most. It then walks the post-quantum migration in four
+parts: certificates and standards, libraries and silicon, networks and
+cloud, then sectors and governments. Quantum computing, the mathematics,
+the CA/Browser Forum and digital assets follow in turn.</p>
+<p>Readers of the 3 September migration update will recognise some items
+in the migration parts. Those are mentioned briefly so the record stays
+complete. They are not treated as new twice.</p>
+<h2 id="what-matters-most">1. What Matters Most</h2>
+<p><em>Two weeks of updates contain a few developments that change the
+picture and many that only refresh it, and this section names the ones
+that change it.</em></p>
+<p>The shape of these two weeks is easy to state. Money that had been
+promised became money that was signed. One signature candidate fell out
+of the standards race, and one processor line got a great deal faster.
+The cloud made post-quantum key exchange the default for a large slice
+of the web, and governments on three continents said the same thing in
+the same week. Each of those is a turn in its own story, and the rest of
+this section takes them one at a time.</p>
+<p>Start with the money, where the last editions recorded the CHIPS and
+Science Act awards to quantum companies as amounts each firm could
+receive. They are now signed. PsiQuantum finalized an award of $100
+million for optical switches, single-photon detectors and packaging [1].
+Rigetti and D-Wave signed definitive agreements, and Quantinuum
+finalized its award, each worth up to $100 million [2] [3] [4]. Four
+companies, one programme, and the word “could” has left the record.</p>
+<p>From funding to the algorithms themselves. HAWK, a lattice-based
+signature candidate, had advanced to the third round of NIST’s
+additional signatures process in May [5]. It was withdrawn on 29 July
+after a mathematical vulnerability was found [5]. A round-three
+withdrawal on cryptanalytic grounds is the process working as intended,
+and it narrows the field that will produce the next standards.</p>
+<p>From the mathematics to the machines. IBM’s Nighthawk r2 processor
+adds fast qubit reset and runs more than 100,000 circuits per second
+[6]. That is 25 times the Heron throughput at Heron-class gate fidelity
+[6]. It also estimates observables accurately on circuits of more than
+7,500 two-qubit gates, up from 5,000 [6]. Throughput is the quantity
+that decides how much useful work a machine does in a day, and this is a
+large step in it.</p>
+<p>From the machines to the migration that guards against them. AWS Key
+Management Service now creates and protects ML-DSA keys inside FIPS
+140-3 Level 3 validated hardware [7]. The last edition recorded only a
+CloudHSM preview, so a post-quantum signing key in a managed cloud
+service has gone from trial to product. At the network edge,
+Cloudflare’s Automatic Key Exchange probes origins and prefers the
+hybrid post-quantum group [8]. That raised post-quantum origin
+connections to about 45 billion a day and cut handshake retries from
+about 52 percent to 3.7 percent [8].</p>
+<p>Finally, from the engineers to the governments. The G7’s
+cybersecurity working group called for immediate migration [9]. The US
+Treasury created a Quantum-Readiness Task Force for the financial sector
+[10]. India’s securities regulator said it is preparing its markets
+[11]. Three bodies with no shared secretariat reached the same
+conclusion inside a week, which is the clearest signal in this report
+that the deadline conversation has moved from technical circles to
+policy ones.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="post-quantum-migration-certificates-identity-and-standards">2.
+Post-Quantum Migration: Certificates, Identity and Standards</h2>
+<p class="full-report"><a href="../post-quantum-cryptography/index.html">Full report: Post-Quantum Cryptography Migration</a></p>
+<p><em>Certificates bind a public key to a name, and everything from web
+browsing to code signing depends on them.</em></p>
+<p>The certificate debate reported on 3 September has not moved.
+DigiCert’s recommendation of pure ML-DSA certificates over composite
+ones stands [12]. So does BeatQuantum’s timestamp authority signing with
+pure ML-DSA-87 or SLH-DSA [13]. Microsoft’s phased plan for its
+certificate services is unchanged [14]. DocuSign’s ML-DSA rollout still
+waits on external PDF verifiers before it names a date [15].</p>
+<p>The standards drafts kept moving. The composite key encapsulation
+draft reached version 21 and sits in IESG evaluation with two DISCUSS
+positions to resolve [16] [17]. The composite ML-DSA draft for TLS
+authentication reached version 12 [18]. The composite signatures draft
+for X.509 reached version 19 [19]. HashiCorp Vault Enterprise 2.1.0
+added SLH-DSA to hybrid sign and verify operations in its transit engine
+[20].</p>
+<p>The hardware that holds keys moved too. AWS KMS now supports ML-DSA
+keys in all three parameter sets inside FIPS 140-3 Level 3 HSMs,
+replacing the CloudHSM preview recorded earlier [7]. Utimaco launched
+the CSe-Series general purpose HSM with active tamper protection and up
+to 31 tenant containers, with Level 4 validation in progress [21].
+Crypto4A’s QASM module completed Level 3 validation [22], and Apricorn’s
+Aegis Secure Key 3.0 did the same [23]. Red Hat’s NSS module for RHEL 8
+was validated [24].</p>
+<p>Smaller tools filled in around the edges. A Rust file-encryption
+library can re-wrap a file’s session key under a new ML-KEM recipient
+without touching the payload [25]. An npm package keeps ML-DSA and
+ML-KEM keys non-extractable on PKCS#11 tokens [26]. A .NET package
+replaces RSA wrapping of ASP.NET data-protection master keys with
+ML-KEM, aimed at archived data [27].</p>
+<p>Quantum key distribution stayed adjacent rather than central. IonQ
+and Congruity360 signed a deal worth $8.18 million to deploy QKD pairs
+alongside post-quantum cryptography [28]. India’s C-DAC is building a
+QKD sandbox for bank-to-bank transactions [29], and C-DOT unveiled
+fourteen quantum products including several QKD systems [30]. A preprint
+demonstrated a three-pair twin-field QKD network over 127 km of fibre at
+a secure key rate of 1.398 × 10⁻⁵ bits per pulse [31]. Quip Network
+plans a digital collectible collection generated from verifiable quantum
+randomness [32].</p>
+<p>Identity documents and government credentials have their own thread.
+NIST published draft materials for adding post-quantum algorithms to
+federal PIV credentials [33], and GSA is hosting a federal post-quantum
+summit on 16 September [34]. Giesecke+Devrient is adding prototype
+post-quantum protocols to its Java Card operating system for European
+identity cards [35]. GSA’s physical access laboratory is expanding to
+test quantum-resistant building access and employee cards [36].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="post-quantum-migration-libraries-platforms-and-silicon">3.
+Post-Quantum Migration: Libraries, Platforms and Silicon</h2>
+<p class="full-report"><a href="../post-quantum-cryptography/index.html">Full report: Post-Quantum Cryptography Migration</a></p>
+<p><em>Most systems will get post-quantum cryptography from the library
+or platform they already use, so this is where the migration quietly
+happens.</em></p>
+<p>The libraries hardened and sped up. Bouncy Castle Java 1.86 closes
+timing and side-channel leaks across post-quantum algorithms including
+MAYO, SNOVA and HQC [37]. JDK 27 speeds up Curve25519 field arithmetic,
+which improves hybrid key exchange throughput by 27 to 51 percent in
+software [38]. The aws-lc-rs crate made its ML-DSA API stable, including
+under FIPS [39]. Rustls now enables ML-DSA certificates by default with
+that provider [40].</p>
+<p>wolfSSL added end-to-end SLH-DSA across its stack, including TLS 1.3
+and DTLS 1.3 authentication [41]. It also paired with SEALSQ so that
+wolfTPM can drive the QVault post-quantum TPM in hardware [42]. SEALSQ
+positions that device as the first shipping TPM 2.0 part with
+post-quantum algorithms in silicon, which is the vendor’s own claim
+[43]. The Trusted Computing Group is updating its certification
+programme to cover post-quantum-ready TPMs [44].</p>
+<p>The plumbing beneath the libraries was mostly reported on 3
+September. wolfPKCS11 2.1 [45] and the OpenSC libp11 provider work [46]
+were covered then, and no PKCS#11 3.3 revision has appeared [47]. New
+since then is libp11 0.4.21, which adds provider support for key
+generation from the OpenSSL command line [46].</p>
+<p>On endpoints, Conscrypt 2.7.0 makes the hybrid group the default for
+TLS key agreement on Android and adds composite ML-DSA and Hash-SLH-DSA
+signatures [48]. That replaces an April finding that an Android 17 beta
+lacked post-quantum key exchange entirely [48]. ChromeOS 152 begins
+moving component and extension delivery signatures from ECDSA to
+post-quantum algorithms [49]. An out-of-tree Zephyr module brings ML-KEM
+and ML-DSA to microcontrollers, with benchmarks showing some operations
+faster than classical baselines [50].</p>
+<p>Red Hat’s system-wide policies now prefer the hybrid key exchange for
+libssh applications from RHEL 10.2 [51]. Its documentation warns that
+the FUTURE policy may one day allow only post-quantum signatures [51].
+PostgreSQL 18 exposes TLS group configuration including the hybrid group
+[52], and Go 1.27.1 ships ML-DSA in the standard library [53]. Both were
+noted on 3 September.</p>
+<p>Firmware roots of trust moved in specification. Caliptra 2.1 adds
+ML-KEM and an external-mu ML-DSA mode to its Adams Bridge accelerator
+[54]. The OpenTitan Earl Grey 2 datasheet describes hardened ML-DSA and
+ML-KEM with masking and fault-injection countermeasures [55]. A
+September paper, TPMSpy, proposes a platform-agnostic way to trace
+measured-boot TPM usage on Linux and Windows [56]. SWUpdate now enforces
+hybrid classical-plus-ML-DSA signing for over-the-air updates, with a
+build option that blocks downgrades [57].</p>
+<p>In silicon, the RISC-V post-quantum extension entered internal review
+on 11 September, running to 25 September [58]. SEALSQ and the City of
+Seoul signed a memorandum for a chip security research centre with
+RISC-V integration in scope [59]. STMicroelectronics’ ST54M secure
+mobile chip completed its EUCC and EMVCo certification testing [60].
+IDEMIA topped a Juniper Research post-quantum leaderboard [61].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>One disagreement sits in this section. The mlkem-native library now
+ships a native RISC-V vector backend [62]. The ledger’s earlier finding
+was that all RISC-V lattice acceleration remained academic proposals
+rather than adopted extensions. A software backend on standard vector
+instructions is not an instruction set extension, so both may be true.
+The specification review above is what would settle it [58].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="post-quantum-migration-networks-cloud-and-appliances">4.
+Post-Quantum Migration: Networks, Cloud and Appliances</h2>
+<p class="full-report"><a href="../post-quantum-cryptography/index.html">Full report: Post-Quantum Cryptography Migration</a></p>
+<p><em>Network gear is where post-quantum key exchange first went
+mainstream, because one appliance can protect every connection behind
+it.</em></p>
+<p>Cloudflare had the busiest two weeks. Its Automatic Key Exchange,
+announced 8 September, probes TLS 1.3 origins and prefers the hybrid
+group on the first ClientHello when the origin supports it [8].
+Preferences have been assigned to more than a million domains [8].
+Retries fell from about 52 percent to 3.7 percent, and post-quantum
+origin connections rose to about 45 billion a day [8].</p>
+<p>The same measurement found a failure rate. About 0.34 percent of
+origins fail the handshake when the larger keyshare leads, mostly
+because middleboxes drop multi-packet ClientHellos [8]. Cloudflare’s
+advice is to audit every device that terminates or inspects TLS on the
+path to origin [8]. Its resolver at 1.1.1.1 now validates DNSSEC
+signatures made with ML-DSA-44, at 2,420 bytes each, with full
+post-quantum DNSSEC planned by 2029 [63]. Cloudflare Radar’s public test
+checks a site for hybrid key exchange support and, since 8 September,
+for implementation bugs as well [64] [8].</p>
+<p>The IETF finished a piece of SSH. RFC 10042, published 31 August,
+defines the hybrid ML-KEM key exchange methods for SSH [65]. The
+Internet Architecture Board’s October workshop on post-quantum
+authentication was noted on 3 September [66]. The amortized MLS combiner
+draft was refreshed [67].</p>
+<p>The appliance news reported on 3 September is unchanged. Cisco’s IOS
+XE 26.2 signatures for IKEv2 complete the quantum-safe site-to-site
+tunnel [68], and Junos widened its SSH protection [69]. F5 validated
+twelve certificate lifecycle integrations [70], and A10 announced a
+post-quantum-ready mid-range platform [71]. Arista’s EOS 4.36.2F now
+lists both pure and hybrid ML-KEM groups for control-plane TLS,
+answering an earlier open question [72]. FortiManager 8.0.0 gains
+post-quantum key exchange on its management interface through OpenSSL
+3.5.5 [73].</p>
+<p>RAD’s 400 gigabit demarcation device combines ML-KEM hybrid keying
+with MACsec at line rate, and RAD has partnered with Arqit for key
+generation [74]. Satellite links joined in. Cyprus and Greece
+established a quantum-secure satellite connection over Sparkle’s
+interconnect and Hellas Sat [75]. Arqit demonstrated quantum-safe
+encryption over Es’hailSat’s live network [76].</p>
+<p>In the cloud, Azure Key Vault Premium and Managed HSM firmware moved
+to FIPS 140-3 Level 3, correcting an earlier record of 140-2 [77]. Azure
+Front Door still documents no post-quantum TLS options, which resolves a
+contradiction on Microsoft’s own page in favour of none [78]. NetApp
+ONTAP 9.17.1 supports post-quantum pre-shared keys for IPsec [79].
+Version 9.18.1 negotiates ML-KEM, ML-DSA and SLH-DSA for SSL in both
+directions when FIPS mode is off [80]. testssl.sh now marks a missing
+post-quantum KEM as a low-severity finding, a nudge rather than a fault
+[81].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>Three disagreements sit in this section. On handshake size, one
+source says modern stacks negotiate the hybrid group cleanly and the
+fragmentation problems were early browser rollout issues, now largely
+fixed [82]. The ledger’s Go 1.27 finding says larger ClientHellos still
+stall middleboxes. Cloudflare’s 0.34 percent failure rate suggests both
+are right about different populations [8].</p>
+<p>Netskope’s earnings call describes post-quantum algorithms integrated
+across more than 120 data centres in the second quarter [83]. Its
+product note describes commercial support behind a tenant-level feature
+switch [84]. Earlier documentation called the same capability a beta.
+Release documentation would settle it.</p>
+<p>Envoy’s BoringSSL backend supports the hybrid group as an opt-in
+[85]. The ledger’s earlier record said Envoy did not support
+post-quantum cryptography and had closed its tracking issue. A closed
+issue and an opt-in capability can coexist, and a release note would
+settle which is current. The Citrix NetScaler question from 3 September,
+whether default profiles bind the hybrid curve automatically, remains
+open [86].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="post-quantum-migration-sectors-tooling-and-governments">5.
+Post-Quantum Migration: Sectors, Tooling and Governments</h2>
+<p class="full-report"><a href="../post-quantum-cryptography/index.html">Full report: Post-Quantum Cryptography Migration</a></p>
+<p><em>Every sector has its own deadlines and its own devices that
+cannot be patched, and governments are the ones setting the
+deadlines.</em></p>
+<p>Start with discovery, because every migration starts there. Four
+CycloneDX releases landed in two weeks. The 2.0 specification milestone
+incorporated dedicated cryptographic bill of materials features [87],
+and cyclonedx-go 0.12.0 added the 1.7 cryptographic fields [88]. The
+editor-validator reached 0.35.0 [89], and a Rust command-line tool now
+emits a CBOM from a Cargo lockfile [90]. IBM’s Quantum Safe Explorer
+discovers post-quantum algorithms across C#, Java, Python, Go and
+JavaScript [91] and adds FIPS 140-3 compliance views [92].</p>
+<p>Keyfactor passed $200 million in annual recurring revenue [93]. It
+also gained ISO 42001 certification for its AI management system
+[94].</p>
+<p>The measurement tools moved as well. SUPERCOP released its 2026.08.31
+build and refreshed its result pages [95] [96]. A systematization paper
+describes TIMECOP as the dynamic tool for catching constant-time
+violations, including compiler-induced leaks [97]. A mentorship report
+on liboqs found a timing leak in NTRU Prime through a nonzero mask
+function [98].</p>
+<p>Sectors next. HHS is preparing migration guidance for hospitals [99].
+A healthcare review recommends staged hybrid migration for connected
+devices, aligned with FDA premarket expectations [100].</p>
+<p>In power systems, the IT-heavy portion can migrate by around 2030
+while field protocols face a further three to four year delay [101]. A
+vehicle-to-everything study found Falcon-512 the only NIST signature
+that fits the sidelink transport block, and only at low traffic [102].
+The QORE project completed post-quantum integration for two open 5G
+cores [103].</p>
+<p>Governments spoke. The G7’s cybersecurity working group urged
+immediate migration [9]. The US Treasury set up a Quantum-Readiness Task
+Force for the financial sector [10], and SEBI’s chairman said India’s
+securities markets are preparing [11].</p>
+<p>The EU published the results of its consultation on the coordinated
+roadmap [104], while its Quantum Act slipped to a tentative fourth
+quarter [105]. ETSI’s quantum-safe programme lists new drafts on
+signatures and PKI and on SLH-DSA implementation [106] [107]. The UK’s
+NCSC pilot runs to March 2027, as reported on 3 September [108].</p>
+<h3 id="unresolved-conflicts-2">Unresolved Conflicts</h3>
+<p>One disagreement sits here. Veridify markets a device-level product
+supporting post-quantum algorithms for BACnet, Modbus, DNP3 and OPC UA
+[109]. The ledger’s earlier finding was that no vendor-shipped OPC UA
+integration existed. A vendor page from October 2025 against a later
+absence finding is a dating question. A product datasheet naming the
+protocol version would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="quantum-computing-money-machines-and-theory">6. Quantum
+Computing: Money, Machines and Theory</h2>
+<p class="full-report"><a href="../quantum-computing/index.html">Full report: Quantum Computing</a></p>
+<p><em>Quantum computing news splits into the machines, the money behind
+them, and the theory that says what they can and cannot do.</em></p>
+<p>The money came first. Four companies turned CHIPS Act possibilities
+into signed awards. PsiQuantum’s is for photonic components [1],
+Rigetti’s for superconducting scaling [2], Quantinuum’s for trapped-ion
+manufacturing with GlobalFoundries [3], and D-Wave’s for annealing and
+gate-model research [4]. PsiQuantum also partnered with Brookhaven
+National Laboratory on fault-tolerant algorithms [110].</p>
+<p>Roadmaps followed. Xanadu targets more than 1,000 logical qubits by
+2031, with a qubit factory in 2026 to 2027 and a data centre by 2030
+[111]. IonQ’s Superion plan has a 256-qubit system delivering in 2027
+[112]. Its 10,000-qubit system is to demonstrate fault tolerance in 2027
+and sell in 2028 [112].</p>
+<p>The public markets are the other funding channel. IonQ raised its
+2026 revenue guidance to $450 million to $460 million, counting five
+months of its SkyWater acquisition [113]. At the other end of the
+market, two pure-play stocks trade under five dollars [114]. For
+context, two listings are in the pipeline that had not been in the
+ledger before. SeeQC filed for a traditional IPO in June [115], and
+Shanghai’s TuringQ entered listing tutoring in August, seeking China’s
+first quantum listing [116].</p>
+<p>The machines advanced. IBM’s Nighthawk r2 adds independent
+dissipative reset on 120 qubits and runs more than 100,000 circuits a
+second [6]. It also estimates observables on circuits of more than 7,500
+two-qubit gates [6]. IBM separately joined two large cryogenic modules
+that reached 4 kelvin within five days and cooled below 15 millikelvin
+[117]. That is a step toward systems larger than one dilution
+refrigerator [117].</p>
+<p>In Jülich, eleQtron’s JION trapped-ion machine went live for hybrid
+use [118], and Maryland researchers proposed trapped-ion gates that need
+less real-time classical control [119].</p>
+<p>Error correction produced three results. Argument reweighting is a
+postselection strategy for quantum LDPC codes, published in Physical
+Review Letters [120]. It cuts the logical error rate of the 144-qubit
+bivariate bicycle code by nearly two orders of magnitude at a rejection
+rate of only 1.44 × 10⁻⁵ [120]. A three-dimensional embedding of the
+same code on neutral atoms packs logical qubits about four times denser
+and extracts syndromes about twice as fast [121]. A compiler pass for
+atom loss cut logical error rates by up to 5.3 times in most tested
+settings [122].</p>
+<p>Theory was busy. One preprint unifies block encoding, qubitization
+and singular value transformation into a single framework [123]. Another
+cuts the active volume of Fermi-Hubbard energy estimation by up to 3.9
+times [124]. Others prove limits: on one-round quantum local algorithms
+[125], on query algorithms via Fourier growth [126], and on the
+semidefinite extension complexity of separable states [127].</p>
+<p>A characterisation of one-way puzzles through quantum Kolmogorov
+complexity [128] and a dequantization result for weighted matrix
+functions [129] round out the theory. A benchmarking study found that
+decoder rankings match hardware only when noise models carry
+per-operation error rates [130]. One applied result adds sixteen
+features from an eight-qubit circuit to a credit model and lifts its F1
+score from 0.462 to 0.517 [131].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="post-quantum-mathematics-standards-and-curves">7. Post-Quantum
+Mathematics: Standards and Curves</h2>
+<p class="full-report"><a href="../post-quantum-mathematics/index.html">Full report: Post-Quantum Mathematics</a></p>
+<p><em>The mathematics topic follows the algorithms themselves, the
+standards tracks that ratify them, and the attacks that test
+them.</em></p>
+<p>HAWK is out. Nine candidates had advanced to the third round of
+NIST’s additional signatures process in May, and HAWK was among them
+[5]. It was withdrawn on 29 July after a mathematical vulnerability was
+discovered [5]. Round three continues with the remaining candidates.</p>
+<p>ETSI’s implementation guidance is filling in. Its TR 104 239 series
+now has draft parts for ML-KEM, ML-DSA and SLH-DSA at stages from early
+draft to publication [107]. On the curve side, a 10 September preprint
+improves supersingularity testing for twisted Hessian curves [132]. It
+shows that for primes congruent to 2 modulo 3, every ordinary such curve
+lies on the surface of the 3-isogeny volcano [132].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="cabrowser-forum-root-programs-ballots-and-audits">8. CA/Browser
+Forum: Root Programs, Ballots and Audits</h2>
+<p class="full-report"><a href="../cabforum/index.html">Full report: CA/Browser Forum Tracker</a></p>
+<p><em>The Forum and the browser root programs decide what a publicly
+trusted certificate must look like, and their changes arrive as policy
+versions and ballots.</em></p>
+<p>The root programs tightened. Apple’s Root Program Policy 2.0 took
+effect on 1 August [133]. It requires new subordinate CAs to carry an
+extended key usage and to get Apple’s approval when externally operated
+[133].</p>
+<p>Chrome’s policy 1.8 phases out client authentication: new subordinate
+CAs must be server-authentication only from 15 June 2026 and new
+end-entity certificates from 15 March 2027 [134]. It also requires a
+CA’s policy documents to state adherence to the latest published version
+[135]. Microsoft now requires roots submitted from 1 July 2026 to be
+dedicated to a single trust purpose [136].</p>
+<p>The TLS Baseline Requirements advanced to 2.3.0 through ballot SC100
+on DNSSEC clarification, effective 7 September [137]. Redlined and clean
+versions live in the Forum’s repository [138]. Apple’s Certificate
+Transparency policy now accepts logs built on the static-ct-api
+specification as well as the older RFC [139]. On code signing,
+Microsoft’s Azure Artifact Signing is its recommended non-Store service
+[140]. Extended validation certificates no longer skip SmartScreen
+reputation, and Store packages are re-signed automatically [140].</p>
+<h3 id="unresolved-conflicts-3">Unresolved Conflicts</h3>
+<p>Four disagreements sit in this section. Microsoft’s root requirements
+reached version 1.2 on 20 May with stricter key usage controls and
+mandatory incident reporting [136]. The ledger’s earlier record has
+version 1.1 effective 1 July. A version 1.2 predating 1.1’s effective
+date is possible only if the dates refer to different things, and the
+document history would settle it.</p>
+<p>Ballot NS-010, restructuring the network security requirements, is in
+its voting period [141]. The earlier record described an August ballot
+on CA infrastructure inventory and asked for its outcome. Whether these
+are one ballot or two is unresolved. Mozilla’s policy now requires
+annual mass revocation tests of 30 random certificates within five days,
+attested from April 2026 [142]. The earlier record placed third-party
+assessment from June 2025.</p>
+<p>The WebTrust applicability matrix names TLS Baseline versions that do
+not match the published 2.2.9 [143]. A refreshed matrix would settle
+it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="digital-assets-ethereum-bitcoin-and-the-other-chains">9. Digital
+Assets: Ethereum, Bitcoin and the Other Chains</h2>
+<p class="full-report"><a href="../digital-assets/index.html">Full report: Digital Asset Cryptography</a></p>
+<p><em>Cryptocurrencies depend on elliptic-curve signatures that a large
+quantum computer would break, so every chain needs a plan and a
+date.</em></p>
+<p>Ethereum set its course. The protocol cluster’s north star is
+December 2029 for full quantum resistance across execution, consensus
+and data layers [144]. Frame transactions, EIP-8141, were named a
+must-ship proposal for the Hegotá upgrade alongside FOCIL after 62
+proposals were reviewed [145]. Frame transactions give accounts
+programmable validation and a path to post-quantum signatures through
+key rotation, without a flag day [146]. They moved from considered to
+scheduled for inclusion on 27 August, and Hegotá moved to 2027
+[147].</p>
+<p>Research posts explored the state and trie migration implications
+[148] and payload broadcast rules for larger payloads [149]. Proof
+systems matter because Ethereum’s scaling depends on them. Hash-based
+STARKs get soundness and zero knowledge from collision resistance alone,
+so they are plausibly post-quantum [150]. Pairing-based SNARKs lose
+soundness to Shor’s algorithm [150]. The Foundation launched a challenge
+to raise machine-checked soundness bounds for hash-based proving [151],
+and no layer-two-specific migration plan has been identified beyond the
+base-layer roadmap [144].</p>
+<p>Bitcoin had its first quantum-safe transaction. A hash-based
+construction was mined on mainnet on 26 August within existing script
+limits [152], by StarkWare [153]. Project Eleven’s count of exposed
+coins rose to 8,019,025 BTC, up from 7,039,051 in July [154]. A pre-BIP
+proposal would standardise how existing outputs are classified by
+exposure, with a fail-closed rule, to support the migration proposals
+[155].</p>
+<p>Wallets are being measured. Blockstream timed SLH-DSA on today’s
+hardware wallets: key generation in 7 to 16 seconds and signing in about
+one minute [156], or 53 to 120 seconds by another measurement [157].
+Trezor’s Safe 7 ships a secure element and bootloader designed for a
+future post-quantum transition [158]. Fireblocks released an ML-DSA-44
+verifier for the EVM at 1.23 million gas, a 6.6-fold cut [159].</p>
+<p>Other chains went live. Quantus launched a proof-of-work mainnet with
+ML-DSA signatures from genesis [160], and QoreChain’s Cosmos-based
+mainnet requires ML-DSA-87 for native transactions [161]. Winternitz
+one-time signature vaults are live on Solana without a protocol change
+[162]. Cardano is reviewing an optional post-quantum wallet protection
+proposal [163].</p>
+<p>Institutions moved. The Bitcoin Security Consortium launched with $15
+million pledged over three years by BlackRock, Fidelity Digital Assets,
+Coinbase, Galaxy, Anchorage and others [164]. The G7 named digital asset
+handlers in its call to action [9]. The US Treasury’s task force names
+digital assets specifically [10], and SEBI is preparing India’s markets
+[11].</p>
+<p>The threat estimates sharpened. One September paper models a
+trapped-ion machine of about 20,000 physical qubits solving the 256-bit
+discrete logarithm in about 25.7 days at 63 percent success [165]. That
+is a single paper’s estimate. The ECDSA.Fail challenge cut the
+space-time cost of the point-addition circuit by 86 percent, to 1,151
+logical qubits and about 1.3 million Toffoli gates [166] [167].</p>
+<p>Two earlier estimates give those numbers their scale, and both
+entered the ledger only now. Project Eleven’s May report models a
+baseline Q-Day of 2033, with 2030 optimistic and 2042 pessimistic [168].
+A June refinement puts the realistic per-spend attack success nearer 30
+percent than the 41 percent best case [169].</p>
+<h3 id="unresolved-conflicts-4">Unresolved Conflicts</h3>
+<p>Two claims about who was first disagree. Algorand executed a fully
+Falcon-signed mainnet transaction in November 2025 and has recorded more
+than 140,000 quantum-resistant transactions [170]. The ledger’s earlier
+record held that Algorand’s base-layer signing remained Ed25519, with
+Falcon limited to state proofs.</p>
+<p>NEAR activated ML-DSA account signing on mainnet in July [171]. That
+contradicts the record that Algorand was the only major chain with a
+NIST-family signature in production. Both may be true if production
+means different things, and each chain’s own documentation of default
+signing would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="now-in-the-record">10. Now in the Record</h2>
+<p><em>Older material that entered the ledger for the first time in this
+period, kept apart because none of it is news.</em></p>
+<p>In post-quantum migration, the US classified-solutions programme
+updated three capability packages in March to add CNSA 2.0 algorithms
+[172] [173] [174]. Its timeline requires them in all solutions by 2030
+[175]. CNSA 2.0 permits LMS and XMSS for firmware signing, with LMS as
+the default [176]. PCI’s HSM standard version 5.0 adds post-quantum
+definitions and drops TDES [177]. A June Kerberos draft would retire RSA
+transport and SHA-1 [178], and another adds ML-KEM to PKINIT [179].</p>
+<p>The libraries and protocols carry a long tail. OpenSSL 4.0 added an
+SM2 hybrid group in April [180], and 3.6.3 followed in June [181]. Go
+1.27 added a pure ML-KEM-1024 group and ML-DSA constants [182], and
+Docker builds on Go 1.26 get hybrid exchange by default [183]. RFC 10024
+registers the hybrid group as recommended [184], a draft adds ML-KEM-512
+hybrids [185], and Alibaba Cloud enables the hybrid group for QUIC by
+default [186].</p>
+<p>libp11 0.4.19 and 0.4.20 added the post-quantum provider operations
+[46]. The etcd project lags on purpose, adopting Go versions
+conservatively [187]. mldsa-native 2.0.0 shipped as a formally verified
+stable release [188], and PQMicroLib-Core gained CAVP certification
+[189].</p>
+<p>Testing and validation also have history. CBOM-Lens was the first
+producer of CycloneDX 1.7 cryptographic fields [190]. A toolchain
+automates four constant-time analysers over the signature candidates
+[191]. Crucible tests 19 implementations in seven languages against real
+audit findings [192], and NIST enabled the revised ML-KEM and ML-DSA
+tests in August [193]. Keyfactor’s acquisition of Cofide has closed
+[194].</p>
+<p>Platform background is short. wolfSSL 5.9.2 supports Zephyr 4.3
+sockets [195]. Akamai offers post-quantum to origin on standard
+hostnames [196], and Zscaler inspects post-quantum traffic [197]. SAP
+HANA supports hybrid TLS [198], and Intel is developing ML-DSA
+attestation for TDX [199]. NetScaler’s documentation says the hybrid
+curve needs an enhanced profile [200].</p>
+<p>Sector background follows. The FDA does not yet require a
+cryptographic bill of materials [100]. Toppan’s Java Card supports
+ML-KEM and ML-DSA, with commercial availability targeted for fiscal 2027
+[201]. TCG TPM 2.0 version 1.85 defines the ML-KEM and ML-DSA commands
+[202].</p>
+<p>Galileo’s authenticated service started in December 2025, with full
+encryption planned for late 2026 [203]. Oscilloquartz integrated Galileo
+authentication into its timing platforms [204]. wolfSSL has a satellite
+module under test [205], and SKY Perfect JSAT signed a memorandum for a
+satellite proof of concept [206]. An IEEE framework covers brownfield
+SCADA migration [207]. Three papers cover surveillance systems [208],
+cameras [209] and intercoms [210].</p>
+<p>GSMA’s task force will map every affected specification by year end
+[211], and a validator framework tests 5G cores [212]. One paper
+proposes a post-quantum handover for aviation links [213]. A10 spoke at
+a Taiwan summit [214]. NCSC’s July workshop named executive sponsorship
+and supplier engagement as themes [215].</p>
+<p>In finance, SWIFT imposes no signature-size constraint because
+authentication travels out of band [216]. That retires an earlier
+recommendation of Falcon-512 for message limits [216]. The same analysis
+recommends ML-DSA-65 with ML-KEM-768 across payment routes and
+Falcon-512 only where in-band carriage is required [216]. X9 published a
+signed QR code standard [217], and EMVCo issued its second quantum
+position paper [218].</p>
+<p>ETSI’s signature format standards are moving toward quantum-safe
+algorithms [219] [220]. An EU regulation fixes the format versions from
+February 2027 [221].</p>
+<p>In quantum computing, Oxford demonstrated fourth-order squeezing in a
+single trapped ion [222]. Bristol published a fusion-based photonic
+blueprint [223]. Quantum Motion showed a 99.92 percent readout sensor on
+an industrial wafer [224]. Three August papers claim advantages:
+Clifford obfuscation for verifiable circuits [225], a scaling advantage
+on NP-complete problems [226], and a ten-million-fold measurement
+reduction using a single sensing qubit [227].</p>
+<p>In mathematics, HQC remains pre-draft with no FIPS document as of
+August [228]. Korea’s patent office will run KpqC algorithms from
+February 2027 [229], and China’s industry ministry formed a quantum
+standards committee [230]. Symmetric cryptanalysis has related-key
+attacks on Feistel ciphers with complexity reduced by a factor of
+2<sup>129.5</sup> [231]. It also has a tight analysis of the
+Grover-meets-Simon attack [232] and an automated tool for periodic
+distinguishers [233]. NIST described threshold versions of stateful
+hash-based signatures [234], an IETF draft adds smaller LMS parameter
+sets [235], and wolfSSL benchmarked the hash-based families [236].</p>
+<p>In the CA/Browser Forum, the EV Guidelines reached 2.0.4 through
+three ballots [237]. They covered registration numbers [238], domain
+reuse alignment [239] and clean-up [240]. Microsoft’s root requirements
+version 1.2 and its dedicated-root rule are on file [241], with the
+GitHub repository as the source of truth [242]. Let’s Encrypt will cut
+lifetimes to 64 days in 2027 and 45 in 2028 [243]. ACME renewal
+information is RFC 9773 [244] [245].</p>
+<p>HARICA revoked 63,525 certificates in days [246], and CRLite reached
+87.8 percent coverage [247]. Five RFCs updating certificate handling are
+recorded [248] [249] [250] [251] [252], with a DNS account challenge
+draft [253] and a CAA parameter requirement from March 2027 [254]. On
+audits, the record holds WebTrust network security 2.0.5 [255], ETSI EN
+319 401 [256] and 411-1 [257], and the ACAB’c letter templates [258]. It
+also holds Microsoft’s attestation letter rules [259] and the
+three-month audit publication rule [260]. The Forum adopted IPR Policy
+1.4 [261], effective 1 June [262].</p>
+<p>In digital assets, STARKs are the practical post-quantum path for
+credentials [263]. The CAPSS framework turns hash permutations into
+signatures of 9.5 to 15.5 kilobytes [264]. QRL’s second testnet runs
+ML-DSA-87 through the full stack [265], and Nervos CKB has a SPHINCS+
+lock script in production [266]. XRPL works with Project Eleven on
+audits and custody [267], and Cardano’s research programme includes a
+post-quantum initiative [268]. Polkadot’s roadmap proposes ML-DSA and
+Falcon [269], and Circle’s Arc chain plans quantum-secure signatures
+from launch [270] [271].</p>
+<p>A hardware wallet signs every transaction with SLH-DSA [272].
+Presidio published a living readiness paper [273]. An educational
+BIP-360 implementation passes all vectors [274], and Blockstream’s
+SHRINCS candidates give 5.7 kilobyte fallback signatures [275].</p>
+<p>Four papers cover post-quantum HD wallets: a lattice construction
+with full derivation [276] and an ML-DSA one with hardened derivation
+only [277]. The other two are zero-knowledge schemes for recovering
+unmigrated funds [278] [279]. Cyber insurers are discussing migration
+coverage [280].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
+<p>The Spaced Research Ledger (SRL) is an independent, not-for-profit
+research project. It is an automated system that gathers claims from
+live public sources, checks each one against its origin, and records
+every disagreement instead of merging it. Every stage runs on a
+different AI model, drawn from three to seven systems across competing
+labs, so no single model both finds a claim and judges it. The method is
+subject-neutral: the same pipeline can be pointed at any narrow field,
+gather what public sources currently say about it, and keep that picture
+current as the field moves.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>PsiQuantum Finalizes $100 Million Award with the U.S. Department of
+Commerce - <a
+href="https://thequantuminsider.com/2026/09/08/psiquantum-finalizes-100m-us-government-award-quantum-computing-rd/"
+class="uri">https://thequantuminsider.com/2026/09/08/psiquantum-finalizes-100m-us-government-award-quantum-computing-rd/</a>
+- as of 2026-09-08</li>
+<li>Rigetti Signs Definitive Agreement for $100M with U.S. Government to
+Accelerate R&amp;D for Superconducting Quantum Computing - <a
+href="https://www.sec.gov/Archives/edgar/data/1838359/000110465926105662/0001104659-26-105662.txt"
+class="uri">https://www.sec.gov/Archives/edgar/data/1838359/000110465926105662/0001104659-26-105662.txt</a>
+- as of 2026-09-08</li>
+<li>Quantinuum Finalizes $100 Million CHIPS R&amp;D Award with U.S.
+Department of Commerce to Advance Trapped-Ion Quantum Computer
+Manufacturing in the US - <a
+href="https://www.sec.gov/Archives/edgar/data/2110105/000162828026060934/quantinuum-finalizesx100.htm"
+class="uri">https://www.sec.gov/Archives/edgar/data/2110105/000162828026060934/quantinuum-finalizesx100.htm</a>
+- as of 2026-09-08</li>
+<li>D-Wave Quantum Finalizes Definitive Agreement with U.S. Department
+of Commerce for Up to $100 Million to Accelerate U.S. Leadership in
+Quantum Computing - <a
+href="https://www.sec.gov/Archives/edgar/data/0001907982/000162828026061375/d-wavex424b7_chips.htm"
+class="uri">https://www.sec.gov/Archives/edgar/data/0001907982/000162828026061375/d-wavex424b7_chips.htm</a>
+- as of 2026-09-08</li>
+<li>Nine Candidates Advance to the Third Round of the Additional Digital
+Signatures for the PQC Standardization Process | NIST - <a
+href="https://www.nist.gov/news-events/news/2026/05/nine-candidates-advance-third-round-additional-digital-signatures-pqc"
+class="uri">https://www.nist.gov/news-events/news/2026/05/nine-candidates-advance-third-round-additional-digital-signatures-pqc</a>
+- as of 2026-07-29</li>
+<li>IBM Quantum Nighthawk r2—more circuits, faster - <a
+href="https://www.ibm.com/quantum/blog/nighthawk-r2"
+class="uri">https://www.ibm.com/quantum/blog/nighthawk-r2</a> - as of
+2026-08-31</li>
+<li>ML-DSA keys in AWS KMS - AWS Key Management Service - <a
+href="https://docs.aws.amazon.com/kms/latest/developerguide/mldsa.html"
+class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/mldsa.html</a>
+- as of 2026-09-11</li>
+<li>Automatic Key Exchange: faster, post-quantum secure origin
+handshakes for 45 billion daily connections (and counting) - <a
+href="https://blog.cloudflare.com/automatic-key-exchange-for-origins/"
+class="uri">https://blog.cloudflare.com/automatic-key-exchange-for-origins/</a>
+- as of 2026-09-08</li>
+<li>PREPARING FOR THE POST-QUANTUM ERA: A CALL TO ACTION - <a
+href="https://cyber.gouv.fr/documents/811/G7_preparing_for_the_qost_quantum_era_a_call_to_action.pdf"
+class="uri">https://cyber.gouv.fr/documents/811/G7_preparing_for_the_qost_quantum_era_a_call_to_action.pdf</a>
+- as of 2026-09-03</li>
+<li>Post-quantum cryptography becomes mandatory for financial
+institutions - <a
+href="https://cryptobriefing.com/post-quantum-cryptography-mandatory-financial-institutions/"
+class="uri">https://cryptobriefing.com/post-quantum-cryptography-mandatory-financial-institutions/</a>
+- as of 2026-08-31</li>
+<li>SEBI Prepares Markets for Quantum Computing Security Risks: Pandey -
+<a
+href="https://www.newkerala.com/news/a/sebi-preparing-markets-quantum-computing-risks-post-quantum-cryptography-231.htm"
+class="uri">https://www.newkerala.com/news/a/sebi-preparing-markets-quantum-computing-risks-post-quantum-cryptography-231.htm</a>
+- as of 2026-09-10</li>
+<li>Recommendations for Post-Quantum TLS Migration | DigiCert - <a
+href="https://www.digicert.com/articles/pqc/recommendations-for-post-quantum-tls-migration"
+class="uri">https://www.digicert.com/articles/pqc/recommendations-for-post-quantum-tls-migration</a>
+- as of 2026-09-02</li>
+<li>Time-Stamp Authority | BeatQuantum - <a
+href="https://beatquantum.com/tsa"
+class="uri">https://beatquantum.com/tsa</a> - as of 2026-09-01</li>
+<li>Post-Quantum Cryptography in AD CS overview - Windows Server - <a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
+- as of 2026-08-25</li>
+<li>Post Quantum Cryptography: How Docusign Is Securing Digital
+Agreements for the Future - <a
+href="https://www.docusign.com/en-gb/blog/post-quantum-cryptography-how-docusign-is-securing-digital-agreements-for"
+class="uri">https://www.docusign.com/en-gb/blog/post-quantum-cryptography-how-docusign-is-securing-digital-agreements-for</a>
+- as of 2026-02-24</li>
+<li>Composite ML-KEM for use in X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/</a>
+- as of 2026-09-12</li>
+<li>draft-ietf-lamps-pq-composite-kem-21 - Composite ML-KEM for use in
+X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/</a>
+- as of 2026-09-03</li>
+<li>Use of Composite ML-DSA in TLS 1.3 - <a
+href="https://datatracker.ietf.org/doc/draft-reddy-tls-composite-mldsa/"
+class="uri">https://datatracker.ietf.org/doc/draft-reddy-tls-composite-mldsa/</a>
+- as of 2026-09-01</li>
+<li>draft-ietf-lamps-pq-composite-sigs-19 - Composite
+Module-Lattice-Based Digital Signature Algorithm (ML-DSA) for use in
+X.509 Public Key Infrastructure - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/</a>
+- as of 2026-08-26</li>
+<li>Release v2.1.0 · hashicorp/vault · GitHub - <a
+href="https://github.com/hashicorp/vault/releases/latest"
+class="uri">https://github.com/hashicorp/vault/releases/latest</a> - as
+of 2026-09-01</li>
+<li>u.trust General Purpose HSM CSe-Series - Utimaco - <a
+href="https://utimaco.com/es/data-protection/gp-hsm/utrust-general-purpose-hsm-cse-series"
+class="uri">https://utimaco.com/es/data-protection/gp-hsm/utrust-general-purpose-hsm-cse-series</a>
+- as of 2026-09-01</li>
+<li>Canadian Cybersecurity Company Crypto4A Sets Global Benchmark with
+FIPS 140-3 Level 3 Validation - <a
+href="https://www.prnewswire.com/news-releases/canadian-cybersecurity-company-crypto4a-sets-global-benchmark-with-fips-140-3-level-3-validation-for-next-generation-quantum-safe-hsm-technology-302855762.html"
+class="uri">https://www.prnewswire.com/news-releases/canadian-cybersecurity-company-crypto4a-sets-global-benchmark-with-fips-140-3-level-3-validation-for-next-generation-quantum-safe-hsm-technology-302855762.html</a>
+- as of 2026-08-20</li>
+<li>Apricorn Earns FIPS 140-3 Level 3 Validation for Aegis Secure Key
+3.0 - <a
+href="https://www.prnewswire.com/news-releases/apricorn-earns-fips-140-3-level-3-validation-for-aegis-secure-key-3-0--302875341.html"
+class="uri">https://www.prnewswire.com/news-releases/apricorn-earns-fips-140-3-level-3-validation-for-aegis-secure-key-3-0--302875341.html</a>
+- as of 2026-09-10</li>
+<li>FIPS 140-2 and FIPS 140-3 Certificates – atsec - <a
+href="https://atsec.com/services/cryptographic-testing/fips-140-3-testing/fips-140-2-and-fips-140-3-certificates/"
+class="uri">https://atsec.com/services/cryptographic-testing/fips-140-3-testing/fips-140-2-and-fips-140-3-certificates/</a>
+- as of 2026-09-08</li>
+<li>PQFILE — Rust crypto library // Lib.rs - <a
+href="https://lib.rs/crates/pqfile"
+class="uri">https://lib.rs/crates/pqfile</a> - as of 2026-08-30</li>
+<li>kxco-pq-hsm on Pkg Stats - <a
+href="https://www.pkgstats.com/pkg:kxco-pq-hsm"
+class="uri">https://www.pkgstats.com/pkg:kxco-pq-hsm</a> - as of
+2026-09-05</li>
+<li>QuantumDataProtection: Post-quantum key wrapping for ASP.NET Core
+Data Protection using ML-KEM - <a
+href="https://github.com/tdinckaya/QuantumDataProtection"
+class="uri">https://github.com/tdinckaya/QuantumDataProtection</a> - as
+of 2026-09-12</li>
+<li>IonQ and Congruity360 Ink $8.18M Quantum Security Agreement - <a
+href="https://www.ionq.com/news/ionq-and-congruity360-partner-to-enhance-quantum-safe-protection"
+class="uri">https://www.ionq.com/news/ionq-and-congruity360-partner-to-enhance-quantum-safe-protection</a>
+- as of 2026-09-08</li>
+<li>C-DAC Develops Quantum Key Tech for Bank-to-Bank Security - <a
+href="https://www.newkerala.com/news/a/c-dac-working-quantum-security-technology-bank-to-bank-transactions-c-dac-487.htm"
+class="uri">https://www.newkerala.com/news/a/c-dac-working-quantum-security-technology-bank-to-bank-transactions-c-dac-487.htm</a>
+- as of 2026-09-10</li>
+<li>C-DOT Unveils 14 Indigenous Quantum Products to Future-Proof India’s
+Communication Security - <a
+href="https://indianmasterminds.com/news/c-dot-indigenous-quantum-products-communication-security-229180/"
+class="uri">https://indianmasterminds.com/news/c-dot-indigenous-quantum-products-communication-security-229180/</a>
+- as of 2026-09-01</li>
+<li>Proof-of-principle long-distance Sagnac twin-field quantum key
+distribution network - <a href="https://arxiv.org/abs/2609.04447"
+class="uri">https://arxiv.org/abs/2609.04447</a> - as of 2026-09-03</li>
+<li>Quip Network to Launch Quantum Echoes QFT Collection - <a
+href="https://thequantuminsider.com/2026/09/11/quip-network-launches-quantum-echoes-qft-collection/"
+class="uri">https://thequantuminsider.com/2026/09/11/quip-network-launches-quantum-echoes-qft-collection/</a>
+- as of 2026-09-11</li>
+<li>NIST releases working draft guidance on incorporating post-quantum
+algorithms in federal identity standards | InsideCyberSecurity.com - <a
+href="https://insidecybersecurity.com/daily-news/nist-releases-working-draft-guidance-incorporating-post-quantum-algorithms-federal"
+class="uri">https://insidecybersecurity.com/daily-news/nist-releases-working-draft-guidance-incorporating-post-quantum-algorithms-federal</a>
+- as of 2026-09-12</li>
+<li>2026 Post-Quantum Cryptography Summit - Virtual 9/16/26 | GSA - <a
+href="https://www.gsa.gov/events/2026-postquantum-cryptography-summit-virtual-91626"
+class="uri">https://www.gsa.gov/events/2026-postquantum-cryptography-summit-virtual-91626</a>
+- as of 2026-09-12</li>
+<li>G+D advances post-quantum identity cards through EU research project
+| Biometric Update - <a
+href="https://www.biometricupdate.com/202609/gd-advances-post-quantum-identity-cards-through-eu-research-project"
+class="uri">https://www.biometricupdate.com/202609/gd-advances-post-quantum-identity-cards-through-eu-research-project</a>
+- as of 2026-09-02</li>
+<li>US begins post-quantum upgrade of federal identity credentials - <a
+href="https://www.biometricupdate.com/202608/us-begins-post-quantum-upgrade-of-federal-identity-credentials"
+class="uri">https://www.biometricupdate.com/202608/us-begins-post-quantum-upgrade-of-federal-identity-credentials</a>
+- as of 2026-08-27</li>
+<li>Download Bouncy Castle Java - <a
+href="https://www.bouncycastle.org/download/bouncy-castle-java/"
+class="uri">https://www.bouncycastle.org/download/bouncy-castle-java/</a>
+- as of 2026-09-11</li>
+<li>Acceleration of Curve25519 Field Operations with Java Software and
+Intrinsics - <a
+href="https://inside.java/2026/09/03/java-acceleration-curve25519-field-operations"
+class="uri">https://inside.java/2026/09/03/java-acceleration-curve25519-field-operations</a>
+- as of 2026-09-03</li>
+<li>Releases · aws/aws-lc-rs · GitHub - <a
+href="https://github.com/aws/aws-lc-rs/releases"
+class="uri">https://github.com/aws/aws-lc-rs/releases</a> - as of
+2026-09-01</li>
+<li>Rustls 0.23.44 Released With ML-DSA Certificates Enabled By Default
+- Phoronix - <a
+href="https://lxer.com/module/newswire/ext_link.php?rid=367325"
+class="uri">https://lxer.com/module/newswire/ext_link.php?rid=367325</a>
+- as of 2026-09-07</li>
+<li>Post-Quantum - wolfSSL - <a
+href="https://www.wolfssl.com/category/post-quantum/"
+class="uri">https://www.wolfssl.com/category/post-quantum/</a> - as of
+2026-09-04</li>
+<li>SEALSQ and wolfSSL Add wolfTPM Support for QVault Post-Quantum TPM -
+<a
+href="https://thequantuminsider.com/2026/09/03/sealsq-announces-wolftpm-support-post-quantum-tpm-technology/"
+class="uri">https://thequantuminsider.com/2026/09/03/sealsq-announces-wolftpm-support-post-quantum-tpm-technology/</a>
+- as of 2026-09-03</li>
+<li>SEALSQ And WolfSSL Bring Quantum-safe Security To Devices - <a
+href="https://quantumzeitgeist.com/wolftpm-sealsq-wolfssl-quantum-safe-security/"
+class="uri">https://quantumzeitgeist.com/wolftpm-sealsq-wolfssl-quantum-safe-security/</a>
+- as of 2026-09-03</li>
+<li>New TCG guidance gives buyers a way to test PQC-ready TPM claims -
+<a
+href="https://www.helpnetsecurity.com/2026/08/25/trusted-computing-group-pqc-ready-tpm/"
+class="uri">https://www.helpnetsecurity.com/2026/08/25/trusted-computing-group-pqc-ready-tpm/</a>
+- as of 2026-08-25</li>
+<li>GitHub - wolfSSL/wolfPKCS11: wolfSSL PKCS#11 - <a
+href="https://github.com/wolfSSL/wolfPKCS11"
+class="uri">https://github.com/wolfSSL/wolfPKCS11</a> - as of
+2026-06-25</li>
+<li>Releases · OpenSC/libp11 · GitHub - <a
+href="https://github.com/OpenSC/libp11/releases"
+class="uri">https://github.com/OpenSC/libp11/releases</a> - as of
+2026-09-07</li>
+<li>PKCS #11 Specification Version 3.2 (OASIS Standard) - <a
+href="https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.2/pkcs11-spec-v3.2.pdf"
+class="uri">https://docs.oasis-open.org/pkcs11/pkcs11-spec/v3.2/pkcs11-spec-v3.2.pdf</a>
+- as of 2026-09-03</li>
+<li>Releases · google/conscrypt · GitHub - <a
+href="https://github.com/google/conscrypt/releases"
+class="uri">https://github.com/google/conscrypt/releases</a> - as of
+2026-08-31</li>
+<li>ChromeOS 152 is rolling out now, bringing automatic PWA link capture
+and key security tweaks - <a
+href="https://chromeunboxed.com/chromeos-152-is-rolling-out-now-bringing-automatic-pwa-link-capture-and-key-security-tweaks/"
+class="uri">https://chromeunboxed.com/chromeos-152-is-rolling-out-now-bringing-automatic-pwa-link-capture-and-key-security-tweaks/</a>
+- as of 2026-09-09</li>
+<li>zephyr-embedded-pqc-benchmarking/README.md - <a
+href="https://github.com/atsanak/zephyr-embedded-pqc-benchmarking/blob/main/README.md"
+class="uri">https://github.com/atsanak/zephyr-embedded-pqc-benchmarking/blob/main/README.md</a>
+- as of 2026-09-12</li>
+<li>Chapter 20. Security | Considerations in adopting RHEL 10 | Red Hat
+Enterprise Linux | 10 - <a
+href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/considerations_in_adopting_rhel_10/security"
+class="uri">https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/considerations_in_adopting_rhel_10/security</a>
+- as of 2026-09-09</li>
+<li>PostgreSQL 18 Release Notes - <a
+href="https://www.postgresql.org/docs/current/release-18.html"
+class="uri">https://www.postgresql.org/docs/current/release-18.html</a>
+- as of 2026-09-01</li>
+<li>mldsa package - crypto/mldsa - Go Packages - <a
+href="https://pkg.go.dev/crypto/mldsa"
+class="uri">https://pkg.go.dev/crypto/mldsa</a> - as of 2026-09-01</li>
+<li>Caliptra | Caliptra IP and firmware for integrated Root of Trust
+block - <a href="https://chipsalliance.github.io/Caliptra/"
+class="uri">https://chipsalliance.github.io/Caliptra/</a> - as of
+2026-09-09</li>
+<li>Datasheet - OpenTitan Documentation - <a
+href="https://opentitan.org/book/hw/top_earlgrey/doc/datasheet.html"
+class="uri">https://opentitan.org/book/hw/top_earlgrey/doc/datasheet.html</a>
+- as of 2026-09-11</li>
+<li>[2609.05011] TPMSpy: Validation of Measured Boot Systems by
+Low-Level Tracing of TPM Usage - <a
+href="https://arxiv.org/abs/2609.05011"
+class="uri">https://arxiv.org/abs/2609.05011</a> - as of 2026-09-04</li>
+<li>Bringing Post-Quantum Cryptography to SWUpdate - Embetrix - <a
+href="https://embetrix.com/2026/09/02/swupdate-post-quantum-cryptography"
+class="uri">https://embetrix.com/2026/09/02/swupdate-post-quantum-cryptography</a>
+- as of 2026-09-02</li>
+<li><a href="mailto:tech-crypto-ext@lists.riscv.org"
+class="email">tech-crypto-ext@lists.riscv.org</a> | Messages - <a
+href="https://lists.riscv.org/g/tech-crypto-ext/messages?subsort=1&amp;index=1026"
+class="uri">https://lists.riscv.org/g/tech-crypto-ext/messages?subsort=1&amp;index=1026</a>
+- as of 2026-09-11</li>
+<li>Seoul And SEALSQ Build Center For Post-quantum Chip Security - <a
+href="https://quantumzeitgeist.com/post-quantum-chip-security-seoul-sealsq/"
+class="uri">https://quantumzeitgeist.com/post-quantum-chip-security-seoul-sealsq/</a>
+- as of 2026-09-11</li>
+<li>STMicroelectronics unveils world’s first ST54M secure mobile chip
+with post-quantum cryptography for next-generation connected services -
+<a
+href="https://newsroom.st.com/media-center/press-item.html/p4784.html"
+class="uri">https://newsroom.st.com/media-center/press-item.html/p4784.html</a>
+- as of 2026-06-24</li>
+<li>Idemia receives top listing in post-quantum security - <a
+href="https://www.securityworldmarket.com/uk/News/Business-News/idemia-receives-top-listing-in-post-quantum-security"
+class="uri">https://www.securityworldmarket.com/uk/News/Business-News/idemia-receives-top-listing-in-post-quantum-security</a>
+- as of 2026-09-02</li>
+<li>GitHub - pq-code-package/mlkem-native - <a
+href="https://github.com/pq-code-package/mlkem-native"
+class="uri">https://github.com/pq-code-package/mlkem-native</a> - as of
+2026-09-03</li>
+<li>1.1.1.1 now supports post-quantum DNSSEC, all 2,420 bytes of it - <a
+href="https://blog.cloudflare.com/post-quantum-dnssec-1111/"
+class="uri">https://blog.cloudflare.com/post-quantum-dnssec-1111/</a> -
+as of 2026-09-10</li>
+<li>Cloudflare Radar - <a
+href="https://radar.cloudflare.com/embed/PostQuantumWebsiteTestWidget"
+class="uri">https://radar.cloudflare.com/embed/PostQuantumWebsiteTestWidget</a>
+- as of 2026-09-03</li>
+<li>RFC 10042: Post-Quantum/Traditional Hybrid Key Exchange with the
+Module-Lattice-Based Key-Encapsulation Mechanism for Use in SSH - <a
+href="https://www.rfc-editor.org/info/rfc10042/"
+class="uri">https://www.rfc-editor.org/info/rfc10042/</a> - as of
+2026-08-31</li>
+<li>IAB Workshop on Accelerating the Deployment of Post-Quantum
+Authentication (pqws) - <a
+href="https://datatracker.ietf.org/group/pqws/"
+class="uri">https://datatracker.ietf.org/group/pqws/</a> - as of
+2026-08-31</li>
+<li>Amortized PQ MLS Combiner - <a
+href="https://mlswg.github.io/mls-combiner/draft-ietf-mls-combiner.html"
+class="uri">https://mlswg.github.io/mls-combiner/draft-ietf-mls-combiner.html</a>
+- as of 2026-08-21</li>
+<li>Post-Quantum Key Exchange on Cisco Routers - IPsec Series, Part 9 -
+<a
+href="https://blogs.cisco.com/developer/post-quantum-key-exchange-on-cisco-routers-ipsec-series-part-9"
+class="uri">https://blogs.cisco.com/developer/post-quantum-key-exchange-on-cisco-routers-ipsec-series-part-9</a>
+- as of 2026-09-01</li>
+<li>Junos OS Release 26.2R1 Release Notes - <a
+href="https://www.juniper.net/documentation/rne/us/en/release-notes/Junos%20OS/26.2R1/junos-os-release-notes-26.2r1.pdf"
+class="uri">https://www.juniper.net/documentation/rne/us/en/release-notes/Junos%20OS/26.2R1/junos-os-release-notes-26.2r1.pdf</a>
+- as of 2026-08-31</li>
+<li>Validated integrations, real outcomes: Inside the F5 ADSP Partner
+Program - <a
+href="https://www.f5.com/company/blog/validated-integrations-real-outcomes-inside-the-f5-adsp-partner-program"
+class="uri">https://www.f5.com/company/blog/validated-integrations-real-outcomes-inside-the-f5-adsp-partner-program</a>
+- as of 2026-08-27</li>
+<li>A10ネットワークス、AIの活用や暗号化通信の増加に対応するミッドレンジADC「A10
+Thunder 3360S ADC」を提供 - <a
+href="https://news.yahoo.co.jp/articles/f5b5f7e2d5b22bc1a338d616708534f33a7773b7"
+class="uri">https://news.yahoo.co.jp/articles/f5b5f7e2d5b22bc1a338d616708534f33a7773b7</a>
+- as of 2026-09-03</li>
+<li>EOS 4.36.2F - Control Plane Security - Arista - <a
+href="https://www.arista.com/en/um-eos/eos-control-plane-security"
+class="uri">https://www.arista.com/en/um-eos/eos-control-plane-security</a>
+- as of 2026-09-03</li>
+<li>Post quantum cryptography (PQC) support | FortiManager 8.0.0 - <a
+href="https://docs.fortinet.com/document/fortimanager/8.0.0/new-features/283150/post-quantum-cryptography-pqc-support"
+class="uri">https://docs.fortinet.com/document/fortimanager/8.0.0/new-features/283150/post-quantum-cryptography-pqc-support</a>
+- as of 2026-09-12</li>
+<li>Quantum Safe Encryption: PQC, QKD and Post Quantum | RAD - <a
+href="https://www.rad.com/topics/quantum-safe-encryption/"
+class="uri">https://www.rad.com/topics/quantum-safe-encryption/</a> - as
+of 2026-08-31</li>
+<li>Cyprus and Greece Establish Quantum-Secure Satellite Link - <a
+href="https://thequantuminsider.com/2026/09/02/cyprus-greece-quantum-secure-satellite-link/"
+class="uri">https://thequantuminsider.com/2026/09/02/cyprus-greece-quantum-secure-satellite-link/</a>
+- as of 2026-09-02</li>
+<li>Arqit, Es’hailSat and AIEE Demonstrate Quantum-Safe Satellite
+Security - <a
+href="https://thequbitreport.com/security-policy/2026/09/01/arqit-eshailsat-and-aiee-demonstrate-quantum-safe-satellite-security/"
+class="uri">https://thequbitreport.com/security-policy/2026/09/01/arqit-eshailsat-and-aiee-demonstrate-quantum-safe-satellite-security/</a>
+- as of 2026-09-01</li>
+<li>Azure Key Vault Managed HSM Overview - <a
+href="https://learn.microsoft.com/en-us/azure/key-vault/managed-hsm/overview"
+class="uri">https://learn.microsoft.com/en-us/azure/key-vault/managed-hsm/overview</a>
+- as of 2026-09-10</li>
+<li>Azure Front Door TLS policy - <a
+href="https://learn.microsoft.com/en-us/azure/frontdoor/standard-premium/tls-policy"
+class="uri">https://learn.microsoft.com/en-us/azure/frontdoor/standard-premium/tls-policy</a>
+- as of 2026-08-05</li>
+<li>Learn about IP security on the ONTAP network - <a
+href="https://docs.netapp.com/us-en/ontap/networking/ipsec-prepare.html"
+class="uri">https://docs.netapp.com/us-en/ontap/networking/ipsec-prepare.html</a>
+- as of 2026-08-27</li>
+<li>Which ONTAP feature may support to apply PQC algorithms? - <a
+href="https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/Which_ONTAP_feature_may_support_to_apply_PQC_algorithms"
+class="uri">https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/Which_ONTAP_feature_may_support_to_apply_PQC_algorithms</a>
+- as of 2026-04-01</li>
+<li>Releases · testssl/testssl.sh - <a
+href="https://github.com/testssl/testssl.sh/releases"
+class="uri">https://github.com/testssl/testssl.sh/releases</a> - as of
+2026-09-12</li>
+<li>Post-Quantum TLS: Hybrid Key Exchange - GoodTLS - <a
+href="https://goodtls.com/post-quantum-tls"
+class="uri">https://goodtls.com/post-quantum-tls</a> - as of
+2026-09-08</li>
+<li>Transcript: Netskope Q2 2027 Earnings Conference Call - <a
+href="https://www.benzinga.com/news/26/09/61592678/transcript-netskope-q2-2027-earnings-conference-call"
+class="uri">https://www.benzinga.com/news/26/09/61592678/transcript-netskope-q2-2027-earnings-conference-call</a>
+- as of 2026-09-02</li>
+<li>Post-quantum cryptography (PQC) just landed in Netskope One Next Gen
+SWG - <a
+href="https://www.linkedin.com/posts/exn-me_post-quantum-cryptography-pqc-just-landed-activity-7497986329348120576-RSMP"
+class="uri">https://www.linkedin.com/posts/exn-me_post-quantum-cryptography-pqc-just-landed-activity-7497986329348120576-RSMP</a>
+- as of 2026-08-25</li>
+<li>envoy/docs/root/intro/arch_overview/security/ssl.rst - <a
+href="https://github.com/envoyproxy/envoy/blob/main/docs/root/intro/arch_overview/security/ssl.rst"
+class="uri">https://github.com/envoyproxy/envoy/blob/main/docs/root/intro/arch_overview/security/ssl.rst</a></li>
+<li>Networking SSL/TLS Best Practices (Q3 2026 Edition) - <a
+href="https://community.citrix.com/tech-zone/build/tech-papers/networking-tls-best-practices-2026/"
+class="uri">https://community.citrix.com/tech-zone/build/tech-papers/networking-tls-best-practices-2026/</a>
+- as of 2026-08-25</li>
+<li>GitHub · Where software is built - CycloneDX specification milestone
+2.0 - <a
+href="https://github.com/CycloneDX/specification/milestone/2?closed=1"
+class="uri">https://github.com/CycloneDX/specification/milestone/2?closed=1</a>
+- as of 2026-08-27</li>
+<li>cyclonedx package versions - github.com/CycloneDX/cyclonedx-go - Go
+Packages - <a
+href="https://pkg.go.dev/github.com/CycloneDX/cyclonedx-go?tab=versions"
+class="uri">https://pkg.go.dev/github.com/CycloneDX/cyclonedx-go?tab=versions</a>
+- as of 2026-08-22</li>
+<li>cyclonedx-editor-validator · PyPI - <a
+href="https://pypi.org/project/cyclonedx-editor-validator/"
+class="uri">https://pypi.org/project/cyclonedx-editor-validator/</a> -
+as of 2026-09-04</li>
+<li>q-periapt-cli — Rust utility // Lib.rs - <a
+href="https://lib.rs/crates/q-periapt-cli"
+class="uri">https://lib.rs/crates/q-periapt-cli</a> - as of
+2026-09-05</li>
+<li>IBM® Quantum Safe™ Explorer overview - IBM Documentation - <a
+href="https://www.ibm.com/docs/en/quantum-safe/quantum-safe-explorer/2.x?topic=quantum-safe-explorer-overview"
+class="uri">https://www.ibm.com/docs/en/quantum-safe/quantum-safe-explorer/2.x?topic=quantum-safe-explorer-overview</a>
+- as of 2026-08-31</li>
+<li>Cryptographic analysis scan - IBM Documentation - <a
+href="https://www.ibm.com/docs/en/quantum-safe/quantum-safe-explorer/2.x?topic=extension-cryptographic-analysis-scan"
+class="uri">https://www.ibm.com/docs/en/quantum-safe/quantum-safe-explorer/2.x?topic=extension-cryptographic-analysis-scan</a>
+- as of 2026-08-31</li>
+<li>Keyfactor Exceeds $200 Million in ARR as Global Demand for Digital
+Trust Infrastructure Accelerates | Keyfactor - <a
+href="https://www.keyfactor.com/press-releases/keyfactor-exceeds-200-million-in-arr-as-global-demand-for-digital-trust-infrastructure-accelerates/"
+class="uri">https://www.keyfactor.com/press-releases/keyfactor-exceeds-200-million-in-arr-as-global-demand-for-digital-trust-infrastructure-accelerates/</a>
+- as of 2026-09-09</li>
+<li>Keyfactor Achieves ISO 42001 Certification, Extending Trust
+Infrastructure Leadership to Responsible AI Governance - <a
+href="https://www.prnewswire.com/news-releases/keyfactor-achieves-iso-42001-certification-extending-trust-infrastructure-leadership-to-responsible-ai-governance-302853096.html"
+class="uri">https://www.prnewswire.com/news-releases/keyfactor-achieves-iso-42001-certification-extending-trust-infrastructure-leadership-to-responsible-ai-governance-302853096.html</a>
+- as of 2026-08-18</li>
+<li>Measurements of key-encapsulation mechanisms on one machine: amd64;
+Coffee Lake (806ea) - <a
+href="http://bench.cr.yp.to/results-kem/amd64-like.html"
+class="uri">http://bench.cr.yp.to/results-kem/amd64-like.html</a> - as
+of 2026-09-05</li>
+<li>SUPERCOP - <a href="https://bench.cr.yp.to/supercop.html"
+class="uri">https://bench.cr.yp.to/supercop.html</a> - as of
+2026-09-05</li>
+<li>SoK: The Constant Time Model - <a
+href="https://arxiv.org/html/2606.13000v1"
+class="uri">https://arxiv.org/html/2606.13000v1</a> - as of
+2026-08-24</li>
+<li>LFX Mentorship – Enhancing Constant-Time Analysis Tooling in liboqs
+- <a
+href="https://pqca.org/blog/2026/lfx-mentorship-enhancing-constant-time-analysis-tooling-in-liboqs/"
+class="uri">https://pqca.org/blog/2026/lfx-mentorship-enhancing-constant-time-analysis-tooling-in-liboqs/</a>
+- as of 2026-09-03</li>
+<li>ASPR Signals New Quantum Guidance Amid Health Cyber Threats | GovCIO
+Media &amp; Research - <a
+href="https://govciomedia.com/aspr-signals-new-quantum-guidance-amid-health-cyber-threats/"
+class="uri">https://govciomedia.com/aspr-signals-new-quantum-guidance-amid-health-cyber-threats/</a>
+- as of 2026-09-03</li>
+<li>Post-quantum cryptography for healthcare: securing medical data,
+connected devices, and digital health infrastructure - <a
+href="https://www.frontiersin.org/journals/health-services/articles/10.3389/frhs.2026.1901282/full"
+class="uri">https://www.frontiersin.org/journals/health-services/articles/10.3389/frhs.2026.1901282/full</a>
+- as of 2026-07-16</li>
+<li>Quantum Readiness for OT Is More Than Encryption - <a
+href="https://www.bankinfosecurity.asia/quantum-readiness-for-ot-more-than-encryption-a-32370"
+class="uri">https://www.bankinfosecurity.asia/quantum-readiness-for-ot-more-than-encryption-a-32370</a>
+- as of 2026-09-02</li>
+<li>Deployment Feasibility Analysis of Post-Quantum Digital Signatures
+in Safety-Critical C-V2X Communication for Urban Mobility Scenario - <a
+href="https://arxiv.org/html/2608.05087v1"
+class="uri">https://arxiv.org/html/2608.05087v1</a> - as of
+2026-08-24</li>
+<li>QORE: Quantum Secure 5G/B5G Core - <a
+href="https://github.com/coranlabs/QORE"
+class="uri">https://github.com/coranlabs/QORE</a> - as of
+2026-08-24</li>
+<li>A Coordinated Implementation Roadmap for the Transition to
+Post-Quantum Cryptography - <a
+href="https://digital-strategy.ec.europa.eu/en/library/coordinated-implementation-roadmap-transition-post-quantum-cryptography"
+class="uri">https://digital-strategy.ec.europa.eu/en/library/coordinated-implementation-roadmap-transition-post-quantum-cryptography</a>
+- as of 2026-09-02</li>
+<li>EU’s first quantum tech regulation delayed by six months - <a
+href="https://www.euractiv.com/news/eus-first-quantum-tech-regulation-delayed-by-six-months/"
+class="uri">https://www.euractiv.com/news/eus-first-quantum-tech-regulation-delayed-by-six-months/</a>
+- as of 2026-08-11</li>
+<li>Work Programme - Work Item Plan - <a
+href="https://portal.etsi.org/webapp/WORKPROGRAM/TUBEReport.asp?SearchPage=TRUE&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;optDisplay=ALL&amp;qCLUSTER_BOOLEAN=OR&amp;qETSI_ALL=&amp;qFREQUENCIES_BOOLEAN=OR&amp;qINCLUDE_MOVED_ON=&amp;qINCLUDE_SUB_TB=True&amp;qKEYWORD_BOOLEAN=OR&amp;qREPORT_TYPE=SUMMARY&amp;qSORT=HIGHVERSION&amp;qSTOPPING_OUTDATED=&amp;qSTOP_FLG=N&amp;qTB_ID=856%3BCYBER+QSC"
+class="uri">https://portal.etsi.org/webapp/WORKPROGRAM/TUBEReport.asp?SearchPage=TRUE&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;optDisplay=ALL&amp;qCLUSTER_BOOLEAN=OR&amp;qETSI_ALL=&amp;qFREQUENCIES_BOOLEAN=OR&amp;qINCLUDE_MOVED_ON=&amp;qINCLUDE_SUB_TB=True&amp;qKEYWORD_BOOLEAN=OR&amp;qREPORT_TYPE=SUMMARY&amp;qSORT=HIGHVERSION&amp;qSTOPPING_OUTDATED=&amp;qSTOP_FLG=N&amp;qTB_ID=856%3BCYBER+QSC</a>
+- as of 2026-09-10</li>
+<li>ETSI Work Programme - CYBER QSC - <a
+href="https://portal.etsi.org/webapp/WORKPROGRAM/TUBEReport.asp?SearchPage=TRUE&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;optDisplay=ALL&amp;qCLUSTER_BOOLEAN=OR&amp;qETSI_ALL=&amp;qFREQUENCIES_BOOLEAN=OR&amp;qINCLUDE_MOVED_ON=&amp;qINCLUDE_SUB_TB=True&amp;qKEYWORD_BOOLEAN=OR&amp;qREPORT_TYPE=SUMMARY&amp;qSORT=HIGHVERSION&amp;qSTOPPING_OUTDATED=&amp;qSTOP_FLG=N&amp;qTB_ID=856%3BCYBER+QSC"
+class="uri">https://portal.etsi.org/webapp/WORKPROGRAM/TUBEReport.asp?SearchPage=TRUE&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;optDisplay=ALL&amp;qCLUSTER_BOOLEAN=OR&amp;qETSI_ALL=&amp;qFREQUENCIES_BOOLEAN=OR&amp;qINCLUDE_MOVED_ON=&amp;qINCLUDE_SUB_TB=True&amp;qKEYWORD_BOOLEAN=OR&amp;qREPORT_TYPE=SUMMARY&amp;qSORT=HIGHVERSION&amp;qSTOPPING_OUTDATED=&amp;qSTOP_FLG=N&amp;qTB_ID=856%3BCYBER+QSC</a>
+- as of 2026-09-02</li>
+<li>Introduction | Post-quantum cryptography (PQC) pilot - <a
+href="https://www.ncsc.gov.uk/schemes/assured-cyber-security-consultancy/pqc-pilot"
+class="uri">https://www.ncsc.gov.uk/schemes/assured-cyber-security-consultancy/pqc-pilot</a>
+- as of 2026-09-02</li>
+<li>DOME - Veridify Security - <a href="https://www.veridify.com/dome/"
+class="uri">https://www.veridify.com/dome/</a> - as of 2025-10-20</li>
+<li>PsiQuantum and Brookhaven Lab Partner on Fault-Tolerant Quantum
+Algorithms - <a
+href="https://thequantuminsider.com/2026/09/02/psiquantum-brookhaven-quantum-application-development-construct/"
+class="uri">https://thequantuminsider.com/2026/09/02/psiquantum-brookhaven-quantum-application-development-construct/</a>
+- as of 2026-09-02</li>
+<li>Xanadu Unveils Technical Roadmap Targeting 1,000+ Logical Qubits by
+2031 - <a
+href="https://quantumcomputingreport.com/xanadu-unveils-technical-roadmap-targeting-1000-logical-qubits-by-2031/"
+class="uri">https://quantumcomputingreport.com/xanadu-unveils-technical-roadmap-targeting-1000-logical-qubits-by-2031/</a>
+- as of 2026-09-01</li>
+<li>IonQ unveils Superion roadmap and SkyWater-powered growth strategy
+at Investor Day - <a
+href="https://cryptobriefing.com/ionq-superion-roadmap-skywater-growth-strategy/"
+class="uri">https://cryptobriefing.com/ionq-superion-roadmap-skywater-growth-strategy/</a>
+- as of 2026-09-09</li>
+<li>IonQ Announces Increased Full-Year 2026 Financial Outlook Following
+SkyWater Acquisition - <a
+href="https://www.ionq.com/news/ionq-announces-increased-full-year-2026-financial-outlook-following-skywater-acquisition"
+class="uri">https://www.ionq.com/news/ionq-announces-increased-full-year-2026-financial-outlook-following-skywater-acquisition</a>
+- as of 2026-09-08</li>
+<li>Quantum Computing Penny Stocks (Under $5) — Full List &amp; Risks -
+<a
+href="https://quantummarketcap.com/rankings/quantum-computing-penny-stocks"
+class="uri">https://quantummarketcap.com/rankings/quantum-computing-penny-stocks</a>
+- as of 2026-09-12</li>
+<li>SeeQC Files S-1 as Quantum Computing IPO Wave Widens Beyond IonQ and
+D-Wave - <a
+href="https://valueaddvc.com/pulse/seeqc-quantum-computing-s1-filing-2026"
+class="uri">https://valueaddvc.com/pulse/seeqc-quantum-computing-s1-filing-2026</a>
+- as of 2026-06-29</li>
+<li>TuringQ Begins IPO Process as Shanghai Photonic Quantum Computing
+Firm Seeks China’s First Quantum Listing - <a
+href="https://thequbitreport.com/industry-business/2026/08/07/turingq-begins-ipo-process-as-shanghai-photonic-quantum-computing-firm-seeks-chinas-first-quantum-listing/"
+class="uri">https://thequbitreport.com/industry-business/2026/08/07/turingq-begins-ipo-process-as-shanghai-photonic-quantum-computing-firm-seeks-chinas-first-quantum-listing/</a>
+- as of 2026-08-07</li>
+<li>IBM goes big to keep quantum computers cold - <a
+href="https://www.ibm.com/think/news/ibm-goes-big-keep-quantum-computers-cold"
+class="uri">https://www.ibm.com/think/news/ibm-goes-big-keep-quantum-computers-cold</a>
+- as of 2026-08-20</li>
+<li>Official Launch of JION Quantum Computer at Jülich - <a
+href="https://www.fz-juelich.de/en/news/archive/press-release/2026/launch-jion-quantum-computer-juelich"
+class="uri">https://www.fz-juelich.de/en/news/archive/press-release/2026/launch-jion-quantum-computer-juelich</a>
+- as of 2026-09-03</li>
+<li>NIST And University Of Maryland Detail Autonomous Quantum Control -
+<a
+href="https://quantumzeitgeist.com/joint-quantum-autonomous-control-nist-university/"
+class="uri">https://quantumzeitgeist.com/joint-quantum-autonomous-control-nist-university/</a>
+- as of 2026-08-28</li>
+<li>Simple, Efficient, and Generic Postselection Decoding for qLDPC
+Codes - <a href="https://link.aps.org/doi/10.1103/sv11-f78l"
+class="uri">https://link.aps.org/doi/10.1103/sv11-f78l</a> - as of
+2026-09-08</li>
+<li>Efficient Quantum Error Correction from Three Dimensional Qubit
+Control - <a href="https://arxiv.org/abs/2609.04459"
+class="uri">https://arxiv.org/abs/2609.04459</a> - as of 2026-09-03</li>
+<li>Researchers Cut Quantum Error Rates With Optimised Atom Loss - <a
+href="https://quantumzeitgeist.com/neutral-atom-arrays-optimised-error-correction-decoding/"
+class="uri">https://quantumzeitgeist.com/neutral-atom-arrays-optimised-error-correction-decoding/</a>
+- as of 2026-09-11</li>
+<li>[2609.09977] From Block-encoding to Generalized Quantum Signal
+Processing: Principles, Algorithms and Applications - <a
+href="https://arxiv.org/abs/2609.09977"
+class="uri">https://arxiv.org/abs/2609.09977</a> - as of 2026-09-09</li>
+<li>[2609.05316] Compiling the 2D Fermi-Hubbard ground-state energy
+estimation algorithm for active volume quantum architectures - <a
+href="https://arxiv.org/abs/2609.05316"
+class="uri">https://arxiv.org/abs/2609.05316</a> - as of 2026-09-04</li>
+<li>Impossibility of One-Way One-Round Quantum 4-Coloring via
+Matrix-Space Stability - <a href="https://arxiv.org/abs/2609.09091"
+class="uri">https://arxiv.org/abs/2609.09091</a> - as of 2026-09-10</li>
+<li>[2609.05201] Optimal inequalities for completely bounded polynomials
+and the limitations of quantum query algorithms - <a
+href="https://arxiv.org/abs/2609.05201"
+class="uri">https://arxiv.org/abs/2609.05201</a> - as of 2026-09-04</li>
+<li>[2609.09033] Semidefinite extension complexity of the separable set,
+with applications to approximate disentanglers - <a
+href="https://arxiv.org/abs/2609.09033"
+class="uri">https://arxiv.org/abs/2609.09033</a> - as of 2026-09-08</li>
+<li>[2609.02687] Quantum Meta-Complexity Is All You Need: Characterizing
+One-Way Puzzles via Time-Bounded Kolmogorov Complexity - <a
+href="https://arxiv.org/abs/2609.02687"
+class="uri">https://arxiv.org/abs/2609.02687</a> - as of 2026-09-02</li>
+<li>[2609.10729] A Quantum-Inspired Dequantization Method for Diagonally
+Weighted Matrix Functions: Application to Learning with Optimized Random
+Features - <a href="https://arxiv.org/abs/2609.10729"
+class="uri">https://arxiv.org/abs/2609.10729</a> - as of 2026-09-09</li>
+<li>[2609.04557] A Sim-to-Real Study of Surface-Code Decoder
+Benchmarking - <a href="https://arxiv.org/abs/2609.04557"
+class="uri">https://arxiv.org/abs/2609.04557</a> - as of 2026-09-03</li>
+<li>[2609.10505] Quantum Feature Engineering for Credit Default
+Prediction: When and Why IQP Circuits Help Linear Classifiers - <a
+href="https://arxiv.org/abs/2609.10505"
+class="uri">https://arxiv.org/abs/2609.10505</a> - as of 2026-09-09</li>
+<li>Ordinary 3-Isogeny Graphs and Improvement of Supersingularity
+Testing for Twisted Hessian Curves over Prime Fields - <a
+href="https://arxiv.org/abs/2609.11037"
+class="uri">https://arxiv.org/abs/2609.11037</a> - as of 2026-09-10</li>
+<li>Apple Root Program Policy - <a
+href="https://raw.githubusercontent.com/apple/apple-root-program/main/policy.md"
+class="uri">https://raw.githubusercontent.com/apple/apple-root-program/main/policy.md</a>
+- as of 2026-09-12</li>
+<li>Chrome Root Program Policy v1.8: Full 2026-2027 Timeline - <a
+href="https://www.encryptionconsulting.com/chromes-root-program-policy-v1-8/"
+class="uri">https://www.encryptionconsulting.com/chromes-root-program-policy-v1-8/</a>
+- as of 2026-09-12</li>
+<li>Chrome Root Program Policy, Version 1.8 - <a
+href="https://googlechrome.github.io/chromerootprogram/crp/policy"
+class="uri">https://googlechrome.github.io/chromerootprogram/crp/policy</a>
+- as of 2026-09-12</li>
+<li>Microsoft Root Program Requirements - <a
+href="https://raw.githubusercontent.com/TrustedRootProgram/Program-Requirements/main/Requirements.md"
+class="uri">https://raw.githubusercontent.com/TrustedRootProgram/Program-Requirements/main/Requirements.md</a>
+- as of 2026-09-12</li>
+<li>Latest Baseline Requirements | CA/Browser Forum - <a
+href="https://cabforum.org/working-groups/server/baseline-requirements/requirements/"
+class="uri">https://cabforum.org/working-groups/server/baseline-requirements/requirements/</a>
+- as of 2026-09-07</li>
+<li>Baseline Requirements for TLS Server Certificates | CA/Browser Forum
+- <a
+href="https://cabforum.org/working-groups/server/baseline-requirements/documents/"
+class="uri">https://cabforum.org/working-groups/server/baseline-requirements/documents/</a>
+- as of 2026-09-07</li>
+<li>Apple’s Certificate Transparency log program - <a
+href="https://support.apple.com/en-us/103703"
+class="uri">https://support.apple.com/en-us/103703</a> - as of
+2026-09-03</li>
+<li>Code signing options for Windows app developers - Windows apps |
+Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/code-signing-options"
+class="uri">https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/code-signing-options</a>
+- as of 2026-08-29</li>
+<li>Network Security Working Group Ballots | CA/Browser Forum - <a
+href="https://cabforum.org/working-groups/netsec/ballots/"
+class="uri">https://cabforum.org/working-groups/netsec/ballots/</a> - as
+of 2026-09-12</li>
+<li>Add section 6.1.3 for Delayed Revocation - <a
+href="https://github.com/mozilla/pkipolicy/commit/efa8ac40ac341fb813620938ef72328a53858038"
+class="uri">https://github.com/mozilla/pkipolicy/commit/efa8ac40ac341fb813620938ef72328a53858038</a>
+- as of 2026-09-12</li>
+<li>Principles and criteria and practitioner guidance - CPA Canada - <a
+href="https://www.cpacanada.ca/business-and-accounting-resources/audit-and-assurance/overview-of-WebTrust-services/principles-and-criteria"
+class="uri">https://www.cpacanada.ca/business-and-accounting-resources/audit-and-assurance/overview-of-WebTrust-services/principles-and-criteria</a>
+- as of 2026-08-01</li>
+<li>EF Protocol: Current and Emerging Priorities - <a
+href="https://blog.ethereum.org/2026/09/07/protocol-priorities"
+class="uri">https://blog.ethereum.org/2026/09/07/protocol-priorities</a>
+- as of 2026-09-07</li>
+<li>Ethereum Foundation Targets a Quantum-Resistant Base Layer by
+December 2029 - <a
+href="https://unchainedcrypto.com/ethereum-foundation-targets-a-quantum-resistant-base-layer-by-december-2029/"
+class="uri">https://unchainedcrypto.com/ethereum-foundation-targets-a-quantum-resistant-base-layer-by-december-2029/</a>
+- as of 2026-09-08</li>
+<li>Ethereum Gas Fees Stablecoins: EIP-8141 Frame Transactions Upgrade -
+<a
+href="https://bitcoinethereumnews.com/ethereum/ethereum-gas-fees-stablecoins-eip-8141-frame-transactions-upgrade/"
+class="uri">https://bitcoinethereumnews.com/ethereum/ethereum-gas-fees-stablecoins-eip-8141-frame-transactions-upgrade/</a>
+- as of 2026-09-08</li>
+<li>Ethereum core developers schedule EIP-8141 for Hegotá upgrade - <a
+href="https://cryptobriefing.com/ethereum-eip-8141-hegota-upgrade/"
+class="uri">https://cryptobriefing.com/ethereum-eip-8141-hegota-upgrade/</a>
+- as of 2026-08-29</li>
+<li>How Hegotá can influence the state roadmap - <a
+href="https://ethresear.ch/t/how-hegota-can-influence-the-state-roadmap/25895"
+class="uri">https://ethresear.ch/t/how-hegota-can-influence-the-state-roadmap/25895</a>
+- as of 2026-09-03</li>
+<li>Wen fast payload broadcast? - <a
+href="https://ethresear.ch/t/wen-fast-payload-broadcast-segment-code-push-pull-and-everything-in-between/25913"
+class="uri">https://ethresear.ch/t/wen-fast-payload-broadcast-segment-code-push-pull-and-everything-in-between/25913</a>
+- as of 2026-09-04</li>
+<li>Quantum Disruption: An SOK of How Post-Quantum Attackers Reshape
+Blockchain Security and Performance - <a
+href="https://arxiv.org/html/2512.13333v2"
+class="uri">https://arxiv.org/html/2512.13333v2</a> - as of
+2026-08-24</li>
+<li>Raising machine-checked security benchmarks to advance hash-based
+SNARKs through agentic collaboration - <a
+href="https://blog.ethereum.org/2026/08/20/better-codes-challenge"
+class="uri">https://blog.ethereum.org/2026/08/20/better-codes-challenge</a>
+- as of 2026-08-20</li>
+<li>First quantum-safe Bitcoin transaction mined on mainnet - <a
+href="https://starkware.co/blog/the-first-quantum-safe-bitcoin-transaction-has-been-mined/"
+class="uri">https://starkware.co/blog/the-first-quantum-safe-bitcoin-transaction-has-been-mined/</a>
+- as of 2026-08-26</li>
+<li>StarkWare enables first quantum-safe Bitcoin transaction on mainnet
+- <a
+href="https://cryptobriefing.com/starkware-quantum-safe-bitcoin-transaction-mainnet/"
+class="uri">https://cryptobriefing.com/starkware-quantum-safe-bitcoin-transaction-mainnet/</a>
+- as of 2026-08-26</li>
+<li>Project Eleven - Bitcoin Risq List - <a
+href="https://bitcoin-risq-list.projecteleven.com/"
+class="uri">https://bitcoin-risq-list.projecteleven.com/</a> - as of
+2026-09-07</li>
+<li>Standardizing an exposure classification for existing outputs
+(pre-BIP) - <a
+href="https://delvingbitcoin.org/t/standardizing-an-exposure-classification-for-existing-outputs-pre-bip/2866"
+class="uri">https://delvingbitcoin.org/t/standardizing-an-exposure-classification-for-existing-outputs-pre-bip/2866</a>
+- as of 2026-09-03</li>
+<li>Are Hardware Wallets Ready to Produce Post-Quantum Signatures? - <a
+href="https://blog.blockstream.com/hardware-wallets-post-quantum-signatures/"
+class="uri">https://blog.blockstream.com/hardware-wallets-post-quantum-signatures/</a>
+- as of 2026-08-19</li>
+<li>Hardware wallets and post-quantum signatures - <a
+href="https://blog.blockstream.com/hardware-wallets-post-quantum-signatures/"
+class="uri">https://blog.blockstream.com/hardware-wallets-post-quantum-signatures/</a>
+- as of 2026-08-19</li>
+<li>Meet Trezor Safe 7: the first quantum-ready hardware wallet with a
+next-gen Secure Element chip - <a
+href="https://trezor.io/blog/news/meet-trezor-safe-7-the-first-quantum-ready-hardware-wallet-with-a-next-gen-secure-element-chip"
+class="uri">https://trezor.io/blog/news/meet-trezor-safe-7-the-first-quantum-ready-hardware-wallet-with-a-next-gen-secure-element-chip</a>
+- as of 2026-09-12</li>
+<li>Post-Quantum Signatures on Ethereum Just Got 6.6× Cheaper |
+Fireblocks - <a
+href="https://www.fireblocks.com/blog/post-quantum-signatures-ethereum-cheaper-gas"
+class="uri">https://www.fireblocks.com/blog/post-quantum-signatures-ethereum-cheaper-gas</a>
+- as of 2026-09-02</li>
+<li>Quantus Launches Quantum-Resistant Mainnet Targeting $27B in Crypto
+Security Risks - <a
+href="https://www.kucoin.com/news/flash/quantus-launches-quantum-resistant-mainnet-targeting-27b-crypto-security-risks"
+class="uri">https://www.kucoin.com/news/flash/quantus-launches-quantum-resistant-mainnet-targeting-27b-crypto-security-risks</a>
+- as of 2026-09-11</li>
+<li>QoreChain Review: Post-Quantum Security With Triple-VM Blockchain -
+<a
+href="https://u.today/reviews/qorechain-review-post-quantum-security-with-triple-vm-blockchain"
+class="uri">https://u.today/reviews/qorechain-review-post-quantum-security-with-triple-vm-blockchain</a>
+- as of 2026-09-11</li>
+<li>Qubit — post-quantum vault for Solana - <a
+href="https://github.com/QuantiumResistantInfra/quantum-vault"
+class="uri">https://github.com/QuantiumResistantInfra/quantum-vault</a>
+- as of 2026-09-10</li>
+<li>Cardano Reviews CIP-0197 for Optional Post-Quantum Wallet Protection
+- <a
+href="https://www.kucoin.com/news/flash/cardano-reviews-cip-0197-for-optional-post-quantum-wallet-protection"
+class="uri">https://www.kucoin.com/news/flash/cardano-reviews-cip-0197-for-optional-post-quantum-wallet-protection</a>
+- as of 2026-08-25</li>
+<li>Bitcoin’s Quantum Security Consortium Launches | Galaxy - <a
+href="https://www.galaxy.com/insights/research/bitcoin-quantum-security-consortium"
+class="uri">https://www.galaxy.com/insights/research/bitcoin-quantum-security-consortium</a>
+- as of 2026-09-10</li>
+<li>Computing 256-bit elliptic curve discrete logarithms in 26 days on a
+fault-tolerant trapped-ion quantum computer with 20,000 qubits - <a
+href="https://arxiv.org/abs/2609.05625"
+class="uri">https://arxiv.org/abs/2609.05625</a> - as of 2026-09-04</li>
+<li>ECDSA.Fail: Open Autoresearch for Optimizing Elliptic-Curve Point
+Addition in Shor’s Algorithm - <a
+href="https://arxiv.org/html/2609.09582v1"
+class="uri">https://arxiv.org/html/2609.09582v1</a> - as of
+2026-09-10</li>
+<li>[2609.09582] ECDSA.Fail: Open Autoresearch for Optimizing
+Elliptic-Curve Point Addition in Shor’s Algorithm - <a
+href="https://arxiv.org/abs/2609.09582"
+class="uri">https://arxiv.org/abs/2609.09582</a> - as of 2026-09-09</li>
+<li>Project Eleven Publishes Quantum Report with Q-Day Baseline Scenario
+in 2033 - <a
+href="https://www.prnewswire.com/news-releases/project-eleven-publishes-quantum-report-with-q-day-baseline-scenario-in-2033-302764188.html"
+class="uri">https://www.prnewswire.com/news-releases/project-eleven-publishes-quantum-report-with-q-day-baseline-scenario-in-2033-302764188.html</a>
+- as of 2026-05-06</li>
+<li>Quantum Horizon - <a href="https://arxiv.org/html/2606.14484v1"
+class="uri">https://arxiv.org/html/2606.14484v1</a> - as of
+2026-06-04</li>
+<li>Is Algorand quantum-safe? Hardy Score 77.5 - <a
+href="https://hardyindex.com/chains/algorand"
+class="uri">https://hardyindex.com/chains/algorand</a> - as of
+2026-08-15</li>
+<li>NEAR Protocol Becomes First Major Blockchain With Live Quantum-Safe
+Account Signing - <a
+href="https://www.techtimes.com/articles/320550/20260715/near-protocol-becomes-first-major-blockchain-live-quantum-safe-account-signing.htm"
+class="uri">https://www.techtimes.com/articles/320550/20260715/near-protocol-becomes-first-major-blockchain-live-quantum-safe-account-signing.htm</a>
+- as of 2026-07-15</li>
+<li>(U) Mobile Access Capability Package v2.8.0 - <a
+href="https://www.nsa.gov/Portals/75/%28U%29%20Mobile%20Access%20Capability%20Package%20v2_8_0.pdf"
+class="uri">https://www.nsa.gov/Portals/75/%28U%29%20Mobile%20Access%20Capability%20Package%20v2_8_0.pdf</a>
+- as of 2026-03-27</li>
+<li>(U) Campus Wireless Local Area Network (WLAN) Capability Package
+v3.2.0 - <a
+href="https://www.nsa.gov/Portals/75/(U)%20Campus%20WLAN%20CP%20v3.2.0.pdf?ver=PrF5zq0dpM-CoLuaCW-DRw%3D%3D"
+class="uri">https://www.nsa.gov/Portals/75/(U)%20Campus%20WLAN%20CP%20v3.2.0.pdf?ver=PrF5zq0dpM-CoLuaCW-DRw%3D%3D</a>
+- as of 2026-03-27</li>
+<li>(U) Approved DAR CP v5.1.0 - March 2026 - <a
+href="https://www.nsa.gov/Portals/75/documents/CSfC%20CP%20Updates%202026/(U)%20Approved%20DAR%20CP%20v5.1.0%20-%20March%202026.pdf?ver=nXrhmHhjKHPGbj0SR_jQOQ%3D%3D"
+class="uri">https://www.nsa.gov/Portals/75/documents/CSfC%20CP%20Updates%202026/(U)%20Approved%20DAR%20CP%20v5.1.0%20-%20March%202026.pdf?ver=nXrhmHhjKHPGbj0SR_jQOQ%3D%3D</a>
+- as of 2026-03-25</li>
+<li>CSfC Post Quantum Cryptography Guidance Addendum 1.0 Draft - <a
+href="https://www.nsa.gov/Portals/75/documents/resources/everyone/csfc/capability-packages/CSfC%20Post%20Quantum%20Cryptography%20Guidance%20Addendum%201_0%20Draft%20_5.pdf?ver=wCGPoDQXcJKEWTgbH8xsRA%3D%3D"
+class="uri">https://www.nsa.gov/Portals/75/documents/resources/everyone/csfc/capability-packages/CSfC%20Post%20Quantum%20Cryptography%20Guidance%20Addendum%201_0%20Draft%20_5.pdf?ver=wCGPoDQXcJKEWTgbH8xsRA%3D%3D</a>
+- as of 2025-05-02</li>
+<li>LMS versus XMSS versus SLH-DSA for Secure Boot - wolfSSL - <a
+href="https://www.wolfssl.com/lms-versus-xmss-versus-slh-dsa-for-secure-boot/"
+class="uri">https://www.wolfssl.com/lms-versus-xmss-versus-slh-dsa-for-secure-boot/</a>
+- as of 2026-06-10</li>
+<li>PCI SSC Publishes PCI PTS HSM v5.0 - <a
+href="https://blog.pcisecuritystandards.org/pci-ssc-publishes-pci-pts-hsm-v5.0"
+class="uri">https://blog.pcisecuritystandards.org/pci-ssc-publishes-pci-pts-hsm-v5.0</a>
+- as of 2026-05-18</li>
+<li>Deprecation of Outdated Cryptographic Algorithms and Parameters in
+Kerberos PKINIT - <a
+href="https://datatracker.ietf.org/doc/draft-rische-kitten-pkinit-crypto-deprec-00/"
+class="uri">https://datatracker.ietf.org/doc/draft-rische-kitten-pkinit-crypto-deprec-00/</a>
+- as of 2026-06-23</li>
+<li>draft-bokovoy-kitten-pkinit-pqc-01 - Post-quantum Key Encapsulation
+with ML-KEM in Public Key Cryptography for Initial Authentication in
+Kerberos (PKINIT) - <a
+href="https://datatracker.ietf.org/doc/draft-bokovoy-kitten-pkinit-pqc/"
+class="uri">https://datatracker.ietf.org/doc/draft-bokovoy-kitten-pkinit-pqc/</a>
+- as of 2026-07-18</li>
+<li>OpenSSL 4.0 Final Release - Live | OpenSSL Library - <a
+href="https://openssl-library.org/post/2026-04-14-openssl-40-final-release"
+class="uri">https://openssl-library.org/post/2026-04-14-openssl-40-final-release</a>
+- as of 2026-04-14</li>
+<li>Old 3.6 releases | OpenSSL Library - <a
+href="https://www.openssl-library.org/source/old/3.6"
+class="uri">https://www.openssl-library.org/source/old/3.6</a> - as of
+2026-06-09</li>
+<li>Go 的后量子密码学布局：从 ML-KEM 到 ML-DSA-51CTO.COM - <a
+href="https://www.51cto.com/article/843365.html"
+class="uri">https://www.51cto.com/article/843365.html</a></li>
+<li>Releases · moby/moby - <a
+href="https://github.com/moby/moby/releases"
+class="uri">https://github.com/moby/moby/releases</a> - as of
+2026-08-05</li>
+<li>RFC 10024: Post-Quantum Traditional (PQ/T) Hybrid Key Agreement
+Mechanisms for TLS 1.3 - <a
+href="https://www.rfc-editor.org/rfc/rfc10024.html"
+class="uri">https://www.rfc-editor.org/rfc/rfc10024.html</a> - as of
+2026-08-10</li>
+<li>Post-quantum hybrid ECDHE-MLKEM512 Key Agreement for TLSv1.3 - <a
+href="https://www.ietf.org/archive/id/draft-rosomakho-tls-ecdhe-mlkem512-00.html"
+class="uri">https://www.ietf.org/archive/id/draft-rosomakho-tls-ecdhe-mlkem512-00.html</a>
+- as of 2026-07-05</li>
+<li>ESA post-quantum encryption (PQC) - <a
+href="https://www.alibabacloud.com/help/en/edge-security-acceleration/esa/user-guide/post-quantum-encryption"
+class="uri">https://www.alibabacloud.com/help/en/edge-security-acceleration/esa/user-guide/post-quantum-encryption</a>
+- as of 2026-06-02</li>
+<li>Post-quantum cryptography support in Red Hat OpenShift 4.20 control
+plane - <a
+href="https://www.redhat.com/en/blog/deeper-look-post-quantum-cryptography-support-red-hat-openshift-420-control-plane"
+class="uri">https://www.redhat.com/en/blog/deeper-look-post-quantum-cryptography-support-red-hat-openshift-420-control-plane</a>
+- as of 2025-11-11</li>
+<li>Releases · pq-code-package/mldsa-native - <a
+href="https://github.com/pq-code-package/mldsa-native/releases"
+class="uri">https://github.com/pq-code-package/mldsa-native/releases</a>
+- as of 2026-08-03</li>
+<li>News Archives | Page 2 of 15 | PQShield - <a
+href="https://pqshield.com/category/news/page/2/"
+class="uri">https://pqshield.com/category/news/page/2/</a> - as of
+2026-07-13</li>
+<li>GitHub - OmniTrustILM/cbom-lens: CLI tool to scan filesystems,
+containers, and network ports for cryptographic assets and generate a
+CycloneDX CBOM. - <a href="https://github.com/OmniTrustILM/cbom-lens"
+class="uri">https://github.com/OmniTrustILM/cbom-lens</a></li>
+<li>Systematic Timing Leakage Analysis of NIST PQDSS Candidates: Tooling
+and Lessons Learned - <a href="https://arxiv.org/html/2509.04010"
+class="uri">https://arxiv.org/html/2509.04010</a> - as of
+2026-08-11</li>
+<li>symbolicsoft/crucible - <a
+href="https://github.com/symbolicsoft/crucible"
+class="uri">https://github.com/symbolicsoft/crucible</a></li>
+<li>Releases · usnistgov/ACVP-Server · GitHub - <a
+href="https://github.com/usnistgov/ACVP-Server/releases"
+class="uri">https://github.com/usnistgov/ACVP-Server/releases</a> - as
+of 2026-08-17</li>
+<li>Keyfactor Announces Intent to Acquire Cofide to Bring Verified
+Identity to AI Agents and Cloud Workloads | Keyfactor - <a
+href="https://www.keyfactor.com/press-releases/keyfactor-announces-intent-to-acquire-cofide-to-bring-verified-identity-to-ai-agents-and-cloud-workloads/"
+class="uri">https://www.keyfactor.com/press-releases/keyfactor-announces-intent-to-acquire-cofide-to-bring-verified-identity-to-ai-agents-and-cloud-workloads/</a>
+- as of 2026-07-27</li>
+<li>wolfSSL 5.9.2 release blog - <a
+href="https://www.wolfssl.com/wolfssl-5-9-2-release-blog/"
+class="uri">https://www.wolfssl.com/wolfssl-5-9-2-release-blog/</a> - as
+of 2026-06-30</li>
+<li>Aug 13, 2026 - Post Quantum Cryptography support for Standard TLS -
+<a
+href="https://techdocs.akamai.com/property-mgr/changelog/aug-13-2026-post-quantum-cryptography-support-for-standard-tls"
+class="uri">https://techdocs.akamai.com/property-mgr/changelog/aug-13-2026-post-quantum-cryptography-support-for-standard-tls</a>
+- as of 2026-08-13</li>
+<li>Post-Quantum Cryptography (PQC) Inline Inspection with Zscaler
+Internet Access - <a
+href="https://www.zscaler.com/resources/brochures/post-quantum-cryptography-inspection.pdf"
+class="uri">https://www.zscaler.com/resources/brochures/post-quantum-cryptography-inspection.pdf</a>
+- as of 2026-07-17</li>
+<li>Microsoft and SAP accelerate quantum security for enterprise - <a
+href="https://www.sdxcentral.com/news/microsoft-and-sap-accelerate-quantum-security-for-enterprise/"
+class="uri">https://www.sdxcentral.com/news/microsoft-and-sap-accelerate-quantum-security-for-enterprise/</a>
+- as of 2026-07-06</li>
+<li>OC3 Berlin 12th March 2026 Intel Security PQC Update - <a
+href="https://cdn.prod.website-files.com/63c54a346e01f30e726f97cf/69ce2ee93826f3a478f1cc3c_2026%20WW11%20OC3%20Simon%20Johnson%20final.pdf"
+class="uri">https://cdn.prod.website-files.com/63c54a346e01f30e726f97cf/69ce2ee93826f3a478f1cc3c_2026%20WW11%20OC3%20Simon%20Johnson%20final.pdf</a>
+- as of 2026-03-12</li>
+<li>Support for Hybrid Post-Quantum Cryptography on the front end - <a
+href="https://docs.citrix.com/en-us/citrix-adc/current-release/ssl/hybrid-pqc.html"
+class="uri">https://docs.citrix.com/en-us/citrix-adc/current-release/ssl/hybrid-pqc.html</a>
+- as of 2025-09-27</li>
+<li>Toppan develops post-quantum smart card for government, healthcare
+IDs | Biometric Update - <a
+href="https://www.biometricupdate.com/202608/toppan-develops-post-quantum-smart-card-for-government-healthcare-ids"
+class="uri">https://www.biometricupdate.com/202608/toppan-develops-post-quantum-smart-card-for-government-healthcare-ids</a>
+- as of 2026-08-05</li>
+<li>wolfTPM Post-Quantum Cryptography Release: ML-DSA and ML-KEM Support
+via TCG TPM 2.0 Library Specification v1.85 - <a
+href="https://www.wolfssl.com/wolftpm-post-quantum-cryptography-release-ml-dsa-and-ml-kem-support-via-tcg-tpm-2-0-library-specification-v1-85/"
+class="uri">https://www.wolfssl.com/wolftpm-post-quantum-cryptography-release-ml-dsa-and-ml-kem-support-via-tcg-tpm-2-0-library-specification-v1-85/</a>
+- as of 2026-05-28</li>
+<li>Beyond OSNMA: Signal Authentication Service - <a
+href="https://www.euspa.europa.eu/sites/default/files/documents/Beyond%20OSNMA%20-%20Signal%20Authentication%20Service.pdf"
+class="uri">https://www.euspa.europa.eu/sites/default/files/documents/Beyond%20OSNMA%20-%20Signal%20Authentication%20Service.pdf</a>
+- as of 2026-02-27</li>
+<li>Galileo OSNMA enhances secure GNSS timing for critical
+infrastructure - <a
+href="https://www.euspa.europa.eu/newsroom-events/success-stories/galileo-osnma-enhances-secure-gnss-timing-critical-infrastructure"
+class="uri">https://www.euspa.europa.eu/newsroom-events/success-stories/galileo-osnma-enhances-secure-gnss-timing-critical-infrastructure</a>
+- as of 2026-07-30</li>
+<li>Post-quantum cryptography expanded across embedded, networking, and
+satellite systems by wolfSSL - <a
+href="https://militaryembedded.com/unmanned/rugged-computing/post-quantum-cryptography-expanded-across-embedded-networking-and-satellite-systems-by-wolfssl"
+class="uri">https://militaryembedded.com/unmanned/rugged-computing/post-quantum-cryptography-expanded-across-embedded-networking-and-satellite-systems-by-wolfssl</a>
+- as of 2026-08-06</li>
+<li>SKY Perfect JSAT Signs MoU with Forward Edge-AI Japan on PoC
+Demonstration of Post-Quantum Cryptography (PQC) Technology for
+Satellite Communications - <a
+href="https://www.skyperfectjsat.space/en/news/20260427"
+class="uri">https://www.skyperfectjsat.space/en/news/20260427</a> - as
+of 2026-04-27</li>
+<li>Hybrid Classical–Post-Quantum Migration Framework for Brownfield
+SCADA Environments - <a
+href="https://ieeexplore.ieee.org/ielx8/6287639/11323511/11505838.pdf"
+class="uri">https://ieeexplore.ieee.org/ielx8/6287639/11323511/11505838.pdf</a>
+- as of 2026-05-16</li>
+<li>A post-quantum security architecture for AI-driven surveillance
+systems: ensuring data protection in the quantum computing era - <a
+href="https://link.springer.com/article/10.1007/s11227-026-08315-w"
+class="uri">https://link.springer.com/article/10.1007/s11227-026-08315-w</a>
+- as of 2026-02-18</li>
+<li>Preparing for Q-Day: Quantum-Resistant Security Cameras in Canada -
+<a
+href="https://eesecuritysolutions.ca/quantum-resistant-security-cameras/"
+class="uri">https://eesecuritysolutions.ca/quantum-resistant-security-cameras/</a>
+- as of 2026-05-12</li>
+<li>Secure Intercom Software: 2026 Buyer &amp; Builder Playbook - <a
+href="https://www.forasoft.com/blog/article/secure-intercom-software-security-matters"
+class="uri">https://www.forasoft.com/blog/article/secure-intercom-software-security-matters</a>
+- as of 2026-08-10</li>
+<li>GSMA PQTN roundtable MWC Shanghai 2026 - <a
+href="https://www.gsma.com/solutions-and-impact/technologies/security/gsma_resources/quantum-safe-or-quantum-vulnerable-inside-gsmas-second-pqc-roundtable-at-mwc-shanghai/"
+class="uri">https://www.gsma.com/solutions-and-impact/technologies/security/gsma_resources/quantum-safe-or-quantum-vulnerable-inside-gsmas-second-pqc-roundtable-at-mwc-shanghai/</a>
+- as of 2026-06-24</li>
+<li>PQC Validator: Validating Post-Quantum Readiness in Cloud-Native 5G
+Core Networks - <a href="https://arxiv.org/html/2605.01454v1"
+class="uri">https://arxiv.org/html/2605.01454v1</a> - as of
+2026-05-02</li>
+<li>Post Quantum Secure Handover Mechanism for Next Generation Aviation
+Communication Networks - <a
+href="https://zenodo.org/records/13832634/preview/Post_Quantum_Secure_Handover_Mechanism_for_Next_Generation_Aviation_Communication_Networks__1_%20(1).pdf?include_deleted=0"
+class="uri">https://zenodo.org/records/13832634/preview/Post_Quantum_Secure_Handover_Mechanism_for_Next_Generation_Aviation_Communication_Networks__1_%20(1).pdf?include_deleted=0</a></li>
+<li>A10 Networks X post on PQC Taiwan summit - <a
+href="https://x.com/A10Networks/status/2089336974997876949"
+class="uri">https://x.com/A10Networks/status/2089336974997876949</a> -
+as of 2026-08-13</li>
+<li>Post-quantum cryptography (PQC) migration workshop report - <a
+href="https://www.ncsc.gov.uk/blogs/post-quantum-cryptography-pqc-migration-workshop-report"
+class="uri">https://www.ncsc.gov.uk/blogs/post-quantum-cryptography-pqc-migration-workshop-report</a>
+- as of 2026-07-22</li>
+<li>Post-Quantum Cryptography Migration in Australian Real-Time Payment
+Infrastructure: A Monte Carlo Simulation Study of the New Payments
+Platform - <a href="https://arxiv.org/abs/2605.02276"
+class="uri">https://arxiv.org/abs/2605.02276</a> - as of 2026-05-04</li>
+<li>New X9 Standard for Secure, Interoperable QR Code Payments Will
+Accelerate U.S. Use of Instant Payments - <a
+href="https://x9.org/new-x9-standard-for-secure-interoperable-qr-code-payments-will-accelerate-u-s-use-of-instant-payments/"
+class="uri">https://x9.org/new-x9-standard-for-secure-interoperable-qr-code-payments-will-accelerate-u-s-use-of-instant-payments/</a>
+- as of 2026-07-14</li>
+<li>EMVCo Newsletter: Q1 2026 - <a
+href="https://www.emvco.com/news/emvco-newsletter-q1-2026/"
+class="uri">https://www.emvco.com/news/emvco-newsletter-q1-2026/</a> -
+as of 2026-04-10</li>
+<li>ETSI TS 119 312 v2.1.1 (2026-06) - Electronic Signatures and Trust
+Infrastructures (ESI); Cryptographic Suites · Issue #328 - <a
+href="https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/328"
+class="uri">https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/328</a>
+- as of 2026-01-20</li>
+<li>ETSI Work Programme - Work Item Plan - <a
+href="https://portal.etsi.org/webapp/WorkProgram/Frame_WorkItemList.asp?qSORT=REFNB&amp;qETSI_ALL=&amp;SearchPage=TRUE&amp;qTB_ID=607%3BESI&amp;qINCLUDE_SUB_TB=True&amp;qINCLUDE_MOVED_ON=&amp;qEND_CURRENT_STATUS_CODE=11+WI%3BM58&amp;qSTOP_FLG=N&amp;qKEYWORD_BOOLEAN=OR&amp;qCLUSTER_BOOLEAN=OR&amp;qFREQUENCIES_BOOLEAN=OR&amp;qSTOPPING_OUTDATED=&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;qREPORT_TYPE=SUMMARY&amp;optDisplay=ALL"
+class="uri">https://portal.etsi.org/webapp/WorkProgram/Frame_WorkItemList.asp?qSORT=REFNB&amp;qETSI_ALL=&amp;SearchPage=TRUE&amp;qTB_ID=607%3BESI&amp;qINCLUDE_SUB_TB=True&amp;qINCLUDE_MOVED_ON=&amp;qEND_CURRENT_STATUS_CODE=11+WI%3BM58&amp;qSTOP_FLG=N&amp;qKEYWORD_BOOLEAN=OR&amp;qCLUSTER_BOOLEAN=OR&amp;qFREQUENCIES_BOOLEAN=OR&amp;qSTOPPING_OUTDATED=&amp;butExpertSearch=Search&amp;includeNonActiveTB=FALSE&amp;includeSubProjectCode=FALSE&amp;qREPORT_TYPE=SUMMARY&amp;optDisplay=ALL</a>
+- as of 2026-08-17</li>
+<li>COMMISSION IMPLEMENTING REGULATION (EU) 2026/248 - <a
+href="https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202600248"
+class="uri">https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202600248</a>
+- as of 2026-02-02</li>
+<li>Oxford team achieves first-ever ‘quadsqueezing’ quantum interaction
+- <a
+href="https://www.physics.ox.ac.uk/news/oxford-team-achieves-first-ever-quadsqueezing-quantum-interaction"
+class="uri">https://www.physics.ox.ac.uk/news/oxford-team-achieves-first-ever-quadsqueezing-quantum-interaction</a>
+- as of 2026-05-01</li>
+<li>Practical blueprint for low-depth photonic quantum computing with
+quantum dots - <a
+href="https://www.nature.com/articles/s41534-026-01258-3"
+class="uri">https://www.nature.com/articles/s41534-026-01258-3</a> - as
+of 2026-05-14</li>
+<li>Compact Silicon Spin Qubit Readout Sensor | Quantum Motion - <a
+href="https://quantummotion.com/silicon-spin-qubit-readout-single-electron-box/"
+class="uri">https://quantummotion.com/silicon-spin-qubit-readout-single-electron-box/</a>
+- as of 2026-07-07</li>
+<li>[2608.15963] Classical Verification of Quantum Advantage via
+Clifford Obfuscation - <a href="https://arxiv.org/abs/2608.15963"
+class="uri">https://arxiv.org/abs/2608.15963</a> - as of 2026-08-16</li>
+<li>Quantum scaling advantage using reduced search in an NP-complete
+problem - <a href="https://www.nature.com/articles/s43588-026-01033-6"
+class="uri">https://www.nature.com/articles/s43588-026-01033-6</a> - as
+of 2026-08-03</li>
+<li>[2608.13521] Exponential quantum advantage for learning signals with
+a single qubit - <a href="https://arxiv.org/abs/2608.13521"
+class="uri">https://arxiv.org/abs/2608.13521</a> - as of 2026-08-13</li>
+<li>Post-Quantum Cryptography | CSRC - <a
+href="https://csrc.nist.gov/pqc-standardization"
+class="uri">https://csrc.nist.gov/pqc-standardization</a> - as of
+2026-08-05</li>
+<li>Korea leads US in post-quantum cryptography patents as govt readies
+deployment - <a
+href="https://www.telecompaper.com/news/korea-leads-us-in-post-quantum-cryptography-patents-as-govt-readies-deployment--1561019"
+class="uri">https://www.telecompaper.com/news/korea-leads-us-in-post-quantum-cryptography-patents-as-govt-readies-deployment--1561019</a>
+- as of 2026-02-03</li>
+<li>China forms quantum information standards committee - <a
+href="https://dig.watch/updates/china-quantum-information-standards-committee"
+class="uri">https://dig.watch/updates/china-quantum-information-standards-committee</a>
+- as of 2026-08-02</li>
+<li>Quantum related-key attacks on Feistel-like ciphers - <a
+href="https://link.springer.com/article/10.1140/epjqt/s40507-026-00481-3"
+class="uri">https://link.springer.com/article/10.1140/epjqt/s40507-026-00481-3</a>
+- as of 2026-02-17</li>
+<li>Tight Analysis of Grover-Meets-Simon and Alg-PolyQ2 Attacks via
+Formalizing Quantum Rank-Solving under Deferred Measurement - <a
+href="https://inspirehep.net/literature/3104442"
+class="uri">https://inspirehep.net/literature/3104442</a> - as of
+2025-12-01</li>
+<li>Quantum Periodic Distinguisher Construction: Symbolization Method
+and Automated Tool - <a
+href="https://eprint.iacr.org/archive/2025/681/20250516:075713"
+class="uri">https://eprint.iacr.org/archive/2025/681/20250516:075713</a>
+- as of 2025-04-15</li>
+<li>Turning Hash-Based Signatures into Distributed Signatures and
+Threshold Signatures - <a
+href="https://www.nist.gov/publications/turning-hash-based-signatures-distributed-signatures-and-threshold-signatures"
+class="uri">https://www.nist.gov/publications/turning-hash-based-signatures-distributed-signatures-and-threshold-signatures</a>
+- as of 2025-07-07</li>
+<li>Additional Parameter sets for HSS/LMS Hash-Based Signatures - <a
+href="https://www.ietf.org/archive/id/draft-fluhrer-lms-more-parm-sets-19.html"
+class="uri">https://www.ietf.org/archive/id/draft-fluhrer-lms-more-parm-sets-19.html</a>
+- as of 2025-02-12</li>
+<li>LMS versus XMSS versus SLH-DSA Performance Data - <a
+href="https://www.wolfssl.com/lms-versus-xmss-versus-slh-dsa-performance-data/"
+class="uri">https://www.wolfssl.com/lms-versus-xmss-versus-slh-dsa-performance-data/</a>
+- as of 2026-05-21</li>
+<li>Latest Extended Validation Guidelines - <a
+href="https://cabforum.org/working-groups/server/extended-validation/guidelines/"
+class="uri">https://cabforum.org/working-groups/server/extended-validation/guidelines/</a>
+- as of 2026-08-13</li>
+<li>Ballot SC087v2: Registration Number Improvement for EV Certificates
+- <a
+href="https://cabforum.org/2026/06/03/ballot-sc087v2-registration-number-improvement-for-ev-certificates/"
+class="uri">https://cabforum.org/2026/06/03/ballot-sc087v2-registration-number-improvement-for-ev-certificates/</a>
+- as of 2026-07-06</li>
+<li>Ballot SC102: EV Domain Reuse and Validity Alignment - <a
+href="https://cabforum.org/2026/07/14/ballot-sc102-ev-domain-reuse-and-validity-alignment/"
+class="uri">https://cabforum.org/2026/07/14/ballot-sc102-ev-domain-reuse-and-validity-alignment/</a>
+- as of 2026-08-13</li>
+<li>Ballot SC095v3: Clean-up 2025 - <a
+href="https://cabforum.org/2026/02/27/ballot-sc095v3-clean-up-2025/"
+class="uri">https://cabforum.org/2026/02/27/ballot-sc095v3-clean-up-2025/</a>
+- as of 2026-05-04</li>
+<li>Program-Requirements/Requirements.md at main ·
+TrustedRootProgram/Program-Requirements - <a
+href="https://github.com/TrustedRootProgram/Program-Requirements/blob/main/Requirements.md"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements/blob/main/Requirements.md</a>
+- as of 2026-07-01</li>
+<li>GitHub - TrustedRootProgram/Program-Requirements - <a
+href="https://github.com/TrustedRootProgram/Program-Requirements"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements</a>
+- as of 2025-10-01</li>
+<li>Certificate Lifetime Rationale and Plans - <a
+href="https://letsencrypt.org/docs/cert-lifetimes/"
+class="uri">https://letsencrypt.org/docs/cert-lifetimes/</a> - as of
+2026-07-22</li>
+<li>ACME Renewal Information (ARI) Published as RFC 9773 - <a
+href="https://letsencrypt.org/2025/09/16/ari-rfc"
+class="uri">https://letsencrypt.org/2025/09/16/ari-rfc</a> - as of
+2025-09-16</li>
+<li>RFC 9773 - ACME Renewal Information (ARI) Extension - <a
+href="https://datatracker.ietf.org/doc/rfc9773/"
+class="uri">https://datatracker.ietf.org/doc/rfc9773/</a> - as of
+2025-06-01</li>
+<li>HARICA: Issuance of Server TLS Certificates with id-kp-clientAuth
+KeyPurposeID against CP/CPS - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2055551"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2055551</a> -
+as of 2026-07-20</li>
+<li>fooda-2026-tls.pdf - <a
+href="https://taejoong.github.io/files/publications/fooda-2026-tls.pdf"
+class="uri">https://taejoong.github.io/files/publications/fooda-2026-tls.pdf</a>
+- as of 2026-08-03</li>
+<li>RFC 9925 - Unsigned X.509 Certificates - <a
+href="https://datatracker.ietf.org/doc/html/rfc9925"
+class="uri">https://datatracker.ietf.org/doc/html/rfc9925</a> - as of
+2026-02-01</li>
+<li>RFC 9618 - Updates to X.509 Policy Validation - <a
+href="https://datatracker.ietf.org/doc/html/rfc9618"
+class="uri">https://datatracker.ietf.org/doc/html/rfc9618</a> - as of
+2024-08-01</li>
+<li>RFC 9549 - Internationalization Updates to RFC 5280 - <a
+href="https://datatracker.ietf.org/doc/html/rfc9549"
+class="uri">https://datatracker.ietf.org/doc/html/rfc9549</a> - as of
+2024-03-01</li>
+<li>RFC 9608 - No Revocation Available for X.509 Public Key Certificates
+- <a href="https://datatracker.ietf.org/doc/rfc9608/"
+class="uri">https://datatracker.ietf.org/doc/rfc9608/</a> - as of
+2024-06-01</li>
+<li>RFC 9919 - The Lightweight Online Certificate Status Protocol (OCSP)
+Profile for High-Volume Environments - <a
+href="https://datatracker.ietf.org/doc/rfc9919/"
+class="uri">https://datatracker.ietf.org/doc/rfc9919/</a> - as of
+2026-07-01</li>
+<li>draft-ietf-acme-dns-account-label-03 - Automated Certificate
+Management Environment (ACME) DNS Labeled With ACME Account ID Challenge
+- <a
+href="https://datatracker.ietf.org/doc/draft-ietf-acme-dns-account-label/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-acme-dns-account-label/</a>
+- as of 2026-05-01</li>
+<li>Ballot SC098v2: Process RFC 8657 CAA Parameters | CA/Browser Forum -
+<a
+href="https://cabforum.org/2026/05/13/ballot-sc098v2-process-rfc-8657-caa-parameters/"
+class="uri">https://cabforum.org/2026/05/13/ballot-sc098v2-process-rfc-8657-caa-parameters/</a>
+- as of 2026-05-13</li>
+<li>WebTrust for Certification Authorities – Network Security v2.0.5 -
+<a
+href="https://www.cpacanada.ca/-/media/site/operational/ms-member-services/docs/webtrust/01618-ms_web-trust-network-security_version-2-0-5.pdf?rev=-1&amp;hash=D1EBBA267F112FC7E4B763A6B0B1945D"
+class="uri">https://www.cpacanada.ca/-/media/site/operational/ms-member-services/docs/webtrust/01618-ms_web-trust-network-security_version-2-0-5.pdf?rev=-1&amp;hash=D1EBBA267F112FC7E4B763A6B0B1945D</a>
+- as of 2025-10-31</li>
+<li>ETSI EN 319 401 V3.2.1 (2026-01) - <a
+href="https://standards.iteh.ai/catalog/standards/etsi/99c231f9-595a-4ede-b0e9-03b950487d7b/etsi-en-319-401-v3-2-1-2026-01"
+class="uri">https://standards.iteh.ai/catalog/standards/etsi/99c231f9-595a-4ede-b0e9-03b950487d7b/etsi-en-319-401-v3-2-1-2026-01</a>
+- as of 2026-01-05</li>
+<li>ETSI EN 319 411-1 V1.5.1 - <a
+href="https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/01.05.01_60/en_31941101v010501p.pdf"
+class="uri">https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/01.05.01_60/en_31941101v010501p.pdf</a>
+- as of 2025-04-07</li>
+<li>ACAB’c downloads - <a href="https://www.acab-c.com/downloads"
+class="uri">https://www.acab-c.com/downloads</a> - as of 2026-03-01</li>
+<li>Audit Requirements - Microsoft Trusted Root Certificate Program - <a
+href="https://learn.microsoft.com/en-us/security/trusted-root/audit-requirements"
+class="uri">https://learn.microsoft.com/en-us/security/trusted-root/audit-requirements</a>
+- as of 2026-08-01</li>
+<li>servercert/docs/BR.md - <a
+href="https://github.com/cabforum/servercert/blob/main/docs/BR.md"
+class="uri">https://github.com/cabforum/servercert/blob/main/docs/BR.md</a>
+- as of 2026-08-06</li>
+<li>Forum | CA/Browser Forum - <a
+href="https://cabforum.org/tags/forum/"
+class="uri">https://cabforum.org/tags/forum/</a> - as of 2026-04-09</li>
+<li>IPR Policy | CA/Browser Forum - <a
+href="https://cabforum.org/about/ipr-policy/"
+class="uri">https://cabforum.org/about/ipr-policy/</a> - as of
+2026-06-01</li>
+<li>Post-Quantum Threats to Ethereum Privacy - <a
+href="https://ethresear.ch/t/post-quantum-threats-to-ethereum-privacy/24450"
+class="uri">https://ethresear.ch/t/post-quantum-threats-to-ethereum-privacy/24450</a>
+- as of 2026-03-19</li>
+<li>CAPSS: A Framework for SNARK-Friendly Post-Quantum Signatures - <a
+href="https://eprint.iacr.org/2025/061"
+class="uri">https://eprint.iacr.org/2025/061</a> - as of 2025-01-14</li>
+<li>Eight Years of Building the Quantum-Safe Future - <a
+href="https://www.theqrl.org/blog/celebrating-8-years/"
+class="uri">https://www.theqrl.org/blog/celebrating-8-years/</a> - as of
+2026-06-26</li>
+<li>Native Quantum Resistance | Nervos CKB - <a
+href="https://docs.nervos.org/docs/ckb-features/native-quantum-resistance"
+class="uri">https://docs.nervos.org/docs/ckb-features/native-quantum-resistance</a>
+- as of 2026-07-11</li>
+<li>Post-Quantum Readiness on the XRP Ledger | Ripple - <a
+href="https://ripple.com/insights/post-quantum-readiness-on-the-xrp-ledger/"
+class="uri">https://ripple.com/insights/post-quantum-readiness-on-the-xrp-ledger/</a>
+- as of 2026-04-20</li>
+<li>Cardano Vision 2026: the research program securing Cardano’s next
+era - <a
+href="https://www.iog.io/news/cardano-vision-2026-the-research-program-securing-cardano"
+class="uri">https://www.iog.io/news/cardano-vision-2026-the-research-program-securing-cardano</a>
+- as of 2026-06-19</li>
+<li>Post Quantum Cryptography Roadmap for Polkadot and JAM - <a
+href="https://forum.polkadot.network/t/post-quantum-cryptography-roadmap-for-polkadot-and-jam/13232?u=gr33nhatt3r"
+class="uri">https://forum.polkadot.network/t/post-quantum-cryptography-roadmap-for-polkadot-and-jam/13232?u=gr33nhatt3r</a>
+- as of 2025-06-05</li>
+<li>Circle’s Post-Quantum Security Roadmap - <a
+href="https://community.arc.io/public/blogs/circles-post-quantum-security-roadmap-securing-blockchains-smart-contracts-and-digital-assets-for-the-quantum-era-2026-05-30"
+class="uri">https://community.arc.io/public/blogs/circles-post-quantum-security-roadmap-securing-blockchains-smart-contracts-and-digital-assets-for-the-quantum-era-2026-05-30</a>
+- as of 2026-05-30</li>
+<li>Circle explores Arc’s post-quantum security roadmap for USDC - <a
+href="https://cryptobriefing.com/circle-arc-post-quantum-security-usdc/"
+class="uri">https://cryptobriefing.com/circle-arc-post-quantum-security-usdc/</a>
+- as of 2026-05-29</li>
+<li>PQ1 - The First Quantum-Secure Hardware Wallet | FREEDOM/FACTORY -
+<a href="https://freedomfactory.io/"
+class="uri">https://freedomfactory.io/</a> - as of 2026-07-28</li>
+<li>presidiobtc/bitcoin-quantum - <a
+href="https://github.com/presidiobtc/bitcoin-quantum/"
+class="uri">https://github.com/presidiobtc/bitcoin-quantum/</a> - as of
+2026-04-29</li>
+<li>BIP 360 (P2MR) implemented in Bitcoin Core on regtest: vector
+results, measurements, spec feedback - <a
+href="https://delvingbitcoin.org/t/bip-360-p2mr-implemented-in-bitcoin-core-on-regtest-vector-results-measurements-spec-feedback/2751"
+class="uri">https://delvingbitcoin.org/t/bip-360-p2mr-implemented-in-bitcoin-core-on-regtest-vector-results-measurements-spec-feedback/2751</a>
+- as of 2026-07-28</li>
+<li>Searching for SHRINCS Parameters - <a
+href="https://blog.blockstream.com/searching-for-shrincs-parameters/"
+class="uri">https://blog.blockstream.com/searching-for-shrincs-parameters/</a>
+- as of 2026-08-06</li>
+<li>Lattice HD Wallets: Post-Quantum BIP32 Hierarchical Deterministic
+Wallets from Lattice Assumptions - <a
+href="https://eprint.iacr.org/2026/380.pdf"
+class="uri">https://eprint.iacr.org/2026/380.pdf</a> - as of
+2026-03-05</li>
+<li>lattice-hd-wallets - <a
+href="https://github.com/p-11/lattice-hd-wallets"
+class="uri">https://github.com/p-11/lattice-hd-wallets</a> - as of
+2026-03-05</li>
+<li>AmericanFortress unveils first post-quantum fix for HD wallets that
+requires no chain migration - <a
+href="https://finbold.com/americanfortress-unveils-first-post-quantum-fix-for-hd-wallets-that-requires-no-chain-migration/"
+class="uri">https://finbold.com/americanfortress-unveils-first-post-quantum-fix-for-hd-wallets-that-requires-no-chain-migration/</a>
+- as of 2026-05-22</li>
+<li>Proving Crypto Ownership After Q-Day - <a
+href="https://www.projecteleven.com/blog/proving-crypto-ownership-after-q-day"
+class="uri">https://www.projecteleven.com/blog/proving-crypto-ownership-after-q-day</a>
+- as of 2026-07-15</li>
+<li>Quantum Risk Series | Q-Day Is Coming: How Quantum Computing Could
+Reshape Cyber Insurance Claims - <a
+href="https://plusweb.org/news/quantum-risk-series-q-day-is-coming-how-quantum-computing-could-reshape-cyber-insurance-claims/"
+class="uri">https://plusweb.org/news/quantum-risk-series-q-day-is-coming-how-quantum-computing-could-reshape-cyber-insurance-claims/</a>
+- as of 2026-07-06</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="../index.html"><span>Up</span>All research topics</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="quantum-crypto-diff-2026-09-12.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>
