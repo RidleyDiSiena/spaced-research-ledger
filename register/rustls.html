@@ -26,6 +26,9 @@
     <h2 class="contents-heading">Contents</h2>
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#where-the-cryptography-comes-from"
+id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
+From</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
 <li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
@@ -61,27 +64,27 @@
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-available">available</span> since 0.23.22 (core
 crate) [3]</td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP256r1MLKEM768</strong></td>
 <td><span class="st st-available">available</span> since documented in
 0.23.44 [3]</td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP384r1MLKEM1024</strong></td>
 <td><span class="st st-none">none</span> [3]</td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>curveSM2MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
@@ -99,28 +102,63 @@ crate) [3]</td>
 <td><strong>FN-DSA (Falcon)</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>Composite ML-DSA</strong></td>
+<td><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>LMS / HSS</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 </tbody>
 </table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-cryptography-comes-from">Where the Cryptography Comes
+From</h2>
+<p>This component does not implement everything it is asked about. What
+it inherits, from what, and at which version:</p>
+<ul>
+<li><strong><a href="aws-lc-rs.html">aws-lc-rs</a></strong> – provider,
+pinned at aws-lc-rs ^1.18 (rustls 0.23.44). Inherits: FIPS 140-3. rustls
+does no cryptography itself; it takes a provider crate, and aws-lc-rs is
+the default. It is one of two providers – the other is recorded as the
+<code>ring</code> edge below rather than left in this sentence, so the
+page cannot read as though rustls had a single backend. [5]</li>
+<li><strong>ring, not tracked in this register</strong> – provider.
+Inherits: FIPS 140-3. The other provider crate rustls can be built on,
+listed beside aws-lc-rs as an optional dependency of rustls 0.23.44.
+ring is NOT a component in this register, so a rustls built on ring
+inherits nothing recorded here – and that is a gap in this register’s
+coverage, not a finding about ring. Recorded as an edge rather than a
+remark so the count of backends is right and the promotion to a real
+component is a one-line change if ring is ever tracked. [6]</li>
+</ul>
+<h3 id="fips-140-3">FIPS 140-3</h3>
+<p>rustls holds no FIPS 140-3 certificate of its own, and there is no
+single answer for it: which of its 2 backends this build carries
+decides, and that is a build-time choice no register can see. Running in
+an approved mode also needs the validated version on a tested operating
+environment, which no register can tell you. What each backend
+holds:</p>
+<ul>
+<li><strong>aws-lc-rs</strong> (provider, at aws-lc-rs ^1.18 (rustls
+0.23.44)) holds no certificate of its own and takes its own cryptography
+from AWS-LC. See <a href="aws-lc-rs.html">aws-lc-rs</a>.</li>
+<li><strong>ring</strong> (provider) is not a component in this
+register, so nothing about its FIPS standing is recorded here – and its
+absence from these pages is not a finding about it.</li>
+</ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
 <li><strong>ML-KEM, TLS 1.3</strong>: Hybrid ML-KEM key exchange in the
@@ -164,6 +202,12 @@ class="uri">https://docs.rs/rustls/latest/rustls/crypto/aws_lc_rs/kx_group/index
 class="uri">https://lxer.com/module/newswire/ext_link.php?rid=367325</a>
 (as of 2026-09-07; ledger claim
 pqc/language-runtime-tls-surfaces/d0004:1)</li>
+<li><a href="https://docs.rs/rustls/latest/rustls/crypto/index.html"
+class="uri">https://docs.rs/rustls/latest/rustls/crypto/index.html</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a href="https://docs.rs/rustls/latest/rustls/crypto/index.html"
+class="uri">https://docs.rs/rustls/latest/rustls/crypto/index.html</a>
+(date not recorded; checked 2026-09-13)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

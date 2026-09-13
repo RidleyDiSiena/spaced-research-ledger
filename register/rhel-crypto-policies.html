@@ -3,33 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Go standard library | PQC Readiness Register</title>
-  <meta name="description" content="Go standard library: post-quantum readiness, cell by cell, with sources.">
+  <title>RHEL system-wide crypto-policies | PQC Readiness Register</title>
+  <meta name="description" content="RHEL system-wide crypto-policies: post-quantum readiness, cell by cell, with sources.">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
 <header class="masthead">
   <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Go standard library</nav>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>RHEL system-wide crypto-policies</nav>
 </header>
 
 <main>
   <div class="titleblock">
     <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
-    <p class="kicker">PQC Readiness Register &middot; language-stack</p>
-    <h1>Go standard library</h1>
-    <p class="standfirst">Maintained by The Go project (Google). Two releases a year (1.N); crypto/tls defaults change with them. Home: https://go.dev/</p>
-    <p class="updated">10 cited cells &middot; 1 confirmed absent</p>
+    <p class="kicker">PQC Readiness Register &middot; os</p>
+    <h1>RHEL system-wide crypto-policies</h1>
+    <p class="standfirst">Maintained by Red Hat. RHEL minor releases. The post-quantum position changed materially between 10.0 and 10.1, which is what the cells below record. Home: https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/security_hardening/using-system-wide-cryptographic-policies</p>
+    <p class="updated">3 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#where-the-cryptography-comes-from"
+id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
+From</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
-<li><a href="#releases" id="toc-releases">Releases</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -56,33 +56,31 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td><strong>ML-KEM</strong></td>
-<td><span class="st st-available">available</span> since 1.24 [1]
-[2]</td>
-<td><span class="st st-available">available</span> since 1.27 [3]
-[4]</td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-available">available</span> since certificate
-5247 [5]</td>
+<td><span class="st st-default">default</span> since RHEL 10.1 [1]
+[2]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-default">default</span> since 1.24 [1] [6]</td>
+<td><span class="st st-default">default</span> since RHEL 10.1 [3]
+[4]</td>
 <td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
-<td><span class="st st-experimental">experimental</span> since FIPS 140
-mode (issue 78178) [7]</td>
+<td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP256r1MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-default">default</span> since 1.26 [8] [6]</td>
+<td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP384r1MLKEM1024</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-default">default</span> since 1.26 [8] [6]</td>
+<td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -95,16 +93,15 @@ mode (issue 78178) [7]</td>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
-<td><span class="st st-available">available</span> since 1.27 [9]
-[10]</td>
-<td><span class="st st-available">available</span> since 1.27 [9]
-[4]</td>
-<td><span class="st st-available">available</span> since 1.27 [9]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span> since RHEL 10.1
+[5]</td>
+<td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-absent">none found 2026-09-12</span></td>
+<td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -139,84 +136,77 @@ mode (issue 78178) [7]</td>
 </tr>
 </tbody>
 </table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-cryptography-comes-from">Where the Cryptography Comes
+From</h2>
+<p>This component does not implement everything it is asked about. What
+it inherits, from what, and at which version:</p>
+<ul>
+<li><strong><a href="openssl.html">OpenSSL</a></strong> – provider.
+Inherits: TLS 1.3. crypto-policies configures; OpenSSL implements. The
+policy layer decides which groups and signature algorithms OpenSSL
+offers on a Red Hat system, which is why this component’s cells are
+about what is NEGOTIATED and the primitive and certificate answers
+belong to the libraries. [6]</li>
+<li><strong><a href="gnutls.html">GnuTLS</a></strong> – provider.
+Inherits: TLS 1.3. One of the three TLS libraries the policy governs,
+named in the same sentence as OpenSSL and NSS. [6]</li>
+<li><strong><a href="nss.html">NSS</a></strong> – provider. Inherits:
+TLS 1.3. The third of the three. Worth keeping distinct rather than
+collapsing into one edge, because the libraries do not move together –
+NSS’s post-quantum standing is its own, and a future divergence should
+be visible here rather than hidden behind a single “the libraries” edge.
+[6]</li>
+</ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>ML-KEM, Primitive</strong>: ML-KEM-768/1024 behind the TLS
-hybrid from 1.24; crypto/hpke with the X-Wing option from 1.26.</li>
-<li><strong>ML-KEM, TLS 1.3</strong>: Pure MLKEM1024 key exchange.</li>
-<li><strong>ML-KEM, FIPS 140-3</strong>: Inside Go Cryptographic Module,
-Geomys LLC, FIPS 140-3 certificate 5247 issued 2026-04-27. Sunset
-2031-04-26.</li>
-<li><strong>X25519MLKEM768, TLS 1.3</strong>: On when CurvePreferences
-is nil; GODEBUG tlsmlkem=0 reverts.</li>
-<li><strong>X25519MLKEM768, FIPS 140-3</strong>: Listed as FIPS-allowed
-but unreachable under GODEBUG=fips140=only per an open March 2026
-issue.</li>
-<li><strong>ML-DSA, Primitive</strong>: crypto/mldsa with
-MLDSA44/65/87.</li>
-<li><strong>ML-DSA, TLS 1.3</strong>: ML-DSA signature schemes for TLS
-1.3.</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
-<ul>
-<li>1.27, 2026-08-22 [9]</li>
-<li>1.26, 2026-02-19 [2]</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>slh-dsa / primitive – <strong>none found 2026-09-12</strong>:
-Searched twice on 2026-09-12 and found nothing: SLH-DSA appears nowhere
-in the Go 1.27 notes, which introduce crypto/mldsa and name every other
-post-quantum addition explicitly. Go has shipped ML-KEM and ML-DSA as
-their standards landed; the silence on SLH-DSA is meaningful rather than
-incidental. Examined: Go 1.27 release notes, Go 1.26 release notes
-(crypto/hpke, ML-KEM).</li>
+<li><strong>ML-KEM, TLS 1.3</strong>: The version boundary is the
+finding, and it is why this component exists as its own row rather than
+as a note on OpenSSL. On RHEL 10.0 post-quantum key exchange is
+EXPERIMENTAL in this register’s sense – gated behind a preview package
+and a named policy module. On 10.1 the same libraries, unchanged, are
+default because the policy changed. RHEL 9.7 sits in between: the blog
+records that OpenSSL- and NSS-based applications there can use
+post-quantum TLS by enabling the policy module with
+“update-crypto-policies –set DEFAULT:PQ”. A NO-PQ subpolicy turns it
+back off, so this is a default somebody can revoke centrally – which is
+the whole purpose of the layer.</li>
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: Named, so it is recorded
+on the named-group row rather than left on the KEM family. This is the
+cell Apple’s networking component could not have, for the exact reason
+recorded in its gap: Red Hat prints the group, Apple does not.</li>
+<li><strong>ML-DSA, TLS 1.3</strong>: Available, not default, and Red
+Hat says why in the same breath: “no public Certificate Authorities
+(CAs) currently offer post-quantum cryptography, but private CAs or
+self-signed certificates can be created with ML-DSA today”. A policy can
+permit an algorithm that nothing in the public web actually
+presents.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a href="https://pkg.go.dev/crypto/tls"
-class="uri">https://pkg.go.dev/crypto/tls</a> (date not recorded; ledger
-claim pqc/language-native-crypto-stacks/d0001:1)</li>
 <li><a
-href="https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a"
-class="uri">https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a</a>
-(as of 2026-02-19; ledger claim
-pqc/language-native-crypto-stacks/d0001:3)</li>
-<li><a href="https://go.dev/doc/go1.27"
-class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
-claim pqc/language-native-crypto-stacks/d0003:2)</li>
-<li><a href="https://www.51cto.com/article/843365.html"
-class="uri">https://www.51cto.com/article/843365.html</a> (date not
-recorded; ledger claim pqc/language-runtime-tls-surfaces/d0004:2)</li>
+href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
+class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
+(date not recorded; checked 2026-09-13)</li>
 <li><a
-href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247"
-class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247</a>
-(date not recorded; checked 2026-09-12)</li>
-<li><a href="https://golang.bg/src/crypto/tls/defaults.go"
-class="uri">https://golang.bg/src/crypto/tls/defaults.go</a> (date not
-recorded; ledger claim pqc/language-native-crypto-stacks/d0001:2)</li>
-<li><a href="https://github.com/golang/go/issues/78178"
-class="uri">https://github.com/golang/go/issues/78178</a> (as of
-2026-03-16; ledger claim pqc/language-native-crypto-stacks/d0001:5)</li>
+href="https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10"
+class="uri">https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10</a>
+(date not recorded; checked 2026-09-13)</li>
 <li><a
-href="https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go"
-class="uri">https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go</a>
-(as of 2026-08-25; ledger claim
-pqc/language-runtime-tls-surfaces/d0002:1)</li>
-<li><a href="https://go.dev/doc/go1.27"
-class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
-claim pqc/language-native-crypto-stacks/d0003:1)</li>
+href="https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10"
+class="uri">https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10</a>
+(date not recorded; checked 2026-09-13)</li>
 <li><a
-href="https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/"
-class="uri">https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/</a>
-(as of 2026-08-02; ledger claim
-pqc/language-runtime-tls-surfaces/d0003:1)</li>
+href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
+class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
+class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
+class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
+(date not recorded; checked 2026-09-13)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

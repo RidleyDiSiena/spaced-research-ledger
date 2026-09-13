@@ -41,6 +41,7 @@
   --st-searching-bg: #ede9fe;  --st-searching-fg: #4c1d95;  /* a pass done, not yet two */
   --st-notchecked-bg: #f1f5f9; --st-notchecked-fg: #475569; /* declared, nobody has looked */
   --st-unknown-fg:   var(--ink-mute);                       /* never even asked */
+  --st-na-fg:        var(--ink-mute);                       /* nobody would build it */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -620,6 +621,43 @@ a:focus-visible {
 }
 /* Never asked: no chip at all, so the eye skips it. */
 .st-unknown { color: var(--st-unknown-fg); font-style: italic; font-weight: 400; }
+
+/* The register index's jump bar: sections, multi-component vendors, and
+   the question pages. Every target is either an anchor on the same page
+   or a real page -- nothing here hides content, so find-in-page, print
+   and deep links keep working. No colour carries meaning. */
+.jumpbar {
+  margin: 0 0 1.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.8125rem;
+  line-height: 1.9;
+}
+.jumpbar-group { display: block; }
+.jumpbar-group + .jumpbar-group { margin-top: 0.25rem; }
+.jumpbar-label {
+  display: inline-block;
+  min-width: 7.5rem;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+}
+.jumpbar a { margin-right: 0.75rem; white-space: nowrap; }
+
+/* Not a real question (composite signatures over SSH, a TLS group in a
+   certificate). Quieter than unknown and deliberately NOT a chip: a third
+   of every matrix is these, and the reason lives in the title so it costs
+   the table nothing. The dotted underline is the browser's own `abbr`
+   affordance, kept because it is what tells a reader there is a reason
+   under the pointer. */
+.st-na {
+  color: var(--st-na-fg);
+  font-size: 0.8125rem;
+  text-decoration: underline dotted;
+  cursor: help;
+}
 
 /* A confirmed absence past its recheck date keeps its chip and gains a
    marker, so staleness reads without a sixth colour. */

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Which components can negotiate a hybrid post-quantum TLS group? | PQC Readiness Register</title>
+  <meta name="description" content="Any one of the IANA-registered hybrid key exchange groups -- X25519MLKEM768, SecP256r1MLKEM768 or SecP384r1MLKEM1024 -- usable in a TLS 1.3 handshake in a…">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Which components can negotiate a hybrid post-quantum TLS group?</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; Question</p>
+    <h1>Which components can negotiate a hybrid post-quantum TLS group?</h1>
+    <p class="standfirst">Any one of the IANA-registered hybrid key exchange groups -- X25519MLKEM768, SecP256r1MLKEM768 or SecP384r1MLKEM1024 -- usable in a TLS 1.3 handshake in a general release. Hybrid rather than pure ML-KEM because hybrid is what browsers and…</p>
+    <p class="updated">14 yes &middot; 1 no &middot; 13 not checked</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#yes" id="toc-yes">Yes (14)</a></li>
+<li><a href="#no" id="toc-no">No (1)</a></li>
+<li><a href="#not-checked" id="toc-not-checked">Not checked
+(13)</a></li>
+<li><a href="#not-applicable" id="toc-not-applicable">Not
+applicable</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Any one of the IANA-registered hybrid key exchange groups –
+X25519MLKEM768, SecP256r1MLKEM768 or SecP384r1MLKEM1024 – usable in a
+TLS 1.3 handshake in a general release. Hybrid rather than pure ML-KEM
+because hybrid is what browsers and CDNs actually deploy: the classical
+half means a flaw in the lattice half is not fatal. The bar is
+<code>available</code>, so a group you must configure counts here; the
+stricter question is the next one.</p>
+<h2 id="yes">Yes (14)</h2>
+<p>At or above the bar the question sets, with the cell it rests on.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>Standing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="aws-lc.html">AWS-LC</a></td>
+<td>library</td>
+<td><span class="st st-available">available</span> since not
+recorded</td>
+</tr>
+<tr>
+<td><a href="boringssl.html">BoringSSL</a></td>
+<td>library</td>
+<td><span class="st st-available">available</span> since rolling since
+2023 (pre-standard name X25519Kyber768)</td>
+</tr>
+<tr>
+<td><a href="botan.html">Botan</a></td>
+<td>library</td>
+<td><span class="st st-default">default</span> since 3.7.0</td>
+</tr>
+<tr>
+<td><a href="go.html">Go standard library</a></td>
+<td>language-stack</td>
+<td><span class="st st-default">default</span> since 1.24</td>
+</tr>
+<tr>
+<td><a href="jdk.html">Java (OpenJDK)</a></td>
+<td>language-stack</td>
+<td><span class="st st-available">available</span> since 27</td>
+</tr>
+<tr>
+<td><a href="libressl.html">LibreSSL</a></td>
+<td>library</td>
+<td><span class="st st-available">available</span> since 4.3.0</td>
+</tr>
+<tr>
+<td><a href="nodejs.html">Node.js</a></td>
+<td>language-stack</td>
+<td><span class="st st-default">default</span> since 22.20 and
+24.9.0</td>
+</tr>
+<tr>
+<td><a href="nss.html">NSS</a></td>
+<td>library</td>
+<td><span class="st st-default">default</span> since 3.118</td>
+</tr>
+<tr>
+<td><a href="openssl.html">OpenSSL</a></td>
+<td>library</td>
+<td><span class="st st-default">default</span> since 3.5.0</td>
+</tr>
+<tr>
+<td><a href="rhel-crypto-policies.html">RHEL system-wide
+crypto-policies</a></td>
+<td>os</td>
+<td><span class="st st-default">default</span> since RHEL 10.1</td>
+</tr>
+<tr>
+<td><a href="rustls.html">rustls</a></td>
+<td>tls-stack</td>
+<td><span class="st st-available">available</span> since 0.23.22 (core
+crate)</td>
+</tr>
+<tr>
+<td><a href="s2n-tls.html">s2n-tls</a></td>
+<td>tls-stack</td>
+<td><span class="st st-available">available</span> since security policy
+default_pq (20250721)</td>
+</tr>
+<tr>
+<td><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
+<td>tls-stack</td>
+<td><span class="st st-default">default</span> since 2.37.1</td>
+</tr>
+<tr>
+<td><a href="wolfssl.html">wolfSSL / wolfCrypt</a></td>
+<td>library</td>
+<td><span class="st st-available">available</span> since 5.8.0</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="no">No (1)</h2>
+<p>A cited cell that falls short. The status is shown rather than
+flattened: <code>planned</code> and <code>none</code> are different
+answers to the same question.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>Standing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="gnutls.html">GnuTLS</a></td>
+<td>library</td>
+<td><span class="st st-experimental">experimental</span> since
+3.8.8</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-checked">Not checked (13)</h2>
+<p>Nobody has settled it here yet, and each line says what was done
+about it. Not the same as no.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>Standing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="dotnet.html">.NET</a></td>
+<td>language-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="apple-cryptokit.html">Apple CryptoKit and
+corecrypto</a></td>
+<td>os</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="apple-network.html">Apple Network framework and
+URLSession</a></td>
+<td>tls-stack</td>
+<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+</tr>
+<tr>
+<td><a href="aws-lc-rs.html">aws-lc-rs</a></td>
+<td>library</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="bouncycastle-java.html">Bouncy Castle (Java)</a></td>
+<td>library</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="liboqs.html">liboqs</a></td>
+<td>library</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="libsodium.html">libsodium</a></td>
+<td>library</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="mbedtls.html">Mbed TLS</a></td>
+<td>library</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="mlkem-native.html">mlkem-native</a></td>
+<td>library</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="pyca-cryptography.html">pyca/cryptography (Python)</a></td>
+<td>language-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="windows-schannel.html">Schannel</a></td>
+<td>tls-stack</td>
+<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+</tr>
+<tr>
+<td><a href="windows-cng.html">Windows CNG</a></td>
+<td>os</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><a href="windows-capi2.html">Windows CryptoAPI (CAPI2)</a></td>
+<td>os</td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-applicable">Not applicable</h2>
+<p>This question is not one these components are asked: the capability
+does not apply to what they are, or the pair is one nobody would build.
+They are named here so the counts above account for every component in
+the register, and listed apart so they are never read as a failure to
+answer.</p>
+<p>AD CS.</p>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

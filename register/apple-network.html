@@ -3,31 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Go standard library | PQC Readiness Register</title>
-  <meta name="description" content="Go standard library: post-quantum readiness, cell by cell, with sources.">
+  <title>Apple Network framework and URLSession | PQC Readiness Register</title>
+  <meta name="description" content="Apple Network framework and URLSession: post-quantum readiness, cell by cell, with sources.">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
 <header class="masthead">
   <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Go standard library</nav>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Apple Network framework and URLSession</nav>
 </header>
 
 <main>
   <div class="titleblock">
     <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
-    <p class="kicker">PQC Readiness Register &middot; language-stack</p>
-    <h1>Go standard library</h1>
-    <p class="standfirst">Maintained by The Go project (Google). Two releases a year (1.N); crypto/tls defaults change with them. Home: https://go.dev/</p>
-    <p class="updated">10 cited cells &middot; 1 confirmed absent</p>
+    <p class="kicker">PQC Readiness Register &middot; tls-stack</p>
+    <h1>Apple Network framework and URLSession</h1>
+    <p class="standfirst">Maintained by Apple. Annual operating system releases, with the rest of the platform. Home: https://developer.apple.com/documentation/network</p>
+    <p class="updated">1 cited cell &middot; 1 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#where-the-cryptography-comes-from"
+id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
+From</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
-<li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#known-unknowns" id="toc-known-unknowns">Known
 Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
@@ -38,16 +40,14 @@ Unknowns</a></li>
 <h2 id="standing">Standing</h2>
 <table>
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 </colgroup>
 <thead>
 <tr>
 <th>Algorithm</th>
-<th>Primitive</th>
 <th>TLS 1.3</th>
 <th>X.509</th>
 <th>FIPS 140-3</th>
@@ -56,55 +56,43 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td><strong>ML-KEM</strong></td>
-<td><span class="st st-available">available</span> since 1.24 [1]
-[2]</td>
-<td><span class="st st-available">available</span> since 1.27 [3]
-[4]</td>
+<td><span class="st st-default">default</span> since iOS 26, iPadOS 26,
+macOS 26, tvOS 26 and watchOS 26 [1]</td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-available">available</span> since certificate
-5247 [5]</td>
+<td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>X25519MLKEM768</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-default">default</span> since 1.24 [1] [6]</td>
+<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 <td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
-<td><span class="st st-experimental">experimental</span> since FIPS 140
-mode (issue 78178) [7]</td>
+<td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP256r1MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-default">default</span> since 1.26 [8] [6]</td>
 <td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP384r1MLKEM1024</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-default">default</span> since 1.26 [8] [6]</td>
 <td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>curveSM2MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
-<td><span class="st st-available">available</span> since 1.27 [9]
-[10]</td>
-<td><span class="st st-available">available</span> since 1.27 [9]
-[4]</td>
-<td><span class="st st-available">available</span> since 1.27 [9]</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-absent">none found 2026-09-12</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -113,54 +101,59 @@ mode (issue 78178) [7]</td>
 <td><strong>FN-DSA (Falcon)</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>Composite ML-DSA</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>LMS / HSS</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 </tbody>
 </table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-cryptography-comes-from">Where the Cryptography Comes
+From</h2>
+<p>This component does not implement everything it is asked about. What
+it inherits, from what, and at which version:</p>
+<ul>
+<li><strong><a href="apple-cryptokit.html">Apple CryptoKit and
+corecrypto</a></strong> – platform. Inherits: FIPS 140-3. The networking
+frameworks do no cryptography of their own; corecrypto does, and
+corecrypto is what Apple submits for validation. The FIPS answer here is
+therefore CryptoKit and corecrypto’s. [2]</li>
+</ul>
+<h3 id="fips-140-3">FIPS 140-3</h3>
+<p>Apple Network framework and URLSession holds no FIPS 140-3
+certificate of its own. It takes its cryptography from Apple CryptoKit
+and corecrypto (platform), and Apple CryptoKit and corecrypto holds FIPS
+140-3 certificates 5387, 5348, 5347, 5307, 5306, 5305, 5304, 5303, 5289,
+5263, 5218, 5217, 5216, 5202, 5201, 5184, 5108, 5101, 5065, 5050, 5030,
+5025, 4956, 4951, 4854, 4817, 4392, 4391, 4390, 4389, and has 2 modules
+in the CMVP queue. Whether a given algorithm is inside that validated
+boundary is Apple CryptoKit and corecrypto’s answer, not this
+component’s: see the Apple CryptoKit and corecrypto page. Running in an
+approved mode also needs the validated version on a tested operating
+environment, which no register can tell you.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>ML-KEM, Primitive</strong>: ML-KEM-768/1024 behind the TLS
-hybrid from 1.24; crypto/hpke with the X-Wing option from 1.26.</li>
-<li><strong>ML-KEM, TLS 1.3</strong>: Pure MLKEM1024 key exchange.</li>
-<li><strong>ML-KEM, FIPS 140-3</strong>: Inside Go Cryptographic Module,
-Geomys LLC, FIPS 140-3 certificate 5247 issued 2026-04-27. Sunset
-2031-04-26.</li>
-<li><strong>X25519MLKEM768, TLS 1.3</strong>: On when CurvePreferences
-is nil; GODEBUG tlsmlkem=0 reverts.</li>
-<li><strong>X25519MLKEM768, FIPS 140-3</strong>: Listed as FIPS-allowed
-but unreachable under GODEBUG=fips140=only per an open March 2026
-issue.</li>
-<li><strong>ML-DSA, Primitive</strong>: crypto/mldsa with
-MLDSA44/65/87.</li>
-<li><strong>ML-DSA, TLS 1.3</strong>: ML-DSA signature schemes for TLS
-1.3.</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
-<ul>
-<li>1.27, 2026-08-22 [9]</li>
-<li>1.26, 2026-02-19 [2]</li>
+<li><strong>ML-KEM, TLS 1.3</strong>: <code>default</code> is the whole
+point of this cell and is unusual in this register: an application that
+does nothing at all gets post-quantum key exchange, because the
+frameworks turn it on for everything built against them. That is a
+stronger claim than any library’s default-group list, since it reaches
+software whose authors never considered the question.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -170,53 +163,26 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>slh-dsa / primitive – <strong>none found 2026-09-12</strong>:
-Searched twice on 2026-09-12 and found nothing: SLH-DSA appears nowhere
-in the Go 1.27 notes, which introduce crypto/mldsa and name every other
-post-quantum addition explicitly. Go has shipped ML-KEM and ML-DSA as
-their standards landed; the silence on SLH-DSA is meaningful rather than
-incidental. Examined: Go 1.27 release notes, Go 1.26 release notes
-(crypto/hpke, ML-KEM).</li>
+<li>x25519mlkem768 / tls – <strong>searching, 1 of 2 passes</strong>:
+Apple states that quantum-secure TLS is on by default but does not name
+the negotiated group, and this register records hybrid groups one row
+per NAMED group. Recording X25519MLKEM768 on the strength of it being
+the group everyone else deploys would be exactly the plausible-looking
+guess the register refuses. Second pass: Apple developer documentation
+or a WWDC session naming the group, or a packet capture, which is
+evidence of a different kind. Examined: Apple Platform Security,
+Quantum-secure cryptography in Apple operating systems.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a href="https://pkg.go.dev/crypto/tls"
-class="uri">https://pkg.go.dev/crypto/tls</a> (date not recorded; ledger
-claim pqc/language-native-crypto-stacks/d0001:1)</li>
 <li><a
-href="https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a"
-class="uri">https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a</a>
-(as of 2026-02-19; ledger claim
-pqc/language-native-crypto-stacks/d0001:3)</li>
-<li><a href="https://go.dev/doc/go1.27"
-class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
-claim pqc/language-native-crypto-stacks/d0003:2)</li>
-<li><a href="https://www.51cto.com/article/843365.html"
-class="uri">https://www.51cto.com/article/843365.html</a> (date not
-recorded; ledger claim pqc/language-runtime-tls-surfaces/d0004:2)</li>
+href="https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web"
+class="uri">https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web</a>
+(date not recorded; checked 2026-09-13)</li>
 <li><a
-href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247"
-class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247</a>
-(date not recorded; checked 2026-09-12)</li>
-<li><a href="https://golang.bg/src/crypto/tls/defaults.go"
-class="uri">https://golang.bg/src/crypto/tls/defaults.go</a> (date not
-recorded; ledger claim pqc/language-native-crypto-stacks/d0001:2)</li>
-<li><a href="https://github.com/golang/go/issues/78178"
-class="uri">https://github.com/golang/go/issues/78178</a> (as of
-2026-03-16; ledger claim pqc/language-native-crypto-stacks/d0001:5)</li>
-<li><a
-href="https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go"
-class="uri">https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go</a>
-(as of 2026-08-25; ledger claim
-pqc/language-runtime-tls-surfaces/d0002:1)</li>
-<li><a href="https://go.dev/doc/go1.27"
-class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
-claim pqc/language-native-crypto-stacks/d0003:1)</li>
-<li><a
-href="https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/"
-class="uri">https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/</a>
-(as of 2026-08-02; ledger claim
-pqc/language-runtime-tls-surfaces/d0003:1)</li>
+href="https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web"
+class="uri">https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web</a>
+(date not recorded; checked 2026-09-13)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

@@ -67,16 +67,16 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span> since AWS-LC FIPS 3.0
-[4] [5]</td>
+[4] [5] [6]</td>
 </tr>
 <tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span> since not recorded
 [3]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -84,9 +84,9 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span> since not recorded
 [3]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -94,26 +94,26 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span> since not recorded
 [3]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>curveSM2MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
 <td><span class="st st-available">available</span> since not recorded
 [1]</td>
 <td><span class="st st-available">available</span> since not recorded
-[6]</td>
+[7]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -135,33 +135,33 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>Composite ML-DSA</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- SSH defines no key type or key-exchange method using a composite signature; the composite work is X.509 and CMS.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- No IKEv2 implementation or draft defines a composite signature for RFC 7427 authentication. The ASN.1 encoding could in principle carry one, so flip this the day a draft says so.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>LMS / HSS</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- SSH registers no LMS or XMSS key type, and a host key signs on every connection, which a stateful signer cannot safely do.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- SSH registers no LMS or XMSS key type, and a host key signs on every connection, which a stateful signer cannot safely do.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 </tbody>
@@ -173,10 +173,14 @@ implementation imported from mlkem-native v1.1.0 into the FIPS
 module.</li>
 <li><strong>ML-KEM, TLS 1.3</strong>: Pure ML-KEM groups are listed
 beside the hybrids.</li>
-<li><strong>ML-KEM, FIPS 140-3</strong>: ML-KEM inside validated FIPS
-140-3 modules (certificates 4631, 5314, 5298 as of August 2026). Whether
-it is on in approved mode by default is not in the claims, so
-‘available’ not ‘default’.</li>
+<li><strong>ML-KEM, FIPS 140-3</strong>: ML-KEM is inside the AWS-LC 3
+modules: certificates 5314 (static) and 5298 (dynamic), both issued June
+2026. The 2026-09-12 CMVP scan read the approved-algorithm list of every
+AWS-LC certificate, and certificate 4631 – which the ledger claim cites
+and an earlier version of this note listed – does NOT name ML-KEM; it is
+the 2023 module covering AWS-LC FIPS 1.0.2 and 1.1.0. Whether ML-KEM is
+on in approved mode by default is not stated anywhere, so ‘available’
+not ‘default’.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: The project’s post-quantum
 README lists X25519MLKEM768, SecP256r1MLKEM768 and SecP384r1MLKEM1024
 among its supported TLS groups, alongside pure ML-KEM variants. Whether
@@ -197,16 +201,17 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / fips – <strong>none found 2026-09-12</strong>: Searched
-twice on 2026-09-12 and found nothing conclusive: the project’s own
-FIPS-module README names ML-DSA and its three parameter sets but says
-nothing about validation status or certificate numbers, and the ledger’s
-evidence for AWS-LC’s validated modules speaks only of ML-KEM. The file
-living under crypto/fipsmodule/ hints the code sits inside the boundary;
-that is an inference, not a statement, so the question stays open. A
-CMVP scan, not another search, is what settles this – see B2. Examined:
-AWS-LC crypto/fipsmodule/PQREADME.md, CMVP certificate 4631 (cited by
-the ledger for ML-KEM).</li>
+<li>ml-dsa / fips – <strong>none found 2026-09-12</strong>: Settled as
+far as the lists can settle it, by the CMVP reverse scan the previous
+pass asked for: no AWS-LC module with an issued certificate names ML-DSA
+in its approved-algorithm list, and the two AWS-LC 4 modules in the
+queue since 2026-08-14 have no published algorithm list at all. So
+ML-DSA is not inside a validated boundary today, and whether it is
+inside the pending submission is unpublished – which is why this stays a
+gap rather than becoming a none cell. Examined: CMVP validated module
+search, vendor Amazon Web Services (6 AWS-LC modules), certificate pages
+5429, 5314, 5298, 5146, 4816, 4631 (approved-algorithm lists), CMVP
+Modules In Process list (AWS-LC 4, dynamic and static).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -229,6 +234,10 @@ class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-progr
 href="https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation"
 class="uri">https://aws.amazon.com/blogs/security/aws-lc-fips-3-0-first-cryptographic-library-to-include-ml-kem-in-fips-140-3-validation</a>
 (date not recorded; ledger claim pqc/openssl-and-forks/d0001:16)</li>
+<li><a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5314"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5314</a>
+(date not recorded; checked 2026-09-12)</li>
 <li><a href="https://github.com/aws/aws-lc/releases"
 class="uri">https://github.com/aws/aws-lc/releases</a> (date not
 recorded; ledger claim pqc/openssl-and-forks/d0001:15)</li>

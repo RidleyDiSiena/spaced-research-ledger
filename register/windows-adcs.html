@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AD CS | PQC Readiness Register</title>
+  <meta name="description" content="AD CS: post-quantum readiness, cell by cell, with sources.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>AD CS</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; pki-tool</p>
+    <h1>AD CS</h1>
+    <p class="standfirst">Maintained by Microsoft. Windows Server servicing updates. Post-quantum support ships in phases, which the vendor states explicitly and this component records per row. Home: https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/</p>
+    <p class="updated">4 cited cells</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#where-the-cryptography-comes-from"
+id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
+From</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="standing">Standing</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>X.509</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ML-KEM</strong></td>
+<td><span class="st st-planned">planned</span> [1]</td>
+</tr>
+<tr>
+<td><strong>X25519MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP256r1MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>SecP384r1MLKEM1024</strong></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>curveSM2MLKEM768</strong></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td><strong>ML-DSA</strong></td>
+<td><span class="st st-available">available</span> since Windows Server
+2025 with the 2026-05 security update (KB5087539) [2]</td>
+</tr>
+<tr>
+<td><strong>SLH-DSA</strong></td>
+<td><span class="st st-none">none</span> [3]</td>
+</tr>
+<tr>
+<td><strong>FN-DSA (Falcon)</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>Composite ML-DSA</strong></td>
+<td><span class="st st-planned">planned</span> [4]</td>
+</tr>
+<tr>
+<td><strong>LMS / HSS</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td><strong>XMSS / XMSS^MT</strong></td>
+<td><span class="st st-unknown">unknown</span></td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-cryptography-comes-from">Where the Cryptography Comes
+From</h2>
+<p>This component does not implement everything it is asked about. What
+it inherits, from what, and at which version:</p>
+<ul>
+<li><strong><a href="windows-cng.html">Windows CNG</a></strong> –
+platform. Inherits: nothing declared. Recorded as a dependency rather
+than an inheritance, which is why <code>capabilities</code> is empty: AD
+CS gets no column from CNG, but it cannot issue a post-quantum
+certificate without it. The page is explicit – “All PQC algorithms
+require CNG key storage providers. AD CS doesn’t support legacy
+Cryptographic Service Providers (CSPs).” An administrator whose template
+uses a legacy CSP gets nothing from this component’s Available cell.
+[5]</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
+<ul>
+<li><strong>ML-KEM, X.509</strong>: A KEM certificate is a real thing AD
+CS says it will issue, so this is the vendor’s own roadmap rather than
+an inference.</li>
+<li><strong>ML-DSA, X.509</strong>: Issuance, not validation – a CA
+minting ML-DSA certificates. Available rather than default because a
+template has to be configured for it; nothing is issued with ML-DSA
+unless an administrator asks.</li>
+<li><strong>SLH-DSA, X.509</strong>: An absence read as a finding, on
+the rule this register uses everywhere: where a source ENUMERATES, a
+name missing from it is an answer. This table is an enumeration – it
+says AD CS “adopts the post-quantum algorithms standardized by NIST” and
+then lists them with a phase each. SLH-DSA is NIST-standardized (FIPS
+205) and is not on it, including as a later phase. Revisit when the
+phases advance.</li>
+<li><strong>Composite ML-DSA, X.509</strong>: The table also carries
+Composite ML-KEM as Planned (Phase 2). The register has no composite-KEM
+row – one component carrying it is not yet two, which is the bar for
+adding a row – so it is recorded here in prose until a second component
+has it.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li><a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
+class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
+(date not recorded; checked 2026-09-13)</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

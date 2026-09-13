@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>LibreSSL</h1>
     <p class="standfirst">Maintained by OpenBSD project. Numbered releases with OpenBSD; 4.x current. Home: https://www.libressl.org/</p>
-    <p class="updated">2 cited cells &middot; 2 confirmed absent</p>
+    <p class="updated">7 cited cells &middot; 2 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -65,43 +65,43 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [2]</td>
 </tr>
 <tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-available">available</span> since 4.3.0 [2]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span> since 4.3.0 [3]</td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP256r1MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP384r1MLKEM1024</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>curveSM2MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
@@ -110,7 +110,7 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [2]</td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
@@ -119,7 +119,7 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [2]</td>
 </tr>
 <tr>
 <td><strong>FN-DSA (Falcon)</strong></td>
@@ -128,34 +128,34 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>Composite ML-DSA</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- SSH defines no key type or key-exchange method using a composite signature; the composite work is X.509 and CMS.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- No IKEv2 implementation or draft defines a composite signature for RFC 7427 authentication. The ASN.1 encoding could in principle carry one, so flip this the day a draft says so.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>LMS / HSS</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- SSH registers no LMS or XMSS key type, and a host key signs on every connection, which a stateful signer cannot safely do.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
+<td><span class="st st-none">none</span> [2]</td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- SSH registers no LMS or XMSS key type, and a host key signs on every connection, which a stateful signer cannot safely do.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
+<td><span class="st st-none">none</span> [2]</td>
 </tr>
 </tbody>
 </table>
@@ -163,12 +163,27 @@ Unknowns</a></li>
 <ul>
 <li><strong>ML-KEM, Primitive</strong>: Public ML-KEM API added to
 support the hybrid group in libssl.</li>
+<li><strong>ML-KEM, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-12 and name none carrying it.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: Keyshare MLKEM768_X25519
 in TLS; default standing not in the claim.</li>
+<li><strong>ML-DSA, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-12 and name none carrying it.</li>
+<li><strong>SLH-DSA, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-12 and name none carrying it.</li>
+<li><strong>LMS / HSS, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-12 and name none carrying it.</li>
+<li><strong>XMSS / XMSS^MT, FIPS 140-3</strong>: Not in any module of
+this project: the CMVP validated list and the Modules In Process list
+were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>4.3.0, 2026-04-18 [2]</li>
+<li>4.3.0, 2026-04-18 [3]</li>
 <li>4.2.0, 2025-10-14 [1]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
@@ -207,6 +222,10 @@ versions.</li>
 <li><a href="https://ianix.com/pqcrypto/pqcrypto-deployment.html"
 class="uri">https://ianix.com/pqcrypto/pqcrypto-deployment.html</a> (as
 of 2025-10-14; ledger claim pqc/openssl-and-forks/d0001:8)</li>
+<li><a
+href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
+class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
+(date not recorded; checked 2026-09-12)</li>
 <li><a href="https://ianix.com/pqcrypto/pqcrypto-deployment.html"
 class="uri">https://ianix.com/pqcrypto/pqcrypto-deployment.html</a> (as
 of 2026-04-18; ledger claim pqc/openssl-and-forks/d0001:9)</li>

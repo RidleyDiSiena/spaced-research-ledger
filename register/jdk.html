@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; language-stack</p>
     <h1>Java (OpenJDK)</h1>
     <p class="standfirst">Maintained by Oracle and the OpenJDK community. Two feature releases a year; LTS every two years with backports via quarterly CPUs. Home: https://openjdk.org/</p>
-    <p class="updated">5 cited cells</p>
+    <p class="updated">10 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -59,78 +59,78 @@
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span> since not recorded
 [2]</td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [3]</td>
 </tr>
 <tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-available">available</span> since 27 [3] [4]</td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span> since 27 [4] [5]</td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP256r1MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>SecP384r1MLKEM1024</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>curveSM2MLKEM768</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
-<td><span class="st st-available">available</span> since 24 [1] [5]</td>
+<td><span class="st st-available">available</span> since 24 [1] [6]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span> since 24 (JEP 497)
-[6]</td>
-<td><span class="st st-unknown">unknown</span></td>
+[7]</td>
+<td><span class="st st-none">none</span> [3]</td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [3]</td>
 </tr>
 <tr>
 <td><strong>FN-DSA (Falcon)</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>Composite ML-DSA</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
 <td><strong>LMS / HSS</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [3]</td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
+<td><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [3]</td>
 </tr>
 </tbody>
 </table>
@@ -141,6 +141,9 @@ classes, ML-KEM-512/768/1024.</li>
 <li><strong>ML-KEM, X.509</strong>: keytool generates ML-KEM key pairs
 and certificates; the certificate must be signed with a signature
 algorithm.</li>
+<li><strong>ML-KEM, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-12 and name none carrying it.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: JEP 527 delivers hybrid
 TLS 1.3 key exchange in JDK 27, and the Curve25519 optimisation claim
 names X25519MLKEM768 as a group whose key generation it speeds up.
@@ -156,17 +159,29 @@ standard, so certificate handling and JAR signing arrived separately –
 JDK 26 added the JAR signing, per the ledger. The distinction is worth
 keeping: a component can mint a certificate long before every consumer
 of one accepts it.</li>
+<li><strong>ML-DSA, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-12 and name none carrying it.</li>
+<li><strong>SLH-DSA, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-12 and name none carrying it.</li>
+<li><strong>LMS / HSS, FIPS 140-3</strong>: Not in any module of this
+project: the CMVP validated list and the Modules In Process list were
+scanned on 2026-09-12 and name none carrying it.</li>
+<li><strong>XMSS / XMSS^MT, FIPS 140-3</strong>: Not in any module of
+this project: the CMVP validated list and the Modules In Process list
+were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>27, 2026-09-01 [7]</li>
-<li>26, 2026-03-17 [5]</li>
+<li>27, 2026-09-01 [8]</li>
+<li>26, 2026-03-17 [6]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="also-tracked">Also Tracked</h2>
 <ul>
 <li><strong>LTS backports of ML-KEM, ML-DSA and hybrid TLS</strong>: JDK
 25 in October 2026; JDK 21 and 17 in H1 2027; JDK 11 and 8 in H2 2027
-[8] [9]</li>
+[9] [10]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -179,6 +194,10 @@ href="https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quan
 class="uri">https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quantum-cryptography/</a>
 (as of 2026-05-18; ledger claim
 pqc/language-native-crypto-stacks/d0001:10)</li>
+<li><a
+href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
+class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
+(date not recorded; checked 2026-09-12)</li>
 <li><a href="https://openjdk.org/jeps/527"
 class="uri">https://openjdk.org/jeps/527</a> (as of 2026-08-17; ledger
 claim pqc/language-runtime-tls-surfaces/d0002:2)</li>
