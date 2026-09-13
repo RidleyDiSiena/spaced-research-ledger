@@ -40,7 +40,7 @@ Every report is published as a web page at **[https://ridleydisiena.github.io/sp
 
 <a href="https://podcasts.apple.com/podcast/id6809122100"><img src="https://research.perikron.com/pqc/podcast/cover.jpg" alt="SRL-Pod: Post Quantum" width="160" align="right"></a>
 
-**SRL-Pod: Post Quantum** reads every part of the quantum group aloud: PQC Migration, PQC Mathematics, CAB-Forum Watch, Quantum Computing, and PQC & Digital Assets. 44 episodes, each with a transcript.
+**SRL-Pod: Post Quantum** reads every part of the quantum group aloud: PQC Migration, PQC Mathematics, CAB-Forum Watch, Quantum Computing, and PQC & Digital Assets. 45 episodes, each with a transcript.
 
 - [Apple Podcasts](https://podcasts.apple.com/podcast/id6809122100)
 - [Spotify](https://open.spotify.com/show/6a11V387TOHMV24xxl3p8v)

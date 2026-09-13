@@ -11,5 +11,5 @@ One feed for every topic in the quantum group; each episode title starts with it
 This folder holds the data the feed and the website are built from:
 
 - `feed.xml` -- the RSS feed podcast apps read
-- `episodes.json` -- all 44 published episodes, machine-readable
+- `episodes.json` -- all 45 published episodes, machine-readable
 

@@ -614,5 +614,19 @@
     "kind": "part",
     "date": "2026-08-31",
     "transcript": "https://research.perikron.com/pqc/podcast/2026-08-31-v3/01-hardware-acceleration.vtt"
+  },
+  {
+    "guid": "https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.mp3",
+    "tag": "podcast-post-quantum-cryptography-diff-2026-09-12",
+    "file": "quantum-crypto-diff-2026-09-12.mp3",
+    "title": "What's New in Quantum: Cross-Topic Update Across Five Research Topics",
+    "description": "This report covers what changed across the five quantum topics between each topic's last full edition and 12 September 2026. It is a supplement, not a replacement. The full collections remain the record, and this document reads against them. Each topic has its own window, opening the day after its own edition, so nothing a full edition already published is repeated here as new.",
+    "url": "https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.mp3",
+    "size": 15669732,
+    "duration_s": 1959,
+    "pub_date": "2026-09-12T09:00:00Z",
+    "kind": "diff",
+    "date": "2026-09-12",
+    "transcript": "https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.vtt"
   }
 ]

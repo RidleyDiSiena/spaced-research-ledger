@@ -18,6 +18,15 @@
       <itunes:category text="Mathematics" />
     </itunes:category>
     <item>
+      <title>What's New in Quantum: Cross-Topic Update Across Five Research Topics</title>
+      <description>This report covers what changed across the five quantum topics between each topic's last full edition and 12 September 2026. It is a supplement, not a replacement. The full collections remain the record, and this document reads against them. Each topic has its own window, opening the day after its own edition, so nothing a full edition already published is repeated here as new.</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.mp3</guid>
+      <pubDate>Sat, 12 Sep 2026 09:00:00 +0000</pubDate>
+      <enclosure url="https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.mp3" length="15669732" type="audio/mpeg" />
+      <itunes:duration>0:32:39</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.vtt" type="text/vtt" />
+    </item>
+    <item>
       <title>PQC Migration: Part 1 - Silicon &amp; Firmware: Hardware Acceleration &amp; Silicon</title>
       <description>The new post-quantum algorithms are only useful if hardware can run them fast. This report covers that problem in three sections. Section 1 follows the tuned code that makes the new math fast on ordinary processors. Section 2 follows the dedicated accelerator cards built for heavy connection loads. Section 3 follows the ready-made circuit blocks that put the algorithms into future chips.</description>
       <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/2026-08-31-v3/01-hardware-acceleration.mp3</guid>
