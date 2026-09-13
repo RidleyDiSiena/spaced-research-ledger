@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>LibreSSL</h1>
     <p class="standfirst">Maintained by OpenBSD project. Numbered releases with OpenBSD; 4.x current. Home: https://www.libressl.org/</p>
-    <p class="updated">2 cited cells &middot; 2 open</p>
+    <p class="updated">2 cited cells &middot; 2 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -105,7 +105,7 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
-<td><span class="st st-notchecked">not checked</span></td>
+<td><span class="st st-absent">none found 2026-09-12</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -114,7 +114,7 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-notchecked">not checked</span></td>
+<td><span class="st st-absent">none found 2026-09-12</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -179,8 +179,28 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / primitive – <strong>not checked</strong>: no claim</li>
-<li>slh-dsa / primitive – <strong>not checked</strong>: no claim</li>
+<li>ml-dsa / primitive – <strong>none found 2026-09-12</strong>:
+Searched twice on 2026-09-12 and found nothing: the changelog names
+every post-quantum step LibreSSL has taken – ML-KEM imported from
+BoringSSL in 4.1.0, a public API in 4.2.0, the MLKEM768_X25519 keyshare
+in 4.3.0, ML-KEM benchmarks and Wycheproof tests after – and neither
+ML-DSA nor SLH-DSA appears anywhere in it. LibreSSL’s post-quantum work
+is a KEM-only programme so far. A secondary article claiming LibreSSL
+4.0 shipped all three NIST algorithms is wrong, and is why this was
+checked against the project’s own changelog. Examined: LibreSSL releases
+page (libressl.org/releases.html), libressl/portable ChangeLog, all
+versions.</li>
+<li>slh-dsa / primitive – <strong>none found 2026-09-12</strong>:
+Searched twice on 2026-09-12 and found nothing: the changelog names
+every post-quantum step LibreSSL has taken – ML-KEM imported from
+BoringSSL in 4.1.0, a public API in 4.2.0, the MLKEM768_X25519 keyshare
+in 4.3.0, ML-KEM benchmarks and Wycheproof tests after – and neither
+ML-DSA nor SLH-DSA appears anywhere in it. LibreSSL’s post-quantum work
+is a KEM-only programme so far. A secondary article claiming LibreSSL
+4.0 shipped all three NIST algorithms is wrong, and is why this was
+checked against the project’s own changelog. Examined: LibreSSL releases
+page (libressl.org/releases.html), libressl/portable ChangeLog, all
+versions.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

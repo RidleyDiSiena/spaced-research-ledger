@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; language-stack</p>
     <h1>Java (OpenJDK)</h1>
     <p class="standfirst">Maintained by Oracle and the OpenJDK community. Two feature releases a year; LTS every two years with backports via quarterly CPUs. Home: https://openjdk.org/</p>
-    <p class="updated">4 cited cells &middot; 1 open</p>
+    <p class="updated">5 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -29,8 +29,6 @@
 <li><a href="#notes" id="toc-notes">Notes</a></li>
 <li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#also-tracked" id="toc-also-tracked">Also Tracked</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -95,7 +93,8 @@ Unknowns</a></li>
 <td><strong>ML-DSA</strong></td>
 <td><span class="st st-available">available</span> since 24 [1] [5]</td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-notchecked">not checked</span></td>
+<td><span class="st st-available">available</span> since 24 (JEP 497)
+[6]</td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -149,28 +148,25 @@ Neither claim states the default group list, so ‘available’, not
 ‘default’.</li>
 <li><strong>ML-DSA, Primitive</strong>: JEP 497; JAR signing with ML-DSA
 from JDK 26.</li>
+<li><strong>ML-DSA, X.509</strong>: JEP 497, delivered in JDK 24:
+keytool generates ML-DSA key pairs and certificates, and KeyFactory
+converts an ML-DSA public key to and from its X.509 encoding. The same
+JEP explicitly rules JAR-file signing OUT of scope for want of a
+standard, so certificate handling and JAR signing arrived separately –
+JDK 26 added the JAR signing, per the ledger. The distinction is worth
+keeping: a component can mint a certificate long before every consumer
+of one accepts it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>27, 2026-09-01 [6]</li>
+<li>27, 2026-09-01 [7]</li>
 <li>26, 2026-03-17 [5]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="also-tracked">Also Tracked</h2>
 <ul>
 <li><strong>LTS backports of ML-KEM, ML-DSA and hybrid TLS</strong>: JDK
 25 in October 2026; JDK 21 and 17 in H1 2027; JDK 11 and 8 in H2 2027
-[7] [8]</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>ml-dsa / x509 – <strong>not checked</strong>: no claim beyond JAR
-signing</li>
+[8] [9]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -195,6 +191,9 @@ pqc/language-native-crypto-stacks/d0005:2)</li>
 class="uri">https://seanjmullan.org/blog/2026/03/16/jdk26</a> (as of
 2026-03-16; ledger claim
 pqc/language-native-crypto-stacks/d0001:11)</li>
+<li><a href="https://openjdk.org/jeps/497"
+class="uri">https://openjdk.org/jeps/497</a> (date not recorded; checked
+2026-09-12)</li>
 <li><a
 href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
 class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>

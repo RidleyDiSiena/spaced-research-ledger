@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; language-stack</p>
     <h1>Go standard library</h1>
     <p class="standfirst">Maintained by The Go project (Google). Two releases a year (1.N); crypto/tls defaults change with them. Home: https://go.dev/</p>
-    <p class="updated">9 cited cells &middot; 1 open</p>
+    <p class="updated">9 cited cells &middot; 1 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -103,7 +103,7 @@ mode (issue 78178) [6]</td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-notchecked">not checked</span></td>
+<td><span class="st st-absent">none found 2026-09-12</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -166,7 +166,13 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>slh-dsa / primitive – <strong>not checked</strong>: no claim</li>
+<li>slh-dsa / primitive – <strong>none found 2026-09-12</strong>:
+Searched twice on 2026-09-12 and found nothing: SLH-DSA appears nowhere
+in the Go 1.27 notes, which introduce crypto/mldsa and name every other
+post-quantum addition explicitly. Go has shipped ML-KEM and ML-DSA as
+their standards landed; the silence on SLH-DSA is meaningful rather than
+incidental. Examined: Go 1.27 release notes, Go 1.26 release notes
+(crypto/hpke, ML-KEM).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

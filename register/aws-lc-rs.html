@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>aws-lc-rs</h1>
     <p class="standfirst">Maintained by Amazon Web Services. Rust crate over AWS-LC; numbered releases. Home: https://github.com/aws/aws-lc-rs</p>
-    <p class="updated">2 cited cells &middot; 1 open</p>
+    <p class="updated">3 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -28,8 +28,6 @@
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
 <li><a href="#releases" id="toc-releases">Releases</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -60,7 +58,8 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td><strong>ML-KEM</strong></td>
-<td><span class="st st-notchecked">not checked</span></td>
+<td><span class="st st-available">available</span> since documented at
+1.18.1; first release not stated [1]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -105,13 +104,13 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
-<td><span class="st st-available">available</span> since 1.18.1 [1]
-[2]</td>
+<td><span class="st st-available">available</span> since 1.18.1 [2]
+[3]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-available">available</span> since 1.18.1 [1]</td>
+<td><span class="st st-available">available</span> since 1.18.1 [2]</td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
@@ -162,6 +161,10 @@ Unknowns</a></li>
 </table>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
+<li><strong>ML-KEM, Primitive</strong>: The kem module documents
+ML_KEM_512, ML_KEM_768 and ML_KEM_1024 as a stable public API, not
+behind the unstable feature flag that gated ML-DSA until 1.18.1. The
+docs name no introducing version.</li>
 <li><strong>ML-DSA, Primitive</strong>: Stable API without the unstable
 feature flag from 1.18.1; described as not fully stabilised in February
 2026.</li>
@@ -170,21 +173,13 @@ crate’s FIPS build.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>1.18.1, 2026-09-01 [1]</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>ml-kem / primitive – <strong>not checked</strong>: no claim on the
-crate itself (AWS-LC underneath has it)</li>
+<li>1.18.1, 2026-09-01 [2]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
+<li><a href="https://docs.rs/aws-lc-rs/latest/aws_lc_rs/kem/index.html"
+class="uri">https://docs.rs/aws-lc-rs/latest/aws_lc_rs/kem/index.html</a>
+(date not recorded; checked 2026-09-12)</li>
 <li><a href="https://github.com/aws/aws-lc-rs/releases"
 class="uri">https://github.com/aws/aws-lc-rs/releases</a> (as of
 2026-09-01; ledger claim pqc/openssl-and-forks/d0006:3)</li>

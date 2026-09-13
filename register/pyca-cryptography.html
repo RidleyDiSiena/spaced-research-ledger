@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; language-stack</p>
     <h1>pyca/cryptography (Python)</h1>
     <p class="standfirst">Maintained by Python Cryptographic Authority. Numbered releases; Rust bindings over an AWS-LC or OpenSSL backend. Home: https://cryptography.io/</p>
-    <p class="updated">2 cited cells &middot; 1 open</p>
+    <p class="updated">3 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -28,8 +28,6 @@
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
 <li><a href="#releases" id="toc-releases">Releases</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -98,7 +96,7 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-notchecked">not checked</span></td>
+<td><span class="st st-planned">planned</span> [2]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -137,20 +135,15 @@ Unknowns</a></li>
 <ul>
 <li><strong>ML-KEM, Primitive</strong>: Native support via Rust bindings
 and the AWS-LC backend.</li>
+<li><strong>SLH-DSA, Primitive</strong>: The project’s own roadmap issue
+tracks ML-KEM, ML-DSA and SLH-DSA together. ML-KEM and ML-DSA shipped in
+48; SLH-DSA had not, and work was described as started. Recorded as
+planned on the strength of the tracking issue rather than a
+release.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
 <li>48, 2026-06-30 [1]</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>slh-dsa / primitive – <strong>not checked</strong>: no claim</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -159,6 +152,9 @@ href="https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography
 class="uri">https://blog.trailofbits.com/2026/06/30/shipping-post-quantum-cryptography-to-python/</a>
 (as of 2026-06-30; ledger claim
 pqc/language-runtime-tls-surfaces/d0003:2)</li>
+<li><a href="https://github.com/pyca/cryptography/issues/14690"
+class="uri">https://github.com/pyca/cryptography/issues/14690</a> (date
+not recorded; checked 2026-09-12)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

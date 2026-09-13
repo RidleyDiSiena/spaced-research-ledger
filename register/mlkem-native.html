@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>mlkem-native</h1>
     <p class="standfirst">Maintained by PQ Code Package (PQCA). Numbered releases; consumed by liboqs and AWS-LC. Home: https://github.com/pq-code-package/mlkem-native</p>
-    <p class="updated">1 cited cell</p>
+    <p class="updated">3 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -104,7 +104,7 @@
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [4]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -113,7 +113,7 @@
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [4]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -164,11 +164,19 @@
 with CBMC; AArch64 and x86_64 assembly proved correct and constant-time
 with HOL-Light; v2.0.0 is a breaking API release. SOUNDNESS.md lists
 open verification gaps (d0001:19).</li>
+<li><strong>ML-DSA, Primitive</strong>: Out of scope by design, not
+missing: mlkem-native implements ML-KEM and nothing else. Its sibling
+mldsa-native, from the same Post-Quantum Code Package, is the ML-DSA
+implementation, and liboqs uses each behind the matching identifiers.
+Recorded so a reader does not mistake a single-algorithm project for a
+thin one.</li>
+<li><strong>SLH-DSA, Primitive</strong>: As above: the package’s SLH-DSA
+implementation is slhdsa-c, a separate project.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
 <li>2.0.0 [3]</li>
-<li>1.2.0, 2026-08-10 [4]</li>
+<li>1.2.0, 2026-08-10 [5]</li>
 <li>1.0.0, 2025-07-10 [1]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
@@ -187,6 +195,10 @@ href="https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md"
 class="uri">https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md</a>
 (date not recorded; ledger claim
 pqc/pq-reference-implementations/d0004:2)</li>
+<li><a
+href="https://pqca.org/blog/2025/pqca-announces-alpha-release-of-mldsa-native/"
+class="uri">https://pqca.org/blog/2025/pqca-announces-alpha-release-of-mldsa-native/</a>
+(date not recorded; checked 2026-09-12)</li>
 <li><a
 href="https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md"
 class="uri">https://github.com/pq-code-package/mlkem-native/blob/main/RELEASE.md</a>
