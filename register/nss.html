@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>NSS</h1>
     <p class="standfirst">Maintained by Mozilla. Numbered 3.1xx releases roughly monthly, consumed by Firefox. Home: https://firefox-source-docs.mozilla.org/security/nss/</p>
-    <p class="updated">4 cited cells &middot; 2 open</p>
+    <p class="updated">5 cited cells &middot; 2 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -79,7 +79,7 @@ Unknowns</a></li>
 <tr>
 <td><strong>SecP256r1MLKEM768</strong></td>
 <td>unknown</td>
-<td>unknown</td>
+<td>available since 3.118 [3]</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -106,8 +106,8 @@ Unknowns</a></li>
 <tr>
 <td><strong>ML-DSA</strong></td>
 <td>available since 3.118 [2]</td>
-<td>not checked</td>
-<td>not checked</td>
+<td>none found 2026-09-12</td>
+<td>none found 2026-09-12</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -165,11 +165,15 @@ Unknowns</a></li>
 from 3.105 (vendored Libcrux); ML-KEM-1024 from 3.118.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: Group mlkem768x25519
 available from 3.105, default from 3.118.</li>
+<li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: Release notes bug
+1983313 adds secp256r1mlkem768 alongside secp384r1mlkem1024; the same
+bug made mlkem768x25519 the default, so this one is offered but not
+preferred.</li>
 <li><strong>ML-DSA, Primitive</strong>: Sign/verify interfaces.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>3.124, 2026-05-15 [3]</li>
+<li>3.124, 2026-05-15 [4]</li>
 <li>3.118, 2025-11-18 [2]</li>
 <li>3.105, 2024-09-26 [1]</li>
 </ul>
@@ -181,8 +185,20 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / tls – <strong>not checked</strong>: no claim</li>
-<li>ml-dsa / x509 – <strong>not checked</strong>: no claim</li>
+<li>ml-dsa / tls – <strong>none found 2026-09-12</strong>: Searched
+twice on 2026-09-12 and found nothing: 3.118 adds ML-DSA only as SGN and
+VFY interfaces, the low-level sign and verify operations, and 3.124
+mentions no post-quantum work at all. The ML-KEM groups are named
+release by release in the same notes, so their silence on ML-DSA in tls
+is meaningful rather than incidental. Examined: NSS 3.118 release notes,
+NSS 3.124 release notes.</li>
+<li>ml-dsa / x509 – <strong>none found 2026-09-12</strong>: Searched
+twice on 2026-09-12 and found nothing: 3.118 adds ML-DSA only as SGN and
+VFY interfaces, the low-level sign and verify operations, and 3.124
+mentions no post-quantum work at all. The ML-KEM groups are named
+release by release in the same notes, so their silence on ML-DSA in x509
+is meaningful rather than incidental. Examined: NSS 3.118 release notes,
+NSS 3.124 release notes.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -196,6 +212,10 @@ href="https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.ht
 class="uri">https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html</a>
 (as of 2025-11-18; ledger claim
 pqc/embedded-alternative-libraries/d0001:23)</li>
+<li><a
+href="https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html"
+class="uri">https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html</a>
+(as of 2025-11-18; checked 2026-09-12)</li>
 <li><a href="https://en.wikipedia.org/wiki/Network_Security_Services"
 class="uri">https://en.wikipedia.org/wiki/Network_Security_Services</a>
 (as of 2026-05-15; ledger claim

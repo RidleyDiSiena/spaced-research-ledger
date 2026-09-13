@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>BoringSSL</h1>
     <p class="standfirst">Maintained by Google. Rolling, no numbered releases; consumers pin commits (Chrome, Android, Envoy). Home: https://boringssl.googlesource.com/boringssl/</p>
-    <p class="updated">4 cited cells &middot; 3 open</p>
+    <p class="updated">9 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -27,8 +27,6 @@
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -60,17 +58,17 @@ Unknowns</a></li>
 <tr>
 <td><strong>ML-KEM</strong></td>
 <td>available since rolling [1]</td>
-<td>not checked</td>
+<td>available since rolling; MLKEM1024 in kNamedGroups [2]</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
-<td>not checked</td>
+<td>planned [3]</td>
 </tr>
 <tr>
 <td><strong>X25519MLKEM768</strong></td>
 <td>unknown</td>
 <td>available since rolling since 2023 (pre-standard name
-X25519Kyber768) [2] [3]</td>
+X25519Kyber768) [4] [5]</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -79,7 +77,7 @@ X25519Kyber768) [2] [3]</td>
 <tr>
 <td><strong>SecP256r1MLKEM768</strong></td>
 <td>unknown</td>
-<td>unknown</td>
+<td>none [2]</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -88,7 +86,7 @@ X25519Kyber768) [2] [3]</td>
 <tr>
 <td><strong>SecP384r1MLKEM1024</strong></td>
 <td>unknown</td>
-<td>unknown</td>
+<td>none [2]</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -105,9 +103,9 @@ X25519Kyber768) [2] [3]</td>
 </tr>
 <tr>
 <td><strong>ML-DSA</strong></td>
-<td>available since rolling, commits of October 2025 [4] [5]</td>
-<td>not checked</td>
-<td>available since rolling, commits of October 2025 [4]</td>
+<td>available since rolling, commits of October 2025 [6] [7]</td>
+<td>available since April 2026 (libssl commit 4a3cda4) [8]</td>
+<td>available since rolling, commits of October 2025 [6]</td>
 <td>unknown</td>
 <td>unknown</td>
 <td>unknown</td>
@@ -161,29 +159,34 @@ X25519Kyber768) [2] [3]</td>
 </table>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
+<li><strong>ML-KEM, TLS 1.3</strong>: A pure ML-KEM group is supported:
+kNamedGroups carries MLKEM1024 (SSL_GROUP_MLKEM1024) alongside the
+X25519MLKEM768 hybrid. MLKEM768 and MLKEM512 are not in the array.</li>
+<li><strong>ML-KEM, FIPS 140-3</strong>: Not Google’s own validation:
+BoringSSL has never pursued outside FIPS validation. The only ML-KEM
+path is SafeLogic’s CryptoComply BoringCrypto, a third-party packaging
+of BoringCrypto, submitted to the CMVP on 2026-05-19 and in the queue as
+of that date. Read as a queue position, not as a vendor capability.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: Chrome shipped it by
 default from 131 with the standard codepoint; whether BoringSSL’s own
 default group list carries it is a conflict in the ledger
 (d0001:23).</li>
+<li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: Absent from
+kNamedGroups, which is the exhaustive list of groups libssl knows.
+Recorded as ‘none’ rather than a gap because an exhaustive array makes
+the absence a positive finding, not an open question.</li>
+<li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: Absent from
+kNamedGroups, as above.</li>
 <li><strong>ML-DSA, Primitive</strong>: One source dates ML-DSA to April
 2026 instead (ledger conflict d0005:1).</li>
+<li><strong>ML-DSA, TLS 1.3</strong>: Asymmetric, and the asymmetry
+matters: ML-DSA-44/65/87 sit at positions 1 to 3 of
+kSignSignatureAlgorithms, the default list for SIGNING, but appear
+nowhere in kVerifySignatureAlgorithms, the default list for VERIFYING.
+BoringSSL will therefore offer an ML-DSA signature by default and still
+not accept one by default, so this is ‘available’, not ‘default’.</li>
 <li><strong>ML-DSA, X.509</strong>: ML-DSA-87 certificate validation
 plus OIDs/NIDs for ML-DSA and ML-KEM.</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>ml-kem / tls – <strong>not checked</strong>: pure ML-KEM group
-standing not in the leaf’s claims</li>
-<li>ml-dsa / tls – <strong>not checked</strong>: TLS signature-scheme
-standing not in the leaf’s claims</li>
-<li>ml-kem / fips – <strong>not checked</strong>: BoringSSL’s FIPS
-module status for PQC not in the leaf’s claims</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -191,6 +194,14 @@ module status for PQC not in the leaf’s claims</li>
 href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/"
 class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/</a>
 (as of 2026-06-24; ledger claim pqc/openssl-and-forks/d0002:2)</li>
+<li><a
+href="https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc"
+class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc</a>
+(date not recorded; checked 2026-09-12)</li>
+<li><a
+href="https://www.safelogic.com/blog/cryptocomply-140-3-fips-provider-with-pqc-enters-cmvp-queue"
+class="uri">https://www.safelogic.com/blog/cryptocomply-140-3-fips-provider-with-pqc-enters-cmvp-queue</a>
+(as of 2026-05-19; checked 2026-09-12)</li>
 <li><a
 href="https://quantumsecuritydefence.com/insights/fips-203-205-implementation-c-rust-libraries/"
 class="uri">https://quantumsecuritydefence.com/insights/fips-203-205-implementation-c-rust-libraries/</a>
@@ -206,6 +217,10 @@ class="uri">https://github.com/envoyproxy/envoy/issues/42893</a> (as of
 href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/"
 class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/</a>
 (as of 2026-06-24; ledger claim pqc/openssl-and-forks/d0004:2)</li>
+<li><a
+href="https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/extensions.cc"
+class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/extensions.cc</a>
+(date not recorded; checked 2026-09-12)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

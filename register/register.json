@@ -2,7 +2,7 @@
   "schema_version": 1,
   "register": "PQC Readiness Register",
   "generated": "2026-09-12",
-  "commit": "d3031b2",
+  "commit": "461d7a1",
   "statuses": [
     "none",
     "planned",
@@ -609,35 +609,100 @@
             }
           ],
           "note": "ML-DSA-87 certificate validation plus OIDs/NIDs for ML-DSA and ML-KEM."
-        }
-      ],
-      "extra": [],
-      "gaps": [
+        },
         {
           "algorithm": "ml-kem",
           "capability": "tls",
-          "why": "pure ML-KEM group standing not in the leaf's claims",
-          "passes": 0,
-          "checked": null,
-          "sources": []
+          "status": "available",
+          "since": "rolling; MLKEM1024 in kNamedGroups",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "A pure ML-KEM group is supported: kNamedGroups carries MLKEM1024 (SSL_GROUP_MLKEM1024) alongside the X25519MLKEM768 hybrid. MLKEM768 and MLKEM512 are not in the array."
         },
         {
           "algorithm": "ml-dsa",
           "capability": "tls",
-          "why": "TLS signature-scheme standing not in the leaf's claims",
-          "passes": 0,
-          "checked": null,
-          "sources": []
+          "status": "available",
+          "since": "April 2026 (libssl commit 4a3cda4)",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/extensions.cc",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Asymmetric, and the asymmetry matters: ML-DSA-44/65/87 sit at positions 1 to 3 of kSignSignatureAlgorithms, the default list for SIGNING, but appear nowhere in kVerifySignatureAlgorithms, the default list for VERIFYING. BoringSSL will therefore offer an ML-DSA signature by default and still not accept one by default, so this is 'available', not 'default'."
+        },
+        {
+          "algorithm": "secp256r1mlkem768",
+          "capability": "tls",
+          "status": "none",
+          "since": null,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Absent from kNamedGroups, which is the exhaustive list of groups libssl knows. Recorded as 'none' rather than a gap because an exhaustive array makes the absence a positive finding, not an open question."
+        },
+        {
+          "algorithm": "secp384r1mlkem1024",
+          "capability": "tls",
+          "status": "none",
+          "since": null,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Absent from kNamedGroups, as above."
         },
         {
           "algorithm": "ml-kem",
           "capability": "fips",
-          "why": "BoringSSL's FIPS module status for PQC not in the leaf's claims",
-          "passes": 0,
-          "checked": null,
-          "sources": []
+          "status": "planned",
+          "since": null,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://www.safelogic.com/blog/cryptocomply-140-3-fips-provider-with-pqc-enters-cmvp-queue",
+              "url": null,
+              "as_of": "2026-05-19",
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Not Google's own validation: BoringSSL has never pursued outside FIPS validation. The only ML-KEM path is SafeLogic's CryptoComply BoringCrypto, a third-party packaging of BoringCrypto, submitted to the CMVP on 2026-05-19 and in the queue as of that date. Read as a queue position, not as a vendor capability."
         }
       ],
+      "extra": [],
+      "gaps": [],
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "available",
@@ -646,12 +711,12 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 4,
+        "cited": 9,
         "confirmed_absent": 0,
-        "open": 3
+        "open": 0
       },
       "gap_states": {
-        "unexamined": 3,
+        "unexamined": 0,
         "searched": 0,
         "confirmed-absent": 0
       },
@@ -1162,9 +1227,18 @@
         {
           "algorithm": "ml-dsa",
           "capability": "primitive",
-          "status": "available",
+          "status": "experimental",
           "since": "10",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/libraries",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            },
             {
               "claim": "pqc/language-native-crypto-stacks/d0001:18",
               "source": null,
@@ -1184,14 +1258,23 @@
               "note": ""
             }
           ],
-          "note": "MLDsa members renamed SecretKey* to PrivateKey* in .NET 10, a breaking change."
+          "note": "MLDsa members renamed SecretKey* to PrivateKey* in .NET 10, a breaking change. Corrected by the 2026-09-12 bootstrap: the ledger's claim read the SYSLIB5006 gate as covering only the PEM helpers. Microsoft's own page says the class itself is gated -- \"The MLDsa, SlhDsa, and CompositeMLDsa classes are marked as [Experimental] under diagnostic SYSLIB5006 until development is complete\" -- so this is experimental, not available. MLKem is NOT so marked, though some of its methods are."
         },
         {
           "algorithm": "slh-dsa",
           "capability": "primitive",
-          "status": "available",
+          "status": "experimental",
           "since": "10",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/libraries",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            },
             {
               "claim": "pqc/language-native-crypto-stacks/d0001:18",
               "source": null,
@@ -1202,14 +1285,23 @@
               "note": ""
             }
           ],
-          "note": ""
+          "note": "Corrected by the 2026-09-12 bootstrap: the ledger's claim read the SYSLIB5006 gate as covering only the PEM helpers. Microsoft's own page says the class itself is gated -- \"The MLDsa, SlhDsa, and CompositeMLDsa classes are marked as [Experimental] under diagnostic SYSLIB5006 until development is complete\" -- so this is experimental, not available. MLKem is NOT so marked, though some of its methods are."
         },
         {
           "algorithm": "composite-ml-dsa",
           "capability": "primitive",
-          "status": "available",
+          "status": "experimental",
           "since": "10",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/libraries",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            },
             {
               "claim": "pqc/language-native-crypto-stacks/d0001:18",
               "source": null,
@@ -1220,7 +1312,61 @@
               "note": ""
             }
           ],
-          "note": "Composite ML-DSA in System.Security.Cryptography; PEM import/export helpers still experimental behind SYSLIB5006 (d0001:20)."
+          "note": "Composite ML-DSA in System.Security.Cryptography; PEM import/export helpers still experimental behind SYSLIB5006 (d0001:20). Corrected by the 2026-09-12 bootstrap: the ledger's claim read the SYSLIB5006 gate as covering only the PEM helpers. Microsoft's own page says the class itself is gated -- \"The MLDsa, SlhDsa, and CompositeMLDsa classes are marked as [Experimental] under diagnostic SYSLIB5006 until development is complete\" -- so this is experimental, not available. MLKem is NOT so marked, though some of its methods are."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "status": "experimental",
+          "since": "10",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.certificaterequest.-ctor?view=net-10.0",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "CertificateRequest gained (X500DistinguishedName, MLDsa) and (String, MLDsa) overloads in net-10.0, each carrying [Experimental(\"SYSLIB5006\")], so a certificate or CSR can be built on an ML-DSA key behind that gate."
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "x509",
+          "status": "experimental",
+          "since": "10",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.certificaterequest.-ctor?view=net-10.0",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "CertificateRequest (X500DistinguishedName, SlhDsa) and (String, SlhDsa) overloads in net-10.0, same SYSLIB5006 gate."
+        },
+        {
+          "algorithm": "composite-ml-dsa",
+          "capability": "x509",
+          "status": "experimental",
+          "since": "10",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.certificaterequest.-ctor?view=net-10.0",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "CertificateRequest (X500DistinguishedName, CompositeMLDsa) and (String, CompositeMLDsa) overloads in net-10.0, same SYSLIB5006 gate. .NET is the only component in the register with composite certificates at all."
         }
       ],
       "extra": [],
@@ -1228,28 +1374,31 @@
         {
           "algorithm": "ml-kem",
           "capability": "tls",
-          "why": "no claim on SslStream / TLS surfaces",
-          "passes": 0,
-          "checked": null,
-          "sources": []
+          "why": "Searched twice on 2026-09-12 and found nothing: the .NET 10 libraries page documents post-quantum cryptography and TLS in separate sections, and the TLS section covers only TLS 1.3 on macOS through Network.framework. No .NET API selects a hybrid group. This is an open question rather than a 'no': SslStream delegates to the platform provider, so a hybrid handshake may well happen on a host whose OpenSSL 3.5 or Windows CNG offers it, without .NET having anything to say about it.",
+          "passes": 2,
+          "checked": "2026-09-12",
+          "sources": [
+            "What's new in .NET libraries for .NET 10 (its TLS enhancements section)",
+            "Microsoft Learn search for SslStream with ML-KEM"
+          ]
         }
       ],
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
-        "signature": "available",
-        "composite": null,
+        "signature": "experimental",
+        "composite": "experimental",
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 4,
-        "confirmed_absent": 0,
-        "open": 1
+        "cited": 7,
+        "confirmed_absent": 1,
+        "open": 0
       },
       "gap_states": {
-        "unexamined": 1,
+        "unexamined": 0,
         "searched": 0,
-        "confirmed-absent": 0
+        "confirmed-absent": 1
       },
       "category": "libraries"
     },
@@ -2820,6 +2969,24 @@
             }
           ],
           "note": "Sign/verify interfaces."
+        },
+        {
+          "algorithm": "secp256r1mlkem768",
+          "capability": "tls",
+          "status": "available",
+          "since": "3.118",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_118.html",
+              "url": null,
+              "as_of": "2025-11-18",
+              "confidence": null,
+              "checked_on": "2026-09-12",
+              "note": ""
+            }
+          ],
+          "note": "Release notes bug 1983313 adds secp256r1mlkem768 alongside secp384r1mlkem1024; the same bug made mlkem768x25519 the default, so this one is offered but not preferred."
         }
       ],
       "extra": [],
@@ -2827,18 +2994,24 @@
         {
           "algorithm": "ml-dsa",
           "capability": "tls",
-          "why": "no claim",
-          "passes": 0,
-          "checked": null,
-          "sources": []
+          "why": "Searched twice on 2026-09-12 and found nothing: 3.118 adds ML-DSA only as SGN and VFY interfaces, the low-level sign and verify operations, and 3.124 mentions no post-quantum work at all. The ML-KEM groups are named release by release in the same notes, so their silence on ML-DSA in tls is meaningful rather than incidental.",
+          "passes": 2,
+          "checked": "2026-09-12",
+          "sources": [
+            "NSS 3.118 release notes",
+            "NSS 3.124 release notes"
+          ]
         },
         {
           "algorithm": "ml-dsa",
           "capability": "x509",
-          "why": "no claim",
-          "passes": 0,
-          "checked": null,
-          "sources": []
+          "why": "Searched twice on 2026-09-12 and found nothing: 3.118 adds ML-DSA only as SGN and VFY interfaces, the low-level sign and verify operations, and 3.124 mentions no post-quantum work at all. The ML-KEM groups are named release by release in the same notes, so their silence on ML-DSA in x509 is meaningful rather than incidental.",
+          "passes": 2,
+          "checked": "2026-09-12",
+          "sources": [
+            "NSS 3.118 release notes",
+            "NSS 3.124 release notes"
+          ]
         }
       ],
       "roll_up": {
@@ -2849,14 +3022,14 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 4,
-        "confirmed_absent": 0,
-        "open": 2
+        "cited": 5,
+        "confirmed_absent": 2,
+        "open": 0
       },
       "gap_states": {
-        "unexamined": 2,
+        "unexamined": 0,
         "searched": 0,
-        "confirmed-absent": 0
+        "confirmed-absent": 2
       },
       "category": "libraries"
     },
