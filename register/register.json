@@ -2,7 +2,7 @@
   "schema_version": 1,
   "register": "PQC Readiness Register",
   "generated": "2026-09-13",
-  "commit": "dcd1042",
+  "commit": "57e6480",
   "statuses": [
     "none",
     "planned",
@@ -448,7 +448,7 @@
         "libsodium": "not-checked",
         "mbedtls": "no",
         "mlkem-native": "no",
-        "nodejs": "inherited",
+        "nodejs": "yes",
         "nss": "yes",
         "openssl": "yes",
         "pyca-cryptography": "yes",
@@ -575,7 +575,7 @@
         "libsodium": "not-checked",
         "mbedtls": "not-checked",
         "mlkem-native": "not-checked",
-        "nodejs": "inherited",
+        "nodejs": "yes",
         "nss": "not-checked",
         "openssl": "yes",
         "pyca-cryptography": "inherited",
@@ -744,8 +744,10 @@
       "knowledge": {
         "cited": 2,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 4
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 4,
@@ -836,8 +838,10 @@
       "knowledge": {
         "cited": 1,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 1
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 1,
@@ -1025,8 +1029,10 @@
       "knowledge": {
         "cited": 3,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 1
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 1,
@@ -1253,8 +1259,10 @@
       "knowledge": {
         "cited": 8,
         "confirmed_absent": 1,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -1485,8 +1493,10 @@
       "knowledge": {
         "cited": 9,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -1841,8 +1851,10 @@
       "knowledge": {
         "cited": 13,
         "confirmed_absent": 1,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -2099,8 +2111,10 @@
       "knowledge": {
         "cited": 9,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -2369,8 +2383,10 @@
       "knowledge": {
         "cited": 7,
         "confirmed_absent": 1,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -2634,8 +2650,10 @@
       "knowledge": {
         "cited": 10,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -2973,8 +2991,10 @@
       "knowledge": {
         "cited": 10,
         "confirmed_absent": 1,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -3282,8 +3302,10 @@
       "knowledge": {
         "cited": 10,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -3582,8 +3604,10 @@
       "knowledge": {
         "cited": 10,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -3807,8 +3831,10 @@
       "knowledge": {
         "cited": 7,
         "confirmed_absent": 2,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -4014,8 +4040,10 @@
       "knowledge": {
         "cited": 7,
         "confirmed_absent": 1,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -4233,8 +4261,10 @@
       "knowledge": {
         "cited": 8,
         "confirmed_absent": 1,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -4487,8 +4517,10 @@
       "knowledge": {
         "cited": 8,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -4594,8 +4626,83 @@
       "knowledge": {
         "cited": 2,
         "confirmed_absent": 0,
+        "inherited": 9,
         "open": 0
       },
+      "derived": [
+        {
+          "algorithm": "ml-dsa",
+          "capability": "primitive",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "available"
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "available"
+        },
+        {
+          "algorithm": "lms-hss",
+          "capability": "primitive",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "available"
+        },
+        {
+          "algorithm": "secp256r1mlkem768",
+          "capability": "tls",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "available"
+        },
+        {
+          "algorithm": "secp384r1mlkem1024",
+          "capability": "tls",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "available"
+        },
+        {
+          "algorithm": "sm2mlkem768",
+          "capability": "tls",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "available"
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "tls",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "default"
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "tls",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "none"
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "available"
+        }
+      ],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -4908,8 +5015,10 @@
       "knowledge": {
         "cited": 10,
         "confirmed_absent": 2,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -5337,8 +5446,10 @@
       "knowledge": {
         "cited": 14,
         "confirmed_absent": 3,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -5503,8 +5614,10 @@
       "knowledge": {
         "cited": 3,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -5686,8 +5799,10 @@
       "knowledge": {
         "cited": 3,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -5897,8 +6012,10 @@
       "knowledge": {
         "cited": 5,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -6169,8 +6286,10 @@
       "knowledge": {
         "cited": 6,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -6281,8 +6400,10 @@
       "knowledge": {
         "cited": 1,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -6414,8 +6535,10 @@
       "knowledge": {
         "cited": 4,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
@@ -6528,8 +6651,10 @@
       "knowledge": {
         "cited": 1,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 2
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 2,
@@ -6669,8 +6794,10 @@
       "knowledge": {
         "cited": 2,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 5
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 5,
@@ -6761,8 +6888,10 @@
       "knowledge": {
         "cited": 1,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 1
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 1,
@@ -7149,8 +7278,10 @@
       "knowledge": {
         "cited": 14,
         "confirmed_absent": 0,
+        "inherited": 0,
         "open": 0
       },
+      "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,

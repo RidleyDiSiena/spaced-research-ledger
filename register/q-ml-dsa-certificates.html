@@ -19,16 +19,16 @@
     <p class="kicker">PQC Readiness Register &middot; Question</p>
     <h1>Which components can handle ML-DSA X.509 certificates?</h1>
     <p class="standfirst">ML-DSA in certificates and keys -- generating, parsing, signing, verifying or chain-building -- in a general release. The bar is `available`. This is the question that decides whether a post-quantum PKI is deployable at all, and it is…</p>
-    <p class="updated">10 yes &middot; 1 no &middot; 2 answered by something else &middot; 16 not checked</p>
+    <p class="updated">11 yes &middot; 1 no &middot; 1 answered by something else &middot; 16 not checked</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
-<li><a href="#yes" id="toc-yes">Yes (10)</a></li>
+<li><a href="#yes" id="toc-yes">Yes (11)</a></li>
 <li><a href="#no" id="toc-no">No (1)</a></li>
 <li><a href="#inherited" id="toc-inherited">Answered by something else
-(2)</a></li>
+(1)</a></li>
 <li><a href="#not-checked" id="toc-not-checked">Not checked
 (16)</a></li>
 </ul>
@@ -42,7 +42,7 @@ post-quantum PKI is deployable at all, and it is deliberately separate
 from the TLS questions: a stack can negotiate a hybrid key exchange
 while being unable to validate a post-quantum certificate, and most
 can.</p>
-<h2 id="yes">Yes (10)</h2>
+<h2 id="yes">Yes (11)</h2>
 <p>At or above the bar the question sets, with the cell it rests on.</p>
 <table>
 <colgroup>
@@ -90,6 +90,12 @@ commits of October 2025</td>
 <td>language-stack</td>
 <td><span class="st st-available">available</span> since 24 (JEP
 497)</td>
+</tr>
+<tr>
+<td><a href="nodejs.html">Node.js</a></td>
+<td>language-stack</td>
+<td><span class="st st-derived">available</span> via OpenSSL, at OpenSSL
+3.5 (24.x line)</td>
 </tr>
 <tr>
 <td><a href="openssl.html">OpenSSL</a></td>
@@ -140,7 +146,7 @@ answers to the same question.</p>
 </tr>
 </tbody>
 </table>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="inherited">Answered by something else (2)</h2>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="inherited">Answered by something else (1)</h2>
 <p>These components do not implement it; they take it from another
 component, at the version they carry. The answer is that component’s, so
 it is pointed at rather than repeated.</p>
@@ -158,11 +164,6 @@ it is pointed at rather than repeated.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><a href="nodejs.html">Node.js</a></td>
-<td>language-stack</td>
-<td>see OpenSSL</td>
-</tr>
 <tr>
 <td><a href="pyca-cryptography.html">pyca/cryptography (Python)</a></td>
 <td>language-stack</td>

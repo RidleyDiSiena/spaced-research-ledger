@@ -19,16 +19,14 @@
     <p class="kicker">PQC Readiness Register &middot; Question</p>
     <h1>Which components can sign with pure ML-DSA today?</h1>
     <p class="standfirst">ML-DSA (FIPS 204) through the component&#x27;s own API, in a general release, without a build flag or preview channel. Pure rather than composite: this asks about ML-DSA on its own, not paired with a classical algorithm in one signature. The…</p>
-    <p class="updated">14 yes &middot; 4 no &middot; 1 answered by something else &middot; 4 not checked</p>
+    <p class="updated">15 yes &middot; 4 no &middot; 4 not checked</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
-<li><a href="#yes" id="toc-yes">Yes (14)</a></li>
+<li><a href="#yes" id="toc-yes">Yes (15)</a></li>
 <li><a href="#no" id="toc-no">No (4)</a></li>
-<li><a href="#inherited" id="toc-inherited">Answered by something else
-(1)</a></li>
 <li><a href="#not-checked" id="toc-not-checked">Not checked (4)</a></li>
 <li><a href="#not-applicable" id="toc-not-applicable">Not
 applicable</a></li>
@@ -43,7 +41,7 @@ classical algorithm in one signature. The bar is <code>available</code>,
 so a component that ships it but does not select it by default still
 counts – the question is whether you can use it, not whether you get it
 without asking.</p>
-<h2 id="yes">Yes (14)</h2>
+<h2 id="yes">Yes (15)</h2>
 <p>At or above the bar the question sets, with the cell it rests on.</p>
 <table>
 <colgroup>
@@ -108,6 +106,12 @@ commits of October 2025</td>
 <td>library</td>
 <td><span class="st st-available">available</span> since 0.16.0
 (mldsa-native underneath)</td>
+</tr>
+<tr>
+<td><a href="nodejs.html">Node.js</a></td>
+<td>language-stack</td>
+<td><span class="st st-derived">available</span> via OpenSSL, at OpenSSL
+3.5 (24.x line)</td>
 </tr>
 <tr>
 <td><a href="nss.html">NSS</a></td>
@@ -177,26 +181,6 @@ support 2026 CQ2</td>
 <td><a href="mlkem-native.html">mlkem-native</a></td>
 <td>library</td>
 <td><span class="st st-none">none</span></td>
-</tr>
-</tbody>
-</table>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="inherited">Answered by something else (1)</h2>
-<p>These components do not implement it; they take it from another
-component, at the version they carry. The answer is that component’s, so
-it is pointed at rather than repeated.</p>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Kind</th>
-<th>Standing</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="nodejs.html">Node.js</a></td>
-<td>language-stack</td>
-<td>see OpenSSL</td>
 </tr>
 </tbody>
 </table>
