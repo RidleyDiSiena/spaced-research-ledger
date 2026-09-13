@@ -2,7 +2,7 @@
   "schema_version": 1,
   "register": "PQC Readiness Register",
   "generated": "2026-09-13",
-  "commit": "57e6480",
+  "commit": "8f05951",
   "statuses": [
     "none",
     "planned",
@@ -396,6 +396,7 @@
   "vendors": [
     {
       "maintainer": "Microsoft",
+      "page": "vendor-microsoft.html",
       "components": [
         "dotnet",
         "windows-adcs",
@@ -406,6 +407,7 @@
     },
     {
       "maintainer": "Amazon Web Services",
+      "page": "vendor-amazon-web-services.html",
       "components": [
         "aws-lc",
         "aws-lc-rs",
@@ -414,6 +416,7 @@
     },
     {
       "maintainer": "Apple",
+      "page": "vendor-apple.html",
       "components": [
         "apple-cryptokit",
         "apple-network",

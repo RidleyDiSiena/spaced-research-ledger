@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple | PQC Readiness Register</title>
+  <meta name="description" content="Apple: post-quantum readiness across 3 components.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Apple</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; Vendor</p>
+    <h1>Apple</h1>
+    <p class="standfirst">Everything this register holds on Apple: Apple CryptoKit and corecrypto, Apple Network framework and URLSession, swift-nio-ssl. The register splits a vendor&#x27;s stack by subsystem, which answers what each one does and answers nowhere where the platform as a whole stands.</p>
+    <p class="updated">3 components &middot; 4 cited cells</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#cat-vendor-apple"
+id="toc-cat-vendor-apple">Standing</a></li>
+<li><a href="#how-these-fit-together"
+id="toc-how-these-fit-together">How These Fit Together</a></li>
+<li><a href="#where-the-fips-modules-are"
+id="toc-where-the-fips-modules-are">Where the FIPS Modules Are</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="cat-vendor-apple">Standing</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>KEM</th>
+<th>Hybrid key exchange</th>
+<th>Signatures</th>
+<th>Composite signatures</th>
+<th>Stateful hash-based signatures</th>
+<th>Answers</th>
+<th>Open</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="apple-cryptokit.html">Apple CryptoKit and
+corecrypto</a></td>
+<td>os</td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>2 cited</td>
+<td>4</td>
+</tr>
+<tr>
+<td><a href="apple-network.html">Apple Network framework and
+URLSession</a></td>
+<td>tls-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>1 cited</td>
+<td>1</td>
+</tr>
+<tr>
+<td><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
+<td>tls-stack</td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-default">default</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-unknown">unknown</span></td>
+<td>1 cited</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="how-these-fit-together">How These Fit Together</h2>
+<p>Which of these components implement cryptography and which take it
+from something else. An edge inside this vendor is the more interesting
+kind: it is why the subsystems are separate components rather than one
+row.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>Takes its cryptography from</th>
+<th>How</th>
+<th>At</th>
+<th>What flows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="apple-network.html">Apple Network framework and
+URLSession</a></td>
+<td><a href="apple-cryptokit.html">Apple CryptoKit and corecrypto</a> ·
+inside this vendor</td>
+<td>platform</td>
+<td>–</td>
+<td>FIPS 140-3</td>
+</tr>
+<tr>
+<td><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
+<td><a href="boringssl.html">BoringSSL</a> · another vendor</td>
+<td>vendored</td>
+<td>BoringSSL commit 817ab07ebb53da35afea409ab9328f578492832d</td>
+<td>FIPS 140-3</td>
+</tr>
+</tbody>
+</table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-fips-modules-are">Where the FIPS Modules Are</h2>
+<p>A validated module belongs to one component, not to a vendor, and for
+a stack split by subsystem that is the whole point: the others point
+here rather than holding a standing of their own.</p>
+<ul>
+<li><strong><a href="apple-cryptokit.html">Apple CryptoKit and
+corecrypto</a></strong> holds 30 issued certificates (5387, 5348, 5347,
+5307, 5306, 5305, and more), and has 2 modules in the CMVP queue.</li>
+</ul>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>
