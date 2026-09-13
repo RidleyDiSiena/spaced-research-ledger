@@ -2,7 +2,7 @@
   "schema_version": 1,
   "register": "PQC Readiness Register",
   "generated": "2026-09-12",
-  "commit": "461d7a1",
+  "commit": "3da642f",
   "statuses": [
     "none",
     "planned",

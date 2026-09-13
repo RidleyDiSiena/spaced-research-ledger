@@ -16,6 +16,31 @@
   --link:         #6b21a8; /* purple-800, 8.7:1 on paper            */
   --link-visited: #581c87; /* purple-900, duller and darker         */
   --measure:    38rem;     /* ~78 characters, print's comfort zone  */
+
+  /* Register status chips. The label text always states the status, so
+     colour is REDUNDANT encoding -- the safest kind, and the reason this
+     palette never has to carry the meaning on its own. Two properties are
+     nonetheless designed in and MEASURED, not assumed:
+       1. No red/green-only distinction, and the five levels also separate
+          by LIGHTNESS -- background luminance runs 0.91, 0.83, 0.68, 0.53,
+          0.16 down the scale, no two adjacent closer than 0.08. That
+          survives deuteranopia, protanopia and greyscale printing. A first
+          cut used four tints that all sat between 0.81 and 0.91: they
+          passed contrast and were indistinguishable in greyscale, which
+          the comment claimed they were not. Re-measure if these change.
+       2. Every foreground/background pair is at least 4.5:1 (WCAG AA);
+          the tightest is `default` at 5.0. */
+  --st-default-bg:   #15803d;  --st-default-fg:   #ffffff;  /* solid: on without asking */
+  --st-available-bg: #dcfce7;  --st-available-fg: #14532d;
+  --st-experimental-bg: #fcd34d; --st-experimental-fg: #713f12;
+  --st-planned-bg:   #93c5fd;  --st-planned-fg:   #1e3a8a;
+  --st-none-bg:      #ffe4e6;  --st-none-fg:      #881337;
+  /* Gap states: what was DONE about an empty cell. Neutral hues on
+     purpose -- an absence someone confirmed is knowledge, not an alarm. */
+  --st-absent-bg:    #e2e8f0;  --st-absent-fg:    #1e293b;  /* searched, came back empty */
+  --st-searching-bg: #ede9fe;  --st-searching-fg: #4c1d95;  /* a pass done, not yet two */
+  --st-notchecked-bg: #f1f5f9; --st-notchecked-fg: #475569; /* declared, nobody has looked */
+  --st-unknown-fg:   var(--ink-mute);                       /* never even asked */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -491,6 +516,22 @@ a:focus-visible {
     --link-visited: #14b8a6;   /* teal-500, dimmer once followed     */
   }
   .pdf:hover { background: var(--ink); color: var(--paper); }
+  /* Chips: tinted grounds go translucent so they sit ON the dark paper
+     rather than punching holes in it, and the text takes the light end of
+     each hue. The lightness ORDER is preserved, which is what carries the
+     scale for a reader who cannot separate the hues. */
+  :root {
+    --st-default-bg:   #22c55e;  --st-default-fg:   #052e16;
+    /* Alpha carries the same ramp here: a more opaque tint reads brighter
+       on the dark ground, so the ORDER survives the scheme switch. */
+    --st-available-bg: rgba(34,197,94,0.14);  --st-available-fg: #86efac;
+    --st-experimental-bg: rgba(245,158,11,0.30); --st-experimental-fg: #fcd34d;
+    --st-planned-bg:   rgba(59,130,246,0.40);  --st-planned-fg:   #bfdbfe;
+    --st-none-bg:      rgba(244,63,94,0.20);   --st-none-fg:      #fda4af;
+    --st-absent-bg:    rgba(148,163,184,0.24); --st-absent-fg:    #cbd5e1;
+    --st-searching-bg: rgba(167,139,250,0.22); --st-searching-fg: #c4b5fd;
+    --st-notchecked-bg: rgba(148,163,184,0.14); --st-notchecked-fg: #94a3b8;
+  }
   /* Pure black-on-transparent art is invisible on a dark ground; inverting
      makes it white ink, and the lower opacity brings it back to gray. */
   .banner img { filter: invert(1); opacity: 0.62; }
@@ -546,4 +587,44 @@ a:focus-visible {
   color: var(--ink-3);
   font-size: 0.9375rem;
   line-height: 1.6;
+}
+
+/* ---- register status chips ------------------------------------------- */
+
+/* A block of colour around the word, so a reader can see at a glance what
+   is known and what is not (user request 2026-09-12: "I visually can't
+   tell what we know or do not know"). */
+.st {
+  display: inline-block;
+  padding: 0.1em 0.5em;
+  border-radius: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.st-default      { background: var(--st-default-bg);      color: var(--st-default-fg); }
+.st-available    { background: var(--st-available-bg);    color: var(--st-available-fg); }
+.st-experimental { background: var(--st-experimental-bg); color: var(--st-experimental-fg); }
+.st-planned      { background: var(--st-planned-bg);      color: var(--st-planned-fg); }
+.st-none         { background: var(--st-none-bg);         color: var(--st-none-fg); }
+.st-absent       { background: var(--st-absent-bg);       color: var(--st-absent-fg); }
+.st-searching    { background: var(--st-searching-bg);    color: var(--st-searching-fg); }
+/* Declared open and untouched: dashed, because the box is waiting to be
+   filled rather than holding an answer. */
+.st-notchecked {
+  background: var(--st-notchecked-bg);
+  color: var(--st-notchecked-fg);
+  border: 1px dashed currentColor;
+  padding: calc(0.1em - 1px) calc(0.5em - 1px);
+}
+/* Never asked: no chip at all, so the eye skips it. */
+.st-unknown { color: var(--st-unknown-fg); font-style: italic; font-weight: 400; }
+
+/* A confirmed absence past its recheck date keeps its chip and gains a
+   marker, so staleness reads without a sixth colour. */
+.st-stale::after { content: " \00b7 recheck"; font-weight: 400; opacity: 0.8; }
+
+@media print {
+  .st { border: 1px solid #999; background: none !important; color: #000 !important; }
 }
