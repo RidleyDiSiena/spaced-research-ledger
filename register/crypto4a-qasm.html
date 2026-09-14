@@ -59,7 +59,8 @@ Unknowns</a></li>
 FIPS 140-3 certificate 5497 (2026-08-19) [1] [2]</td>
 <td><span class="st st-available">available</span> since certificate
 5497 [3]</td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-absent">no public answer, checked
+2026-09-13</span></td>
 <td><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
 </tr>
 <tr>
@@ -103,7 +104,8 @@ FIPS 140-3 certificate 5497 (2026-08-19) [1] [2]</td>
 FIPS 140-3 certificate 5497 (2026-08-19) [4] [5]</td>
 <td><span class="st st-available">available</span> since certificate
 5497 [3]</td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-absent">no public answer, checked
+2026-09-13</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -192,17 +194,30 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / pkcs11 – <strong>searching, 1 of 2 passes</strong>: The
-architecture paper describes what the module does, not which interface
-reaches it. For a device whose whole pitch is quantum-safe-by-design
-this is likely well supported, but likely is not a citation. Second
-pass: the QASM or QxHSM integration guide naming PKCS#11 mechanisms.
-Examined: Crypto4A, Quantum-Safe by Design (2026-01-08), CMVP
-certificate 5497.</li>
-<li>ml-kem / pkcs11 – <strong>searching, 1 of 2 passes</strong>: As the
-ML-DSA PKCS#11 gap: the interface question is unanswered by the
-documents read. Examined: Crypto4A, Quantum-Safe by Design
-(2026-01-08).</li>
+<li>ml-dsa / pkcs11 – <strong>no public answer, checked
+2026-09-13</strong>: Searched twice and the artifact is not public.
+Crypto4A documents thoroughly WHAT the module does – the architecture
+paper enumerates LMS, XMSS, FIPS 203/204/205, HSS, XMSS-MT and Classic
+McEliece, and the certificate corroborates four of them – and nowhere
+public says WHICH INTERFACE reaches them. The integration documentation
+lives behind a support portal. For a device whose entire pitch is
+quantum-safe-by-design, PKCS#11 coverage is likely good; likely is not a
+citation, and this column exists precisely because Entrust’s answer on
+the same question was counter-intuitive. Examined: Crypto4A,
+Quantum-Safe by Design (2026-01-08), Crypto4A QxHSM product page and
+CNSA 2.0 FAQ, CMVP certificate 5497 approved-algorithm list.</li>
+<li>ml-kem / pkcs11 – <strong>no public answer, checked
+2026-09-13</strong>: Searched twice and the artifact is not public.
+Crypto4A documents thoroughly WHAT the module does – the architecture
+paper enumerates LMS, XMSS, FIPS 203/204/205, HSS, XMSS-MT and Classic
+McEliece, and the certificate corroborates four of them – and nowhere
+public says WHICH INTERFACE reaches them. The integration documentation
+lives behind a support portal. For a device whose entire pitch is
+quantum-safe-by-design, PKCS#11 coverage is likely good; likely is not a
+citation, and this column exists precisely because Entrust’s answer on
+the same question was counter-intuitive. Examined: Crypto4A,
+Quantum-Safe by Design (2026-01-08), Crypto4A QxHSM product page and
+CNSA 2.0 FAQ, CMVP certificate 5497 approved-algorithm list.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

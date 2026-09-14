@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; hsm</p>
     <h1>Thales Luna HSM</h1>
     <p class="standfirst">Maintained by Thales. Firmware releases on the 7.x line, with a matching Luna HSM Client. Post-quantum support arrived in two steps: LMS-HSS in firmware 7.8.9, ML-KEM and ML-DSA in 7.9.0. Home: https://cpl.thalesgroup.com/encryption/hardware-security-modules</p>
-    <p class="updated">10 cited cells &middot; 3 open</p>
+    <p class="updated">13 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -27,8 +27,6 @@
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -110,8 +108,8 @@ Firmware 7.9.0 with Client 10.9.0 [6]</td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 <td><span class="st st-none">none</span> [7]</td>
+<td><span class="st st-none">none</span> [8]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -132,16 +130,16 @@ Firmware 7.9.0 with Client 10.9.0 [6]</td>
 <tr>
 <td><strong>LMS / HSS</strong></td>
 <td><span class="st st-available">available</span> since Luna HSM
-Firmware 7.8.9 [8]</td>
+Firmware 7.8.9 [9]</td>
 <td><span class="st st-available">available</span> since certificate
 5450 [3]</td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [7]</td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 <td><span class="st st-none">none</span> [7]</td>
+<td><span class="st st-none">none</span> [8]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -168,6 +166,17 @@ pending standardisation.</li>
 <li><strong>ML-DSA, FIPS 140-3</strong>: Inside Luna T7, Thales Trusted
 Cyber Technologies, FIPS 140-3 certificate 5450 issued 2026-07-29.
 Sunset 2031-07-28.</li>
+<li><strong>SLH-DSA, Primitive</strong>: TWO SOURCES, NEITHER MENTIONING
+IT, one of them exhaustive. The 89-page security policy for certificate
+5450 does not contain the string SLH-DSA ANYWHERE – while mentioning LMS
+139 times and ML-DSA 68 – and a security policy has to describe the
+module’s non-approved services as well as its approved ones, so silence
+there is close to conclusive for the module. Thales’s own post-quantum
+documentation agrees, naming LMS-HSS, ML-KEM and ML-DSA and no other
+family. Read narrowly: this is the module and the documented product,
+not a promise about future firmware. Crypto4A holds SLH-DSA on an issued
+certificate today, so this is a product difference rather than a
+hardware limitation.</li>
 <li><strong>SLH-DSA, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-13 and name none carrying it.</li>
@@ -181,41 +190,34 @@ into operations.</li>
 <li><strong>LMS / HSS, FIPS 140-3</strong>: Inside Luna T7, Thales
 Trusted Cyber Technologies, FIPS 140-3 certificate 5450 issued
 2026-07-29. Sunset 2031-07-28.</li>
+<li><strong>LMS / HSS, Firmware signing</strong>: The security policy
+for certificate 5450 states it outright: “The Firmware component is
+digitally signed using a Thales TCT Manufacturing signature key using
+RSA (4096 bits) PKCS #1 V1.5 with SHA2-384.” So the device that holds
+validated ML-KEM, ML-DSA and LMS for its customers verifies its own
+firmware with RSA. THE PATTERN ACROSS THIS CATEGORY, now evidenced
+rather than suspected: the hardware security modules that hold
+FIPS-validated post-quantum algorithms FOR CUSTOMERS still sign their
+OWN firmware classically. Thales Luna T7 uses RSA-4096, Entrust nShield
+5s uses RSA-4096, Utimaco uses ECDSA. Crypto4A is the exception and
+dual-signs with HSS. This is exactly what the firmware column was added
+to expose: a module whose customer keys are post-quantum and whose root
+of trust is RSA has moved the problem rather than solved it, and the
+firmware signing key is the longest-lived key in the device.</li>
+<li><strong>XMSS / XMSS^MT, Primitive</strong>: TWO SOURCES, NEITHER
+MENTIONING IT, one of them exhaustive. The 89-page security policy for
+certificate 5450 does not contain the string XMSS ANYWHERE – while
+mentioning LMS 139 times and ML-DSA 68 – and a security policy has to
+describe the module’s non-approved services as well as its approved
+ones, so silence there is close to conclusive for the module. Thales’s
+own post-quantum documentation agrees, naming LMS-HSS, ML-KEM and ML-DSA
+and no other family. Read narrowly: this is the module and the
+documented product, not a promise about future firmware. Crypto4A holds
+SLH-DSA on an issued certificate today, so this is a product difference
+rather than a hardware limitation.</li>
 <li><strong>XMSS / XMSS^MT, FIPS 140-3</strong>: Not in any module of
 this project: the CMVP validated list and the Modules In Process list
 were scanned on 2026-09-13 and name none carrying it.</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>slh-dsa / primitive – <strong>searching, 1 of 2 passes</strong>: The
-post-quantum page names LMS-HSS, ML-KEM and ML-DSA and does not mention
-SLH-DSA. It is a narrative overview rather than an algorithm
-enumeration, so this is unknown rather than absent – and the contrast is
-worth checking, because Crypto4A has SLH-DSA on an issued certificate.
-Second pass: the Luna mechanism list or a firmware release note naming
-FIPS 205. Examined: Thales Luna Post Quantum Algorithms documentation,
-Luna HSM Firmware 7.9.0 release notes.</li>
-<li>xmss / primitive – <strong>searching, 1 of 2 passes</strong>: Thales
-names LMS-HSS only among the stateful schemes. Utimaco’s competing
-package offers XMSS and XMSS-MT alongside LMS/HSS, so the absence here
-may be a real product difference rather than a documentation gap. Second
-pass: the Luna mechanism list. Examined: Thales Luna Post Quantum
-Algorithms documentation.</li>
-<li>lms-hss / firmware – <strong>searching, 1 of 2 passes</strong>:
-Whether the Luna firmware image is ITSELF signed with a post-quantum
-algorithm is not stated in the documentation read. It is a different
-question from what the device will sign for a customer, and the one that
-decides whether the root of trust survives. Compare Crypto4A, which
-states its answer explicitly. Second pass: the Luna security policy for
-certificate 5450, which describes the firmware load test. Examined:
-Thales Luna Post Quantum Algorithms documentation, Luna HSM Firmware
-7.9.0 release notes.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -242,6 +244,10 @@ class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensi
 <li><a
 href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-0.htm"
 class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-0.htm</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp5450.pdf"
+class="uri">https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp5450.pdf</a>
 (date not recorded; checked 2026-09-13)</li>
 <li><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"

@@ -92,7 +92,8 @@ Unknowns</a></li>
 <td><span class="st st-available">available</span> since
 PQ_SIGN_ML_DSA_65 [2] [3]</td>
 <td><span class="st st-searching">searching, 1 of 2 passes</span></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-absent">no public answer, checked
+2026-09-13</span></td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
@@ -155,18 +156,14 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / pkcs11 – <strong>searching, 1 of 2 passes</strong>:
-Searched a second time and DELIBERATELY LEFT AT ONE PASS, because the
-second pass could not establish an absence – only that the artifact
-which would settle it is not published. What was learned: the PKCS#11
-library is real and well integrated, with documented paths for OpenSSL,
-Apache TLS termination, NGINX TLS offload, pkcs11-tool, Jsign for
-Windows artifact signing and a Windows CNG provider. What is still
-missing is a mechanism or algorithm list saying whether the post-quantum
-key types are among them. Recording this as ‘none found’ would claim a
-negative nobody established; some gaps cannot reach two passes because
-the document that would close them does not exist publicly, and saying
-so is more useful than a wrong label. Examined: Cloud KMS PKCS #11
+<li>ml-dsa / pkcs11 – <strong>no public answer, checked
+2026-09-13</strong>: Searched to exhaustion and the artifact that would
+settle it is NOT PUBLIC. The PKCS#11 library is real and documented –
+integration pages cover OpenSSL, Apache TLS termination, NGINX TLS
+offload, pkcs11-tool, Jsign and a Windows CNG provider – but no
+mechanism or algorithm list says whether the post-quantum key types are
+among them. Nobody should search again until Google publishes one; this
+is not a question more effort answers. Examined: Cloud KMS PKCS #11
 library documentation (overview and integration pages), Cloud KMS
 digital signatures reference.</li>
 <li>ml-dsa / fips – <strong>searching, 1 of 2 passes</strong>: Google

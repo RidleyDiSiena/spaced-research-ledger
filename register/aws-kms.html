@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; kms</p>
     <h1>AWS KMS</h1>
     <p class="standfirst">Maintained by Amazon Web Services. Continuous service releases, by AWS Region. ML-DSA reached general availability in June 2025, Region by Region. Home: https://docs.aws.amazon.com/kms/latest/developerguide/</p>
-    <p class="updated">6 cited cells &middot; 2 open</p>
+    <p class="updated">7 cited cells &middot; 1 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -53,8 +53,8 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td><strong>ML-KEM</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 <td><span class="st st-none">none</span> [1]</td>
+<td><span class="st st-none">none</span> [2]</td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -90,14 +90,15 @@ Unknowns</a></li>
 <tr>
 <td><strong>ML-DSA</strong></td>
 <td><span class="st st-available">available</span> since generally
-available from June 2025, Region by Region [2] [3]</td>
-<td><span class="st st-none">none</span> [1]</td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+available from June 2025, Region by Region [3] [4]</td>
+<td><span class="st st-none">none</span> [2]</td>
+<td><span class="st st-absent">no public answer, checked
+2026-09-13</span></td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-none">none</span> [1]</td>
+<td><span class="st st-none">none</span> [2]</td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -115,19 +116,30 @@ available from June 2025, Region by Region [2] [3]</td>
 <tr>
 <td><strong>LMS / HSS</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-none">none</span> [1]</td>
+<td><span class="st st-none">none</span> [2]</td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-none">none</span> [1]</td>
+<td><span class="st st-none">none</span> [2]</td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 </tbody>
 </table>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
+<li><strong>ML-KEM, Primitive</strong>: SETTLED BY AN ENUMERATION, which
+is what the gap asked for. The Key spec reference lists every key spec a
+KMS key can have – SYMMETRIC_DEFAULT, the RSA specs, the elliptic curve
+specs, the HMAC specs, SM2, and ML_DSA_44, ML_DSA_65 and ML_DSA_87 – and
+there is no ML-KEM spec among them. AWS KMS will not create or hold an
+ML-KEM key. THE CONFUSION THIS RESOLVES IS WORTH KEEPING: AWS does
+support ML-KEM for KMS, but for the TRANSPORT – hybrid post-quantum TLS
+to the KMS endpoints, on non-FIPS endpoints across the aws partition. A
+reader who sees ‘AWS KMS supports ML-KEM’ in an announcement is being
+told about the connection to the service, not about a key the service
+will hold. The two are one word apart and a migration plan away.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-13 and name none carrying it.</li>
@@ -172,30 +184,25 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-kem / primitive – <strong>searching, 1 of 2 passes</strong>: AWS
-KMS supports ML-KEM, but for the TRANSPORT rather than as a key type:
-hybrid post-quantum TLS to the KMS endpoints, in non-FIPS endpoints,
-across the aws partition. That is a different question from whether the
-service will create and hold an ML-KEM key for you, which is what this
-cell asks and which no document read answers. The distinction is easy to
-lose and the reason this is a gap rather than a cell: a reader who sees
-‘AWS KMS supports ML-KEM’ in a press release is being told about the
-connection, not the key. Second pass: the KMS key-spec reference, which
-enumerates every supported key type. Examined: AWS KMS ML-DSA developer
-guide, ML-KEM post-quantum TLS now supported in AWS KMS, ACM and Secrets
-Manager (AWS Security Blog), Using hybrid post-quantum TLS with AWS
-KMS.</li>
-<li>ml-dsa / pkcs11 – <strong>searching, 1 of 2 passes</strong>: AWS KMS
-is reached through its own AWS API rather than PKCS#11; a PKCS#11
-provider for it exists as third-party software, which is a different
-component’s answer and not this one’s. Recorded as a gap rather than a
-<code>none</code> because the vendor does not say it anywhere – the
-absence of a PKCS#11 interface is inferred from the service’s shape, and
-the register does not read its own inference as a citation. Examined:
-AWS KMS developer guide, ML-DSA keys.</li>
+<li>ml-dsa / pkcs11 – <strong>no public answer, checked
+2026-09-13</strong>: Searched twice with no statement either way. AWS
+KMS is reached through its own API, SDKs and CLI; PKCS#11 is what AWS
+offers for CloudHSM, a different service. So the answer is almost
+certainly that there is no PKCS#11 route to a KMS key, and AWS never
+says so – the absence is inferable from the shape of the service and is
+not stated anywhere read. The register does not promote its own
+inference to a citation, so this ends as unpublished rather than as a
+<code>none</code>. A third-party PKCS#11 provider for KMS exists, which
+would be that software’s answer and not this component’s. Examined: AWS
+KMS developer guide (ML-DSA keys, key spec reference), AWS KMS GA
+announcement for ML-DSA.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
+<li><a
+href="https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html"
+class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html</a>
+(date not recorded; checked 2026-09-13)</li>
 <li><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
 class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>

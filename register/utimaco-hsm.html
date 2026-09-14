@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; hsm</p>
     <h1>Utimaco u.trust General Purpose HSM</h1>
     <p class="standfirst">Maintained by Utimaco. Firmware for the Se-Series, with post-quantum algorithms delivered as the Quantum Protect application package -- an in-field upgrade rather than a hardware exchange. Home: https://utimaco.com/data-protection/gp-hsm/utrust-general-purpose-hsm</p>
-    <p class="updated">6 cited cells &middot; 2 open</p>
+    <p class="updated">8 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -27,8 +27,6 @@
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -108,7 +106,7 @@ application package [3]</td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [4]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -130,15 +128,15 @@ application package [3]</td>
 <tr>
 <td><strong>LMS / HSS</strong></td>
 <td><span class="st st-available">available</span> since Quantum Protect
-application package [4]</td>
+application package [5]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [6]</td>
 </tr>
 <tr>
 <td><strong>XMSS / XMSS^MT</strong></td>
 <td><span class="st st-available">available</span> since Quantum Protect
-application package [5]</td>
+application package [7]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -162,36 +160,39 @@ ask of <code>primitive</code>. Compare Thales (standard Cryptoki
 mechanisms) and Entrust (ML-KEM not in PKCS#11 at all).</li>
 <li><strong>ML-DSA, PKCS#11</strong>: Vendor-defined mechanisms, as the
 ML-KEM cell.</li>
+<li><strong>SLH-DSA, Primitive</strong>: TWO ENUMERATIONS OF THE SAME
+PACKAGE, neither containing it. The Quantum Protect product page says it
+“offers the lattice-based algorithms ML-KEM and ML-DSA and the stateful
+hash-based signature schemes LMS and XMSS (including their multitree
+variants HSS and XMSS-MT)”, and the simulator page lists exactly the
+same six for evaluation: “ML-KEM, ML-DSA, LMS, HSS, XMSS, and XMSS-MT”.
+Both are lists of what the package contains, written to be complete, and
+SLH-DSA is in neither. The validated module’s security policy is silent
+on every post-quantum algorithm, which is a different fact – that module
+predates the Quantum Protect package rather than excluding SLH-DSA
+specifically. Note the shape of Utimaco’s choice: it is the STATEFUL
+hash-based schemes it covers most thoroughly, LMS, HSS, XMSS and
+XMSS-MT, while omitting the stateless one.</li>
+<li><strong>LMS / HSS, Firmware signing</strong>: The security policy
+for certificate 5223 describes the only route by which firmware can be
+loaded: the image “is accompanied by a valid ECDSA signature (i.e.,
+passes ECDSA signature verification algorithm Cert. #A6714)
+corresponding to the Image Signing Key ISK+”. ECDSA rather than RSA, and
+classical either way – notable because Utimaco’s Quantum Protect package
+offers customers LMS, HSS, XMSS and XMSS-MT, none of which signs the
+package itself. THE PATTERN ACROSS THIS CATEGORY, now evidenced rather
+than suspected: the hardware security modules that hold FIPS-validated
+post-quantum algorithms FOR CUSTOMERS still sign their OWN firmware
+classically. Thales Luna T7 uses RSA-4096, Entrust nShield 5s uses
+RSA-4096, Utimaco uses ECDSA. Crypto4A is the exception and dual-signs
+with HSS. This is exactly what the firmware column was added to expose:
+a module whose customer keys are post-quantum and whose root of trust is
+RSA has moved the problem rather than solved it, and the firmware
+signing key is the longest-lived key in the device.</li>
 <li><strong>XMSS / XMSS^MT, Primitive</strong>: One of only two
 components in the register with XMSS at all – the other is Crypto4A.
 Thales’s competing package names LMS-HSS only, so this looks like a real
 product difference rather than a documentation gap.</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>slh-dsa / primitive – <strong>searching, 1 of 2 passes</strong>:
-Quantum Protect’s description enumerates what it offers – ML-KEM,
-ML-DSA, LMS, HSS, XMSS, XMSS-MT – and SLH-DSA is not among them. That
-reads like an enumeration, which would make this a cited
-<code>none</code>, but it is marketing copy for a package rather than a
-mechanism list, and the register’s rule is that a <code>none</code>
-needs a source that means to be exhaustive. Second pass: the Quantum
-Protect data sheet or the simulator’s mechanism list. Examined: Utimaco
-Quantum Protect product page, Utimaco Quantum Protect simulator
-page.</li>
-<li>lms-hss / firmware – <strong>searching, 1 of 2 passes</strong>:
-Whether Utimaco’s own firmware images are signed with a post-quantum
-algorithm is unstated in the pages read. The Quantum Protect package is
-itself described as a loadable firmware module, which makes the question
-sharper rather than softer: what signs the loadable module? Second pass:
-the u.trust Anchor security policy for certificate 5223. Examined:
-Utimaco Quantum Protect product page.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -208,8 +209,16 @@ href="https://utimaco.com/data-protection/gp-hsm/application-package/quantum-pro
 class="uri">https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect</a>
 (date not recorded; checked 2026-09-13)</li>
 <li><a
+href="https://utimaco.com/data-protection/simulators-and-trials/quantum-protect-simulator"
+class="uri">https://utimaco.com/data-protection/simulators-and-trials/quantum-protect-simulator</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
 href="https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect"
 class="uri">https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp5223.pdf"
+class="uri">https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp5223.pdf</a>
 (date not recorded; checked 2026-09-13)</li>
 <li><a
 href="https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect"

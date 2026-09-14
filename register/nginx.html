@@ -156,13 +156,17 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / tls – <strong>searching, 1 of 2 passes</strong>: Whether
-nginx can serve an ML-DSA certificate is a different question from which
-group it negotiates, and the article does not touch it. It is largely
-OpenSSL’s answer again, but nginx has its own certificate loading and
-OCSP paths. Second pass: the nginx ssl module documentation, or an
-ML-DSA certificate actually loaded. Examined: NGINX community blog, PQC
-support in NGINX.</li>
+<li>ml-dsa / tls – <strong>answered by its upstream</strong>: NOT
+OUTSTANDING WORK, and the work list was wrong to carry it as such.
+Serving an ML-DSA certificate is not something a terminator implements:
+it hands the certificate to the TLS library underneath, so the answer is
+that library’s and is already shown on this page as a derived cell,
+greyed and labelled with the upstream. The component has no independent
+answer to find. This is the third shape of gap that
+<code>passes &gt;= 2</code> would have mislabelled ‘none found’ – hence
+the <code>inherited</code> outcome, added the same day. Examined: the
+component’s own derives_from edge and the upstream’s ml-dsa/tls
+cell.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

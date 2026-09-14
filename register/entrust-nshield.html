@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; hsm</p>
     <h1>Entrust nShield</h1>
     <p class="standfirst">Maintained by Entrust. nShield firmware with a matching Security World software release. Post-quantum algorithms landed natively in firmware 13.8.0 (22 August 2025) and Security World 13.9. Home: https://www.entrust.com/products/hsm/nshield-5s</p>
-    <p class="updated">5 cited cells &middot; 2 open</p>
+    <p class="updated">8 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -27,8 +27,6 @@
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -103,14 +101,14 @@ firmware 13.8.0 / Security World 13.9 [3]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-available">available</span> since Security World
 13.9 [4]</td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [5]</td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
 <td><span class="st st-available">available</span> since nShield
-firmware 13.8.0 / Security World 13.9 [5]</td>
+firmware 13.8.0 / Security World 13.9 [6]</td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-none">none</span> [7]</td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -129,7 +127,7 @@ firmware 13.8.0 / Security World 13.9 [5]</td>
 </tr>
 <tr>
 <td><strong>LMS / HSS</strong></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-experimental">experimental</span> [7]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
@@ -162,30 +160,43 @@ which is a different and weaker claim than firmware support for the
 ratified standards.</li>
 <li><strong>ML-DSA, PKCS#11</strong>: All three parameter sets, through
 the standard interface.</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>lms-hss / primitive – <strong>searching, 1 of 2 passes</strong>: The
-Post-Quantum Option Pack is described as enabling “NIST approved
-code-signing with the Leighton-Micali Signature (LMS)”, which is LMS
-reachable through a product rather than a statement about firmware
-support in the 13.8 line. The two are different claims and the sources
-read do not settle which applies now. Second pass: the Security World
-13.9 release notes’ algorithm list, or the option pack integration
-guide’s current edition. Examined: Entrust nShield 5 CAVP announcement
-(2025-09), nShield Security World v13.9.0 release notes, nShield
-Post-Quantum Cryptography Option Pack integration guide.</li>
-<li>ml-dsa / firmware – <strong>searching, 1 of 2 passes</strong>:
-Whether the nShield firmware image is itself signed post-quantum is
-unstated in the material read. Second pass: the nShield 5s security
-policy for certificate 5329, which describes the firmware load test.
-Examined: Entrust nShield 5 CAVP announcement (2025-09).</li>
+<li><strong>ML-DSA, Firmware signing</strong>: The security policy for
+certificate 5329 lists the start-up integrity tests: “The bootloader
+integrity is verified using RSA with 4096 bit key and SHA2-256, using
+NSBIK public key. The firmware integrity is verified using RSA with 4096
+bit key and SHA2-256 using NFIK public key.” Both halves of the chain
+are RSA. THE PATTERN ACROSS THIS CATEGORY, now evidenced rather than
+suspected: the hardware security modules that hold FIPS-validated
+post-quantum algorithms FOR CUSTOMERS still sign their OWN firmware
+classically. Thales Luna T7 uses RSA-4096, Entrust nShield 5s uses
+RSA-4096, Utimaco uses ECDSA. Crypto4A is the exception and dual-signs
+with HSS. This is exactly what the firmware column was added to expose:
+a module whose customer keys are post-quantum and whose root of trust is
+RSA has moved the problem rather than solved it, and the firmware
+signing key is the longest-lived key in the device.</li>
+<li><strong>SLH-DSA, PKCS#11</strong>: “SLH-DSA … The following
+operations are available using this new algorithm: Key generation,
+Signature generation in pure and prehashed mode, Signature verification
+in pure and prehashed mode. THIS FUNCTIONALITY IS CURRENTLY ONLY
+AVAILABLE VIA nCore.” The second cited <code>none</code> in this
+component’s PKCS#11 column, alongside ML-KEM, and together they make the
+case for the column better than any argument could: on one device, in
+one release, ML-DSA reaches PKCS#11 and ML-KEM and SLH-DSA do not. A
+register with only a primitive column would show all three as supported
+and leave an integrator to discover the difference after
+committing.</li>
+<li><strong>LMS / HSS, Primitive</strong>: THE GAP ASKED WHICH OF TWO
+CLAIMS APPLIED, and the answer is both, to different products. The
+Security World 13.9 release notes enumerate the post-quantum algorithms
+the FIRMWARE gained – ML-KEM (FIPS 203), ML-DSA and Pre-Hash ML-DSA
+(FIPS 204), SLH-DSA (FIPS 205) – and LMS is not among them; the words
+LMS and Leighton do not appear in 50,000 characters of notes. What does
+offer LMS is the separate Post-Quantum Option Pack, which Entrust
+describes as enabling “NIST approved code-signing with the
+Leighton-Micali Signature (LMS)” inside the CodeSafe execution
+environment. That is exactly what this scale calls
+<code>experimental</code>: a separate add-on the project itself ships,
+rather than something the shipping firmware does.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -206,8 +217,16 @@ href="https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9
 class="uri">https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html</a>
 (date not recorded; checked 2026-09-13)</li>
 <li><a
+href="https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp5329.pdf"
+class="uri">https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp5329.pdf</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
 href="https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified"
 class="uri">https://www.entrust.com/blog/2025/09/entrust-nshield-5-hsms-post-quantum-algorithm-support-now-cavp-certified</a>
+(date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html"
+class="uri">https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html</a>
 (date not recorded; checked 2026-09-13)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>

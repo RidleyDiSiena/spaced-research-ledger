@@ -69,7 +69,8 @@ Unknowns</a></li>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-absent">no public answer, checked
+2026-09-13</span></td>
 </tr>
 <tr>
 <td><strong>X-Wing</strong></td>
@@ -241,23 +242,19 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-kem / fips – <strong>searching, 1 of 2 passes</strong>: Not an
-absence – an unclosed link, recorded so the next pass does not redo the
-reading. ML-KEM IS inside the validated boundary: the security policy
-for certificate 5314 (AWS-LC FIPS 3.1.0) names ML-KEM 101 times, and the
-certificate’s approved-algorithm list carries ML-KEM KeyGen and
-EncapDecap. What is not established is that the module this CRATE
-carries is that module: aws-lc-fips-sys documents binding AWS-LC-FIPS
-3.0.x, AWS’s FIPS.md lists certificates for v1.0, v2.0, v3.1 and NetOS
-but none for v3.0, and the crate page for the published 0.14.2 repeats
-the same 3.0.x wording. Writing <code>available</code> would assert a
-minor-version match that no document read makes. What would settle it: a
-statement from AWS-LC-FIPS or the crate naming the module version the
-released crate bundles, or a build that reports it. Examined:
-aws-lc-fips-sys README (main branch and the published 0.14.2 crate
-page), aws-lc crypto/fipsmodule/FIPS.md certificate list, CMVP security
-policy 140sp5314.pdf, CMVP certificate 5314 approved-algorithm
-list.</li>
+<li>ml-kem / fips – <strong>no public answer, checked
+2026-09-13</strong>: Searched to exhaustion; the document that would
+close it does not exist publicly. ML-KEM IS inside the validated
+boundary – the security policy for certificate 5314 names it 101 times –
+and what cannot be established is that the module this CRATE bundles is
+that module: aws-lc-fips-sys documents binding AWS-LC-FIPS 3.0.x, and
+AWS’s own certificate list has entries for v1.0, v2.0, v3.1 and NetOS
+but none for v3.0. Writing <code>available</code> would assert a
+minor-version match nobody published. Reopen when AWS states which
+module version a released crate carries. Examined: aws-lc-fips-sys
+README (main branch and the published 0.14.2 crate page), aws-lc
+crypto/fipsmodule/FIPS.md certificate list, CMVP security policy
+140sp5314.pdf (module version AWS-LC FIPS 3.1.0).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
