@@ -2,7 +2,7 @@
   "schema_version": 1,
   "register": "PQC Readiness Register",
   "generated": "2026-09-14",
-  "commit": "cf71b29",
+  "commit": "e6d34be",
   "statuses": [
     "none",
     "planned",
@@ -511,6 +511,14 @@
         "apple-network",
         "swift-nio-ssl"
       ]
+    },
+    {
+      "maintainer": "Google",
+      "page": "vendor-google.html",
+      "components": [
+        "boringssl",
+        "go"
+      ]
     }
   ],
   "questions": [
@@ -932,6 +940,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -943,7 +952,8 @@
         "cited": 5,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 2
+        "open": 2,
+        "asked": 37
       },
       "derived": [],
       "gap_states": {
@@ -1011,6 +1021,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The networking frameworks do no cryptography of their own; corecrypto does, and corecrypto is what Apple submits for validation. The FIPS answer here is therefore CryptoKit and corecrypto's.",
           "evidence": [
@@ -1027,6 +1038,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": null,
@@ -1038,7 +1050,8 @@
         "cited": 1,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 1
+        "open": 1,
+        "asked": 25
       },
       "derived": [],
       "gap_states": {
@@ -1216,6 +1229,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "none",
         "hybrid-kex": null,
@@ -1227,7 +1241,8 @@
         "cited": 7,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 1
+        "open": 1,
+        "asked": 27
       },
       "derived": [],
       "gap_states": {
@@ -1382,6 +1397,7 @@
             "fips"
           ],
           "pinned": "AWS-LC-FIPS 3.0.x per aws-lc-fips-sys; the certified module on that line is 3.1.0",
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The crate is a Rust binding over AWS-LC: docs.rs lists aws-lc-sys for the ordinary build and aws-lc-fips-sys for the FIPS one among its dependencies. The FIPS module that binding carries was traced on 2026-09-13 -- AWS-LC-FIPS 3.0.x by the crate's own README -- which settled the ml-dsa/fips cell (ML-DSA is in no AWS-LC certificate at all) and left one minor-version question open, recorded as the ml-kem/fips gap. The `pinned` value states both halves rather than choosing one.",
           "evidence": [
@@ -1407,6 +1423,22 @@
           "note": ""
         }
       ],
+      "current": {
+        "version": "v1.18.1",
+        "as_of": "2026-09-01",
+        "evidence": [
+          {
+            "claim": null,
+            "source": "https://github.com/aws/aws-lc-rs/releases",
+            "url": null,
+            "as_of": null,
+            "confidence": null,
+            "checked_on": "2026-09-14",
+            "note": ""
+          }
+        ],
+        "note": "Newest release tag on 2026-09-14. Two lines are maintained in parallel -- v1.17.4 shipped the same day -- so a downstream on ^1.17 is supported rather than stale."
+      },
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -1418,7 +1450,8 @@
         "cited": 3,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 1
+        "open": 1,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -1638,6 +1671,22 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": {
+        "version": "v5.8.0",
+        "as_of": "2026-09-03",
+        "evidence": [
+          {
+            "claim": null,
+            "source": "https://github.com/aws/aws-lc/releases",
+            "url": null,
+            "as_of": null,
+            "confidence": null,
+            "checked_on": "2026-09-14",
+            "note": ""
+          }
+        ],
+        "note": "Newest release tag on 2026-09-14. The FIPS module versions run on their own numbering (AWS-LC-FIPS 3.1.0 is the validated one) and are NOT this field: a library release and a validated module are different artifacts, which is the distinction the aws-lc-rs ml-kem/fips gap turns on."
+      },
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "available",
@@ -1649,7 +1698,8 @@
         "cited": 8,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -1872,6 +1922,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "available",
@@ -1883,7 +1934,8 @@
         "cited": 9,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -2231,6 +2283,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "default",
@@ -2242,7 +2295,8 @@
         "cited": 13,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -2491,6 +2545,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -2502,7 +2557,8 @@
         "cited": 9,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -2577,6 +2633,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "default",
@@ -2588,7 +2645,8 @@
         "cited": 2,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 9
       },
       "derived": [],
       "gap_states": {
@@ -2871,6 +2929,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -2882,7 +2941,8 @@
         "cited": 11,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 2
+        "open": 2,
+        "asked": 33
       },
       "derived": [],
       "gap_states": {
@@ -3103,6 +3163,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "On Linux .NET's cryptography is the operating system's. Microsoft's own cross-platform cryptography document states that .NET apps have access to FIPS-validated algorithms if the OS libraries are FIPS-validated, and that Linux requires OpenSSL 3. This entry is the LINUX half; the Windows half is the CNG edge below, and macOS is neither -- the same document records that OpenSSL support on macOS was removed, and .NET's post-quantum APIs need CNG or an OpenSSL that has the algorithms, so macOS has no recorded post-quantum path at all.",
           "evidence": [
@@ -3128,6 +3189,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The Windows half of the same document: .NET's cryptography on Windows is CNG's, and its post-quantum APIs require a Windows whose CNG has the algorithms. PROMOTED from an `external` edge the same day the platform pass made Windows CNG a component -- which is what the promotion invariant in the validator exists to force, and it did: the check fired on this edge before anyone remembered it was here.",
           "evidence": [
@@ -3144,6 +3206,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -3155,7 +3218,8 @@
         "cited": 7,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 37
       },
       "derived": [],
       "gap_states": {
@@ -3332,6 +3396,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -3343,7 +3408,8 @@
         "cited": 8,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 33
       },
       "derived": [],
       "gap_states": {
@@ -3599,6 +3665,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "experimental",
@@ -3610,7 +3677,8 @@
         "cited": 10,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -3624,7 +3692,7 @@
       "id": "go",
       "name": "Go standard library",
       "kind": "language-stack",
-      "maintainer": "The Go project (Google)",
+      "maintainer": "Google",
       "homepage": "https://go.dev/",
       "release_channel": "Two releases a year (1.N); crypto/tls defaults change with them.",
       "feeds": [
@@ -3941,6 +4009,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "default",
@@ -3952,7 +4021,8 @@
         "cited": 10,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 37
       },
       "derived": [],
       "gap_states": {
@@ -4072,6 +4142,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "experimental",
         "hybrid-kex": null,
@@ -4083,7 +4154,8 @@
         "cited": 3,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 2
+        "open": 2,
+        "asked": 27
       },
       "derived": [],
       "gap_states": {
@@ -4170,6 +4242,7 @@
             "tls"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The vendor's builds ship AWS-LC as the cryptographic library, which is where the post-quantum curves come from -- the article says so directly: \"This works because both versions ship with AWS-LC as their cryptographic library, which includes support for post-quantum curves.\" A distribution-built HAProxy links something else and inherits that library's answer instead, which is why this edge describes the vendor build specifically.",
           "evidence": [
@@ -4186,6 +4259,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "available",
@@ -4197,7 +4271,8 @@
         "cited": 2,
         "confirmed_absent": 0,
         "inherited": 3,
-        "open": 1
+        "open": 1,
+        "asked": 9
       },
       "derived": [
         {
@@ -4522,6 +4597,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "available",
@@ -4533,7 +4609,8 @@
         "cited": 10,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 37
       },
       "derived": [],
       "gap_states": {
@@ -4824,6 +4901,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -4835,7 +4913,8 @@
         "cited": 10,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -5053,6 +5132,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "available",
@@ -5064,7 +5144,8 @@
         "cited": 7,
         "confirmed_absent": 2,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -5134,6 +5215,7 @@
             "ipsec"
           ],
           "pinned": "NSS >= 3.118.1 for ML-KEM",
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "Libreswan does its cryptography through NSS, and for ML-KEM it says exactly which NSS it needs: the v5.4 changelog puts \"requires NSS >= 3.118.1\" directly under the ML-KEM entry. That is a firmer pin than most edges in this register carry, because it is a minimum stated by the downstream rather than a version inferred from a bundle.",
           "evidence": [
@@ -5150,6 +5232,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": null,
@@ -5161,7 +5244,8 @@
         "cited": 1,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 5
       },
       "derived": [],
       "gap_states": {
@@ -5360,6 +5444,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -5371,7 +5456,8 @@
         "cited": 7,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -5435,6 +5521,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": null,
@@ -5446,7 +5533,8 @@
         "cited": 1,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 7
       },
       "derived": [],
       "gap_states": {
@@ -5657,6 +5745,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "planned",
         "hybrid-kex": null,
@@ -5668,7 +5757,8 @@
         "cited": 8,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -5913,6 +6003,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -5924,7 +6015,8 @@
         "cited": 8,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -5992,6 +6084,7 @@
             "tls"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "nginx implements no cryptography: it links a TLS library, and on the overwhelming majority of deployments that is OpenSSL. The project's own post-quantum article is written entirely in terms of which OpenSSL the binary has, down to warning which base image lacks it. No pin, because the linked version is chosen by whoever built the package rather than by nginx -- which is exactly why the cell above cannot carry an nginx version either. `capabilities` says `tls` alone: the edge was written as [tls, x509] and the validator refused it, because `x509` does not apply to a tls-terminator. That refusal is right. What a terminator does with a certificate -- present it, prove possession of its key -- happens inside the handshake and is the `tls` column's authentication half; the x509 column is about generating, parsing and chain-building, which is the library's job underneath. Widening the vocabulary to make the edge fit would have been the wrong direction.",
           "evidence": [
@@ -6008,6 +6101,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "available",
@@ -6019,7 +6113,8 @@
         "cited": 1,
         "confirmed_absent": 0,
         "inherited": 5,
-        "open": 1
+        "open": 1,
+        "asked": 9
       },
       "derived": [
         {
@@ -6142,6 +6237,7 @@
             "fips"
           ],
           "pinned": "OpenSSL 3.5 (24.x line)",
+          "pinned_version": "3.5",
           "reviewed": "2026-09-13",
           "why": "Node.js statically links OpenSSL and exposes it through node:crypto. The project's own 24.7.0 release post attributes the post-quantum algorithms to OpenSSL 3.5 on the 24.x line, so what Node offers advances only when Node rebuilds against a newer OpenSSL.",
           "evidence": [
@@ -6158,6 +6254,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "default",
@@ -6169,7 +6266,8 @@
         "cited": 2,
         "confirmed_absent": 0,
         "inherited": 9,
-        "open": 0
+        "open": 0,
+        "asked": 37
       },
       "derived": [
         {
@@ -6549,6 +6647,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "default",
@@ -6560,7 +6659,8 @@
         "cited": 10,
         "confirmed_absent": 2,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -6653,6 +6753,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": null,
@@ -6664,7 +6765,8 @@
         "cited": 2,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 7
       },
       "derived": [],
       "gap_states": {
@@ -7087,6 +7189,22 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": {
+        "version": "4.0.2",
+        "as_of": "2026-08-25",
+        "evidence": [
+          {
+            "claim": null,
+            "source": "https://github.com/openssl/openssl/releases",
+            "url": null,
+            "as_of": null,
+            "confidence": null,
+            "checked_on": "2026-09-14",
+            "note": ""
+          }
+        ],
+        "note": "The newest STABLE release tag on 2026-09-14. The repository also carries openssl-4.1.0-alpha1 (2026-09-09), which is deliberately not this value: a pre-release is not what a downstream links. Note that OpenSSL maintains several branches at once -- 3.0.22, 3.4.7, 3.5.8, 3.6.4 and 4.0.2 all shipped on 2026-08-25 -- so \"current\" here means the newest line, and a downstream pinned to 3.5 is on a SUPPORTED branch rather than an abandoned one. Propagation should be read with that in mind: behind is not the same as unsupported."
+      },
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "default",
@@ -7098,7 +7216,8 @@
         "cited": 14,
         "confirmed_absent": 3,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
@@ -7164,6 +7283,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": null,
@@ -7175,7 +7295,8 @@
         "cited": 1,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 7
       },
       "derived": [],
       "gap_states": {
@@ -7291,6 +7412,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The published wheels contain a statically linked OpenSSL binding, per the project's own installation guide. It is one of two supported backends, so this entry is not the whole answer on its own.",
           "evidence": [
@@ -7316,6 +7438,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The project's changelog records feature after feature landing \"when building against AWS-LC\", so AWS-LC is a supported backend and the answer differs by build. Which one a given install carries is a build-time fact this register cannot see.",
           "evidence": [
@@ -7332,6 +7455,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -7343,7 +7467,8 @@
         "cited": 3,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 37
       },
       "derived": [],
       "gap_states": {
@@ -7455,6 +7580,7 @@
             "tls"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "crypto-policies configures; OpenSSL implements. The policy layer decides which groups and signature algorithms OpenSSL offers on a Red Hat system, which is why this component's cells are about what is NEGOTIATED and the primitive and certificate answers belong to the libraries.",
           "evidence": [
@@ -7478,6 +7604,7 @@
             "tls"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "One of the three TLS libraries the policy governs, named in the same sentence as OpenSSL and NSS.",
           "evidence": [
@@ -7501,6 +7628,7 @@
             "tls"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The third of the three. Worth keeping distinct rather than collapsing into one edge, because the libraries do not move together -- NSS's post-quantum standing is its own, and a future divergence should be visible here rather than hidden behind a single \"the libraries\" edge.",
           "evidence": [
@@ -7517,6 +7645,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "default",
@@ -7528,7 +7657,8 @@
         "cited": 3,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 37
       },
       "derived": [],
       "gap_states": {
@@ -7691,6 +7821,7 @@
             "fips"
           ],
           "pinned": "aws-lc-rs ^1.18 (rustls 0.23.44)",
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "rustls does no cryptography itself; it takes a provider crate, and aws-lc-rs is the default. It is one of two providers -- the other is recorded as the `ring` edge below rather than left in this sentence, so the page cannot read as though rustls had a single backend.",
           "evidence": [
@@ -7714,6 +7845,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The other provider crate rustls can be built on, listed beside aws-lc-rs as an optional dependency of rustls 0.23.44. ring is NOT a component in this register, so a rustls built on ring inherits nothing recorded here -- and that is a gap in this register's coverage, not a finding about ring. Recorded as an edge rather than a remark so the count of backends is right and the promotion to a real component is a one-line change if ring is ever tracked.",
           "evidence": [
@@ -7730,6 +7862,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "available",
@@ -7741,7 +7874,8 @@
         "cited": 5,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 25
       },
       "derived": [],
       "gap_states": {
@@ -7919,6 +8053,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "s2n-tls performs no cryptography itself. Its README says the library is structured so that different encryption libraries may be used, and names AWS-LC first; AWS-LC is the only supported libcrypto on Windows. Its FIPS standing is whichever libcrypto it was built against.",
           "evidence": [
@@ -7942,6 +8077,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "One of the four libcryptos the README names. Listed so the register cannot present any single backend as the answer.",
           "evidence": [
@@ -7965,6 +8101,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "One of the four libcryptos the README names.",
           "evidence": [
@@ -7988,6 +8125,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "One of the four libcryptos the README names.",
           "evidence": [
@@ -8004,6 +8142,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "available",
@@ -8015,7 +8154,8 @@
         "cited": 6,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 25
       },
       "derived": [],
       "gap_states": {
@@ -8086,6 +8226,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": null,
@@ -8097,7 +8238,8 @@
         "cited": 1,
         "confirmed_absent": 1,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 5
       },
       "derived": [],
       "gap_states": {
@@ -8175,6 +8317,7 @@
             "fips"
           ],
           "pinned": "BoringSSL commit 817ab07ebb53da35afea409ab9328f578492832d",
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "The package vendors BoringSSL as CNIOBoringSSL rather than linking it, and Package.swift records the exact commit. A BoringSSL release therefore does NOT reach swift-nio-ssl until the project re-vendors, which is why the pin is the load-bearing part of this record. The TLS surface is swift-nio-ssl's own and is not inherited.",
           "evidence": [
@@ -8200,6 +8343,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "default",
@@ -8211,7 +8355,8 @@
         "cited": 1,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 25
       },
       "derived": [],
       "gap_states": {
@@ -8487,6 +8632,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -8498,7 +8644,8 @@
         "cited": 13,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 33
       },
       "derived": [],
       "gap_states": {
@@ -8675,6 +8822,7 @@
       "gaps": [],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -8686,7 +8834,8 @@
         "cited": 8,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 33
       },
       "derived": [],
       "gap_states": {
@@ -8794,6 +8943,7 @@
           "how": "platform",
           "capabilities": [],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "Recorded as a dependency rather than an inheritance, which is why `capabilities` is empty: AD CS gets no column from CNG, but it cannot issue a post-quantum certificate without it. The page is explicit -- \"All PQC algorithms require CNG key storage providers. AD CS doesn't support legacy Cryptographic Service Providers (CSPs).\" An administrator whose template uses a legacy CSP gets nothing from this component's Available cell.",
           "evidence": [
@@ -8810,6 +8960,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": null,
@@ -8821,7 +8972,8 @@
         "cited": 4,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 8
       },
       "derived": [],
       "gap_states": {
@@ -8912,6 +9064,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "CAPI2 parses and validates certificates; the signature verification underneath is CNG's, and so is the FIPS boundary. AD CS states the dependency for the whole Windows PQC surface: \"All PQC algorithms require CNG key storage providers.\"",
           "evidence": [
@@ -8928,6 +9081,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": null,
@@ -8939,7 +9093,8 @@
         "cited": 1,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 2
+        "open": 2,
+        "asked": 37
       },
       "derived": [],
       "gap_states": {
@@ -9096,6 +9251,7 @@
       ],
       "rejected": [],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": null,
@@ -9107,7 +9263,8 @@
         "cited": 5,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 2
+        "open": 2,
+        "asked": 37
       },
       "derived": [],
       "gap_states": {
@@ -9190,6 +9347,7 @@
             "fips"
           ],
           "pinned": null,
+          "pinned_version": null,
           "reviewed": "2026-09-13",
           "why": "Schannel performs no cryptography of its own; it calls CNG, which is where Windows' validated modules live. Its FIPS standing is therefore CNG's, and the pointer says so rather than repeating it.",
           "evidence": [
@@ -9206,6 +9364,7 @@
           "note": ""
         }
       ],
+      "current": null,
       "roll_up": {
         "kem": null,
         "hybrid-kex": "available",
@@ -9217,7 +9376,8 @@
         "cited": 2,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 25
       },
       "derived": [],
       "gap_states": {
@@ -9596,6 +9756,7 @@
         }
       ],
       "derives_from": [],
+      "current": null,
       "roll_up": {
         "kem": "available",
         "hybrid-kex": "available",
@@ -9607,7 +9768,8 @@
         "cited": 14,
         "confirmed_absent": 0,
         "inherited": 0,
-        "open": 0
+        "open": 0,
+        "asked": 49
       },
       "derived": [],
       "gap_states": {
