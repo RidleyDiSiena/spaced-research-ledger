@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; os</p>
     <h1>Windows CNG</h1>
     <p class="standfirst">Maintained by Microsoft. Windows servicing updates. Post-quantum support arrived in the November 2025 update to Windows Server 2025 and Windows 11 24H2 and 25H2. Home: https://learn.microsoft.com/en-us/windows/win32/seccng/cng-portal</p>
-    <p class="updated">5 of 37 answered &middot; 5 cited cells &middot; 2 open</p>
+    <p class="updated">6 of 37 answered &middot; 6 cited cells &middot; 2 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -120,7 +120,9 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td><strong>Composite ML-DSA</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td><span class="st st-available">available</span> since Windows 11
+24H2/25H2 (KB5095093) and 26H1 (KB5095091), 14 July 2026; Windows Server
+2025 (KB5099536) [5] [6]</td>
 <td><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
@@ -172,6 +174,17 @@ NOT evidence that the algorithm is unreachable on Windows. Note also
 that Microsoft’s own SymCrypt – the library under CNG – does implement
 LMS, XMSS and ML-DSA per its changelog, so the gap here is the provider
 surface rather than the mathematics.</li>
+<li><strong>Composite ML-DSA, Primitive</strong>: The paired half of the
+composite-ml-dsa/x509 cell on windows-capi2: the same July 2026 update
+shipped composite into both the primitive API and the certificate layer,
+and Microsoft describes them as one delivery. The prerelease banner on
+the identifier page is the SAME conflict this file already records on
+its ML-KEM cell, one release later and now with a checkable cause – the
+page’s last edit predates the GA. <code>available</code>, not
+<code>default</code>: a caller has to name the algorithm. Microsoft’s
+composite is specifically ECDSA+ML-DSA (“to combine the traditional
+digital signature algorithm ECDSA with ML-DSA”), not the full set of
+pairings the draft registers.</li>
 <li><strong>LMS / HSS, Primitive</strong>: A PRECISE AND UNUSUAL
 NEGATIVE, from the enumeration that settles it: CNG’s algorithm
 identifier list DEFINES BCRYPT_LMS_ALGORITHM (L”LMS”, RFC 8554) and says
@@ -253,6 +266,14 @@ class="uri">https://learn.microsoft.com/en-us/windows/win32/seccng/cng-mldsa-exa
 href="https://learn.microsoft.com/en-us/windows/win32/seccng/cng-algorithm-identifiers"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/seccng/cng-algorithm-identifiers</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370</a>
+(as of 2026-07-14; checked 2026-09-14)</li>
+<li><a
+href="https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/SecCNG/cng-algorithm-identifiers.md"
+class="uri">https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/SecCNG/cng-algorithm-identifiers.md</a>
+(date not recorded; checked 2026-09-14)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; os</p>
     <h1>Windows CryptoAPI (CAPI2)</h1>
     <p class="standfirst">Maintained by Microsoft. Windows servicing updates. The post-quantum certificate functions arrived with the same November 2025 update as CNG&#x27;s algorithms. Home: https://learn.microsoft.com/en-us/windows/win32/seccrypto/cryptography-functions</p>
-    <p class="updated">1 of 37 answered &middot; 1 cited cell &middot; 2 open</p>
+    <p class="updated">3 of 37 answered &middot; 2 cited cells &middot; 1 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -60,7 +60,7 @@ Unknowns</a></li>
 <td><strong>ML-KEM</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-absent">none found 2026-09-14</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -125,7 +125,9 @@ Unknowns</a></li>
 <td><strong>Composite ML-DSA</strong></td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-available">available</span> since Windows 11
+24H2/25H2 (KB5095093) and 26H1 (KB5095091), 14 July 2026; Windows Server
+2025 (KB5099536) [3] [4]</td>
 <td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
@@ -153,7 +155,7 @@ it inherits, from what, and at which version:</p>
 platform. Inherits: FIPS 140-3. CAPI2 parses and validates certificates;
 the signature verification underneath is CNG’s, and so is the FIPS
 boundary. AD CS states the dependency for the whole Windows PQC surface:
-“All PQC algorithms require CNG key storage providers.” [3]</li>
+“All PQC algorithms require CNG key storage providers.” [5]</li>
 </ul>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>Windows CryptoAPI (CAPI2) holds no FIPS 140-3 certificate of its own.
@@ -171,6 +173,25 @@ layer, so ML-DSA certificate support is stated rather than inferred –
 but neither document says whether an ML-DSA chain validates by DEFAULT
 in every caller, which is what <code>default</code> would claim on this
 scale. Available is the strongest thing the sources support.</li>
+<li><strong>Composite ML-DSA, X.509</strong>: CLOSES A GAP OPENED
+2026-09-13, which asked whether CAPI2 can VALIDATE a composite
+certificate given that AD CS records composite ML-DSA as Phase 2 for
+ISSUANCE. It can, and the two halves really did ship apart: issuance is
+still Phase 2 in the AD CS table, while the certificate-handling layer
+went generally available on 14 July 2026. TWO POINTS OF NUANCE, neither
+of which changes the status. (1) The July update line says “composite
+algorithms” without re-naming the two layers, so reading it as covering
+certificate functions and not only CNG rests on the body sentence that
+scopes the shipment as one thing across both; the alternative reading –
+that only CNG went GA – is not supported by anything in the post, which
+never separates them. (2) The CNG reference page still carries a
+prerelease warning on the identifier, which is a stale document rather
+than a contradiction: its last edit predates the GA by six weeks.
+<code>available</code> and not <code>default</code> for the ordinary
+reason – nothing states that a composite chain validates without an
+opt-in, and the composite format is new enough that relying parties are
+expected to opt in. Composite ML-KEM shipped in the same update and has
+no row in this register; see PLAN.md.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -180,20 +201,28 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-kem / x509 – <strong>searching, 1 of 2 passes</strong>: KEM
-certificates are a different question from signature certificates, and
-the announcement’s wording does not separate them. AD CS puts ML-KEM
-issuance in Phase 2, which suggests the validation side is not there
-either, but suggests is not states. Second pass: the CertEnroll or
-CryptoAPI reference naming an ML-KEM certificate type. Examined:
-Microsoft PQC GA announcement, 2025-11-18, AD CS post-quantum
-overview.</li>
-<li>composite-ml-dsa / x509 – <strong>searching, 1 of 2 passes</strong>:
-AD CS records composite ML-DSA as Phase 2 for issuance; whether CAPI2
-can already VALIDATE a composite certificate somebody else issued is
-unstated, and the two often differ. Second pass: the CryptoAPI
-chain-building documentation. Examined: AD CS post-quantum
-overview.</li>
+<li>ml-kem / x509 – <strong>none found 2026-09-14</strong>: Second pass
+done and it found nothing either way, which is the answer: no Microsoft
+document states whether the Windows certificate functions can handle a
+certificate carrying an ML-KEM key. What the second pass DID establish
+is that the silence is not an artifact of the roadmap having stalled –
+the composite half of the same promise shipped on 14 July 2026 and is
+now a cell above, while the ML-KEM half did not. So the two capabilities
+Microsoft announced together in June (“Additional post-quantum
+capabilities, including ML-KEM and composite algorithm support, are
+planned later this year”) have diverged, and only one of them can be
+recorded. Not a <code>none</code> cell: nothing here ENUMERATES what the
+certificate layer accepts, and this register does not read a document’s
+silence as a denial. The thing that would settle it is an ML-KEM
+certificate OID in the wincrypt reference or a CertEnroll page naming
+the key type; neither exists today. Recheck when the ML-KEM phase ships.
+Examined: Microsoft PQC GA announcement, 2025-11-18, AD CS post-quantum
+overview (ML-KEM: Planned, Phase 2), New Windows Features to Secure
+Today’s Data in a Post-Quantum World, 2026-06-02 with the 2026-07-14
+update, CNG algorithm identifiers reference (wincrypt/BCrypt identifier
+table – ML-KEM present as a CNG primitive, no certificate-side
+identifier), CertEnroll portal and Certificate Request Functions
+reference.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -205,6 +234,14 @@ class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/pos
 href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
 class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370"
+class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-windows-features-to-secure-today%E2%80%99s-data-in-a-post-quantum-world/4523370</a>
+(as of 2026-07-14; checked 2026-09-14)</li>
+<li><a
+href="https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/SecCNG/cng-algorithm-identifiers.md"
+class="uri">https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/SecCNG/cng-algorithm-identifiers.md</a>
+(date not recorded; checked 2026-09-14)</li>
 <li><a
 href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
 class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>

@@ -19,13 +19,16 @@
     <p class="kicker">PQC Readiness Register &middot; kms</p>
     <h1>Google Cloud KMS</h1>
     <p class="standfirst">Maintained by Google Cloud. Continuous service releases with an explicit preview and general availability distinction, which the cells below follow. Home: https://docs.cloud.google.com/kms/docs</p>
-    <p class="updated">3 of 27 answered &middot; 3 cited cells &middot; 2 open</p>
+    <p class="updated">4 of 27 answered &middot; 4 cited cells &middot; 1 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
+<li><a href="#where-the-cryptography-comes-from"
+id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
+From</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
 <li><a href="#known-unknowns" id="toc-known-unknowns">Known
 Unknowns</a></li>
@@ -91,14 +94,14 @@ Unknowns</a></li>
 <td><strong>ML-DSA</strong></td>
 <td><span class="st st-available">available</span> since
 PQ_SIGN_ML_DSA_65 [2] [3]</td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
+<td><span class="st st-none">none</span> [4]</td>
 <td><span class="st st-absent">no public answer, checked
 2026-09-13</span></td>
 </tr>
 <tr>
 <td><strong>SLH-DSA</strong></td>
 <td><span class="st st-available">available</span> since
-PQ_SIGN_SLH_DSA_SHA2_128S [4]</td>
+PQ_SIGN_SLH_DSA_SHA2_128S [5]</td>
 <td><span class="st st-unknown">unknown</span></td>
 <td><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -128,6 +131,35 @@ PQ_SIGN_SLH_DSA_SHA2_128S [4]</td>
 </tr>
 </tbody>
 </table>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-cryptography-comes-from">Where the Cryptography Comes
+From</h2>
+<p>This component does not implement everything it is asked about. What
+it inherits, from what, and at which version:</p>
+<ul>
+<li><strong>Marvell LiquidSecurity, not tracked in this
+register</strong> – platform, pinned at certificate #4399, FIPS 140-2
+Level 3, listed by NIST as Historical. Inherits: FIPS 140-3. Google
+names the hardware and the certificate itself: “Cloud HSM uses Marvell
+LiquidSecurity HSMs” and “For more information about our certification,
+see Certificate #4399”. Marvell is NOT a component in this register – it
+was deliberately deferred on 2026-09-13 because its public material
+claims crypto-agility without naming a single shipped post-quantum
+algorithm – so this is an external edge, and the register records
+nothing about its standing beyond what Google states. What can be said
+is on the ml-dsa/fips cell: that certificate is FIPS 140-2 and NIST
+lists it as Historical, so it cannot carry a post-quantum algorithm at
+all. If Marvell ever becomes a component, the promotion invariant will
+catch this edge and require it. [6] [7]</li>
+</ul>
+<h3 id="fips-140-3">FIPS 140-3</h3>
+<p>Google Cloud KMS holds no FIPS 140-3 certificate of its own. It takes
+its cryptography from Marvell LiquidSecurity (platform, at certificate
+#4399, FIPS 140-2 Level 3, listed by NIST as Historical), and Marvell
+LiquidSecurity is not a component in this register, so nothing about its
+FIPS standing is recorded here – and its absence from these pages is not
+a finding about it. Running in an approved mode also needs the validated
+version on a tested operating environment, which no register can tell
+you.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
 <li><strong>ML-KEM, Primitive</strong>: <code>experimental</code> is
@@ -141,6 +173,23 @@ That is the <code>firmware</code> column’s question asked of somebody
 else’s product, not of this one: this register’s firmware column is
 about the component’s own image, and a cloud service does not ship one
 to you.</li>
+<li><strong>ML-DSA, FIPS 140-3</strong>: GOOGLE NAMES THE MODULE, WHICH
+THE GAP WAS WAITING FOR, and the answer is older than expected. The
+Cloud HSM architecture document says: “Cloud HSM uses Marvell
+LiquidSecurity HSMs (models CNL3560-NFBE-2.0-G and CNL3560-NFBE-3.0-G)”
+and “For more information about our certification, see Certificate
+#4399”. That certificate is FIPS 140-2, not 140-3, and NIST lists it as
+HISTORICAL – “should not be included by Federal Agencies in new
+procurements”. ML-DSA cannot be on it: FIPS 204 postdates the 140-2
+programme entirely. So Google’s “FIPS 140-3 Level 3” framing for the
+protection level is about the service’s posture rather than about this
+certificate, and the ML-DSA keys Cloud KMS holds are not inside a
+validated post-quantum boundary. The third instance today of one
+pattern: a vendor’s true sentence about a validated module, and a
+different answer once you read the certificate. Marvell is not a
+component in this register – it was deliberately deferred on 2026-09-13
+for naming no shipped post-quantum algorithm – so the coupling is
+recorded as an external edge below.</li>
 <li><strong>SLH-DSA, Primitive</strong>: One of only three components in
 the register that offer SLH-DSA at all – the others being Crypto4A and
 Entrust – and the only cloud service among them. The hash-based
@@ -166,19 +215,6 @@ among them. Nobody should search again until Google publishes one; this
 is not a question more effort answers. Examined: Cloud KMS PKCS #11
 library documentation (overview and integration pages), Cloud KMS
 digital signatures reference.</li>
-<li>ml-dsa / fips – <strong>searching, 1 of 2 passes</strong>: Google
-states FIPS 140-3 Level 3 for Cloud HSM protection level generally, but
-the register’s question is whether ML-DSA is on the approved-algorithm
-list of the module behind it – and Google does not name that module
-publicly. The 2026-09-13 CMVP scan found no Google Cloud KMS or Cloud
-HSM module under Google’s own vendor name; Cloud HSM is understood to
-run on third-party HSM hardware, whose certificate would be the answer.
-Naming that vendor without a Google statement would be exactly the
-plausible-looking guess this register refuses. Second pass: a Google
-statement naming the module, or its security policy. Examined: CMVP
-validated module search, vendor Google (32 certificates, none a Cloud
-KMS or Cloud HSM module), CMVP Modules In Process list, Cloud KMS
-digital signatures reference.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -194,9 +230,21 @@ href="https://cloud.google.com/blog/products/identity-security/announcing-quantu
 class="uri">https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-digital-signatures-in-cloud-kms</a>
 (date not recorded; checked 2026-09-13)</li>
 <li><a
+href="https://docs.cloud.google.com/docs/security/cloud-hsm-architecture"
+class="uri">https://docs.cloud.google.com/docs/security/cloud-hsm-architecture</a>
+(date not recorded; checked 2026-09-14)</li>
+<li><a
 href="https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-digital-signatures-in-cloud-kms"
 class="uri">https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-digital-signatures-in-cloud-kms</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://docs.cloud.google.com/docs/security/cloud-hsm-architecture"
+class="uri">https://docs.cloud.google.com/docs/security/cloud-hsm-architecture</a>
+(date not recorded; checked 2026-09-14)</li>
+<li><a
+href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4399"
+class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4399</a>
+(date not recorded; checked 2026-09-14)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

@@ -19,16 +19,16 @@
     <p class="kicker">PQC Readiness Register &middot; Question</p>
     <h1>Which components offer a hybrid post-quantum TLS group with no configuration?</h1>
     <p class="standfirst">The same three groups as the previous question, but at the bar that matters for traffic actually on the wire: `default`, meaning the group is in the supported-groups list as shipped. This is the question behind &quot;is my fleet already…</p>
-    <p class="updated">8 yes &middot; 11 no &middot; 12 not checked</p>
+    <p class="updated">9 yes &middot; 11 no &middot; 11 not checked</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
-<li><a href="#yes" id="toc-yes">Yes (8)</a></li>
+<li><a href="#yes" id="toc-yes">Yes (9)</a></li>
 <li><a href="#no" id="toc-no">No (11)</a></li>
 <li><a href="#not-checked" id="toc-not-checked">Not checked
-(12)</a></li>
+(11)</a></li>
 <li><a href="#not-applicable" id="toc-not-applicable">Not
 applicable</a></li>
 </ul>
@@ -40,7 +40,7 @@ matters for traffic actually on the wire: <code>default</code>, meaning
 the group is in the supported-groups list as shipped. This is the
 question behind “is my fleet already protected against harvest now,
 decrypt later?”, because a group nobody enables protects nobody.</p>
-<h2 id="yes">Yes (8)</h2>
+<h2 id="yes">Yes (9)</h2>
 <p>At or above the bar the question sets, with the cell it rests on.</p>
 <table>
 <colgroup>
@@ -56,6 +56,13 @@ decrypt later?”, because a group nobody enables protects nobody.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="apple-network.html">Apple Network framework and
+URLSession</a></td>
+<td>tls-stack</td>
+<td><span class="st st-default">default</span> since iOS 26, iPadOS 26
+and later</td>
+</tr>
 <tr>
 <td><a href="botan.html">Botan</a></td>
 <td>library</td>
@@ -185,7 +192,7 @@ default_pq (20250721)</td>
 </tr>
 </tbody>
 </table>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-checked">Not checked (12)</h2>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-checked">Not checked (11)</h2>
 <p>Nobody has settled it here yet, and each line says what was done
 about it. Not the same as no.</p>
 <table>
@@ -212,12 +219,6 @@ about it. Not the same as no.</p>
 corecrypto</a></td>
 <td>os</td>
 <td><span class="st st-unknown">unknown</span></td>
-</tr>
-<tr>
-<td><a href="apple-network.html">Apple Network framework and
-URLSession</a></td>
-<td>tls-stack</td>
-<td><span class="st st-searching">searching, 1 of 2 passes</span></td>
 </tr>
 <tr>
 <td><a href="aws-lc-rs.html">aws-lc-rs</a></td>
