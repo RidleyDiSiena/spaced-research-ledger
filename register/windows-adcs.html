@@ -7,7 +7,7 @@
   <meta name="description" content="AD CS: post-quantum readiness, cell by cell, with sources.">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
-<body>
+<body class="wide">
 <header class="masthead">
   <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>AD CS</nav>
@@ -36,11 +36,7 @@ From</a></li>
 
   <article class="prose">
 <h2 id="standing">Standing</h2>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Standing, scrollable table"><table>
 <thead>
 <tr>
 <th>Algorithm</th>
@@ -49,56 +45,56 @@ From</a></li>
 </thead>
 <tbody>
 <tr>
-<td><strong>ML-KEM</strong></td>
-<td><span class="st st-planned">planned</span> [1]</td>
+<td data-label="Algorithm"><strong>ML-KEM</strong></td>
+<td data-label="X.509"><span class="st st-planned">planned</span> [1]</td>
 </tr>
 <tr>
-<td><strong>X-Wing</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>X-Wing</strong></td>
+<td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>X25519MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>SecP256r1MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>SecP384r1MLKEM1024</strong></td>
-<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>curveSM2MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>curveSM2MLKEM768</strong></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>ML-DSA</strong></td>
-<td><span class="st st-available">available</span> since Windows Server
+<td data-label="Algorithm"><strong>ML-DSA</strong></td>
+<td data-label="X.509"><span class="st st-available">available</span> since Windows Server
 2025 with the 2026-05 security update (KB5087539) [2]</td>
 </tr>
 <tr>
-<td><strong>SLH-DSA</strong></td>
-<td><span class="st st-none">none</span> [3]</td>
+<td data-label="Algorithm"><strong>SLH-DSA</strong></td>
+<td data-label="X.509"><span class="st st-none">none</span> [3]</td>
 </tr>
 <tr>
-<td><strong>FN-DSA (Falcon)</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
+<td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>Composite ML-DSA</strong></td>
-<td><span class="st st-planned">planned</span> [4]</td>
+<td data-label="Algorithm"><strong>Composite ML-DSA</strong></td>
+<td data-label="X.509"><span class="st st-planned">planned</span> [4]</td>
 </tr>
 <tr>
-<td><strong>LMS / HSS</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>LMS / HSS</strong></td>
+<td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>XMSS / XMSS^MT</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
+<td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-cryptography-comes-from">Where the Cryptography Comes
 From</h2>
 <p>This component does not implement everything it is asked about. What

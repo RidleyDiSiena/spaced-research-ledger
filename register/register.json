@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "register": "PQC Readiness Register",
-  "generated": "2026-09-14",
-  "commit": "1351c60",
+  "generated": "2026-09-26",
+  "commit": "f036ace",
   "statuses": [
     "none",
     "planned",
@@ -296,12 +296,11 @@
         "kem": true,
         "hybrid-kex": false,
         "signature": true,
-        "composite": false,
+        "composite": true,
         "stateful-hbs": true
       },
       "why": {
-        "hybrid-kex": "SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.",
-        "composite": "SSH defines no key type or key-exchange method using a composite signature; the composite work is X.509 and CMS."
+        "hybrid-kex": "SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from."
       },
       "except": []
     },
@@ -662,7 +661,7 @@
         "go": "yes",
         "google-cloud-kms": "not-applicable",
         "haproxy": "no",
-        "jdk": "no",
+        "jdk": "yes",
         "liboqs": "not-checked",
         "libressl": "no",
         "libreswan": "not-applicable",
@@ -727,11 +726,11 @@
         "mlkem-native": "not-checked",
         "nginx": "not-applicable",
         "nodejs": "yes",
-        "nss": "not-checked",
+        "nss": "yes",
         "openssh": "not-applicable",
         "openssl": "yes",
         "putty": "not-applicable",
-        "pyca-cryptography": "inherited",
+        "pyca-cryptography": "yes",
         "rhel-crypto-policies": "not-checked",
         "rustls": "yes",
         "s2n-tls": "yes",
@@ -1457,7 +1456,7 @@
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 1,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -1678,8 +1677,8 @@
       "rejected": [],
       "derives_from": [],
       "current": {
-        "version": "v5.8.0",
-        "as_of": "2026-09-03",
+        "version": "v5.10.0",
+        "as_of": "2026-09-23",
         "evidence": [
           {
             "claim": null,
@@ -1687,11 +1686,11 @@
             "url": null,
             "as_of": null,
             "confidence": null,
-            "checked_on": "2026-09-14",
+            "checked_on": "2026-09-26",
             "note": ""
           }
         ],
-        "note": "Newest release tag on 2026-09-14. The FIPS module versions run on their own numbering (AWS-LC-FIPS 3.1.0 is the validated one) and are NOT this field: a library release and a validated module are different artifacts, which is the distinction the aws-lc-rs ml-kem/fips gap turns on."
+        "note": "Newest release tag on 2026-09-26 (v5.9.0 followed 2026-09-15: ML-KEM in HPKE per draft-ietf-hpke-pq-05, OpenSSL-compatible ML-DSA OID long names; v5.10.0: EVP_PKEY_check for KEMs, ML-DSA ACVP context-length guard). The FIPS module versions run on their own numbering (AWS-LC-FIPS 3.1.0 is the validated one) and are NOT this field: a library release and a validated module are different artifacts, which is the distinction the aws-lc-rs ml-kem/fips gap turns on."
       },
       "roll_up": {
         "kem": "available",
@@ -1705,7 +1704,7 @@
         "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -1922,6 +1921,24 @@
             }
           ],
           "note": "A queue position, not a shipped capability. CORRECTED by the 2026-09-12 CMVP reverse scan: Google DOES validate BoringCrypto and holds seven certificates for it (5296, 5244, 5104, 4735, 4444, 4407, 4156), so the earlier reading that BoringSSL had never pursued validation was wrong. What is true is narrower: not one of those seven approved-algorithm lists names a post-quantum algorithm, and the three BoringCrypto modules now in the queue have no published algorithm list, so nothing public says whether ML-KEM is in them. SafeLogic's CryptoComply BoringCrypto, also in the queue, is a third-party packaging and says nothing about Google's own module either way."
+        },
+        {
+          "algorithm": "slh-dsa",
+          "capability": "primitive",
+          "status": "available",
+          "since": "rolling, 2024-09-04",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://raw.githubusercontent.com/google/boringssl/main/include/openssl/slhdsa.h",
+              "url": null,
+              "as_of": "2026-09-10",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
+          ],
+          "note": "Patrol 2026-09-26. Public header include/openssl/slhdsa.h exposes SLHDSA_SHA2_128S_* (added 2024-09-04, 'Add SLH-DSA-SHA2-128s from FIPS 205') and SLHDSA_SHAKE_256F_* (2025-10-30) plus prehash variants. Commit 4380e3c7 (2026-09-10) adds the RFC 9909 OIDs and NIDs with no X.509 or TLS wiring. BoringSSL has no releases; the since is the first commit."
         }
       ],
       "extra": [],
@@ -1937,11 +1954,11 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 9,
+        "cited": 10,
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -2302,7 +2319,7 @@
         "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -2545,6 +2562,42 @@
             }
           ],
           "note": "Inside BC-FJA (Bouncy Castle FIPS Java API), Legion of the Bouncy Castle Inc., FIPS 140-3 certificate 4943 issued 2025-01-17. Sunset 2027-01-16."
+        },
+        {
+          "algorithm": "lms-hss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.86",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://www.bouncycastle.org/resources/new-release-bouncy-castle-java-1-86/",
+              "url": null,
+              "as_of": "2026-09-15",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
+          ],
+          "note": "Patrol 2026-09-26. 1.86 graduates LMS/HSS (RFC 8554) from the experimental namespace into org.bouncycastle.crypto with full JCA support, alongside ML-KEM, ML-DSA and SLH-DSA."
+        },
+        {
+          "algorithm": "xmss",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.86",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://www.bouncycastle.org/resources/new-release-bouncy-castle-java-1-86/",
+              "url": null,
+              "as_of": "2026-09-15",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
+          ],
+          "note": "Patrol 2026-09-26. Same graduation as LMS/HSS: XMSS and XMSS^MT (RFC 8391, SP 800-208) promoted out of the experimental namespace in 1.86."
         }
       ],
       "extra": [],
@@ -2557,14 +2610,14 @@
         "hybrid-kex": null,
         "signature": "available",
         "composite": "available",
-        "stateful-hbs": null
+        "stateful-hbs": "available"
       },
       "knowledge": {
-        "cited": 9,
+        "cited": 11,
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -3328,9 +3381,18 @@
         {
           "algorithm": "ml-kem",
           "capability": "pkcs11",
-          "status": "none",
-          "since": null,
+          "status": "available",
+          "since": "Security World 13.9.3",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-3-release-notes.html",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "13.9.3 (2025-12-12): 'Support for FIPS-203 ML-KEM in PKCS#11 (NSE-64740) ... CKM_ML_KEM_KEY_PAIR_GEN ... CKM_ML_KEM ... CKP_ML_KEM_512, CKP_ML_KEM_768 and CKP_ML_KEM_1024 ... requires a firmware version of v13.8.3 or greater and the PostQuantum feature to be enabled.'"
+            },
             {
               "claim": null,
               "source": "https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html",
@@ -3341,7 +3403,7 @@
               "note": "The same sentence, read for what it excludes: \"ML-KEM functionality is currently only available via nCore\"."
             }
           ],
-          "note": "A CITED `none`, and the sharpest justification for this column in the register. The device implements ML-KEM -- the primitive cell above says so on the same vendor's word -- and an application cannot reach it through PKCS#11 at all, only through Entrust's proprietary nCore API. A register with only a `primitive` column would show this device as ML-KEM-capable and leave the reader to discover the interface gap after buying it. \"Currently\" is the vendor's word and this cell should be rechecked when Security World moves."
+          "note": "PATROL 2026-09-26: 'currently' ran out. Security World 13.9.3 (2025-12-12) brought ML-KEM to PKCS#11 (firmware 13.8.3+, PostQuantum feature). The history below is kept because it is why the column exists. A CITED `none`, and the sharpest justification for this column in the register. The device implements ML-KEM -- the primitive cell above says so on the same vendor's word -- and an application cannot reach it through PKCS#11 at all, only through Entrust's proprietary nCore API. A register with only a `primitive` column would show this device as ML-KEM-capable and leave the reader to discover the interface gap after buying it. \"Currently\" is the vendor's word and this cell should be rechecked when Security World moves."
         },
         {
           "algorithm": "ml-dsa",
@@ -3382,9 +3444,18 @@
         {
           "algorithm": "slh-dsa",
           "capability": "pkcs11",
-          "status": "none",
-          "since": null,
+          "status": "available",
+          "since": "Security World 13.9.5",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-5-release-notes.html",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "13.9.5 (2026-04-24): 'FIPS 205 SLH-DSA support added to the nShield PKCS #11 API (NSE-64745) ... CKM_SLH_DSA_KEY_PAIR_GEN ... CKM_SLH_DSA, CKM_HASH_SLH_DSA, CKM_HASH_SLH_DSA_SHA256, CKM_HASH_SLH_DSA_SHA512, CKM_HASH_SLH_DSA_SHAKE128, CKM_HASH_SLH_DSA_SHAKE256. All twelve parameter sets ... are supported.'"
+            },
             {
               "claim": null,
               "source": "https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html",
@@ -3395,7 +3466,7 @@
               "note": ""
             }
           ],
-          "note": "\"SLH-DSA ... The following operations are available using this new algorithm: Key generation, Signature generation in pure and prehashed mode, Signature verification in pure and prehashed mode. THIS FUNCTIONALITY IS CURRENTLY ONLY AVAILABLE VIA nCore.\" The second cited `none` in this component's PKCS#11 column, alongside ML-KEM, and together they make the case for the column better than any argument could: on one device, in one release, ML-DSA reaches PKCS#11 and ML-KEM and SLH-DSA do not. A register with only a primitive column would show all three as supported and leave an integrator to discover the difference after committing."
+          "note": "PATROL 2026-09-26: no longer absent. Security World 13.9.5 (2026-04-24) added SLH-DSA to PKCS#11, all twelve parameter sets, firmware 13.8+ and the PostQuantum feature. The history below is kept because it is why the column exists. \"SLH-DSA ... The following operations are available using this new algorithm: Key generation, Signature generation in pure and prehashed mode, Signature verification in pure and prehashed mode. THIS FUNCTIONALITY IS CURRENTLY ONLY AVAILABLE VIA nCore.\" The second cited `none` in this component's PKCS#11 column, alongside ML-KEM, and together they make the case for the column better than any argument could: on one device, in one release, ML-DSA reaches PKCS#11 and ML-KEM and SLH-DSA do not. A register with only a primitive column would show all three as supported and leave an integrator to discover the difference after committing."
         }
       ],
       "extra": [],
@@ -3493,7 +3564,7 @@
               "note": ""
             }
           ],
-          "note": "Experimental in 3.8.8; minimum liboqs 0.11.0."
+          "note": "Experimental in 3.8.8, and no later NEWS lifts that. The original 'minimum liboqs 0.11.0' is stale: 3.8.10 removed liboqs support, so post-quantum groups now exist only in builds configured --with-leancrypto (patrol 2026-09-26)."
         },
         {
           "algorithm": "secp256r1mlkem768",
@@ -3512,6 +3583,24 @@
             }
           ],
           "note": ""
+        },
+        {
+          "algorithm": "secp384r1mlkem1024",
+          "capability": "tls",
+          "status": "experimental",
+          "since": "3.8.9",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://lists.gnupg.org/pipermail/gnutls-help/2025-February/004875.html",
+              "url": null,
+              "as_of": "2025-02-07",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "3.8.9 announcement: ML-KEM support \"extended to cover ML-KEM-1024\"; \"MLKEM1024 is only offered as SecP384r1MLKEM1024 hybrid as per draft-kwiatkowski-tls-ecdhe-mlkem-03.\""
+            }
+          ],
+          "note": "Same standing as the two 3.8.8 hybrids: experimental, leancrypto builds only since 3.8.10."
         },
         {
           "algorithm": "ml-dsa",
@@ -3544,8 +3633,17 @@
           "algorithm": "ml-dsa",
           "capability": "tls",
           "status": "available",
-          "since": "3.8.11",
+          "since": "3.8.10",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://lists.gnupg.org/pipermail/gnutls-help/2025-July/004883.html",
+              "url": null,
+              "as_of": "2025-07-08",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "3.8.10 announcement: \"ML-DSA signatures can now be used in TLS The ML-DSA signature algorithms, ML-DSA-44, ML-DSA-65, and ML-DSA-87, can now be used to digitally sign TLS handshake messages.\""
+            },
             {
               "claim": null,
               "source": "https://gitlab.com/gnutls/gnutls/-/raw/master/NEWS",
@@ -3556,14 +3654,23 @@
               "note": ""
             }
           ],
-          "note": "NEWS for 3.8.11: ML-DSA-44, ML-DSA-65 and ML-DSA-87 can be used to sign TLS handshake messages. The same release moved the implementation from draft-ietf-lamps-dilithium-certificates-04 to -12 with all three variants."
+          "note": "Was 'since 3.8.11' until patrol 2026-09-26; the release announcement puts it in 3.8.10. NEWS for 3.8.10: ML-DSA-44, ML-DSA-65 and ML-DSA-87 can be used to sign TLS handshake messages. The same release moved the implementation from draft-ietf-lamps-dilithium-certificates-04 to -12 with all three variants."
         },
         {
           "algorithm": "ml-dsa",
           "capability": "x509",
           "status": "available",
-          "since": "3.8.10",
+          "since": "3.8.9",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://lists.gnupg.org/pipermail/gnutls-help/2025-February/004875.html",
+              "url": null,
+              "as_of": "2025-02-07",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "3.8.9 announcement: \"The library and certtool now support ML-DSA signature algorithm as defined in FIPS 204\", built --with-leancrypto or --with-liboqs."
+            },
             {
               "claim": null,
               "source": "https://gitlab.com/gnutls/gnutls/-/raw/master/NEWS",
@@ -3574,7 +3681,7 @@
               "note": ""
             }
           ],
-          "note": "NEWS for 3.8.10: the library and certtool support ML-DSA as defined in FIPS 204, based on the LAMPS certificates draft. 3.8.13 added deriving the public key from an expanded private key per RFC 9881."
+          "note": "Was 'since 3.8.10' until patrol 2026-09-26; the sentence is in the 3.8.9 announcement, where NEWS called the support experimental. 3.8.10 moved the certificate format from draft-ietf-lamps-dilithium-certificates-04 to -12 with all three private-key formats. 3.8.13 added deriving the public key from an expanded private key per RFC 9881."
         },
         {
           "algorithm": "ml-kem",
@@ -3680,11 +3787,11 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 10,
+        "cited": 11,
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -3722,9 +3829,18 @@
       "releases": [
         {
           "version": "1.27",
-          "date": "2026-08-22",
+          "date": "2026-08-19",
           "lts": false,
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://go.dev/doc/devel/release",
+              "url": null,
+              "as_of": "2026-08-19",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"go1.27.0 (released 2026-08-19)\"; the ledger's 2026-08-22 was corrected by patrol 2026-09-26. go1.27.1 followed on 2026-09-01."
+            },
             {
               "claim": "pqc/language-native-crypto-stacks/d0003:1",
               "source": null,
@@ -3738,9 +3854,18 @@
         },
         {
           "version": "1.26",
-          "date": "2026-02-19",
+          "date": "2026-02-10",
           "lts": false,
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://go.dev/doc/devel/release",
+              "url": null,
+              "as_of": "2026-02-10",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"go1.26.0 (released 2026-02-10)\"; the 2026-02-19 below is a blog post's date, corrected by patrol 2026-09-26."
+            },
             {
               "claim": "pqc/language-native-crypto-stacks/d0001:3",
               "source": null,
@@ -3890,6 +4015,33 @@
           "note": "ML-KEM-768/1024 behind the TLS hybrid from 1.24; crypto/hpke with the X-Wing option from 1.26."
         },
         {
+          "algorithm": "x-wing",
+          "capability": "primitive",
+          "status": "available",
+          "since": "1.26",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://pkg.go.dev/crypto/hpke",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"MLKEM768X25519 returns a KEM implementing MLKEM768-X25519 (a.k.a. X-Wing) from draft-ietf-hpke-pq.\""
+            },
+            {
+              "claim": null,
+              "source": "https://go.dev/doc/go1.26",
+              "url": null,
+              "as_of": "2026-02-10",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "Go 1.26 introduces crypto/hpke."
+            }
+          ],
+          "note": "Split out of the ml-kem primitive note by patrol 2026-09-26, now that X-Wing has its own algorithm row. Exposed as an HPKE KEM, not as a standalone KEM package."
+        },
+        {
           "algorithm": "ml-dsa",
           "capability": "primitive",
           "status": "available",
@@ -4024,7 +4176,7 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 10,
+        "cited": 11,
         "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
@@ -4058,8 +4210,17 @@
           "algorithm": "ml-dsa",
           "capability": "primitive",
           "status": "available",
-          "since": "PQ_SIGN_ML_DSA_65",
+          "since": "GA 2026-07-16 (preview from 2025-02-21)",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://docs.cloud.google.com/kms/docs/release-notes",
+              "url": null,
+              "as_of": "2026-07-16",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "July 16, 2026: \"Cloud KMS supports the following post-quantum computing (PQC) signing algorithms in General Availability: PQ_SIGN_HASH_SLH_DSA_SHA2_128S_SHA256, PQ_SIGN_ML_DSA_44, PQ_SIGN_ML_DSA_65, PQ_SIGN_ML_DSA_87, PQ_SIGN_SLH_DSA_SHA2_128S\". February 21, 2025 was the Public Preview of ML_DSA_65 alone."
+            },
             {
               "claim": null,
               "source": "https://docs.cloud.google.com/kms/docs/digital-signatures",
@@ -4079,14 +4240,23 @@
               "note": "Names the key algorithm PQ_SIGN_ML_DSA_65, and says Cloud KMS \"provides native support for generating and using ML-DSA and SLH-DSA, allowing you to implement new post-quantum roots of trust for uses including software, firmware, and document signing\"."
             }
           ],
-          "note": "The vendor frames this as a way for CUSTOMERS to build post-quantum roots of trust for firmware signing. That is the `firmware` column's question asked of somebody else's product, not of this one: this register's firmware column is about the component's own image, and a cloud service does not ship one to you."
+          "note": "All three parameter sets (ML-DSA-44, -65, -87) are generally available since 2026-07-16. Until patrol 2026-09-26 this cell rested only on the February 2025 preview blog, so its `available` status was ahead of its evidence; the GA release note now carries it. The vendor frames this as a way for CUSTOMERS to build post-quantum roots of trust for firmware signing. That is the `firmware` column's question asked of somebody else's product, not of this one: this register's firmware column is about the component's own image, and a cloud service does not ship one to you."
         },
         {
           "algorithm": "slh-dsa",
           "capability": "primitive",
           "status": "available",
-          "since": "PQ_SIGN_SLH_DSA_SHA2_128S",
+          "since": "GA 2026-07-16 (preview from 2025-02-21)",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://docs.cloud.google.com/kms/docs/release-notes",
+              "url": null,
+              "as_of": "2026-07-16",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "July 16, 2026 GA list includes PQ_SIGN_SLH_DSA_SHA2_128S and the pre-hash PQ_SIGN_HASH_SLH_DSA_SHA2_128S_SHA256."
+            },
             {
               "claim": null,
               "source": "https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-digital-signatures-in-cloud-kms",
@@ -4116,6 +4286,33 @@
             }
           ],
           "note": "`experimental` is exactly what the scale means by a preview channel, and the contrast inside one service is the useful part: signatures are generally available, key encapsulation is in preview. A migration plan that assumes both are equally ready would be wrong about half of it."
+        },
+        {
+          "algorithm": "x-wing",
+          "capability": "primitive",
+          "status": "experimental",
+          "since": "preview 2025-09-23",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://docs.cloud.google.com/kms/docs/release-notes",
+              "url": null,
+              "as_of": "2025-09-23",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "September 23, 2025: \"Cloud KMS now supports key encapsulation mechanisms (KEMs) for sharing secrets in Preview ... ML_KEM_768, ML_KEM_1024, KEM_XWING\". No later release note moves KEMs to GA."
+            },
+            {
+              "claim": null,
+              "source": "https://docs.cloud.google.com/kms/docs/algorithms",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "Lists KEM_XWING among the key encapsulation algorithms."
+            }
+          ],
+          "note": "Preview, same channel as the ml-kem cell. Quantum-safe key import (Preview, 2026-08-06) also offers an HPKE X-Wing wrapping method, software keys only."
         },
         {
           "algorithm": "ml-dsa",
@@ -4196,7 +4393,7 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 4,
+        "cited": 5,
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 1,
@@ -4380,9 +4577,18 @@
       "releases": [
         {
           "version": "27",
-          "date": "2026-09-01",
+          "date": "2026-09-15",
           "lts": false,
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://openjdk.org/projects/jdk/27/",
+              "url": null,
+              "as_of": "2026-09-15",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"JDK 27 reached General Availability on 15 September 2026.\" The date was 2026-09-01 from the ledger claim below; patrol 2026-09-26 corrected it."
+            },
             {
               "claim": "pqc/language-native-crypto-stacks/d0002:2",
               "source": null,
@@ -4478,9 +4684,18 @@
         {
           "algorithm": "x25519mlkem768",
           "capability": "tls",
-          "status": "available",
+          "status": "default",
           "since": "27",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://openjdk.org/jeps/527",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "Closed / Delivered in 27: \"The complete default list of schemes will be: X25519MLKEM768, x25519, secp256r1, secp384r1, secp521r1, x448, ffdhe2048, ffdhe3072 and ffdhe4096.\""
+            },
             {
               "claim": "pqc/language-runtime-tls-surfaces/d0002:2",
               "source": null,
@@ -4500,7 +4715,43 @@
               "note": ""
             }
           ],
-          "note": "JEP 527 delivers hybrid TLS 1.3 key exchange in JDK 27, and the Curve25519 optimisation claim names X25519MLKEM768 as a group whose key generation it speeds up. Neither claim states the default group list, so 'available', not 'default'."
+          "note": "JEP 527 delivers hybrid TLS 1.3 key exchange in JDK 27 and puts X25519MLKEM768 FIRST in the default named-groups list. Until patrol 2026-09-26 this cell said 'available' because neither ledger claim stated the default list; the JEP itself does, so 'default'. The two NIST-curve hybrids are separate cells and are NOT on by default."
+        },
+        {
+          "algorithm": "secp256r1mlkem768",
+          "capability": "tls",
+          "status": "available",
+          "since": "27",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://openjdk.org/jeps/527",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"The hybrid groups SecP256r1MLKEM768 and SecP384r1MLKEM1024 are not enabled by default\"; enabled through jdk.tls.namedGroups or SSLParameters::setNamedGroups."
+            }
+          ],
+          "note": "Delivered with JEP 527 in JDK 27, opt-in: an ordinary configuration property, not a preview, so 'available' rather than 'experimental'."
+        },
+        {
+          "algorithm": "secp384r1mlkem1024",
+          "capability": "tls",
+          "status": "available",
+          "since": "27",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://openjdk.org/jeps/527",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"The hybrid groups SecP256r1MLKEM768 and SecP384r1MLKEM1024 are not enabled by default\"; enabled through jdk.tls.namedGroups or SSLParameters::setNamedGroups."
+            }
+          ],
+          "note": "Delivered with JEP 527 in JDK 27, opt-in, same terms as SecP256r1MLKEM768."
         },
         {
           "algorithm": "ml-dsa",
@@ -4645,13 +4896,13 @@
       "current": null,
       "roll_up": {
         "kem": "available",
-        "hybrid-kex": "available",
+        "hybrid-kex": "default",
         "signature": "available",
         "composite": null,
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 10,
+        "cited": 12,
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
@@ -4738,8 +4989,17 @@
           "algorithm": "ml-kem",
           "capability": "primitive",
           "status": "available",
-          "since": "0.14.0 (mlkem-native 1.0.0 underneath)",
+          "since": "0.11.0",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/open-quantum-safe/liboqs/releases/tag/0.11.0",
+              "url": null,
+              "as_of": "2024-09-26",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"This release updates ML-KEM implementations to their final FIPS 203 versions.\""
+            },
             {
               "claim": "pqc/pq-reference-implementations/d0001:3",
               "source": null,
@@ -4768,14 +5028,23 @@
               "note": ""
             }
           ],
-          "note": "mlkem-native is the default implementation; updated to v1.2.0 in 0.16.0."
+          "note": "Final FIPS 203 ML-KEM since 0.11.0. mlkem-native became the default implementation in 0.14.0 (the date this cell carried until patrol 2026-09-26 corrected it) and was updated to v1.2.0 in 0.16.0."
         },
         {
           "algorithm": "ml-dsa",
           "capability": "primitive",
           "status": "available",
-          "since": "0.16.0 (mldsa-native underneath)",
+          "since": "0.12.0",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/open-quantum-safe/liboqs/releases/tag/0.12.0",
+              "url": null,
+              "as_of": "2024-12-09",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"This release updates the ML-DSA implementation to the final FIPS 204 version\", replacing the FIPS 204 initial public draft."
+            },
             {
               "claim": "pqc/pq-reference-implementations/d0002:3",
               "source": null,
@@ -4786,7 +5055,7 @@
               "note": ""
             }
           ],
-          "note": ""
+          "note": "Final FIPS 204 ML-DSA since 0.12.0. mldsa-native became the default implementation in 0.16.0, the date this cell carried until patrol 2026-09-26 corrected it."
         },
         {
           "algorithm": "slh-dsa",
@@ -4818,9 +5087,27 @@
         {
           "algorithm": "xmss",
           "capability": "primitive",
-          "status": "available",
-          "since": "not recorded",
+          "status": "experimental",
+          "since": "0.11.0, off by default",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/open-quantum-safe/liboqs/releases/tag/0.11.0",
+              "url": null,
+              "as_of": "2024-09-26",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"Added implementations of stateful hash-based signature schemes: XMSS and LMS.\" \"LMS and XMSS are disabled by default due to the security risks associated with their use in software.\""
+            },
+            {
+              "claim": null,
+              "source": "https://github.com/open-quantum-safe/liboqs/blob/main/CONFIGURE.md",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "OQS_ENABLE_SIG_STFL_XMSS defaults OFF; signing additionally needs OQS_HAZARDOUS_EXPERIMENTAL_ENABLE_SIG_STFL_KEY_SIG_GEN, also OFF."
+            },
             {
               "claim": "pqc/pq-reference-implementations/d0001:4",
               "source": null,
@@ -4831,7 +5118,34 @@
               "note": ""
             }
           ],
-          "note": "0.16.0 fixed an out-of-bounds read in XMSS/XMSS^MT verification."
+          "note": "Was 'available', since not recorded, until patrol 2026-09-26: the project ships XMSS behind a default-off build flag and gates key and signature generation behind a second flag named HAZARDOUS_EXPERIMENTAL, which is what 'experimental' means on this scale. 0.16.0 fixed an out-of-bounds read in XMSS/XMSS^MT verification."
+        },
+        {
+          "algorithm": "lms-hss",
+          "capability": "primitive",
+          "status": "experimental",
+          "since": "0.11.0, off by default",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/open-quantum-safe/liboqs/releases/tag/0.11.0",
+              "url": null,
+              "as_of": "2024-09-26",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "\"Added implementations of stateful hash-based signature schemes: XMSS and LMS.\" \"LMS and XMSS are disabled by default due to the security risks associated with their use in software.\""
+            },
+            {
+              "claim": null,
+              "source": "https://github.com/open-quantum-safe/liboqs/blob/main/CONFIGURE.md",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "OQS_ENABLE_SIG_STFL_LMS defaults OFF; signing additionally needs OQS_HAZARDOUS_EXPERIMENTAL_ENABLE_SIG_STFL_KEY_SIG_GEN, also OFF."
+            }
+          ],
+          "note": "Same terms as the XMSS cell: default-off build flag, signing behind a HAZARDOUS_EXPERIMENTAL flag."
         },
         {
           "algorithm": "ml-kem",
@@ -4952,14 +5266,14 @@
         "hybrid-kex": null,
         "signature": "available",
         "composite": null,
-        "stateful-hbs": "available"
+        "stateful-hbs": "experimental"
       },
       "knowledge": {
-        "cited": 10,
+        "cited": 11,
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -5190,7 +5504,7 @@
         "confirmed_absent": 2,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -5502,7 +5816,7 @@
         "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -5579,7 +5893,7 @@
         "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
-        "asked": 7
+        "asked": 8
       },
       "derived": [],
       "gap_states": {
@@ -5803,7 +6117,7 @@
         "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -6061,7 +6375,7 @@
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
@@ -6157,11 +6471,19 @@
       "knowledge": {
         "cited": 1,
         "confirmed_absent": 0,
-        "inherited": 5,
+        "inherited": 6,
         "open": 1,
         "asked": 9
       },
       "derived": [
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": null,
+          "status": "available"
+        },
         {
           "algorithm": "secp256r1mlkem768",
           "capability": "tls",
@@ -6310,7 +6632,7 @@
       "knowledge": {
         "cited": 2,
         "confirmed_absent": 0,
-        "inherited": 9,
+        "inherited": 11,
         "open": 0,
         "asked": 37
       },
@@ -6334,6 +6656,14 @@
         {
           "algorithm": "lms-hss",
           "capability": "primitive",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "available"
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
           "from": "openssl",
           "how": "linked",
           "pinned": "OpenSSL 3.5 (24.x line)",
@@ -6386,6 +6716,14 @@
           "how": "linked",
           "pinned": "OpenSSL 3.5 (24.x line)",
           "status": "available"
+        },
+        {
+          "algorithm": "composite-ml-dsa",
+          "capability": "x509",
+          "from": "openssl",
+          "how": "linked",
+          "pinned": "OpenSSL 3.5 (24.x line)",
+          "status": "planned"
         }
       ],
       "gap_states": {
@@ -6661,35 +6999,64 @@
             }
           ],
           "note": "Not in any module of this project: the CMVP validated list and the Modules In Process list were scanned on 2026-09-12 and name none carrying it."
-        }
-      ],
-      "extra": [],
-      "gaps": [
+        },
         {
           "algorithm": "ml-dsa",
           "capability": "tls",
-          "why": "Searched twice on 2026-09-12 and found nothing: 3.118 adds ML-DSA only as SGN and VFY interfaces, the low-level sign and verify operations, and 3.124 mentions no post-quantum work at all. The ML-KEM groups are named release by release in the same notes, so their silence on ML-DSA in tls is meaningful rather than incidental.",
-          "passes": 2,
-          "checked": "2026-09-12",
-          "sources": [
-            "NSS 3.118 release notes",
-            "NSS 3.124 release notes"
+          "status": "available",
+          "since": "3.128",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_128.html",
+              "url": null,
+              "as_of": "2026-08-26",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
           ],
-          "outcome": null
+          "note": "Patrol 2026-09-26, closes the gap. 3.128 vendors libcrux ML-DSA (bug 2060302) and lands the ML-DSA TLS 1.3 signature-scheme patch and tests (bug 1983320); a BoGo test is updated to 'disable ML_DSA Default', so it is available, not on by default."
         },
         {
           "algorithm": "ml-dsa",
           "capability": "x509",
-          "why": "Searched twice on 2026-09-12 and found nothing: 3.118 adds ML-DSA only as SGN and VFY interfaces, the low-level sign and verify operations, and 3.124 mentions no post-quantum work at all. The ML-KEM groups are named release by release in the same notes, so their silence on ML-DSA in x509 is meaningful rather than incidental.",
-          "passes": 2,
-          "checked": "2026-09-12",
-          "sources": [
-            "NSS 3.118 release notes",
-            "NSS 3.124 release notes"
+          "status": "available",
+          "since": "3.128",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_128.html",
+              "url": null,
+              "as_of": "2026-08-26",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
           ],
-          "outcome": null
+          "note": "Patrol 2026-09-26, closes the gap. Bug 1983320 in 3.128: 'ML-DSA tests for Sign/Verify, certificates and pkcs12'; scope 'ml-dsa in freebl, softoken, cryptohi and certificates, ssl'."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "status": "available",
+          "since": "3.130",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://bugzilla.mozilla.org/show_bug.cgi?id=2019001",
+              "url": null,
+              "as_of": "2026-09-23",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
+          ],
+          "note": "Patrol 2026-09-26. Pure ML-KEM as a TLS named group: bug 2019001 'Add support for MLKEM1024 named group' RESOLVED FIXED, 3.130 notes carry 'Update policy for mlkem1024 named group'. Medium confidence: read from the bug and release notes, not a TLS capture. The hybrid X25519MLKEM768 group is older and sits under the hybrid row."
         }
       ],
+      "extra": [],
+      "gaps": [],
       "rejected": [],
       "derives_from": [],
       "current": null,
@@ -6701,17 +7068,17 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 10,
-        "confirmed_absent": 2,
+        "cited": 13,
+        "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
-        "confirmed-absent": 2
+        "confirmed-absent": 0
       },
       "category": "libraries"
     },
@@ -6775,6 +7142,24 @@
             }
           ],
           "note": "A CELL THIS REGISTER ALMOST COULD NOT HOLD. Until 2026-09-13 the meaningful grid called stateful hash-based signatures over SSH not-a-question, on the reasoning that SSH registers no such key type -- and OpenSSH had carried ssh-xmss@openssh.com for years before removing it here. The validator refuses a cell in a pair marked meaningless, so the grid was corrected first and this cell written second. The status is `none` rather than a gap because the project states the removal outright; and note what it is NOT evidence of -- OpenSSH says in the same breath that it expects to implement a post-quantum signature scheme, so this is a retreat from one approach rather than from the problem."
+        },
+        {
+          "algorithm": "composite-ml-dsa",
+          "capability": "ssh",
+          "status": "experimental",
+          "since": "10.4",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://www.openssh.org/txt/release-10.4",
+              "url": null,
+              "as_of": "2026-07-06",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
+          ],
+          "note": "Patrol 2026-09-26. OpenSSH 10.4: 'add experimental support for a composite post-quantum signature scheme that combines ML-DSA 44 and Ed25519 as specified in draft-miller-sshm-mldsa44-ed25519-composite-sigs. This scheme is not enabled by default' -- it must be added to HostKeyAlgorithms / PubkeyAcceptedAlgorithms, keys via ssh-keygen -t mldsa44-ed25519. Recording it required flipping the grid's ssh/composite pair to yes."
         }
       ],
       "extra": [],
@@ -6807,11 +7192,11 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 2,
+        "cited": 3,
         "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
-        "asked": 7
+        "asked": 8
       },
       "derived": [],
       "gap_states": {
@@ -7170,6 +7555,42 @@
             }
           ],
           "note": "Submitted, not issued: OpenSSL FIPS Provider, The OpenSSL Project, at phase Comment Resolution - CMVP on 2026-08-21 in the CMVP Modules In Process list."
+        },
+        {
+          "algorithm": "ml-kem",
+          "capability": "tls",
+          "status": "available",
+          "since": "3.5.0",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/openssl/openssl/blob/openssl-3.5/providers/common/capabilities.c",
+              "url": null,
+              "as_of": "2025-04-08",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
+          ],
+          "note": "Patrol 2026-09-26, closes the gap. providers/common/capabilities.c on the openssl-3.5 branch registers TLS groups MLKEM512, MLKEM768 and MLKEM1024 (IANA 38-40) under OPENSSL_NO_ML_KEM. Not in the DEFAULT group list; the man page and CHANGES name only the three hybrids, which is why two earlier passes missed it."
+        },
+        {
+          "algorithm": "composite-ml-dsa",
+          "capability": "x509",
+          "status": "planned",
+          "since": null,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/openssl/openssl/pull/32886",
+              "url": null,
+              "as_of": "2026-09-18",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
+          ],
+          "note": "Patrol 2026-09-26, closes the gap as planned, not shipped. PR #32886 'ML-DSA Composite signatures and key implementation', opened 2026-09-18, open, targets master: MLDSA65-RSA3072-PKCS15-SHA512 and MLDSA65-ECDSA-P256-SHA512, default provider only. Not in any release or pre-release."
         }
       ],
       "extra": [
@@ -7192,32 +7613,6 @@
         }
       ],
       "gaps": [
-        {
-          "algorithm": "ml-kem",
-          "capability": "tls",
-          "why": "Searched twice on 2026-09-12 and found nothing: the pure MLKEM512/768/1024 TLS group names appear in neither the 3.5.0 changelog nor the supported-groups manual page, which list only the three hybrid groups. A secondary blog lists them, below the source bar.",
-          "passes": 2,
-          "checked": "2026-09-12",
-          "sources": [
-            "OpenSSL CHANGES.md, 3.5.0 section",
-            "doc/man3/SSL_CTX_set1_curves.pod (3.5 branch)",
-            "OpenSSL 3.5 release notes"
-          ],
-          "outcome": null
-        },
-        {
-          "algorithm": "composite-ml-dsa",
-          "capability": "x509",
-          "why": "Searched twice on 2026-09-12 and found nothing: no composite ML-DSA in the 3.5.0 changelog, the 3.6 notes, or a repository search.",
-          "passes": 2,
-          "checked": "2026-09-12",
-          "sources": [
-            "OpenSSL CHANGES.md, 3.5.0 section",
-            "OpenSSL 3.6 release notes",
-            "openssl/openssl repository search"
-          ],
-          "outcome": null
-        },
         {
           "algorithm": "xmss",
           "capability": "primitive",
@@ -7254,21 +7649,21 @@
         "kem": "available",
         "hybrid-kex": "default",
         "signature": "available",
-        "composite": null,
+        "composite": "planned",
         "stateful-hbs": "available"
       },
       "knowledge": {
-        "cited": 14,
-        "confirmed_absent": 3,
+        "cited": 16,
+        "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
-        "confirmed-absent": 3
+        "confirmed-absent": 1
       },
       "category": "libraries"
     },
@@ -7341,7 +7736,7 @@
         "confirmed_absent": 1,
         "inherited": 0,
         "open": 0,
-        "asked": 7
+        "asked": 8
       },
       "derived": [],
       "gap_states": {
@@ -7441,6 +7836,24 @@
             }
           ],
           "note": "The project's own roadmap issue tracks ML-KEM, ML-DSA and SLH-DSA together. ML-KEM and ML-DSA shipped in 48; SLH-DSA had not, and work was described as started. Recorded as planned on the strength of the tracking issue rather than a release."
+        },
+        {
+          "algorithm": "ml-dsa",
+          "capability": "x509",
+          "status": "available",
+          "since": "49.0.0",
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://cryptography.io/en/latest/changelog/",
+              "url": null,
+              "as_of": "2026-07-31",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
+          ],
+          "note": "Patrol 2026-09-26. 49.0.0 (2026-06-12): signing and verifying certificates, CSRs and CRLs with ML-DSA keys, loading ML-DSA certificates. 50.0.0 (2026-07-31): the X.509 verification APIs accept ML-DSA-44/65/87 (RFC 9881) by default."
         }
       ],
       "extra": [],
@@ -7509,7 +7922,7 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 3,
+        "cited": 4,
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
@@ -8251,24 +8664,28 @@
             }
           ],
           "note": "`available` rather than `default`: you write it into a proposal. WHY IPSEC IS THE EASY CASE, and worth understanding because it is the opposite of TLS: RFC 9370 lets up to seven ADDITIONAL key exchanges be layered on after the first, so ML-KEM is appended to a classical exchange rather than replacing it, and a deployment keeps its existing security properties while adding the new one. The hybrid is built by configuration rather than baked into a named group, which is why this register records it on the ML-KEM row and has no hybrid-group rows for IPsec at all. Four different implementations can supply the mathematics -- Botan, wolfSSL, AWS-LC or strongSwan's own `ml` plugin -- so the answer travels with the build; that is prose here rather than a derives_from edge because strongSwan ships an implementation of its own."
-        }
-      ],
-      "extra": [],
-      "gaps": [
+        },
         {
           "algorithm": "ml-dsa",
           "capability": "ipsec",
-          "why": "Searched twice, no implementation found, and the shape of the gap is the same as SSH's: the KEY EXCHANGE half is standardised and shipping (RFC 9370 additional key exchanges, which both components implement) while post-quantum AUTHENTICATION is not. RFC 7427 signature authentication carries an ASN.1 AlgorithmIdentifier, so ML-DSA is expressible in IKEv2 in principle -- which makes the absence a choice about deployment rather than a protocol limitation. Neither project's release notes mention it. Recheck alongside the SSH signature question; they are likely to move together, because both are waiting on certificate ecosystems rather than on code.",
-          "passes": 2,
-          "checked": "2026-09-13",
-          "sources": [
-            "strongSwan 6.0.0 release announcement and IKEv2 cipher suite documentation",
-            "Libreswan CHANGES through v5.5 (unreleased)",
-            "RFC 7427 signature authentication (the mechanism that would carry it)"
+          "status": "planned",
+          "since": null,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://docs.strongswan.org/docs/latest/_attachments/IPsecWorkshop_Madrid_2025.pdf",
+              "url": null,
+              "as_of": "2026-09-07",
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": ""
+            }
           ],
-          "outcome": null
+          "note": "Patrol 2026-09-26, closes the gap as planned. The project's own workshop deck 'IKEv2 Signature Authentication using ML-DSA' says the internal ml plugin implementation is work in progress on the ml-dsa branch with 6.1.0 as the ETA; 6.1.0 shipped 2026-09-07 with ML-KEM hardening only and no ML-DSA in NEWS or plugins/ml. Medium confidence on timing."
         }
       ],
+      "extra": [],
+      "gaps": [],
       "rejected": [],
       "derives_from": [],
       "current": null,
@@ -8280,8 +8697,8 @@
         "stateful-hbs": null
       },
       "knowledge": {
-        "cited": 1,
-        "confirmed_absent": 1,
+        "cited": 2,
+        "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
         "asked": 5
@@ -8290,7 +8707,7 @@
       "gap_states": {
         "unexamined": 0,
         "searched": 0,
-        "confirmed-absent": 1
+        "confirmed-absent": 0
       },
       "category": "libraries"
     },
@@ -8847,9 +9264,18 @@
         {
           "algorithm": "slh-dsa",
           "capability": "primitive",
-          "status": "none",
+          "status": "planned",
           "since": null,
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-09-26",
+              "note": "The Quantum Protect page now lists 'SLH-DSA (FIPS 205) in progress' beside ML-KEM, ML-DSA, LMS/HSS and XMSS/XMSS-MT, via PKCS #11 vendor-defined mechanisms."
+            },
             {
               "claim": null,
               "source": "https://utimaco.com/data-protection/simulators-and-trials/quantum-protect-simulator",
@@ -8860,7 +9286,7 @@
               "note": ""
             }
           ],
-          "note": "TWO ENUMERATIONS OF THE SAME PACKAGE, neither containing it. The Quantum Protect product page says it \"offers the lattice-based algorithms ML-KEM and ML-DSA and the stateful hash-based signature schemes LMS and XMSS (including their multitree variants HSS and XMSS-MT)\", and the simulator page lists exactly the same six for evaluation: \"ML-KEM, ML-DSA, LMS, HSS, XMSS, and XMSS-MT\". Both are lists of what the package contains, written to be complete, and SLH-DSA is in neither. The validated module's security policy is silent on every post-quantum algorithm, which is a different fact -- that module predates the Quantum Protect package rather than excluding SLH-DSA specifically. Note the shape of Utimaco's choice: it is the STATEFUL hash-based schemes it covers most thoroughly, LMS, HSS, XMSS and XMSS-MT, while omitting the stateless one."
+          "note": "PATROL 2026-09-26: none -> planned. The vendor's product page now says 'SLH-DSA (FIPS 205) in progress'. The earlier reading stands as history: TWO ENUMERATIONS OF THE SAME PACKAGE, neither containing it. The Quantum Protect product page says it \"offers the lattice-based algorithms ML-KEM and ML-DSA and the stateful hash-based signature schemes LMS and XMSS (including their multitree variants HSS and XMSS-MT)\", and the simulator page lists exactly the same six for evaluation: \"ML-KEM, ML-DSA, LMS, HSS, XMSS, and XMSS-MT\". Both are lists of what the package contains, written to be complete, and SLH-DSA is in neither. The validated module's security policy is silent on every post-quantum algorithm, which is a different fact -- that module predates the Quantum Protect package rather than excluding SLH-DSA specifically. Note the shape of Utimaco's choice: it is the STATEFUL hash-based schemes it covers most thoroughly, LMS, HSS, XMSS and XMSS-MT, while omitting the stateless one."
         }
       ],
       "extra": [],
@@ -9317,25 +9743,26 @@
         {
           "algorithm": "ml-kem",
           "capability": "fips",
-          "why": "Not in any validated module today, and not callable absent either. The 2026-09-13 CMVP scan read every Microsoft module of this family: Cryptographic Primitives Library (certificate 5410, 88 approved algorithms), its kernel-mode twin (5408, 84) and SymCrypt (5313, 55), and not one names a post-quantum algorithm. But a Kernel Mode Cryptographic Primitives Library submission has been at FINALIZATION -- the last phase before a certificate -- since 2026-08-17, and the Modules In Process list never publishes what is in a submission. So `none` would be wrong by the time it was published. This is the gap the register's own rule produces: a pending submission blocks every absence. Second pass: the certificate, when it issues, or a Microsoft statement about the submission's contents.",
-          "passes": 1,
-          "checked": "2026-09-13",
+          "why": "Second pass 2026-09-26 (patrol). The Kernel Mode Cryptographic Primitives Library submission that sat at Finalization since 2026-08-17 has left the Modules In Process list, and the vendor search for Microsoft, refreshed today, shows no certificate issued after 2026-08-31: the newest are 5410 (user-mode Cryptographic Primitives Library), 5408 (kernel-mode) and 5313 (SymCrypt), and none of their approved-algorithm tables names ML-KEM, ML-DSA, SLH-DSA, LMS, HSS or XMSS. No Microsoft module is in the queue at all now, so nothing pending blocks the absence. Reading: the Finalization entry was 5408's own submission, issued 2026-08-31 with the queue lagging the certificate. CNG ships the algorithms (primitive cells) but no validated Windows module carries them.",
+          "passes": 2,
+          "checked": "2026-09-26",
           "sources": [
-            "CMVP validated module search, vendor Microsoft",
-            "certificate pages 5410, 5408 and 5313 (approved-algorithm lists)",
-            "CMVP Modules In Process list"
+            "CMVP validated module search, vendor Microsoft, refreshed 2026-09-26 (certificates 5485, 5410, 5409, 5408, 5407, 5406, 5405, 5404, 5313, 4880)",
+            "certificate pages 5410 and 5408 (approved-algorithm lists)",
+            "CMVP Modules In Process list, 2026-09-26: no Microsoft entry"
           ],
           "outcome": null
         },
         {
           "algorithm": "ml-dsa",
           "capability": "fips",
-          "why": "As ML-KEM: absent from every issued Microsoft certificate read, and blocked from being called absent by the same submission at Finalization. The two move together in Microsoft's announcements, so they will likely be answered by the same certificate.",
-          "passes": 1,
-          "checked": "2026-09-13",
+          "why": "Second pass 2026-09-26 (patrol). The Kernel Mode Cryptographic Primitives Library submission that sat at Finalization since 2026-08-17 has left the Modules In Process list, and the vendor search for Microsoft, refreshed today, shows no certificate issued after 2026-08-31: the newest are 5410 (user-mode Cryptographic Primitives Library), 5408 (kernel-mode) and 5313 (SymCrypt), and none of their approved-algorithm tables names ML-KEM, ML-DSA, SLH-DSA, LMS, HSS or XMSS. No Microsoft module is in the queue at all now, so nothing pending blocks the absence. Reading: the Finalization entry was 5408's own submission, issued 2026-08-31 with the queue lagging the certificate. CNG ships the algorithms (primitive cells) but no validated Windows module carries them.",
+          "passes": 2,
+          "checked": "2026-09-26",
           "sources": [
-            "certificate pages 5410, 5408 and 5313 (approved-algorithm lists)",
-            "CMVP Modules In Process list"
+            "CMVP validated module search, vendor Microsoft, refreshed 2026-09-26 (certificates 5485, 5410, 5409, 5408, 5407, 5406, 5405, 5404, 5313, 4880)",
+            "certificate pages 5410 and 5408 (approved-algorithm lists)",
+            "CMVP Modules In Process list, 2026-09-26: no Microsoft entry"
           ],
           "outcome": null
         }
@@ -9352,16 +9779,16 @@
       },
       "knowledge": {
         "cited": 6,
-        "confirmed_absent": 0,
+        "confirmed_absent": 2,
         "inherited": 0,
-        "open": 2,
+        "open": 0,
         "asked": 37
       },
       "derived": [],
       "gap_states": {
         "unexamined": 0,
-        "searched": 2,
-        "confirmed-absent": 0
+        "searched": 0,
+        "confirmed-absent": 2
       },
       "category": "platforms"
     },
@@ -9860,7 +10287,7 @@
         "confirmed_absent": 0,
         "inherited": 0,
         "open": 0,
-        "asked": 49
+        "asked": 50
       },
       "derived": [],
       "gap_states": {

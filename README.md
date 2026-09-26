@@ -21,11 +21,11 @@ Every report is published as a web page at **[https://ridleydisiena.github.io/sp
 
 | Topic | Description | Last updated |
 |---|---|---|
+| [CA/Browser Forum Tracker](cabforum/) | A five-part survey of the body that decides what a publicly trusted certificate may contain and how long it may live: the ballots of each working group, the browser root programs that enforce them, and the revocation and transparency mechanisms underneath. Tracks the five states a rule passes through, because a ballot that passes its vote is not yet a requirement. | 2026-09-01 |
 | [Post-Quantum Cryptography Migration](post-quantum-cryptography/) | A nineteen-part survey of the replacement of the public-key cryptography that secures nearly all digital communication, from silicon to government policy. | 2026-08-31 |
 | [Quantum Computing](quantum-computing/) | A ten-part survey of the machines themselves: the five competing hardware approaches, the error correction every one of them depends on, and the money, theory and contested claims around them. | 2026-08-30 |
 | [Post-Quantum Mathematics](post-quantum-mathematics/) | A five-part survey of the layer underneath the migration: who is standardizing which algorithms, the national tracks that diverge from NIST, the alternatives held in reserve, and what is being broken. | 2026-08-31 |
 | [Digital Asset Cryptography](digital-assets/) | A five-part survey of the quantum exposure of blockchain systems: what it would take to break the cryptography, how much bitcoin is exposed and by whose definition, the protocol responses on Bitcoin and Ethereum, and what the custodians holding other people's coins have actually done. | 2026-08-31 |
-| [CA/Browser Forum Tracker](cabforum/) | A five-part survey of the body that decides what a publicly trusted certificate may contain and how long it may live: the ballots of each working group, the browser root programs that enforce them, and the revocation and transparency mechanisms underneath. Tracks the five states a rule passes through, because a ballot that passes its vote is not yet a requirement. | 2026-09-01 |
 
 ## Other Research Topics
 

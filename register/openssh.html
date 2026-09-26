@@ -7,7 +7,7 @@
   <meta name="description" content="OpenSSH: post-quantum readiness, cell by cell, with sources.">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
-<body>
+<body class="wide">
 <header class="masthead">
   <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>OpenSSH</nav>
@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; ssh-stack</p>
     <h1>OpenSSH</h1>
     <p class="standfirst">Maintained by The OpenBSD project. Numbered releases roughly twice a year, shipped with OpenBSD and packaged everywhere else. Post-quantum key agreement arrived in 9.9 and became the default in 10.0. Home: https://www.openssh.com/</p>
-    <p class="updated">3 of 7 answered &middot; 2 cited cells &middot; 1 confirmed absent</p>
+    <p class="updated">4 of 8 answered &middot; 3 cited cells &middot; 1 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -35,11 +35,7 @@ Unknowns</a></li>
 
   <article class="prose">
 <h2 id="standing">Standing</h2>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Standing, scrollable table"><table>
 <thead>
 <tr>
 <th>Algorithm</th>
@@ -48,56 +44,57 @@ Unknowns</a></li>
 </thead>
 <tbody>
 <tr>
-<td><strong>ML-KEM</strong></td>
-<td><span class="st st-default">default</span> since 10.0 (available
+<td data-label="Algorithm"><strong>ML-KEM</strong></td>
+<td data-label="SSH"><span class="st st-default">default</span> since 10.0 (available
 since 9.9) [1] [2]</td>
 </tr>
 <tr>
-<td><strong>X-Wing</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>X-Wing</strong></td>
+<td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>X25519MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>SecP256r1MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>SecP384r1MLKEM1024</strong></td>
-<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>curveSM2MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>curveSM2MLKEM768</strong></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>ML-DSA</strong></td>
-<td><span class="st st-absent">none found 2026-09-13</span></td>
+<td data-label="Algorithm"><strong>ML-DSA</strong></td>
+<td data-label="SSH"><span class="st st-absent">none found 2026-09-13</span></td>
 </tr>
 <tr>
-<td><strong>SLH-DSA</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>SLH-DSA</strong></td>
+<td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>FN-DSA (Falcon)</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
+<td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>Composite ML-DSA</strong></td>
-<td><abbr class="st-na" title="Not a real question -- SSH defines no key type or key-exchange method using a composite signature; the composite work is X.509 and CMS.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>Composite ML-DSA</strong></td>
+<td data-label="SSH"><span class="st st-experimental">experimental</span> since 10.4
+[3]</td>
 </tr>
 <tr>
-<td><strong>LMS / HSS</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>LMS / HSS</strong></td>
+<td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>XMSS / XMSS^MT</strong></td>
-<td><span class="st st-none">none</span> [3]</td>
+<td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
+<td data-label="SSH"><span class="st st-none">none</span> [4]</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
 <li><strong>ML-KEM, SSH</strong>: Recorded on the ML-KEM row rather than
@@ -110,6 +107,14 @@ sntrup761x25519-sha512, a hybrid over NTRU Prime, which has no row here
 adding one. Worth stating plainly because it is rare: this is
 post-quantum key agreement that happens whether or not the operator has
 heard of it.</li>
+<li><strong>Composite ML-DSA, SSH</strong>: Patrol 2026-09-26. OpenSSH
+10.4: ‘add experimental support for a composite post-quantum signature
+scheme that combines ML-DSA 44 and Ed25519 as specified in
+draft-miller-sshm-mldsa44-ed25519-composite-sigs. This scheme is not
+enabled by default’ – it must be added to HostKeyAlgorithms /
+PubkeyAcceptedAlgorithms, keys via ssh-keygen -t mldsa44-ed25519.
+Recording it required flipping the grid’s ssh/composite pair to
+yes.</li>
 <li><strong>XMSS / XMSS^MT, SSH</strong>: A CELL THIS REGISTER ALMOST
 COULD NOT HOLD. Until 2026-09-13 the meaningful grid called stateful
 hash-based signatures over SSH not-a-question, on the reasoning that SSH
@@ -159,6 +164,9 @@ recorded; checked 2026-09-13)</li>
 <li><a href="https://www.openssh.com/txt/release-9.9"
 class="uri">https://www.openssh.com/txt/release-9.9</a> (date not
 recorded; checked 2026-09-13)</li>
+<li><a href="https://www.openssh.org/txt/release-10.4"
+class="uri">https://www.openssh.org/txt/release-10.4</a> (as of
+2026-07-06; checked 2026-09-26)</li>
 <li><a href="https://www.openssh.com/txt/release-10.1"
 class="uri">https://www.openssh.com/txt/release-10.1</a> (date not
 recorded; checked 2026-09-13)</li>

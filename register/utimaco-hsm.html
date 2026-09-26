@@ -7,7 +7,7 @@
   <meta name="description" content="Utimaco u.trust General Purpose HSM: post-quantum readiness, cell by cell, with sources.">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
-<body>
+<body class="wide">
 <header class="masthead">
   <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Utimaco u.trust General Purpose HSM</nav>
@@ -33,14 +33,7 @@
 
   <article class="prose">
 <h2 id="standing">Standing</h2>
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Standing, scrollable table"><table>
 <thead>
 <tr>
 <th>Algorithm</th>
@@ -52,97 +45,97 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>ML-KEM</strong></td>
-<td><span class="st st-available">available</span> since Quantum Protect
+<td data-label="Algorithm"><strong>ML-KEM</strong></td>
+<td data-label="Primitive"><span class="st st-available">available</span> since Quantum Protect
 application package [1]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-available">available</span> since Quantum Protect
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><span class="st st-available">available</span> since Quantum Protect
 application package [2]</td>
-<td><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>X-Wing</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>X-Wing</strong></td>
+<td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
+<td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
+<td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>X25519MLKEM768</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
-<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
+<td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>SecP256r1MLKEM768</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
-<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
+<td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>SecP384r1MLKEM1024</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
-<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
+<td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>curveSM2MLKEM768</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
-<td><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
-<td><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>curveSM2MLKEM768</strong></td>
+<td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
+<td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>ML-DSA</strong></td>
-<td><span class="st st-available">available</span> since Quantum Protect
+<td data-label="Algorithm"><strong>ML-DSA</strong></td>
+<td data-label="Primitive"><span class="st st-available">available</span> since Quantum Protect
 application package [3]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-available">available</span> since Quantum Protect
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><span class="st st-available">available</span> since Quantum Protect
 application package [3]</td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>SLH-DSA</strong></td>
-<td><span class="st st-none">none</span> [4]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>SLH-DSA</strong></td>
+<td data-label="Primitive"><span class="st st-planned">planned</span> [4] [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
+<td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>FN-DSA (Falcon)</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
+<td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
+<td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- FIPS 206 is still a draft, so there is no standard to validate against and CMVP will not certify a pre-standard scheme. A real question again on the day FIPS 206 is final.">n/a</abbr></td>
+<td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
+<td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>Composite ML-DSA</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
-<td><abbr class="st-na" title="Not a real question -- PKCS#11 defines no composite-signature mechanism. A caller assembles a composite from its component signatures, each of which is its own mechanism call, so the signature rows carry it.">n/a</abbr></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>Composite ML-DSA</strong></td>
+<td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
+<td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- PKCS#11 defines no composite-signature mechanism. A caller assembles a composite from its component signatures, each of which is its own mechanism call, so the signature rows carry it.">n/a</abbr></td>
+<td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>LMS / HSS</strong></td>
-<td><span class="st st-available">available</span> since Quantum Protect
-application package [5]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-none">none</span> [6]</td>
+<td data-label="Algorithm"><strong>LMS / HSS</strong></td>
+<td data-label="Primitive"><span class="st st-available">available</span> since Quantum Protect
+application package [6]</td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
+<td data-label="Firmware signing"><span class="st st-none">none</span> [7]</td>
 </tr>
 <tr>
-<td><strong>XMSS / XMSS^MT</strong></td>
-<td><span class="st st-available">available</span> since Quantum Protect
-application package [7]</td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
+<td data-label="Primitive"><span class="st st-available">available</span> since Quantum Protect
+application package [8]</td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
+<td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
 <li><strong>ML-KEM, Primitive</strong>: An application package, not base
@@ -160,19 +153,21 @@ ask of <code>primitive</code>. Compare Thales (standard Cryptoki
 mechanisms) and Entrust (ML-KEM not in PKCS#11 at all).</li>
 <li><strong>ML-DSA, PKCS#11</strong>: Vendor-defined mechanisms, as the
 ML-KEM cell.</li>
-<li><strong>SLH-DSA, Primitive</strong>: TWO ENUMERATIONS OF THE SAME
-PACKAGE, neither containing it. The Quantum Protect product page says it
-“offers the lattice-based algorithms ML-KEM and ML-DSA and the stateful
-hash-based signature schemes LMS and XMSS (including their multitree
-variants HSS and XMSS-MT)”, and the simulator page lists exactly the
-same six for evaluation: “ML-KEM, ML-DSA, LMS, HSS, XMSS, and XMSS-MT”.
-Both are lists of what the package contains, written to be complete, and
-SLH-DSA is in neither. The validated module’s security policy is silent
-on every post-quantum algorithm, which is a different fact – that module
-predates the Quantum Protect package rather than excluding SLH-DSA
-specifically. Note the shape of Utimaco’s choice: it is the STATEFUL
-hash-based schemes it covers most thoroughly, LMS, HSS, XMSS and
-XMSS-MT, while omitting the stateless one.</li>
+<li><strong>SLH-DSA, Primitive</strong>: PATROL 2026-09-26: none -&gt;
+planned. The vendor’s product page now says ‘SLH-DSA (FIPS 205) in
+progress’. The earlier reading stands as history: TWO ENUMERATIONS OF
+THE SAME PACKAGE, neither containing it. The Quantum Protect product
+page says it “offers the lattice-based algorithms ML-KEM and ML-DSA and
+the stateful hash-based signature schemes LMS and XMSS (including their
+multitree variants HSS and XMSS-MT)”, and the simulator page lists
+exactly the same six for evaluation: “ML-KEM, ML-DSA, LMS, HSS, XMSS,
+and XMSS-MT”. Both are lists of what the package contains, written to be
+complete, and SLH-DSA is in neither. The validated module’s security
+policy is silent on every post-quantum algorithm, which is a different
+fact – that module predates the Quantum Protect package rather than
+excluding SLH-DSA specifically. Note the shape of Utimaco’s choice: it
+is the STATEFUL hash-based schemes it covers most thoroughly, LMS, HSS,
+XMSS and XMSS-MT, while omitting the stateless one.</li>
 <li><strong>LMS / HSS, Firmware signing</strong>: The security policy
 for certificate 5223 describes the only route by which firmware can be
 loaded: the image “is accompanied by a valid ECDSA signature (i.e.,
@@ -208,6 +203,10 @@ class="uri">https://utimaco.com/data-protection/gp-hsm/application-package/quant
 href="https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect"
 class="uri">https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect"
+class="uri">https://utimaco.com/data-protection/gp-hsm/application-package/quantum-protect</a>
+(date not recorded; checked 2026-09-26)</li>
 <li><a
 href="https://utimaco.com/data-protection/simulators-and-trials/quantum-protect-simulator"
 class="uri">https://utimaco.com/data-protection/simulators-and-trials/quantum-protect-simulator</a>

@@ -7,7 +7,7 @@
   <meta name="description" content="Libreswan: post-quantum readiness, cell by cell, with sources.">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
-<body>
+<body class="wide">
 <header class="masthead">
   <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Libreswan</nav>
@@ -38,11 +38,7 @@ Unknowns</a></li>
 
   <article class="prose">
 <h2 id="standing">Standing</h2>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Standing, scrollable table"><table>
 <thead>
 <tr>
 <th>Algorithm</th>
@@ -51,55 +47,55 @@ Unknowns</a></li>
 </thead>
 <tbody>
 <tr>
-<td><strong>ML-KEM</strong></td>
-<td><span class="st st-available">available</span> since 5.4 [1]</td>
+<td data-label="Algorithm"><strong>ML-KEM</strong></td>
+<td data-label="IPsec / IKEv2"><span class="st st-available">available</span> since 5.4 [1]</td>
 </tr>
 <tr>
-<td><strong>X-Wing</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>X-Wing</strong></td>
+<td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>X25519MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>SecP256r1MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>SecP384r1MLKEM1024</strong></td>
-<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>curveSM2MLKEM768</strong></td>
-<td><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>curveSM2MLKEM768</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>ML-DSA</strong></td>
-<td><span class="st st-absent">none found 2026-09-13</span></td>
+<td data-label="Algorithm"><strong>ML-DSA</strong></td>
+<td data-label="IPsec / IKEv2"><span class="st st-absent">none found 2026-09-13</span></td>
 </tr>
 <tr>
-<td><strong>SLH-DSA</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>SLH-DSA</strong></td>
+<td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>FN-DSA (Falcon)</strong></td>
-<td><span class="st st-unknown">unknown</span></td>
+<td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
+<td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
-<td><strong>Composite ML-DSA</strong></td>
-<td><abbr class="st-na" title="Not a real question -- No IKEv2 implementation or draft defines a composite signature for RFC 7427 authentication. The ASN.1 encoding could in principle carry one, so flip this the day a draft says so.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>Composite ML-DSA</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- No IKEv2 implementation or draft defines a composite signature for RFC 7427 authentication. The ASN.1 encoding could in principle carry one, so flip this the day a draft says so.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>LMS / HSS</strong></td>
-<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>LMS / HSS</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
 </tr>
 <tr>
-<td><strong>XMSS / XMSS^MT</strong></td>
-<td><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
+<td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-cryptography-comes-from">Where the Cryptography Comes
 From</h2>
 <p>This component does not implement everything it is asked about. What

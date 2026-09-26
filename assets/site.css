@@ -16,6 +16,9 @@
   --link:         #6b21a8; /* purple-800, 8.7:1 on paper            */
   --link-visited: #581c87; /* purple-900, duller and darker         */
   --measure:    38rem;     /* ~78 characters, print's comfort zone  */
+  --measure-wide: 66rem;   /* register pages: room for a ten-column table.
+                              The PROSE on those pages stays at --measure;
+                              only the page and its tables widen.        */
 
   /* Register status chips. The label text always states the status, so
      colour is REDUNDANT encoding -- the safest kind, and the reason this
@@ -690,4 +693,131 @@ a:focus-visible {
 
 @media print {
   .st { border: 1px solid #999; background: none !important; color: #000 !important; }
+}
+
+/* ---- wide pages and the tables that need them -------------------------- */
+
+/* THE PROBLEM THIS SOLVES, because the numbers are the argument: the
+   register's index is 43 components against ten columns, and it was
+   rendering inside `main`'s 38rem prose measure -- about 56px a column
+   once padding is off. `experimental` wrapped to three lines; so did
+   most component names. The page was never too LONG (the index is ~10k
+   characters of text, two screens); it was too NARROW, and no amount of
+   splitting it into more pages would have changed that, because a
+   ten-column table on a page of its own is still ten columns in 560px.
+
+   So: on register pages the PAGE widens and the PROSE does not. 38rem is
+   the right line length to read and stays the right line length to read.
+   Tables, and only tables, take the whole width. */
+
+body.wide main,
+body.wide .colophon { max-width: var(--measure-wide); }
+
+body.wide .titleblock,
+body.wide .contents,
+body.wide .colophon p,
+body.wide .prose > * { max-width: var(--measure); }
+
+body.wide .prose > .tablewrap { max-width: 100%; }
+
+/* The scroll container. Focusable and named (see render.widen_tables), so
+   a reader who cannot use a pointer can still scroll it. */
+.tablewrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  /* A hint that there is more to the right on a narrow window: the right
+     edge fades rather than being cut off mid-glyph with no warning. */
+  overscroll-behavior-x: contain;
+}
+.tablewrap table { margin: 0; }
+.tablewrap:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+
+/* A chip is one word and must not be hyphenated into a column that then
+   claims to be narrower than it is. */
+.tablewrap .st { white-space: nowrap; }
+
+/* When the table does scroll, the component's name stays put -- without
+   it a reader four columns right has no idea whose row they are on. The
+   opaque background is required, not decoration: the sticky cell sits
+   over the cells sliding beneath it. */
+.tablewrap th:first-child,
+.tablewrap td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--paper);
+}
+
+/* ---- the same table on a phone ----------------------------------------- */
+
+/* Below this width there is no honest way to show ten columns, and a
+   horizontal scrollbar is a poor answer for the primary view of the
+   register. Each row becomes a small card: the first cell is its
+   heading, and every other value is printed beside the column name it
+   belongs to. The header row is hidden from sight but left in the
+   document, so a screen reader still gets a table.
+
+   This is why `widen_tables` writes `data-label` on every cell. Nothing
+   above 34rem reads it. */
+@media (max-width: 34rem) {
+  .tablewrap { overflow-x: visible; }
+
+  .tablewrap table,
+  .tablewrap tbody,
+  .tablewrap tr,
+  .tablewrap td { display: block; }
+
+  .tablewrap thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .tablewrap tr {
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 0.2rem 0.85rem 0.7rem;
+    margin: 0 0 0.85rem;
+  }
+
+  .tablewrap td {
+    border: 0;
+    padding: 0.28rem 0;
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+  }
+
+  .tablewrap td::before {
+    content: attr(data-label);
+    flex: 0 0 8.5rem;
+    color: var(--ink-mute);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  /* The first cell names the thing the card is about, so it is the card's
+     heading rather than another labelled row -- and it stops being sticky,
+     because nothing scrolls sideways any more. */
+  .tablewrap td:first-child {
+    position: static;
+    display: block;
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    padding: 0.55rem 0 0.5rem;
+    margin-bottom: 0.35rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .tablewrap td:first-child::before { content: none; }
+}
+
+/* In print there is no scrolling and no viewport: let the table be a
+   table, at whatever width the paper allows. */
+@media print {
+  .tablewrap { overflow-x: visible; }
+  .tablewrap th:first-child,
+  .tablewrap td:first-child { position: static; }
 }
