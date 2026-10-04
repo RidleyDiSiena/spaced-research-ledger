@@ -644,6 +644,20 @@
     "transcript": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part1.vtt"
   },
   {
+    "guid": "https://research.perikron.com/quantum/podcast/diff-2026-10-04/quantum-computing-state-2026-10-04.mp3",
+    "tag": "podcast-quantum-computing-diff-2026-10-04",
+    "file": "quantum-computing-state-2026-10-04.mp3",
+    "title": "Quantum Computing: State of Affairs Since the August Edition",
+    "description": "## About This Report",
+    "url": "https://research.perikron.com/quantum/podcast/diff-2026-10-04/quantum-computing-state-2026-10-04.mp3",
+    "size": 10765851,
+    "duration_s": 1346,
+    "pub_date": "2026-10-04T09:00:00Z",
+    "kind": "diff",
+    "date": "2026-10-04",
+    "transcript": "https://research.perikron.com/quantum/podcast/diff-2026-10-04/quantum-computing-state-2026-10-04.vtt"
+  },
+  {
     "guid": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3",
     "tag": "podcast-post-quantum-cryptography-diff-2026-10-04",
     "file": "pqc-state-2026-10-04-part2.mp3",
