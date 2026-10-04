@@ -50,14 +50,14 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="Primitive"><span class="st st-experimental">experimental</span> [1]</td>
+<td data-label="Primitive"><span class="st st-experimental">experimental</span> [1] [2]</td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
 <td data-label="Primitive"><span class="st st-experimental">experimental</span> since preview
-2025-09-23 [2] [3]</td>
+2025-09-23 [3] [4]</td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -88,15 +88,15 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since GA 2026-07-16
-(preview from 2025-02-21) [4] [5] [6]</td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [7]</td>
+(preview from 2025-02-21) [5] [6] [7]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [8]</td>
 <td data-label="PKCS#11"><span class="st st-absent">no public answer, checked
 2026-09-13</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since GA 2026-07-16
-(preview from 2025-02-21) [8] [9]</td>
+(preview from 2025-02-21) [9] [10]</td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -144,7 +144,7 @@ nothing about its standing beyond what Google states. What can be said
 is on the ml-dsa/fips cell: that certificate is FIPS 140-2 and NIST
 lists it as Historical, so it cannot carry a post-quantum algorithm at
 all. If Marvell ever becomes a component, the promotion invariant will
-catch this edge and require it. [10] [11]</li>
+catch this edge and require it. [11] [12]</li>
 </ul>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>Google Cloud KMS holds no FIPS 140-3 certificate of its own. It takes
@@ -224,6 +224,9 @@ digital signatures reference.</li>
 href="https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-key-encapsulation-mechanisms-in-cloud-kms"
 class="uri">https://cloud.google.com/blog/products/identity-security/announcing-quantum-safe-key-encapsulation-mechanisms-in-cloud-kms</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a href="https://docs.cloud.google.com/kms/docs/algorithms"
+class="uri">https://docs.cloud.google.com/kms/docs/algorithms</a> (as of
+2026-09-30; checked 2026-10-04)</li>
 <li><a href="https://docs.cloud.google.com/kms/docs/release-notes"
 class="uri">https://docs.cloud.google.com/kms/docs/release-notes</a> (as
 of 2025-09-23; checked 2026-09-26)</li>

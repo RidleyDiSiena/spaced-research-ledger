@@ -57,7 +57,7 @@
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-planned">planned</span> since PQC-enabled
-wolfCrypt FIPS 140-3 module announced 2026-08-04 [5] [6]</td>
+wolfCrypt FIPS 140-3 module announced 2026-08-04 [5] [6] [7]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -71,7 +71,7 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [5] [6]</td>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 5.8.0 [7]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 5.8.0 [8]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -107,7 +107,7 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [5] [6]</td>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 under the
-ML-DSA name [8] [2]</td>
+ML-DSA name [9] [2]</td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since not recorded
 [3]</td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
@@ -118,11 +118,11 @@ ML-DSA name [8] [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [8]</td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since September 2026
-(version not stated) [9]</td>
-<td data-label="X.509"><span class="st st-available">available</span> since September 2026
-(version not stated) [9]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [9]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 5.9.4 [10]
+[11]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 5.9.4 [10]
+[12]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -147,20 +147,20 @@ ML-DSA name [8] [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [10]
+<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [13]
 [2]</td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
-<td data-label="X.509"><span class="st st-available">available</span> since 5.9.2 [8]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 5.9.2 [9]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [10]
+<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [13]
 [2]</td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
-<td data-label="X.509"><span class="st st-available">available</span> since 5.9.2 [8]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 5.9.2 [9]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -176,7 +176,10 @@ liboqs dependency was removed by August 2026.</li>
 built with wolfSSL.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: CAVP algorithm certificate
 A8437 covers ML-KEM, ML-DSA, SLH-DSA and LMS; the module validation
-itself is announced, not shown as issued.</li>
+itself is announced, not shown as issued. The planned module is named
+wolfCrypt FIPS 140-3 v7.0.0 (vendor post 2026-09-21); the CMVP queue on
+2026-09-27 still shows only the wolfCrypt entry at Pending Resubmission
+since 2026-04-16.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: wolfSSL names its hybrid
 groups in its own convention – WOLFSSL_X25519_ML_KEM_768 is the group
 the IETF calls X25519MLKEM768 – and ships an unusually wide set beside
@@ -188,15 +191,19 @@ convention, for historical reasons.</li>
 <li><strong>SLH-DSA, Primitive</strong>: Sign/verify APIs take
 pre-hashed digests from 5.9.2.</li>
 <li><strong>SLH-DSA, TLS 1.3</strong>: CertificateVerify and peer
-certificate verification in TLS 1.3 and DTLS 1.3.</li>
+certificate verification in TLS 1.3 and DTLS 1.3. The September blog
+claim named no version; the 5.9.4 ChangeLog (2026-09-25) is the release
+that carries it (patrol 2026-09-27).</li>
 <li><strong>SLH-DSA, X.509</strong>: Peer certificate verification with
-SLH-DSA, from the same end-to-end support claim as the TLS cell.</li>
+SLH-DSA, from the same end-to-end support claim as the TLS cell; version
+pinned to 5.9.4 by the ChangeLog (patrol 2026-09-27).</li>
 <li><strong>LMS / HSS, X.509</strong>: RFC 9802 LMS/XMSS in X.509
 certificate and CSR generation.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>5.9.2, 2026-06-30 [8]</li>
+<li>5.9.4, 2026-09-25 [14] [15]</li>
+<li>5.9.2, 2026-06-30 [9]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -229,6 +236,10 @@ class="uri">https://www.wolfssl.com/category/post-quantum/</a> (as of
 2026-08-13; ledger claim
 pqc/embedded-alternative-libraries/d0003:2)</li>
 <li><a
+href="https://www.wolfssl.com/wolfssl-advances-embedded-security-with-wolfip-new-post-quantum-capabilities-and-aurix-tc4xx-support/"
+class="uri">https://www.wolfssl.com/wolfssl-advances-embedded-security-with-wolfip-new-post-quantum-capabilities-and-aurix-tc4xx-support/</a>
+(as of 2026-09-21; checked 2026-09-27)</li>
+<li><a
 href="https://www.wolfssl.com/hybrid-post-quantum-key-exchange-in-wolfssl-5-8-0/"
 class="uri">https://www.wolfssl.com/hybrid-post-quantum-key-exchange-in-wolfssl-5-8-0/</a>
 (date not recorded; checked 2026-09-12)</li>
@@ -240,10 +251,25 @@ pqc/embedded-alternative-libraries/d0004:1)</li>
 class="uri">https://www.wolfssl.com/category/post-quantum/</a> (as of
 2026-09-04; ledger claim
 pqc/embedded-alternative-libraries/d0005:1)</li>
+<li><a
+href="https://raw.githubusercontent.com/wolfSSL/wolfssl/v5.9.4-stable/ChangeLog.md"
+class="uri">https://raw.githubusercontent.com/wolfSSL/wolfssl/v5.9.4-stable/ChangeLog.md</a>
+(as of 2026-09-25; checked 2026-09-27)</li>
+<li><a
+href="https://raw.githubusercontent.com/wolfSSL/wolfssl/v5.9.4-stable/ChangeLog.md"
+class="uri">https://raw.githubusercontent.com/wolfSSL/wolfssl/v5.9.4-stable/ChangeLog.md</a>
+(as of 2026-09-25; checked 2026-09-27)</li>
 <li><a href="https://www.wolfssl.com/wolfssl-5-9-2-release-blog/"
 class="uri">https://www.wolfssl.com/wolfssl-5-9-2-release-blog/</a> (as
 of 2026-06-30; ledger claim
 pqc/embedded-alternative-libraries/d0002:2)</li>
+<li><a
+href="https://github.com/wolfSSL/wolfssl/releases/tag/v5.9.4-stable"
+class="uri">https://github.com/wolfSSL/wolfssl/releases/tag/v5.9.4-stable</a>
+(as of 2026-09-25; checked 2026-09-27)</li>
+<li><a href="https://www.wolfssl.com/wolfssl-5-9-4-release-blog/"
+class="uri">https://www.wolfssl.com/wolfssl-5-9-4-release-blog/</a> (as
+of 2026-09-28; checked 2026-10-04)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

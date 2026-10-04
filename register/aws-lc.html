@@ -117,7 +117,7 @@ Unknowns</a></li>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-absent">none found 2026-09-12</span></td>
+<td data-label="FIPS 140-3"><span class="st st-absent">none found 2026-10-04</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -201,17 +201,35 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / fips – <strong>none found 2026-09-12</strong>: Settled as
+<li>ml-dsa / fips – <strong>none found 2026-10-04</strong>: Settled as
 far as the lists can settle it, by the CMVP reverse scan the previous
 pass asked for: no AWS-LC module with an issued certificate names ML-DSA
 in its approved-algorithm list, and the two AWS-LC 4 modules in the
 queue since 2026-08-14 have no published algorithm list at all. So
 ML-DSA is not inside a validated boundary today, and whether it is
 inside the pending submission is unpublished – which is why this stays a
-gap rather than becoming a none cell. Examined: CMVP validated module
-search, vendor Amazon Web Services (6 AWS-LC modules), certificate pages
-5429, 5314, 5298, 5146, 4816, 4631 (approved-algorithm lists), CMVP
-Modules In Process list (AWS-LC 4, dynamic and static).</li>
+gap rather than becoming a none cell. Patrol 2026-10-04, a strong
+pointer but still not a published algorithm list: the source of BOTH
+pending lines carries an ML-DSA power-on self-test.
+crypto/fipsmodule/self_check/self_check.c on fips-2025-09-12-lts (4.2.0,
+the AWS-LC 4 modules in the queue) and on fips-2026-06-26-snapshot
+(5.1.0, the AWS-LC 5 modules that entered the queue on 2026-10-02) both
+define boringssl_self_test_ml_dsa beside boringssl_self_test_ml_kem, and
+the v5 FIPS.md lists MLDSA_PWCT among the module’s pairwise-consistency
+break tests. A module self-tests what is inside its boundary, so ML-DSA
+is very likely in both submissions; it is not in any ISSUED certificate,
+and no SLH-DSA self-test exists on either branch. Examined: CMVP
+validated module search, vendor Amazon Web Services (6 AWS-LC modules),
+certificate pages 5429, 5314, 5298, 5146, 4816, 4631 (approved-algorithm
+lists), CMVP Modules In Process list (AWS-LC 4, dynamic and static), <a
+href="https://raw.githubusercontent.com/aws/aws-lc/fips-2025-09-12-lts/crypto/fipsmodule/self_check/self_check.c"
+class="uri">https://raw.githubusercontent.com/aws/aws-lc/fips-2025-09-12-lts/crypto/fipsmodule/self_check/self_check.c</a>,
+<a
+href="https://raw.githubusercontent.com/aws/aws-lc/fips-2026-06-26-snapshot/crypto/fipsmodule/self_check/self_check.c"
+class="uri">https://raw.githubusercontent.com/aws/aws-lc/fips-2026-06-26-snapshot/crypto/fipsmodule/self_check/self_check.c</a>,
+<a
+href="https://raw.githubusercontent.com/aws/aws-lc/fips-2026-06-26-snapshot/crypto/fipsmodule/FIPS.md"
+class="uri">https://raw.githubusercontent.com/aws/aws-lc/fips-2026-06-26-snapshot/crypto/fipsmodule/FIPS.md</a>.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

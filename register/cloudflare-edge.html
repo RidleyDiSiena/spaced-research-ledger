@@ -52,7 +52,7 @@
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-default">default</span> since on for all existing
-zones and by default for new ones [1] [2]</td>
+zones and by default for new ones [1] [2] [3]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
@@ -69,7 +69,7 @@ zones and by default for new ones [1] [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Authenticated
-Origin Pulls and Custom Origin Trust Store [3]</td>
+Origin Pulls and Custom Origin Trust Store [4]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -95,10 +95,14 @@ Origin Pulls and Custom Origin Trust Store [3]</td>
 </table></div>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>X25519MLKEM768, TLS 1.3</strong>: TWO SEPARATE LEGS, and
-this cell is the origin-facing one – Cloudflare to the customer’s own
-server, which is the leg an operator controls least and notices last.
-The browser-facing leg is also post-quantum and is measured rather than
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: Patrol 2026-10-04: the
+visitor-leg figure below (‘over a third’) is superseded by Cloudflare’s
+2026-09-29 number, about 70% of browser-generated traffic; the origin
+leg is about 15% of connections, which is what ‘default’ looks like when
+the other end must also support it. TWO SEPARATE LEGS, and this cell is
+the origin-facing one – Cloudflare to the customer’s own server, which
+is the leg an operator controls least and notices last. The
+browser-facing leg is also post-quantum and is measured rather than
 asserted: Cloudflare reports over a third of human-generated traffic to
 its network using TLS 1.3 with X25519MLKEM768. <code>default</code> is
 exact here: nobody configured it, and the same rollout cut
@@ -132,6 +136,9 @@ class="uri">https://blog.cloudflare.com/automatic-key-exchange-for-origins/</a>
 href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-to-origin/"
 class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-to-origin/</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a href="https://blog.cloudflare.com/post-quantum-visibility/"
+class="uri">https://blog.cloudflare.com/post-quantum-visibility/</a> (as
+of 2026-09-29; checked 2026-10-04)</li>
 <li><a
 href="https://blog.cloudflare.com/post-quantum-authentication-to-origins/"
 class="uri">https://blog.cloudflare.com/post-quantum-authentication-to-origins/</a>

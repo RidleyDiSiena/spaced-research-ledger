@@ -55,8 +55,8 @@
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-experimental">experimental</span> since
-bc-fips-core 3.0.0 early access [4]</td>
+<td data-label="FIPS 140-3"><span class="st st-experimental">experimental</span> since BC-FJA
+2.2.0 early access [4] [5]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -108,8 +108,8 @@ bc-fips-core 3.0.0 early access [4]</td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 1.79 [1]
 [2]</td>
 <td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since 1.82
-[5]</td>
-<td data-label="X.509"><span class="st st-available">available</span> since 1.85 [6]</td>
+[6]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 1.85 [7]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -144,16 +144,16 @@ bc-fips-core 3.0.0 early access [4]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 1.86 [7]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 1.86 [8]</td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-available">available</span> since 2.1.1 [8]</td>
+<td data-label="FIPS 140-3"><span class="st st-available">available</span> since 2.1.1 [9]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 1.86 [7]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 1.86 [8]</td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
@@ -168,8 +168,15 @@ bc-fips-core 3.0.0 early access [4]</td>
 ML-KEM/classical suites in the JSSE provider, aligned with IETF drafts;
 group names not in the claim.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: FIPS-track library in early
-access; a separate bcpqc-fips artifact is described as
-non-certified.</li>
+access; a separate bcpqc-fips artifact is described as non-certified.
+Patrol 2026-10-04: <code>since</code> was “bc-fips-core 3.0.0 early
+access” (from the ledger claim); the vendor’s roadmap puts ML-KEM’s
+arrival in the 2.2.0 stream, which 3.0.0 is built on, so the first
+version is 2.2.0. The roadmap still does not say which version either
+BC-FJA queue entry is (Review since 2026-09-04; Pending Review since
+2026-09-28, after entering at Cost Recovery on 2026-09-25); 2.1.2 is the
+only one it calls ‘Under submission’, so neither entry is shown to carry
+ML-KEM and the status stays experimental.</li>
 <li><strong>ML-DSA, TLS 1.3</strong>: The JSSE provider added support
 for the draft-ietf-tls-mldsa specification in 1.82, described as
 enabling experimentation with ML-DSA in client-side authentication.
@@ -195,8 +202,8 @@ out of the experimental namespace in 1.86.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>1.86, 2026-09-11 [9]</li>
-<li>1.85, 2026-07-28 [10]</li>
+<li>1.86, 2026-09-11 [10]</li>
+<li>1.85, 2026-07-28 [11]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -220,6 +227,10 @@ href="https://www.bouncycastle.org/download/bouncy-castle-java-fips/roadmap/"
 class="uri">https://www.bouncycastle.org/download/bouncy-castle-java-fips/roadmap/</a>
 (date not recorded; ledger claim
 pqc/language-native-crypto-stacks/d0001:14)</li>
+<li><a
+href="https://www.bouncycastle.org/download/bouncy-castle-java-fips/roadmap/"
+class="uri">https://www.bouncycastle.org/download/bouncy-castle-java-fips/roadmap/</a>
+(date not recorded; checked 2026-10-04)</li>
 <li><a
 href="https://downloads.bouncycastle.org/java/docs/bctls-jdk18on-javadoc/org/bouncycastle/jsse/provider/package-summary.html"
 class="uri">https://downloads.bouncycastle.org/java/docs/bctls-jdk18on-javadoc/org/bouncycastle/jsse/provider/package-summary.html</a>

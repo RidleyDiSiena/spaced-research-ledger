@@ -52,7 +52,7 @@ Unknowns</a></li>
 2025 and Windows 11 24H2/25H2, November 2025 update [1]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-absent">none found 2026-09-26</span></td>
+<td data-label="FIPS 140-3"><span class="st st-absent">none found 2026-10-04</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -95,7 +95,7 @@ Unknowns</a></li>
 2025 and Windows 11 24H2/25H2, November 2025 update [2] [3]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-absent">none found 2026-09-26</span></td>
+<td data-label="FIPS 140-3"><span class="st st-absent">none found 2026-10-04</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -147,7 +147,11 @@ pre-release versions of the Windows Insider Preview”, while the dated GA
 announcement says generally available in shipped builds. The
 announcement is the later and more specific statement, so this cell
 follows it; if the reference pages are right, this is experimental
-instead.</li>
+instead. RESOLVED on the identifiers page (patrol 2026-09-27): the CNG
+Algorithm Identifiers page, updated 2026-05-30, now says for ML-KEM and
+ML-DSA “Support for this algorithm begins with Windows 11, version 24H2”
+with no prerelease banner; only the Composite-ML-DSA and
+Composite-ML-KEM identifiers still carry the Insider banner.</li>
 <li><strong>ML-DSA, Primitive</strong>: All three parameter sets are
 selectable: the example sets BCRYPT_MLDSA_PARAMETER_SET_44, and 65 and
 87 are named alongside it.</li>
@@ -219,38 +223,60 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-kem / fips – <strong>none found 2026-09-26</strong>: Second pass
+<li>ml-kem / fips – <strong>none found 2026-10-04</strong>: Second pass
 2026-09-26 (patrol). The Kernel Mode Cryptographic Primitives Library
 submission that sat at Finalization since 2026-08-17 has left the
 Modules In Process list, and the vendor search for Microsoft, refreshed
 today, shows no certificate issued after 2026-08-31: the newest are 5410
 (user-mode Cryptographic Primitives Library), 5408 (kernel-mode) and
 5313 (SymCrypt), and none of their approved-algorithm tables names
-ML-KEM, ML-DSA, SLH-DSA, LMS, HSS or XMSS. No Microsoft module is in the
-queue at all now, so nothing pending blocks the absence. Reading: the
-Finalization entry was 5408’s own submission, issued 2026-08-31 with the
-queue lagging the certificate. CNG ships the algorithms (primitive
-cells) but no validated Windows module carries them. Examined: CMVP
-validated module search, vendor Microsoft, refreshed 2026-09-26
-(certificates 5485, 5410, 5409, 5408, 5407, 5406, 5405, 5404, 5313,
-4880), certificate pages 5410 and 5408 (approved-algorithm lists), CMVP
-Modules In Process list, 2026-09-26: no Microsoft entry.</li>
-<li>ml-dsa / fips – <strong>none found 2026-09-26</strong>: Second pass
+ML-KEM, ML-DSA, SLH-DSA, LMS, HSS or XMSS. Reading: the Finalization
+entry was 5408’s own submission, issued 2026-08-31 with the queue
+lagging the certificate. CNG ships the algorithms (primitive cells) but
+no validated Windows module carries them. RECHECKED 2026-10-04 (patrol):
+the vendor search shows no certificate newer than those listed, but the
+queue is no longer empty of Microsoft – “Microsoft Corporation | SBP
+Cryptographic Module” is Pending Review since 2026-10-01. Microsoft does
+not document an “SBP Cryptographic Module”. The likeliest reading, NOT
+confirmed: SBP is the Secure Boot Processor of the Fungible DPU line
+Microsoft acquired (Fungible’s “Secure Boot Processor (SBP) Crypto
+Engine” held FIPS 140-2 certificate 4518, issued 2023-05-10, now
+historical), i.e. Azure data-centre silicon rather than a Windows CNG
+module. The queue names no algorithms, so the entry does not change this
+gap either way. Examined: CMVP validated module search, vendor
+Microsoft, refreshed 2026-09-26 and 2026-10-04 (certificates 5485, 5410,
+5409, 5408, 5407, 5406, 5405, 5404, 5313, 4880), certificate pages 5410
+and 5408 (approved-algorithm lists), CMVP Modules In Process list,
+2026-10-04: Microsoft Corporation, SBP Cryptographic Module, Pending
+Review since 2026-10-01, CMVP certificate 4518 (Fungible, Secure Boot
+Processor (SBP) Crypto Engine, FIPS 140-2, historical).</li>
+<li>ml-dsa / fips – <strong>none found 2026-10-04</strong>: Second pass
 2026-09-26 (patrol). The Kernel Mode Cryptographic Primitives Library
 submission that sat at Finalization since 2026-08-17 has left the
 Modules In Process list, and the vendor search for Microsoft, refreshed
 today, shows no certificate issued after 2026-08-31: the newest are 5410
 (user-mode Cryptographic Primitives Library), 5408 (kernel-mode) and
 5313 (SymCrypt), and none of their approved-algorithm tables names
-ML-KEM, ML-DSA, SLH-DSA, LMS, HSS or XMSS. No Microsoft module is in the
-queue at all now, so nothing pending blocks the absence. Reading: the
-Finalization entry was 5408’s own submission, issued 2026-08-31 with the
-queue lagging the certificate. CNG ships the algorithms (primitive
-cells) but no validated Windows module carries them. Examined: CMVP
-validated module search, vendor Microsoft, refreshed 2026-09-26
-(certificates 5485, 5410, 5409, 5408, 5407, 5406, 5405, 5404, 5313,
-4880), certificate pages 5410 and 5408 (approved-algorithm lists), CMVP
-Modules In Process list, 2026-09-26: no Microsoft entry.</li>
+ML-KEM, ML-DSA, SLH-DSA, LMS, HSS or XMSS. Reading: the Finalization
+entry was 5408’s own submission, issued 2026-08-31 with the queue
+lagging the certificate. CNG ships the algorithms (primitive cells) but
+no validated Windows module carries them. RECHECKED 2026-10-04 (patrol):
+the vendor search shows no certificate newer than those listed, but the
+queue is no longer empty of Microsoft – “Microsoft Corporation | SBP
+Cryptographic Module” is Pending Review since 2026-10-01. Microsoft does
+not document an “SBP Cryptographic Module”. The likeliest reading, NOT
+confirmed: SBP is the Secure Boot Processor of the Fungible DPU line
+Microsoft acquired (Fungible’s “Secure Boot Processor (SBP) Crypto
+Engine” held FIPS 140-2 certificate 4518, issued 2023-05-10, now
+historical), i.e. Azure data-centre silicon rather than a Windows CNG
+module. The queue names no algorithms, so the entry does not change this
+gap either way. Examined: CMVP validated module search, vendor
+Microsoft, refreshed 2026-09-26 and 2026-10-04 (certificates 5485, 5410,
+5409, 5408, 5407, 5406, 5405, 5404, 5313, 4880), certificate pages 5410
+and 5408 (approved-algorithm lists), CMVP Modules In Process list,
+2026-10-04: Microsoft Corporation, SBP Cryptographic Module, Pending
+Review since 2026-10-01, CMVP certificate 4518 (Fungible, Secure Boot
+Processor (SBP) Crypto Engine, FIPS 140-2, historical).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

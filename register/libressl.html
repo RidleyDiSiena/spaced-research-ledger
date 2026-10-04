@@ -70,7 +70,8 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 4.3.0 [3]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 4.3.0 [3]
+[4]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -167,7 +168,12 @@ support the hybrid group in libssl.</li>
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-12 and name none carrying it.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: Keyshare MLKEM768_X25519
-in TLS; default standing not in the claim.</li>
+in TLS; default standing not in the claim. Patrol 2026-10-04: status
+deliberately left <code>available</code>. The coming 4.4.0 makes
+X25519MLKEM768 the preferred group in LIBTLS, LibreSSL’s simplified
+wrapper; the ChangeLog does not say libssl’s own default changes, and
+the release has not shipped. Whether a libtls default moves this cell is
+for a ruling once 4.4.0 is out.</li>
 <li><strong>ML-DSA, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-12 and name none carrying it.</li>
@@ -229,6 +235,9 @@ class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-progr
 <li><a href="https://ianix.com/pqcrypto/pqcrypto-deployment.html"
 class="uri">https://ianix.com/pqcrypto/pqcrypto-deployment.html</a> (as
 of 2026-04-18; ledger claim pqc/openssl-and-forks/d0001:9)</li>
+<li><a href="https://github.com/libressl/portable/blob/master/ChangeLog"
+class="uri">https://github.com/libressl/portable/blob/master/ChangeLog</a>
+(date not recorded; checked 2026-10-04)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 
