@@ -672,6 +672,20 @@
     "transcript": "https://research.perikron.com/pqm/podcast/diff-2026-10-04/post-quantum-mathematics-state-2026-10-04.vtt"
   },
   {
+    "guid": "https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.mp3",
+    "tag": "podcast-cabforum-diff-2026-10-04",
+    "file": "cabforum-state-2026-10-04.mp3",
+    "title": "CAB-Forum Watch: State of Affairs Since the September Edition",
+    "description": "## About This Report",
+    "url": "https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.mp3",
+    "size": 9557605,
+    "duration_s": 1195,
+    "pub_date": "2026-10-04T09:00:00Z",
+    "kind": "diff",
+    "date": "2026-10-04",
+    "transcript": "https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.vtt"
+  },
+  {
     "guid": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3",
     "tag": "podcast-post-quantum-cryptography-diff-2026-10-04",
     "file": "pqc-state-2026-10-04-part2.mp3",

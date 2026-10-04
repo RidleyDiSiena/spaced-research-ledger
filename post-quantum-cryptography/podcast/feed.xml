@@ -54,6 +54,15 @@
       <podcast:transcript url="https://research.perikron.com/pqm/podcast/diff-2026-10-04/post-quantum-mathematics-state-2026-10-04.vtt" type="text/vtt" />
     </item>
     <item>
+      <title>CAB-Forum Watch: State of Affairs Since the September Edition</title>
+      <description>## About This Report</description>
+      <guid isPermaLink="false">https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.mp3</guid>
+      <pubDate>Sun, 04 Oct 2026 09:00:00 +0000</pubDate>
+      <enclosure url="https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.mp3" length="9557605" type="audio/mpeg" />
+      <itunes:duration>0:19:55</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.vtt" type="text/vtt" />
+    </item>
+    <item>
       <title>What's New in Quantum: Cross-Topic Update Across Five Research Topics</title>
       <description>This report covers what changed across the five quantum topics between each topic's last full edition and 12 September 2026. It is a supplement, not a replacement. The full collections remain the record, and this document reads against them. Each topic has its own window, opening the day after its own edition, so nothing a full edition already published is repeated here as new.</description>
       <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.mp3</guid>
