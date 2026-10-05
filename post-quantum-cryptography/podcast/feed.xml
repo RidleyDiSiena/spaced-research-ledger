@@ -36,6 +36,15 @@
       <podcast:transcript url="https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.vtt" type="text/vtt" />
     </item>
     <item>
+      <title>PQC Mathematics: State of Affairs Since the August Edition</title>
+      <description>## About This Report</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/diff-2026-10-04/post-quantum-mathematics-state-2026-10-04.mp3</guid>
+      <pubDate>Sun, 04 Oct 2026 15:00:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/pqm/podcast/diff-2026-10-04/post-quantum-mathematics-state-2026-10-04.mp3" length="10872418" type="audio/mpeg" />
+      <itunes:duration>0:22:39</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqm/podcast/diff-2026-10-04/post-quantum-mathematics-state-2026-10-04.vtt" type="text/vtt" />
+    </item>
+    <item>
       <title>Quantum Computing: State of Affairs Since the August Edition</title>
       <description>## About This Report</description>
       <guid isPermaLink="false">https://research.perikron.com/quantum/podcast/diff-2026-10-04/quantum-computing-state-2026-10-04.mp3</guid>
@@ -43,15 +52,6 @@
       <enclosure url="https://research.perikron.com/quantum/podcast/diff-2026-10-04/quantum-computing-state-2026-10-04.mp3" length="10765851" type="audio/mpeg" />
       <itunes:duration>0:22:26</itunes:duration>
       <podcast:transcript url="https://research.perikron.com/quantum/podcast/diff-2026-10-04/quantum-computing-state-2026-10-04.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>PQC Mathematics: State of Affairs Since the August Edition</title>
-      <description>## About This Report</description>
-      <guid isPermaLink="false">https://research.perikron.com/pqm/podcast/diff-2026-10-04/post-quantum-mathematics-state-2026-10-04.mp3</guid>
-      <pubDate>Sun, 04 Oct 2026 09:00:00 +0000</pubDate>
-      <enclosure url="https://research.perikron.com/pqm/podcast/diff-2026-10-04/post-quantum-mathematics-state-2026-10-04.mp3" length="10872418" type="audio/mpeg" />
-      <itunes:duration>0:22:39</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/pqm/podcast/diff-2026-10-04/post-quantum-mathematics-state-2026-10-04.vtt" type="text/vtt" />
     </item>
     <item>
       <title>CAB-Forum Watch: State of Affairs Since the September Edition</title>
