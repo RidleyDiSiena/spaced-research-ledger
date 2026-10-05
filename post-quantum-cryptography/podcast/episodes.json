@@ -630,6 +630,20 @@
     "transcript": "https://research.perikron.com/pqc/podcast/diff-2026-09-12/quantum-crypto-diff-2026-09-12.vtt"
   },
   {
+    "guid": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3",
+    "tag": "podcast-post-quantum-cryptography-diff-2026-10-04",
+    "file": "pqc-state-2026-10-04-part2.mp3",
+    "title": "PQC Migration: State of Affairs, Part 2 of 2: Libraries, Hardware, Platforms and Sectors",
+    "description": "## About This Report",
+    "url": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3",
+    "size": 13201229,
+    "duration_s": 1650,
+    "pub_date": "2026-10-04T08:59:00Z",
+    "kind": "diff",
+    "date": "2026-10-04",
+    "transcript": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.vtt"
+  },
+  {
     "guid": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part1.mp3",
     "tag": "podcast-post-quantum-cryptography-diff-2026-10-04",
     "file": "pqc-state-2026-10-04-part1.mp3",
@@ -684,19 +698,5 @@
     "kind": "diff",
     "date": "2026-10-04",
     "transcript": "https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.vtt"
-  },
-  {
-    "guid": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3",
-    "tag": "podcast-post-quantum-cryptography-diff-2026-10-04",
-    "file": "pqc-state-2026-10-04-part2.mp3",
-    "title": "PQC Migration: State of Affairs, Part 2 of 2: Libraries, Hardware, Platforms and Sectors",
-    "description": "## About This Report",
-    "url": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3",
-    "size": 13201229,
-    "duration_s": 1650,
-    "pub_date": "2026-10-04T09:01:00Z",
-    "kind": "diff",
-    "date": "2026-10-04",
-    "transcript": "https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.vtt"
   }
 ]
