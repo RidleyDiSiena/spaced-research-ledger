@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "register": "PQC Readiness Register",
-  "generated": "2026-10-04",
-  "commit": "7f408b6",
+  "generated": "2026-10-05",
+  "commit": "96a5493",
   "statuses": [
     "none",
     "planned",
