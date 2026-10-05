@@ -21,10 +21,19 @@
       <title>PQC Migration: State of Affairs, Part 1 of 2: Standards, Certificates, Networks and Policy</title>
       <description>## About This Report</description>
       <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part1.mp3</guid>
-      <pubDate>Sun, 04 Oct 2026 09:00:00 +0000</pubDate>
+      <pubDate>Sun, 04 Oct 2026 20:00:00 -0400</pubDate>
       <enclosure url="https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part1.mp3" length="12077455" type="audio/mpeg" />
       <itunes:duration>0:25:10</itunes:duration>
       <podcast:transcript url="https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part1.vtt" type="text/vtt" />
+    </item>
+    <item>
+      <title>PQC Migration: State of Affairs, Part 2 of 2: Libraries, Hardware, Platforms and Sectors</title>
+      <description>## About This Report</description>
+      <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3</guid>
+      <pubDate>Sun, 04 Oct 2026 19:59:00 -0400</pubDate>
+      <enclosure url="https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3" length="13201229" type="audio/mpeg" />
+      <itunes:duration>0:27:30</itunes:duration>
+      <podcast:transcript url="https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.vtt" type="text/vtt" />
     </item>
     <item>
       <title>Quantum Computing: State of Affairs Since the August Edition</title>
@@ -52,15 +61,6 @@
       <enclosure url="https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.mp3" length="9557605" type="audio/mpeg" />
       <itunes:duration>0:19:55</itunes:duration>
       <podcast:transcript url="https://research.perikron.com/cabforum/podcast/diff-2026-10-04/cabforum-state-2026-10-04.vtt" type="text/vtt" />
-    </item>
-    <item>
-      <title>PQC Migration: State of Affairs, Part 2 of 2: Libraries, Hardware, Platforms and Sectors</title>
-      <description>## About This Report</description>
-      <guid isPermaLink="false">https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3</guid>
-      <pubDate>Sun, 04 Oct 2026 08:59:00 +0000</pubDate>
-      <enclosure url="https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.mp3" length="13201229" type="audio/mpeg" />
-      <itunes:duration>0:27:30</itunes:duration>
-      <podcast:transcript url="https://research.perikron.com/pqc/podcast/diff-2026-10-04/pqc-state-2026-10-04-part2.vtt" type="text/vtt" />
     </item>
     <item>
       <title>What's New in Quantum: Cross-Topic Update Across Five Research Topics</title>
