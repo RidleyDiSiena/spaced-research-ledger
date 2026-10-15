@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; hsm</p>
     <h1>Entrust nShield</h1>
     <p class="standfirst">Maintained by Entrust. nShield firmware with a matching Security World software release. Post-quantum algorithms landed natively in firmware 13.8.0 (22 August 2025) and Security World 13.9. Home: https://www.entrust.com/products/hsm/nshield-5s</p>
-    <p class="updated">8 of 33 answered &middot; 8 cited cells</p>
+    <p class="updated">8 of 36 answered &middot; 8 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -27,6 +27,7 @@
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -89,6 +90,27 @@ firmware 13.8.0 / Security World 13.9 [1]</td>
 <td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since nShield
 firmware 13.8.0 / Security World 13.9 [4]</td>
@@ -122,7 +144,7 @@ firmware 13.8.0 / Security World 13.9 [7]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
-<td data-label="Primitive"><span class="st st-experimental">experimental</span> [9]</td>
+<td data-label="Primitive"><span class="st st-experimental">experimental</span> [9] [10]</td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 <td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
@@ -199,6 +221,10 @@ environment. That is exactly what this scale calls
 <code>experimental</code>: a separate add-on the project itself ships,
 rather than something the shipping firmware does.</li>
 </ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>Security World 13.9.6, 2026-07-29 [11]</li>
+</ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
 <li><a
@@ -237,6 +263,14 @@ class="uri">https://nshielddocs.entrust.com/release-notes/nshield-security-world
 href="https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html"
 class="uri">https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-0-release-notes.html</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://nshielddocs.entrust.com/pqcop-docs/release-notes/release-notes.html"
+class="uri">https://nshielddocs.entrust.com/pqcop-docs/release-notes/release-notes.html</a>
+(as of 2025-02-19; checked 2026-10-15)</li>
+<li><a
+href="https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-6-release-notes.html"
+class="uri">https://nshielddocs.entrust.com/release-notes/nshield-security-world-v13-9-6-release-notes.html</a>
+(as of 2026-09-14; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

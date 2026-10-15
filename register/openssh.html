@@ -27,6 +27,7 @@
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#known-unknowns" id="toc-known-unknowns">Known
 Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
@@ -46,7 +47,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="SSH"><span class="st st-default">default</span> since 10.0 (available
-since 9.9) [1] [2]</td>
+since 9.9) [1] [2] [3]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -69,8 +70,20 @@ since 9.9) [1] [2]</td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="SSH"><span class="st st-absent">none found 2026-09-13</span></td>
+<td data-label="SSH"><span class="st st-absent">none found 2026-10-15</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -82,8 +95,8 @@ since 9.9) [1] [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>Composite ML-DSA</strong></td>
-<td data-label="SSH"><span class="st st-experimental">experimental</span> since 10.4
-[3]</td>
+<td data-label="SSH"><span class="st st-default">default</span> since 10.6 (experimental
+since 10.4) [4] [5] [6] [7]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
@@ -91,7 +104,7 @@ since 9.9) [1] [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
-<td data-label="SSH"><span class="st st-none">none</span> [4]</td>
+<td data-label="SSH"><span class="st st-none">none</span> [8]</td>
 </tr>
 </tbody>
 </table></div>
@@ -107,14 +120,25 @@ sntrup761x25519-sha512, a hybrid over NTRU Prime, which has no row here
 adding one. Worth stating plainly because it is rare: this is
 post-quantum key agreement that happens whether or not the operator has
 heard of it.</li>
-<li><strong>Composite ML-DSA, SSH</strong>: Patrol 2026-09-26. OpenSSH
-10.4: ‘add experimental support for a composite post-quantum signature
-scheme that combines ML-DSA 44 and Ed25519 as specified in
-draft-miller-sshm-mldsa44-ed25519-composite-sigs. This scheme is not
-enabled by default’ – it must be added to HostKeyAlgorithms /
-PubkeyAcceptedAlgorithms, keys via ssh-keygen -t mldsa44-ed25519.
-Recording it required flipping the grid’s ssh/composite pair to
-yes.</li>
+<li><strong>Composite ML-DSA, SSH</strong>: Patrol 2026-10-15:
+<code>default</code> (was <code>experimental</code>, 10.4). The scale’s
+own words for a signature are ‘accepted by default in verification
+paths’, and at the 10.6 tag ssh-mldsa44-ed25519 is in the default
+accepted list for host keys and user keys, and sshd loads an
+mldsa44-ed25519 host key by default if one exists. What is NOT default:
+ssh-keygen -t still defaults to ed25519 for user keys, and the algorithm
+sits last in the preference list, so an ed25519 host key wins where both
+exist. Also note the name change – the 10.4 experimental type <a
+href="mailto:ssh-mldsa44-ed25519@openssh.com"
+class="email">ssh-mldsa44-ed25519@openssh.com</a> and the 10.6 type
+ssh-mldsa44-ed25519 are different wire names; keys from 10.4 do not
+carry over. The algorithm row is composite-ml-dsa (ML-DSA-44 paired with
+Ed25519, draft-miller-sshm-mldsa44-ed25519-composite-sigs), the only
+post-quantum signature any SSH component in the register ships. History:
+10.4 (2026-07-06) ‘add experimental support for a composite post-quantum
+signature scheme that combines ML-DSA 44 and Ed25519 … This scheme is
+not enabled by default’; recording it then required flipping the grid’s
+ssh/composite pair to yes.</li>
 <li><strong>XMSS / XMSS^MT, SSH</strong>: A CELL THIS REGISTER ALMOST
 COULD NOT HOLD. Until 2026-09-13 the meaningful grid called stateful
 hash-based signatures over SSH not-a-question, on the reasoning that SSH
@@ -129,6 +153,11 @@ the same breath that it expects to implement a post-quantum signature
 scheme, so this is a retreat from one approach rather than from the
 problem.</li>
 </ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>10.6, 2026-10-06 [9]</li>
+<li>10.5, 2026-08-11 [10]</li>
+</ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
 yet. <strong>not checked</strong> means nobody has searched.
@@ -137,7 +166,7 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / ssh – <strong>none found 2026-09-13</strong>: Searched
+<li>ml-dsa / ssh – <strong>none found 2026-10-15</strong>: Searched
 twice and found no implementation, and the second pass found the reason:
 THERE IS NO SETTLED STANDARD TO IMPLEMENT. ML-DSA for SSH sits in
 competing INDIVIDUAL drafts – draft-rpe-ssh-mldsa-03 (16 April 2026,
@@ -149,12 +178,18 @@ way and is an adopted working-group document
 SSH’s post-quantum key agreement is standardised and shipping by
 default, and its post-quantum AUTHENTICATION has not converged on a name
 yet. Recheck when a draft is adopted, not before – the implementations
-are waiting on the same thing. Examined: IETF datatracker:
+are waiting on the same thing. Patrol 2026-10-15: still no pure ML-DSA
+key type in the 10.5 or 10.6 release notes or in sshkey.c at the 10.6
+tag (the only ML-DSA there is the composite mldsa44-ed25519, now enabled
+by default – see the composite-ml-dsa cell). The key-exchange half this
+gap contrasts with is now RFC 10042 (August 2026), no longer
+draft-ietf-sshm-mlkem-hybrid-kex. Examined: IETF datatracker:
 draft-rpe-ssh-mldsa-03 (individual, standards track), IETF datatracker:
 draft-sfluhrer-ssh-mldsa-06 (competing individual draft), IETF
-datatracker: draft-ietf-sshm-mlkem-hybrid-kex-10 (adopted, for
-contrast), OpenSSH release notes 10.1, 10.0, 9.9, libssh 0.12.0 release
-announcement, PuTTY change log and wishlist.</li>
+datatracker: draft-ietf-sshm-mlkem-hybrid-kex-10 (adopted, for contrast;
+published as RFC 10042, August 2026), OpenSSH release notes 10.6, 10.5,
+10.1, 10.0, 9.9, openssh-portable sshkey.c at V_10_6, libssh 0.12.0
+release announcement, PuTTY change log and wishlist.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -164,12 +199,33 @@ recorded; checked 2026-09-13)</li>
 <li><a href="https://www.openssh.com/txt/release-9.9"
 class="uri">https://www.openssh.com/txt/release-9.9</a> (date not
 recorded; checked 2026-09-13)</li>
+<li><a
+href="https://github.com/openssh/openssh-portable/blob/V_10_6/myproposal.h"
+class="uri">https://github.com/openssh/openssh-portable/blob/V_10_6/myproposal.h</a>
+(as of 2026-10-06; checked 2026-10-15)</li>
+<li><a href="https://www.openssh.com/txt/release-10.6"
+class="uri">https://www.openssh.com/txt/release-10.6</a> (as of
+2026-10-06; checked 2026-10-15)</li>
+<li><a
+href="https://github.com/openssh/openssh-portable/blob/V_10_6/myproposal.h"
+class="uri">https://github.com/openssh/openssh-portable/blob/V_10_6/myproposal.h</a>
+(as of 2026-10-06; checked 2026-10-15)</li>
+<li><a
+href="https://github.com/openssh/openssh-portable/blob/V_10_6/servconf.c"
+class="uri">https://github.com/openssh/openssh-portable/blob/V_10_6/servconf.c</a>
+(as of 2026-10-06; checked 2026-10-15)</li>
 <li><a href="https://www.openssh.org/txt/release-10.4"
 class="uri">https://www.openssh.org/txt/release-10.4</a> (as of
 2026-07-06; checked 2026-09-26)</li>
 <li><a href="https://www.openssh.com/txt/release-10.1"
 class="uri">https://www.openssh.com/txt/release-10.1</a> (date not
 recorded; checked 2026-09-13)</li>
+<li><a href="https://www.openssh.com/txt/release-10.6"
+class="uri">https://www.openssh.com/txt/release-10.6</a> (as of
+2026-10-06; checked 2026-10-15)</li>
+<li><a href="https://www.openssh.com/txt/release-10.5"
+class="uri">https://www.openssh.com/txt/release-10.5</a> (as of
+2026-08-11; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>GnuTLS</h1>
     <p class="standfirst">Maintained by GnuTLS project (Red Hat maintainers). Numbered 3.8.x releases; PQC via liboqs or leancrypto backends. Home: https://www.gnutls.org/</p>
-    <p class="updated">11 of 50 answered &middot; 11 cited cells</p>
+    <p class="updated">14 of 55 answered &middot; 14 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -50,7 +50,7 @@
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
@@ -105,13 +105,40 @@
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 3.8.9 [4]
-[5]</td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.8.10 [6]
-[7]</td>
-<td data-label="X.509"><span class="st st-available">available</span> since 3.8.9 [8]
-[7]</td>
+<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 3.8.9 [5]
+[6]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.8.10 [7]
+[8]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 3.8.9 [9]
+[8]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-none">none</span> [1]</td>
@@ -175,6 +202,21 @@ builds configured –with-leancrypto (patrol 2026-09-26).</li>
 <li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: Same standing as the
 two 3.8.8 hybrids: experimental, leancrypto builds only since
 3.8.10.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: groups.c: the MLKEM768 and
+MLKEM1024 entries carry no tls_id, commented “absense of .tls_id means
+that this group alone cannot be used in TLS”; MLKEM512 is absent
+altogether. Agrees with the 3.8.9 announcement: “MLKEM1024 is only
+offered as SecP384r1MLKEM1024 hybrid”.</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: groups.c: the MLKEM768 and
+MLKEM1024 entries carry no tls_id, commented “absense of .tls_id means
+that this group alone cannot be used in TLS”; MLKEM512 is absent
+altogether. Agrees with the 3.8.9 announcement: “MLKEM1024 is only
+offered as SecP384r1MLKEM1024 hybrid”.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: groups.c: the MLKEM768 and
+MLKEM1024 entries carry no tls_id, commented “absense of .tls_id means
+that this group alone cannot be used in TLS”; MLKEM512 is absent
+altogether. Agrees with the 3.8.9 announcement: “MLKEM1024 is only
+offered as SecP384r1MLKEM1024 hybrid”.</li>
 <li><strong>ML-DSA, Primitive</strong>: Experimental ML-DSA from 3.8.9
 via the leancrypto backend; 3.8.13 derives the public key from an
 expanded private key per RFC 9881.</li>
@@ -205,8 +247,8 @@ were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>3.8.13, 2026-04-29 [5]</li>
-<li>3.8.9, 2025-02-07 [4]</li>
+<li>3.8.13, 2026-04-29 [6]</li>
+<li>3.8.9, 2025-02-07 [5]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -223,6 +265,10 @@ pqc/embedded-alternative-libraries/d0001:17)</li>
 href="https://lists.gnupg.org/pipermail/gnutls-help/2025-February/004875.html"
 class="uri">https://lists.gnupg.org/pipermail/gnutls-help/2025-February/004875.html</a>
 (as of 2025-02-07; checked 2026-09-26)</li>
+<li><a
+href="https://gitlab.com/gnutls/gnutls/-/blob/master/lib/algorithms/groups.c"
+class="uri">https://gitlab.com/gnutls/gnutls/-/blob/master/lib/algorithms/groups.c</a>
+(date not recorded; checked 2026-10-08)</li>
 <li><a
 href="https://patchwork.yoctoproject.org/project/oe-core/patch/20250217192141.1383722-1-peter.marko@siemens.com/"
 class="uri">https://patchwork.yoctoproject.org/project/oe-core/patch/20250217192141.1383722-1-peter.marko@siemens.com/</a>

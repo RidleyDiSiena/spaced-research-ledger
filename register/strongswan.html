@@ -67,8 +67,20 @@
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="IPsec / IKEv2"><span class="st st-planned">planned</span> [3]</td>
+<td data-label="IPsec / IKEv2"><span class="st st-planned">planned</span> [3] [4]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -129,6 +141,9 @@ class="uri">https://strongswan.org/blog/2024/12/03/strongswan-6.0.0-released.htm
 href="https://docs.strongswan.org/docs/latest/_attachments/IPsecWorkshop_Madrid_2025.pdf"
 class="uri">https://docs.strongswan.org/docs/latest/_attachments/IPsecWorkshop_Madrid_2025.pdf</a>
 (as of 2026-09-07; checked 2026-09-26)</li>
+<li><a href="https://github.com/strongswan/strongswan/tree/ml-dsa"
+class="uri">https://github.com/strongswan/strongswan/tree/ml-dsa</a> (as
+of 2026-10-07; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

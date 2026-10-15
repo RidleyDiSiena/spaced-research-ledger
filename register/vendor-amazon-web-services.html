@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; Vendor</p>
     <h1>Amazon Web Services</h1>
     <p class="standfirst">Everything this register holds on Amazon Web Services: AWS KMS, AWS-LC, aws-lc-rs, s2n-tls. The register splits a vendor&#x27;s stack by subsystem, which answers what each one does and answers nowhere where the platform as a whole stands.</p>
-    <p class="updated">4 components &middot; 24 cited cells</p>
+    <p class="updated">4 components &middot; 28 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -43,6 +43,7 @@ id="toc-where-the-fips-modules-are">Where the FIPS Modules Are</a></li>
 <th>Kind</th>
 <th>KEM</th>
 <th>Hybrid key exchange</th>
+<th>Pure ML-KEM key exchange</th>
 <th>Signatures</th>
 <th>Composite signatures</th>
 <th>Stateful hash-based signatures</th>
@@ -56,21 +57,23 @@ id="toc-where-the-fips-modules-are">Where the FIPS Modules Are</a></li>
 <td data-label="Kind">kms</td>
 <td data-label="KEM"><span class="st st-none">none</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">7 of 27</td>
+<td data-label="Answered">7 of 30</td>
 <td data-label="Open">1</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="aws-lc.html">AWS-LC</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">9 of 50</td>
+<td data-label="Answered">11 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -78,21 +81,23 @@ id="toc-where-the-fips-modules-are">Where the FIPS Modules Are</a></li>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">3 of 50</td>
+<td data-label="Answered">3 of 55</td>
 <td data-label="Open">1</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="s2n-tls.html">s2n-tls</a></td>
 <td data-label="Kind">tls-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">6 of 25</td>
+<td data-label="Answered">8 of 30</td>
 <td data-label="Open">–</td>
 </tr>
 </tbody>
@@ -157,7 +162,7 @@ a stack split by subsystem that is the whole point: the others point
 here rather than holding a standing of their own.</p>
 <ul>
 <li><strong><a href="aws-kms.html">AWS KMS</a></strong> holds 1 issued
-certificate (4884), and has 1 module in the CMVP queue.</li>
+certificate (4884), and has 3 modules in the CMVP queue.</li>
 <li><strong><a href="aws-lc.html">AWS-LC</a></strong> holds 6 issued
 certificates (5429, 5314, 5298, 5146, 4816, 4631), and has 4 modules in
 the CMVP queue.</li>

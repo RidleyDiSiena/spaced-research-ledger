@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; Vendor</p>
     <h1>Apple</h1>
     <p class="standfirst">Everything this register holds on Apple: Apple CryptoKit and corecrypto, Apple Network framework and URLSession, swift-nio-ssl. The register splits a vendor&#x27;s stack by subsystem, which answers what each one does and answers nowhere where the platform as a whole stands.</p>
-    <p class="updated">3 components &middot; 8 cited cells</p>
+    <p class="updated">3 components &middot; 12 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -29,6 +29,8 @@
 id="toc-cat-vendor-apple">Standing</a></li>
 <li><a href="#how-these-fit-together"
 id="toc-how-these-fit-together">How These Fit Together</a></li>
+<li><a href="#where-the-fips-modules-are"
+id="toc-where-the-fips-modules-are">Where the FIPS Modules Are</a></li>
 </ul>
   </nav>
 
@@ -41,6 +43,7 @@ id="toc-how-these-fit-together">How These Fit Together</a></li>
 <th>Kind</th>
 <th>KEM</th>
 <th>Hybrid key exchange</th>
+<th>Pure ML-KEM key exchange</th>
 <th>Signatures</th>
 <th>Composite signatures</th>
 <th>Stateful hash-based signatures</th>
@@ -55,10 +58,11 @@ corecrypto</a></td>
 <td data-label="Kind">os</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-none">none</span></td>
-<td data-label="Answered">5 of 37</td>
+<td data-label="Answered">5 of 42</td>
 <td data-label="Open">2</td>
 </tr>
 <tr>
@@ -67,10 +71,11 @@ URLSession</a></td>
 <td data-label="Kind">tls-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">2 of 25</td>
+<td data-label="Answered">4 of 30</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -78,10 +83,11 @@ URLSession</a></td>
 <td data-label="Kind">tls-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-none">none</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">1 of 25</td>
+<td data-label="Answered">6 of 30</td>
 <td data-label="Open">–</td>
 </tr>
 </tbody>
@@ -120,6 +126,15 @@ inside this vendor</td>
 </tr>
 </tbody>
 </table></div>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="where-the-fips-modules-are">Where the FIPS Modules Are</h2>
+<p>A validated module belongs to one component, not to a vendor, and for
+a stack split by subsystem that is the whole point: the others point
+here rather than holding a standing of their own.</p>
+<ul>
+<li><strong><a href="apple-cryptokit.html">Apple CryptoKit and
+corecrypto</a></strong> holds no certificate, and has 4 modules in the
+CMVP queue.</li>
+</ul>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 
 

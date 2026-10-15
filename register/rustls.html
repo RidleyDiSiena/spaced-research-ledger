@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; tls-stack</p>
     <h1>rustls</h1>
     <p class="standfirst">Maintained by rustls project (Prossimo / ISRG). Numbered 0.23.x releases; crypto via a provider crate (aws-lc-rs or ring). Home: https://github.com/rustls/rustls</p>
-    <p class="updated">5 of 25 answered &middot; 5 cited cells</p>
+    <p class="updated">7 of 30 answered &middot; 7 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -49,8 +49,7 @@ From</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 0.23.22 [1]
-[2]</td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -62,21 +61,21 @@ From</a></li>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 0.23.22 (core
-crate) [3]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 0.23.22 (core
+crate) [1] [2] [3]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since documented in
-0.23.44 [3]</td>
+0.23.44 [1]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [3]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [1]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -87,10 +86,30 @@ crate) [3]</td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 0.23.22
+[4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 0.23.37
+[5]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
-<td data-label="X.509"><span class="st st-default">default</span> since 0.23.44 [4]
-[5]</td>
+<td data-label="X.509"><span class="st st-default">default</span> since 0.23.44 [6]
+[7]</td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -135,7 +154,7 @@ pinned at aws-lc-rs ^1.18 (rustls 0.23.44). Inherits: FIPS 140-3. rustls
 does no cryptography itself; it takes a provider crate, and aws-lc-rs is
 the default. It is one of two providers – the other is recorded as the
 <code>ring</code> edge below rather than left in this sentence, so the
-page cannot read as though rustls had a single backend. [6]</li>
+page cannot read as though rustls had a single backend. [8] [9]</li>
 <li><strong>ring, not tracked in this register</strong> – provider.
 Inherits: FIPS 140-3. The other provider crate rustls can be built on,
 listed beside aws-lc-rs as an optional dependency of rustls 0.23.44.
@@ -143,7 +162,7 @@ ring is NOT a component in this register, so a rustls built on ring
 inherits nothing recorded here – and that is a gap in this register’s
 coverage, not a finding about ring. Recorded as an edge rather than a
 remark so the count of backends is right and the promotion to a real
-component is a one-line change if ring is ever tracked. [7]</li>
+component is a one-line change if ring is ever tracked. [10]</li>
 </ul>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>rustls holds no FIPS 140-3 certificate of its own, and there is no
@@ -162,15 +181,20 @@ absence from these pages is not a finding about it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>ML-KEM, TLS 1.3</strong>: Hybrid ML-KEM key exchange in the
-core crate from 0.23.22, toggled by the prefer-post-quantum Cargo
-feature; earlier only in the experimental rustls-post-quantum
-crate.</li>
-<li><strong>X25519MLKEM768, TLS 1.3</strong>: Documented as a key
-exchange group of the aws-lc-rs provider. Merged into the core crate at
-0.23.22, having previously lived in the experimental rustls-post-quantum
-crate; the prefer-post-quantum feature governs preference, not
-availability.</li>
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: In the aws-lc-rs
+provider’s default list since 0.23.22, so <code>default</code> on this
+register’s scale (was <code>available</code>, corrected 2026-10-15 under
+the standing hybrid-groups check, the same correction the 2026-10-08
+pass made for seven other components). Nuance the status cannot carry:
+without the prefer-post-quantum feature the hybrid is offered LAST,
+after X25519, secp256r1 and secp384r1, so a client built with default
+features sends a classical key_share and reaches the hybrid only if the
+server insists via HelloRetryRequest; with the feature it is first.
+Merged into the core crate at 0.23.22, having previously lived in the
+experimental rustls-post-quantum crate. The ring provider has no
+post-quantum group at all. GHSA-w44r-93j7-qv28 (fixed 0.23.46) was a
+downgrade of exactly this group through poisoned key-exchange hints; see
+releases.</li>
 <li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: SECP256R1MLKEM768 is a
 documented group of the same provider.</li>
 <li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: Absent from the
@@ -178,6 +202,17 @@ aws-lc-rs provider’s documented key exchange group set, which lists
 MLKEM768, MLKEM1024, SECP256R1MLKEM768, X25519MLKEM768 and the three
 classical curves. Recorded as none rather than a gap because that list
 enumerates what the provider offers.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: The aws-lc-rs kx_group module
+exports SECP256R1, SECP384R1, X25519, MLKEM768, MLKEM1024,
+SECP256R1MLKEM768 and X25519MLKEM768 only (0.23.45 and main).</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: aws-lc-rs provider: MLKEM768 in
+ALL_KX_GROUPS from v/0.23.22, not in DEFAULT_KX_GROUPS: “by default
+MLKEM768 is only offered in hybrid with X25519”. The ring provider has
+no post-quantum group. Replaces the old ml-kem/tls cell, whose evidence
+was the hybrid rustls-post-quantum crate.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: aws-lc-rs provider: MLKEM1024
+added by “Add ML-KEM-1024 key encapsulation mechanism” (absent at
+v/0.23.36), in ALL_KX_GROUPS, not default.</li>
 <li><strong>ML-DSA, X.509</strong>: ML-DSA certificates enabled by
 default with the aws-lc-rs provider. Primary source added 2026-10-04
 (patrol): the project’s GitHub release for 0.23.44 carries the same
@@ -186,23 +221,31 @@ the lxer entry is kept only as the ledger claim’s trace.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>0.23.45, 2026-09-14 [8]</li>
-<li>0.23.44, 2026-09-07 [9] [5]</li>
+<li>0.23.46, 2026-10-14 [11]</li>
+<li>0.23.45, 2026-09-14 [12]</li>
+<li>0.23.44, 2026-09-07 [13] [7]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
 <li><a
-href="https://docs.rs/rustls-post-quantum/latest/rustls_post_quantum/"
-class="uri">https://docs.rs/rustls-post-quantum/latest/rustls_post_quantum/</a>
-(date not recorded; ledger claim
-pqc/language-native-crypto-stacks/d0001:6)</li>
-<li><a href="https://lib.rs/crates/rustls-post-quantum"
-class="uri">https://lib.rs/crates/rustls-post-quantum</a> (date not
-recorded; ledger claim pqc/language-native-crypto-stacks/d0001:7)</li>
-<li><a
 href="https://docs.rs/rustls/latest/rustls/crypto/aws_lc_rs/kx_group/index.html"
 class="uri">https://docs.rs/rustls/latest/rustls/crypto/aws_lc_rs/kx_group/index.html</a>
 (date not recorded; checked 2026-09-12)</li>
+<li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.22"
+class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.22</a>
+(as of 2025-01-30; checked 2026-10-15)</li>
+<li><a
+href="https://github.com/rustls/rustls/blob/v/0.23.46/rustls/src/crypto/aws_lc_rs/mod.rs"
+class="uri">https://github.com/rustls/rustls/blob/v/0.23.46/rustls/src/crypto/aws_lc_rs/mod.rs</a>
+(as of 2026-10-14; checked 2026-10-15)</li>
+<li><a
+href="https://github.com/rustls/rustls/blob/rel-0.23/rustls/src/crypto/aws_lc_rs/mod.rs"
+class="uri">https://github.com/rustls/rustls/blob/rel-0.23/rustls/src/crypto/aws_lc_rs/mod.rs</a>
+(date not recorded; checked 2026-10-08)</li>
+<li><a
+href="https://github.com/rustls/rustls/blob/rel-0.23/rustls/src/crypto/aws_lc_rs/mod.rs"
+class="uri">https://github.com/rustls/rustls/blob/rel-0.23/rustls/src/crypto/aws_lc_rs/mod.rs</a>
+(as of 2026-02-24; checked 2026-10-08)</li>
 <li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.44"
 class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.44</a>
 (as of 2026-09-07; checked 2026-10-04)</li>
@@ -213,9 +256,15 @@ pqc/language-runtime-tls-surfaces/d0004:1)</li>
 <li><a href="https://docs.rs/rustls/latest/rustls/crypto/index.html"
 class="uri">https://docs.rs/rustls/latest/rustls/crypto/index.html</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a href="https://github.com/rustls/rustls/blob/v/0.23.46/Cargo.toml"
+class="uri">https://github.com/rustls/rustls/blob/v/0.23.46/Cargo.toml</a>
+(date not recorded; checked 2026-10-15)</li>
 <li><a href="https://docs.rs/rustls/latest/rustls/crypto/index.html"
 class="uri">https://docs.rs/rustls/latest/rustls/crypto/index.html</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.46"
+class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.46</a>
+(as of 2026-10-14; checked 2026-10-15)</li>
 <li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.45"
 class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.45</a>
 (as of 2026-09-14; checked 2026-10-04)</li>

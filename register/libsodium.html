@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>libsodium</h1>
     <p class="standfirst">Maintained by Frank Denis. Numbered 1.0.x releases. Home: https://libsodium.org/</p>
-    <p class="updated">8 of 50 answered &middot; 7 cited cells &middot; 1 confirmed absent</p>
+    <p class="updated">8 of 55 answered &middot; 8 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -28,8 +28,6 @@
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
 <li><a href="#releases" id="toc-releases">Releases</a></li>
-<li><a href="#known-unknowns" id="toc-known-unknowns">Known
-Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -53,7 +51,7 @@ Unknowns</a></li>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 1.0.22 [1]
 [2]</td>
-<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
@@ -105,8 +103,36 @@ Unknowns</a></li>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-absent">none found 2026-09-12</span></td>
+<td data-label="Primitive"><span class="st st-planned">planned</span> since master 2026-10-15,
+unreleased (configure.ac says 1.0.23) [5] [6]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
@@ -176,6 +202,21 @@ x-wing row. The old note said in its own words that this was not the TLS
 group – the register simply had no row for the thing it actually was,
 and the rule is that a second component carrying something is the bar
 for adding one. Apple’s CryptoKit was that second component.</li>
+<li><strong>ML-DSA, Primitive</strong>: PATROL 2026-10-15: WAS A GAP,
+NOW <code>planned</code>, and the old gap text was wrong by the time it
+was re-read. From 2026-09-12 this pair said libsodium ‘has chosen a
+post-quantum KEM and not a post-quantum signature’ (roadmap: ML-KEM and
+X-Wing DONE, no signature scheme at any status). On 2026-10-15 ML-DSA-44
+landed on master as crypto_sign_mldsa44 – one parameter set, the
+smallest, with the context-string API of FIPS 204 and non-deterministic
+(hedged) signing only after the same-day removal of the deterministic
+variant. <code>planned</code> rather than <code>experimental</code>
+because the scale’s experimental means a preview channel or flag a user
+can run; this is an unreleased branch. Moves to <code>available</code>
+when 1.0.23 ships with it. The roadmap page had not been updated when
+this was recorded. Fidelity note: the register’s x-wing and ml-kem cells
+say libsodium’s post-quantum work is KEM-only; that sentence is now
+about the released library, not the project’s direction.</li>
 <li><strong>ML-DSA, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-12 and name none carrying it.</li>
@@ -192,24 +233,6 @@ were scanned on 2026-09-12 and name none carrying it.</li>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
 <li>1.0.22, 2026-04-09 [1]</li>
-</ul>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
-<p>Cells an engineer would ask about that no cited source has settled
-yet. <strong>not checked</strong> means nobody has searched.
-<strong>searching</strong> means fewer than 2 passes are done.
-<strong>none found</strong> means the search was completed and came back
-empty, and the artifacts examined are named; a result older than 90 days
-is marked for recheck.</p>
-<ul>
-<li>ml-dsa / primitive – <strong>none found 2026-09-12</strong>:
-Searched twice on 2026-09-12 and found nothing: the project’s own
-roadmap lists ML-KEM and X-Wing as DONE and carries no post-quantum
-SIGNATURE scheme at all, at any status. The two signature items it does
-list, batch signatures and a BLS consideration, are classical. This is
-the clearest ‘not on the path’ in the register: libsodium has chosen a
-post-quantum KEM and not a post-quantum signature. Examined: libsodium
-roadmap (doc.libsodium.org/roadmap), libsodium 1.0.22 release
-notes.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -228,6 +251,14 @@ class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-progr
 <li><a href="https://doc.libsodium.org/roadmap"
 class="uri">https://doc.libsodium.org/roadmap</a> (as of 2026-04-09;
 checked 2026-09-12)</li>
+<li><a
+href="https://github.com/jedisct1/libsodium/commit/11216e4186b17093cbbe109664bf66e80cb6ee60"
+class="uri">https://github.com/jedisct1/libsodium/commit/11216e4186b17093cbbe109664bf66e80cb6ee60</a>
+(as of 2026-10-15; checked 2026-10-15)</li>
+<li><a
+href="https://github.com/jedisct1/libsodium/blob/master/configure.ac"
+class="uri">https://github.com/jedisct1/libsodium/blob/master/configure.ac</a>
+(as of 2026-10-15; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

@@ -30,6 +30,7 @@
 id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
 From</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#known-unknowns" id="toc-known-unknowns">Known
 Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
@@ -69,6 +70,18 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>curveSM2MLKEM768</strong></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
@@ -119,6 +132,11 @@ simply does not have it. That is the coupling recorded as a derives_from
 edge below, and it is a rare case of a project stating its upstream
 version requirement precisely enough to pin.</li>
 </ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>5.4.1, 2026-10-05 [3]</li>
+<li>5.4, 2026-08-13 [4]</li>
+</ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
 yet. <strong>not checked</strong> means nobody has searched.
@@ -150,6 +168,12 @@ class="uri">https://github.com/libreswan/libreswan/blob/main/CHANGES</a>
 <li><a href="https://github.com/libreswan/libreswan/blob/main/CHANGES"
 class="uri">https://github.com/libreswan/libreswan/blob/main/CHANGES</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a href="https://github.com/libreswan/libreswan/releases/tag/v5.4.1"
+class="uri">https://github.com/libreswan/libreswan/releases/tag/v5.4.1</a>
+(as of 2026-10-05; checked 2026-10-15)</li>
+<li><a href="https://github.com/libreswan/libreswan/releases/tag/v5.4"
+class="uri">https://github.com/libreswan/libreswan/releases/tag/v5.4</a>
+(as of 2026-08-13; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

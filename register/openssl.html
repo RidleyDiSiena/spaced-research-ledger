@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>OpenSSL</h1>
     <p class="standfirst">Maintained by OpenSSL Corporation and Foundation (openssl-library.org). LTS every two years, feature releases between. 3.5 is the current LTS. Home: https://openssl-library.org/</p>
-    <p class="updated">17 of 50 answered &middot; 16 cited cells &middot; 1 confirmed absent</p>
+    <p class="updated">19 of 55 answered &middot; 18 cited cells &middot; 1 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -53,11 +53,11 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 3.5.0 [1]</td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.5.0 [2]</td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-planned">planned</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-planned">planned</span> [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -71,7 +71,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 3.5.0 [4]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 3.5.0 [3]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -80,7 +80,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.5.0 [5]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 4.0.0 [4] [5]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -89,7 +89,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.5.0 [5]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.5.0 [4]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -98,30 +98,57 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>curveSM2MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 4.0.0 [6]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 4.0.0 [6] [7]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.5.0 [8]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.5.0 [8]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.5.0 [8]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 3.5.0 [1]
 [6]</td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 3.5.0 [5]</td>
-<td data-label="X.509"><span class="st st-available">available</span> since 3.5.0 [7]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 3.5.0 [4]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 3.5.0 [9]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-planned">planned</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-planned">planned</span> [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 3.5.0 [1]</td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [8]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [10]</td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-planned">planned</span> [9]</td>
+<td data-label="FIPS 140-3"><span class="st st-planned">planned</span> [11]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
@@ -136,14 +163,14 @@ Unknowns</a></li>
 <td data-label="Algorithm"><strong>Composite ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
-<td data-label="X.509"><span class="st st-planned">planned</span> [10]</td>
+<td data-label="X.509"><span class="st st-planned">planned</span> [12]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- No IKEv2 implementation or draft defines a composite signature for RFC 7427 authentication. The ASN.1 encoding could in principle carry one, so flip this the day a draft says so.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 3.6.0 [11]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 3.6.0 [13]</td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
@@ -163,23 +190,48 @@ Unknowns</a></li>
 </table></div>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>ML-KEM, TLS 1.3</strong>: Patrol 2026-09-26, closes the gap.
-providers/common/capabilities.c on the openssl-3.5 branch registers TLS
-groups MLKEM512, MLKEM768 and MLKEM1024 (IANA 38-40) under
-OPENSSL_NO_ML_KEM. Not in the DEFAULT group list; the man page and
-CHANGES name only the three hybrids, which is why two earlier passes
-missed it.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: OpenSSL 3.5.4 FIPS Object
 Module submitted for FIPS 140-3 validation with ML-KEM, ML-DSA and
-SLH-DSA; certificate issuance NOT found on 2026-09-12 in two
-searches.</li>
+SLH-DSA; certificate issuance NOT found on 2026-09-12 in two searches.
+Queue phase on 2026-10-15: Comment Resolution - CMVP since 2026-10-09
+(see the slh-dsa/fips cell for the phase history); still no
+certificate.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: In the default
 supported-groups list with X25519 as the default keyshares.</li>
-<li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: Shipped in 3.5.0; not
-in the default group list (only X25519MLKEM768 is).</li>
+<li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: Default from 4.0.0;
+still available-not-default on 3.5 and 3.6 (was <code>available</code>,
+corrected 2026-10-08). Shipped in 3.5.0; not in the default group list
+(only X25519MLKEM768 is).</li>
 <li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: Shipped in 3.5.0; not
 in the default group list. Larger key exchange messages, about 1700
 bytes.</li>
+<li><strong>curveSM2MLKEM768, TLS 1.3</strong>: Default from 4.0.0 (same
+CHANGES entry as SecP256r1MLKEM768) (was <code>available</code>,
+corrected 2026-10-08).</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: capabilities.c registers
+TLS_GROUP_ENTRY(“MLKEM512”, …) under OPENSSL_NO_ML_KEM on the 3.5, 3.6,
+4.0 and 4.1 branches (the trailing 38-40 are OpenSSL’s internal table
+indexes, not IANA codepoints; tlsgroups.h has 0x0200-0x0202). Not in
+TLS_DEFAULT_GROUP_LIST, which names only hybrids. The entries sit
+outside #ifndef FIPS_MODULE, so the FIPS provider advertises them too –
+read from code, not stated by OpenSSL. Moved from the old ml-kem/tls
+cell (patrol 2026-09-26) on 2026-10-08.</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: capabilities.c registers
+TLS_GROUP_ENTRY(“MLKEM768”, …) under OPENSSL_NO_ML_KEM on the 3.5, 3.6,
+4.0 and 4.1 branches (the trailing 38-40 are OpenSSL’s internal table
+indexes, not IANA codepoints; tlsgroups.h has 0x0200-0x0202). Not in
+TLS_DEFAULT_GROUP_LIST, which names only hybrids. The entries sit
+outside #ifndef FIPS_MODULE, so the FIPS provider advertises them too –
+read from code, not stated by OpenSSL. Moved from the old ml-kem/tls
+cell (patrol 2026-09-26) on 2026-10-08.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: capabilities.c registers
+TLS_GROUP_ENTRY(“MLKEM1024”, …) under OPENSSL_NO_ML_KEM on the 3.5, 3.6,
+4.0 and 4.1 branches (the trailing 38-40 are OpenSSL’s internal table
+indexes, not IANA codepoints; tlsgroups.h has 0x0200-0x0202). Not in
+TLS_DEFAULT_GROUP_LIST, which names only hybrids. The entries sit
+outside #ifndef FIPS_MODULE, so the FIPS provider advertises them too –
+read from code, not stated by OpenSSL. Moved from the old ml-kem/tls
+cell (patrol 2026-09-26) on 2026-10-08.</li>
 <li><strong>ML-DSA, Primitive</strong>: External-mu (ML-DSA-MU) digest
 support from 4.0.</li>
 <li><strong>ML-DSA, TLS 1.3</strong>: CHANGES 3.5.0: the TLS signature
@@ -190,15 +242,18 @@ X.509 certificate generation with ML-DSA keys via the openssl command
 line (openssl req -x509 -newkey mldsa65). Chain-verification default
 standing not checked.</li>
 <li><strong>ML-DSA, FIPS 140-3</strong>: Same submission as the ML-KEM
-FIPS cell; certificate issuance not found on 2026-09-12.</li>
+FIPS cell; certificate issuance not found on 2026-09-12. Queue phase on
+2026-10-15: Comment Resolution - CMVP since 2026-10-09; still no
+certificate.</li>
 <li><strong>SLH-DSA, TLS 1.3</strong>: Not offered natively for TLS in
 3.5; oqs-provider bridged it on 3.2 to 3.4 and disables those
 combinations on 3.5 and later.</li>
 <li><strong>SLH-DSA, FIPS 140-3</strong>: Submitted, not issued: OpenSSL
-FIPS Provider, The OpenSSL Project, at phase Comment Resolution - Lab
-since 2026-09-21 in the CMVP Modules In Process list (unchanged on
-2026-10-04; it was at Comment Resolution - CMVP from 2026-08-21, see
-validations/openssl.yaml).</li>
+FIPS Provider, The OpenSSL Project, in the CMVP Modules In Process list
+at Comment Resolution - CMVP since 2026-10-09 (patrol 2026-10-15; its
+second time at CMVP). History: Comment Resolution - CMVP from
+2026-08-21, Comment Resolution - Lab from 2026-09-21 (unchanged on
+2026-10-04), back to CMVP 2026-10-09. See validations/openssl.yaml.</li>
 <li><strong>Composite ML-DSA, X.509</strong>: Patrol 2026-09-26, closes
 the gap as planned, not shipped. PR #32886 ‘ML-DSA Composite signatures
 and key implementation’, opened 2026-09-18, open, targets master:
@@ -209,15 +264,15 @@ provider only. Not in any release or pre-release.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>4.0.3, 2026-09-29 [12]</li>
-<li>4.0.0, 2026-04-14 [13]</li>
-<li>3.6.3, 2026-06-09 [14]</li>
-<li>3.6.0, 2025-10-01 [15]</li>
-<li>3.5.0, 2025-04-08, LTS [16]</li>
+<li>4.0.3, 2026-09-29 [14]</li>
+<li>4.0.0, 2026-04-14 [15]</li>
+<li>3.6.3, 2026-06-09 [16]</li>
+<li>3.6.0, 2025-10-01 [17]</li>
+<li>3.5.0, 2025-04-08, LTS [18]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="also-tracked">Also Tracked</h2>
 <ul>
-<li><strong>LTS support ends</strong>: 2030-04 [17] 3.5 LTS, five-year
+<li><strong>LTS support ends</strong>: 2030-04 [19] 3.5 LTS, five-year
 window, final year security fixes only.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
@@ -248,10 +303,6 @@ href="https://postquantum.com/security-pqc/openssl-3-5-pqc-default/"
 class="uri">https://postquantum.com/security-pqc/openssl-3-5-pqc-default/</a>
 (as of 2025-04-08; ledger claim pqc/openssl-and-forks/d0001:3)</li>
 <li><a
-href="https://github.com/openssl/openssl/blob/openssl-3.5/providers/common/capabilities.c"
-class="uri">https://github.com/openssl/openssl/blob/openssl-3.5/providers/common/capabilities.c</a>
-(as of 2025-04-08; checked 2026-09-26)</li>
-<li><a
 href="https://openssl-library.org/post/2025-10-09-ossl3.5.4-fips-submission/"
 class="uri">https://openssl-library.org/post/2025-10-09-ossl3.5.4-fips-submission/</a>
 (as of 2025-10-09; checked 2026-09-12)</li>
@@ -264,9 +315,21 @@ href="https://raw.githubusercontent.com/openssl/openssl/openssl-3.5/CHANGES.md"
 class="uri">https://raw.githubusercontent.com/openssl/openssl/openssl-3.5/CHANGES.md</a>
 (as of 2025-04-08; checked 2026-09-12)</li>
 <li><a
+href="https://github.com/openssl/openssl/blob/openssl-4.0/CHANGES.md"
+class="uri">https://github.com/openssl/openssl/blob/openssl-4.0/CHANGES.md</a>
+(as of 2026-04-14; checked 2026-10-08)</li>
+<li><a
 href="https://openssl-library.org/post/2026-04-14-openssl-40-final-release"
 class="uri">https://openssl-library.org/post/2026-04-14-openssl-40-final-release</a>
 (as of 2026-04-14; ledger claim pqc/openssl-and-forks/d0006:1)</li>
+<li><a
+href="https://github.com/openssl/openssl/blob/openssl-4.0/ssl/t1_lib.c"
+class="uri">https://github.com/openssl/openssl/blob/openssl-4.0/ssl/t1_lib.c</a>
+(as of 2026-04-14; checked 2026-10-08)</li>
+<li><a
+href="https://github.com/openssl/openssl/blob/openssl-3.5/providers/common/capabilities.c"
+class="uri">https://github.com/openssl/openssl/blob/openssl-3.5/providers/common/capabilities.c</a>
+(as of 2025-04-08; checked 2026-10-08)</li>
 <li><a href="https://github.com/openssl/openssl/pull/26575"
 class="uri">https://github.com/openssl/openssl/pull/26575</a> (date not
 recorded; checked 2026-09-12)</li>
@@ -276,7 +339,7 @@ not recorded; ledger claim pqc/openssl-and-forks/d0001:7)</li>
 <li><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
 class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
-(date not recorded; checked 2026-10-04)</li>
+(date not recorded; checked 2026-10-15)</li>
 <li><a href="https://github.com/openssl/openssl/pull/32886"
 class="uri">https://github.com/openssl/openssl/pull/32886</a> (as of
 2026-09-18; checked 2026-09-26)</li>

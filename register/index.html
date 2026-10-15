@@ -19,7 +19,7 @@
     <p class="kicker">Register</p>
     <h1>PQC Readiness Register</h1>
     <p class="standfirst">Where each cryptographic component stands on post-quantum support, cell by cell, every cell cited to a public source or left unknown. A companion to the reports above: the reports say what sources said, the register says where each named thing stands. Covering libraries and language stacks, hardware and key management, and platforms and edge today.</p>
-    <p class="updated">43 components &middot; 5 questions &middot; JSON: <a href="register.json">register.json</a></p>
+    <p class="updated">43 components &middot; 6 questions &middot; JSON: <a href="register.json">register.json</a></p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -69,6 +69,9 @@ Questions
 </li>
 <li>
 <a href="q-hybrid-tls-by-default.html">Hybrid TLS, no configuration</a>
+</li>
+<li>
+<a href="q-pure-ml-kem-tls.html">Pure ML-KEM TLS</a>
 </li>
 <li>
 <a href="q-ml-dsa-certificates.html">ML-DSA certificates</a>
@@ -162,6 +165,7 @@ thousands of applications can negotiate.</p>
 <th>Kind</th>
 <th>KEM</th>
 <th>Hybrid key exchange</th>
+<th>Pure ML-KEM key exchange</th>
 <th>Signatures</th>
 <th>Composite signatures</th>
 <th>Stateful hash-based signatures</th>
@@ -175,10 +179,11 @@ thousands of applications can negotiate.</p>
 <td data-label="Kind">language-stack</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-experimental">experimental</span></td>
 <td data-label="Composite signatures"><span class="st st-experimental">experimental</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">8 of 37</td>
+<td data-label="Answered">11 of 42</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -187,21 +192,23 @@ URLSession</a></td>
 <td data-label="Kind">tls-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">2 of 25</td>
+<td data-label="Answered">4 of 30</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="aws-lc.html">AWS-LC</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">9 of 50</td>
+<td data-label="Answered">11 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -209,21 +216,23 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">3 of 50</td>
+<td data-label="Answered">3 of 55</td>
 <td data-label="Open">1</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="boringssl.html">BoringSSL</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">10 of 50</td>
+<td data-label="Answered">12 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -231,21 +240,23 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-available">available</span></td>
-<td data-label="Answered">14 of 50</td>
+<td data-label="Answered">17 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="bouncycastle-java.html">Bouncy Castle (Java)</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-available">available</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-available">available</span></td>
-<td data-label="Answered">11 of 50</td>
+<td data-label="Answered">16 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -253,10 +264,11 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-experimental">experimental</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-none">none</span></td>
 <td data-label="Signatures"><span class="st st-experimental">experimental</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">11 of 50</td>
+<td data-label="Answered">14 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -264,10 +276,11 @@ URLSession</a></td>
 <td data-label="Kind">language-stack</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">12 of 37</td>
+<td data-label="Answered">14 of 42</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -275,10 +288,11 @@ URLSession</a></td>
 <td data-label="Kind">language-stack</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-none">none</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">12 of 37</td>
+<td data-label="Answered">15 of 42</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -286,21 +300,23 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-none">none</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-experimental">experimental</span></td>
-<td data-label="Answered">11 of 50</td>
+<td data-label="Answered">13 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="libressl.html">LibreSSL</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-none">none</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">9 of 50</td>
+<td data-label="Answered">12 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -308,6 +324,7 @@ URLSession</a></td>
 <td data-label="Kind">ipsec-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
@@ -319,10 +336,11 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
-<td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Signatures"><span class="st st-planned">planned</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">8 of 50</td>
+<td data-label="Answered">8 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -330,6 +348,7 @@ URLSession</a></td>
 <td data-label="Kind">ssh-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
@@ -341,10 +360,11 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-planned">planned</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-none">none</span></td>
 <td data-label="Signatures"><span class="st st-planned">planned</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-available">available</span></td>
-<td data-label="Answered">9 of 50</td>
+<td data-label="Answered">12 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -352,10 +372,11 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-none">none</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">8 of 50</td>
+<td data-label="Answered">8 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -363,10 +384,11 @@ URLSession</a></td>
 <td data-label="Kind">language-stack</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">2 of 37 · 11 inherited</td>
+<td data-label="Answered">5 of 42 · 10 inherited</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -374,10 +396,11 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">13 of 50</td>
+<td data-label="Answered">15 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -385,6 +408,7 @@ URLSession</a></td>
 <td data-label="Kind">ssh-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
@@ -396,10 +420,11 @@ URLSession</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-planned">planned</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-available">available</span></td>
-<td data-label="Answered">17 of 50</td>
+<td data-label="Answered">19 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -407,6 +432,7 @@ URLSession</a></td>
 <td data-label="Kind">ssh-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
@@ -418,32 +444,35 @@ URLSession</a></td>
 <td data-label="Kind">language-stack</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">4 of 37</td>
+<td data-label="Answered">4 of 42</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="rustls.html">rustls</a></td>
 <td data-label="Kind">tls-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">5 of 25</td>
+<td data-label="Answered">7 of 30</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="s2n-tls.html">s2n-tls</a></td>
 <td data-label="Kind">tls-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">6 of 25</td>
+<td data-label="Answered">8 of 30</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -451,10 +480,11 @@ URLSession</a></td>
 <td data-label="Kind">tls-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">4 of 25</td>
+<td data-label="Answered">6 of 30</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -462,6 +492,7 @@ URLSession</a></td>
 <td data-label="Kind">ipsec-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
@@ -473,21 +504,23 @@ URLSession</a></td>
 <td data-label="Kind">tls-stack</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-none">none</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">1 of 25</td>
+<td data-label="Answered">6 of 30</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="wolfssl.html">wolfSSL / wolfCrypt</a></td>
 <td data-label="Kind">library</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
-<td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-experimental">experimental</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-available">available</span></td>
-<td data-label="Answered">14 of 50</td>
+<td data-label="Answered">18 of 55</td>
 <td data-label="Open">–</td>
 </tr>
 </tbody>
@@ -504,6 +537,7 @@ validation timelines rather than release timelines.</p>
 <th>Kind</th>
 <th>KEM</th>
 <th>Hybrid key exchange</th>
+<th>Pure ML-KEM key exchange</th>
 <th>Signatures</th>
 <th>Composite signatures</th>
 <th>Stateful hash-based signatures</th>
@@ -517,10 +551,11 @@ validation timelines rather than release timelines.</p>
 <td data-label="Kind">kms</td>
 <td data-label="KEM"><span class="st st-none">none</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">7 of 27</td>
+<td data-label="Answered">7 of 30</td>
 <td data-label="Open">1</td>
 </tr>
 <tr>
@@ -528,10 +563,11 @@ validation timelines rather than release timelines.</p>
 <td data-label="Kind">hsm</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-available">available</span></td>
-<td data-label="Answered">11 of 33</td>
+<td data-label="Answered">11 of 36</td>
 <td data-label="Open">2</td>
 </tr>
 <tr>
@@ -539,10 +575,11 @@ validation timelines rather than release timelines.</p>
 <td data-label="Kind">hsm</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-experimental">experimental</span></td>
-<td data-label="Answered">8 of 33</td>
+<td data-label="Answered">8 of 36</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -550,10 +587,11 @@ validation timelines rather than release timelines.</p>
 <td data-label="Kind">kms</td>
 <td data-label="KEM"><span class="st st-experimental">experimental</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">5 of 27</td>
+<td data-label="Answered">5 of 30</td>
 <td data-label="Open">1</td>
 </tr>
 <tr>
@@ -561,10 +599,11 @@ validation timelines rather than release timelines.</p>
 <td data-label="Kind">hsm</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-available">available</span></td>
-<td data-label="Answered">13 of 33</td>
+<td data-label="Answered">13 of 36</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -573,10 +612,11 @@ HSM</a></td>
 <td data-label="Kind">hsm</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-available">available</span></td>
-<td data-label="Answered">8 of 33</td>
+<td data-label="Answered">8 of 36</td>
 <td data-label="Open">–</td>
 </tr>
 </tbody>
@@ -594,6 +634,7 @@ knows nothing about it.</p>
 <th>Kind</th>
 <th>KEM</th>
 <th>Hybrid key exchange</th>
+<th>Pure ML-KEM key exchange</th>
 <th>Signatures</th>
 <th>Composite signatures</th>
 <th>Stateful hash-based signatures</th>
@@ -607,6 +648,7 @@ knows nothing about it.</p>
 <td data-label="Kind">pki-tool</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-planned">planned</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
@@ -619,10 +661,11 @@ corecrypto</a></td>
 <td data-label="Kind">os</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-none">none</span></td>
-<td data-label="Answered">5 of 37</td>
+<td data-label="Answered">5 of 42</td>
 <td data-label="Open">2</td>
 </tr>
 <tr>
@@ -630,10 +673,11 @@ corecrypto</a></td>
 <td data-label="Kind">tls-terminator</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-none">none</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">2 of 9</td>
+<td data-label="Answered">5 of 11</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -641,10 +685,11 @@ corecrypto</a></td>
 <td data-label="Kind">tls-terminator</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">2 of 9 · 3 inherited</td>
+<td data-label="Answered">5 of 11 · 5 inherited</td>
 <td data-label="Open">1</td>
 </tr>
 <tr>
@@ -652,10 +697,11 @@ corecrypto</a></td>
 <td data-label="Kind">tls-terminator</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-available">available</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-available">available</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">1 of 9 · 6 inherited</td>
+<td data-label="Answered">4 of 11 · 5 inherited</td>
 <td data-label="Open">1</td>
 </tr>
 <tr>
@@ -664,10 +710,11 @@ crypto-policies</a></td>
 <td data-label="Kind">os</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-default">default</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-experimental">experimental</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">3 of 37</td>
+<td data-label="Answered">5 of 42</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -675,10 +722,11 @@ crypto-policies</a></td>
 <td data-label="Kind">os</td>
 <td data-label="KEM"><span class="st st-available">available</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-available">available</span></td>
 <td data-label="Composite signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-none">none</span></td>
-<td data-label="Answered">8 of 37</td>
+<td data-label="Answered">8 of 42</td>
 <td data-label="Open">–</td>
 </tr>
 <tr>
@@ -686,10 +734,11 @@ crypto-policies</a></td>
 <td data-label="Kind">os</td>
 <td data-label="KEM"><span class="st st-unknown">unknown</span></td>
 <td data-label="Hybrid key exchange"><span class="st st-unknown">unknown</span></td>
+<td data-label="Pure ML-KEM key exchange"><span class="st st-unknown">unknown</span></td>
 <td data-label="Signatures"><span class="st st-unknown">unknown</span></td>
 <td data-label="Composite signatures"><span class="st st-available">available</span></td>
 <td data-label="Stateful hash-based signatures"><span class="st st-unknown">unknown</span></td>
-<td data-label="Answered">3 of 37</td>
+<td data-label="Answered">3 of 42</td>
 <td data-label="Open">–</td>
 </tr>
 </tbody>
@@ -740,8 +789,8 @@ confirmed, because a checked absence is knowledge too. Answers INHERITED
 from an upstream are shown separately and deliberately not counted: they
 are real, but they are not this component’s. <strong>Open</strong>
 counts the questions still being worked.</p>
-<p>Across the whole register that is <strong>295 of 1413</strong>, or
-20%. This figure was withheld until 2026-09-14, because the earlier
+<p>Across the whole register that is <strong>361 of 1577</strong>, or
+22%. This figure was withheld until 2026-09-14, because the earlier
 denominator counted combinations nobody would build and so reported the
 register as far emptier than it was. A fraction against a meaningless
 denominator is worse than no fraction at all: it is the first number a
@@ -758,6 +807,13 @@ shortcut rather than the message: the table reads the same in greyscale,
 in print, and to a reader who does not separate the hues.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="recent-changes">Recent Changes</h2>
 <ul>
+<li>2026-10-15: patrol: 2026-10-15 cabforum and register; SC104 -&gt;
+TLS BR 2.3.1 in force, NS-010 v2 adopted, SMC020/CSC-034 voting;
+register 336 cells (openssh composite default, libsodium ML-DSA planned,
+rustls hybrid default), wolfCrypt 5548, Luna K7 queued; cabforum styled
+update 2026-10-15; launch agent waits for background agents</li>
+<li>2026-10-08: register: pure ML-KEM key exchange family
+(MLKEM512/768/1024); key-exchange audit; BACKLOG 25</li>
 <li>2026-10-04: patrol: 2026-10-04 cabforum and the register</li>
 <li>2026-09-27: patrol: 2026-09-27 cabforum and the register (Sunday
 slot)</li>
@@ -783,10 +839,6 @@ mostly in hardware</li>
 untracked backends</li>
 <li>2026-09-13: register: derives_from, phase 1 – a FIPS pointer for the
 seven wrappers</li>
-<li>2026-09-13: register: run the NIST reverse scan – 126 cells to 174,
-two corrections</li>
-<li>2026-09-12: register: bootstrap Bouncy Castle, mlkem-native and
-swift-nio-ssl – all 22 components now researched</li>
 </ul>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

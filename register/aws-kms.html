@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; kms</p>
     <h1>AWS KMS</h1>
     <p class="standfirst">Maintained by Amazon Web Services. Continuous service releases, by AWS Region. ML-DSA reached general availability in June 2025, Region by Region. Home: https://docs.aws.amazon.com/kms/latest/developerguide/</p>
-    <p class="updated">7 of 27 answered &middot; 7 cited cells &middot; 1 open</p>
+    <p class="updated">7 of 30 answered &middot; 7 cited cells &middot; 1 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -82,10 +82,28 @@ Unknowns</a></li>
 <td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since generally
 available from June 2025, Region by Region [4] [5]</td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3] [6]</td>
 <td data-label="PKCS#11"><span class="st st-absent">no public answer, checked
 2026-09-13</span></td>
 </tr>
@@ -144,22 +162,28 @@ records external-mu in cell notes rather than as its own row until two
 components track it; this is the second mention and the first in a
 service.</li>
 <li><strong>ML-DSA, FIPS 140-3</strong>: THE FINDING OF THE HARDWARE
-PASS, and it is a distinction rather than a contradiction. The AWS KMS
-developer guide says: “AWS KMS creates and protects all ML-DSA keys and
-signature operations in FIPS 140-3 Security Level 3 validated hardware
-security modules.” That is true. The 2026-09-13 CMVP scan then read the
-certificate those modules hold – AWS Key Management Service HSM,
-certificate 4884, issued 2024-11-18 – and its approved-algorithm list
-has thirty entries, not one of them post-quantum. Both facts stand
-together: the MODULE is validated, and ML-DSA is not a validated
-ALGORITHM within it, so using it means using a non-approved algorithm
-inside a validated boundary. Nothing is pending either: no AWS KMS HSM
-appears on the Modules In Process list, which is why this is
-<code>none</code> and not a gap. This is the same class of claim as the
-aws-lc-rs one resolved on 2026-09-13 – a FIPS build is not a FIPS
-validation – wearing different clothes: a validated module is not a
-validated algorithm. Expect the phrasing again; check the approved list
-every time.</li>
+PASS, and it is a distinction rather than a contradiction. PATROL
+2026-10-15: the sentence below that nothing is pending is no longer true
+– three AWS KMS HSM submissions are in the CMVP queue (see the
+evidence); the cell stays <code>none</code> because no issued
+certificate names ML-DSA and the queue names no algorithms, and whether
+a pending submission should turn a <code>none</code> into a gap is for
+the user. The rest of this note is the 2026-09-13 reading, kept as
+written. The AWS KMS developer guide says: “AWS KMS creates and protects
+all ML-DSA keys and signature operations in FIPS 140-3 Security Level 3
+validated hardware security modules.” That is true. The 2026-09-13 CMVP
+scan then read the certificate those modules hold – AWS Key Management
+Service HSM, certificate 4884, issued 2024-11-18 – and its
+approved-algorithm list has thirty entries, not one of them
+post-quantum. Both facts stand together: the MODULE is validated, and
+ML-DSA is not a validated ALGORITHM within it, so using it means using a
+non-approved algorithm inside a validated boundary. Nothing is pending
+either: no AWS KMS HSM appears on the Modules In Process list, which is
+why this is <code>none</code> and not a gap. This is the same class of
+claim as the aws-lc-rs one resolved on 2026-09-13 – a FIPS build is not
+a FIPS validation – wearing different clothes: a validated module is not
+a validated algorithm. Expect the phrasing again; check the approved
+list every time.</li>
 <li><strong>SLH-DSA, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-13 and name none carrying it.</li>
@@ -213,6 +237,10 @@ class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/mldsa.html</a>
 href="https://aws.amazon.com/about-aws/whats-new/2025/06/aws-kms-post-quantum-ml-dsa-digital-signatures/"
 class="uri">https://aws.amazon.com/about-aws/whats-new/2025/06/aws-kms-post-quantum-ml-dsa-digital-signatures/</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
+class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
+(as of 2026-10-15; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

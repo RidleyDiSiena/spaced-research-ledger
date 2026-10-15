@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; hsm</p>
     <h1>Utimaco u.trust General Purpose HSM</h1>
     <p class="standfirst">Maintained by Utimaco. Firmware for the Se-Series, with post-quantum algorithms delivered as the Quantum Protect application package -- an in-field upgrade rather than a hardware exchange. Home: https://utimaco.com/data-protection/gp-hsm/utrust-general-purpose-hsm</p>
-    <p class="updated">8 of 33 answered &middot; 8 cited cells</p>
+    <p class="updated">8 of 36 answered &middot; 8 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -87,6 +87,27 @@ application package [2]</td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 <td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups, negotiated in a handshake. PKCS#11 exposes mechanisms, and a group is a construction over one -- a device offers the ML-KEM mechanism and the TLS stack builds the group from it, so the KEM row carries this question.">n/a</abbr></td>
 <td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>

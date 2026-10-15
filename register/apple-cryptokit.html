@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; os</p>
     <h1>Apple CryptoKit and corecrypto</h1>
     <p class="standfirst">Maintained by Apple. Annual operating system releases. Post-quantum support arrived across the board in the 26 releases. Home: https://developer.apple.com/documentation/cryptokit</p>
-    <p class="updated">5 of 37 answered &middot; 5 cited cells &middot; 2 open</p>
+    <p class="updated">5 of 42 answered &middot; 5 cited cells &middot; 2 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -50,7 +50,7 @@ Unknowns</a></li>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since iOS 26, iPadOS
 26, macOS 26, tvOS 26 and watchOS 26 [1]</td>
-<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-searching">searching, 1 of 2 passes</span></td>
 </tr>
@@ -89,6 +89,27 @@ Unknowns</a></li>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
@@ -185,22 +206,29 @@ empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
 <li>ml-kem / fips – <strong>searching, 1 of 2 passes</strong>: The same
-shape as Windows, from the same scan. Apple holds 32 corecrypto
-certificates and the one read in detail (5387, Apple corecrypto Module
-18.3 [Apple silicon, Kernel, Software, SL1]) lists 52 approved
-algorithms, none post-quantum. Two Apple corecrypto Module OS 26
-submissions have been in Review since 30 and 31 July 2026, and OS 26 is
-exactly the release that shipped ML-KEM to CryptoKit – so the pending
-modules are the ones that would carry it, and calling this absent would
-be wrong. Second pass: those certificates when they issue. Examined:
-CMVP validated module search, vendor Apple (32 corecrypto modules),
-certificate page 5387 (approved-algorithm list), CMVP Modules In Process
-list.</li>
+shape as Windows, from the same scan. Apple held 32 corecrypto
+certificates on 2026-09-13 (29 active on 2026-10-15, the FIPS 140-2 ones
+having gone historical) and the one read in detail (5387, Apple
+corecrypto Module 18.3 [Apple silicon, Kernel, Software, SL1]) lists 52
+approved algorithms, none post-quantum. The OS 26 submissions in the
+queue are now FOUR rows (read 2026-10-15): two Apple corecrypto Module
+OS 26 Software SL1, in Review since 30 and 31 July 2026, and two Secure
+Key Store Hardware SL2/PHY3, one in Review since 2026-10-09 and one in
+Pending Review since 2026-09-17. OS 26 is exactly the release that
+shipped ML-KEM to CryptoKit – so the pending modules are the ones that
+would carry it, and calling this absent would be wrong. Second pass:
+those certificates when they issue. Examined: CMVP validated module
+search, vendor Apple (32 corecrypto modules on 2026-09-13; 29 active on
+2026-10-15), certificate page 5387 (approved-algorithm list), CMVP
+Modules In Process list (four OS 26 rows on 2026-10-15).</li>
 <li>ml-dsa / fips – <strong>searching, 1 of 2 passes</strong>: As
 ML-KEM, and for the same reason: shipped in CryptoKit with the 26
 releases, absent from every issued corecrypto certificate, and blocked
-from absence by the OS 26 modules still in Review. Examined: certificate
-page 5387 (approved-algorithm list), CMVP Modules In Process list.</li>
+from absence by the OS 26 modules still in the queue (four rows on
+2026-10-15: two Software SL1 in Review since July, two Secure Key Store
+Hardware SL2/PHY3 in Review since 2026-10-09 and Pending Review since
+2026-09-17). Examined: certificate page 5387 (approved-algorithm list),
+CMVP Modules In Process list (four OS 26 rows on 2026-10-15).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

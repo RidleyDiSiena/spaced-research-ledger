@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>liboqs</h1>
     <p class="standfirst">Maintained by Open Quantum Safe / PQCA. Numbered 0.x releases about twice a year; oqs-provider is released alongside. Home: https://github.com/open-quantum-safe/liboqs</p>
-    <p class="updated">11 of 50 answered &middot; 11 cited cells</p>
+    <p class="updated">13 of 55 answered &middot; 13 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -51,11 +51,11 @@
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 0.11.0 [1] [2]
 [3] [4]</td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [5]</td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [6]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -103,6 +103,33 @@
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [6]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [6]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [6]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 0.12.0 [7]
 [8]</td>
@@ -110,7 +137,7 @@
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [6]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -120,7 +147,7 @@
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [6]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
@@ -148,7 +175,7 @@ off by default [11] [12]</td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [6]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
@@ -158,7 +185,7 @@ off by default [11] [13] [14]</td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [6]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
 </tr>
 </tbody>
 </table></div>
@@ -168,15 +195,21 @@ off by default [11] [13] [14]</td>
 0.11.0. mlkem-native became the default implementation in 0.14.0 (the
 date this cell carried until patrol 2026-09-26 corrected it) and was
 updated to v1.2.0 in 0.16.0.</li>
-<li><strong>ML-KEM, TLS 1.3</strong>: Not liboqs’s job: the Open Quantum
-Safe project states that oqs-provider is the standalone OpenSSL 3
-provider that brings liboqs-based key exchange and authentication into
-TLS 1.3, X.509 and CMS. liboqs is the algorithm library underneath.
-oqs-provider would be its own component, of a kind the phase 3 scope
-defers.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-12 and name none carrying it.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: Not liboqs’s job: Open Quantum
+Safe says oqs-provider is what brings liboqs key exchange into TLS 1.3;
+liboqs is the algorithm library underneath. Moved from the old
+ml-kem/tls cell on 2026-10-08.</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: Not liboqs’s job: Open Quantum
+Safe says oqs-provider is what brings liboqs key exchange into TLS 1.3;
+liboqs is the algorithm library underneath. Moved from the old
+ml-kem/tls cell on 2026-10-08.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: Not liboqs’s job: Open Quantum
+Safe says oqs-provider is what brings liboqs key exchange into TLS 1.3;
+liboqs is the algorithm library underneath. Moved from the old
+ml-kem/tls cell on 2026-10-08.</li>
 <li><strong>ML-DSA, Primitive</strong>: Final FIPS 204 ML-DSA since
 0.12.0. mldsa-native became the default implementation in 0.16.0, the
 date this cell carried until patrol 2026-09-26 corrected it.</li>
@@ -231,13 +264,13 @@ pqc/pq-reference-implementations/d0002:4)</li>
 class="uri">https://github.com/open-quantum-safe/liboqs/releases</a>
 (date not recorded; ledger claim
 pqc/pq-reference-implementations/d0001:17)</li>
-<li><a href="https://openquantumsafe.org/applications/tls.html"
-class="uri">https://openquantumsafe.org/applications/tls.html</a> (date
-not recorded; checked 2026-09-12)</li>
 <li><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
 class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
 (date not recorded; checked 2026-09-12)</li>
+<li><a href="https://openquantumsafe.org/applications/tls.html"
+class="uri">https://openquantumsafe.org/applications/tls.html</a> (date
+not recorded; checked 2026-10-08)</li>
 <li><a
 href="https://github.com/open-quantum-safe/liboqs/releases/tag/0.12.0"
 class="uri">https://github.com/open-quantum-safe/liboqs/releases/tag/0.12.0</a>

@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>BoringSSL</h1>
     <p class="standfirst">Maintained by Google. Rolling, no numbered releases; consumers pin commits (Chrome, Android, Envoy). Home: https://boringssl.googlesource.com/boringssl/</p>
-    <p class="updated">10 of 50 answered &middot; 10 cited cells</p>
+    <p class="updated">12 of 55 answered &middot; 12 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -50,12 +50,11 @@
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since rolling
 [1]</td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since rolling;
-MLKEM1024 in kNamedGroups [2]</td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-planned">planned</span> [3] [4]</td>
+<td data-label="FIPS 140-3"><span class="st st-planned">planned</span> [2] [3] [4]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -69,8 +68,8 @@ MLKEM1024 in kNamedGroups [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since rolling since
-2023 (pre-standard name X25519Kyber768) [5] [6]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since rolling; commit
+e748facbaa (2026-07-09) [5] [6] [7]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -79,7 +78,7 @@ MLKEM1024 in kNamedGroups [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [2]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [8]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -88,7 +87,7 @@ MLKEM1024 in kNamedGroups [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [2]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [8]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -104,13 +103,41 @@ MLKEM1024 in kNamedGroups [2]</td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [9]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [9]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since rolling; commit
+d89a16e00 (2025-08-12) [10]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since rolling,
-commits of October 2025 [7] [8]</td>
+commits of October 2025 [11] [12]</td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since April 2026
-(libssl commit 4a3cda4) [9]</td>
+(libssl commit 4a3cda4) [13]</td>
 <td data-label="X.509"><span class="st st-available">available</span> since rolling,
-commits of October 2025 [7]</td>
+commits of October 2025 [11]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -118,7 +145,7 @@ commits of October 2025 [7]</td>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since rolling,
-2024-09-04 [10]</td>
+2024-09-04 [14]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
@@ -165,9 +192,6 @@ commits of October 2025 [7]</td>
 </table></div>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>ML-KEM, TLS 1.3</strong>: A pure ML-KEM group is supported:
-kNamedGroups carries MLKEM1024 (SSL_GROUP_MLKEM1024) alongside the
-X25519MLKEM768 hybrid. MLKEM768 and MLKEM512 are not in the array.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: A queue position, not a shipped
 capability. CORRECTED by the 2026-09-12 CMVP reverse scan: Google DOES
 validate BoringCrypto and holds seven certificates for it (5296, 5244,
@@ -179,10 +203,12 @@ algorithm list, so nothing public says whether ML-KEM is in them.
 SafeLogic’s CryptoComply BoringCrypto, also in the queue, is a
 third-party packaging and says nothing about Google’s own module either
 way.</li>
-<li><strong>X25519MLKEM768, TLS 1.3</strong>: Chrome shipped it by
-default from 131 with the standard codepoint; whether BoringSSL’s own
-default group list carries it is a conflict in the ledger (d0001:23).
-Patrol 2026-09-27: commit ba26b4cb (2026-09-09, <a
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: In the default supported
+groups since 2026-07-09 (was <code>available</code>, corrected
+2026-10-08). Chrome shipped it by default from 131 with the standard
+codepoint; whether BoringSSL’s own default group list carries it is a
+conflict in the ledger (d0001:23). Patrol 2026-09-27: commit ba26b4cb
+(2026-09-09, <a
 href="https://boringssl-review.googlesource.com/c/boringssl/+/102587"
 class="uri">https://boringssl-review.googlesource.com/c/boringssl/+/102587</a>)
 adds ssl_compliance_policy_fips_202609, which puts X25519MLKEM768 and
@@ -194,6 +220,18 @@ Recorded as ‘none’ rather than a gap because an exhaustive array makes
 the absence a positive finding, not an open question.</li>
 <li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: Absent from
 kNamedGroups, as above.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: kNamedGroups is the complete
+group table (static_assert) and holds P-256, P-384, P-521, X25519,
+X25519MLKEM768 and MLKEM1024 only.</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: kNamedGroups is the complete
+group table (static_assert) and holds P-256, P-384, P-521, X25519,
+X25519MLKEM768 and MLKEM1024 only.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: kNamedGroups carries
+{NID_ML_KEM_1024, SSL_GROUP_MLKEM1024, “MLKEM1024”} (commit d89a16e00
+“Implement MLKEM1024 for TLS”, 2025-08-12); not in
+DefaultSupportedGroupIds. Opt-in policy
+ssl_compliance_policy_fips_202609 allows “X25519MLKEM768 or
+ML-KEM-1024”.</li>
 <li><strong>ML-DSA, Primitive</strong>: One source dates ML-DSA to April
 2026 instead (ledger conflict d0005:1).</li>
 <li><strong>ML-DSA, TLS 1.3</strong>: Asymmetric, and the asymmetry
@@ -218,10 +256,6 @@ href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-suppor
 class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-support/</a>
 (as of 2026-06-24; ledger claim pqc/openssl-and-forks/d0002:2)</li>
 <li><a
-href="https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc"
-class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc</a>
-(date not recorded; checked 2026-09-12)</li>
-<li><a
 href="https://www.safelogic.com/blog/cryptocomply-140-3-fips-provider-with-pqc-enters-cmvp-queue"
 class="uri">https://www.safelogic.com/blog/cryptocomply-140-3-fips-provider-with-pqc-enters-cmvp-queue</a>
 (as of 2026-05-19; checked 2026-09-12)</li>
@@ -230,6 +264,10 @@ href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/mod
 class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
 (date not recorded; checked 2026-09-12)</li>
 <li><a
+href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
+class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
+(as of 2026-10-15; checked 2026-10-15)</li>
+<li><a
 href="https://quantumsecuritydefence.com/insights/fips-203-205-implementation-c-rust-libraries/"
 class="uri">https://quantumsecuritydefence.com/insights/fips-203-205-implementation-c-rust-libraries/</a>
 (date not recorded; ledger claim pqc/openssl-and-forks/d0001:10)</li>
@@ -237,6 +275,22 @@ class="uri">https://quantumsecuritydefence.com/insights/fips-203-205-implementat
 href="https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/"
 class="uri">https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-why-x25519-ml-kem-is-the-interim-default/</a>
 (date not recorded; ledger claim pqc/openssl-and-forks/d0001:11)</li>
+<li><a
+href="https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc"
+class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc</a>
+(as of 2026-07-09; checked 2026-10-08)</li>
+<li><a
+href="https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc"
+class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc</a>
+(date not recorded; checked 2026-09-12)</li>
+<li><a
+href="https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc"
+class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc</a>
+(date not recorded; checked 2026-10-08)</li>
+<li><a
+href="https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc"
+class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc</a>
+(as of 2025-08-12; checked 2026-10-08)</li>
 <li><a href="https://github.com/envoyproxy/envoy/issues/42893"
 class="uri">https://github.com/envoyproxy/envoy/issues/42893</a> (as of
 2026-01-07; ledger claim pqc/openssl-and-forks/d0002:1)</li>

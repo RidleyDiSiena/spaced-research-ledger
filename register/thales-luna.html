@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; hsm</p>
     <h1>Thales Luna HSM</h1>
     <p class="standfirst">Maintained by Thales. Firmware releases on the 7.x line, with a matching Luna HSM Client. Post-quantum support arrived in two steps: LMS-HSS in firmware 7.8.9, ML-KEM and ML-DSA in 7.9.0. Home: https://cpl.thalesgroup.com/encryption/hardware-security-modules</p>
-    <p class="updated">13 of 33 answered &middot; 13 cited cells</p>
+    <p class="updated">13 of 36 answered &middot; 13 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -27,6 +27,7 @@
 <ul>
 <li><a href="#standing" id="toc-standing">Standing</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
 </ul>
   </nav>
@@ -90,6 +91,27 @@ Firmware 7.9.0 with Client 10.9.0 [4]</td>
 <td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- As for the KEM rows, and doubly so: a negotiated TLS group has no role in signing an image that is verified offline by a bootloader.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+<td data-label="PKCS#11"><abbr class="st-na" title="Not a real question -- A device exposes the ML-KEM mechanism and the TLS stack builds the group from it, so the ml-kem row carries this question.">n/a</abbr></td>
+<td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key exchange group does not sign, and this column is about the signature on a firmware image.">n/a</abbr></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since Luna HSM
 Firmware 7.9.0 [5]</td>
@@ -145,7 +167,13 @@ loadable functionality module, which is the difference between a
 supported algorithm and an add-on somebody has to deploy.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: Inside Luna T7, Thales Trusted
 Cyber Technologies, FIPS 140-3 certificate 5450 issued 2026-07-29.
-Sunset 2031-07-28.</li>
+Sunset 2031-07-28. The commercial Luna Network/PCIe line (K7 module)
+holds certificate 4684 on firmware 7.8.4/7.8.5, which predates the
+post-quantum firmware; on 2026-10-15 a new “Thales Luna K7 Cryptographic
+Module” is Pending Review in the CMVP queue (entered 2026-10-15) and
+Thales names firmware 7.9.2 as “the next candidate for FIPS 140
+certification”. Whether this cell should say which product the validated
+algorithm sits in is the user’s call.</li>
 <li><strong>ML-KEM, PKCS#11</strong>: Through the STANDARD interface
 rather than a vendor extension, which is the distinction this column
 exists to make: compare Utimaco, which reaches the same algorithms
@@ -155,10 +183,19 @@ only through its proprietary nCore API.</li>
 availability all work, which is NOT true of the stateful hash-based keys
 below – see the LMS/HSS note. One documented limitation: firmware 7.9.0
 does not support wrapping or unwrapping ML-DSA private key objects,
-pending standardisation.</li>
+pending standardisation. LIFTED in firmware 7.9.1 (release notes read
+2026-10-15): “Private keys created with ML-KEM and ML-DSA mechanisms can
+now be wrapped and unwrapped”, with Client 10.9.1 or newer; 7.9.1 also
+adds attestation of PQC keys. See releases.</li>
 <li><strong>ML-DSA, FIPS 140-3</strong>: Inside Luna T7, Thales Trusted
 Cyber Technologies, FIPS 140-3 certificate 5450 issued 2026-07-29.
-Sunset 2031-07-28.</li>
+Sunset 2031-07-28. The commercial Luna Network/PCIe line (K7 module)
+holds certificate 4684 on firmware 7.8.4/7.8.5, which predates the
+post-quantum firmware; on 2026-10-15 a new “Thales Luna K7 Cryptographic
+Module” is Pending Review in the CMVP queue (entered 2026-10-15) and
+Thales names firmware 7.9.2 as “the next candidate for FIPS 140
+certification”. Whether this cell should say which product the validated
+algorithm sits in is the user’s call.</li>
 <li><strong>SLH-DSA, Primitive</strong>: TWO SOURCES, NEITHER MENTIONING
 IT, one of them exhaustive. The 89-page security policy for certificate
 5450 does not contain the string SLH-DSA ANYWHERE – while mentioning LMS
@@ -172,7 +209,17 @@ certificate today, so this is a product difference rather than a
 hardware limitation.</li>
 <li><strong>SLH-DSA, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
-scanned on 2026-09-13 and name none carrying it.</li>
+scanned on 2026-09-13 and name none carrying it. Queue on 2026-10-15
+(reverse lookup): a NEW “Thales Luna K7 Cryptographic Module” entered at
+Pending Review on 2026-10-15, and “Thales Cryptovisor K7” moved Pending
+Review -&gt; Review since 2026-10-07. The queue names no algorithms.
+Thales’s own release notes say firmware 7.9.2 “is the next candidate for
+FIPS 140 certification”, so the new K7 entry most plausibly is 7.9.2
+(the issued K7 certificate 4684 covers 7.8.4/7.8.5) – an inference, not
+a vendor statement. 7.9.x firmware carries ML-KEM, ML-DSA and LMS-HSS,
+not SLH-DSA or XMSS, so this <code>none</code> is not under pressure
+from the pending rows; the tension for the ML-KEM/ML-DSA fips cells
+(issued on T7, pending on K7) is for the user.</li>
 <li><strong>LMS / HSS, Primitive</strong>: Shipped BEFORE the lattice
 algorithms, which is the pattern across this category: stateful
 hash-based signatures were standardised first (SP 800-208) and the
@@ -182,7 +229,13 @@ replication are possible”, which is state management showing through
 into operations.</li>
 <li><strong>LMS / HSS, FIPS 140-3</strong>: Inside Luna T7, Thales
 Trusted Cyber Technologies, FIPS 140-3 certificate 5450 issued
-2026-07-29. Sunset 2031-07-28.</li>
+2026-07-29. Sunset 2031-07-28. The commercial Luna Network/PCIe line (K7
+module) holds certificate 4684 on firmware 7.8.4/7.8.5, which predates
+the post-quantum firmware; on 2026-10-15 a new “Thales Luna K7
+Cryptographic Module” is Pending Review in the CMVP queue (entered
+2026-10-15) and Thales names firmware 7.9.2 as “the next candidate for
+FIPS 140 certification”. Whether this cell should say which product the
+validated algorithm sits in is the user’s call.</li>
 <li><strong>LMS / HSS, Firmware signing</strong>: The security policy
 for certificate 5450 states it outright: “The Firmware component is
 digitally signed using a Thales TCT Manufacturing signature key using
@@ -210,7 +263,24 @@ SLH-DSA on an issued certificate today, so this is a product difference
 rather than a hardware limitation.</li>
 <li><strong>XMSS / XMSS^MT, FIPS 140-3</strong>: Not in any module of
 this project: the CMVP validated list and the Modules In Process list
-were scanned on 2026-09-13 and name none carrying it.</li>
+were scanned on 2026-09-13 and name none carrying it. Queue on
+2026-10-15 (reverse lookup): a NEW “Thales Luna K7 Cryptographic Module”
+entered at Pending Review on 2026-10-15, and “Thales Cryptovisor K7”
+moved Pending Review -&gt; Review since 2026-10-07. The queue names no
+algorithms. Thales’s own release notes say firmware 7.9.2 “is the next
+candidate for FIPS 140 certification”, so the new K7 entry most
+plausibly is 7.9.2 (the issued K7 certificate 4684 covers 7.8.4/7.8.5) –
+an inference, not a vendor statement. 7.9.x firmware carries ML-KEM,
+ML-DSA and LMS-HSS, not SLH-DSA or XMSS, so this <code>none</code> is
+not under pressure from the pending rows; the tension for the
+ML-KEM/ML-DSA fips cells (issued on T7, pending on K7) is for the
+user.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>Luna HSM Firmware 7.9.3 [10]</li>
+<li>Luna HSM Firmware 7.9.2 [11]</li>
+<li>Luna HSM Firmware 7.9.1 [12]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -250,6 +320,18 @@ class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-progr
 href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm"
 class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/sdk/extensions/pqc/post_quantum_algorithms.htm</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-3.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-3.htm</a>
+(date not recorded; checked 2026-10-15)</li>
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-2.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-2.htm</a>
+(date not recorded; checked 2026-10-15)</li>
+<li><a
+href="https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-1.htm"
+class="uri">https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-9-1.htm</a>
+(date not recorded; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

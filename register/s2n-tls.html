@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; tls-stack</p>
     <h1>s2n-tls</h1>
     <p class="standfirst">Maintained by Amazon Web Services. Continuous; behaviour is selected by named security policies. Home: https://github.com/aws/s2n-tls</p>
-    <p class="updated">6 of 25 answered &middot; 6 cited cells</p>
+    <p class="updated">8 of 30 answered &middot; 8 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -49,8 +49,7 @@ From</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since not recorded
-[1] [2] [3]</td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -62,22 +61,19 @@ From</a></li>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since security policy
-default_pq (20250721) [4]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since v1.6.0 [1] [2]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since security policy
-default_pq (20250721) [4]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since v1.6.0 [1] [2]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since security policy
-default_pq (20250721) [4]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since v1.6.0 [1] [2]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -88,11 +84,29 @@ default_pq (20250721) [4]</td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [3]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [3]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since v1.7.2 [4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since security policy
-default_pq 20250721 [1] [5] [6]</td>
+default_pq 20250721 [5] [6] [7]</td>
 <td data-label="X.509"><span class="st st-available">available</span> since security policy
-default_pq (20250721) [4]</td>
+default_pq (20250721) [1]</td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -137,17 +151,17 @@ Inherits: FIPS 140-3. s2n-tls performs no cryptography itself. Its
 README says the library is structured so that different encryption
 libraries may be used, and names AWS-LC first; AWS-LC is the only
 supported libcrypto on Windows. Its FIPS standing is whichever libcrypto
-it was built against. [7]</li>
+it was built against. [8]</li>
 <li><strong><a href="openssl.html">OpenSSL</a></strong> – provider.
 Inherits: FIPS 140-3. One of the four libcryptos the README names.
 Listed so the register cannot present any single backend as the answer.
-[8]</li>
+[9]</li>
 <li><strong><a href="boringssl.html">BoringSSL</a></strong> – provider.
 Inherits: FIPS 140-3. One of the four libcryptos the README names.
-[8]</li>
+[9]</li>
 <li><strong><a href="libressl.html">LibreSSL</a></strong> – provider.
 Inherits: FIPS 140-3. One of the four libcryptos the README names.
-[8]</li>
+[9]</li>
 </ul>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>s2n-tls holds no FIPS 140-3 certificate of its own, and there is no
@@ -171,23 +185,32 @@ own. See <a href="libressl.html">LibreSSL</a>.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>ML-KEM, TLS 1.3</strong>: Hybrid ECDH+ML-KEM and pure ML-KEM
-key exchange; used across AWS service endpoints. Hybrid suites supported
-only on Linux per AWS KMS documentation (d0001:21). From v1.7.11
-(2026-10-02) the ELB post-quantum policies, FIPS variants included, are
-selectable by name in s2n-tls itself; still chosen policies, not the
-library default, so <code>available</code> stands (patrol
-2026-10-04).</li>
-<li><strong>X25519MLKEM768, TLS 1.3</strong>: Named in the security
-policy tables as x25519+mlkem768, alongside secp256r1+mlkem768,
-secp384r1+mlkem1024 and pure mlkem1024. Reached by choosing a policy,
-not by default: the documentation says a policy supporting post-quantum
-must be configured. s2n-tls must be built against AWS-LC for any of
-it.</li>
-<li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: In the same policy
-tables as the X25519 hybrid.</li>
-<li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: In the same policy
-tables; the CNSA 2.0 pairing.</li>
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: Default policy since
+v1.6.0 (AWS-LC builds) (was <code>available</code>, corrected
+2026-10-08). Named in the security policy tables as x25519+mlkem768,
+alongside secp256r1+mlkem768, secp384r1+mlkem1024 and pure mlkem1024.
+Reached by choosing a policy, not by default: the documentation says a
+policy supporting post-quantum must be configured. s2n-tls must be built
+against AWS-LC for any of it.</li>
+<li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: Default policy since
+v1.6.0 (AWS-LC builds) (was <code>available</code>, corrected
+2026-10-08). In the same policy tables as the X25519 hybrid.</li>
+<li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: Default policy since
+v1.6.0 (AWS-LC builds) (was <code>available</code>, corrected
+2026-10-08). In the same policy tables; the CNSA 2.0 pairing.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: ALL_SUPPORTED_KEM_GROUPS = {
+x25519_mlkem_768, secp256r1_mlkem_768, secp384r1_mlkem_1024,
+pure_mlkem_1024 } (v1.7.11).</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: ALL_SUPPORTED_KEM_GROUPS = {
+x25519_mlkem_768, secp256r1_mlkem_768, secp384r1_mlkem_1024,
+pure_mlkem_1024 } (v1.7.11).</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: Usage guide: “cnsa_2… is a TLS
+1.3 PQ only policy that requires pure ML-KEM-1024.” s2n_pure_mlkem_1024
+exists from v1.6.0 but is in a policy only from v1.7.2:
+pq_kem_groups_cnsa2_2026_02, used by cnsa_2, cnsa_1_2_interop and the
+<em>-CNSA2-</em>-FIPS-PQ-2026-07 ELB policies, so it is reachable in
+FIPS-labelled policies. Not in the default policy. Needs an AWS-LC
+build.</li>
 <li><strong>ML-DSA, TLS 1.3</strong>: ML-DSA certificates for TLS 1.3
 authentication in the default_pq and cnsa_2 policies. Those are named
 policies, not the library default, so ‘available’.</li>
@@ -196,25 +219,29 @@ exactly as an RSA or ECDSA one would be.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>1.7.11, 2026-10-02 [9]</li>
+<li>1.7.11, 2026-10-02 [10] [11]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
 <li><a
 href="https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html"
 class="uri">https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html</a>
-(as of 2026-06-15; ledger claim pqc/openssl-and-forks/d0003:1)</li>
+(date not recorded; checked 2026-09-12)</li>
 <li><a
-href="https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html"
-class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html</a>
-(date not recorded; ledger claim pqc/openssl-and-forks/d0001:19)</li>
-<li><a href="https://github.com/aws/s2n-tls/pull/5977"
-class="uri">https://github.com/aws/s2n-tls/pull/5977</a> (as of
-2026-10-02; checked 2026-10-04)</li>
+href="https://github.com/aws/s2n-tls/blob/v1.7.11/tls/s2n_security_policies.c"
+class="uri">https://github.com/aws/s2n-tls/blob/v1.7.11/tls/s2n_security_policies.c</a>
+(as of 2025-10-30; checked 2026-10-08)</li>
+<li><a href="https://github.com/aws/s2n-tls/blob/v1.7.11/tls/s2n_kem.c"
+class="uri">https://github.com/aws/s2n-tls/blob/v1.7.11/tls/s2n_kem.c</a>
+(date not recorded; checked 2026-10-08)</li>
 <li><a
 href="https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html"
 class="uri">https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html</a>
-(date not recorded; checked 2026-09-12)</li>
+(as of 2026-04-01; checked 2026-10-08)</li>
+<li><a
+href="https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html"
+class="uri">https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html</a>
+(as of 2026-06-15; ledger claim pqc/openssl-and-forks/d0003:1)</li>
 <li><a
 href="https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html"
 class="uri">https://aws.github.io/s2n-tls/usage-guide/ch16-post-quantum.html</a>
@@ -234,6 +261,9 @@ class="uri">https://raw.githubusercontent.com/aws/s2n-tls/main/README.md</a>
 <li><a href="https://github.com/aws/s2n-tls/releases/tag/v1.7.11"
 class="uri">https://github.com/aws/s2n-tls/releases/tag/v1.7.11</a> (as
 of 2026-10-02; checked 2026-10-04)</li>
+<li><a href="https://github.com/aws/s2n-tls/releases"
+class="uri">https://github.com/aws/s2n-tls/releases</a> (as of
+2026-10-15; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

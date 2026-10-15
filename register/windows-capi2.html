@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; os</p>
     <h1>Windows CryptoAPI (CAPI2)</h1>
     <p class="standfirst">Maintained by Microsoft. Windows servicing updates. The post-quantum certificate functions arrived with the same November 2025 update as CNG&#x27;s algorithms. Home: https://learn.microsoft.com/en-us/windows/win32/seccrypto/cryptography-functions</p>
-    <p class="updated">3 of 37 answered &middot; 2 cited cells &middot; 1 confirmed absent</p>
+    <p class="updated">3 of 42 answered &middot; 2 cited cells &middot; 1 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -52,8 +52,8 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
-<td data-label="X.509"><span class="st st-absent">none found 2026-09-14</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
+<td data-label="X.509"><span class="st st-absent">none found 2026-10-15</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -90,6 +90,27 @@ Unknowns</a></li>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
@@ -194,7 +215,7 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-kem / x509 – <strong>none found 2026-09-14</strong>: Second pass
+<li>ml-kem / x509 – <strong>none found 2026-10-15</strong>: Second pass
 done and it found nothing either way, which is the answer: no Microsoft
 document states whether the Windows certificate functions can handle a
 certificate carrying an ML-KEM key. What the second pass DID establish
@@ -209,13 +230,17 @@ certificate layer accepts, and this register does not read a document’s
 silence as a denial. The thing that would settle it is an ML-KEM
 certificate OID in the wincrypt reference or a CertEnroll page naming
 the key type; neither exists today. Recheck when the ML-KEM phase ships.
-Examined: Microsoft PQC GA announcement, 2025-11-18, AD CS post-quantum
-overview (ML-KEM: Planned, Phase 2), New Windows Features to Secure
-Today’s Data in a Post-Quantum World, 2026-06-02 with the 2026-07-14
-update, CNG algorithm identifiers reference (wincrypt/BCrypt identifier
-table – ML-KEM present as a CNG primitive, no certificate-side
-identifier), CertEnroll portal and Certificate Request Functions
-reference.</li>
+Third pass 2026-10-15: the October cumulatives (KB5127648 Windows 11,
+KB5126646 Server 2025) mention certificates only for Secure Boot, the
+CNG algorithm identifiers page has no commit after 2026-05-29, and the
+AD CS table still has ML-KEM at Phase 2. Nothing either way; the gap
+stands. Examined: Microsoft PQC GA announcement, 2025-11-18, KB5127648
+and KB5126646 (2026-10-13), AD CS post-quantum overview (ML-KEM:
+Planned, Phase 2), New Windows Features to Secure Today’s Data in a
+Post-Quantum World, 2026-06-02 with the 2026-07-14 update, CNG algorithm
+identifiers reference (wincrypt/BCrypt identifier table – ML-KEM present
+as a CNG primitive, no certificate-side identifier), CertEnroll portal
+and Certificate Request Functions reference.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

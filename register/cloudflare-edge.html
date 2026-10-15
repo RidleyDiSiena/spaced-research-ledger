@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; tls-terminator</p>
     <h1>Cloudflare edge</h1>
     <p class="standfirst">Maintained by Cloudflare. A service, continuously deployed, with no version a customer selects. Cells therefore carry dates and rollout states rather than versions. Home: https://developers.cloudflare.com/ssl/post-quantum-cryptography/</p>
-    <p class="updated">2 of 9 answered &middot; 2 cited cells</p>
+    <p class="updated">5 of 11 answered &middot; 5 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -43,7 +43,7 @@
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -67,9 +67,21 @@ zones and by default for new ones [1] [2] [3]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Authenticated
-Origin Pulls and Custom Origin Trust Store [4]</td>
+Origin Pulls and Custom Origin Trust Store [5]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -109,6 +121,24 @@ exact here: nobody configured it, and the same rollout cut
 HelloRetryRequests on origin connections from roughly 52% to 3.7%, which
 is the sort of operational consequence a register of capabilities
 usually cannot show.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: “Cloudflare has deployed the
+following hybrid key agreements:” X25519MLKEM768 and the obsolete
+X25519Kyber768Draft00, nothing else (page updated 2026-07-03); the
+pqc-to-origin page (2026-08-03) names only X25519MLKEM768. A list of
+deployed post-quantum key agreements, not of every group, so revisit if
+Cloudflare publishes one.</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: “Cloudflare has deployed the
+following hybrid key agreements:” X25519MLKEM768 and the obsolete
+X25519Kyber768Draft00, nothing else (page updated 2026-07-03); the
+pqc-to-origin page (2026-08-03) names only X25519MLKEM768. A list of
+deployed post-quantum key agreements, not of every group, so revisit if
+Cloudflare publishes one.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: “Cloudflare has deployed the
+following hybrid key agreements:” X25519MLKEM768 and the obsolete
+X25519Kyber768Draft00, nothing else (page updated 2026-07-03); the
+pqc-to-origin page (2026-08-03) names only X25519MLKEM768. A list of
+deployed post-quantum key agreements, not of every group, so revisit if
+Cloudflare publishes one.</li>
 <li><strong>ML-DSA, TLS 1.3</strong>: THE SIGNATURE HALF, ON THE ONE LEG
 WHERE IT IS POSSIBLE TODAY. “Authenticated Origin Pulls and Custom
 Origin Trust Store products now support post-quantum (PQ) authentication
@@ -139,6 +169,10 @@ class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/pqc-
 <li><a href="https://blog.cloudflare.com/post-quantum-visibility/"
 class="uri">https://blog.cloudflare.com/post-quantum-visibility/</a> (as
 of 2026-09-29; checked 2026-10-04)</li>
+<li><a
+href="https://developers.cloudflare.com/ssl/post-quantum-cryptography/"
+class="uri">https://developers.cloudflare.com/ssl/post-quantum-cryptography/</a>
+(as of 2026-07-03; checked 2026-10-08)</li>
 <li><a
 href="https://blog.cloudflare.com/post-quantum-authentication-to-origins/"
 class="uri">https://blog.cloudflare.com/post-quantum-authentication-to-origins/</a>

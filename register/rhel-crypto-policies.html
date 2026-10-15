@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; os</p>
     <h1>RHEL system-wide crypto-policies</h1>
     <p class="standfirst">Maintained by Red Hat. RHEL minor releases. The post-quantum position changed materially between 10.0 and 10.1, which is what the cells below record. Home: https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/security_hardening/using-system-wide-cryptographic-policies</p>
-    <p class="updated">3 of 37 answered &middot; 3 cited cells</p>
+    <p class="updated">5 of 42 answered &middot; 5 cited cells</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -50,8 +50,7 @@ From</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since RHEL 10.1 [1]
-[2]</td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -65,8 +64,8 @@ From</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since RHEL 10.1 [3]
-[4]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since RHEL 10.1 [1] [2]
+[3]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -90,6 +89,30 @@ From</a></li>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since RHEL 10
+(TEST-PQ) [4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since RHEL 10
+(TEST-PQ) [4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since RHEL 10
+(TEST-PQ) [4]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
@@ -159,21 +182,37 @@ be visible here rather than hidden behind a single “the libraries” edge.
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>ML-KEM, TLS 1.3</strong>: The version boundary is the
-finding, and it is why this component exists as its own row rather than
-as a note on OpenSSL. On RHEL 10.0 post-quantum key exchange is
-EXPERIMENTAL in this register’s sense – gated behind a preview package
-and a named policy module. On 10.1 the same libraries, unchanged, are
-default because the policy changed. RHEL 9.7 sits in between: the blog
-records that OpenSSL- and NSS-based applications there can use
-post-quantum TLS by enabling the policy module with
-“update-crypto-policies –set DEFAULT:PQ”. A NO-PQ subpolicy turns it
-back off, so this is a default somebody can revoke centrally – which is
-the whole purpose of the layer.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: Named, so it is recorded
 on the named-group row rather than left on the KEM family. This is the
 cell Apple’s networking component could not have, for the exact reason
 recorded in its gap: Red Hat prints the group, Apple does not.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: Only in the TEST-PQ subpolicy
+(group = +MLKEM512/+MLKEM768/+MLKEM1024): “An experimental subpolicy …
+Not for production use. May disappear with the next update.”
+alg_lists.py files all three under EXPERIMENTAL_GROUPS; DEFAULT.pol
+(rhel10, rhel10.2) lists hybrids and classical groups only. Only the
+OpenSSL back-end maps the pure names; GnuTLS and NSS do not. FIPS.pol:
+“MLKEM is not supported in openssl FIPS ATM”. The old ml-kem/tls
+<code>default</code> cell here was hybrid evidence and was removed on
+2026-10-08.</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: Only in the TEST-PQ subpolicy
+(group = +MLKEM512/+MLKEM768/+MLKEM1024): “An experimental subpolicy …
+Not for production use. May disappear with the next update.”
+alg_lists.py files all three under EXPERIMENTAL_GROUPS; DEFAULT.pol
+(rhel10, rhel10.2) lists hybrids and classical groups only. Only the
+OpenSSL back-end maps the pure names; GnuTLS and NSS do not. FIPS.pol:
+“MLKEM is not supported in openssl FIPS ATM”. The old ml-kem/tls
+<code>default</code> cell here was hybrid evidence and was removed on
+2026-10-08.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: Only in the TEST-PQ subpolicy
+(group = +MLKEM512/+MLKEM768/+MLKEM1024): “An experimental subpolicy …
+Not for production use. May disappear with the next update.”
+alg_lists.py files all three under EXPERIMENTAL_GROUPS; DEFAULT.pol
+(rhel10, rhel10.2) lists hybrids and classical groups only. Only the
+OpenSSL back-end maps the pure names; GnuTLS and NSS do not. FIPS.pol:
+“MLKEM is not supported in openssl FIPS ATM”. The old ml-kem/tls
+<code>default</code> cell here was hybrid evidence and was removed on
+2026-10-08.</li>
 <li><strong>ML-DSA, TLS 1.3</strong>: Available, not default, and Red
 Hat says why in the same breath: “no public Certificate Authorities
 (CAs) currently offer post-quantum cryptography, but private CAs or
@@ -184,14 +223,6 @@ presents.</li>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
 <li><a
-href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
-class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
-(date not recorded; checked 2026-09-13)</li>
-<li><a
-href="https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10"
-class="uri">https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10</a>
-(date not recorded; checked 2026-09-13)</li>
-<li><a
 href="https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10"
 class="uri">https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-enterprise-linux-10</a>
 (date not recorded; checked 2026-09-13)</li>
@@ -199,6 +230,14 @@ class="uri">https://www.redhat.com/en/blog/post-quantum-cryptography-red-hat-ent
 href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
 class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://gitlab.com/redhat-crypto/fedora-crypto-policies/-/blob/rhel10/policies/DEFAULT.pol"
+class="uri">https://gitlab.com/redhat-crypto/fedora-crypto-policies/-/blob/rhel10/policies/DEFAULT.pol</a>
+(as of 2026-08-11; checked 2026-10-15)</li>
+<li><a
+href="https://gitlab.com/redhat-crypto/fedora-crypto-policies/-/blob/rhel10/policies/modules/TEST-PQ.pmod"
+class="uri">https://gitlab.com/redhat-crypto/fedora-crypto-policies/-/blob/rhel10/policies/modules/TEST-PQ.pmod</a>
+(as of 2026-08-11; checked 2026-10-08)</li>
 <li><a
 href="https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101"
 class="uri">https://www.redhat.com/en/blog/whats-new-post-quantum-cryptography-rhel-101</a>

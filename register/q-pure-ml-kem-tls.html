@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Which components can negotiate a pure ML-KEM TLS group? | PQC Readiness Register</title>
+  <meta name="description" content="Any one of the pure ML-KEM key exchange groups -- MLKEM512, MLKEM768 or MLKEM1024, from draft-ietf-tls-mlkem -- usable in a TLS 1.3 handshake in a general…">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="wide">
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">PQC Readiness Register</a><span class="sep">/</span>Which components can negotiate a pure ML-KEM TLS group?</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="banner"><img src="../assets/banner.png" alt="" width="2075" height="301"></p>
+    <p class="kicker">PQC Readiness Register &middot; Question</p>
+    <h1>Which components can negotiate a pure ML-KEM TLS group?</h1>
+    <p class="standfirst">Any one of the pure ML-KEM key exchange groups -- MLKEM512, MLKEM768 or MLKEM1024, from draft-ietf-tls-mlkem -- usable in a TLS 1.3 handshake in a general release. Pure rather than hybrid: the whole key exchange rests on ML-KEM, with no…</p>
+    <p class="updated">13 yes &middot; 9 no &middot; 9 not checked</p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#yes" id="toc-yes">Yes (13)</a></li>
+<li><a href="#no" id="toc-no">No (9)</a></li>
+<li><a href="#not-checked" id="toc-not-checked">Not checked (9)</a></li>
+<li><a href="#not-applicable" id="toc-not-applicable">Not
+applicable</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<p>Any one of the pure ML-KEM key exchange groups – MLKEM512, MLKEM768
+or MLKEM1024, from draft-ietf-tls-mlkem – usable in a TLS 1.3 handshake
+in a general release. Pure rather than hybrid: the whole key exchange
+rests on ML-KEM, with no classical half. That is what a
+pure-post-quantum mandate asks for, and it is also why IANA lists all
+three as Recommended N where X25519MLKEM768 is Y. The bar is
+<code>available</code>; a preview channel or build flag does not count.
+Added 2026-10-08, when the draft was in the RFC Editor queue.</p>
+<h2 id="yes">Yes (13)</h2>
+<p>At or above the bar the question sets, with the cell it rests on.</p>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Yes (13), scrollable table"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>Standing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Component"><a href="aws-lc.html">AWS-LC</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-available">available</span> since v1.61.0</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="boringssl.html">BoringSSL</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-available">available</span> since rolling; commit
+d89a16e00 (2025-08-12)</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="botan.html">Botan</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-available">available</span> since 3.7.0</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="bouncycastle-java.html">Bouncy Castle (Java)</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-available">available</span> since 1.81</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="go.html">Go standard library</a></td>
+<td data-label="Kind">language-stack</td>
+<td data-label="Standing"><span class="st st-available">available</span> since 1.27</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="haproxy.html">HAProxy</a></td>
+<td data-label="Kind">tls-terminator</td>
+<td data-label="Standing"><span class="st st-derived">available</span> via AWS-LC</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="nginx.html">nginx</a></td>
+<td data-label="Kind">tls-terminator</td>
+<td data-label="Standing"><span class="st st-available">available</span> since OpenSSL 3.5
+underneath</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="nodejs.html">Node.js</a></td>
+<td data-label="Kind">language-stack</td>
+<td data-label="Standing"><span class="st st-available">available</span> since the OpenSSL 3.5
+builds (22.20, 24.9.0, as the hybrid cell); not separately verified</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="nss.html">NSS</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-available">available</span> since 3.130</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="openssl.html">OpenSSL</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-available">available</span> since 3.5.0</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="rustls.html">rustls</a></td>
+<td data-label="Kind">tls-stack</td>
+<td data-label="Standing"><span class="st st-available">available</span> since 0.23.22</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="s2n-tls.html">s2n-tls</a></td>
+<td data-label="Kind">tls-stack</td>
+<td data-label="Standing"><span class="st st-available">available</span> since v1.7.2</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="windows-schannel.html">Schannel</a></td>
+<td data-label="Kind">tls-stack</td>
+<td data-label="Standing"><span class="st st-available">available</span> since Windows 11
+24H2/25H2, KB5120998 (preview 2026-08-27); KB5124008 (2026-09-08)</td>
+</tr>
+</tbody>
+</table></div>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="no">No (9)</h2>
+<p>A cited cell that falls short. The status is shown rather than
+flattened: <code>planned</code> and <code>none</code> are different
+answers to the same question.</p>
+<div class="tablewrap" role="region" tabindex="0" aria-label="No (9), scrollable table"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>Standing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Component"><a href="cloudflare-edge.html">Cloudflare edge</a></td>
+<td data-label="Kind">tls-terminator</td>
+<td data-label="Standing"><span class="st st-none">none</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="gnutls.html">GnuTLS</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-none">none</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="jdk.html">Java (OpenJDK)</a></td>
+<td data-label="Kind">language-stack</td>
+<td data-label="Standing"><span class="st st-none">none</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="liboqs.html">liboqs</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-none">none</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="libressl.html">LibreSSL</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-none">none</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="mbedtls.html">Mbed TLS</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-none">none</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="rhel-crypto-policies.html">RHEL system-wide
+crypto-policies</a></td>
+<td data-label="Kind">os</td>
+<td data-label="Standing"><span class="st st-experimental">experimental</span> since RHEL 10
+(TEST-PQ)</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
+<td data-label="Kind">tls-stack</td>
+<td data-label="Standing"><span class="st st-none">none</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="wolfssl.html">wolfSSL / wolfCrypt</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-experimental">experimental</span> since v5.9.1
+(build flag)</td>
+</tr>
+</tbody>
+</table></div>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-checked">Not checked (9)</h2>
+<p>Nobody has settled it here yet, and each line says what was done
+about it. Not the same as no.</p>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Not checked (9), scrollable table"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Kind</th>
+<th>Standing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Component"><a href="dotnet.html">.NET</a></td>
+<td data-label="Kind">language-stack</td>
+<td data-label="Standing"><span class="st st-absent">none found 2026-10-08</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="apple-cryptokit.html">Apple CryptoKit and
+corecrypto</a></td>
+<td data-label="Kind">os</td>
+<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="apple-network.html">Apple Network framework and
+URLSession</a></td>
+<td data-label="Kind">tls-stack</td>
+<td data-label="Standing"><span class="st st-absent">none found 2026-10-08</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="aws-lc-rs.html">aws-lc-rs</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="libsodium.html">libsodium</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="mlkem-native.html">mlkem-native</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="pyca-cryptography.html">pyca/cryptography (Python)</a></td>
+<td data-label="Kind">language-stack</td>
+<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="windows-cng.html">Windows CNG</a></td>
+<td data-label="Kind">os</td>
+<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Component"><a href="windows-capi2.html">Windows CryptoAPI (CAPI2)</a></td>
+<td data-label="Kind">os</td>
+<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
+</tr>
+</tbody>
+</table></div>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-applicable">Not applicable</h2>
+<p>This question is not one these components are asked: the capability
+does not apply to what they are, or the pair is one nobody would build.
+They are named here so the counts above account for every component in
+the register, and listed apart so they are never read as a failure to
+answer.</p>
+<p>AWS KMS, Crypto4A QASM, Entrust nShield, Google Cloud KMS, Libreswan,
+libssh, OpenSSH, PuTTY, strongSwan, Thales Luna HSM, Utimaco u.trust
+General Purpose HSM, AD CS.</p>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-up" href="index.html"><span>Up</span>PQC Readiness Register</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+</footer>
+</body>
+</html>

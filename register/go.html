@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; language-stack</p>
     <h1>Go standard library</h1>
     <p class="standfirst">Maintained by Google. Two releases a year (1.N); crypto/tls defaults change with them. Home: https://go.dev/</p>
-    <p class="updated">12 of 37 answered &middot; 11 cited cells &middot; 1 confirmed absent</p>
+    <p class="updated">14 of 42 answered &middot; 13 cited cells &middot; 1 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -51,16 +51,15 @@ Unknowns</a></li>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 1.24 [1]
 [2]</td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 1.27 [3]
-[4]</td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-available">available</span> since certificate
-5247 [5]</td>
+5247 [3]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 1.26 [6]
-[7]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 1.26 [4]
+[5]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
@@ -68,22 +67,22 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.24 [1] [8]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.24 [1] [6]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-experimental">experimental</span> since FIPS 140
-mode (issue 78178) [9]</td>
+mode (issue 78178) [7]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.26 [10] [8]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.26 [8] [6]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.26 [10] [8]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.26 [8] [6]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -95,11 +94,32 @@ mode (issue 78178) [9]</td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [9]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [9]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 1.27 [10]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 1.27 [11]
 [12]</td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since 1.27 [11]
-[4]</td>
+[13]</td>
 <td data-label="X.509"><span class="st st-available">available</span> since 1.27 [11]</td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -144,7 +164,6 @@ mode (issue 78178) [9]</td>
 <ul>
 <li><strong>ML-KEM, Primitive</strong>: ML-KEM-768/1024 behind the TLS
 hybrid from 1.24; crypto/hpke with the X-Wing option from 1.26.</li>
-<li><strong>ML-KEM, TLS 1.3</strong>: Pure MLKEM1024 key exchange.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: Inside Go Cryptographic Module,
 Geomys LLC, FIPS 140-3 certificate 5247 issued 2026-04-27. Sunset
 2031-04-26.</li>
@@ -157,6 +176,21 @@ is nil; GODEBUG tlsmlkem=0 reverts.</li>
 <li><strong>X25519MLKEM768, FIPS 140-3</strong>: Listed as FIPS-allowed
 but unreachable under GODEBUG=fips140=only per an open March 2026
 issue.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: curvePreferenceOrder(),
+commented “It must include every supported key exchange”, lists
+X25519MLKEM768, SecP256r1MLKEM768, SecP384r1MLKEM1024, MLKEM1024 and
+four classical curves; no MLKEM512 or MLKEM768 (go1.27.2).</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: curvePreferenceOrder(),
+commented “It must include every supported key exchange”, lists
+X25519MLKEM768, SecP256r1MLKEM768, SecP384r1MLKEM1024, MLKEM1024 and
+four classical curves; no MLKEM512 or MLKEM768 (go1.27.2).</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: “The MLKEM1024 key exchange is
+now supported. It can be enabled by adding it to
+Config.CurvePreferences.” common.go: MLKEM1024 CurveID = 514;
+defaultCurveEnabled returns false for it. Issue 78543: “For now, there
+is no reason to enable it by default.” FIPS: allowedCurvePreferencesFIPS
+(go1.27.2) includes MLKEM1024. The old cell’s 51cto.com evidence (an
+aggregator) was dropped on 2026-10-08.</li>
 <li><strong>ML-DSA, Primitive</strong>: crypto/mldsa with
 MLDSA44/65/87.</li>
 <li><strong>ML-DSA, TLS 1.3</strong>: ML-DSA signature schemes for TLS
@@ -164,8 +198,8 @@ MLDSA44/65/87.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>1.27, 2026-08-19 [13] [11]</li>
-<li>1.26, 2026-02-10 [14] [2]</li>
+<li>1.27, 2026-08-19 [14] [15] [11]</li>
+<li>1.26, 2026-02-10 [16] [17] [2]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -193,12 +227,6 @@ href="https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-
 class="uri">https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a</a>
 (as of 2026-02-19; ledger claim
 pqc/language-native-crypto-stacks/d0001:3)</li>
-<li><a href="https://go.dev/doc/go1.27"
-class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
-claim pqc/language-native-crypto-stacks/d0003:2)</li>
-<li><a href="https://www.51cto.com/article/843365.html"
-class="uri">https://www.51cto.com/article/843365.html</a> (date not
-recorded; ledger claim pqc/language-runtime-tls-surfaces/d0004:2)</li>
 <li><a
 href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247"
 class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247</a>
@@ -220,6 +248,13 @@ href="https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go"
 class="uri">https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go</a>
 (as of 2026-08-25; ledger claim
 pqc/language-runtime-tls-surfaces/d0002:1)</li>
+<li><a
+href="https://github.com/golang/go/blob/go1.27.2/src/crypto/tls/defaults.go"
+class="uri">https://github.com/golang/go/blob/go1.27.2/src/crypto/tls/defaults.go</a>
+(date not recorded; checked 2026-10-08)</li>
+<li><a href="https://go.dev/doc/go1.27"
+class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; checked
+2026-10-08)</li>
 <li><a href="https://go.dev/doc/go1.27"
 class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
 claim pqc/language-native-crypto-stacks/d0003:1)</li>
@@ -228,12 +263,21 @@ href="https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-
 class="uri">https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/</a>
 (as of 2026-08-02; ledger claim
 pqc/language-runtime-tls-surfaces/d0003:1)</li>
+<li><a href="https://www.51cto.com/article/843365.html"
+class="uri">https://www.51cto.com/article/843365.html</a> (date not
+recorded; ledger claim pqc/language-runtime-tls-surfaces/d0004:2)</li>
 <li><a href="https://go.dev/doc/devel/release"
 class="uri">https://go.dev/doc/devel/release</a> (as of 2026-08-19;
 checked 2026-09-26)</li>
 <li><a href="https://go.dev/doc/devel/release"
+class="uri">https://go.dev/doc/devel/release</a> (as of 2026-10-08;
+checked 2026-10-15)</li>
+<li><a href="https://go.dev/doc/devel/release"
 class="uri">https://go.dev/doc/devel/release</a> (as of 2026-02-10;
 checked 2026-09-26)</li>
+<li><a href="https://go.dev/doc/devel/release"
+class="uri">https://go.dev/doc/devel/release</a> (as of 2026-10-08;
+checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

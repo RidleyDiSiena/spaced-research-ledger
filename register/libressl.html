@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; library</p>
     <h1>LibreSSL</h1>
     <p class="standfirst">Maintained by OpenBSD project. Numbered releases with OpenBSD; 4.x current. Home: https://www.libressl.org/</p>
-    <p class="updated">9 of 50 answered &middot; 7 cited cells &middot; 2 confirmed absent</p>
+    <p class="updated">12 of 55 answered &middot; 10 cited cells &middot; 2 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -52,7 +52,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 4.2.0 [1]</td>
-<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
@@ -70,8 +70,8 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 4.3.0 [3]
-[4]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 4.3.0 [3] [4] [5]
+[6]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -103,6 +103,33 @@ Unknowns</a></li>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [7]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [7]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [7]</td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
@@ -167,13 +194,23 @@ support the hybrid group in libssl.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-12 and name none carrying it.</li>
-<li><strong>X25519MLKEM768, TLS 1.3</strong>: Keyshare MLKEM768_X25519
+<li><strong>X25519MLKEM768, TLS 1.3</strong>: Default in libssl (was
+<code>available</code>, corrected 2026-10-08). Keyshare MLKEM768_X25519
 in TLS; default standing not in the claim. Patrol 2026-10-04: status
 deliberately left <code>available</code>. The coming 4.4.0 makes
 X25519MLKEM768 the preferred group in LIBTLS, LibreSSL’s simplified
 wrapper; the ChangeLog does not say libssl’s own default changes, and
 the release has not shipped. Whether a libtls default moves this cell is
 for a ruling once 4.4.0 is out.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: nid_list, the complete table
+tls1_supported_group_by_id searches, has one ML-KEM entry: group_id
+4588, X25519MLKEM768. Same in libressl-v4.4.0rc1.</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: nid_list, the complete table
+tls1_supported_group_by_id searches, has one ML-KEM entry: group_id
+4588, X25519MLKEM768. Same in libressl-v4.4.0rc1.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: nid_list, the complete table
+tls1_supported_group_by_id searches, has one ML-KEM entry: group_id
+4588, X25519MLKEM768. Same in libressl-v4.4.0rc1.</li>
 <li><strong>ML-DSA, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-12 and name none carrying it.</li>
@@ -189,6 +226,7 @@ were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
+<li>4.3.3, 2026-10-05 [8]</li>
 <li>4.3.0, 2026-04-18 [3]</li>
 <li>4.2.0, 2025-10-14 [1]</li>
 </ul>
@@ -238,6 +276,22 @@ of 2026-04-18; ledger claim pqc/openssl-and-forks/d0001:9)</li>
 <li><a href="https://github.com/libressl/portable/blob/master/ChangeLog"
 class="uri">https://github.com/libressl/portable/blob/master/ChangeLog</a>
 (date not recorded; checked 2026-10-04)</li>
+<li><a
+href="https://github.com/libressl/openbsd/blob/master/src/lib/libssl/t1_lib.c"
+class="uri">https://github.com/libressl/openbsd/blob/master/src/lib/libssl/t1_lib.c</a>
+(date not recorded; checked 2026-10-08)</li>
+<li><a
+href="https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.4.0rc1-relnotes.txt"
+class="uri">https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.4.0rc1-relnotes.txt</a>
+(as of 2026-10-05; checked 2026-10-15)</li>
+<li><a
+href="https://github.com/libressl/openbsd/blob/master/src/lib/libssl/t1_lib.c"
+class="uri">https://github.com/libressl/openbsd/blob/master/src/lib/libssl/t1_lib.c</a>
+(date not recorded; checked 2026-10-08)</li>
+<li><a
+href="https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.3.3-relnotes.txt"
+class="uri">https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.3.3-relnotes.txt</a>
+(as of 2026-10-05; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

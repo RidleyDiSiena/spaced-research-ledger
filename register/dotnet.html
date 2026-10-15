@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; language-stack</p>
     <h1>.NET</h1>
     <p class="standfirst">Maintained by Microsoft. Annual releases (.NET 10 in November 2025); PQC needs CNG or OpenSSL underneath. Home: https://dotnet.microsoft.com/</p>
-    <p class="updated">8 of 37 answered &middot; 7 cited cells &middot; 1 confirmed absent</p>
+    <p class="updated">11 of 42 answered &middot; 7 cited cells &middot; 4 confirmed absent</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -30,6 +30,7 @@
 id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
 From</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#known-unknowns" id="toc-known-unknowns">Known
 Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
@@ -52,7 +53,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 10 [1]</td>
-<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-09-12</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -66,7 +67,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-08</span></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -92,12 +93,33 @@ Unknowns</a></li>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- SM2 is not a NIST-approved curve, so the group cannot sit inside a FIPS 140-3 approved boundary whatever the ML-KEM half does.">n/a</abbr></td>
 </tr>
 <tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-08</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-08</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
+<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-08</span></td>
+<td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
+<td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-experimental">experimental</span> since 10 [2]
-[1] [3]</td>
+[1] [3] [4]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-experimental">experimental</span> since 10
-[4]</td>
+[5]</td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -106,7 +128,7 @@ Unknowns</a></li>
 [1]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-experimental">experimental</span> since 10
-[4]</td>
+[5]</td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -122,7 +144,7 @@ Unknowns</a></li>
 [1]</td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-experimental">experimental</span> since 10
-[4]</td>
+[5]</td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
@@ -155,7 +177,7 @@ if the OS libraries are FIPS-validated, and that Linux requires OpenSSL
 and macOS is neither – the same document records that OpenSSL support on
 macOS was removed, and .NET’s post-quantum APIs need CNG or an OpenSSL
 that has the algorithms, so macOS has no recorded post-quantum path at
-all. [5]</li>
+all. [6]</li>
 <li><strong><a href="windows-cng.html">Windows CNG</a></strong> –
 platform. Inherits: Primitive, X.509, FIPS 140-3. The Windows half of
 the same document: .NET’s cryptography on Windows is CNG’s, and its
@@ -163,7 +185,7 @@ post-quantum APIs require a Windows whose CNG has the algorithms.
 PROMOTED from an <code>external</code> edge the same day the platform
 pass made Windows CNG a component – which is what the promotion
 invariant in the validator exists to force, and it did: the check fired
-on this edge before anyone remembered it was here. [6]</li>
+on this edge before anyone remembered it was here. [7]</li>
 </ul>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>.NET holds no FIPS 140-3 certificate of its own, and there is no
@@ -190,7 +212,9 @@ covering only the PEM helpers. Microsoft’s own page says the class
 itself is gated – “The MLDsa, SlhDsa, and CompositeMLDsa classes are
 marked as [Experimental] under diagnostic SYSLIB5006 until development
 is complete” – so this is experimental, not available. MLKem is NOT so
-marked, though some of its methods are.</li>
+marked, though some of its methods are. The same gate was confirmed
+still present in .NET 11 RC 2 (2026-10-13); the SlhDsa and
+CompositeMLDsa cells below share this evidence.</li>
 <li><strong>ML-DSA, X.509</strong>: CertificateRequest gained
 (X500DistinguishedName, MLDsa) and (String, MLDsa) overloads in
 net-10.0, each carrying [Experimental(“SYSLIB5006”)], so a certificate
@@ -213,11 +237,21 @@ the PEM helpers. Microsoft’s own page says the class itself is gated –
 “The MLDsa, SlhDsa, and CompositeMLDsa classes are marked as
 [Experimental] under diagnostic SYSLIB5006 until development is
 complete” – so this is experimental, not available. MLKem is NOT so
-marked, though some of its methods are.</li>
+marked, though some of its methods are. Patrol 2026-10-15: .NET 11 RC 2
+(2026-10-13) adds a sibling, CompositeMLKem (post-quantum plus classical
+KEM, same SYSLIB5006 gate, on platforms that already have ML-KEM).
+Composite ML-KEM is not a register row – one component carrying it is
+not two, which is the bar – so it is recorded here and in
+<code>releases</code> only.</li>
 <li><strong>Composite ML-DSA, X.509</strong>: CertificateRequest
 (X500DistinguishedName, CompositeMLDsa) and (String, CompositeMLDsa)
 overloads in net-10.0, same SYSLIB5006 gate. .NET is the only component
 in the register with composite certificates at all.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>11.0.0-rc.2, 2026-10-13 [8]</li>
+<li>10.0.13, 2026-10-13 [9]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -227,16 +261,37 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-kem / tls – <strong>none found 2026-09-12</strong>: Searched
-twice on 2026-09-12 and found nothing: the .NET 10 libraries page
-documents post-quantum cryptography and TLS in separate sections, and
-the TLS section covers only TLS 1.3 on macOS through Network.framework.
-No .NET API selects a hybrid group. This is an open question rather than
-a ‘no’: SslStream delegates to the platform provider, so a hybrid
-handshake may well happen on a host whose OpenSSL 3.5 or Windows CNG
-offers it, without .NET having anything to say about it. Examined:
-What’s new in .NET libraries for .NET 10 (its TLS enhancements section),
-Microsoft Learn search for SslStream with ML-KEM.</li>
+<li>mlkem512 / tls – <strong>none found 2026-10-08</strong>: SslStream
+sets no group list of its own (pal_ssl.c, main and release/10.0): on
+Linux it gets OpenSSL’s defaults or openssl.cnf, on Windows Schannel’s.
+So the answer is the platform’s, not .NET’s. Open issue
+dotnet/runtime#132239 (milestone 12.0.0) would expose group selection;
+its draft enum lists hybrids only. Examined: dotnet/runtime pal_ssl.c,
+dotnet/runtime#132239, What’s new in .NET libraries for .NET 10.</li>
+<li>mlkem768 / tls – <strong>none found 2026-10-08</strong>: SslStream
+sets no group list of its own (pal_ssl.c, main and release/10.0): on
+Linux it gets OpenSSL’s defaults or openssl.cnf, on Windows Schannel’s.
+So the answer is the platform’s, not .NET’s. Open issue
+dotnet/runtime#132239 (milestone 12.0.0) would expose group selection;
+its draft enum lists hybrids only. Examined: dotnet/runtime pal_ssl.c,
+dotnet/runtime#132239, What’s new in .NET libraries for .NET 10.</li>
+<li>mlkem1024 / tls – <strong>none found 2026-10-08</strong>: SslStream
+sets no group list of its own (pal_ssl.c, main and release/10.0): on
+Linux it gets OpenSSL’s defaults or openssl.cnf, on Windows Schannel’s.
+So the answer is the platform’s, not .NET’s. Open issue
+dotnet/runtime#132239 (milestone 12.0.0) would expose group selection;
+its draft enum lists hybrids only. Examined: dotnet/runtime pal_ssl.c,
+dotnet/runtime#132239, What’s new in .NET libraries for .NET 10.</li>
+<li>x25519mlkem768 / tls – <strong>none found 2026-10-08</strong>:
+Re-filed 2026-10-08 from the old ml-kem/tls gap, which was about
+hybrids. Searched twice on 2026-09-12 and again 2026-10-08: no .NET API
+selects a hybrid group; SslStream delegates to the platform provider, so
+a hybrid handshake may happen on a host whose OpenSSL 3.5 or Schannel
+offers it without .NET having anything to say. Issue
+dotnet/runtime#132239 (open, milestone 12.0.0) proposes exposing it.
+Examined: What’s new in .NET libraries for .NET 10 (its TLS enhancements
+section), Microsoft Learn search for SslStream with ML-KEM,
+dotnet/runtime#132239.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -255,6 +310,10 @@ class="uri">https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptogr
 (as of 2026-07-31; ledger claim
 pqc/language-native-crypto-stacks/d0004:2)</li>
 <li><a
+href="https://github.com/dotnet/runtime/blob/release/11.0-rc2/src/libraries/Common/src/System/Experimentals.cs"
+class="uri">https://github.com/dotnet/runtime/blob/release/11.0-rc2/src/libraries/Common/src/System/Experimentals.cs</a>
+(as of 2026-10-13; checked 2026-10-15)</li>
+<li><a
 href="https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.certificaterequest.-ctor?view=net-10.0"
 class="uri">https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.certificaterequest.-ctor?view=net-10.0</a>
 (date not recorded; checked 2026-09-12)</li>
@@ -266,6 +325,14 @@ class="uri">https://learn.microsoft.com/en-us/dotnet/standard/security/cross-pla
 href="https://learn.microsoft.com/en-us/dotnet/standard/security/cross-platform-cryptography"
 class="uri">https://learn.microsoft.com/en-us/dotnet/standard/security/cross-platform-cryptography</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc2/libraries.md"
+class="uri">https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc2/libraries.md</a>
+(as of 2026-10-13; checked 2026-10-15)</li>
+<li><a
+href="https://github.com/dotnet/core/blob/main/release-notes/10.0/10.0.13/10.0.13.md"
+class="uri">https://github.com/dotnet/core/blob/main/release-notes/10.0/10.0.13/10.0.13.md</a>
+(as of 2026-10-13; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

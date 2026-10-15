@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; tls-terminator</p>
     <h1>HAProxy</h1>
     <p class="standfirst">Maintained by HAProxy Technologies. Numbered releases of HAProxy Community, with a commercial Enterprise line. Post-quantum curves ship in the vendor&#x27;s own builds: Enterprise 3.2+ and the Community Performance Packages from 3.3. Home: https://www.haproxy.org/</p>
-    <p class="updated">2 of 9 answered &middot; 2 cited cells &middot; 3 inherited &middot; 1 open</p>
+    <p class="updated">5 of 11 answered &middot; 2 cited cells &middot; 3 confirmed absent &middot; 5 inherited &middot; 1 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -30,6 +30,7 @@
 id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
 From</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#known-unknowns" id="toc-known-unknowns">Known
 Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
@@ -48,9 +49,7 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="TLS 1.3"><span class="st st-derived"
-title="available at AWS-LC. HAProxy does not answer this itself.">available
-· via AWS-LC</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -59,22 +58,40 @@ title="available at AWS-LC. HAProxy does not answer this itself.">available
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Enterprise 3.2
-/ Community 3.3, vendor-built packages only [1]</td>
+/ Community 3.3, vendor-built packages only [1] [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Enterprise 3.2
-/ Community 3.3, vendor-built packages only [2]</td>
+/ Community 3.3, vendor-built packages only [3]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="TLS 1.3"><span class="st st-derived"
-title="available at AWS-LC. HAProxy does not answer this itself.">available
+title="default at AWS-LC. HAProxy does not answer this itself.">default
 · via AWS-LC</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>curveSM2MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="TLS 1.3"><span class="st st-derived"
+title="available at AWS-LC. HAProxy does not answer this itself.">available
+· via AWS-LC</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="TLS 1.3"><span class="st st-derived"
+title="available at AWS-LC. HAProxy does not answer this itself.">available
+· via AWS-LC</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="TLS 1.3"><span class="st st-derived"
+title="available at AWS-LC. HAProxy does not answer this itself.">available
+· via AWS-LC</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
@@ -116,22 +133,38 @@ says so directly: “This works because both versions ship with AWS-LC as
 their cryptographic library, which includes support for post-quantum
 curves.” A distribution-built HAProxy links something else and inherits
 that library’s answer instead, which is why this edge describes the
-vendor build specifically. [3]</li>
+vendor build specifically. [4]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: A BUILD-PROVENANCE ANSWER,
-not a version answer. The same HAProxy version compiled by a
-distribution against OpenSSL does not have these curves; the vendor’s
-builds ship AWS-LC and do. <code>available</code> rather than
-<code>experimental</code> because those packages are ordinary general
-releases rather than a preview or a flag – but anyone reading the
-version number alone will get this wrong, which is why the caveat is in
-the cell rather than only in the release notes. Automatic fallback to
-classical curves means enabling it does not break old clients.</li>
+not a version answer. PATROL 2026-10-15 ADDS A SECOND BUILD SHAPE AND
+LEAVES THE STATUS FOR A RULING: the vendor’s article is about AWS-LC
+builds, where the group must be configured (<code>available</code>); the
+source shows that a Community build against OpenSSL 3.5 with its QUIC
+API offers X25519MLKEM768 by default on QUIC listeners, and inherits
+OpenSSL’s default list (which has the hybrids from 3.5) on TCP listeners
+– which reads as <code>default</code> for that build. The vendor’s own
+sentence that the curves are ‘only available when HAProxy is built by
+us’ is about AWS-LC-era packaging and is contradicted for OpenSSL 3.5+
+builds by HAProxy’s own code; whether the cell should say
+<code>default</code> with the build condition in <code>since</code>, or
+stay <code>available</code> on the vendor’s word, is for the user. The
+same HAProxy version compiled by a distribution against OpenSSL does not
+have these curves; the vendor’s builds ship AWS-LC and do.
+<code>available</code> rather than <code>experimental</code> because
+those packages are ordinary general releases rather than a preview or a
+flag – but anyone reading the version number alone will get this wrong,
+which is why the caveat is in the cell rather than only in the release
+notes. Automatic fallback to classical curves means enabling it does not
+break old clients.</li>
 <li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: The NIST-curve hybrid
 matters for anyone whose policy prefers a P-256 half, which in practice
 means CNSA-aligned and federal deployments.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>3.4.7, 2026-10-14, LTS [5]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -152,6 +185,54 @@ answer to find. This is the third shape of gap that
 the <code>inherited</code> outcome, added the same day. Examined: the
 component’s own derives_from edge and the upstream’s ml-dsa/tls
 cell.</li>
+<li>mlkem512 / tls – <strong>none found 2026-10-15</strong>: HAProxy
+documents no pure group: its blog (modified 2026-09-14) names
+X25519MLKEM768 and SecP256r1MLKEM768 for its own AWS-LC builds, and the
+3.5 configuration manual (2026-10-01) passes <code>curves</code> to the
+library. Probably reachable by inheritance from AWS-LC, which has the
+pure groups – an inference, not a source. Patrol 2026-10-15, evidence
+moved but no release: 3.5-dev9 (2026-10-14) src/ssl_utils.c carries a
+registered-group table with “MLKEM512” (512), “MLKEM768” (513),
+“MLKEM1024” (514) mapped to NID_MLKEM* for AWS-LC and NID_ML_KEM_* for
+OpenSSL (commit c808988fa187, 2026-10-06), so
+<code>curves MLKEM768</code> resolves by name on the development branch.
+Not in 3.4.7 (checked at the v3.4.7 tag). Still a gap: the names are a
+lookup table, a dev-only one, and no HAProxy document says a pure group
+negotiates. Examined: haproxy.com PQC blog (2026-07-01, modified
+2026-09-14), HAProxy 3.5 configuration manual (2026-10-01),
+haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7.</li>
+<li>mlkem768 / tls – <strong>none found 2026-10-15</strong>: HAProxy
+documents no pure group: its blog (modified 2026-09-14) names
+X25519MLKEM768 and SecP256r1MLKEM768 for its own AWS-LC builds, and the
+3.5 configuration manual (2026-10-01) passes <code>curves</code> to the
+library. Probably reachable by inheritance from AWS-LC, which has the
+pure groups – an inference, not a source. Patrol 2026-10-15, evidence
+moved but no release: 3.5-dev9 (2026-10-14) src/ssl_utils.c carries a
+registered-group table with “MLKEM512” (512), “MLKEM768” (513),
+“MLKEM1024” (514) mapped to NID_MLKEM* for AWS-LC and NID_ML_KEM_* for
+OpenSSL (commit c808988fa187, 2026-10-06), so
+<code>curves MLKEM768</code> resolves by name on the development branch.
+Not in 3.4.7 (checked at the v3.4.7 tag). Still a gap: the names are a
+lookup table, a dev-only one, and no HAProxy document says a pure group
+negotiates. Examined: haproxy.com PQC blog (2026-07-01, modified
+2026-09-14), HAProxy 3.5 configuration manual (2026-10-01),
+haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7.</li>
+<li>mlkem1024 / tls – <strong>none found 2026-10-15</strong>: HAProxy
+documents no pure group: its blog (modified 2026-09-14) names
+X25519MLKEM768 and SecP256r1MLKEM768 for its own AWS-LC builds, and the
+3.5 configuration manual (2026-10-01) passes <code>curves</code> to the
+library. Probably reachable by inheritance from AWS-LC, which has the
+pure groups – an inference, not a source. Patrol 2026-10-15, evidence
+moved but no release: 3.5-dev9 (2026-10-14) src/ssl_utils.c carries a
+registered-group table with “MLKEM512” (512), “MLKEM768” (513),
+“MLKEM1024” (514) mapped to NID_MLKEM* for AWS-LC and NID_ML_KEM_* for
+OpenSSL (commit c808988fa187, 2026-10-06), so
+<code>curves MLKEM768</code> resolves by name on the development branch.
+Not in 3.4.7 (checked at the v3.4.7 tag). Still a gap: the names are a
+lookup table, a dev-only one, and no HAProxy document says a pure group
+negotiates. Examined: haproxy.com PQC blog (2026-07-01, modified
+2026-09-14), HAProxy 3.5 configuration manual (2026-10-01),
+haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -160,6 +241,10 @@ href="https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography-and-t
 class="uri">https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography-and-tls-termination-with-haproxy</a>
 (date not recorded; checked 2026-09-13)</li>
 <li><a
+href="https://git.haproxy.org/?p=haproxy-3.4.git;a=blob_plain;f=src/quic_ssl.c;hb=v3.4.7"
+class="uri">https://git.haproxy.org/?p=haproxy-3.4.git;a=blob_plain;f=src/quic_ssl.c;hb=v3.4.7</a>
+(as of 2026-10-14; checked 2026-10-15)</li>
+<li><a
 href="https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography-and-tls-termination-with-haproxy"
 class="uri">https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography-and-tls-termination-with-haproxy</a>
 (date not recorded; checked 2026-09-13)</li>
@@ -167,6 +252,9 @@ class="uri">https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography
 href="https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography-and-tls-termination-with-haproxy"
 class="uri">https://www.haproxy.com/blog/how-to-enable-post-quantum-cryptography-and-tls-termination-with-haproxy</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a href="https://www.haproxy.org/download/3.4/src/CHANGELOG"
+class="uri">https://www.haproxy.org/download/3.4/src/CHANGELOG</a> (as
+of 2026-10-14; checked 2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

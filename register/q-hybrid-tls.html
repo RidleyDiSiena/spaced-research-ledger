@@ -19,16 +19,16 @@
     <p class="kicker">PQC Readiness Register &middot; Question</p>
     <h1>Which components can negotiate a hybrid post-quantum TLS group?</h1>
     <p class="standfirst">Any one of the IANA-registered hybrid key exchange groups -- X25519MLKEM768, SecP256r1MLKEM768 or SecP384r1MLKEM1024 -- usable in a TLS 1.3 handshake in a general release. Hybrid rather than pure ML-KEM because hybrid is what browsers and…</p>
-    <p class="updated">19 yes &middot; 1 no &middot; 11 not checked</p>
+    <p class="updated">20 yes &middot; 1 no &middot; 10 not checked</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
-<li><a href="#yes" id="toc-yes">Yes (19)</a></li>
+<li><a href="#yes" id="toc-yes">Yes (20)</a></li>
 <li><a href="#no" id="toc-no">No (1)</a></li>
 <li><a href="#not-checked" id="toc-not-checked">Not checked
-(11)</a></li>
+(10)</a></li>
 <li><a href="#not-applicable" id="toc-not-applicable">Not
 applicable</a></li>
 </ul>
@@ -42,9 +42,9 @@ because hybrid is what browsers and CDNs actually deploy: the classical
 half means a flaw in the lattice half is not fatal. The bar is
 <code>available</code>, so a group you must configure counts here; the
 stricter question is the next one.</p>
-<h2 id="yes">Yes (19)</h2>
+<h2 id="yes">Yes (20)</h2>
 <p>At or above the bar the question sets, with the cell it rests on.</p>
-<div class="tablewrap" role="region" tabindex="0" aria-label="Yes (19), scrollable table"><table>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Yes (20), scrollable table"><table>
 <thead>
 <tr>
 <th>Component</th>
@@ -63,19 +63,24 @@ and later</td>
 <tr>
 <td data-label="Component"><a href="aws-lc.html">AWS-LC</a></td>
 <td data-label="Kind">library</td>
-<td data-label="Standing"><span class="st st-available">available</span> since not
-recorded</td>
+<td data-label="Standing"><span class="st st-default">default</span> since v1.68.0</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="boringssl.html">BoringSSL</a></td>
 <td data-label="Kind">library</td>
-<td data-label="Standing"><span class="st st-available">available</span> since rolling since
-2023 (pre-standard name X25519Kyber768)</td>
+<td data-label="Standing"><span class="st st-default">default</span> since rolling; commit
+e748facbaa (2026-07-09)</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="botan.html">Botan</a></td>
 <td data-label="Kind">library</td>
 <td data-label="Standing"><span class="st st-default">default</span> since 3.7.0</td>
+</tr>
+<tr>
+<td data-label="Component"><a href="bouncycastle-java.html">Bouncy Castle (Java)</a></td>
+<td data-label="Kind">library</td>
+<td data-label="Standing"><span class="st st-default">default</span> since 1.85 or
+earlier</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="cloudflare-edge.html">Cloudflare edge</a></td>
@@ -102,7 +107,7 @@ zones and by default for new ones</td>
 <tr>
 <td data-label="Component"><a href="libressl.html">LibreSSL</a></td>
 <td data-label="Kind">library</td>
-<td data-label="Standing"><span class="st st-available">available</span> since 4.3.0</td>
+<td data-label="Standing"><span class="st st-default">default</span> since 4.3.0</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="nginx.html">nginx</a></td>
@@ -135,14 +140,13 @@ crypto-policies</a></td>
 <tr>
 <td data-label="Component"><a href="rustls.html">rustls</a></td>
 <td data-label="Kind">tls-stack</td>
-<td data-label="Standing"><span class="st st-available">available</span> since 0.23.22 (core
+<td data-label="Standing"><span class="st st-default">default</span> since 0.23.22 (core
 crate)</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="s2n-tls.html">s2n-tls</a></td>
 <td data-label="Kind">tls-stack</td>
-<td data-label="Standing"><span class="st st-available">available</span> since security policy
-default_pq (20250721)</td>
+<td data-label="Standing"><span class="st st-default">default</span> since v1.6.0</td>
 </tr>
 <tr>
 <td data-label="Component"><a href="windows-schannel.html">Schannel</a></td>
@@ -159,7 +163,8 @@ default_pq (20250721)</td>
 <tr>
 <td data-label="Component"><a href="wolfssl.html">wolfSSL / wolfCrypt</a></td>
 <td data-label="Kind">library</td>
-<td data-label="Standing"><span class="st st-available">available</span> since 5.8.0</td>
+<td data-label="Standing"><span class="st st-default">default</span> since v5.9.2 or
+earlier</td>
 </tr>
 </tbody>
 </table></div>
@@ -184,10 +189,10 @@ answers to the same question.</p>
 </tr>
 </tbody>
 </table></div>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-checked">Not checked (11)</h2>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="not-checked">Not checked (10)</h2>
 <p>Nobody has settled it here yet, and each line says what was done
 about it. Not the same as no.</p>
-<div class="tablewrap" role="region" tabindex="0" aria-label="Not checked (11), scrollable table"><table>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Not checked (10), scrollable table"><table>
 <thead>
 <tr>
 <th>Component</th>
@@ -199,7 +204,7 @@ about it. Not the same as no.</p>
 <tr>
 <td data-label="Component"><a href="dotnet.html">.NET</a></td>
 <td data-label="Kind">language-stack</td>
-<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
+<td data-label="Standing"><span class="st st-absent">none found 2026-10-08</span></td>
 </tr>
 <tr>
 <td data-label="Component"><a href="apple-cryptokit.html">Apple CryptoKit and
@@ -209,11 +214,6 @@ corecrypto</a></td>
 </tr>
 <tr>
 <td data-label="Component"><a href="aws-lc-rs.html">aws-lc-rs</a></td>
-<td data-label="Kind">library</td>
-<td data-label="Standing"><span class="st st-unknown">unknown</span></td>
-</tr>
-<tr>
-<td data-label="Component"><a href="bouncycastle-java.html">Bouncy Castle (Java)</a></td>
 <td data-label="Kind">library</td>
 <td data-label="Standing"><span class="st st-unknown">unknown</span></td>
 </tr>

@@ -19,7 +19,7 @@
     <p class="kicker">PQC Readiness Register &middot; tls-terminator</p>
     <h1>nginx</h1>
     <p class="standfirst">Maintained by F5 / the nginx project. Mainline and stable branches. Post-quantum key agreement is not an nginx feature with a version: it arrives with the OpenSSL the binary is linked against. Home: https://nginx.org/</p>
-    <p class="updated">1 of 9 answered &middot; 1 cited cell &middot; 6 inherited &middot; 1 open</p>
+    <p class="updated">4 of 11 answered &middot; 4 cited cells &middot; 5 inherited &middot; 1 open</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
@@ -30,6 +30,7 @@
 id="toc-where-the-cryptography-comes-from">Where the Cryptography Comes
 From</a></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#releases" id="toc-releases">Releases</a></li>
 <li><a href="#known-unknowns" id="toc-known-unknowns">Known
 Unknowns</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
@@ -48,9 +49,7 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="TLS 1.3"><span class="st st-derived"
-title="available at OpenSSL. nginx does not answer this itself.">available
-· via OpenSSL</span></td>
+<td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -64,8 +63,8 @@ version – OpenSSL 3.5 underneath [1]</td>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-derived"
-title="available at OpenSSL. nginx does not answer this itself.">available
-· via OpenSSL</span></td>
+title="default at OpenSSL. nginx does not answer this itself.">default ·
+via OpenSSL</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
@@ -76,8 +75,23 @@ title="available at OpenSSL. nginx does not answer this itself.">available
 <tr>
 <td data-label="Algorithm"><strong>curveSM2MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-derived"
-title="available at OpenSSL. nginx does not answer this itself.">available
-· via OpenSSL</span></td>
+title="default at OpenSSL. nginx does not answer this itself.">default ·
+via OpenSSL</span></td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM512</strong></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since OpenSSL 3.5
+underneath [2]</td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM768</strong></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since OpenSSL 3.5
+underneath [2]</td>
+</tr>
+<tr>
+<td data-label="Algorithm"><strong>MLKEM1024</strong></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since OpenSSL 3.5
+underneath [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
@@ -129,7 +143,7 @@ certificate – present it, prove possession of its key – happens inside
 the handshake and is the <code>tls</code> column’s authentication half;
 the x509 column is about generating, parsing and chain-building, which
 is the library’s job underneath. Widening the vocabulary to make the
-edge fit would have been the wrong direction. [2]</li>
+edge fit would have been the wrong direction. [3]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
@@ -145,6 +159,25 @@ not have PQC available”. <code>available</code> rather than
 directive passes OpenSSL’s own list through, so an untouched nginx on
 OpenSSL 3.5 probably does offer the group, and probably is not a
 citation.</li>
+<li><strong>MLKEM512, TLS 1.3</strong>: Inherited, not nginx’s own:
+ssl_ecdh_curve passes a group list to the library (default “auto” =
+OpenSSL’s built-in list, hybrids only). With OpenSSL 3.5 or later, whose
+capabilities.c registers MLKEM512/768/1024, the group can be named
+there. nginx documents no pure group.</li>
+<li><strong>MLKEM768, TLS 1.3</strong>: Inherited, not nginx’s own:
+ssl_ecdh_curve passes a group list to the library (default “auto” =
+OpenSSL’s built-in list, hybrids only). With OpenSSL 3.5 or later, whose
+capabilities.c registers MLKEM512/768/1024, the group can be named
+there. nginx documents no pure group.</li>
+<li><strong>MLKEM1024, TLS 1.3</strong>: Inherited, not nginx’s own:
+ssl_ecdh_curve passes a group list to the library (default “auto” =
+OpenSSL’s built-in list, hybrids only). With OpenSSL 3.5 or later, whose
+capabilities.c registers MLKEM512/768/1024, the group can be named
+there. nginx documents no pure group.</li>
+</ul>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
+<ul>
+<li>1.31.7, 2026-10-14 [4]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -171,9 +204,15 @@ cell.</li>
 <li><a href="https://blog.nginx.org/blog/pqc-nginx"
 class="uri">https://blog.nginx.org/blog/pqc-nginx</a> (date not
 recorded; checked 2026-09-13)</li>
+<li><a href="https://nginx.org/en/docs/http/ngx_http_ssl_module.html"
+class="uri">https://nginx.org/en/docs/http/ngx_http_ssl_module.html</a>
+(date not recorded; checked 2026-10-08)</li>
 <li><a href="https://blog.nginx.org/blog/pqc-nginx"
 class="uri">https://blog.nginx.org/blog/pqc-nginx</a> (date not
 recorded; checked 2026-09-13)</li>
+<li><a href="https://nginx.org/en/CHANGES"
+class="uri">https://nginx.org/en/CHANGES</a> (as of 2026-10-14; checked
+2026-10-15)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 
