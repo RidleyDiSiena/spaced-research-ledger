@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "register": "PQC Readiness Register",
-  "generated": "2026-10-15",
-  "commit": "df4b863",
+  "generated": "2026-10-18",
+  "commit": "bef7556",
   "statuses": [
     "none",
     "planned",
@@ -985,6 +985,15 @@
               "confidence": null,
               "checked_on": "2026-10-04",
               "note": "Re-read after the 27 releases (iOS, iPadOS, macOS, tvOS, watchOS, visionOS 27 on 2026-09-14; 27.0.1 on 2026-09-28): the post-quantum types are still exactly MLKEM768, MLKEM1024, XWingMLKEM768X25519, MLDSA65 and MLDSA87."
+            },
+            {
+              "claim": null,
+              "source": "https://developer.apple.com/tutorials/data/documentation/cryptokit.json",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Forward lookup 2026-10-18: still exactly the same five post-quantum types; no SLH, LMS or XMSS symbol. Newest shipped OS is still 27.0.1 (Apple security releases page, newest entries 2026-09-28); 27.2 beta 4 (2026-10-13) notes mention no CryptoKit item. Xcode 27.1 (2026-10-15) ships an iOS 27.1 SDK, so iOS 27.1 is due but not released."
             }
           ],
           "note": "A CITED ABSENCE FROM AN ENUMERATION, which is the bar this register sets for `none`. CryptoKit's own symbol index lists exactly five post-quantum types -- MLDSA65, MLDSA87, MLKEM768, MLKEM1024 and XWingMLKEM768X25519 -- and no stateless or stateful hash-based signature scheme appears among them. That agrees with the second source read on 2026-09-13, Apple's Platform Security guide, which names ML-KEM and ML-DSA and no other family: two independent Apple documents, neither mentioning it, one of them an enumeration. Note what the same index shows about parameter sets -- ML-DSA-44 and ML-KEM-512 are absent too, so Apple ships a curated subset rather than the standards entire."
@@ -1012,6 +1021,15 @@
               "confidence": null,
               "checked_on": "2026-10-04",
               "note": "Re-read after the 27 releases (iOS, iPadOS, macOS, tvOS, watchOS, visionOS 27 on 2026-09-14; 27.0.1 on 2026-09-28): the post-quantum types are still exactly MLKEM768, MLKEM1024, XWingMLKEM768X25519, MLDSA65 and MLDSA87."
+            },
+            {
+              "claim": null,
+              "source": "https://developer.apple.com/tutorials/data/documentation/cryptokit.json",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Forward lookup 2026-10-18: still exactly the same five post-quantum types; no SLH, LMS or XMSS symbol. Newest shipped OS is still 27.0.1 (Apple security releases page, newest entries 2026-09-28); 27.2 beta 4 (2026-10-13) notes mention no CryptoKit item. Xcode 27.1 (2026-10-15) ships an iOS 27.1 SDK, so iOS 27.1 is due but not released."
             }
           ],
           "note": "A CITED ABSENCE FROM AN ENUMERATION, which is the bar this register sets for `none`. CryptoKit's own symbol index lists exactly five post-quantum types -- MLDSA65, MLDSA87, MLKEM768, MLKEM1024 and XWingMLKEM768X25519 -- and no stateless or stateful hash-based signature scheme appears among them. That agrees with the second source read on 2026-09-13, Apple's Platform Security guide, which names ML-KEM and ML-DSA and no other family: two independent Apple documents, neither mentioning it, one of them an enumeration. Note what the same index shows about parameter sets -- ML-DSA-44 and ML-KEM-512 are absent too, so Apple ships a curated subset rather than the standards entire."
@@ -1040,25 +1058,25 @@
         {
           "algorithm": "ml-kem",
           "capability": "fips",
-          "why": "The same shape as Windows, from the same scan. Apple held 32 corecrypto certificates on 2026-09-13 (29 active on 2026-10-15, the FIPS 140-2 ones having gone historical) and the one read in detail (5387, Apple corecrypto Module 18.3 [Apple silicon, Kernel, Software, SL1]) lists 52 approved algorithms, none post-quantum. The OS 26 submissions in the queue are now FOUR rows (read 2026-10-15): two Apple corecrypto Module OS 26 Software SL1, in Review since 30 and 31 July 2026, and two Secure Key Store Hardware SL2/PHY3, one in Review since 2026-10-09 and one in Pending Review since 2026-09-17. OS 26 is exactly the release that shipped ML-KEM to CryptoKit -- so the pending modules are the ones that would carry it, and calling this absent would be wrong. Second pass: those certificates when they issue.",
+          "why": "The same shape as Windows, from the same scan. Apple held 32 corecrypto certificates on 2026-09-13 (29 active on 2026-10-15, the FIPS 140-2 ones having gone historical) and the one read in detail (5387, Apple corecrypto Module 18.3 [Apple silicon, Kernel, Software, SL1]) lists 52 approved algorithms, none post-quantum. The OS 26 submissions in the queue are FOUR rows, all in Review (read 2026-10-18): two Apple corecrypto Module OS 26 Software SL1, in Review since 30 and 31 July 2026, and two Secure Key Store Hardware SL2/PHY3, in Review since 2026-10-09 and since 2026-10-16 (Pending Review since 2026-09-17 until then). OS 26 is exactly the release that shipped ML-KEM to CryptoKit -- so the pending modules are the ones that would carry it, and calling this absent would be wrong. Second pass: those certificates when they issue.",
           "passes": 1,
           "checked": "2026-10-15",
           "sources": [
             "CMVP validated module search, vendor Apple (32 corecrypto modules on 2026-09-13; 29 active on 2026-10-15)",
             "certificate page 5387 (approved-algorithm list)",
-            "CMVP Modules In Process list (four OS 26 rows on 2026-10-15)"
+            "CMVP Modules In Process list (four OS 26 rows on 2026-10-18)"
           ],
           "outcome": null
         },
         {
           "algorithm": "ml-dsa",
           "capability": "fips",
-          "why": "As ML-KEM, and for the same reason: shipped in CryptoKit with the 26 releases, absent from every issued corecrypto certificate, and blocked from absence by the OS 26 modules still in the queue (four rows on 2026-10-15: two Software SL1 in Review since July, two Secure Key Store Hardware SL2/PHY3 in Review since 2026-10-09 and Pending Review since 2026-09-17).",
+          "why": "As ML-KEM, and for the same reason: shipped in CryptoKit with the 26 releases, absent from every issued corecrypto certificate, and blocked from absence by the OS 26 modules still in the queue (four rows on 2026-10-18, all in Review: two Software SL1 since July, two Secure Key Store Hardware SL2/PHY3 since 2026-10-09 and 2026-10-16).",
           "passes": 1,
           "checked": "2026-10-15",
           "sources": [
             "certificate page 5387 (approved-algorithm list)",
-            "CMVP Modules In Process list (four OS 26 rows on 2026-10-15)"
+            "CMVP Modules In Process list (four OS 26 rows on 2026-10-18)"
           ],
           "outcome": null
         }
@@ -1128,39 +1146,42 @@
         {
           "algorithm": "mlkem512",
           "capability": "tls",
-          "why": "Apple names only X25519MLKEM768 (\"Prepare your network for quantum-secure encryption in TLS\", 2026-06-18) and publishes no full group list, so a missing pure group is not proof of absence. The old ml-kem/tls cell here was hybrid evidence and was removed on 2026-10-08.",
-          "passes": 2,
-          "checked": "2026-10-08",
+          "why": "Apple names only X25519MLKEM768 (\"Prepare your network for quantum-secure encryption in TLS\", 2026-06-18) and publishes no full group list, so a missing pure group is not proof of absence. The old ml-kem/tls cell here was hybrid evidence and was removed on 2026-10-08. Re-checked 2026-10-18, two passes. The Network framework symbol index has no group or post-quantum symbol (NWProtocolTLS only), no iOS or macOS 27.1 has shipped (security releases page, newest 2026-09-28; 27.2 beta 4 of 2026-10-13 is newest), and the 27.2 beta 4 notes mention neither Network nor URLSession. Nothing either way; the gap stands.",
+          "passes": 3,
+          "checked": "2026-10-18",
           "sources": [
             "support.apple.com/en-us/122756",
             "Apple Platform Security, quantum-secure cryptography",
-            "WWDC25 session 314"
+            "WWDC25 session 314",
+            "Network framework symbol index and iOS 27.2 beta 4 release notes (2026-10-18)"
           ],
           "outcome": null
         },
         {
           "algorithm": "mlkem768",
           "capability": "tls",
-          "why": "Apple names only X25519MLKEM768 (\"Prepare your network for quantum-secure encryption in TLS\", 2026-06-18) and publishes no full group list, so a missing pure group is not proof of absence. The old ml-kem/tls cell here was hybrid evidence and was removed on 2026-10-08.",
-          "passes": 2,
-          "checked": "2026-10-08",
+          "why": "Apple names only X25519MLKEM768 (\"Prepare your network for quantum-secure encryption in TLS\", 2026-06-18) and publishes no full group list, so a missing pure group is not proof of absence. The old ml-kem/tls cell here was hybrid evidence and was removed on 2026-10-08. Re-checked 2026-10-18, two passes. The Network framework symbol index has no group or post-quantum symbol (NWProtocolTLS only), no iOS or macOS 27.1 has shipped (security releases page, newest 2026-09-28; 27.2 beta 4 of 2026-10-13 is newest), and the 27.2 beta 4 notes mention neither Network nor URLSession. Nothing either way; the gap stands.",
+          "passes": 3,
+          "checked": "2026-10-18",
           "sources": [
             "support.apple.com/en-us/122756",
             "Apple Platform Security, quantum-secure cryptography",
-            "WWDC25 session 314"
+            "WWDC25 session 314",
+            "Network framework symbol index and iOS 27.2 beta 4 release notes (2026-10-18)"
           ],
           "outcome": null
         },
         {
           "algorithm": "mlkem1024",
           "capability": "tls",
-          "why": "Apple names only X25519MLKEM768 (\"Prepare your network for quantum-secure encryption in TLS\", 2026-06-18) and publishes no full group list, so a missing pure group is not proof of absence. The old ml-kem/tls cell here was hybrid evidence and was removed on 2026-10-08.",
-          "passes": 2,
-          "checked": "2026-10-08",
+          "why": "Apple names only X25519MLKEM768 (\"Prepare your network for quantum-secure encryption in TLS\", 2026-06-18) and publishes no full group list, so a missing pure group is not proof of absence. The old ml-kem/tls cell here was hybrid evidence and was removed on 2026-10-08. Re-checked 2026-10-18, two passes. The Network framework symbol index has no group or post-quantum symbol (NWProtocolTLS only), no iOS or macOS 27.1 has shipped (security releases page, newest 2026-09-28; 27.2 beta 4 of 2026-10-13 is newest), and the 27.2 beta 4 notes mention neither Network nor URLSession. Nothing either way; the gap stands.",
+          "passes": 3,
+          "checked": "2026-10-18",
           "sources": [
             "support.apple.com/en-us/122756",
             "Apple Platform Security, quantum-secure cryptography",
-            "WWDC25 session 314"
+            "WWDC25 session 314",
+            "Network framework symbol index and iOS 27.2 beta 4 release notes (2026-10-18)"
           ],
           "outcome": null
         }
@@ -1380,6 +1401,15 @@
               "confidence": null,
               "checked_on": "2026-10-04",
               "note": "Rewritten 2026-09-29 per the guide's document history (\"to accurately list the cryptographic algorithms that AWS KMS supports\"). The asymmetric table's only post-quantum row is ML_DSA_SHAKE_256 with key specs ML_DSA_44, ML_DSA_65, ML_DSA_87; key agreement is ECDH and SM2 only. Still no ML-KEM key spec."
+            },
+            {
+              "claim": null,
+              "source": "https://docs.aws.amazon.com/kms/latest/developerguide/aws-kms-document-history.rss",
+              "url": null,
+              "as_of": "2026-09-29",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Forward lookup 2026-10-18, two passes: the guide's document-history RSS (readable, unlike the doc-history.html page) has nothing after the 2026-09-29 supported-algorithms rewrite, and the key spec reference re-read today still ends with ML_DSA_44, ML_DSA_65 and ML_DSA_87 (\"AWS KMS supports the ML_DSA_SHAKE_256 signing algorithm for all of the ML-DSA key specs\"); deriving shared secrets is still ECDH only. No ML-KEM key spec."
             }
           ],
           "note": "SETTLED BY AN ENUMERATION, which is what the gap asked for. The Key spec reference lists every key spec a KMS key can have -- SYMMETRIC_DEFAULT, the RSA specs, the elliptic curve specs, the HMAC specs, SM2, and ML_DSA_44, ML_DSA_65 and ML_DSA_87 -- and there is no ML-KEM spec among them. AWS KMS will not create or hold an ML-KEM key. THE CONFUSION THIS RESOLVES IS WORTH KEEPING: AWS does support ML-KEM for KMS, but for the TRANSPORT -- hybrid post-quantum TLS to the KMS endpoints, on non-FIPS endpoints across the aws partition. A reader who sees 'AWS KMS supports ML-KEM' in an announcement is being told about the connection to the service, not about a key the service will hold. The two are one word apart and a migration plan away."
@@ -2789,6 +2819,15 @@
               "confidence": "high",
               "checked_on": null,
               "note": ""
+            },
+            {
+              "claim": null,
+              "source": "https://github.com/bcgit/bc-java/commit/668c60d6",
+              "url": null,
+              "as_of": "2026-10-07",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Patrol 2026-10-18. Still the newest BC Java release, two passes: bc-java tags end at r1rv86 (no r1rv87), Maven Central bcprov-jdk18on latest 1.86 (metadata last updated 2026-09-11). Newly seen: bctls-only point releases 1.86.1 and 1.86.2 (Maven bctls-jdk18on latest 1.86.2, metadata updated 2026-10-07), noted in the release notes by commit 668c60d6 (2026-10-07): 1.86.1 fixes SSLContext.createSSLEngine() failing with NoSuchMethodError on JDK 9+ (github #2448), 1.86.2 fixes the OSGi import range of the 1.86.1 jars (github #2493); the BOMs pin the other jars at 1.86. Nothing post-quantum and no named-group change. bc-fips on Maven Central: latest 2.1.3 (metadata 2026-07-21), no 2.2.0. Master's newest commits (2026-10-07) include an ML-KEM matrix-generation change to squeeze one SHAKE128 block at a time per FIPS 203 SampleNTT; none since 2026-10-14."
             }
           ]
         },
@@ -3210,6 +3249,15 @@
               "confidence": null,
               "checked_on": "2026-10-04",
               "note": "\"There is no separate post-quantum setting: when TLS 1.3 is enabled and a visitor supports X25519MLKEM768, Cloudflare negotiates it automatically.\" New figures: about 70% of browser-generated visitor traffic and about 15% of origin connections use hybrid ML-KEM. The post adds post-quantum visibility to HTTP Analytics, Log Explorer and Logpush; it changes no default and names no other group."
+            },
+            {
+              "claim": null,
+              "source": "https://developers.cloudflare.com/ssl/post-quantum-cryptography/",
+              "url": null,
+              "as_of": "2026-07-03",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Forward lookup 2026-10-18, two passes: the deployed list is unchanged (X25519MLKEM768 Recommended, X25519Kyber768Draft00 Obsolete; page last updated 2026-07-03), so the three pure-group `none` cells stand on the same text. Nothing post-quantum in the blog (RSS, 2026-10-13 to 10-16; the post-quantum tag's newest post is still 2026-10-01) or the developer changelog (RSS, 2026-10-13 to 10-17)."
             }
           ],
           "note": "Patrol 2026-10-04: the visitor-leg figure below ('over a third') is superseded by Cloudflare's 2026-09-29 number, about 70% of browser-generated traffic; the origin leg is about 15% of connections, which is what 'default' looks like when the other end must also support it. TWO SEPARATE LEGS, and this cell is the origin-facing one -- Cloudflare to the customer's own server, which is the leg an operator controls least and notices last. The browser-facing leg is also post-quantum and is measured rather than asserted: Cloudflare reports over a third of human-generated traffic to its network using TLS 1.3 with X25519MLKEM768. `default` is exact here: nobody configured it, and the same rollout cut HelloRetryRequests on origin connections from roughly 52% to 3.7%, which is the sort of operational consequence a register of capabilities usually cannot show."
@@ -3960,6 +4008,15 @@
             "confidence": null,
             "checked_on": "2026-10-15",
             "note": "11.0 latest-release 11.0.0-rc.2 (2026-10-13, go-live); 10.0 latest-release 10.0.13 (2026-10-13, active); 9.0.21 and 8.0.32 (maintenance)."
+          },
+          {
+            "claim": null,
+            "source": "https://api.github.com/repos/dotnet/runtime/releases",
+            "url": null,
+            "as_of": null,
+            "confidence": null,
+            "checked_on": "2026-10-18",
+            "note": "Patrol 2026-10-18, two passes: releases-index.json unchanged (11.0.0-rc.2 and 10.0.13, both 2026-10-13); dotnet/runtime releases newest v10.0.13, v9.0.21, v8.0.32 (2026-10-13). No commits to dotnet/core since 2026-10-14. .NET 11 GA still pending (November)."
           }
         ],
         "note": "Newest STABLE on 2026-10-15 (the releases index: 10.0 is the active channel at 10.0.13; 11.0 is at 11.0.0-rc.2, support phase go-live, GA expected November 2026). The .NET 11 RC 2 post-quantum additions (CompositeMLKem, Hpke, EnvelopedCms ML-KEM recipients) are in `releases` and are not cells: the first is not a row, the second has no ML-KEM suite yet, and the third has no column (CMS KEM recipients are the proposed `kem-recipient` column of the 2026-10-04 review, still the user's decision)."
@@ -4015,8 +4072,8 @@
               "url": null,
               "as_of": "2026-09-14",
               "confidence": null,
-              "checked_on": "2026-10-15",
-              "note": "\"v13.9.6 2026-07-29 Full Release of the 13.9.6 Linux and Windows ISOs\" (Security World v13.9 STS Release 4; notes revision 1.1 of 2026-09-14). Recorded by patrol 2026-10-15 because the register knew only 13.9.5. Post-quantum content, none of it a new interface: \"FIPS-203 ML-KEM FPGA Acceleration (NSE-64745) ... adds FPGA acceleration of ML-KEM encapsulation and decapsulation for high- and mid-speed models using the HY accelerator\"; \"ML-DSA support in the nCipherKM JCE provider\" (ML-DSA-44/65/87, firmware v13.8+, PostQuantum feature); and \"SSH hybrid post-quantum key exchange by default (NSE-75188)\": the internal, mutually authenticated SSH connection to the nShield 5 nCore API and CodeSafe 5 \"now prefers the hybrid post-quantum key exchange mlkem768x25519-sha256\", falling back to ecdh-sha2-nistp256 against older firmware. That last is the module's own management transport, and the `ssh` column applies to ssh-stack and library kinds only, so it is a note here and not a cell. No SLH-DSA, LMS or PKCS#11 change in the notes. Newest page on nshielddocs on 2026-10-15: no 13.9.7, 13.9.8 or 13.10 release notes exist (the URLs resolve to empty or Page Not Found shells), and the site navigation ends at v13.9.6."
+              "checked_on": "2026-10-18",
+              "note": "Forward lookup 2026-10-18, two passes: the release-notes index (nshielddocs.entrust.com/release-notes/intro.html) still lists v13.9.6 as the newest Security World, with no 13.9.7, 13.10 or 13.8.x entry, and a web search found no 13.9.7 or 13.10 notes. Still newest. \"v13.9.6 2026-07-29 Full Release of the 13.9.6 Linux and Windows ISOs\" (Security World v13.9 STS Release 4; notes revision 1.1 of 2026-09-14). Recorded by patrol 2026-10-15 because the register knew only 13.9.5. Post-quantum content, none of it a new interface: \"FIPS-203 ML-KEM FPGA Acceleration (NSE-64745) ... adds FPGA acceleration of ML-KEM encapsulation and decapsulation for high- and mid-speed models using the HY accelerator\"; \"ML-DSA support in the nCipherKM JCE provider\" (ML-DSA-44/65/87, firmware v13.8+, PostQuantum feature); and \"SSH hybrid post-quantum key exchange by default (NSE-75188)\": the internal, mutually authenticated SSH connection to the nShield 5 nCore API and CodeSafe 5 \"now prefers the hybrid post-quantum key exchange mlkem768x25519-sha256\", falling back to ecdh-sha2-nistp256 against older firmware. That last is the module's own management transport, and the `ssh` column applies to ssh-stack and library kinds only, so it is a note here and not a cell. No SLH-DSA, LMS or PKCS#11 change in the notes. Newest page on nshielddocs on 2026-10-15: no 13.9.7, 13.9.8 or 13.10 release notes exist (the URLs resolve to empty or Page Not Found shells), and the site navigation ends at v13.9.6."
             }
           ]
         }
@@ -5003,8 +5060,17 @@
             "url": null,
             "as_of": null,
             "confidence": null,
-            "checked_on": "2026-10-15",
+            "checked_on": "2026-10-18",
             "note": ""
+          },
+          {
+            "claim": null,
+            "source": "https://go.dev/doc/devel/release",
+            "url": null,
+            "as_of": null,
+            "confidence": null,
+            "checked_on": "2026-10-18",
+            "note": "Newest entries go1.27.2 and go1.26.9 (both 2026-10-08); nothing later."
           },
           {
             "claim": null,
@@ -5016,7 +5082,7 @@
             "note": "Unchanged: \"Go Cryptographic Module v1.26.0 ... As of 2026-04-28, it is Pending Review in the CMVP Modules In Process List. It is covered by CAVP Certificate A8028. Changes from v1.0.0: Implemented ML-DSA.\""
           }
         ],
-        "note": "Newest stable on 2026-10-15 (go.dev/dl lists go1.27.2 and go1.26.9, both 2026-10-08, as the current stables; the newest pre-release is go1.27rc3, so no 1.28 cycle has started). Go's FIPS 140 page still says the Go Cryptographic Module v1.26.0 (the ML-DSA one) is \"Pending Review\" as of 2026-04-28; the queue itself is the validations sheet's business."
+        "note": "Newest stable on 2026-10-15 (go.dev/dl lists go1.27.2 and go1.26.9, both 2026-10-08, as the current stables; the newest pre-release is go1.27rc3, so no 1.28 cycle has started). Go's FIPS 140 page still says the Go Cryptographic Module v1.26.0 (the ML-DSA one) is \"Pending Review\" as of 2026-04-28; the queue itself is the validations sheet's business. Patrol 2026-10-18, two passes: go.dev/dl JSON still lists go1.27.2 first (then go1.27.1, go1.27.0, go1.27rc3...; no go1.28 beta or rc) and go.dev/doc/devel/release has nothing dated after 2026-10-08."
       },
       "roll_up": {
         "kem": "available",
@@ -5152,6 +5218,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Patrol 2026-10-15: the release notes have not moved on this. Newest entry is September 23, 2026 (Cloud EKM external key migration, Preview); the only KEM entry remains September 23, 2025, \"Cloud KMS now supports key encapsulation mechanisms (KEMs) for sharing secrets in Preview\" (ML_KEM_768, ML_KEM_1024, KEM_XWING), and no GA entry for KEMs exists. The GA-versus-Preview conflict with the 2026-07-28 blog stays with the user."
+            },
+            {
+              "claim": null,
+              "source": "https://docs.cloud.google.com/kms/docs/key-encapsulation-mechanisms",
+              "url": null,
+              "as_of": "2026-10-13",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Forward lookup 2026-10-18, two passes. The release notes still end at 2026-09-23 with no KEM GA entry. The key-encapsulation-mechanisms page and the algorithms page were both re-dated \"Last updated 2026-10-13 UTC\": still ML_KEM_768, ML_KEM_1024 and KEM_XWING (Recommended), still `software` protection level only (the hsm, hsm-single-tenant, external and external-vpc tables for KEY_ENCAPSULATION are empty), and still no Preview label and no GA statement on either page. What changed on 10-13 is not visible from the text. The conflict is unchanged."
             }
           ],
           "note": "`experimental` is exactly what the scale means by a preview channel, and the contrast inside one service is the useful part: signatures are generally available, key encapsulation is in preview. A migration plan that assumes both are equally ready would be wrong about half of it."
@@ -5305,6 +5380,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Patrol 2026-10-15. Maintenance release across every supported branch the same day (3.3.17, 3.2.26, 3.0.30, 2.8.31; 3.5-dev9 on the development branch). One line touches post-quantum deployments without naming them: \"BUG/MEDIUM: ssl: crt-list curves ignored with AWS-LC\" -- on the vendor's AWS-LC builds, a `curves` setting in a crt-list (the per-certificate place the vendor's PQC article does not use; it configures `curves` on the bind line) was silently dropped before this fix. Nothing post-quantum in 3.4.6 (2026-09-28) or 3.4.5 (2026-09-24). On the development branch, 3.5-dev9 (2026-10-14) adds a complete registered-group table in src/ssl_utils.c (commit c808988fa187, 2026-10-06, \"complete registered group names and library NID mappings\") with IANA codepoints 512-514 MLKEM512/768/1024 mapped to both AWS-LC and OpenSSL NIDs, 4587-4589 SecP256r1MLKEM768 / X25519MLKEM768 / SecP384r1MLKEM1024, and name-only rows for 4585 SecP256r1MLKEM512, 4586 MLKEM512X25519 and 4590 curveSM2MLKEM768, plus a `curve2name` converter. That table is not in 3.4.7 (checked at the v3.4.7 tag)."
+            },
+            {
+              "claim": null,
+              "source": "https://www.haproxy.org/",
+              "url": null,
+              "as_of": "2026-10-14",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Patrol 2026-10-18, two passes: the branch table still lists 3.4.7, 3.3.17, 3.2.26 and 3.5-dev9 as latest (no 3.4.8, no 3.5-dev10), and the haproxy/haproxy mirror's commits since 2026-10-14 are h1/mux-h1 fixes, a makefile change and a sym fix -- nothing on ssl curves, groups or ML-KEM."
             }
           ]
         }
@@ -5891,6 +5975,15 @@
               "confidence": "high",
               "checked_on": null,
               "note": ""
+            },
+            {
+              "claim": null,
+              "source": "https://github.com/openjdk/jdk25u-dev/commit/83e90e7d76e9ca804384d47a4d529e91f79d8981",
+              "url": null,
+              "as_of": "2026-08-03",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Patrol 2026-10-18, the JDK 25 leg of the plan in source ahead of the October CPU (due 2026-10-20, not yet released): \"8314323: Implement JEP 527: TLS 1.3 Hybrid Key Exchange\" (Backport-of: 21dc41f7) is on jdk25u-dev since 2026-08-03, with follow-ups 8379433 and 8375275 (2026-08-03, 2026-08-05). NamedGroup.java on jdk25u-dev master: the default list in SupportedGroups opens with X25519MLKEM768, then x25519, secp256r1, secp384r1, secp521r1, x448 and the ffdhe groups -- the same order JEP 527 gives JDK 27; SecP256r1MLKEM768 and SecP384r1MLKEM1024 defined but not default; MLKEM512/768/1024 constants carry a null parameter spec. Unreleased: this is the update repository, not a shipped 25.0.x, so it moves no cell until the CPU ships. No 27.0.1 yet. JDK 28 (project page, updated 2026-10-15) targets ten JEPs, none post-quantum (542 is PEM Encodings); the JEP index's only open TLS item is the QUIC draft -- two passes."
             }
           ],
           "note": ""
@@ -6682,7 +6775,7 @@
               "as_of": "2026-10-05",
               "confidence": null,
               "checked_on": "2026-10-15",
-              "note": "Patrol 2026-10-15. Security release: CVE-2026-77206 and CVE-2026-77207 (null dereferences, unexpected EAP packet and empty PKCS#7 payload), CVE-2026-94453 (use-after-free, EOF in IKETCP), dns-match-id disabled; a regression test for CVE-2026-77205 (fips-cert-leak, fixed in 5.3.3 the same day). Nothing post-quantum; the ML_KEM_768 support and the NSS >= 3.118.1 requirement are the v5.4 entries. The CHANGES file's v5.5 (unreleased) section has no post-quantum line either."
+              "note": "Patrol 2026-10-15. Security release: CVE-2026-77206 and CVE-2026-77207 (null dereferences, unexpected EAP packet and empty PKCS#7 payload), CVE-2026-94453 (use-after-free, EOF in IKETCP), dns-match-id disabled; a regression test for CVE-2026-77205 (fips-cert-leak, fixed in 5.3.3 the same day). Nothing post-quantum; the ML_KEM_768 support and the NSS >= 3.118.1 requirement are the v5.4 entries. The CHANGES file's v5.5 (unreleased) section has no post-quantum line either. Patrol 2026-10-18, two passes: tags still end at v5.4.1, and the v5.5 (unreleased) section of CHANGES on main reads only DH2/DH22 build removal, a Redirect logging fix, USE_IKEv1=false and KVM testing -- nothing post-quantum."
             }
           ]
         },
@@ -6983,7 +7076,7 @@
               "as_of": "2026-10-15",
               "confidence": null,
               "checked_on": "2026-10-15",
-              "note": "AC_INIT([libsodium],[1.0.23],...) on master; the latest GitHub release and tag is still 1.0.22-RELEASE (2026-04-09) and the master ChangeLog's newest section is \"1.0.22-stable\" with no ML-DSA line yet. Nothing a user can install."
+              "note": "AC_INIT([libsodium],[1.0.23],...) on master; the latest GitHub release and tag is still 1.0.22-RELEASE (2026-04-09) and the master ChangeLog's newest section is \"1.0.22-stable\" with no ML-DSA line yet. Nothing a user can install. Re-checked 2026-10-18, two passes (tags API: newest 1.0.22 / 1.0.22-RELEASE; master commit log: no commit after 2026-10-15, whose last items are ML-KEM seed-copy and zeroing clean-ups): still no 1.0.23."
             }
           ],
           "note": "PATROL 2026-10-15: WAS A GAP, NOW `planned`, and the old gap text was wrong by the time it was re-read. From 2026-09-12 this pair said libsodium 'has chosen a post-quantum KEM and not a post-quantum signature' (roadmap: ML-KEM and X-Wing DONE, no signature scheme at any status). On 2026-10-15 ML-DSA-44 landed on master as crypto_sign_mldsa44 -- one parameter set, the smallest, with the context-string API of FIPS 204 and non-deterministic (hedged) signing only after the same-day removal of the deterministic variant. `planned` rather than `experimental` because the scale's experimental means a preview channel or flag a user can run; this is an unreleased branch. Moves to `available` when 1.0.23 ships with it. The roadmap page had not been updated when this was recorded. Fidelity note: the register's x-wing and ml-kem cells say libsodium's post-quantum work is KEM-only; that sentence is now about the released library, not the project's direction."
@@ -7053,7 +7146,7 @@
               "as_of": "2026-10-06",
               "confidence": null,
               "checked_on": "2026-10-15",
-              "note": "Patrol 2026-10-15. No release since 0.12.2 (GitLab mirror tags: libssh-0.12.2 2026-07-28, libssh-0.11.5 2026-07-10). A documentation commit on master, \"doc: ML-KEM KEX is now RFC 10042\" (2026-10-06), records that the methods above are specified by RFC 10042 (Informational, August 2026, Kampanakis / Stebila / Hansen), formerly draft-ietf-sshm-mlkem-hybrid-kex. The other master commits since 2026-10-02 are bcrypt-round validation and a CI workaround."
+              "note": "Patrol 2026-10-15. No release since 0.12.2 (GitLab mirror tags: libssh-0.12.2 2026-07-28, libssh-0.11.5 2026-07-10). A documentation commit on master, \"doc: ML-KEM KEX is now RFC 10042\" (2026-10-06), records that the methods above are specified by RFC 10042 (Informational, August 2026, Kampanakis / Stebila / Hansen), formerly draft-ietf-sshm-mlkem-hybrid-kex. The other master commits since 2026-10-02 are bcrypt-round validation and a CI workaround. Patrol 2026-10-18, two passes: still no release after 0.12.2 (libssh.org front page newest item 2026-07-28; GitLab mirror tags end libssh-0.12.2), no 0.12.3 or 0.13, and no GitHub-mirror commits since 2026-10-14."
             }
           ],
           "note": "`default` on the project's own word -- \"these are now preferred\" is the preference list, which is what this column's default means. THE CAVEAT IS IN THE SAME SENTENCE AND MATTERS: the ML-KEM methods work only on the OpenSSL 3.5+ and libgcrypt backends. libssh builds against several crypto backends, so the same libssh version gives a different answer depending on what it was compiled against -- which is the shape the derives_from machinery exists for, and is recorded here in prose because libssh's backend is a build-time choice this register does not track per build. It also offers three ML-KEM hybrids where OpenSSH offers one, including two over NIST curves."
@@ -7711,7 +7804,7 @@
               "as_of": "2026-10-14",
               "confidence": null,
               "checked_on": "2026-10-15",
-              "note": "Patrol 2026-10-15. Mainline security release: five CVEs (alias/rewrite buffer overflow CVE-2026-15176, variable evaluation overflow CVE-2026-93479, HTTP/3 unknown-frame body CVE-2026-95101, uninitialised TLS session ticket key CVE-2026-97629, AIO/SSI use-after-free CVE-2026-97205), MMDB geoip, backend certificate verification by IP. Nothing post-quantum: no change to ssl_ecdh_curve or to the OpenSSL the binary links. The stable branch shipped 1.30.6 the same day with the security fixes (CHANGES-1.30)."
+              "note": "Patrol 2026-10-15. Mainline security release: five CVEs (alias/rewrite buffer overflow CVE-2026-15176, variable evaluation overflow CVE-2026-93479, HTTP/3 unknown-frame body CVE-2026-95101, uninitialised TLS session ticket key CVE-2026-97629, AIO/SSI use-after-free CVE-2026-97205), MMDB geoip, backend certificate verification by IP. Nothing post-quantum: no change to ssl_ecdh_curve or to the OpenSSL the binary links. The stable branch shipped 1.30.6 the same day with the security fixes (CHANGES-1.30). Patrol 2026-10-18, two passes: CHANGES still tops out at 1.31.7 (14 Oct 2026) and the nginx/nginx tags end at release-1.31.7; no 1.31.8."
             }
           ]
         }
@@ -7928,6 +8021,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Patrol 2026-10-15. Current line. Bundled OpenSSL 3.5.9 (nodejs.org/dist/index.json). Crypto commits are lock removals and provider isolation (#66413, including \"remove KEM key locking\"); nothing that changes a post-quantum answer."
+            },
+            {
+              "claim": null,
+              "source": "https://nodejs.org/dist/index.json",
+              "url": null,
+              "as_of": "2026-10-14",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Patrol 2026-10-18, two passes: still the newest release (dist/index.json: v26.12.0 2026-10-14, OpenSSL 3.5.9; GitHub releases: v26.12.0 and v24.22.0, both 2026-10-14, nothing after). 24.22.0 is still the newest LTS."
             }
           ]
         },
@@ -8639,6 +8741,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Patrol 2026-10-15. Security and bugfix release with two post-quantum lines under New features: \"All: enable hybrid post-quantum ssh-mldsa44-ed25519 signature algorithm\" (dropping the @openssh.com suffix of the 10.4 experimental implementation; old keys must be regenerated) and \"sshd(8): Add the WarnWeakCrypto option ... enabled by default and will log when the client uses a key agreement scheme that is not post-quantum safe.\" The default key-exchange list is unchanged (mlkem768x25519-sha256 first). The release note also says the team will make more frequent releases for a while."
+            },
+            {
+              "claim": null,
+              "source": "https://www.openssh.org/releasenotes.html",
+              "url": null,
+              "as_of": "2026-10-06",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Patrol 2026-10-18, two passes: still the newest (release notes page tops out at 10.6/10.6p1, 2026-10-06; openssh-portable tags end at V_10_6_P1). The 20 portable commits 2026-10-14 to 10-18 are bug fixes (seccomp restart_syscall, KRL bitmap, readpassphrase, channels spin, SKIP_PRIVDROP) and CI; none touches key exchange, ML-DSA or WarnWeakCrypto."
             }
           ]
         },
@@ -9152,7 +9263,7 @@
               "note": ""
             }
           ],
-          "note": "OpenSSL 3.5.4 FIPS Object Module submitted for FIPS 140-3 validation with ML-KEM, ML-DSA and SLH-DSA; certificate issuance NOT found on 2026-09-12 in two searches. Queue phase on 2026-10-15: Comment Resolution - CMVP since 2026-10-09 (see the slh-dsa/fips cell for the phase history); still no certificate."
+          "note": "OpenSSL 3.5.4 FIPS Object Module submitted for FIPS 140-3 validation with ML-KEM, ML-DSA and SLH-DSA; certificate issuance NOT found on 2026-09-12 in two searches. Queue phase on 2026-10-18: Comment Resolution - Lab since 2026-10-15, back from CMVP (see the slh-dsa/fips cell for the phase history); still no certificate."
         },
         {
           "algorithm": "ml-dsa",
@@ -9170,7 +9281,7 @@
               "note": ""
             }
           ],
-          "note": "Same submission as the ML-KEM FIPS cell; certificate issuance not found on 2026-09-12. Queue phase on 2026-10-15: Comment Resolution - CMVP since 2026-10-09; still no certificate."
+          "note": "Same submission as the ML-KEM FIPS cell; certificate issuance not found on 2026-09-12. Queue phase on 2026-10-18: Comment Resolution - Lab since 2026-10-15, back from CMVP; still no certificate."
         },
         {
           "algorithm": "slh-dsa",
@@ -9188,7 +9299,7 @@
               "note": ""
             }
           ],
-          "note": "Submitted, not issued: OpenSSL FIPS Provider, The OpenSSL Project, in the CMVP Modules In Process list at Comment Resolution - CMVP since 2026-10-09 (patrol 2026-10-15; its second time at CMVP). History: Comment Resolution - CMVP from 2026-08-21, Comment Resolution - Lab from 2026-09-21 (unchanged on 2026-10-04), back to CMVP 2026-10-09. See validations/openssl.yaml."
+          "note": "Submitted, not issued: OpenSSL FIPS Provider, The OpenSSL Project, in the CMVP Modules In Process list at Comment Resolution - Lab since 2026-10-15 (patrol 2026-10-18; its second return to the lab). History: Comment Resolution - CMVP from 2026-08-21, Comment Resolution - Lab from 2026-09-21 (unchanged on 2026-10-04), back to CMVP 2026-10-09, back to Lab 2026-10-15. See validations/openssl.yaml."
         },
         {
           "algorithm": "composite-ml-dsa",
@@ -9320,7 +9431,7 @@
             "url": null,
             "as_of": null,
             "confidence": null,
-            "checked_on": "2026-10-15",
+            "checked_on": "2026-10-18",
             "note": ""
           },
           {
@@ -9378,7 +9489,7 @@
             "note": ""
           }
         ],
-        "note": "The newest STABLE release tag, re-checked 2026-10-15 (was 4.0.2 of 2026-08-25 until 2026-10-04). 4.0.3 is a security patch release with no post-quantum change; no 4.0.4, 3.6.6 or 3.5.10 exists on 2026-10-15 (GitHub releases and tags both read). The repository also carries openssl-4.1.0-beta2 (2026-10-09, after beta1 on 2026-09-23 and alpha1 on 2026-09-09), the newest pre-release on 2026-10-15 (no final), which is deliberately not this value: a pre-release is not what a downstream links. What 4.1 changes for post-quantum, from its release text and the openssl-4.1 branch: performance only (\"Added optimized ML-DSA and ML-KEM NTT operations on ppc64le; optimized ML-DSA operations on x86_64; AVX-512-optimized SHAKE x4 operations for ML-DSA on x86_64\"), plus a FIPS provider change that makes every fips=yes algorithm expose the fips-indicator and notes that algorithms advertised fips=no, \"including X448MLKEM1024, remain unapproved\". The 4.1 TLS group table (providers/common/capabilities.c) and TLS_DEFAULT_GROUP_LIST (ssl/t1_lib.c) are the same as 4.0's: X25519MLKEM768, SecP256r1MLKEM768, curveSM2MLKEM768 lead the default list; MLKEM512/768/1024 available, not default. The MLKEM512X25519 and SecP256r1MLKEM512 groups are on master (4.2) only. Note that OpenSSL maintains several branches at once -- 3.4.8, 3.5.9, 3.6.5 and 4.0.3 all shipped on 2026-09-29, fixing the same set of CVEs (the 3.0 series, end of life since 2026-09-07, got none of them) -- so \"current\" here means the newest line, and a downstream pinned to 3.5 is on a SUPPORTED branch rather than an abandoned one (3.5 is LTS to 2030-04-08). The 3.0 series reached end of life on 2026-09-07 (3.0.22 was its last release), so a downstream still on 3.0 IS on an abandoned branch. Propagation should be read with that in mind: behind is not the same as unsupported, except for 3.0."
+        "note": "The newest STABLE release tag, re-checked 2026-10-15 (was 4.0.2 of 2026-08-25 until 2026-10-04). 4.0.3 is a security patch release with no post-quantum change; no 4.0.4, 3.6.6 or 3.5.10 exists on 2026-10-15 (GitHub releases and tags both read). The repository also carries openssl-4.1.0-beta2 (2026-10-09, after beta1 on 2026-09-23 and alpha1 on 2026-09-09), the newest pre-release on 2026-10-15 and still on 2026-10-18 (no 4.1.0 final and no beta3: releases API and tags API both read, two passes; the openssl-4.1 branch's commits since 2026-10-14 are DTLS-listener and CMP test fixes only), which is deliberately not this value: a pre-release is not what a downstream links. What 4.1 changes for post-quantum, from its release text and the openssl-4.1 branch: performance only (\"Added optimized ML-DSA and ML-KEM NTT operations on ppc64le; optimized ML-DSA operations on x86_64; AVX-512-optimized SHAKE x4 operations for ML-DSA on x86_64\"), plus a FIPS provider change that makes every fips=yes algorithm expose the fips-indicator and notes that algorithms advertised fips=no, \"including X448MLKEM1024, remain unapproved\". The 4.1 TLS group table (providers/common/capabilities.c) and TLS_DEFAULT_GROUP_LIST (ssl/t1_lib.c) are the same as 4.0's: X25519MLKEM768, SecP256r1MLKEM768, curveSM2MLKEM768 lead the default list; MLKEM512/768/1024 available, not default. The MLKEM512X25519 and SecP256r1MLKEM512 groups are on master (4.2) only. Note that OpenSSL maintains several branches at once -- 3.4.8, 3.5.9, 3.6.5 and 4.0.3 all shipped on 2026-09-29, fixing the same set of CVEs (the 3.0 series, end of life since 2026-09-07, got none of them) -- so \"current\" here means the newest line, and a downstream pinned to 3.5 is on a SUPPORTED branch rather than an abandoned one (3.5 is LTS to 2030-04-08). The 3.0 series reached end of life on 2026-09-07 (3.0.22 was its last release), so a downstream still on 3.0 IS on an abandoned branch. Propagation should be read with that in mind: behind is not the same as unsupported, except for 3.0."
       },
       "roll_up": {
         "kem": "available",
@@ -9441,7 +9552,7 @@
               "as_of": null,
               "confidence": null,
               "checked_on": "2026-10-15",
-              "note": "Release check, patrol 2026-10-15: 0.85 (released 2026-08-16) is still the newest release on both the latest-release page and the change log; no 0.86 and nothing post-quantum since 0.83. Quiet, two pages read."
+              "note": "Release check, patrol 2026-10-15: 0.85 (released 2026-08-16) is still the newest release on both the latest-release page and the change log; no 0.86 and nothing post-quantum since 0.83. Quiet, two pages read. Patrol 2026-10-18, same two pages: latest.html \"Currently this is 0.85, released on 2026-08-16\"; changes.html tops out at 0.85; no 0.86. (The default kex order in settings.c could not be read: git.tartarus.org returned 403.)"
             }
           ],
           "note": "HYBRID ONLY, BY POLICY, and the project says why in the same breath: the classical half runs in parallel and both outputs are hashed, so a break in the lattice half is not fatal. `available` rather than `default` because the page read does not state where the ML-KEM hybrids sit in PuTTY's key exchange preference order, and this register does not infer a default from the presence of a feature -- see the gap below. PuTTY shipped an NTRU Prime hybrid in 0.78, which predates most of the libraries in this register; that algorithm has no row here. WHAT WOULD SHARPEN THIS CELL: whether the ML-KEM hybrids sit at the top of PuTTY's key exchange preference order, which is the difference between `available` and `default` and so between a feature and a deployment. That belongs here rather than in the gap list -- a gap is a pair nobody has answered, not an answer somebody wants to be more precise about, and the validator enforces the distinction."
@@ -9533,6 +9644,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Still the newest release on 2026-10-15 (PyPI latest 50.0.2, uploaded 2026-09-30; GitHub tags agree). The 51.0.0 section of CHANGELOG.rst on main (read 2026-10-15) lists CFFI 2.1.1, OneAsymmetricKey loading, a DSA deprecation, *_into overlap checks and GeneralNames strictness -- no ML-KEM, ML-DSA or SLH-DSA item, and no commit since 2026-10-02 names one."
+            },
+            {
+              "claim": null,
+              "source": "https://api.github.com/repos/pyca/cryptography/tags",
+              "url": null,
+              "as_of": "2026-09-30",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Patrol 2026-10-18, two passes: GitHub tags end at 50.0.2 and PyPI info.version is 50.0.2; no 51.0.0. Main's commits since 2026-10-14 are dependency and CI bumps (BoringSSL/OpenSSL/AWS-LC in CI, ruff, uv, actions) -- none names ML-KEM, ML-DSA or SLH-DSA."
             }
           ]
         },
@@ -9766,6 +9886,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Source read for the standing hybrid-groups check: DEFAULT.pol on the rhel10 branch, line 17, \"group = MLKEM768-X25519 P256-MLKEM768 P384-MLKEM1024 MLKEM1024-X448 ...\" (classical groups follow). The branch's last commit is 2026-08-11 and the repository's two commits since 2026-10-02 are CI and lint only, so nothing moved. The RHEL 10.3 release notes (page live on 2026-10-15, no date shown, no Beta label) list as a 10.2 deprecation: \"The X25519-MLKEM768 value in system-wide cryptographic policies is deprecated and aliased to the MLKEM768-X25519 value\" -- a spelling change, not a default change; their 10.3 section names no new TLS group item. NOTE FOR THE USER: the same default line carries P256-MLKEM768 and P384-MLKEM1024, i.e. SecP256r1MLKEM768 and SecP384r1MLKEM1024 are also in DEFAULT (OpenSSL back-end), and this component has no cells for them; adding two `default` hybrid cells is a decision, not applied here."
+            },
+            {
+              "claim": null,
+              "source": "https://gitlab.com/redhat-crypto/fedora-crypto-policies/-/commits/main",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Forward lookup 2026-10-18, two passes (commits API on the default branch and on rhel10, then the merge-request list): newest commit on the default branch is still 2026-10-05 (CI and ruff), rhel10 still 2026-08-11. No merge request updated after 2026-10-05. Two PQ-touching MRs were closed unmerged -- !287 \"updated BSI to 2026 state\" (adds mlkem768x25519 hybrids to the BSI policy, closed 2026-10-02) and !276 \"libreswan: add hybrid mlkem key exchange support\" (closed 2026-08-21) -- and !286 \"CNSA 1.0 support\" is open. None changes DEFAULT."
             }
           ],
           "note": "Named, so it is recorded on the named-group row rather than left on the KEM family. This is the cell Apple's networking component could not have, for the exact reason recorded in its gap: Red Hat prints the group, Apple does not."
@@ -9980,6 +10109,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Security release, four advisories; one is post-quantum-relevant. GHSA-w44r-93j7-qv28 (Low, CVSS 3.7, CWE-757 algorithm downgrade, no CVE id, affects < 0.23.46): \"An unauthenticated ServerHello poisons the per-name key-exchange hints, so later ClientHellos carry only a classical X25519 share.\" A network attacker answers one connection with a ServerHello selecting X25519; later ClientHellos for that server name send one X25519 share while supported_groups still lists X25519MLKEM768 first, and if the server accepts the share instead of sending HelloRetryRequest the handshake completes classical-only between two hybrid-capable peers (harvest-now-decrypt-later exposure, no key compromise). Fixed by \"Delay saving KX hint until handshake confirmation\" (PR 3355). The other three (Brotli decompression memory, Debug impls printing secrets, early data sent after ECH rejection) are not post-quantum. No group or default change: DEFAULT_KX_GROUPS and ALL_KX_GROUPS at v/0.23.46 match 0.23.45. Newest release on 2026-10-15 (crates.io max_stable_version 0.23.46). Candidate for the flaw sidecar -- the user's call."
+            },
+            {
+              "claim": null,
+              "source": "https://api.github.com/repos/rustls/rustls/releases",
+              "url": null,
+              "as_of": "2026-10-14",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Patrol 2026-10-18, two passes: still the newest release (releases API: v/0.23.46 2026-10-14, nothing after; tags API: v/0.24.0-dev.2 and v/0.24.0-alpha.1 above it, both development tags on main, no 0.23.47). The GHSA-w44r-93j7-qv28 follow-up: no further advisory or rel-0.23 backport; main's commits since 2026-10-14 are an encrypt_append() API change, CI and examples, plus \"Take rustls 0.23.46\" (2026-10-14) -- none touches key exchange or the hint cache."
             }
           ]
         },
@@ -10285,6 +10423,22 @@
       ],
       "version_pattern": null,
       "releases": [
+        {
+          "version": "1.7.12",
+          "date": "2026-10-16",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/aws/s2n-tls/releases/tag/v1.7.12",
+              "url": null,
+              "as_of": "2026-10-16",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Newest release on 2026-10-18 (releases API and main's commit log both read, two passes). Ships PR 6041 \"refactor: remove length-prefixed logic for PQ key shares\" plus security fixes (DH parameter size truncation, peer cert chain fields, ticket-key use-after-free on rotation, max handshake message length) and \"prefer ECDSA signature schemes in ELB TLS 1.3 security policies\" (PR 6127, signature schemes, not groups). No post-quantum mechanism added or removed: at v1.7.12 ALL_SUPPORTED_KEM_GROUPS is still { x25519_mlkem_768, secp256r1_mlkem_768, secp384r1_mlkem_1024, pure_mlkem_1024 } (tls/s2n_kem.c) and \"default\" / \"default_fips\" (security_policy_20251014 / 20251015) still use kem_preferences_pq_tls_1_3_ietf_2025_07 (tls/s2n_security_policies.c), read 2026-10-18."
+            }
+          ]
+        },
         {
           "version": "1.7.11",
           "date": "2026-10-02",
@@ -10691,7 +10845,7 @@
               "as_of": "2026-10-07",
               "confidence": null,
               "checked_on": "2026-10-15",
-              "note": "Patrol 2026-10-15: the ml-dsa branch is alive (head commit 2026-10-07, \"public-key: Add optional parameters when en-/decoding subjectPublicKeyInfo\"; a pq-composite-sigs branch sits beside it, head 2026-09-09) and nothing is released: 6.1.0 (2026-09-07) is still the newest on strongswan.org/blog and on GitHub releases, and the 20 master commits since 2026-10-02 are PGP, kernel-address and CI changes (CI now tests against OpenSSL 4.0.3, AWS-LC 5.11.0 and wolfSSL 5.9.4). Still planned, still medium confidence on timing."
+              "note": "Patrol 2026-10-15: the ml-dsa branch is alive (head commit 2026-10-07, \"public-key: Add optional parameters when en-/decoding subjectPublicKeyInfo\"; a pq-composite-sigs branch sits beside it, head 2026-09-09) and nothing is released: 6.1.0 (2026-09-07) is still the newest on strongswan.org/blog and on GitHub releases, and the 20 master commits since 2026-10-02 are PGP, kernel-address and CI changes (CI now tests against OpenSSL 4.0.3, AWS-LC 5.11.0 and wolfSSL 5.9.4). Still planned, still medium confidence on timing. Patrol 2026-10-18, two passes: GitHub releases and strongswan.org/blog both still end at 6.1.0 (2026-09-07); ml-dsa branch head unchanged (eb72966d, 2026-10-07); master's four commits since 2026-10-14 are simaka, PGP and ctype fixes, nothing post-quantum."
             }
           ],
           "note": "Patrol 2026-09-26, closes the gap as planned. The project's own workshop deck 'IKEv2 Signature Authentication using ML-DSA' says the internal ml plugin implementation is work in progress on the ml-dsa branch with 6.1.0 as the ETA; 6.1.0 shipped 2026-09-07 with ML-KEM hardening only and no ML-DSA in NEWS or plugins/ml. Medium confidence on timing."
@@ -10766,6 +10920,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Still the newest release on 2026-10-15, but main has moved: PR 607 \"Update BoringSSL to 8eb25be6fa18d475291122887a7bccd3762ff236\" merged 2026-10-09 (the BoringSSL commit is dated 2026-09-24), and Package.swift on main now reads \"// BoringSSL Commit: 8eb25be6fa18d475291122887a7bccd3762ff236\". The re-vendored header defines SSL_GROUP_MLKEM1024 0x0202 and drops X25519_KYBER768_DRAFT00; no SecP*MLKEM* and no MLKEM512/768. Unreleased, so the 2.37.5 pin (817ab07) is still what a downstream links; the next tag carries it."
+            },
+            {
+              "claim": null,
+              "source": "https://api.github.com/repos/apple/swift-nio-ssl/tags",
+              "url": null,
+              "as_of": "2026-09-17",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Patrol 2026-10-18, two passes: still the newest (releases API and tags API both end at 2.37.5, 2026-09-17). Main since the 2026-10-09 BoringSSL re-vendor has one commit, \"Avoid flushing buffered writes on closed TLS channels (#610)\" (2026-10-12); no NIOTLSCurve change, so the MLKEM1024 question waits on the next tag."
             }
           ]
         },
@@ -10985,6 +11148,22 @@
       "version_pattern": null,
       "releases": [
         {
+          "version": "Luna HSM Client 10.9.4",
+          "date": null,
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/client/10-9-4.htm",
+              "url": null,
+              "as_of": "2026-09-25",
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "\"Luna HSM Client 10.9.4 was released in September, 2026. It includes bug fixes and security updates.\" (page last updated 2026-09-25). Found by the 2026-10-18 forward lookup; the register knew only the firmware line. Post-quantum content: key generation, usage, backup and restore \"can be quantum safe\" on Luna PCIe, Network and USB HSM 7, and PQC keys can be backed up and restored with the Luna Backup HSM 7, \"Requires firmware version 7.9.3\"; communication with and between HSMs is also described as quantum safe (no algorithm named for that). And \"Key Storage Provider (KSP) in Luna HSM Client 10.9.4 supports ML-DSA to issue quantum safe certificates with Luna HSMs\" -- the Windows KSP route, i.e. what AD CS or another CNG-based CA would call (the join windows-cng's notes describe), not a CA in this component. ML-KEM, LMS/HSS, SLH-DSA, FIPS and K7 are not mentioned. No cell changes: the ml-dsa and ml-kem primitive and pkcs11 cells already stand on 7.9.0."
+            }
+          ]
+        },
+        {
           "version": "Luna HSM Firmware 7.9.3",
           "date": null,
           "lts": false,
@@ -10995,8 +11174,8 @@
               "url": null,
               "as_of": null,
               "confidence": null,
-              "checked_on": "2026-10-15",
-              "note": "\"Luna HSM firmware 7.9.3 was released in April 2026. It includes bug fixes and improvements.\" New features are PBKDF2 HMAC variants, AES-GCM over 64KB, CKM_AES_KW without CKA_VALUE_LEN, selectable GCM IV length -- nothing post-quantum. Newest firmware in the Customer Release Notes index on 2026-10-15 (page last updated 2026-10-09); no 7.9.4."
+              "checked_on": "2026-10-18",
+              "note": "\"Luna HSM firmware 7.9.3 was released in April 2026. It includes bug fixes and improvements.\" New features are PBKDF2 HMAC variants, AES-GCM over 64KB, CKM_AES_KW without CKA_VALUE_LEN, selectable GCM IV length -- nothing post-quantum. Newest firmware in the Customer Release Notes index on 2026-10-15 (page last updated 2026-10-09); no 7.9.4. Re-checked 2026-10-18, two passes: the 7.9.3 page's navigation still ends the 7.9 firmware list at 7.9.3 (the newest link is Client 10.9.4, above), the 7-9-4.htm URL and the firmware index return 403, and a web search found no 7.9.4 or Luna K7 firmware announcement."
             }
           ]
         },
@@ -11462,8 +11641,8 @@
               "url": null,
               "as_of": null,
               "confidence": null,
-              "checked_on": "2026-09-26",
-              "note": "The Quantum Protect page now lists 'SLH-DSA (FIPS 205) in progress' beside ML-KEM, ML-DSA, LMS/HSS and XMSS/XMSS-MT, via PKCS #11 vendor-defined mechanisms. Re-read 2026-10-15: unchanged -- still 'SLH-DSA (FIPS 205) in progress' and 'More algorithms such as SLH-DSA are on the roadmap'; no version, firmware or date on the page. Utimaco's news page has nothing after 2026-09-17 (the 2026-09-15 '01 Quantum' PQC alliance item names no algorithm or release). Quiet, two pages read."
+              "checked_on": "2026-10-18",
+              "note": "The Quantum Protect page now lists 'SLH-DSA (FIPS 205) in progress' beside ML-KEM, ML-DSA, LMS/HSS and XMSS/XMSS-MT, via PKCS #11 vendor-defined mechanisms. Re-read 2026-10-15: unchanged -- still 'SLH-DSA (FIPS 205) in progress' and 'More algorithms such as SLH-DSA are on the roadmap'; no version, firmware or date on the page. Utimaco's news page has nothing after 2026-09-17 (the 2026-09-15 '01 Quantum' PQC alliance item names no algorithm or release). Quiet, two pages read. Re-read 2026-10-18 (planned-cell check, two passes): both sentences unchanged, still no version or date; the news page's newest item is still 2026-09-17. `planned` stands."
             },
             {
               "claim": null,
@@ -11562,9 +11741,18 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Planned-cell re-check, patrol 2026-10-15: the page's source has no commit after 2026-05-20, so the phase table is unchanged (ML-KEM and the composites still Phase 2). The Windows Server 2025 cumulative of 2026-10-13 (KB5126646) names TLS ML-KEM and AD FS, not AD CS or certificate templates."
+            },
+            {
+              "claim": null,
+              "source": "https://github.com/MicrosoftDocs/windowsserverdocs/commits/main/WindowsServerDocs/identity/ad-cs/post-quantum-cryptography-overview.md",
+              "url": null,
+              "as_of": null,
+              "confidence": null,
+              "checked_on": "2026-10-18",
+              "note": "Planned-cell re-check, forward lookup 2026-10-18, two passes: the page source's newest commit is still 2026-05-20 (\"Apply suggestions from PR review\"), and no Windows Server 2025 update after KB5126646 (2026-10-13) exists on the update-history page; KB5126646 re-read, no AD CS sentence (its Distributed Key Manager item is AD FS certificate container permissions)."
             }
           ],
-          "note": "A KEM certificate is a real thing AD CS says it will issue, so this is the vendor's own roadmap rather than an inference. Still Phase 2 on 2026-10-15."
+          "note": "A KEM certificate is a real thing AD CS says it will issue, so this is the vendor's own roadmap rather than an inference. Still Phase 2 on 2026-10-18."
         },
         {
           "algorithm": "composite-ml-dsa",
@@ -11582,7 +11770,7 @@
               "note": "Same table: Composite ML-DSA, IETF draft, \"Classical + PQ digital signatures\", \"Planned (Phase 2)\". The page describes the shape too: \"The certificate combines a classical algorithm (such as ECDSA or RSA) with a post-quantum algorithm (such as ML-DSA-65).\""
             }
           ],
-          "note": "The table also carries Composite ML-KEM as Planned (Phase 2). The register has no composite-KEM row -- one component carrying it is not yet two, which is the bar for adding a row -- so it is recorded here in prose until a second component has it. Re-checked 2026-10-15: page source unchanged since 2026-05-20, still Phase 2 (the certificate-handling half shipped in July on windows-capi2; issuance has not followed)."
+          "note": "The table also carries Composite ML-KEM as Planned (Phase 2). The register has no composite-KEM row -- one component carrying it is not yet two, which is the bar for adding a row -- so it is recorded here in prose until a second component has it. Re-checked 2026-10-15 and 2026-10-18: page source unchanged since 2026-05-20, still Phase 2 (the certificate-handling half shipped in July on windows-capi2; issuance has not followed)."
         },
         {
           "algorithm": "slh-dsa",
@@ -11731,9 +11919,9 @@
         {
           "algorithm": "ml-kem",
           "capability": "x509",
-          "why": "Second pass done and it found nothing either way, which is the answer: no Microsoft document states whether the Windows certificate functions can handle a certificate carrying an ML-KEM key. What the second pass DID establish is that the silence is not an artifact of the roadmap having stalled -- the composite half of the same promise shipped on 14 July 2026 and is now a cell above, while the ML-KEM half did not. So the two capabilities Microsoft announced together in June (\"Additional post-quantum capabilities, including ML-KEM and composite algorithm support, are planned later this year\") have diverged, and only one of them can be recorded. Not a `none` cell: nothing here ENUMERATES what the certificate layer accepts, and this register does not read a document's silence as a denial. The thing that would settle it is an ML-KEM certificate OID in the wincrypt reference or a CertEnroll page naming the key type; neither exists today. Recheck when the ML-KEM phase ships. Third pass 2026-10-15: the October cumulatives (KB5127648 Windows 11, KB5126646 Server 2025) mention certificates only for Secure Boot, the CNG algorithm identifiers page has no commit after 2026-05-29, and the AD CS table still has ML-KEM at Phase 2. Nothing either way; the gap stands.",
-          "passes": 3,
-          "checked": "2026-10-15",
+          "why": "Second pass done and it found nothing either way, which is the answer: no Microsoft document states whether the Windows certificate functions can handle a certificate carrying an ML-KEM key. What the second pass DID establish is that the silence is not an artifact of the roadmap having stalled -- the composite half of the same promise shipped on 14 July 2026 and is now a cell above, while the ML-KEM half did not. So the two capabilities Microsoft announced together in June (\"Additional post-quantum capabilities, including ML-KEM and composite algorithm support, are planned later this year\") have diverged, and only one of them can be recorded. Not a `none` cell: nothing here ENUMERATES what the certificate layer accepts, and this register does not read a document's silence as a denial. The thing that would settle it is an ML-KEM certificate OID in the wincrypt reference or a CertEnroll page naming the key type; neither exists today. Recheck when the ML-KEM phase ships. Third pass 2026-10-15: the October cumulatives (KB5127648 Windows 11, KB5126646 Server 2025) mention certificates only for Secure Boot, the CNG algorithm identifiers page has no commit after 2026-05-29, and the AD CS table still has ML-KEM at Phase 2. Nothing either way; the gap stands. Fourth pass 2026-10-18: no Windows 11 or Server 2025 update after 2026-10-13; Release Preview KB5127936 (2026-10-16) mentions certificates only for Remote Desktop publishers and WinRE Wi-Fi; the CNG identifiers page and the AD CS page still have no commit after 2026-05-29 and 2026-05-20. The gap stands.",
+          "passes": 4,
+          "checked": "2026-10-18",
           "sources": [
             "Microsoft PQC GA announcement, 2025-11-18",
             "KB5127648 and KB5126646 (2026-10-13)",
@@ -12100,7 +12288,7 @@
               "note": "Windows Server 2025 cumulative update KB5126646 (October 13, 2026, OS Build 26100.33650), Improvements, \"[Security]\": \"This update adds support for ML-KEM post-quantum key exchange in Transport Layer Security (TLS) 1.3, helping protect encrypted connections against future quantum-computing threats.\" The sentence names no group, parameter set or configuration step, and the words standalone and hybrid do not appear in the KB."
             }
           ],
-          "note": "KB5120998 (2026-08-27 optional preview, builds 26100/26200.9278): \"ML-KEM can now be used as a standalone algorithm for TLS key exchange, in addition to hybrid groups added previously.\" In the GA cumulative KB5124008 (2026-09-08), which includes KB5120998 -- but the Release Preview notes put it under \"Gradual rollout\", so not every device has it yet. Microsoft's TLS PQC FAQ (2026-09-28, Q13) names the groups: \"you use only MLKEM768 or MLKEM1024 if CNSA 2.0 compliance is in scope\". Opt-in like every Windows PQ group. SERVER 2025, found 2026-10-15: KB5126646 (2026-10-13) \"adds support for ML-KEM post-quantum key exchange in TLS 1.3\" -- the first Server 2025 KB to say ML-KEM at all (the 2026-10-04 and 10-08 checks found none). Server 2025 already had the three hybrids from KB5099536 (2026-07-14), so the new line most plausibly is the standalone groups reaching Server 2025, but the KB does not say standalone or name MLKEM768/MLKEM1024, so `since` is left at the Windows 11 KBs and the Server 2025 addition is for the user to rule on. The Windows 11 cumulative of the same day, KB5127648 (26300/26200/26100.9711), has no TLS or ML-KEM text. The Supported Groups page is still stale (ms.date 05/20/2026, last docs commit 2026-05-28; hybrids only, no pure group name on 2026-10-15); the Enable-TlsEccCurve string is undocumented; the Microsoft PQC blog has nothing after the 2026-10-05 RDP post. No FIPS-mode statement."
+          "note": "KB5120998 (2026-08-27 optional preview, builds 26100/26200.9278): \"ML-KEM can now be used as a standalone algorithm for TLS key exchange, in addition to hybrid groups added previously.\" In the GA cumulative KB5124008 (2026-09-08), which includes KB5120998 -- but the Release Preview notes put it under \"Gradual rollout\", so not every device has it yet. Microsoft's TLS PQC FAQ (2026-09-28, Q13) names the groups: \"you use only MLKEM768 or MLKEM1024 if CNSA 2.0 compliance is in scope\". Opt-in like every Windows PQ group. SERVER 2025, found 2026-10-15: KB5126646 (2026-10-13) \"adds support for ML-KEM post-quantum key exchange in TLS 1.3\" -- the first Server 2025 KB to say ML-KEM at all (the 2026-10-04 and 10-08 checks found none). Server 2025 already had the three hybrids from KB5099536 (2026-07-14), so the new line most plausibly is the standalone groups reaching Server 2025, but the KB does not say standalone or name MLKEM768/MLKEM1024, so `since` is left at the Windows 11 KBs and the Server 2025 addition is for the user to rule on. The Windows 11 cumulative of the same day, KB5127648 (26300/26200/26100.9711), has no TLS or ML-KEM text. The Supported Groups page is still stale (ms.date 05/20/2026, last docs commit 2026-05-28; hybrids only, no pure group name on 2026-10-15); the Enable-TlsEccCurve string is undocumented; the Microsoft PQC blog has nothing after the 2026-10-05 RDP post. No FIPS-mode statement. RE-CHECKED 2026-10-18 (two passes, nothing moved): the Server 2025 and Windows 11 update histories list nothing after the 2026-10-13 KBs; KB5126646 re-read, still no group named; the Release Preview build 26200.9807/26300.9807 (KB5127936, 2026-10-16) and the 2026-10-16 Insider builds have no TLS, ML-KEM or cryptography text; the Supported Groups page is unchanged (updated_at 2026-05-29, hybrids only, its Insider note still giving Server 2025 build 29550 as the minimum for the ML-KEM groups); the PQC blog feed's newest item is still 2026-10-05."
         },
         {
           "algorithm": "mlkem1024",
@@ -12127,7 +12315,7 @@
               "note": "Windows Server 2025 cumulative update KB5126646 (October 13, 2026, OS Build 26100.33650), Improvements, \"[Security]\": \"This update adds support for ML-KEM post-quantum key exchange in Transport Layer Security (TLS) 1.3, helping protect encrypted connections against future quantum-computing threats.\" The sentence names no group, parameter set or configuration step, and the words standalone and hybrid do not appear in the KB."
             }
           ],
-          "note": "KB5120998 (2026-08-27 optional preview, builds 26100/26200.9278): \"ML-KEM can now be used as a standalone algorithm for TLS key exchange, in addition to hybrid groups added previously.\" In the GA cumulative KB5124008 (2026-09-08), which includes KB5120998 -- but the Release Preview notes put it under \"Gradual rollout\", so not every device has it yet. Microsoft's TLS PQC FAQ (2026-09-28, Q13) names the groups: \"you use only MLKEM768 or MLKEM1024 if CNSA 2.0 compliance is in scope\". Opt-in like every Windows PQ group. SERVER 2025, found 2026-10-15: KB5126646 (2026-10-13) \"adds support for ML-KEM post-quantum key exchange in TLS 1.3\" -- the first Server 2025 KB to say ML-KEM at all (the 2026-10-04 and 10-08 checks found none). Server 2025 already had the three hybrids from KB5099536 (2026-07-14), so the new line most plausibly is the standalone groups reaching Server 2025, but the KB does not say standalone or name MLKEM768/MLKEM1024, so `since` is left at the Windows 11 KBs and the Server 2025 addition is for the user to rule on. The Windows 11 cumulative of the same day, KB5127648 (26300/26200/26100.9711), has no TLS or ML-KEM text. The Supported Groups page is still stale (ms.date 05/20/2026, last docs commit 2026-05-28; hybrids only, no pure group name on 2026-10-15); the Enable-TlsEccCurve string is undocumented; the Microsoft PQC blog has nothing after the 2026-10-05 RDP post. No FIPS-mode statement."
+          "note": "KB5120998 (2026-08-27 optional preview, builds 26100/26200.9278): \"ML-KEM can now be used as a standalone algorithm for TLS key exchange, in addition to hybrid groups added previously.\" In the GA cumulative KB5124008 (2026-09-08), which includes KB5120998 -- but the Release Preview notes put it under \"Gradual rollout\", so not every device has it yet. Microsoft's TLS PQC FAQ (2026-09-28, Q13) names the groups: \"you use only MLKEM768 or MLKEM1024 if CNSA 2.0 compliance is in scope\". Opt-in like every Windows PQ group. SERVER 2025, found 2026-10-15: KB5126646 (2026-10-13) \"adds support for ML-KEM post-quantum key exchange in TLS 1.3\" -- the first Server 2025 KB to say ML-KEM at all (the 2026-10-04 and 10-08 checks found none). Server 2025 already had the three hybrids from KB5099536 (2026-07-14), so the new line most plausibly is the standalone groups reaching Server 2025, but the KB does not say standalone or name MLKEM768/MLKEM1024, so `since` is left at the Windows 11 KBs and the Server 2025 addition is for the user to rule on. The Windows 11 cumulative of the same day, KB5127648 (26300/26200/26100.9711), has no TLS or ML-KEM text. The Supported Groups page is still stale (ms.date 05/20/2026, last docs commit 2026-05-28; hybrids only, no pure group name on 2026-10-15); the Enable-TlsEccCurve string is undocumented; the Microsoft PQC blog has nothing after the 2026-10-05 RDP post. No FIPS-mode statement. RE-CHECKED 2026-10-18 (two passes, nothing moved): the Server 2025 and Windows 11 update histories list nothing after the 2026-10-13 KBs; KB5126646 re-read, still no group named; the Release Preview build 26200.9807/26300.9807 (KB5127936, 2026-10-16) and the 2026-10-16 Insider builds have no TLS, ML-KEM or cryptography text; the Supported Groups page is unchanged (updated_at 2026-05-29, hybrids only, its Insider note still giving Server 2025 build 29550 as the minimum for the ML-KEM groups); the PQC blog feed's newest item is still 2026-10-05."
         }
       ],
       "extra": [],
@@ -12135,12 +12323,13 @@
         {
           "algorithm": "mlkem512",
           "capability": "tls",
-          "why": "Microsoft names MLKEM768 and MLKEM1024 only (FAQ Q13); neither the KB nor the Supported Groups page mentions MLKEM512. Open, not `none`: the group list is undocumented. Re-checked 2026-10-15: the October cumulatives (KB5127648 for Windows 11, KB5126646 for Server 2025) name no parameter set, the Supported Groups page is unchanged since 2026-05-28, and the PQC blog has no post after 2026-10-05.",
-          "passes": 3,
-          "checked": "2026-10-15",
+          "why": "Microsoft names MLKEM768 and MLKEM1024 only (FAQ Q13); neither the KB nor the Supported Groups page mentions MLKEM512. Open, not `none`: the group list is undocumented. Re-checked 2026-10-15: the October cumulatives (KB5127648 for Windows 11, KB5126646 for Server 2025) name no parameter set, the Supported Groups page is unchanged since 2026-05-28, and the PQC blog has no post after 2026-10-05. Fourth pass 2026-10-18: no KB after 2026-10-13, Release Preview KB5127936 (2026-10-16) has no TLS text, the Supported Groups page and the PQC blog are unchanged. MLKEM512 still named nowhere.",
+          "passes": 4,
+          "checked": "2026-10-18",
           "sources": [
             "KB5120998",
             "KB5126646 (Windows Server 2025, 2026-10-13) and KB5127648 (Windows 11, 2026-10-13)",
+            "Release Preview build 26200.9807/26300.9807 (KB5127936, 2026-10-16)",
             "Windows TLS 1.3 and PQC FAQ (techcommunity, 2026-09-28)",
             "TLS supported groups in Windows 11 24H2 and later (Learn, 2026-05-29)"
           ],

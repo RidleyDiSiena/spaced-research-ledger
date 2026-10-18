@@ -53,7 +53,7 @@ Unknowns</a></li>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
-<td data-label="X.509"><span class="st st-absent">none found 2026-10-15</span></td>
+<td data-label="X.509"><span class="st st-absent">none found 2026-10-18</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -215,7 +215,7 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-kem / x509 – <strong>none found 2026-10-15</strong>: Second pass
+<li>ml-kem / x509 – <strong>none found 2026-10-18</strong>: Second pass
 done and it found nothing either way, which is the answer: no Microsoft
 document states whether the Windows certificate functions can handle a
 certificate carrying an ML-KEM key. What the second pass DID establish
@@ -234,13 +234,18 @@ Third pass 2026-10-15: the October cumulatives (KB5127648 Windows 11,
 KB5126646 Server 2025) mention certificates only for Secure Boot, the
 CNG algorithm identifiers page has no commit after 2026-05-29, and the
 AD CS table still has ML-KEM at Phase 2. Nothing either way; the gap
-stands. Examined: Microsoft PQC GA announcement, 2025-11-18, KB5127648
-and KB5126646 (2026-10-13), AD CS post-quantum overview (ML-KEM:
-Planned, Phase 2), New Windows Features to Secure Today’s Data in a
-Post-Quantum World, 2026-06-02 with the 2026-07-14 update, CNG algorithm
-identifiers reference (wincrypt/BCrypt identifier table – ML-KEM present
-as a CNG primitive, no certificate-side identifier), CertEnroll portal
-and Certificate Request Functions reference.</li>
+stands. Fourth pass 2026-10-18: no Windows 11 or Server 2025 update
+after 2026-10-13; Release Preview KB5127936 (2026-10-16) mentions
+certificates only for Remote Desktop publishers and WinRE Wi-Fi; the CNG
+identifiers page and the AD CS page still have no commit after
+2026-05-29 and 2026-05-20. The gap stands. Examined: Microsoft PQC GA
+announcement, 2025-11-18, KB5127648 and KB5126646 (2026-10-13), AD CS
+post-quantum overview (ML-KEM: Planned, Phase 2), New Windows Features
+to Secure Today’s Data in a Post-Quantum World, 2026-06-02 with the
+2026-07-14 update, CNG algorithm identifiers reference (wincrypt/BCrypt
+identifier table – ML-KEM present as a CNG primitive, no
+certificate-side identifier), CertEnroll portal and Certificate Request
+Functions reference.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

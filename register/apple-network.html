@@ -87,19 +87,19 @@ and later [1]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
-<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-08</span></td>
+<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-18</span></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
-<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-08</span></td>
+<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-18</span></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
-<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-08</span></td>
+<td data-label="TLS 1.3"><span class="st st-absent">none found 2026-10-18</span></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -187,27 +187,45 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>mlkem512 / tls – <strong>none found 2026-10-08</strong>: Apple names
+<li>mlkem512 / tls – <strong>none found 2026-10-18</strong>: Apple names
 only X25519MLKEM768 (“Prepare your network for quantum-secure encryption
 in TLS”, 2026-06-18) and publishes no full group list, so a missing pure
 group is not proof of absence. The old ml-kem/tls cell here was hybrid
-evidence and was removed on 2026-10-08. Examined:
+evidence and was removed on 2026-10-08. Re-checked 2026-10-18, two
+passes. The Network framework symbol index has no group or post-quantum
+symbol (NWProtocolTLS only), no iOS or macOS 27.1 has shipped (security
+releases page, newest 2026-09-28; 27.2 beta 4 of 2026-10-13 is newest),
+and the 27.2 beta 4 notes mention neither Network nor URLSession.
+Nothing either way; the gap stands. Examined:
 support.apple.com/en-us/122756, Apple Platform Security, quantum-secure
-cryptography, WWDC25 session 314.</li>
-<li>mlkem768 / tls – <strong>none found 2026-10-08</strong>: Apple names
+cryptography, WWDC25 session 314, Network framework symbol index and iOS
+27.2 beta 4 release notes (2026-10-18).</li>
+<li>mlkem768 / tls – <strong>none found 2026-10-18</strong>: Apple names
 only X25519MLKEM768 (“Prepare your network for quantum-secure encryption
 in TLS”, 2026-06-18) and publishes no full group list, so a missing pure
 group is not proof of absence. The old ml-kem/tls cell here was hybrid
-evidence and was removed on 2026-10-08. Examined:
+evidence and was removed on 2026-10-08. Re-checked 2026-10-18, two
+passes. The Network framework symbol index has no group or post-quantum
+symbol (NWProtocolTLS only), no iOS or macOS 27.1 has shipped (security
+releases page, newest 2026-09-28; 27.2 beta 4 of 2026-10-13 is newest),
+and the 27.2 beta 4 notes mention neither Network nor URLSession.
+Nothing either way; the gap stands. Examined:
 support.apple.com/en-us/122756, Apple Platform Security, quantum-secure
-cryptography, WWDC25 session 314.</li>
-<li>mlkem1024 / tls – <strong>none found 2026-10-08</strong>: Apple
+cryptography, WWDC25 session 314, Network framework symbol index and iOS
+27.2 beta 4 release notes (2026-10-18).</li>
+<li>mlkem1024 / tls – <strong>none found 2026-10-18</strong>: Apple
 names only X25519MLKEM768 (“Prepare your network for quantum-secure
 encryption in TLS”, 2026-06-18) and publishes no full group list, so a
 missing pure group is not proof of absence. The old ml-kem/tls cell here
-was hybrid evidence and was removed on 2026-10-08. Examined:
+was hybrid evidence and was removed on 2026-10-08. Re-checked
+2026-10-18, two passes. The Network framework symbol index has no group
+or post-quantum symbol (NWProtocolTLS only), no iOS or macOS 27.1 has
+shipped (security releases page, newest 2026-09-28; 27.2 beta 4 of
+2026-10-13 is newest), and the 27.2 beta 4 notes mention neither Network
+nor URLSession. Nothing either way; the gap stands. Examined:
 support.apple.com/en-us/122756, Apple Platform Security, quantum-secure
-cryptography, WWDC25 session 314.</li>
+cryptography, WWDC25 session 314, Network framework symbol index and iOS
+27.2 beta 4 release notes (2026-10-18).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

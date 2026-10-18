@@ -46,7 +46,7 @@ From</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="X.509"><span class="st st-planned">planned</span> [1] [2]</td>
+<td data-label="X.509"><span class="st st-planned">planned</span> [1] [2] [3]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -83,11 +83,11 @@ From</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="X.509"><span class="st st-available">available</span> since Windows Server
-2025 with the 2026-05 security update (KB5087539) [3]</td>
+2025 with the 2026-05 security update (KB5087539) [4]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
-<td data-label="X.509"><span class="st st-none">none</span> [4]</td>
+<td data-label="X.509"><span class="st st-none">none</span> [5]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
@@ -95,7 +95,7 @@ From</a></li>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>Composite ML-DSA</strong></td>
-<td data-label="X.509"><span class="st st-planned">planned</span> [5]</td>
+<td data-label="X.509"><span class="st st-planned">planned</span> [6]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
@@ -120,13 +120,13 @@ certificate without it. The page is explicit – “All PQC algorithms
 require CNG key storage providers. AD CS doesn’t support legacy
 Cryptographic Service Providers (CSPs).” An administrator whose template
 uses a legacy CSP gets nothing from this component’s Available cell.
-[6]</li>
+[7]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
 <li><strong>ML-KEM, X.509</strong>: A KEM certificate is a real thing AD
 CS says it will issue, so this is the vendor’s own roadmap rather than
-an inference. Still Phase 2 on 2026-10-15.</li>
+an inference. Still Phase 2 on 2026-10-18.</li>
 <li><strong>ML-DSA, X.509</strong>: Issuance, not validation – a CA
 minting ML-DSA certificates. Available rather than default because a
 template has to be configured for it; nothing is issued with ML-DSA
@@ -142,9 +142,9 @@ phases advance.</li>
 Composite ML-KEM as Planned (Phase 2). The register has no composite-KEM
 row – one component carrying it is not yet two, which is the bar for
 adding a row – so it is recorded here in prose until a second component
-has it. Re-checked 2026-10-15: page source unchanged since 2026-05-20,
-still Phase 2 (the certificate-handling half shipped in July on
-windows-capi2; issuance has not followed).</li>
+has it. Re-checked 2026-10-15 and 2026-10-18: page source unchanged
+since 2026-05-20, still Phase 2 (the certificate-handling half shipped
+in July on windows-capi2; issuance has not followed).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -156,6 +156,10 @@ class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post
 href="https://github.com/MicrosoftDocs/windowsserverdocs/commits/main/WindowsServerDocs/identity/ad-cs/post-quantum-cryptography-overview.md"
 class="uri">https://github.com/MicrosoftDocs/windowsserverdocs/commits/main/WindowsServerDocs/identity/ad-cs/post-quantum-cryptography-overview.md</a>
 (date not recorded; checked 2026-10-15)</li>
+<li><a
+href="https://github.com/MicrosoftDocs/windowsserverdocs/commits/main/WindowsServerDocs/identity/ad-cs/post-quantum-cryptography-overview.md"
+class="uri">https://github.com/MicrosoftDocs/windowsserverdocs/commits/main/WindowsServerDocs/identity/ad-cs/post-quantum-cryptography-overview.md</a>
+(date not recorded; checked 2026-10-18)</li>
 <li><a
 href="https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview"
 class="uri">https://learn.microsoft.com/en-us/windows-server/identity/ad-cs/post-quantum-cryptography-overview</a>

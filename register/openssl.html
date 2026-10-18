@@ -193,9 +193,9 @@ Unknowns</a></li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: OpenSSL 3.5.4 FIPS Object
 Module submitted for FIPS 140-3 validation with ML-KEM, ML-DSA and
 SLH-DSA; certificate issuance NOT found on 2026-09-12 in two searches.
-Queue phase on 2026-10-15: Comment Resolution - CMVP since 2026-10-09
-(see the slh-dsa/fips cell for the phase history); still no
-certificate.</li>
+Queue phase on 2026-10-18: Comment Resolution - Lab since 2026-10-15,
+back from CMVP (see the slh-dsa/fips cell for the phase history); still
+no certificate.</li>
 <li><strong>X25519MLKEM768, TLS 1.3</strong>: In the default
 supported-groups list with X25519 as the default keyshares.</li>
 <li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: Default from 4.0.0;
@@ -243,17 +243,18 @@ line (openssl req -x509 -newkey mldsa65). Chain-verification default
 standing not checked.</li>
 <li><strong>ML-DSA, FIPS 140-3</strong>: Same submission as the ML-KEM
 FIPS cell; certificate issuance not found on 2026-09-12. Queue phase on
-2026-10-15: Comment Resolution - CMVP since 2026-10-09; still no
-certificate.</li>
+2026-10-18: Comment Resolution - Lab since 2026-10-15, back from CMVP;
+still no certificate.</li>
 <li><strong>SLH-DSA, TLS 1.3</strong>: Not offered natively for TLS in
 3.5; oqs-provider bridged it on 3.2 to 3.4 and disables those
 combinations on 3.5 and later.</li>
 <li><strong>SLH-DSA, FIPS 140-3</strong>: Submitted, not issued: OpenSSL
 FIPS Provider, The OpenSSL Project, in the CMVP Modules In Process list
-at Comment Resolution - CMVP since 2026-10-09 (patrol 2026-10-15; its
-second time at CMVP). History: Comment Resolution - CMVP from
+at Comment Resolution - Lab since 2026-10-15 (patrol 2026-10-18; its
+second return to the lab). History: Comment Resolution - CMVP from
 2026-08-21, Comment Resolution - Lab from 2026-09-21 (unchanged on
-2026-10-04), back to CMVP 2026-10-09. See validations/openssl.yaml.</li>
+2026-10-04), back to CMVP 2026-10-09, back to Lab 2026-10-15. See
+validations/openssl.yaml.</li>
 <li><strong>Composite ML-DSA, X.509</strong>: Patrol 2026-09-26, closes
 the gap as planned, not shipped. PR #32886 ‘ML-DSA Composite signatures
 and key implementation’, opened 2026-09-18, open, targets master:
