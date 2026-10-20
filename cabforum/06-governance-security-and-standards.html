@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 6 - Governance, Network Security and Standards | CA/Browser Forum Tracker</title>
+  <meta name="description" content="CA/Browser Forum Tracker, Part 6: Governance, Network Security and Standards.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">Spaced Research Ledger</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">SRL Home</a><span class="sep">/</span><a href="index.html">CA/Browser Forum Tracker</a><span class="sep">/</span>Part 6</nav>
+</header>
+
+<main>
+  <div class="titleblock">
+    <p class="kicker">CA/Browser Forum Tracker &middot; Part 6</p>
+    <h1>Governance, Network Security and Standards</h1>
+    <p class="updated">Last updated: 2026-10-19</p>
+    <p class="actions"><a class="pdf" href="latest/06-governance-security-and-standards.pdf">Download PDF</a></p>
+  </div>
+
+  <nav class="contents" id="page-contents" aria-label="Contents">
+    <h2 class="contents-heading">Contents</h2>
+<ul>
+<li><a href="#about-this-report" id="toc-about-this-report">About This
+Report</a></li>
+<li><a href="#network-security-working-group"
+id="toc-network-security-working-group">1. Network Security Working
+Group</a></li>
+<li><a href="#forum-governance" id="toc-forum-governance">2. Forum
+Governance</a></li>
+<li><a href="#referenced-standards" id="toc-referenced-standards">3.
+Referenced Standards</a></li>
+<li><a href="#audit-regimes" id="toc-audit-regimes">4. Audit
+Regimes</a></li>
+<li><a href="#sources" id="toc-sources">Sources</a></li>
+</ul>
+  </nav>
+
+  <article class="prose">
+<h2 id="about-this-report">About This Report</h2>
+<p>This is an experimental, AI-driven research project from SRL. SRL is
+independent, with no outside funding and no sponsors. It uses several AI
+models from competing labs, running on different platforms. One model
+gathers the current claims on a topic, a different one checks each claim
+against its source, and disagreements are kept, not smoothed over. The
+aim is an even-handed account that no outside party has shaped. AI makes
+mistakes, and so does the system built around it. We find and fix some
+in every cycle, so the methods keep changing and the content should
+improve over time. Updates come at least quarterly, sooner if something
+major happens.</p>
+<p>This part covers the Forum’s machinery rather than its certificate
+rules. It is new in this edition. The September edition listed these
+areas as configured but not yet researched, and they now carry enough
+record to report.</p>
+<p>Section 1 covers the Network Security Working Group, whose only live
+ballot finally has a result. Section 2 covers how the Forum governs
+itself, including the officers who take over on 1 December. Section 3
+covers the IETF standards the guidelines cite, several of which moved
+closer to publication in October. Section 4 covers the audit regimes
+that check whether certificate authorities follow the rules.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="network-security-working-group">1. Network Security Working
+Group</h2>
+<p><em>This group writes the Network and Certificate System Security
+Requirements, which govern how a certificate authority protects the
+systems that issue certificates rather than the certificates
+themselves.</em></p>
+<h3 id="recent-developments">Recent Developments</h3>
+<p>The group’s restructuring ballot has passed after a long silence.
+NS-010 version 2 restructures the requirements sections, removes expired
+effective dates and updates a NIST reference [1]. Its vote ran from 10
+August to 17 August 2026 [2]. No result followed, and on 9 September a
+participant asked on the list whether the chairs had forgotten to
+announce one [2].</p>
+<p>The result was posted on 14 October [1]. The ballot passed with all
+sixteen voting certificate issuers and all three voting certificate
+consumers in favour, and no abstentions [1]. The consumers were Apple,
+Microsoft and Mozilla [1].</p>
+<p>The ballot’s text settles a question that earlier accounts left open.
+One account described an August ballot adding a section on
+infrastructure inventory, which seemed not to match NS-010’s stated
+purpose. The draft shows they are the same ballot. NS-010 adds a new
+Section 1 for the certificate authority’s infrastructure inventory and
+renumbers the sections after it [3].</p>
+<p>The draft also replaces phased vulnerability management language,
+which expired on 15 April 2026, with a single requirement covering all
+certificate systems, support systems and network boundary controls [3].
+Its NIST reference moves to Revision 4 of SP 800-63B [3].</p>
+<h3 id="current-state">Current State</h3>
+<p>NS-010 version 2 is adopted and in its intellectual property review,
+which runs from 14 October to 13 November 2026 [4]. It cannot publish as
+a new version before that review ends. Its pull request in the group’s
+repository remains open and unmerged [3].</p>
+<p>The published requirements are still version 2.0.5, from Ballot
+NS-008 in July 2025 [5]. The group’s other draft, NS-009, would permit
+log storage systems in environments controlled by third parties [6]. It
+has not changed since May 2026 and has no ballot stage [6].</p>
+<h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
+<p>The Forum’s own ballots page still lists NS-010 version 2 as in its
+voting period [7]. The list posts show the vote closed in August and the
+result came in October [1]. The list is the record here, and the page
+lags it. An update to the page, or the ballot’s publication in November,
+would close the gap.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="forum-governance">2. Forum Governance</h2>
+<p><em>The Forum runs on bylaws, an intellectual property policy and
+elected officers, and changes to any of them move by Forum-level ballot
+or election rather than by working group.</em></p>
+<h3 id="recent-developments-1">Recent Developments</h3>
+<p>The Forum has chosen a new set of officers in two rounds. A special
+election for chairs ran from 14 September to 21 September and drew 21
+ballots, with results posted on 23 September [8]. Dimitris Zacharopoulos
+was elected Forum chair, and three working group chairs were unopposed
+[8].</p>
+<p>The network security chair race was tied between David Kluge and
+Aaron Poulsen [8]. On 24 September it was reported that the two
+candidates had agreed that Aaron Poulsen would take the chair [8].</p>
+<p>The vice-chairs followed. Because no race was contested, the
+vice-chair ballot ran as a confirmation, from 6 October to 13 October,
+with no discussion period [9]. Nineteen ballots were received, and the
+results were posted on 15 October [9].</p>
+<p>The confirmed vice-chairs are Karolina Ruszczynska of Certum for the
+Forum, and Tobias Josefowitz of Opera for the server certificate group
+[9]. Scott Rea of eMudhra takes S/MIME, Dean Coclin of DigiCert code
+signing, David Kluge of Google network security, and Ben Wilson of
+Mozilla the definitions group [9].</p>
+<p>A corrected slate of chairs was posted the same day [9]. Stephen
+Davidson of DigiCert takes the server certificate group and Rebecca
+Kelley of DigiCert the S/MIME group [9]. Martijn Katerbarg of Sectigo
+takes code signing, Aaron Poulsen of SSL.com network security, and
+Polina Glazyrina of Sectigo the definitions group [9].</p>
+<p>A proposal for a new working group is also under discussion. A
+charter for a client authentication working group was discussed on the
+public list from 22 September to 24 September, with emerging consensus
+to proceed [10]. Its scope was clarified as mutual TLS for people, not
+email [10]. Part 4 covers the root program policy that moves client
+authentication out of server certificates.</p>
+<h3 id="current-state-1">Current State</h3>
+<p>All the new officers take office on 1 December 2026 [9]. DigiCert
+will hold two chairs and one vice-chair, and Sectigo two chairs [9].
+Google, Mozilla and Opera each hold one vice-chair seat and no chair
+[9].</p>
+<p>The intellectual property policy in force is version 1.4, effective
+since 1 June 2026 [11]. Ballot FORUM-037 adopted it, and it is the
+newest Forum-level ballot to pass [12]. No Forum-level ballot is in any
+stage now, and the client authentication charter has no ballot, number
+or timeline [12] [10].</p>
+<p>Parts of the record are missing. The minutes of the September
+face-to-face meeting, F2F 68, are not posted, and the server certificate
+group’s 8 October agenda recorded them as not yet distributed [13] [14].
+The minutes of the 8 October Forum plenary are not posted either [13].
+The same agenda recorded no membership applications [14].</p>
+<p>One public question has drawn no answer. On 29 September a
+participant asked what “promptly” means in the subscriber obligations of
+the Baseline Requirements, given that the same document sets hard
+deadlines elsewhere [15]. No reply was visible by 4 October [15].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="referenced-standards">3. Referenced Standards</h2>
+<p><em>The guidelines cite IETF standards by number, so a draft becoming
+an RFC changes what a ballot can reference and when a requirement can be
+written.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The composite signature draft is close to publication. It defines how
+ML-DSA is paired with a conventional signature in one X.509 certificate,
+and the S/MIME group’s composite ballot depends on it, as Part 3
+records. It reached final review at the RFC Production Center on 14
+October [16]. That is the last stage before the authors’ sign-off. As of
+18 October it had no RFC number [17].</p>
+<p>Its companion for key encapsulation moved too. The IESG approved the
+composite key encapsulation draft on 12 October, and it entered the RFC
+Editor queue [18]. The profile that applies composite key encapsulation
+to signed messages joined the queue on 15 October [19].</p>
+<p>The two TLS drafts that put ML-KEM and ML-DSA directly into the
+protocol had been on hold since 24 September [20]. The hold was lifted
+on 5 October, and both have waited for an editor since 12 October [20]
+[21]. The record does not give a reason for the hold [20].</p>
+<p>The ACME draft on account-bound domain labels went backward. Its area
+director began evaluation on 11 October and asked for a revised draft on
+14 October [22]. No revision has been posted [22].</p>
+<p>The Merkle Tree Certificates draft, the basis of the separate
+post-quantum trust path Chrome and Apple are designing, reached revision
+07 on 7 October [23]. Chrome now requires new cosigner requests in its
+testing program to follow that revision [24]. The LAMPS working group
+posted new revisions of its two attestation drafts on 17 October
+[19].</p>
+<h3 id="current-state-2">Current State</h3>
+<p>No RFC on certificates, ACME, CAA or transparency appeared in October
+up to 15 October [25]. None from the LAMPS, TLS or ACME groups followed
+by 18 October [26]. RFC 5280, the core certificate profile, has had no
+erratum reported in 2026, and its newest is from September 2025 [27].
+The CAA standards remain RFCs 8657, 8659 and 9495 [28].</p>
+<p>The newest change to a standard the guidelines cite came before
+September. RFC 9919 defines a lightweight status protocol profile for
+high-volume environments and was published in July 2026 [29]. The ACME
+persistent DNS draft has stayed at revision 02 since 20 September
+[30].</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="audit-regimes">4. Audit Regimes</h2>
+<p><em>A certificate authority proves compliance through an annual audit
+against WebTrust or ETSI criteria, and the root programs read those
+audits before granting or keeping trust.</em></p>
+<h3 id="recent-developments-3">Recent Developments</h3>
+<p>Two clusters of audit-related compliance bugs opened in mid-October.
+On 15 October D-Trust opened two bugs for findings in its 2026 ETSI
+audit, one on vulnerability management and one on the documentation of
+backup recovery tests [31]. Both remain unconfirmed [32].</p>
+<p>On 16 October one member of the public filed four bugs about late
+audit statements [32]. Each says an authority delivered its statement
+between 108 and 144 days after the period ended, without the required
+explanation [32]. The authorities named are ITI Brazil, MULTICERT,
+Consorci AOC and Entrust [32]. All four are unconfirmed, and Part 4
+covers them with the rest of the incident record [32].</p>
+<p>The Baseline Requirements set the yardstick. Audit reports must be
+public no later than three months after the audit period ends [33].</p>
+<h3 id="current-state-3">Current State</h3>
+<p>The audit standards themselves did not change. ETSI EN 319 411-1
+remains at version 1.5.1 from April 2025, with no newer edition [34]. EN
+319 401 remains at version 3.2.1 from January 2026, and EN 319 411-2 at
+version 2.6.1 from June 2025 [35] [36].</p>
+<p>On the WebTrust side, the criteria page lists version 2.2.2 as the
+base criteria for certificate authorities [37]. The European conformity
+assessment bodies’ council held its annual meeting in Tallinn on 17
+September, and has posted nothing else in 2026 [38]. No root program
+changed its audit requirements between 2 October and 15 October
+[39].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>Two accounts disagree on the current WebTrust network security
+criteria. One says version 2.0.5 was released on 31 October 2025,
+effective for periods from 1 November 2025 and based on the Forum’s
+requirements version 2.0.5 [40]. Later reads found version 1.7 still
+listed as current, effective for periods from April 2024 [41]. The
+criteria page itself refused a direct read. A successful read of that
+page would settle it.</p>
+<p>The WebTrust applicability matrix, updated on 1 August 2026, lists
+TLS baseline versions 2.2.5 and 2.10 [42]. Read as Forum version
+numbers, neither matches the published sequence. It is not clear from
+the record whether they are the Forum’s numbers or WebTrust’s own. A
+direct read of the matrix would settle it.</p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
+<ol type="1">
+<li>Ballot NS-010 v2 voting results - netsec list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/netsec/c/xmZm_si-ZXA"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/netsec/c/xmZm_si-ZXA</a>
+- as of 2026-10-14</li>
+<li>NS-010 v2 voting thread - netsec list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/netsec/c/W9zx0BvXxw0"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/netsec/c/W9zx0BvXxw0</a>
+- as of 2026-09-27</li>
+<li>Pull request 61, NS-010 - cabforum/netsec - <a
+href="https://api.github.com/repos/cabforum/netsec/pulls/61"
+class="uri">https://api.github.com/repos/cabforum/netsec/pulls/61</a> -
+as of 2026-10-18</li>
+<li>Ballot NS-010 v2 notice of review period - netsec list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/netsec/c/uRbBKE47e_g"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/netsec/c/uRbBKE47e_g</a>
+- as of 2026-10-18</li>
+<li>Releases, cabforum/netsec - GitHub - <a
+href="https://api.github.com/repos/cabforum/netsec/releases?per_page=3"
+class="uri">https://api.github.com/repos/cabforum/netsec/releases?per_page=3</a>
+- as of 2026-10-18</li>
+<li>Ballot NS-009 threads - netsec list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/netsec/search?q=NS-009"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/netsec/search?q=NS-009</a>
+- as of 2026-10-18</li>
+<li>Network Security Working Group ballots - CA/Browser Forum - <a
+href="https://cabforum.org/working-groups/netsec/ballots/"
+class="uri">https://cabforum.org/working-groups/netsec/ballots/</a> - as
+of 2026-10-18</li>
+<li>Special election results - CA/Browser Forum public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/public/c/M_iG_HzoPXs"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/public/c/M_iG_HzoPXs</a>
+- as of 2026-09-24</li>
+<li>Vice-chair confirmation ballot results and corrected chair slate -
+CA/Browser Forum public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/public/c/2ObYpN5OY6k"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/public/c/2ObYpN5OY6k</a>
+- as of 2026-10-15</li>
+<li>clientAuth Working Group charter discussion - CA/Browser Forum
+public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/public/c/m6yFd9cyUes"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/public/c/m6yFd9cyUes</a>
+- as of 2026-10-18</li>
+<li>IPR Policy - CA/Browser Forum - <a
+href="https://cabforum.org/about/ipr-policy/"
+class="uri">https://cabforum.org/about/ipr-policy/</a> - as of
+2026-09-27</li>
+<li>All CA/Browser Forum Ballots - CA/Browser Forum - <a
+href="https://cabforum.org/ballots/"
+class="uri">https://cabforum.org/ballots/</a> - as of 2026-10-18</li>
+<li>Forum minutes - CA/Browser Forum - <a
+href="https://cabforum.org/about/forum-minutes/"
+class="uri">https://cabforum.org/about/forum-minutes/</a> - as of
+2026-10-18</li>
+<li>Final agenda, Server Certificate Working Group teleconference of 8
+October 2026 - servercert-wg list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/dRKg4KNFzIo"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/dRKg4KNFzIo</a>
+- as of 2026-10-15</li>
+<li>Question on the meaning of promptly in subscriber obligations -
+CA/Browser Forum public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/public/c/HSNsVmj4X_k"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/public/c/HSNsVmj4X_k</a>
+- as of 2026-10-04</li>
+<li>draft-ietf-lamps-pq-composite-sigs, history - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/history/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/history/</a>
+- as of 2026-10-14</li>
+<li>draft-ietf-lamps-pq-composite-sigs - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/</a>
+- as of 2026-10-18</li>
+<li>draft-ietf-lamps-pq-composite-kem, history - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/history/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/history/</a>
+- as of 2026-10-18</li>
+<li>LAMPS working group documents - IETF Datatracker - <a
+href="https://datatracker.ietf.org/wg/lamps/documents/"
+class="uri">https://datatracker.ietf.org/wg/lamps/documents/</a> - as of
+2026-10-18</li>
+<li>draft-ietf-tls-mlkem, history - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/history/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/history/</a>
+- as of 2026-10-18</li>
+<li>draft-ietf-tls-mldsa, history - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-tls-mldsa/history/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-tls-mldsa/history/</a>
+- as of 2026-10-12</li>
+<li>draft-ietf-acme-dns-account-label, history - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-acme-dns-account-label/history/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-acme-dns-account-label/history/</a>
+- as of 2026-10-18</li>
+<li>draft-ietf-plants-merkle-tree-certs - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/</a>
+- as of 2026-10-07</li>
+<li>Chrome Root Program commit 5f8d529, quantum-resistant root program
+testing FAQ - GitHub - <a
+href="https://api.github.com/repos/GoogleChrome/chromerootprogram/commits/5f8d529"
+class="uri">https://api.github.com/repos/GoogleChrome/chromerootprogram/commits/5f8d529</a>
+- as of 2026-10-16</li>
+<li>RFC index - RFC Editor - <a
+href="https://www.rfc-editor.org/rfc-index.xml"
+class="uri">https://www.rfc-editor.org/rfc-index.xml</a> - as of
+2026-10-15</li>
+<li>Recent document activity - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/recent"
+class="uri">https://datatracker.ietf.org/doc/recent</a> - as of
+2026-10-18</li>
+<li>RFC 5280 errata - RFC Editor - <a
+href="https://errata.rfc-editor.org/rfc5280"
+class="uri">https://errata.rfc-editor.org/rfc5280</a> - as of
+2026-10-18</li>
+<li>CAA documents search - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/search?name=caa&amp;sort=&amp;rfcs=on&amp;activedrafts=on"
+class="uri">https://datatracker.ietf.org/doc/search?name=caa&amp;sort=&amp;rfcs=on&amp;activedrafts=on</a>
+- as of 2026-10-04</li>
+<li>RFC 9919, The Lightweight Online Certificate Status Protocol (OCSP)
+Profile for High-Volume Environments - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/rfc9919/"
+class="uri">https://datatracker.ietf.org/doc/rfc9919/</a> - as of
+2026-07-01</li>
+<li>ACME working group documents - IETF Datatracker - <a
+href="https://datatracker.ietf.org/wg/acme/documents/"
+class="uri">https://datatracker.ietf.org/wg/acme/documents/</a> - as of
+2026-10-18</li>
+<li>CA Certificate Compliance bugs opened from 3 October 2026 - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;creation_time=2026-10-03&amp;include_fields=id,summary,creation_time,status,whiteboard"
+class="uri">https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;creation_time=2026-10-03&amp;include_fields=id,summary,creation_time,status,whiteboard</a>
+- as of 2026-10-15</li>
+<li>CA Certificate Compliance bugs opened from 14 October 2026 - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;creation_time=2026-10-14&amp;include_fields=id,summary,creation_time,status"
+class="uri">https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;creation_time=2026-10-14&amp;include_fields=id,summary,creation_time,status</a>
+- as of 2026-10-18</li>
+<li>cabforum/servercert repository, BR.md - CA/Browser Forum - <a
+href="https://github.com/cabforum/servercert/blob/main/docs/BR.md"
+class="uri">https://github.com/cabforum/servercert/blob/main/docs/BR.md</a>
+- as of 2026-08-06</li>
+<li>ETSI EN 319 411-1 delivery folder - ETSI - <a
+href="https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/"
+class="uri">https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/</a>
+- as of 2026-10-18</li>
+<li>ETSI EN 319 401 delivery folder - ETSI - <a
+href="https://www.etsi.org/deliver/etsi_en/319400_319499/319401/"
+class="uri">https://www.etsi.org/deliver/etsi_en/319400_319499/319401/</a>
+- as of 2026-10-18</li>
+<li>ETSI EN 319 411-2 delivery folder - ETSI - <a
+href="https://www.etsi.org/deliver/etsi_en/319400_319499/31941102/"
+class="uri">https://www.etsi.org/deliver/etsi_en/319400_319499/31941102/</a>
+- as of 2026-10-18</li>
+<li>WebTrust principles and criteria - CPA Canada - <a
+href="https://cpacanada.ca/en/business-and-accounting-resources/audit-and-assurance/overview-of-webtrust-services/principles-and-criteria"
+class="uri">https://cpacanada.ca/en/business-and-accounting-resources/audit-and-assurance/overview-of-webtrust-services/principles-and-criteria</a>
+- as of 2026-10-15</li>
+<li>News - ACAB’c - <a href="https://acab-c.com/news/"
+class="uri">https://acab-c.com/news/</a> - as of 2026-10-18</li>
+<li>Commits since 2 October 2026, GoogleChrome/chromerootprogram -
+GitHub - <a
+href="https://api.github.com/repos/GoogleChrome/chromerootprogram/commits?since=2026-10-02T00:00:00Z"
+class="uri">https://api.github.com/repos/GoogleChrome/chromerootprogram/commits?since=2026-10-02T00:00:00Z</a>
+- as of 2026-10-15</li>
+<li>WebTrust for Certification Authorities, Network Security v2.0.5 -
+CPA Canada - <a
+href="https://www.cpacanada.ca/-/media/site/operational/ms-member-services/docs/webtrust/01618-ms_web-trust-network-security_version-2-0-5.pdf?rev=-1&amp;hash=D1EBBA267F112FC7E4B763A6B0B1945D"
+class="uri">https://www.cpacanada.ca/-/media/site/operational/ms-member-services/docs/webtrust/01618-ms_web-trust-network-security_version-2-0-5.pdf?rev=-1&amp;hash=D1EBBA267F112FC7E4B763A6B0B1945D</a>
+- as of 2025-10-31</li>
+<li>WebTrust for Certification Authorities, Network Security v1.7 - CPA
+Canada - <a
+href="https://www.cpacanada.ca/-/media/site/operational/ms-member-services/docs/webtrust/01618-ms_24-3464_webtrust-for-ca-network-security-v1-7_final.pdf"
+class="uri">https://www.cpacanada.ca/-/media/site/operational/ms-member-services/docs/webtrust/01618-ms_24-3464_webtrust-for-ca-network-security-v1-7_final.pdf</a>
+- as of 2026-10-18</li>
+<li>Principles and criteria and practitioner guidance, engagement
+applicability matrix - CPA Canada - <a
+href="https://www.cpacanada.ca/business-and-accounting-resources/audit-and-assurance/overview-of-WebTrust-services/principles-and-criteria"
+class="uri">https://www.cpacanada.ca/business-and-accounting-resources/audit-and-assurance/overview-of-WebTrust-services/principles-and-criteria</a>
+- as of 2026-08-01</li>
+</ol>
+  <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
+
+
+  <nav class="pager" aria-label="Parts">
+    <a class="pager-prev" href="05-revocation-and-transparency.html"><span>Previous</span>Part 5 - Revocation and Transparency</a>
+    <a class="pager-up" href="index.html"><span>Up</span>CA/Browser Forum Tracker</a>
+  </nav>
+</main>
+
+<footer class="colophon">
+  <p class="mark"><img src="../assets/mark.png" alt="Spaced Research Ledger" width="1381" height="237"></p>
+  <p>Published by the Spaced Research Ledger. Every statement is cited to a public source.
+     The ledger takes no editorial position and endorses no product.</p>
+  <p><a href="latest/06-governance-security-and-standards.pdf">This part as a PDF</a></p>
+</footer>
+</body>
+</html>

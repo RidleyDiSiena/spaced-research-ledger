@@ -18,58 +18,59 @@
     <p class="kicker">Research Topic</p>
     <h1>CA/Browser Forum Tracker</h1>
     <p class="standfirst">A five-part survey of the body that decides what a publicly trusted certificate may contain and how long it may live: the ballots of each working group, the browser root programs that enforce them, and the revocation and transparency mechanisms underneath. Tracks the five states a rule passes through, because a ballot that passes its vote is not yet a requirement.</p>
-    <p class="updated">Last updated: 2026-10-18</p>
+    <p class="updated">Last updated: 2026-10-19</p>
   </div>
 
 <ul class="cards">
   <li class="card">
     <p class="card-title"><a href="01-server-certificate-working-group.html">Part 1 &mdash; Server Certificate Working Group</a></p>
-    <p class="card-meta"><a href="latest/01-server-certificate-working-group.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+    <p class="card-meta"><a href="latest/01-server-certificate-working-group.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="02-code-signing-working-group.html">Part 2 &mdash; Code Signing Working Group</a></p>
-    <p class="card-meta"><a href="latest/02-code-signing-working-group.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+    <p class="card-meta"><a href="latest/02-code-signing-working-group.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="03-smime-working-group.html">Part 3 &mdash; S/MIME Working Group</a></p>
-    <p class="card-meta"><a href="latest/03-smime-working-group.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+    <p class="card-meta"><a href="latest/03-smime-working-group.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="04-public-trust-programs.html">Part 4 &mdash; Public Trust Programs</a></p>
-    <p class="card-meta"><a href="latest/04-public-trust-programs.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
+    <p class="card-meta"><a href="latest/04-public-trust-programs.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
   </li>
   <li class="card">
-    <p class="card-title"><a href="05-revocation-and-transparency.html">Part 5 &mdash; Revocation &amp; Transparency</a></p>
-    <p class="card-meta"><a href="latest/05-revocation-and-transparency.pdf">PDF</a> <span>Last updated: 2026-09-01</span></p>
-  </li>
-</ul>
-<h2 class="group-heading">Updates</h2>
-<ul class="cards">
-  <li class="card">
-    <p class="card-title"><a href="diffs/cabforum-diff-2026-10-18.pdf">What changed, 2026-10-18</a></p>
-    <p class="card-meta"><a href="diffs/cabforum-diff-2026-10-18.pdf">PDF</a> <span>Last updated: 2026-10-18</span></p>
+    <p class="card-title"><a href="05-revocation-and-transparency.html">Part 5 &mdash; Revocation and Transparency</a></p>
+    <p class="card-meta"><a href="latest/05-revocation-and-transparency.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
   </li>
   <li class="card">
-    <p class="card-title"><a href="diffs/cabforum-diff-2026-10-15.pdf">What changed, 2026-10-15</a></p>
-    <p class="card-meta"><a href="diffs/cabforum-diff-2026-10-15.pdf">PDF</a> <span>Last updated: 2026-10-15</span></p>
-  </li>
-  <li class="card">
-    <p class="card-title"><a href="diffs/cabforum-diff-2026-10-04.pdf">What changed, 2026-10-04</a></p>
-    <p class="card-meta"><a href="diffs/cabforum-diff-2026-10-04.pdf">PDF</a> <span>Last updated: 2026-10-04</span></p>
+    <p class="card-title"><a href="06-governance-security-and-standards.html">Part 6 &mdash; Governance, Network Security and Standards</a></p>
+    <p class="card-meta"><a href="latest/06-governance-security-and-standards.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
   </li>
 </ul>
 
   <article class="prose">
+<h2 id="about-this-report">About This Report</h2>
+<p>This is an experimental, AI-driven research project from SRL. SRL is
+independent, with no outside funding and no sponsors. It uses several AI
+models from competing labs, running on different platforms. One model
+gathers the current claims on a topic, a different one checks each claim
+against its source, and disagreements are kept, not smoothed over. The
+aim is an even-handed account that no outside party has shaped. AI makes
+mistakes, and so does the system built around it. We find and fix some
+in every cycle, so the methods keep changing and the content should
+improve over time. Updates come at least quarterly, sooner if something
+major happens.</p>
 <p>The CA/Browser Forum decides what a publicly trusted certificate may
 contain, how its holder must be checked, and how long it may live. Its
 decisions reach almost every encrypted connection on the internet, and
 they are made in public by a body most people have never heard of. This
 collection follows that body and the browser root programs that enforce
 its rules [1].</p>
-<p>The collection has five parts. Every part stands on its own, and
-every statement carries a numbered citation to a public source. Where
-two sources disagree, the disagreement is reported rather than
-resolved.</p>
+<p>The collection has six parts. Every part stands on its own, and every
+statement carries a numbered citation to a public source. Where two
+sources disagree, the disagreement is reported rather than resolved.
+This edition replaces the one of 1 September, and it is refreshed each
+week that the Forum’s public record shows a change.</p>
 <h2 id="how-to-read-a-forum-decision">1. How To Read a Forum
 Decision</h2>
 <p><em>One distinction governs this whole subject, and getting it wrong
@@ -92,66 +93,57 @@ time. Where a requirement has a future effective date, that date is
 given.</p>
 <p>The unit that carries through all of it is the ballot identifier.
 Those identifiers are stable and prefixed by working group, so SC is the
-Server Certificate group, CSC is Code Signing, SMC is S/MIME, and FORUM
-is Forum-level governance [2].</p>
+Server Certificate group, CSC is Code Signing, SMC is S/MIME, NS is
+Network Security, and FORUM is Forum-level governance [2].</p>
 <h2 id="the-parts">2. The Parts</h2>
 <p><em>Each part covers one working group or one enforcement
 layer.</em></p>
 <p><strong>Part 1, Server Certificate Working Group.</strong> The
 busiest group, governing the certificates that secure websites. It
 covers the ballots and document versions, domain control validation, and
-certificate profiles including the schedule that is cutting certificate
+certificate profiles, including the schedule that is cutting certificate
 lifetimes toward 47 days by 2029. This is the part to read first if you
 only read one.</p>
 <p><strong>Part 2, Code Signing Working Group.</strong> The rules for
-certificates that sign software. A smaller group, and the source of a
-useful warning about reading a standards body correctly, because two of
-the Forum’s own pages disagree about which version is current.</p>
+certificates that sign software. A smaller group, with one ballot in its
+vote and one that has not moved since spring.</p>
 <p><strong>Part 3, S/MIME Working Group.</strong> The rules for
-certificates that sign and encrypt email. The youngest document set, and
-the one place in the Forum where post-quantum algorithms are already
-permitted in published requirements.</p>
+certificates that sign and encrypt email. It is the one place in the
+Forum where post-quantum algorithms are already permitted in published
+requirements, and it is now working on composite signatures.</p>
 <p><strong>Part 4, Public Trust Programs.</strong> The enforcement
 layer. Mozilla, Google, Microsoft and Apple each decide who is actually
 trusted, and their policies routinely demand more than the Forum does,
-earlier. This part also covers the incident and distrust record.</p>
+earlier. This part covers their post-quantum plans, the incident record
+and the largest revocation of the autumn.</p>
 <p><strong>Part 5, Revocation and Transparency.</strong> The two
 mechanisms for recovering from a certificate that should not exist.
 Revocation is being replaced rather than repaired, and transparency is
 undergoing its first architectural change since it was standardized.</p>
+<p><strong>Part 6, Governance, Network Security and Standards.</strong>
+New in this edition. It covers the Forum’s officers and elections, the
+network security requirements, and the IETF standards and audit regimes
+the guidelines depend on.</p>
 <h2 id="what-this-collection-does-not-cover">3. What This Collection
 Does Not Cover</h2>
 <p><em>Scope boundaries, stated so that an absence is not read as a
 finding.</em></p>
 <p>Post-quantum algorithm standardization belongs to a separate
 collection. This collection records what the Forum permits in a
-certificate, not how the underlying algorithms are chosen or
-specified.</p>
-<p>Three of the Forum’s areas are configured but not yet researched, so
-they carry no content here. Those are the Network Security Working
-Group, Forum governance including bylaws and intellectual property
-policy, and the referenced standards and audit regimes that the
-guidelines depend on. They will join the collection when they are
-activated and carry data.</p>
-<p>Several named gaps sit inside the parts that do exist. The Validation
-Subcommittee’s own minutes were not read for Part 1. Timestamping and
-key protection requirements were not covered in Part 2. The text of the
-post-quantum ballot was not read for Part 3. Each part records its own
-gaps in the relevant section, rather than leaving them silent.</p>
-<h2 id="about-this-report">About This Report</h2>
-<p>The Spaced Research Ledger is an automated system that gathers claims
-from live public sources, checks each one against its origin, and
-records every disagreement instead of merging it. Every stage runs on a
-different AI model, drawn from three to four systems across competing
-labs, so no single model both finds a claim and judges it. The Spaced
-Research Ledger is designed and maintained by Ridley DiSiena.</p>
+certificate, not how the underlying algorithms are chosen or specified.
+Part 6 follows the IETF only where a draft becoming a standard changes
+what the Forum’s documents may cite.</p>
+<p>Each part records its own gaps in the relevant section, rather than
+leaving them silent. Where a Forum web page lags its own mailing list,
+the list is treated as the record and the lag is reported.</p>
 <h2 id="sources">Sources</h2>
 <ol type="1">
-<li>CA/Browser Forum. <a href="https://cabforum.org/"
-class="uri">https://cabforum.org/</a> (2026-09-01)</li>
-<li>All CA/Browser Forum Ballots. <a
+<li>CA/Browser Forum - CA/Browser Forum - <a
+href="https://cabforum.org/" class="uri">https://cabforum.org/</a> - as
+of 2026-10-19</li>
+<li>All CA/Browser Forum Ballots - CA/Browser Forum - <a
 href="https://cabforum.org/ballots/"
-class="uri">https://cabforum.org/ballots/</a> (2026-09-01)</li>
+class="uri">https://cabforum.org/ballots/</a> - as of 2026-10-19</li>
 </ol>
   </article>
 
