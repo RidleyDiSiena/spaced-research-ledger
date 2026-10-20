@@ -8,7 +8,7 @@ The reports are organized around that idea rather than around narrative. Where a
 
 Every statement carries a numbered citation to a public source, and the sources are the Forum's own ballot pages and revision tables, the root programs' own policies, the mailing lists where this work is argued, and the incident bugs where certificate authorities are held to account. Where two sources disagree, the disagreement is reported rather than resolved. Where something was checked and genuinely not found, the collection says so, rather than leaving the absence silent.
 
-Last updated: 2026-09-01
+Last updated: 2026-10-19
 
 **Listen:** [podcast episodes and feed](../post-quantum-cryptography/podcast/) -- every part, read aloud.
 
