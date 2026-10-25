@@ -69,7 +69,7 @@
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><span class="st st-default">default</span> since rolling; commit
-e748facbaa (2026-07-09) [5] [6] [7]</td>
+e748facbaa (2026-07-09) [5] [6] [7] [8]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -78,7 +78,7 @@ e748facbaa (2026-07-09) [5] [6] [7]</td>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [8]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [9]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -87,7 +87,7 @@ e748facbaa (2026-07-09) [5] [6] [7]</td>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [8]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [9]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -105,7 +105,7 @@ e748facbaa (2026-07-09) [5] [6] [7]</td>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [9]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [10]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -114,7 +114,7 @@ e748facbaa (2026-07-09) [5] [6] [7]</td>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [9]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [10]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -124,7 +124,7 @@ e748facbaa (2026-07-09) [5] [6] [7]</td>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since rolling; commit
-d89a16e00 (2025-08-12) [10]</td>
+d89a16e00 (2025-08-12) [11]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -133,11 +133,11 @@ d89a16e00 (2025-08-12) [10]</td>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since rolling,
-commits of October 2025 [11] [12]</td>
+commits of October 2025 [12] [13]</td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since April 2026
-(libssl commit 4a3cda4) [13]</td>
+(libssl commit 4a3cda4) [14]</td>
 <td data-label="X.509"><span class="st st-available">available</span> since rolling,
-commits of October 2025 [11]</td>
+commits of October 2025 [12]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -145,7 +145,7 @@ commits of October 2025 [11]</td>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since rolling,
-2024-09-04 [14]</td>
+2024-09-04 [15]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
@@ -247,7 +247,10 @@ header include/openssl/slhdsa.h exposes SLHDSA_SHA2_128S_* (added
 2024-09-04, ‘Add SLH-DSA-SHA2-128s from FIPS 205’) and
 SLHDSA_SHAKE_256F_* (2025-10-30) plus prehash variants. Commit 4380e3c7
 (2026-09-10) adds the RFC 9909 OIDs and NIDs with no X.509 or TLS
-wiring. BoringSSL has no releases; the since is the first commit.</li>
+wiring. BoringSSL has no releases; the since is the first commit. Patrol
+2026-10-25: commit af41e135 (2026-10-12) “Precompute the PK.seed SHA-256
+state in SLH-DSA-SHA2” is a performance change to the same primitive; no
+new parameter set or wiring.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -279,6 +282,10 @@ class="uri">https://netguardia.com/privacy/encryption/hybrid-key-exchange-today-
 href="https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc"
 class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc</a>
 (as of 2026-07-09; checked 2026-10-08)</li>
+<li><a
+href="https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc"
+class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/main/ssl/ssl_key_share.cc</a>
+(as of 2026-10-25; checked 2026-10-25)</li>
 <li><a
 href="https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc"
 class="uri">https://boringssl.googlesource.com/boringssl/+/refs/heads/master/ssl/ssl_key_share.cc</a>

@@ -18,33 +18,33 @@
     <p class="kicker">Research Topic</p>
     <h1>CA/Browser Forum Tracker</h1>
     <p class="standfirst">A five-part survey of the body that decides what a publicly trusted certificate may contain and how long it may live: the ballots of each working group, the browser root programs that enforce them, and the revocation and transparency mechanisms underneath. Tracks the five states a rule passes through, because a ballot that passes its vote is not yet a requirement.</p>
-    <p class="updated">Last updated: 2026-10-19</p>
+    <p class="updated">Last updated: 2026-10-25</p>
   </div>
 
 <ul class="cards">
   <li class="card">
     <p class="card-title"><a href="01-server-certificate-working-group.html">Part 1 &mdash; Server Certificate Working Group</a></p>
-    <p class="card-meta"><a href="latest/01-server-certificate-working-group.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
+    <p class="card-meta"><a href="latest/01-server-certificate-working-group.pdf">PDF</a> <span>Last updated: 2026-10-25</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="02-code-signing-working-group.html">Part 2 &mdash; Code Signing Working Group</a></p>
-    <p class="card-meta"><a href="latest/02-code-signing-working-group.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
+    <p class="card-meta"><a href="latest/02-code-signing-working-group.pdf">PDF</a> <span>Last updated: 2026-10-25</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="03-smime-working-group.html">Part 3 &mdash; S/MIME Working Group</a></p>
-    <p class="card-meta"><a href="latest/03-smime-working-group.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
+    <p class="card-meta"><a href="latest/03-smime-working-group.pdf">PDF</a> <span>Last updated: 2026-10-25</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="04-public-trust-programs.html">Part 4 &mdash; Public Trust Programs</a></p>
-    <p class="card-meta"><a href="latest/04-public-trust-programs.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
+    <p class="card-meta"><a href="latest/04-public-trust-programs.pdf">PDF</a> <span>Last updated: 2026-10-25</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="05-revocation-and-transparency.html">Part 5 &mdash; Revocation and Transparency</a></p>
-    <p class="card-meta"><a href="latest/05-revocation-and-transparency.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
+    <p class="card-meta"><a href="latest/05-revocation-and-transparency.pdf">PDF</a> <span>Last updated: 2026-10-25</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="06-governance-security-and-standards.html">Part 6 &mdash; Governance, Network Security and Standards</a></p>
-    <p class="card-meta"><a href="latest/06-governance-security-and-standards.pdf">PDF</a> <span>Last updated: 2026-10-19</span></p>
+    <p class="card-meta"><a href="latest/06-governance-security-and-standards.pdf">PDF</a> <span>Last updated: 2026-10-25</span></p>
   </li>
 </ul>
 
@@ -69,8 +69,14 @@ its rules [1].</p>
 <p>The collection has six parts. Every part stands on its own, and every
 statement carries a numbered citation to a public source. Where two
 sources disagree, the disagreement is reported rather than resolved.
-This edition replaces the one of 1 September, and it is refreshed each
+This edition replaces the one of 19 October, and it is refreshed each
 week that the Forum’s public record shows a change.</p>
+<p>The week to 25 October was the most eventful since this collection
+began. A certificate authority’s intermediate keys turned out to be
+recoverable, two browsers removed one of its roots within three days,
+and the authority announced its exit from public website certificates.
+Parts 4 and 5 carry that story, and Part 1 carries the first draft rule
+written in response to it.</p>
 <h2 id="how-to-read-a-forum-decision">1. How To Read a Forum
 Decision</h2>
 <p><em>One distinction governs this whole subject, and getting it wrong
@@ -102,28 +108,35 @@ layer.</em></p>
 busiest group, governing the certificates that secure websites. It
 covers the ballots and document versions, domain control validation, and
 certificate profiles, including the schedule that is cutting certificate
-lifetimes toward 47 days by 2029. This is the part to read first if you
-only read one.</p>
+lifetimes toward 47 days by 2029. One ballot is in its vote, the
+post-quantum draft has been closed and handed over, and a new draft on
+key quality answers the week’s compromise. This is the part to read
+first if you only read one.</p>
 <p><strong>Part 2, Code Signing Working Group.</strong> The rules for
-certificates that sign software. A smaller group, with one ballot in its
-vote and one that has not moved since spring.</p>
+certificates that sign software. A smaller group, with one ballot that
+has closed its vote and awaits its result, and one that has not moved
+since spring.</p>
 <p><strong>Part 3, S/MIME Working Group.</strong> The rules for
 certificates that sign and encrypt email. It is the one place in the
 Forum where post-quantum algorithms are already permitted in published
-requirements, and it is now working on composite signatures.</p>
+requirements. Its newest ballot passed unanimously this week and is in
+review, and it is working on composite signatures.</p>
 <p><strong>Part 4, Public Trust Programs.</strong> The enforcement
 layer. Mozilla, Google, Microsoft and Apple each decide who is actually
 trusted, and their policies routinely demand more than the Forum does,
-earlier. This part covers their post-quantum plans, the incident record
-and the largest revocation of the autumn.</p>
+earlier. This part covers their post-quantum plans, the incident record,
+the first emergency root removal of the autumn, and the completion of
+the largest revocation.</p>
 <p><strong>Part 5, Revocation and Transparency.</strong> The two
-mechanisms for recovering from a certificate that should not exist.
-Revocation is being replaced rather than repaired, and transparency is
-undergoing its first architectural change since it was standardized.</p>
+mechanisms for recovering from a certificate that should not exist. Both
+were exercised this week, revocation by a key compromise and a
+400,000-certificate clean-up, and transparency by a flood of
+proof-of-concept certificates that forced one operator to close its
+logs.</p>
 <p><strong>Part 6, Governance, Network Security and Standards.</strong>
-New in this edition. It covers the Forum’s officers and elections, the
-network security requirements, and the IETF standards and audit regimes
-the guidelines depend on.</p>
+It covers the Forum’s officers and new members, the network security
+requirements, and the IETF standards and audit regimes the guidelines
+depend on.</p>
 <h2 id="what-this-collection-does-not-cover">3. What This Collection
 Does Not Cover</h2>
 <p><em>Scope boundaries, stated so that an absence is not read as a
@@ -140,10 +153,10 @@ the list is treated as the record and the lag is reported.</p>
 <ol type="1">
 <li>CA/Browser Forum - CA/Browser Forum - <a
 href="https://cabforum.org/" class="uri">https://cabforum.org/</a> - as
-of 2026-10-19</li>
+of 2026-10-25</li>
 <li>All CA/Browser Forum Ballots - CA/Browser Forum - <a
 href="https://cabforum.org/ballots/"
-class="uri">https://cabforum.org/ballots/</a> - as of 2026-10-19</li>
+class="uri">https://cabforum.org/ballots/</a> - as of 2026-10-25</li>
 </ol>
   </article>
 

@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 2</p>
     <h1>Code Signing Working Group</h1>
-    <p class="updated">Last updated: 2026-10-19</p>
+    <p class="updated">Last updated: 2026-10-25</p>
     <p class="actions"><a class="pdf" href="latest/02-code-signing-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -91,25 +91,31 @@ before it [7]. Two failures on the same kind of proposal say something
 about this group’s appetite for importing another group’s changes as a
 block.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="ballots-now-open">2. Ballots Now Open</h2>
-<p><em>Two ballots are open, one moving quickly and one that has not
-moved since June. Neither has yet changed the published text.</em></p>
+<p><em>Two ballots are open, one that has closed its vote and awaits its
+result, and one that has not moved since June. Neither has yet changed
+the published text.</em></p>
 <h3 id="recent-developments-1">Recent Developments</h3>
-<p>Ballot CSC-034 is in its voting period. It clarifies how the
+<p>Ballot CSC-034 has finished its vote. It clarifies how the
 organization name field is used when the certificate subject is a
 natural person [8]. Dimitris Zacharopoulos of HARICA proposed it on 6
 October, with endorsements from eMudhra and Sectigo [8]. Its draft first
 appeared as a pull request on 24 September [9].</p>
-<p>The ballot moved through its stages on schedule. Discussion ran from
-6 October to 14 October, and voting runs from 14 October to 21 October
-at 17:00 UTC [10]. By 16 October three members had voted yes, namely
-HARICA, eMudhra and Certum, and no one had voted against or abstained
-[10]. Sectigo, an endorser, had not yet voted in the public thread
+<p>Voting ran from 14 October to 21 October at 17:00 UTC [10]. The
+readable votes were all in favour, from HARICA, eMudhra, Certum, Sectigo
+and Actalis among the issuers, and from SHECA and one more on the
+closing day [10]. Microsoft, the group’s only certificate consumer,
+voted in favour on 20 October after the chair reminded the list that a
+consumer vote was needed [10]. No vote against or abstention was visible
 [10].</p>
+<h3 id="current-state-1">Current State</h3>
+<p>No result has been posted. As of 25 October there was no results
+message, no notice of a review period, and no entry for the ballot on
+the group’s ballots page [10] [1]. The ballot therefore stays in its
+voting stage in this collection until the chair reports. If it passes, a
+30-day intellectual property review follows before any new version.</p>
 <p>One drafting slip is visible in the text. The ballot’s purpose
 section cites version 3.11 of the requirements, while its motion says
-the changes are based on version 3.10 [8]. The Forum’s ballots page has
-not yet listed CSC-034 at any stage [1].</p>
-<h3 id="current-state-1">Current State</h3>
+the changes are based on version 3.10 [8].</p>
 <p>Ballot CSC-033 is a third attempt at alignment with the server
 certificate rules, and it is stalled. DigiCert proposed it with
 endorsements from HARICA and Sectigo, and its discussion period opened
@@ -139,35 +145,42 @@ the question has returned.</p>
 <p><em>A certificate consumer is the software maker whose platform
 decides which code signing certificates to trust. In this group that is
 Microsoft alone.</em></p>
+<h3 id="recent-developments-2">Recent Developments</h3>
+<p>The week’s key compromise reached code signing. Two of the eight
+eMudhra intermediate authorities whose private keys were found
+recoverable on 17 October issue code signing certificates and are
+trusted by Microsoft [15]. The other six issue website certificates, and
+Part 4 tells the whole story [15]. Microsoft has published no statement
+of its own on the compromise, and the two code signing authorities were
+revoked by eMudhra with the rest on 18 October [15].</p>
 <h3 id="current-state-2">Current State</h3>
 <p>The group has 14 certificate authorities as members, with Microsoft
-as the only certificate consumer [15]. The chair is Martijn Katerbarg of
-Sectigo, who stays in the role for the term from 1 December [15] [16].
+as the only certificate consumer [16]. The chair is Martijn Katerbarg of
+Sectigo, who stays in the role for the term from 1 December [16] [17].
 Dean Coclin of DigiCert was confirmed as the incoming vice-chair in
-October [16]. Part 6 covers the wider Forum elections.</p>
+October [17]. Part 6 covers the wider Forum elections.</p>
 <p>Microsoft’s rules sit in its Trusted Root Program repository, which
-it names as the official source over its older documentation pages [17].
+it names as the official source over its older documentation pages [18].
 The newest change there is from 28 August 2026 and concerned its
-post-quantum pilot, and nothing has been added since [18]. For roots
+post-quantum pilot, and nothing has been added since [19]. For roots
 submitted from 1 July 2026, code signing must have its own root,
-separate from server and email roots [19]. Such a root may also cover
-client authentication and time stamping [19].</p>
+separate from server and email roots [20]. Such a root may also cover
+client authentication and time stamping [20].</p>
 <p>The older documentation page still carries the specific code signing
-rules [20]. New code signing and time-stamping roots must use 4096-bit
+rules [21]. New code signing and time-stamping roots must use 4096-bit
 RSA keys, and elliptic curve keys are not accepted for code signing
-[20]. Extended Validation code signing stopped being recognised in
-February 2024 [20]. An authority that issues code signing certificates
-must also run a time-stamping service [20].</p>
+[21]. Extended Validation code signing stopped being recognised in
+February 2024 [21]. An authority that issues code signing certificates
+must also run a time-stamping service [21].</p>
 <p>The Extended Validation change shows up for developers. An Extended
 Validation certificate no longer bypasses Windows reputation checks, so
-both kinds of certificate must build reputation through downloads [21].
+both kinds of certificate must build reputation through downloads [22].
 Store packages are re-signed by Microsoft and get full reputation, while
-ordinary installers need a signature chaining to a program member [21].
+ordinary installers need a signature chaining to a program member [22].
 Microsoft recommends its Artifact Signing service, formerly Trusted
-Signing, for software outside the Store [21]. It is open to
-organisations in the United States, Canada, the European Union and the
-United Kingdom, and to individuals in the United States and Canada
-[21].</p>
+Signing, for software outside the Store [22]. Its documentation for that
+service was revised on 20 October, changing only the support options
+[23].</p>
 <p>Signing rules for other platforms, such as Java and Adobe, were not
 checked for this edition. Their absence here is a gap, not a
 finding.</p>
@@ -176,12 +189,12 @@ finding.</p>
 <li>Code Signing Certificate Working Group Ballots - CA/Browser Forum -
 <a href="https://cabforum.org/working-groups/code-signing/ballots/"
 class="uri">https://cabforum.org/working-groups/code-signing/ballots/</a>
-- as of 2026-10-18</li>
+- as of 2026-10-25</li>
 <li>Code Signing Baseline Requirements, current version and history -
 CA/Browser Forum - <a
 href="https://cabforum.org/working-groups/code-signing/requirements/"
 class="uri">https://cabforum.org/working-groups/code-signing/requirements/</a>
-- as of 2026-10-18</li>
+- as of 2026-10-25</li>
 <li>Results of Review Period, Ballot CSC-32 - cscwg-public list - <a
 href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public</a>
@@ -215,7 +228,7 @@ class="uri">https://github.com/cabforum/code-signing/pull/59</a> - as of
 <li>Ballot CSC-034 voting period - cscwg-public list - <a
 href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/OnTH2Kbm-l0"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/OnTH2Kbm-l0</a>
-- as of 2026-10-18</li>
+- as of 2026-10-25</li>
 <li>Ballot CSC-033, 2026-05 SCWG alignment ballot - cscwg-public list -
 <a
 href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/erLQwy_gM8w"
@@ -224,7 +237,7 @@ class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/erL
 <li>Ballot CSC-033 threads - cscwg-public list - <a
 href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/search?q=CSC-033"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/search?q=CSC-033</a>
-- as of 2026-10-18</li>
+- as of 2026-10-25</li>
 <li>Minutes of the Code Signing Certificate Working Group, 14 May 2026 -
 CA/Browser Forum - <a
 href="https://cabforum.org/2026/05/14/2026-05-14-minutes-of-the-code-signing-certificate-working-group/"
@@ -233,7 +246,12 @@ class="uri">https://cabforum.org/2026/05/14/2026-05-14-minutes-of-the-code-signi
 <li>cabforum/code-signing pull requests - GitHub - <a
 href="https://api.github.com/repos/cabforum/code-signing/pulls?state=all&amp;sort=updated&amp;direction=desc&amp;per_page=5"
 class="uri">https://api.github.com/repos/cabforum/code-signing/pulls?state=all&amp;sort=updated&amp;direction=desc&amp;per_page=5</a>
-- as of 2026-10-18</li>
+- as of 2026-10-25</li>
+<li>Bug 2083449, eMudhra intermediate CA private key compromise -
+Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2083449"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2083449</a> -
+as of 2026-10-25</li>
 <li>Code Signing Certificate Working Group - CA/Browser Forum - <a
 href="https://cabforum.org/working-groups/code-signing/"
 class="uri">https://cabforum.org/working-groups/code-signing/</a> - as
@@ -250,7 +268,7 @@ class="uri">https://github.com/TrustedRootProgram/Program-Requirements</a>
 <li>TrustedRootProgram Program-Requirements commits - GitHub - <a
 href="https://api.github.com/repos/TrustedRootProgram/Program-Requirements/commits?per_page=5"
 class="uri">https://api.github.com/repos/TrustedRootProgram/Program-Requirements/commits?per_page=5</a>
-- as of 2026-10-18</li>
+- as of 2026-10-25</li>
 <li>Microsoft Root Program Requirements - TrustedRootProgram - <a
 href="https://raw.githubusercontent.com/TrustedRootProgram/Program-Requirements/main/Requirements.md"
 class="uri">https://raw.githubusercontent.com/TrustedRootProgram/Program-Requirements/main/Requirements.md</a>
@@ -259,12 +277,16 @@ class="uri">https://raw.githubusercontent.com/TrustedRootProgram/Program-Require
 Learn - <a
 href="https://learn.microsoft.com/en-us/security/trusted-root/program-requirements"
 class="uri">https://learn.microsoft.com/en-us/security/trusted-root/program-requirements</a>
-- as of 2026-10-18</li>
+- as of 2026-10-25</li>
 <li>Code signing options for Windows app developers - Microsoft Learn -
 <a
 href="https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/code-signing-options"
 class="uri">https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/code-signing-options</a>
 - as of 2026-08-29</li>
+<li>Artifact Signing FAQ - Microsoft Learn - <a
+href="https://learn.microsoft.com/en-us/azure/artifact-signing/faq"
+class="uri">https://learn.microsoft.com/en-us/azure/artifact-signing/faq</a>
+- as of 2026-10-25</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

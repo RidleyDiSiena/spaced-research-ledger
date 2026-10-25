@@ -64,21 +64,23 @@
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 27 [4] [5] [6]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 27 [4] [5] [6]
+[7]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 27 [7]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 27 [8] [9]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 27 [7]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 27 [8]
+[10]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -92,30 +94,31 @@
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [8]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [11]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [8]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [11]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [8]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> [11]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 24 [1] [9]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 24 [1]
+[12]</td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-available">available</span> since 24 (JEP 497)
-[10]</td>
+[13]</td>
 <td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
 </tr>
 <tr>
@@ -170,30 +173,46 @@ TLS 1.3 key exchange in JDK 27 and puts X25519MLKEM768 FIRST in the
 default named-groups list. Until patrol 2026-09-26 this cell said
 ‘available’ because neither ledger claim stated the default list; the
 JEP itself does, so ‘default’. The two NIST-curve hybrids are separate
-cells and are NOT on by default.</li>
+cells and are NOT on by default. Patrol 2026-10-25: the backport shipped
+in JDK 25.0.5 (2026-10-20), so the same default now holds on the LTS
+line; see the 25.0.5 release entry.</li>
 <li><strong>SecP256r1MLKEM768, TLS 1.3</strong>: Delivered with JEP 527
 in JDK 27, opt-in: an ordinary configuration property, not a preview, so
-‘available’ rather than ‘experimental’.</li>
+‘available’ rather than ‘experimental’. Also on the 25 LTS line from
+25.0.5 (2026-10-25 patrol).</li>
 <li><strong>SecP384r1MLKEM1024, TLS 1.3</strong>: Delivered with JEP 527
-in JDK 27, opt-in, same terms as SecP256r1MLKEM768.</li>
+in JDK 27, opt-in, same terms as SecP256r1MLKEM768. Also on the 25 LTS
+line from 25.0.5 (2026-10-25 patrol).</li>
 <li><strong>MLKEM512, TLS 1.3</strong>: JEP 527: “we do not propose to
 implement ML-KEM-based non-hybrid key exchange schemes for TLS… We may
 implement pure ML-KEM schemes in future work.” JDK 27 NamedGroup.java
 defines ML_KEM_512/768/1024 constants with a null keAlgParamSpec, which
 makes isAvailable false, so they cannot be negotiated. Absent entirely
-in 25 and 26. No JBS issue found; checked twice.</li>
+in 26 and in 25 before 25.0.5; from 25.0.5 (2026-10-20, the JEP 527
+backport) the same inert constants are present (read at jdk-25.0.5-ga,
+2026-10-25). The pure-group work item is JDK-8371736 “Implement ML-KEM
+Named Groups for TLS 1.3”, Open, linked as blocked by 8314323 (JBS, read
+2026-10-25) – the issue the 2026-10-08 search did not find.</li>
 <li><strong>MLKEM768, TLS 1.3</strong>: JEP 527: “we do not propose to
 implement ML-KEM-based non-hybrid key exchange schemes for TLS… We may
 implement pure ML-KEM schemes in future work.” JDK 27 NamedGroup.java
 defines ML_KEM_512/768/1024 constants with a null keAlgParamSpec, which
 makes isAvailable false, so they cannot be negotiated. Absent entirely
-in 25 and 26. No JBS issue found; checked twice.</li>
+in 26 and in 25 before 25.0.5; from 25.0.5 (2026-10-20, the JEP 527
+backport) the same inert constants are present (read at jdk-25.0.5-ga,
+2026-10-25). The pure-group work item is JDK-8371736 “Implement ML-KEM
+Named Groups for TLS 1.3”, Open, linked as blocked by 8314323 (JBS, read
+2026-10-25) – the issue the 2026-10-08 search did not find.</li>
 <li><strong>MLKEM1024, TLS 1.3</strong>: JEP 527: “we do not propose to
 implement ML-KEM-based non-hybrid key exchange schemes for TLS… We may
 implement pure ML-KEM schemes in future work.” JDK 27 NamedGroup.java
 defines ML_KEM_512/768/1024 constants with a null keAlgParamSpec, which
 makes isAvailable false, so they cannot be negotiated. Absent entirely
-in 25 and 26. No JBS issue found; checked twice.</li>
+in 26 and in 25 before 25.0.5; from 25.0.5 (2026-10-20, the JEP 527
+backport) the same inert constants are present (read at jdk-25.0.5-ga,
+2026-10-25). The pure-group work item is JDK-8371736 “Implement ML-KEM
+Named Groups for TLS 1.3”, Open, linked as blocked by 8314323 (JBS, read
+2026-10-25) – the issue the 2026-10-08 search did not find.</li>
 <li><strong>ML-DSA, Primitive</strong>: JEP 497; JAR signing with ML-DSA
 from JDK 26.</li>
 <li><strong>ML-DSA, X.509</strong>: JEP 497, delivered in JDK 24:
@@ -219,14 +238,16 @@ were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>27, 2026-09-15 [11] [12]</li>
-<li>26, 2026-03-17 [9]</li>
+<li>25.0.5, 2026-10-20, LTS [14] [15]</li>
+<li>27.0.1, 2026-10-20 [16]</li>
+<li>27, 2026-09-15 [17] [18]</li>
+<li>26, 2026-03-17 [12]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="also-tracked">Also Tracked</h2>
 <ul>
 <li><strong>LTS backports of ML-KEM, ML-DSA and hybrid TLS</strong>: JDK
 25 in October 2026; JDK 21 and 17 in H1 2027; JDK 11 and 8 in H2 2027
-[13] [14] [15]</li>
+[19] [20] [21] [22]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -254,9 +275,21 @@ href="https://inside.java/2026/09/03/java-acceleration-curve25519-field-operatio
 class="uri">https://inside.java/2026/09/03/java-acceleration-curve25519-field-operations</a>
 (as of 2026-09-03; ledger claim
 pqc/language-native-crypto-stacks/d0005:2)</li>
+<li><a
+href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java"
+class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java</a>
+(as of 2026-10-20; checked 2026-10-25)</li>
 <li><a href="https://openjdk.org/jeps/527"
 class="uri">https://openjdk.org/jeps/527</a> (date not recorded; checked
 2026-09-26)</li>
+<li><a
+href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java"
+class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java</a>
+(as of 2026-10-20; checked 2026-10-25)</li>
+<li><a
+href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java"
+class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java</a>
+(as of 2026-10-20; checked 2026-10-25)</li>
 <li><a href="https://openjdk.org/jeps/527"
 class="uri">https://openjdk.org/jeps/527</a> (date not recorded; checked
 2026-10-08)</li>
@@ -267,6 +300,18 @@ pqc/language-native-crypto-stacks/d0001:11)</li>
 <li><a href="https://openjdk.org/jeps/497"
 class="uri">https://openjdk.org/jeps/497</a> (date not recorded; checked
 2026-09-12)</li>
+<li><a
+href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/make/conf/version-numbers.conf"
+class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/make/conf/version-numbers.conf</a>
+(as of 2026-10-20; checked 2026-10-25)</li>
+<li><a
+href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java"
+class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java</a>
+(as of 2026-10-20; checked 2026-10-25)</li>
+<li><a
+href="https://raw.githubusercontent.com/openjdk/jdk27u/jdk-27.0.1-ga/make/conf/version-numbers.conf"
+class="uri">https://raw.githubusercontent.com/openjdk/jdk27u/jdk-27.0.1-ga/make/conf/version-numbers.conf</a>
+(as of 2026-10-20; checked 2026-10-25)</li>
 <li><a href="https://openjdk.org/projects/jdk/27/"
 class="uri">https://openjdk.org/projects/jdk/27/</a> (as of 2026-09-15;
 checked 2026-09-26)</li>
@@ -289,6 +334,10 @@ pqc/language-runtime-tls-surfaces/d0001:1)</li>
 href="https://github.com/openjdk/jdk25u-dev/commit/83e90e7d76e9ca804384d47a4d529e91f79d8981"
 class="uri">https://github.com/openjdk/jdk25u-dev/commit/83e90e7d76e9ca804384d47a4d529e91f79d8981</a>
 (as of 2026-08-03; checked 2026-10-18)</li>
+<li><a
+href="https://bugs.openjdk.org/rest/api/2/issue/JDK-8314323?fields=summary,fixVersions,issuelinks,resolutiondate"
+class="uri">https://bugs.openjdk.org/rest/api/2/issue/JDK-8314323?fields=summary,fixVersions,issuelinks,resolutiondate</a>
+(as of 2026-10-25; checked 2026-10-25)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

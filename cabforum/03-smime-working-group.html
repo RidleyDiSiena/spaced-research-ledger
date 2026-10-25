@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 3</p>
     <h1>S/MIME Working Group</h1>
-    <p class="updated">Last updated: 2026-10-19</p>
+    <p class="updated">Last updated: 2026-10-25</p>
     <p class="actions"><a class="pdf" href="latest/03-smime-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -32,8 +32,8 @@ History</a></li>
 <li><a href="#the-rsa-key-size-transition"
 id="toc-the-rsa-key-size-transition">2. The RSA Key Size
 Transition</a></li>
-<li><a href="#the-ballot-in-its-vote" id="toc-the-ballot-in-its-vote">3.
-The Ballot in Its Vote</a></li>
+<li><a href="#the-ballot-in-review" id="toc-the-ballot-in-review">3. The
+Ballot in Review</a></li>
 <li><a href="#post-quantum-email" id="toc-post-quantum-email">4.
 Post-Quantum Email</a></li>
 <li><a href="#sources" id="toc-sources">Sources</a></li>
@@ -55,29 +55,31 @@ that the public record shows a change.</p>
 <p>The S/MIME Working Group writes the rules for certificates that sign
 and encrypt email. Its Baseline Requirements are the youngest of the
 Forum’s documents, adopted at the start of 2023. The current version is
-1.0.16, published on 28 September 2026 [1].</p>
+1.0.16, published on 28 September 2026, and a version 1.0.17 is now in
+review [1].</p>
 <p>This part has four sections. Section 1 covers the requirements and
 the version history behind them. Section 2 covers the RSA key size
 transition, whose first deadline arrived on 15 September. Section 3
-follows the one ballot that reached a vote this autumn. Section 4 covers
-the group’s post-quantum work, where it remains ahead of the larger
-server certificate group.</p>
+follows the ballot that passed its vote this month and is now in
+intellectual property review. Section 4 covers the group’s post-quantum
+work, where it remains ahead of the larger server certificate group.</p>
 <p>The group’s pace picked up after a quiet summer. One ballot was
-published, one went to a vote, and a post-quantum draft appeared. Every
-ballot below is given with its stage, because a ballot that has passed
-its vote is not yet a rule.</p>
+published, one passed its vote, a post-quantum draft appeared, and the
+group’s leadership is changing hands. Every ballot below is given with
+its stage, because a ballot that has passed its vote is not yet a
+rule.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="requirements-and-version-history">1. Requirements and Version
 History</h2>
 <p><em>The version table is the record of what this group has agreed.
 Reading it in order shows a group that imports the server group’s
 decisions deliberately rather than automatically.</em></p>
 <h3 id="recent-developments">Recent Developments</h3>
-<p>Version 1.0.16 is the newest change to the email rules. It carries
-Ballot SMC018, titled Realignment of Multipurpose use cases, and was
-published on 28 September [1]. The working group chair announced that
-day that the intellectual property review had ended with no exclusion
-notices [2]. Publication came four days after the review closed on 24
-September [3].</p>
+<p>Version 1.0.16 is the newest published change to the email rules. It
+carries Ballot SMC018, titled Realignment of Multipurpose use cases, and
+was published on 28 September [1]. The working group chair announced
+that day that the intellectual property review had ended with no
+exclusion notices [2]. Publication came four days after the review
+closed on 24 September [3].</p>
 <p>The ballot passed without opposition. It drew 15 yes votes from
 certificate issuers and three from certificate consumers, with none
 against and none abstaining [3]. Its voting period ran from 18 to 25
@@ -118,9 +120,9 @@ issue subscriber certificates from a subordinate authority whose RSA
 modulus is smaller than 3072 bits [9]. Existing 2048-bit subordinate
 authorities are not revoked by that rule. They stop being able to issue,
 which lets them age out as their own certificates expire.</p>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-ballot-in-its-vote">3. The Ballot in Its Vote</h2>
-<p><em>One S/MIME ballot reached a vote this autumn, and its result is
-the next fact this part is waiting on.</em></p>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-ballot-in-review">3. The Ballot in Review</h2>
+<p><em>One S/MIME ballot reached a vote this autumn, and it passed
+without a single vote against.</em></p>
 <h3 id="recent-developments-1">Recent Developments</h3>
 <p>Ballot SMC020 removes the requirement to record which version of the
 Baseline Requirements a validation method came from [10]. It is modelled
@@ -132,54 +134,66 @@ domain, and the method used [10].</p>
 <p>The ballot moved quickly once it started. It was proposed by the
 OISTE Foundation and endorsed by DigiCert and Apple [12]. Its discussion
 period ran from 5 to 12 October 2026, and its voting period from 12
-October to 19 October at 19:00 UTC [10].</p>
+October to 19 October [10].</p>
+<p>The result was posted on 20 October. All sixteen voting certificate
+issuers voted in favour, among them Actalis, Certum, DigiCert, eMudhra,
+GlobalSign, HARICA, IdenTrust, SwissSign, Telia and TrustAsia [10]. All
+three voting certificate consumers, Apple, Mozilla and rundQuadrat,
+voted in favour, and no member voted against or abstained [10]. The
+quorum of six was met [10].</p>
 <h3 id="current-state-2">Current State</h3>
-<p>The vote has closed and the result is not yet known. As checked on 19
-October, no results post had appeared on the group’s public list [13].
-The readable votes were four in favour from 13 October, from MSC
-Trustgate, SwissSign, rundQuadrat and Telia Company [12]. The thread had
-grown to 21 messages, but the public mirror shows only the first eight,
-so any later votes cannot be read [13].</p>
-<p>SMC020 therefore sits between voting and adoption. If it passes, it
-enters a 30-day intellectual property review before it can be published
-into a new version.</p>
+<p>SMC020 is adopted and in its intellectual property review, which runs
+from 20 October at 12:00 UTC to 19 November at 12:00 UTC [10]. The
+redline attached to the result is labelled version 1.0.17 of the
+requirements, which is the version the ballot will publish into if no
+exclusion notice arrives [10]. The group’s ballots page already lists it
+under the review period, and the draft’s pull request has been
+relabelled to match [13] [14].</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="post-quantum-email">4. Post-Quantum Email</h2>
 <p><em>The S/MIME group admitted post-quantum algorithms a year before
 any other Forum group, and its next step is the hybrid kind.</em></p>
 <h3 id="recent-developments-2">Recent Developments</h3>
 <p>A new draft would add composite ML-DSA to the email rules. Ballot
 SMC019, titled Introduction of Composite ML-DSA Algorithms, was opened
-as a pull request on 24 September 2026 by DigiCert [14]. A composite
+as a pull request on 24 September 2026 by DigiCert [15]. A composite
 pairs a post-quantum signature with a traditional one in a single
 certificate. The draft builds on the standalone ML-DSA and ML-KEM
-support that SMC013 already published [14].</p>
+support that SMC013 already published [15].</p>
 <p>The draft has been narrowed once. A change on 28 September removed
-the composite pairings with Ed25519 and Ed448 [15]. It has not changed
-since [16].</p>
-<p>A root program has already said it will trust them. Apple announced
-on 21 September that it will accept composite roots that pair ML-DSA
-with ECDSA or RSA for S/MIME email [17]. Part 4 covers the rest of that
-announcement, which concerns web certificates.</p>
+the composite pairings with Ed25519 and Ed448 [16]. It has not changed
+since, but it reached the group’s agenda for the first time on 21
+October, listed as a draft for discussion [17].</p>
+<p>That agenda also recorded a change of leadership. It lists a handover
+to Rebecca Kelley and Scott Rea, the chair and vice-chair confirmed for
+the term from 1 December [17]. The same agenda carries discussions of
+name constraints in S/MIME authorities and an experiment with
+machine-readable certificate profiles [17]. The group’s next meeting is
+on 4 November [17].</p>
+<p>A root program has already said it will trust composite certificates.
+Apple announced on 21 September that it will accept composite roots that
+pair ML-DSA with ECDSA or RSA for S/MIME email [18]. Part 4 covers the
+rest of that announcement, which concerns web certificates.</p>
 <h3 id="current-state-3">Current State</h3>
 <p>SMC019 is a draft and has not entered any stage of the ballot
 lifecycle. No discussion period has been announced, and a search of the
-group’s public list for the ballot returns nothing [16]. It does not
-appear on the group’s ballots page [18].</p>
+group’s public list for the ballot returns only the agenda [19]. It does
+not appear on the group’s ballots page [13].</p>
 <p>The draft also waits on the IETF. It cites Internet-Drafts for the
 composite algorithms, with a note to update the references once RFC
-numbers are assigned [14]. The composite signatures draft for X.509
-reached final review at the RFC Production Center on 14 October 2026
-[19]. It had no RFC number as of 18 October [19].</p>
+numbers are assigned [15]. The composite signatures draft for X.509
+reached final review at the RFC Production Center on 14 October 2026 and
+moved on 19 October to a blocked state awaiting final approval [20]. It
+had no RFC number as of 25 October [20].</p>
 <h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
 <p>Two questions are open here. The first is why SMC019 is missing from
 the group’s ballots page, while SMC020 was listed there as a draft
-before its discussion began [18]. The record does not say. An announced
+before its discussion began [13]. The record does not say. An announced
 discussion period, or a ballots page that lists it, would settle the
 status.</p>
 <p>The second concerns what SMC013 permits. The September edition could
 not say which post-quantum algorithms it allows. The SMC019 draft states
 that they are standalone ML-DSA and ML-KEM, in two numbered key
-subsections of the certificate profile [14]. That is the draft’s
+subsections of the certificate profile [15]. That is the draft’s
 description of the published text, not a reading of the ballot itself.
 Reading SMC013 would confirm the conditions attached to each
 algorithm.</p>
@@ -189,7 +203,7 @@ algorithm.</p>
 Forum - <a
 href="https://cabforum.org/working-groups/smime/requirements/"
 class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
-- as of 2026-10-18</li>
+- as of 2026-10-25</li>
 <li>Ballot SMC018 adoption and S/MIME BR 1.0.16 publication notice -
 smcwg-public list - <a
 href="https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/c/iZ_yg8O0-mA"
@@ -227,10 +241,10 @@ href="https://cabforum.org/working-groups/smime/requirements/"
 class="uri">https://cabforum.org/working-groups/smime/requirements/</a>
 - as of 2026-09-01</li>
 <li>Ballot SMC-020, Remove requirement to record BR version of
-validation method - CA/Browser Forum - <a
+validation method, results - CA/Browser Forum - <a
 href="https://cabforum.org/2026/10/05/ballot-smc-020/"
 class="uri">https://cabforum.org/2026/10/05/ballot-smc-020/</a> - as of
-2026-10-05</li>
+2026-10-25</li>
 <li>Pull request 309, SMC020 Remove requirement to record BR version of
 validation method - cabforum/smime - <a
 href="https://github.com/cabforum/smime/pull/309"
@@ -240,10 +254,14 @@ class="uri">https://github.com/cabforum/smime/pull/309</a> - as of
 href="https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/c/Z44B5qd1UJI"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/c/Z44B5qd1UJI</a>
 - as of 2026-10-15</li>
-<li>Ballot SMC020 threads - smcwg-public list - <a
-href="https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/search?q=SMC020"
-class="uri">https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/search?q=SMC020</a>
-- as of 2026-10-19</li>
+<li>S/MIME Certificate Working Group Ballots - CA/Browser Forum - <a
+href="https://cabforum.org/working-groups/smime/ballots/"
+class="uri">https://cabforum.org/working-groups/smime/ballots/</a> - as
+of 2026-10-25</li>
+<li>Pull request 309, labels and status - cabforum/smime - <a
+href="https://api.github.com/repos/cabforum/smime/pulls?state=all&amp;sort=updated&amp;direction=desc&amp;per_page=10"
+class="uri">https://api.github.com/repos/cabforum/smime/pulls?state=all&amp;sort=updated&amp;direction=desc&amp;per_page=10</a>
+- as of 2026-10-25</li>
 <li>Pull request 310, SMC019 Introduction of Composite ML-DSA Algorithms
 - cabforum/smime - <a href="https://github.com/cabforum/smime/pull/310"
 class="uri">https://github.com/cabforum/smime/pull/310</a> - as of
@@ -252,22 +270,23 @@ class="uri">https://github.com/cabforum/smime/pull/310</a> - as of
 href="https://api.github.com/repos/cabforum/smime/pulls/310/commits"
 class="uri">https://api.github.com/repos/cabforum/smime/pulls/310/commits</a>
 - as of 2026-09-28</li>
-<li>smcwg-public search for SMC019 - smcwg-public list - <a
-href="https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/search?q=SMC019"
-class="uri">https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/search?q=SMC019</a>
-- as of 2026-10-18</li>
+<li>Draft agenda, S/MIME Certificate Working Group call of 21 October
+2026 - smcwg-public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/c/eliNKkxiYg8"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/c/eliNKkxiYg8</a>
+- as of 2026-10-25</li>
 <li>Apple Root Program PQC Announcement - chromium ct-policy list - <a
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/QGZw2ADMXvk"
 class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/QGZw2ADMXvk</a>
 - as of 2026-09-29</li>
-<li>S/MIME Certificate Working Group Ballots - CA/Browser Forum - <a
-href="https://cabforum.org/working-groups/smime/ballots/"
-class="uri">https://cabforum.org/working-groups/smime/ballots/</a> - as
-of 2026-10-18</li>
-<li>draft-ietf-lamps-pq-composite-sigs - IETF Datatracker - <a
-href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/"
-class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/</a>
-- as of 2026-10-18</li>
+<li>smcwg-public search for SMC019 - smcwg-public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/search?q=SMC019"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/smcwg-public/search?q=SMC019</a>
+- as of 2026-10-25</li>
+<li>draft-ietf-lamps-pq-composite-sigs, history - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/history/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-sigs/history/</a>
+- as of 2026-10-25</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

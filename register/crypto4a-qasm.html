@@ -49,11 +49,11 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since QASM module,
-FIPS 140-3 certificate 5497 (2026-08-19) [1] [2]</td>
+FIPS 140-3 certificate 5497 (2026-08-19) [1] [2] [3]</td>
 <td data-label="FIPS 140-3"><span class="st st-available">available</span> since certificate
-5497 [3]</td>
+5497 [4]</td>
 <td data-label="PKCS#11"><span class="st st-absent">no public answer, checked
-2026-09-13</span></td>
+2026-10-25</span></td>
 <td data-label="Firmware signing"><abbr class="st-na" title="Not a real question -- A key encapsulation mechanism does not sign, and this column is about the signature on a firmware image. Encrypting firmware is a different question and not one this register asks.">n/a</abbr></td>
 </tr>
 <tr>
@@ -115,19 +115,19 @@ FIPS 140-3 certificate 5497 (2026-08-19) [1] [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since QASM module,
-FIPS 140-3 certificate 5497 (2026-08-19) [4] [5]</td>
+FIPS 140-3 certificate 5497 (2026-08-19) [5] [6]</td>
 <td data-label="FIPS 140-3"><span class="st st-available">available</span> since certificate
-5497 [3]</td>
+5497 [4]</td>
 <td data-label="PKCS#11"><span class="st st-absent">no public answer, checked
-2026-09-13</span></td>
+2026-10-25</span></td>
 <td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since QASM module,
-FIPS 140-3 certificate 5497 (2026-08-19) [6] [7]</td>
+FIPS 140-3 certificate 5497 (2026-08-19) [7] [8]</td>
 <td data-label="FIPS 140-3"><span class="st st-available">available</span> since certificate
-5497 [3]</td>
+5497 [4]</td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 <td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -148,18 +148,18 @@ FIPS 140-3 certificate 5497 (2026-08-19) [6] [7]</td>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since QASM module,
-FIPS 140-3 certificate 5497 (2026-08-19) [8]</td>
+FIPS 140-3 certificate 5497 (2026-08-19) [9]</td>
 <td data-label="FIPS 140-3"><span class="st st-available">available</span> since certificate
-5497 [3]</td>
+5497 [4]</td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 <td data-label="Firmware signing"><span class="st st-default">default</span> since QASM module, FIPS
-140-3 certificate 5497 (2026-08-19) [9]</td>
+140-3 certificate 5497 (2026-08-19) [10]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since version not
-stated by the vendor [10]</td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [11]</td>
+stated by the vendor [11]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [12]</td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 <td data-label="Firmware signing"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -209,7 +209,7 @@ empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
 <li>ml-dsa / pkcs11 – <strong>no public answer, checked
-2026-09-13</strong>: Searched twice and the artifact is not public.
+2026-10-25</strong>: Searched twice and the artifact is not public.
 Crypto4A documents thoroughly WHAT the module does – the architecture
 paper enumerates LMS, XMSS, FIPS 203/204/205, HSS, XMSS-MT and Classic
 McEliece, and the certificate corroborates four of them – and nowhere
@@ -219,9 +219,11 @@ quantum-safe-by-design, PKCS#11 coverage is likely good; likely is not a
 citation, and this column exists precisely because Entrust’s answer on
 the same question was counter-intuitive. Examined: Crypto4A,
 Quantum-Safe by Design (2026-01-08), Crypto4A QxHSM product page and
-CNSA 2.0 FAQ, CMVP certificate 5497 approved-algorithm list.</li>
+CNSA 2.0 FAQ, CMVP certificate 5497 approved-algorithm list,
+crypto4a.com homepage and newsroom (2026-10-25: newest item 2026-08-21,
+nothing on interfaces).</li>
 <li>ml-kem / pkcs11 – <strong>no public answer, checked
-2026-09-13</strong>: Searched twice and the artifact is not public.
+2026-10-25</strong>: Searched twice and the artifact is not public.
 Crypto4A documents thoroughly WHAT the module does – the architecture
 paper enumerates LMS, XMSS, FIPS 203/204/205, HSS, XMSS-MT and Classic
 McEliece, and the certificate corroborates four of them – and nowhere
@@ -231,7 +233,9 @@ quantum-safe-by-design, PKCS#11 coverage is likely good; likely is not a
 citation, and this column exists precisely because Entrust’s answer on
 the same question was counter-intuitive. Examined: Crypto4A,
 Quantum-Safe by Design (2026-01-08), Crypto4A QxHSM product page and
-CNSA 2.0 FAQ, CMVP certificate 5497 approved-algorithm list.</li>
+CNSA 2.0 FAQ, CMVP certificate 5497 approved-algorithm list,
+crypto4a.com homepage and newsroom (2026-10-25: newest item 2026-08-21,
+nothing on interfaces).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -243,6 +247,9 @@ class="uri">https://crypto4a.com/downloadable-content/2026-01-08-what-makes-an-h
 href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5497"
 class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5497</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a href="https://crypto4a.com/resources/newsroom"
+class="uri">https://crypto4a.com/resources/newsroom</a> (as of
+2026-08-21; checked 2026-10-25)</li>
 <li><a
 href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5497"
 class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5497</a>
