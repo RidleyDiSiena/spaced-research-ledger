@@ -65,24 +65,24 @@ start, and its architecture is designed around tolerating photon loss
 rather than avoiding it. It has published detailed component fidelities
 and is unusually explicit about what those numbers exclude.</em></p>
 <h3 id="current-state">Current State</h3>
-<p>The architecture is called fusion-based quantum computing [1]. Rather
+<p>The architecture is called fusion-based quantum computing <a class="cite" href="#src-1">[1]</a>. Rather
 than using conventional entangling gates, it performs entangling
 measurements called fusions on qubits drawn from small, constant-sized
 entangled resource states. The advantage is that resource states stay
 small no matter how large the computation grows.</p>
 <p>The Omega platform integrates superconducting single-photon
 detectors, single-photon sources, and a high-performance optical switch
-onto a single ultra-low-loss silicon nitride platform [2]. PsiQuantum
+onto a single ultra-low-loss silicon nitride platform <a class="cite" href="#src-2">[2]</a>. PsiQuantum
 manufactures waveguide-integrated, photon-number-resolving detectors at
 GlobalFoundries, using superconducting films biased near their
-transition point [2]. It also developed a 300-millimetre process for
+transition point <a class="cite" href="#src-2">[2]</a>. It also developed a 300-millimetre process for
 fast, low-loss optical switches based on barium titanate, a material the
-company calls the holy grail of optical switching [2]. Switching matters
+company calls the holy grail of optical switching <a class="cite" href="#src-2">[2]</a>. Switching matters
 because photon sources and gates are probabilistic, so the machine must
 reroute around operations that failed.</p>
 <p>The component fidelities were published in Nature in February 2025,
 from a platform fabricated at GlobalFoundries’ 300-millimetre foundry
-[3]. State preparation and measurement fidelity was 99.98% ± 0.01%.
+<a class="cite" href="#src-3">[3]</a>. State preparation and measurement fidelity was 99.98% ± 0.01%.
 Interference visibility between independent photon sources was 99.50% ±
 0.25%. Two-qubit fusion fidelity was 99.22% ± 0.12%. Chip-to-chip
 interconnect fidelity was 99.72% ± 0.04% across 42 metres of fibre.</p>
@@ -90,12 +90,12 @@ interconnect fidelity was 99.72% ± 0.04% across 42 metres of fibre.</p>
 split across chips connected by ordinary fibre, which is not possible
 for any other modality in this collection.</p>
 <p>One qualification governs all four numbers. They are conditional on
-successful photon detection and do not account for optical loss [3].
+successful photon detection and do not account for optical loss <a class="cite" href="#src-3">[3]</a>.
 They describe how well the machine handles photons that arrived, not how
 many arrived.</p>
 <p>Loss is handled instead by the error-correction budget. The
 architecture tolerates up to a 10.4% probability of photon loss per
-fusion, equivalent to about 2.7% loss per photon [4]. It demonstrates a
+fusion, equivalent to about 2.7% loss per photon <a class="cite" href="#src-4">[4]</a>. It demonstrates a
 43.2% threshold against fusion failure using a ballistic technique. The
 previously reported figure was 14.9%.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="xanadu">2. Xanadu</h2>
@@ -104,31 +104,31 @@ individual photons, and assembled its current machine from commercially
 available parts. Its architecture is the most modular in this part, and
 the company is candid that optical loss is its main limit.</em></p>
 <h3 id="current-state-1">Current State</h3>
-<p>Aurora was unveiled in January 2025 and published in Nature [5]. It
+<p>Aurora was unveiled in January 2025 and published in Nature <a class="cite" href="#src-5">[5]</a>. It
 is a 12-qubit universal, gate-based photonic quantum computer built from
 35 integrated photonic chips, spread across four modular server racks
 and connected by 13 kilometres of optical fibre. It runs at room
-temperature apart from its cryogenic detector system [6].</p>
+temperature apart from its cryogenic detector system <a class="cite" href="#src-6">[6]</a>.</p>
 <p>The qubit count deserves attention against that hardware. Twelve
 qubits from 35 chips and 13 kilometres of fibre is a demonstration of
 architecture, not of computational power. What it shows is that the
 pieces can be connected at all.</p>
 <p>The chips were built with established, commercially available
-fabrication rather than a bespoke foundry process [5]. That is the
+fabrication rather than a bespoke foundry process <a class="cite" href="#src-5">[5]</a>. That is the
 opposite of PsiQuantum’s approach in Section 1, and the two companies
 are effectively running a controlled experiment on whether custom
 fabrication is necessary.</p>
 <p>The qubits themselves are unusual. Xanadu uses Gaussian boson
 sampling as a tool to synthesize a bosonic error-correcting state known
-as a Gottesman-Kitaev-Preskill state, out of squeezed light [7]. The
+as a Gottesman-Kitaev-Preskill state, out of squeezed light <a class="cite" href="#src-7">[7]</a>. The
 synthesis is probabilistic, so measurements from multiple samplers
 select the best states to route forward.</p>
 <p>The company identifies optical loss as the main source of errors
 affecting its computational performance, and is focused on driving it
-down [7].</p>
+down <a class="cite" href="#src-7">[7]</a>.</p>
 <p>Xanadu’s earlier Borealis processor, a 216-mode squeezed-light
 interferometer, demonstrated quantum computational advantage through
-Gaussian boson sampling in a 2022 Nature paper [8]. It has since been
+Gaussian boson sampling in a 2022 Nature paper <a class="cite" href="#src-8">[8]</a>. It has since been
 retired and superseded by Aurora.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="quandela">3. Quandela</h2>
 <p><em>Quandela’s distinguishing technology is a deterministic
@@ -138,27 +138,27 @@ are also the most commercially accessible in this part.</em></p>
 <h3 id="recent-developments">Recent Developments</h3>
 <p>Quandela demonstrated photonic quantum reservoir processing for
 machine learning and quantum tomography on its Belenos processor in June
-2026 [9]. The work used a 24-mode programmable silicon photonic chip
+2026 <a class="cite" href="#src-9">[9]</a>. The work used a 24-mode programmable silicon photonic chip
 with quantum-dot single-photon sources.</p>
 <p>The 12-qubit Belenos system was integrated into OVHcloud’s quantum
 platform in April 2026, giving cloud-based access to photonic quantum
-computing [10].</p>
+computing <a class="cite" href="#src-10">[10]</a>.</p>
 <h3 id="current-state-2">Current State</h3>
 <p>Quandela’s computers use deterministic single-photon sources based on
 semiconductor quantum-dot emitters, for linear-optical gate-based
-computing [11]. Its Prometheus product is a standalone quantum-dot
+computing <a class="cite" href="#src-11">[11]</a>. Its Prometheus product is a standalone quantum-dot
 single-photon source that generates and detects photons at record rates,
-supplying a stable stream of highly indistinguishable photons [12].
+supplying a stable stream of highly indistinguishable photons <a class="cite" href="#src-12">[12]</a>.
 Indistinguishability is what allows photons to interfere correctly, and
 it is the property a good source exists to deliver.</p>
 <p>The systems have grown quickly. Belenos, a 12-qubit machine unveiled
 in May 2025, succeeded the earlier 6-qubit MosaiQ system, and the
-company says it delivers roughly 4,000 times more computing power [13].
+company says it delivers roughly 4,000 times more computing power <a class="cite" href="#src-13">[13]</a>.
 In October 2025 Quandela delivered its 12-qubit Lucy system to the
-French atomic energy commission [11]. It was installed under the EuroHPC
+French atomic energy commission <a class="cite" href="#src-11">[11]</a>. It was installed under the EuroHPC
 Joint Undertaking, with capacity to scale to 24 qubits by 2026.</p>
 <p>Manufacturing is in house. Quandela opened a dedicated cleanroom for
-producing its own single-photon sources in spring 2024 [14]. It had
+producing its own single-photon sources in spring 2024 <a class="cite" href="#src-14">[14]</a>. It had
 opened an assembly and online-service facility in Massy, France, in June
 2023, the first of its kind in Europe.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="orca-computing">4. ORCA Computing</h2>
@@ -168,24 +168,24 @@ racks, and are already installed with defence and research
 customers.</em></p>
 <h3 id="current-state-3">Current State</h3>
 <p>The architecture uses time-bin-encoded photons stored in fibre-based
-quantum memory loops [15]. It implements a programmable boson-sampling
+quantum memory loops <a class="cite" href="#src-15">[15]</a>. It implements a programmable boson-sampling
 approach on telecom-compatible components that need no cryogenic
 cooling.</p>
-<p>The PT-2 system began shipping to customers in early 2025 [16]. It
+<p>The PT-2 system began shipping to customers in early 2025 <a class="cite" href="#src-16">[16]</a>. It
 expanded the photonic qubit count to about 90 through greater temporal
 multiplexing and more modes. It runs at room temperature in a standard
 19-inch rack and integrates with NVIDIA’s CUDA-Q platform. Existing PT-1
 units already in the field can be upgraded to PT-2 specifications by
-adding modules [16].</p>
+adding modules <a class="cite" href="#src-16">[16]</a>.</p>
 <p>Deployment came early for this company. ORCA delivered nine PT-1
-systems to external customers between 2022 and 2023 [16]. Recipients
+systems to external customers between 2022 and 2023 <a class="cite" href="#src-16">[16]</a>. Recipients
 included the UK Ministry of Defence, the Poznań supercomputing centre,
 and the UK National Quantum Computing Centre, which used it as a
 testbed.</p>
 <p>One forward-looking claim needs care. In October 2025 ORCA published
 research describing a nonlinear photonic architecture for fault-tolerant
 quantum computing, proposing an on-demand optical nonlinearity that lets
-photons interact at room temperature [17]. This is the company’s own
+photons interact at room temperature <a class="cite" href="#src-17">[17]</a>. This is the company’s own
 research finding rather than an independently verified result.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="ustc-and-gaussian-boson-sampling">5. USTC and Gaussian Boson
 Sampling</h2>
@@ -195,28 +195,28 @@ sampling task, and they perform it at a scale no classical computer can
 follow.</em></p>
 <h3 id="recent-developments-1">Recent Developments</h3>
 <p>China Telecom Quantum Group launched the Tianyan-P2000 photonic
-quantum computer in June 2026 [18]. It is based on the Jiuzhang 4.0
+quantum computer in June 2026 <a class="cite" href="#src-18">[18]</a>. It is based on the Jiuzhang 4.0
 architecture, controls 2,682 photons, and is connected to the Tianyan
 quantum cloud platform. A sampling machine reaching a commercial cloud
 platform is a new development for this modality.</p>
 <h3 id="current-state-4">Current State</h3>
 <p>Jiuzhang 4.0, led by Jian-Wei Pan and Chao-Yang Lu, injects 1,024
 high-efficiency squeezed states into a programmable photonic circuit of
-8,176 modes [19]. It produces samples with detection events of up to
+8,176 modes <a class="cite" href="#src-19">[19]</a>. It produces samples with detection events of up to
 3,050 photons, an order of magnitude more than previous demonstrations.
 Source efficiency reached 92%, with 51% overall system efficiency
-[19].</p>
+<a class="cite" href="#src-19">[19]</a>.</p>
 <p>The classical comparison is the point of the exercise. Jiuzhang 4.0
-produces a single output in 25.6 microseconds [20]. The researchers
+produces a single output in 25.6 microseconds <a class="cite" href="#src-20">[20]</a>. The researchers
 estimate that reproducing this with the best-known classical spoofing
 algorithm on the El Capitan supercomputer would take more than 10⁴²
 years.</p>
 <p>That claim has been through review. The result was first posted as a
-preprint in August 2025 and published in Nature in May 2026 [20].</p>
+preprint in August 2025 and published in Nature in May 2026 <a class="cite" href="#src-20">[20]</a>.</p>
 <p>The progression is steep. The original Jiuzhang device in 2020
 detected up to 76 photon clicks in a 100-mode circuit, published in
 Science, and was the first claimed photonic quantum computational
-advantage [22]. Jiuzhang 3.0 reached 255 photons [21]. Version 4.0
+advantage <a class="cite" href="#src-22">[22]</a>. Jiuzhang 3.0 reached 255 photons <a class="cite" href="#src-21">[21]</a>. Version 4.0
 reached 3,050.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
 <p>The Spaced Research Ledger is an automated system that gathers claims
@@ -227,91 +227,91 @@ labs, so no single model both finds a claim and judges it. The Spaced
 Research Ledger is designed and maintained by Ridley DiSiena.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li>Fusion-based quantum computation - <a
+<li id="src-1">Fusion-based quantum computation - <a
 href="https://arxiv.org/pdf/2101.09310"
 class="uri">https://arxiv.org/pdf/2101.09310</a> (as of 2021-01-26)</li>
-<li>Technology - PsiQuantum - <a
+<li id="src-2">Technology - PsiQuantum - <a
 href="https://www.psiquantum.com/technology"
 class="uri">https://www.psiquantum.com/technology</a> (undated)</li>
-<li>A manufacturable platform for photonic quantum computing (Nature) -
+<li id="src-3">A manufacturable platform for photonic quantum computing (Nature) -
 <a href="https://www.nature.com/articles/s41586-025-08820-7"
 class="uri">https://www.nature.com/articles/s41586-025-08820-7</a> (as
 of 2025-02-28)</li>
-<li>Photonic Quantum Computers - <a
+<li id="src-4">Photonic Quantum Computers - <a
 href="https://arxiv.org/pdf/2409.08229"
 class="uri">https://arxiv.org/pdf/2409.08229</a> (undated)</li>
-<li>Scaling and networking a modular photonic quantum computer (Nature)
+<li id="src-5">Scaling and networking a modular photonic quantum computer (Nature)
 - <a href="https://www.nature.com/articles/s41586-024-08406-9"
 class="uri">https://www.nature.com/articles/s41586-024-08406-9</a> (as
 of 2025-01-22)</li>
-<li>Quantum photonics roadmap: how Xanadu and PsiQuantum are looking to
+<li id="src-6">Quantum photonics roadmap: how Xanadu and PsiQuantum are looking to
 transfer qubits through beams of light - <a
 href="https://www.tomshardware.com/tech-industry/quantum-computing/quantum-photonics-roadmap-how-xanadu-and-psiquantum-are-looking-to-transfer-qubits-through-beams-of-light"
 class="uri">https://www.tomshardware.com/tech-industry/quantum-computing/quantum-photonics-roadmap-how-xanadu-and-psiquantum-are-looking-to-transfer-qubits-through-beams-of-light</a>
 (as of 2025-01-01)</li>
-<li>Photons Light the Way to Useful Quantum Computing - <a
+<li id="src-7">Photons Light the Way to Useful Quantum Computing - <a
 href="https://www.optica-opn.org/home/articles/volume_36/june_2025/features/photons_light_the_way_to_useful_quantum_computing/"
 class="uri">https://www.optica-opn.org/home/articles/volume_36/june_2025/features/photons_light_the_way_to_useful_quantum_computing/</a>
 (as of 2025-06-01)</li>
-<li>Xanadu Borealis - <a
+<li id="src-8">Xanadu Borealis - <a
 href="https://shadabchow.com/blogs/quantum-computing/xanadu-borealis"
 class="uri">https://shadabchow.com/blogs/quantum-computing/xanadu-borealis</a>
 (as of 2022-06-01)</li>
-<li>Quandela Demonstrates Photonic Quantum Reservoir Processing for
+<li id="src-9">Quandela Demonstrates Photonic Quantum Reservoir Processing for
 Advanced Machine Learning and Single-Basis Quantum Tomography - <a
 href="https://quantumcomputingreport.com/quandela-demonstrates-photonic-quantum-reservoir-processing-for-advanced-machine-learning-and-single-basis-quantum-tomography/"
 class="uri">https://quantumcomputingreport.com/quandela-demonstrates-photonic-quantum-reservoir-processing-for-advanced-machine-learning-and-single-basis-quantum-tomography/</a>
 (as of 2026-06-27)</li>
-<li>OVHcloud Expands Sovereign Quantum Platform via Quandela’s Belenos
+<li id="src-10">OVHcloud Expands Sovereign Quantum Platform via Quandela’s Belenos
 Photonic System - <a
 href="https://quantumcomputingreport.com/ovhcloud-expands-sovereign-qaas-platform-via-quandelas-belenos-photonic-system/"
 class="uri">https://quantumcomputingreport.com/ovhcloud-expands-sovereign-qaas-platform-via-quandelas-belenos-photonic-system/</a>
 (as of 2026-06-17)</li>
-<li>Quandela - Photonic Quantum Computing - <a
+<li id="src-11">Quandela - Photonic Quantum Computing - <a
 href="https://entangledfuture.com/company/quandela/"
 class="uri">https://entangledfuture.com/company/quandela/</a> (as of
 2025-10-01)</li>
-<li>Quandela - <a href="https://www.quandela.com/"
+<li id="src-12">Quandela - <a href="https://www.quandela.com/"
 class="uri">https://www.quandela.com/</a> (undated)</li>
-<li>Quandela - <a
+<li id="src-13">Quandela - <a
 href="https://postquantum.com/quantum-computing-companies/quandela/"
 class="uri">https://postquantum.com/quantum-computing-companies/quandela/</a>
 (as of 2025-05-01)</li>
-<li>The Quandela journey: from single photon sources to quantum
+<li id="src-14">The Quandela journey: from single photon sources to quantum
 computers - <a
 href="https://www.universite-paris-saclay.fr/en/news/quandela-journey-single-photons-sources-quantum-computers"
 class="uri">https://www.universite-paris-saclay.fr/en/news/quandela-journey-single-photons-sources-quantum-computers</a>
 (as of 2024-03-01)</li>
-<li>ORCA Computing - Photonic Quantum Computing - <a
+<li id="src-15">ORCA Computing - Photonic Quantum Computing - <a
 href="https://entangledfuture.com/company/orca-computing/"
 class="uri">https://entangledfuture.com/company/orca-computing/</a>
 (undated)</li>
-<li>ORCA Computing - <a
+<li id="src-16">ORCA Computing - <a
 href="https://postquantum.com/quantum-computing-companies/orca-computing/"
 class="uri">https://postquantum.com/quantum-computing-companies/orca-computing/</a>
 (as of 2025-01-01)</li>
-<li>Nonlinear Photonic Architecture for Fault-tolerant Quantum Computing
+<li id="src-17">Nonlinear Photonic Architecture for Fault-tolerant Quantum Computing
 - <a
 href="https://orcacomputing.com/nonlinear-photonic-architecture-for-fault-tolerant-quantum-computing/"
 class="uri">https://orcacomputing.com/nonlinear-photonic-architecture-for-fault-tolerant-quantum-computing/</a>
 (as of 2025-10-20)</li>
-<li>China Telecom Quantum Group launches Tianyan-P2000 - <a
+<li id="src-18">China Telecom Quantum Group launches Tianyan-P2000 - <a
 href="https://en.ncsti.gov.cn/Latest/news/202606/t20260625_250267.html"
 class="uri">https://en.ncsti.gov.cn/Latest/news/202606/t20260625_250267.html</a>
 (as of 2026-06-24)</li>
-<li>Gaussian boson sampling with 1,024 squeezed states in 8,176 modes -
+<li id="src-19">Gaussian boson sampling with 1,024 squeezed states in 8,176 modes -
 <a href="https://www.nature.com/articles/s41586-026-10523-6"
 class="uri">https://www.nature.com/articles/s41586-026-10523-6</a> (as
 of 2026-05-13)</li>
-<li>Robust quantum computational advantage with programmable 3050-photon
+<li id="src-20">Robust quantum computational advantage with programmable 3050-photon
 Gaussian boson sampling - <a href="https://arxiv.org/abs/2508.09092"
 class="uri">https://arxiv.org/abs/2508.09092</a> (as of 2025-08-12)</li>
-<li>Jiuzhang 4.0: 3,050 Photons, 25.6 Microseconds, and a Direct Answer
+<li id="src-21">Jiuzhang 4.0: 3,050 Photons, 25.6 Microseconds, and a Direct Answer
 to the Algorithm That Threatened Photonic Quantum Advantage - <a
 href="https://postquantum.com/industry-news/jiuzhang-4-0/"
 class="uri">https://postquantum.com/industry-news/jiuzhang-4-0/</a> (as
 of 2025-08-15)</li>
-<li>Quantum Computing Modalities: Boson Sampling - <a
+<li id="src-22">Quantum Computing Modalities: Boson Sampling - <a
 href="https://postquantum.com/quantum-modalities/boson-sampling/"
 class="uri">https://postquantum.com/quantum-modalities/boson-sampling/</a>
 (as of 2020-12-03)</li>

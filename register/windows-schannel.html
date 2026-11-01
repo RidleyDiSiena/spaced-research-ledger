@@ -64,21 +64,21 @@ Unknowns</a></li>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Windows 11
 (KB5089573 for 24H2/25H2, KB5095091 for 26H1); Windows Server 2025
-(KB5099536) [1] [2] [3]</td>
+(KB5099536) <a class="cite" href="#src-1">[1]</a> <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-3">[3]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Windows 11 24H2
-and later (page dated 2026-05-29) [4]</td>
+and later (page dated 2026-05-29) <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Windows 11 24H2
-and later (page dated 2026-05-29) [4]</td>
+and later (page dated 2026-05-29) <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -97,16 +97,16 @@ and later (page dated 2026-05-29) [4]</td>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Windows 11
-24H2/25H2, KB5120998 (preview 2026-08-27); KB5124008 (2026-09-08) [5]
-[6] [7] [8]</td>
+24H2/25H2, KB5120998 (preview 2026-08-27); KB5124008 (2026-09-08) <a class="cite" href="#src-5">[5]</a>
+<a class="cite" href="#src-6">[6]</a> <a class="cite" href="#src-7">[7]</a> <a class="cite" href="#src-8">[8]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since Windows 11
-24H2/25H2, KB5120998 (preview 2026-08-27); KB5124008 (2026-09-08) [5]
-[6] [9] [10]</td>
+24H2/25H2, KB5120998 (preview 2026-08-27); KB5124008 (2026-09-08) <a class="cite" href="#src-5">[5]</a>
+<a class="cite" href="#src-6">[6]</a> <a class="cite" href="#src-9">[9]</a> <a class="cite" href="#src-10">[10]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -157,7 +157,7 @@ it inherits, from what, and at which version:</p>
 platform. Inherits: FIPS 140-3. Schannel performs no cryptography of its
 own; it calls CNG, which is where Windows’ validated modules live. Its
 FIPS standing is therefore CNG’s, and the pointer says so rather than
-repeating it. [11]</li>
+repeating it. <a class="cite" href="#src-11">[11]</a></li>
 </ul>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>Schannel holds no FIPS 140-3 certificate of its own. It takes its
@@ -311,45 +311,45 @@ MicrosoftDocs/win32 public mirror of the same page (newest commit
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a
+<li id="src-1"><a
 href="https://techcommunity.microsoft.com/t5/post-quantum-crypto-tech-blog/windows-tls-1-3-and-post-quantum-crypto-faq/ba-p/4556389"
 class="uri">https://techcommunity.microsoft.com/t5/post-quantum-crypto-tech-blog/windows-tls-1-3-and-post-quantum-crypto-faq/ba-p/4556389</a>
 (as of 2026-09-28; checked 2026-10-04)</li>
-<li><a
+<li id="src-2"><a
 href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
 class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
 (date not recorded; checked 2026-09-13)</li>
-<li><a
+<li id="src-3"><a
 href="https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later</a>
 (as of 2026-10-20; checked 2026-11-01)</li>
-<li><a
+<li id="src-4"><a
 href="https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later</a>
 (as of 2026-05-29; checked 2026-09-27)</li>
-<li><a href="https://support.microsoft.com/en-us/help/5120998"
+<li id="src-5"><a href="https://support.microsoft.com/en-us/help/5120998"
 class="uri">https://support.microsoft.com/en-us/help/5120998</a> (as of
 2026-08-27; checked 2026-10-08)</li>
-<li><a href="https://support.microsoft.com/en-us/help/5126646"
+<li id="src-6"><a href="https://support.microsoft.com/en-us/help/5126646"
 class="uri">https://support.microsoft.com/en-us/help/5126646</a> (as of
 2026-10-13; checked 2026-10-15)</li>
-<li><a
+<li id="src-7"><a
 href="https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later</a>
 (as of 2026-10-20; checked 2026-10-25)</li>
-<li><a
+<li id="src-8"><a
 href="https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later</a>
 (as of 2026-10-20; checked 2026-11-01)</li>
-<li><a
+<li id="src-9"><a
 href="https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later</a>
 (as of 2026-10-20; checked 2026-10-25)</li>
-<li><a
+<li id="src-10"><a
 href="https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-supported-groups-in-windows-11-24h2-and-later</a>
 (as of 2026-10-20; checked 2026-11-01)</li>
-<li><a
+<li id="src-11"><a
 href="https://learn.microsoft.com/en-us/windows/win32/secauthn/secure-channel"
 class="uri">https://learn.microsoft.com/en-us/windows/win32/secauthn/secure-channel</a>
 (date not recorded; checked 2026-09-13)</li>

@@ -49,17 +49,17 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 1.24 [1]
-[2]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 1.24 <a class="cite" href="#src-1">[1]</a>
+<a class="cite" href="#src-2">[2]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-available">available</span> since certificate
-5247 [3]</td>
+5247 <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 1.26 [4]
-[5]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 1.26 <a class="cite" href="#src-4">[4]</a>
+<a class="cite" href="#src-5">[5]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
@@ -67,22 +67,22 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.24 [1] [6]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.24 <a class="cite" href="#src-1">[1]</a> <a class="cite" href="#src-6">[6]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-experimental">experimental</span> since FIPS 140
-mode (issue 78178) [7] [8]</td>
+mode (issue 78178) <a class="cite" href="#src-7">[7]</a> <a class="cite" href="#src-8">[8]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.26 [9] [6]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.26 <a class="cite" href="#src-9">[9]</a> <a class="cite" href="#src-6">[6]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.26 [9] [6]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 1.26 <a class="cite" href="#src-9">[9]</a> <a class="cite" href="#src-6">[6]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -96,31 +96,31 @@ mode (issue 78178) [7] [8]</td>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [10]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-10">[10]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [10]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-10">[10]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 1.27 [11]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 1.27 <a class="cite" href="#src-11">[11]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 1.27 [12]
-[13]</td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 1.27 [12]
-[14]</td>
-<td data-label="X.509"><span class="st st-available">available</span> since 1.27 [12]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 1.27 <a class="cite" href="#src-12">[12]</a>
+<a class="cite" href="#src-13">[13]</a></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 1.27 <a class="cite" href="#src-12">[12]</a>
+<a class="cite" href="#src-14">[14]</a></td>
+<td data-label="X.509"><span class="st st-available">available</span> since 1.27 <a class="cite" href="#src-12">[12]</a></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -200,8 +200,8 @@ MLDSA44/65/87.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>1.27, 2026-08-19 [15] [16] [17] [18] [12]</li>
-<li>1.26, 2026-02-10 [19] [20] [21] [2]</li>
+<li>1.27, 2026-08-19 <a class="cite" href="#src-15">[15]</a> <a class="cite" href="#src-16">[16]</a> <a class="cite" href="#src-17">[17]</a> <a class="cite" href="#src-18">[18]</a> <a class="cite" href="#src-12">[12]</a></li>
+<li>1.26, 2026-02-10 <a class="cite" href="#src-19">[19]</a> <a class="cite" href="#src-20">[20]</a> <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-2">[2]</a></li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -221,76 +221,76 @@ incidental. Examined: Go 1.27 release notes, Go 1.26 release notes
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a href="https://pkg.go.dev/crypto/tls"
+<li id="src-1"><a href="https://pkg.go.dev/crypto/tls"
 class="uri">https://pkg.go.dev/crypto/tls</a> (date not recorded; ledger
 claim pqc/language-native-crypto-stacks/d0001:1)</li>
-<li><a
+<li id="src-2"><a
 href="https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a"
 class="uri">https://medium.com/techtrends-digest/go-1-26-new-crypto-packages-security-built-for-the-post-quantum-era-bfff794fd09a</a>
 (as of 2026-02-19; ledger claim
 pqc/language-native-crypto-stacks/d0001:3)</li>
-<li><a
+<li id="src-3"><a
 href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247"
 class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247</a>
 (date not recorded; checked 2026-09-12)</li>
-<li><a href="https://pkg.go.dev/crypto/hpke"
+<li id="src-4"><a href="https://pkg.go.dev/crypto/hpke"
 class="uri">https://pkg.go.dev/crypto/hpke</a> (date not recorded;
 checked 2026-09-26)</li>
-<li><a href="https://go.dev/doc/go1.26"
+<li id="src-5"><a href="https://go.dev/doc/go1.26"
 class="uri">https://go.dev/doc/go1.26</a> (as of 2026-02-10; checked
 2026-09-26)</li>
-<li><a href="https://golang.bg/src/crypto/tls/defaults.go"
+<li id="src-6"><a href="https://golang.bg/src/crypto/tls/defaults.go"
 class="uri">https://golang.bg/src/crypto/tls/defaults.go</a> (date not
 recorded; ledger claim pqc/language-native-crypto-stacks/d0001:2)</li>
-<li><a href="https://github.com/golang/go/issues/78178"
+<li id="src-7"><a href="https://github.com/golang/go/issues/78178"
 class="uri">https://github.com/golang/go/issues/78178</a> (as of
 2026-03-16; ledger claim pqc/language-native-crypto-stacks/d0001:5)</li>
-<li><a href="https://github.com/golang/go/issues/78178"
+<li id="src-8"><a href="https://github.com/golang/go/issues/78178"
 class="uri">https://github.com/golang/go/issues/78178</a> (as of
 2026-04-28; checked 2026-11-01)</li>
-<li><a
+<li id="src-9"><a
 href="https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go"
 class="uri">https://cs.opensource.google/go/go/+/master:src/crypto/tls/common.go</a>
 (as of 2026-08-25; ledger claim
 pqc/language-runtime-tls-surfaces/d0002:1)</li>
-<li><a
+<li id="src-10"><a
 href="https://github.com/golang/go/blob/go1.27.2/src/crypto/tls/defaults.go"
 class="uri">https://github.com/golang/go/blob/go1.27.2/src/crypto/tls/defaults.go</a>
 (date not recorded; checked 2026-10-08)</li>
-<li><a href="https://go.dev/doc/go1.27"
+<li id="src-11"><a href="https://go.dev/doc/go1.27"
 class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; checked
 2026-10-08)</li>
-<li><a href="https://go.dev/doc/go1.27"
+<li id="src-12"><a href="https://go.dev/doc/go1.27"
 class="uri">https://go.dev/doc/go1.27</a> (as of 2026-08-22; ledger
 claim pqc/language-native-crypto-stacks/d0003:1)</li>
-<li><a
+<li id="src-13"><a
 href="https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/"
 class="uri">https://northeasttimes.com/2026/08/02/go-1-27-brings-generic-methods-post-quantum-crypto-and-a-new-json-engine/</a>
 (as of 2026-08-02; ledger claim
 pqc/language-runtime-tls-surfaces/d0003:1)</li>
-<li><a href="https://www.51cto.com/article/843365.html"
+<li id="src-14"><a href="https://www.51cto.com/article/843365.html"
 class="uri">https://www.51cto.com/article/843365.html</a> (date not
 recorded; ledger claim pqc/language-runtime-tls-surfaces/d0004:2)</li>
-<li><a href="https://go.dev/doc/devel/release"
+<li id="src-15"><a href="https://go.dev/doc/devel/release"
 class="uri">https://go.dev/doc/devel/release</a> (as of 2026-08-19;
 checked 2026-09-26)</li>
-<li><a href="https://go.dev/doc/devel/release"
+<li id="src-16"><a href="https://go.dev/doc/devel/release"
 class="uri">https://go.dev/doc/devel/release</a> (as of 2026-10-08;
 checked 2026-10-15)</li>
-<li><a href="https://go.dev/doc/devel/release"
+<li id="src-17"><a href="https://go.dev/doc/devel/release"
 class="uri">https://go.dev/doc/devel/release</a> (as of 2026-10-19;
 checked 2026-10-25)</li>
-<li><a
+<li id="src-18"><a
 href="https://raw.githubusercontent.com/golang/go/master/src/crypto/tls/defaults.go"
 class="uri">https://raw.githubusercontent.com/golang/go/master/src/crypto/tls/defaults.go</a>
 (as of 2026-10-20; checked 2026-11-01)</li>
-<li><a href="https://go.dev/doc/devel/release"
+<li id="src-19"><a href="https://go.dev/doc/devel/release"
 class="uri">https://go.dev/doc/devel/release</a> (as of 2026-02-10;
 checked 2026-09-26)</li>
-<li><a href="https://go.dev/doc/devel/release"
+<li id="src-20"><a href="https://go.dev/doc/devel/release"
 class="uri">https://go.dev/doc/devel/release</a> (as of 2026-10-08;
 checked 2026-10-15)</li>
-<li><a href="https://go.dev/doc/devel/release"
+<li id="src-21"><a href="https://go.dev/doc/devel/release"
 class="uri">https://go.dev/doc/devel/release</a> (as of 2026-10-19;
 checked 2026-10-25)</li>
 </ol>

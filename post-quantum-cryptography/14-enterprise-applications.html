@@ -67,43 +67,43 @@ published a clock, and who is still writing prerequisites.</em></p>
 <p>The version gates are now specific. Oracle’s documentation confirms
 the post-quantum algorithms work only under its next-generation
 provider, in non-FIPS or FIPS 140-3 mode, never the legacy FIPS mode
-[1]. E-Business Suite certified on the 26ai database gains hybrid ML-KEM
-that older database lines lack [2]. The 19c line’s release update 19.32
+<a class="cite" href="#src-1">[1]</a>. E-Business Suite certified on the 26ai database gains hybrid ML-KEM
+that older database lines lack <a class="cite" href="#src-2">[2]</a>. The 19c line’s release update 19.32
 supports phased migration, new clients on TLS 1.3 while old ones stay
-behind [3].</p>
+behind <a class="cite" href="#src-3">[3]</a>.</p>
 <p>SAP updated its Common Cryptographic Library with post-quantum
-capabilities for its product teams [4]. It supports post-quantum root
+capabilities for its product teams <a class="cite" href="#src-4">[4]</a>. It supports post-quantum root
 CAs on its cloud platform, atop the quantum-safe TLS already in its ABAP
-systems [5]. Salesforce is retiring static RSA key exchange as a
-prerequisite step [6], and ServiceNow made a cryptographic-asset
+systems <a class="cite" href="#src-5">[5]</a>. Salesforce is retiring static RSA key exchange as a
+prerequisite step <a class="cite" href="#src-6">[6]</a>, and ServiceNow made a cryptographic-asset
 compliance product generally available, covering discovery through
-migration planning [7].</p>
+migration planning <a class="cite" href="#src-7">[7]</a>.</p>
 <h3 id="current-state">Current State</h3>
 <p>Oracle’s database is the concrete anchor. Post-quantum support
-requires the new provider explicitly [1], covering ML-KEM for key
+requires the new provider explicitly <a class="cite" href="#src-1">[1]</a>, covering ML-KEM for key
 exchange, ML-DSA for TLS signatures, and SLH-DSA for non-TLS signing
-only [1][1]. The FIPS-mode boundary is firm [1], the version gate is
-19.32 [8], and the default remains the legacy provider, making
-everything an opt-in switch run by script [9][9]. FIPS 140-3 for the 19c
-line lands during 2026, retiring 3DES with it [9].</p>
+only <a class="cite" href="#src-1">[1]</a><a class="cite" href="#src-1">[1]</a>. The FIPS-mode boundary is firm <a class="cite" href="#src-1">[1]</a>, the version gate is
+19.32 <a class="cite" href="#src-8">[8]</a>, and the default remains the legacy provider, making
+everything an opt-in switch run by script <a class="cite" href="#src-9">[9]</a><a class="cite" href="#src-9">[9]</a>. FIPS 140-3 for the 19c
+line lands during 2026, retiring 3DES with it <a class="cite" href="#src-9">[9]</a>.</p>
 <p>The strategy above the database is hybrid establishment across TLS,
-SSH, and IKEv2, designed to need no new certificates [10]. TLS 1.3 is
-named as the prerequisite [10], and hybrid mode arrived in the 26ai
-track [11].</p>
+SSH, and IKEv2, designed to need no new certificates <a class="cite" href="#src-10">[10]</a>. TLS 1.3 is
+named as the prerequisite <a class="cite" href="#src-10">[10]</a>, and hybrid mode arrived in the 26ai
+track <a class="cite" href="#src-11">[11]</a>.</p>
 <p>SAP runs on a published clock. The company targets post-quantum
-readiness by 2029 across products and infrastructure [4]. Its
+readiness by 2029 across products and infrastructure <a class="cite" href="#src-4">[4]</a>. Its
 cryptographic library already performs hybrid ML-KEM key agreement for
-TLS 1.3 on NetWeaver systems [12], with a FIPS 140-3 certified kernel
-[12].</p>
+TLS 1.3 on NetWeaver systems <a class="cite" href="#src-12">[12]</a>, with a FIPS 140-3 certified kernel
+<a class="cite" href="#src-12">[12]</a>.</p>
 <p>The SaaS vendors differ mostly in specificity. Workday published the
 most detailed program: hybrid deployment beginning in 2026, full
-migration targeted by 2028 [13]. The stages run from discovery through
+migration targeted by 2028 <a class="cite" href="#src-13">[13]</a>. The stages run from discovery through
 hybrid TLS with anti-rollback, then internal federation and code
-signing, then automated agility [13]. Salesforce documents its
-harvest-now-decrypt-later posture [14], scoped to named service brands
-rather than a uniform platform timeline [14]. ServiceNow shipped a
+signing, then automated agility <a class="cite" href="#src-13">[13]</a>. Salesforce documents its
+harvest-now-decrypt-later posture <a class="cite" href="#src-14">[14]</a>, scoped to named service brands
+rather than a uniform platform timeline <a class="cite" href="#src-14">[14]</a>. ServiceNow shipped a
 quantum-resistant key-management architecture that avoids asymmetric
-algorithms entirely [15].</p>
+algorithms entirely <a class="cite" href="#src-15">[15]</a>.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="collaboration-unified-comms">2. Collaboration &amp; Unified
 Comms</h2>
 <p><em>Every video call is encrypted twice over: hop by hop to the
@@ -116,41 +116,41 @@ runs.</em></p>
 <p>Webex joined the post-quantum tier. Its TLS 1.3 now supports a hybrid
 ML-KEM key agreement, and the same mechanism is integrated into the
 group-messaging security layer of its zero-trust end-to-end encrypted
-meetings [16].</p>
+meetings <a class="cite" href="#src-16">[16]</a>.</p>
 <h3 id="current-state-1">Current State</h3>
 <p>Zoom holds the head start. It made post-quantum end-to-end encryption
 globally available for meetings in May 2024, using Kyber-768, claiming a
-first among communications providers [17]. The parameter targets
-security roughly equivalent to AES-192 [18], and coverage extended
-beyond meetings afterward [17]. The design keeps keys off Zoom’s servers
-[19], building on classical end-to-end encryption shipped years earlier
-[17].</p>
+first among communications providers <a class="cite" href="#src-17">[17]</a>. The parameter targets
+security roughly equivalent to AES-192 <a class="cite" href="#src-18">[18]</a>, and coverage extended
+beyond meetings afterward <a class="cite" href="#src-17">[17]</a>. The design keeps keys off Zoom’s servers
+<a class="cite" href="#src-19">[19]</a>, building on classical end-to-end encryption shipped years earlier
+<a class="cite" href="#src-17">[17]</a>.</p>
 <p>The rest of the market runs classical end-to-end modes on strong
 plumbing. Teams derives one-to-one call keys over DTLS, opaque to
-Microsoft [20], verified by spoken security codes [21], with everything
-baseline-encrypted regardless [20]. Its meeting mode negotiates group
+Microsoft <a class="cite" href="#src-20">[20]</a>, verified by spoken security codes <a class="cite" href="#src-21">[21]</a>, with everything
+baseline-encrypted regardless <a class="cite" href="#src-20">[20]</a>. Its meeting mode negotiates group
 keys over TLS 1.3 with premium licensing and feature tradeoffs,
-recording and captions among them [20][20], and its signaling remains
-TLS 1.2 [22]. Google Meet encrypts in transit by default without
-client-side end-to-end [23][24]. Its client-side encryption lets
+recording and captions among them <a class="cite" href="#src-20">[20]</a><a class="cite" href="#src-20">[20]</a>, and its signaling remains
+TLS 1.2 <a class="cite" href="#src-22">[22]</a>. Google Meet encrypts in transit by default without
+client-side end-to-end <a class="cite" href="#src-23">[23]</a><a class="cite" href="#src-24">[24]</a>. Its client-side encryption lets
 organizations hold the keys at the cost of server-processed features
-[23][25], extended to meeting-room hardware [26] and, separately, to
-personal accounts [27].</p>
+<a class="cite" href="#src-23">[23]</a><a class="cite" href="#src-25">[25]</a>, extended to meeting-room hardware <a class="cite" href="#src-26">[26]</a> and, separately, to
+personal accounts <a class="cite" href="#src-27">[27]</a>.</p>
 <p>Webex encrypts standard meetings hop by hop, its servers holding keys
-for interoperability [28]. Its zero-trust mode builds keys on
+for interoperability <a class="cite" href="#src-28">[28]</a>. Its zero-trust mode builds keys on
 participants’ devices, downgrading transparently when a legacy endpoint
-joins [29][16]. Its calling upgrades to end-to-end opportunistically
-[30], the app rides TLS and strong media ciphers [31], and its
-end-to-end lineage dates to 2008 [32]. Interoperating devices negotiate
-the standard cipher menu [28].</p>
+joins <a class="cite" href="#src-29">[29]</a><a class="cite" href="#src-16">[16]</a>. Its calling upgrades to end-to-end opportunistically
+<a class="cite" href="#src-30">[30]</a>, the app rides TLS and strong media ciphers <a class="cite" href="#src-31">[31]</a>, and its
+end-to-end lineage dates to 2008 <a class="cite" href="#src-32">[32]</a>. Interoperating devices negotiate
+the standard cipher menu <a class="cite" href="#src-28">[28]</a>.</p>
 <p>The underlying standards are the fixed layer. The DTLS extension
-keying secure media dates to 2010 and remains the baseline [33], scoped
-to two-party sessions [34], implemented by Meet [23] and mandated by
-WebRTC for browser media [35]. The companion framework carries
-certificate fingerprints through call signaling [36], protectable by
-identity signatures [33]. Secure media transport itself is symmetric
-[37], with session keys exchanged over the TLS signaling channel [37],
-required end to end on certified trunks [35]. All of it inherits its
+keying secure media dates to 2010 and remains the baseline <a class="cite" href="#src-33">[33]</a>, scoped
+to two-party sessions <a class="cite" href="#src-34">[34]</a>, implemented by Meet <a class="cite" href="#src-23">[23]</a> and mandated by
+WebRTC for browser media <a class="cite" href="#src-35">[35]</a>. The companion framework carries
+certificate fingerprints through call signaling <a class="cite" href="#src-36">[36]</a>, protectable by
+identity signatures <a class="cite" href="#src-33">[33]</a>. Secure media transport itself is symmetric
+<a class="cite" href="#src-37">[37]</a>, with session keys exchanged over the TLS signaling channel <a class="cite" href="#src-37">[37]</a>,
+required end to end on certified trunks <a class="cite" href="#src-35">[35]</a>. All of it inherits its
 quantum future from the TLS beneath.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="vdi-remote-access">3. VDI &amp; Remote Access</h2>
 <p><em>Remote desktops and virtual-desktop gateways carry keystrokes,
@@ -162,38 +162,38 @@ configure.</em></p>
 <h3 id="recent-developments-2">Recent Developments</h3>
 <p>The protocol layer arrived with the July Windows update. Hybrid
 post-quantum key exchange shipped into Schannel for Windows 11 and
-Windows Server 2025, moving from developer API to protocol [38]. Three
-hybrid groups pair ML-KEM with classical curves [38].</p>
+Windows Server 2025, moving from developer API to protocol <a class="cite" href="#src-38">[38]</a>. Three
+hybrid groups pair ML-KEM with classical curves <a class="cite" href="#src-38">[38]</a>.</p>
 <h3 id="current-state-2">Current State</h3>
 <p>Citrix’s delivery controller leads the category. NetScaler ships
-production hybrid post-quantum key exchange, browser-compatible [39],
+production hybrid post-quantum key exchange, browser-compatible <a class="cite" href="#src-39">[39]</a>,
 first as an early-access preview in April 2025, then generally available
-that August [40][40]. It sits on the defense procurement list [40],
+that August <a class="cite" href="#src-40">[40]</a><a class="cite" href="#src-40">[40]</a>. It sits on the defense procurement list <a class="cite" href="#src-40">[40]</a>,
 released alongside the virtual-desktop suite’s new long-term cadence
-[41], and is framed squarely against harvest-now-decrypt-later [41]. The
+<a class="cite" href="#src-41">[41]</a>, and is framed squarely against harvest-now-decrypt-later <a class="cite" href="#src-41">[41]</a>. The
 interoperability warning comes from a competitor’s stack: Omnissa
 Horizon’s gateway times out when a current Safari forces post-quantum
-key negotiation the landing page cannot handle [42].</p>
+key negotiation the landing page cannot handle <a class="cite" href="#src-42">[42]</a>.</p>
 <p>Windows remote access is configurable but sharp-edged. None of the
 new hybrid groups activate automatically, and TLS 1.2 environments get
-nothing [38]. Enablement runs through Group Policy’s curve ordering
-[43], atop the API primitives shipped in November 2025 [44]. The
+nothing <a class="cite" href="#src-38">[38]</a>. Enablement runs through Group Policy’s curve ordering
+<a class="cite" href="#src-43">[43]</a>, atop the API primitives shipped in November 2025 <a class="cite" href="#src-44">[44]</a>. The
 certificate side lags dangerously.</p>
 <p>Assigning an ML-DSA certificate to a remote-desktop listener
-currently makes clients fail to connect outright [45], and the broader
-certificate support is explicitly limited beyond evaluation [45].
+currently makes clients fail to connect outright <a class="cite" href="#src-45">[45]</a>, and the broader
+certificate support is explicitly limited beyond evaluation <a class="cite" href="#src-45">[45]</a>.
 Self-hosted gateways can enable the hybrids once clients are confirmed
-capable [43], with the rollout path documented since the Insider
-previews [46].</p>
+capable <a class="cite" href="#src-43">[43]</a>, with the rollout path documented since the Insider
+previews <a class="cite" href="#src-46">[46]</a>.</p>
 <p>The category guidance is consistent. Hybrid post-quantum in SSH and
 IPsec, the protocols under VPN-based access, keeps gaining operational
-adoption [47]. Migration frameworks tell enterprises to inventory VPN
-and remote-access key exchange as its own category [48] and to
-prioritize remote-access systems in roadmaps [49]. They warn of long
+adoption <a class="cite" href="#src-47">[47]</a>. Migration frameworks tell enterprises to inventory VPN
+and remote-access key exchange as its own category <a class="cite" href="#src-48">[48]</a> and to
+prioritize remote-access systems in roadmaps <a class="cite" href="#src-49">[49]</a>. They warn of long
 hybrid coexistence at federation boundaries where partners migrate on
-their own clocks [50]. And they advise reading cloud responsibility
+their own clocks <a class="cite" href="#src-50">[50]</a>. And they advise reading cloud responsibility
 models carefully, since some protections arrive transparently and others
-need opting in [51].</p>
+need opting in <a class="cite" href="#src-51">[51]</a>.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
 <p>The Spaced Research Ledger is an automated system that gathers claims
 from live public sources, checks each one against its origin, and
@@ -203,217 +203,217 @@ labs, so no single model both finds a claim and judges it. The Spaced
 Research Ledger is designed and maintained by Ridley DiSiena.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li>Post-Quantum Cryptography in Oracle Database - <a
+<li id="src-1">Post-Quantum Cryptography in Oracle Database - <a
 href="https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/post-quantum-cryptography-reference.html"
 class="uri">https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/post-quantum-cryptography-reference.html</a>
 - as of 2026-08-25</li>
-<li>Oracle EBS 19c vs 23c vs 26ai: What Changes for Oracle EBS Customers
+<li id="src-2">Oracle EBS 19c vs 23c vs 26ai: What Changes for Oracle EBS Customers
 - <a
 href="https://www.itconvergence.com/blog/oracle-ebs-19c-vs-23c-vs-26ai-what-changes-for-oracle-ebs-customers/"
 class="uri">https://www.itconvergence.com/blog/oracle-ebs-19c-vs-23c-vs-26ai-what-changes-for-oracle-ebs-customers/</a>
 - as of 2026-06-19</li>
-<li>Oracle Database 19c Now Supports TLS 1.3, Post-Quantum Cryptography,
+<li id="src-3">Oracle Database 19c Now Supports TLS 1.3, Post-Quantum Cryptography,
 and FIPS 140-3 Mode - <a
 href="https://blogs.oracle.com/database/database-19c-now-supports-tls-1-3-post-quantum-cryptography"
 class="uri">https://blogs.oracle.com/database/database-19c-now-supports-tls-1-3-post-quantum-cryptography</a>
 - as of 2026-08-03</li>
-<li>Leading the Way for Post-Quantum Cryptography - <a
+<li id="src-4">Leading the Way for Post-Quantum Cryptography - <a
 href="https://community.sap.com/t5/security-and-compliance-blog-posts/leading-the-way-for-post-quantum-cryptography/ba-p/14439479"
 class="uri">https://community.sap.com/t5/security-and-compliance-blog-posts/leading-the-way-for-post-quantum-cryptography/ba-p/14439479</a>
 - as of 2026-07-13</li>
-<li>Vendor PQC Timeline - When Will Your Stack Be Quantum-Safe? | PQC
+<li id="src-5">Vendor PQC Timeline - When Will Your Stack Be Quantum-Safe? | PQC
 Consultancy - <a
 href="https://pqcconsultancy.com/vendor-pqc-timeline.html"
 class="uri">https://pqcconsultancy.com/vendor-pqc-timeline.html</a> - as
 of 2026-07-21</li>
-<li>Strengthen Security: Transition Away from RSA Key Exchanges for
+<li id="src-6">Strengthen Security: Transition Away from RSA Key Exchanges for
 Salesforce TLS Connections | Salesforce Help - <a
 href="https://help.salesforce.com/s/articleView?id=002472175&amp;language=en_US&amp;type=1"
 class="uri">https://help.salesforce.com/s/articleView?id=002472175&amp;language=en_US&amp;type=1</a>
 - as of 2026-06-16</li>
-<li>Cryptography asset compliance - ServiceNow Community - <a
+<li id="src-7">Cryptography asset compliance - ServiceNow Community - <a
 href="https://www.servicenow.com/community/itom-blog/cryptography-asset-compliance-is-generally-available-zero/ba-p/3585192"
 class="uri">https://www.servicenow.com/community/itom-blog/cryptography-asset-compliance-is-generally-available-zero/ba-p/3585192</a>
 - as of 2026-08-10</li>
-<li>Oracle Database 19c Now Supports TLS 1.3, Post-Quantum Cryptography,
+<li id="src-8">Oracle Database 19c Now Supports TLS 1.3, Post-Quantum Cryptography,
 and FIPS 140-3 Mode | database - <a
 href="https://blogs.oracle.com/database/database-19c-now-supports-tls-1-3-post-quantum-cryptography"
 class="uri">https://blogs.oracle.com/database/database-19c-now-supports-tls-1-3-post-quantum-cryptography</a></li>
-<li>Changes in Oracle Database Security 19c - <a
+<li id="src-9">Changes in Oracle Database Security 19c - <a
 href="https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/changes-oracle-database-security-19c.html"
 class="uri">https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/changes-oracle-database-security-19c.html</a>
 - as of 2026-01-01</li>
-<li>Preparing for Post Quantum Cryptography | security - <a
+<li id="src-10">Preparing for Post Quantum Cryptography | security - <a
 href="https://blogs.oracle.com/security/post-quantum-cryptography"
 class="uri">https://blogs.oracle.com/security/post-quantum-cryptography</a></li>
-<li>Oracle AI Database cryptographic roadmap - <a
+<li id="src-11">Oracle AI Database cryptographic roadmap - <a
 href="https://www.oracle.com/security/database-security/crypto-roadmap/"
 class="uri">https://www.oracle.com/security/database-security/crypto-roadmap/</a></li>
-<li>New version 8.6 of the SAP Cryptographic Library with quantum-safe
+<li id="src-12">New version 8.6 of the SAP Cryptographic Library with quantum-safe
 cryptography and FIPS 140-3 mode - <a
 href="https://community.sap.com/t5/technology-blog-posts-by-sap/new-version-8-6-of-the-sap-cryptographic-library-with-quantum-safe/ba-p/14280039"
 class="uri">https://community.sap.com/t5/technology-blog-posts-by-sap/new-version-8-6-of-the-sap-cryptographic-library-with-quantum-safe/ba-p/14280039</a>
 - as of 2025-12-12</li>
-<li>Workday’s Post-Quantum Cryptography Migration: How We’re Securing
+<li id="src-13">Workday’s Post-Quantum Cryptography Migration: How We’re Securing
 Your Data for the Future - <a
 href="https://medium.com/workday-engineering/workdays-post-quantum-cryptography-migration-how-we-re-securing-your-data-for-the-future-a9106e593c5c"
 class="uri">https://medium.com/workday-engineering/workdays-post-quantum-cryptography-migration-how-we-re-securing-your-data-for-the-future-a9106e593c5c</a></li>
-<li>Salesforce Post-Quantum Cryptography - Salesforce Compliance Site -
+<li id="src-14">Salesforce Post-Quantum Cryptography - Salesforce Compliance Site -
 <a
 href="https://compliance.salesforce.com/en/documents/a00Kd00000z7HMjIAM"
 class="uri">https://compliance.salesforce.com/en/documents/a00Kd00000z7HMjIAM</a>
 - as of 2026-03-18</li>
-<li>Preparing for Post-Quantum Computing: What you can be doing to
+<li id="src-15">Preparing for Post-Quantum Computing: What you can be doing to
 prepare - <a
 href="https://www.servicenow.com/community/platform-privacy-security-blog/preparing-for-post-quantum-computing-what-you-can-be-doing-to/ba-p/3541526"
 class="uri">https://www.servicenow.com/community/platform-privacy-security-blog/preparing-for-post-quantum-computing-what-you-can-be-doing-to/ba-p/3541526</a>
 - as of 2026-05-12</li>
-<li>Webex Suite Meetings Security technical paper - <a
+<li id="src-16">Webex Suite Meetings Security technical paper - <a
 href="https://help.webex.com/en-us/article/nhxkyce/Webex-Suite-Meetings-Security-technical-paper"
 class="uri">https://help.webex.com/en-us/article/nhxkyce/Webex-Suite-Meetings-Security-technical-paper</a>
 - as of 2026-07-14</li>
-<li>Your guide to post-quantum end-to-end encryption and how Zoom can
+<li id="src-17">Your guide to post-quantum end-to-end encryption and how Zoom can
 help | Zoom - <a
 href="https://www.zoom.com/en/blog/guide-to-post-quantum-end-to-end-encryption/"
 class="uri">https://www.zoom.com/en/blog/guide-to-post-quantum-end-to-end-encryption/</a>
 - as of 2024-05-21</li>
-<li>Zoom Adopts NIST-Approved Post-Quantum End-to-End Encryption for
+<li id="src-18">Zoom Adopts NIST-Approved Post-Quantum End-to-End Encryption for
 Meetings - <a
 href="https://thehackernews.com/2024/05/zoom-adopts-nist-approved-post-quantum.html"
 class="uri">https://thehackernews.com/2024/05/zoom-adopts-nist-approved-post-quantum.html</a>
 - as of 2024-05-22</li>
-<li>Zoom adds post-quantum end-to-end encryption to video meetings - <a
+<li id="src-19">Zoom adds post-quantum end-to-end encryption to video meetings - <a
 href="https://www.bleepingcomputer.com/news/security/zoom-adds-post-quantum-end-to-end-encryption-to-video-meetings/"
 class="uri">https://www.bleepingcomputer.com/news/security/zoom-adds-post-quantum-end-to-end-encryption-to-video-meetings/</a></li>
-<li>Encryption in Microsoft Teams - Microsoft Teams | Microsoft Learn -
+<li id="src-20">Encryption in Microsoft Teams - Microsoft Teams | Microsoft Learn -
 <a
 href="https://learn.microsoft.com/en-us/microsoftteams/teams-encryption"
 class="uri">https://learn.microsoft.com/en-us/microsoftteams/teams-encryption</a></li>
-<li>Organizations Can Now Try Out End-to-End Encrypted Microsoft Teams
+<li id="src-21">Organizations Can Now Try Out End-to-End Encrypted Microsoft Teams
 Calls - SecurityWeek - <a
 href="https://www.securityweek.com/organizations-can-now-try-out-end-end-encrypted-microsoft-teams-calls/"
 class="uri">https://www.securityweek.com/organizations-can-now-try-out-end-end-encrypted-microsoft-teams-calls/</a></li>
-<li>Security guide for Microsoft Teams overview - Microsoft Teams |
+<li id="src-22">Security guide for Microsoft Teams overview - Microsoft Teams |
 Microsoft Learn - <a
 href="https://learn.microsoft.com/en-us/microsoftteams/teams-security-guide"
 class="uri">https://learn.microsoft.com/en-us/microsoftteams/teams-security-guide</a></li>
-<li>Google Meet security &amp; privacy for IT admins - Google Workspace
+<li id="src-23">Google Meet security &amp; privacy for IT admins - Google Workspace
 Admin Help - <a href="https://support.google.com/a/answer/7582940?hl=en"
 class="uri">https://support.google.com/a/answer/7582940?hl=en</a></li>
-<li>Is Google Meet Encrypted? Full Guide (2025) - <a
+<li id="src-24">Is Google Meet Encrypted? Full Guide (2025) - <a
 href="https://tactiq.io/learn/is-google-meet-encrypted"
 class="uri">https://tactiq.io/learn/is-google-meet-encrypted</a></li>
-<li>Google Workspace Updates: Improving data privacy with Client-side
+<li id="src-25">Google Workspace Updates: Improving data privacy with Client-side
 encryption for Google Meet - <a
 href="https://workspaceupdates.googleblog.com/2022/08/client-side-encryption-for-google-meet.html"
 class="uri">https://workspaceupdates.googleblog.com/2022/08/client-side-encryption-for-google-meet.html</a>
 - as of 2022-08-09</li>
-<li>Google Workspace Updates: Join a client-side encrypted meeting from
+<li id="src-26">Google Workspace Updates: Join a client-side encrypted meeting from
 a Google Meet Hardware device - <a
 href="https://workspaceupdates.googleblog.com/2025/07/join-client-side-encrypted-meetings-from-google-meet-hardware.html"
 class="uri">https://workspaceupdates.googleblog.com/2025/07/join-client-side-encrypted-meetings-from-google-meet-hardware.html</a>
 - as of 2025-07-02</li>
-<li>Learn about call &amp; meeting encryption in Google Meet - Google
+<li id="src-27">Learn about call &amp; meeting encryption in Google Meet - Google
 Meet Help - <a
 href="https://support.google.com/meet/answer/12387251?hl=en"
 class="uri">https://support.google.com/meet/answer/12387251?hl=en</a></li>
-<li>Cisco Webex Meetings - Cisco Webex Meetings Security White Paper -
+<li id="src-28">Cisco Webex Meetings - Cisco Webex Meetings Security White Paper -
 <a
 href="https://www.cisco.com/c/en/us/products/collateral/conferencing/webex-meeting-center/white-paper-c11-737588.html"
 class="uri">https://www.cisco.com/c/en/us/products/collateral/conferencing/webex-meeting-center/white-paper-c11-737588.html</a></li>
-<li>Zero Trust Security Based End-to-End Encryption for Webex Meetings
+<li id="src-29">Zero Trust Security Based End-to-End Encryption for Webex Meetings
 Sample Clauses | Law Insider - <a
 href="https://www.lawinsider.com/clause/zero-trust-security-based-end-to-end-encryption-for-webex-meetings"
 class="uri">https://www.lawinsider.com/clause/zero-trust-security-based-end-to-end-encryption-for-webex-meetings</a></li>
-<li>End-to-end encryption for Webex Meetings and Webex Calling - <a
+<li id="src-30">End-to-end encryption for Webex Meetings and Webex Calling - <a
 href="https://help.webex.com/en-US/article/5h5d8ab/End-to-end-encryption-with-identity-verification-for-Webex-meetings"
 class="uri">https://help.webex.com/en-US/article/5h5d8ab/End-to-end-encryption-with-identity-verification-for-Webex-meetings</a></li>
-<li>Webex App | App Security - <a
+<li id="src-31">Webex App | App Security - <a
 href="https://help.webex.com/en-us/article/vf2yaz/Cisco-Webex-Teams-App-Security"
 class="uri">https://help.webex.com/en-us/article/vf2yaz/Cisco-Webex-Teams-App-Security</a></li>
-<li>Secure by default - Cisco Webex - <a
+<li id="src-32">Secure by default - Cisco Webex - <a
 href="https://www.nts.eu/en/news/secure-by-default/"
 class="uri">https://www.nts.eu/en/news/secure-by-default/</a></li>
-<li>RFC 5764: Datagram Transport Layer Security (DTLS) Extension to
+<li id="src-33">RFC 5764: Datagram Transport Layer Security (DTLS) Extension to
 Establish Keys for the Secure Real-time Transport Protocol (SRTP) | RFC
 Editor - <a href="https://www.rfc-editor.org/info/rfc5764/"
 class="uri">https://www.rfc-editor.org/info/rfc5764/</a> - as of
 2010-05-01</li>
-<li>RFC 5764: Datagram Transport Layer Security (DTLS) Extension to
+<li id="src-34">RFC 5764: Datagram Transport Layer Security (DTLS) Extension to
 Establish Keys for the Secure Real-time Transport Protocol (SRTP) - <a
 href="https://www.rfc-editor.org/rfc/rfc5764.html"
 class="uri">https://www.rfc-editor.org/rfc/rfc5764.html</a></li>
-<li>What is SRTP? Secure Real-Time Transport Protocol Explained -
+<li id="src-35">What is SRTP? Secure Real-Time Transport Protocol Explained -
 TelcoBridges - <a
 href="https://telcobridges.com/learning/voip-security/what-is-srtp/"
 class="uri">https://telcobridges.com/learning/voip-security/what-is-srtp/</a></li>
-<li>RFC 5763 - Framework for Establishing a Secure Real-time Transport
+<li id="src-36">RFC 5763 - Framework for Establishing a Secure Real-time Transport
 Protocol (SRTP) Security Context Using Datagram Transport Layer Security
 (DTLS) - <a href="https://datatracker.ietf.org/doc/html/rfc5763"
 class="uri">https://datatracker.ietf.org/doc/html/rfc5763</a> - as of
 2010-05-01</li>
-<li>Encryption for SharePoint and OneDrive, Microsoft Teams, and
+<li id="src-37">Encryption for SharePoint and OneDrive, Microsoft Teams, and
 Exchange - Microsoft Service Assurance | Microsoft Learn - <a
 href="https://learn.microsoft.com/en-us/compliance/assurance/assurance-encryption-for-microsoft-365-services"
 class="uri">https://learn.microsoft.com/en-us/compliance/assurance/assurance-encryption-for-microsoft-365-services</a></li>
-<li>ASP.NET, Kestrel and Schannel GA with TLS 1.3 Post-Quantum
+<li id="src-38">ASP.NET, Kestrel and Schannel GA with TLS 1.3 Post-Quantum
 Cryptography (Microsoft) - <a
 href="https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649"
 class="uri">https://techcommunity.microsoft.com/blog/post-quantum-crypto-tech-blog/asp-net-kestrel-and-schannel-ga-with-tls-1-3-post-quantum-cryptography/4536649</a>
 - as of 2026-07-14</li>
-<li>Citrix delivers new tools for quantum-ready, anywhere work - Help
+<li id="src-39">Citrix delivers new tools for quantum-ready, anywhere work - Help
 Net Security - <a
 href="https://www.helpnetsecurity.com/2025/07/31/citrix-pqc-cvad-2507/"
 class="uri">https://www.helpnetsecurity.com/2025/07/31/citrix-pqc-cvad-2507/</a></li>
-<li>Leading the quantum-ready transition: How NetScaler helps prevent a
+<li id="src-40">Leading the quantum-ready transition: How NetScaler helps prevent a
 silent data breach decades in the making – Citrix Blogs - <a
 href="https://www.citrix.com/blogs/2025/07/30/leading-the-quantum-ready-transition/"
 class="uri">https://www.citrix.com/blogs/2025/07/30/leading-the-quantum-ready-transition/</a>
 - as of 2025-08-01</li>
-<li>Citrix adds post-quantum cryptography to boost enterprise data
+<li id="src-41">Citrix adds post-quantum cryptography to boost enterprise data
 security - SDxCentral - <a
 href="https://www.sdxcentral.com/news/citrix-adds-post-quantum-cryptography-to-boost-enterprise-data-security/"
 class="uri">https://www.sdxcentral.com/news/citrix-adds-post-quantum-cryptography-to-boost-enterprise-data-security/</a>
 - as of 2025-07-31</li>
-<li>MacOS- Post Quantumn Cryptography (Kyber) Support (Tahoe and 15.7.x)
+<li id="src-42">MacOS- Post Quantumn Cryptography (Kyber) Support (Tahoe and 15.7.x)
 - Horizon 8 - Omnissa Community - <a
 href="https://community.omnissa.com/forums/topic/71139-macos-post-quantumn-cryptography-kyber-support-tahoe-and-157x/"
 class="uri">https://community.omnissa.com/forums/topic/71139-macos-post-quantumn-cryptography-kyber-support-tahoe-and-157x/</a>
 - as of 2025-10-07</li>
-<li>Microsoft Delivers Post-Quantum TLS to Windows, But Activation Is on
+<li id="src-43">Microsoft Delivers Post-Quantum TLS to Windows, But Activation Is on
 You - Windows News - <a
 href="https://windowsnews.ai/article/microsoft-delivers-post-quantum-tls-to-windows-but-activation-is-on-you.438638"
 class="uri">https://windowsnews.ai/article/microsoft-delivers-post-quantum-tls-to-windows-but-activation-is-on-you.438638</a></li>
-<li>Post-Quantum Cryptography APIs Now Generally Available on Microsoft
+<li id="src-44">Post-Quantum Cryptography APIs Now Generally Available on Microsoft
 Platforms | Microsoft Community Hub - <a
 href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093"
 class="uri">https://techcommunity.microsoft.com/blog/microsoft-security-blog/post-quantum-cryptography-apis-now-generally-available-on-microsoft-platforms/4469093</a>
 - as of 2025-11-18</li>
-<li>Microsoft AD CS Adds Post-Quantum Cryptography Support with ML-DSA |
+<li id="src-45">Microsoft AD CS Adds Post-Quantum Cryptography Support with ML-DSA |
 Richard M. Hicks Consulting, Inc. - <a
 href="https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/"
 class="uri">https://directaccess.richardhicks.com/2026/05/18/microsoft-ad-cs-adds-post-quantum-cryptography-support-with-ml-dsa/</a>
 - as of 2026-05-18</li>
-<li>Companion guide: Transitioning to post-quantum cryptography |
+<li id="src-46">Companion guide: Transitioning to post-quantum cryptography |
 Microsoft Community Hub - <a
 href="https://techcommunity.microsoft.com/discussions/windows-security/companion-guide-transitioning-to-post-quantum-cryptography/4504853"
 class="uri">https://techcommunity.microsoft.com/discussions/windows-security/companion-guide-transitioning-to-post-quantum-cryptography/4504853</a></li>
-<li>Current Landscape of Post-Quantum Cryptography Migration |
+<li id="src-47">Current Landscape of Post-Quantum Cryptography Migration |
 Encryption Consulting - <a
 href="https://www.encryptionconsulting.com/current-landscape-of-post-quantum-cryptography-migration/"
 class="uri">https://www.encryptionconsulting.com/current-landscape-of-post-quantum-cryptography-migration/</a></li>
-<li>Post Quantum Cryptography Migration Roadmap for Enterprises - <a
+<li id="src-48">Post Quantum Cryptography Migration Roadmap for Enterprises - <a
 href="https://www.ampcuscyber.com/blogs/how-to-build-post-quantum-cryptography/"
 class="uri">https://www.ampcuscyber.com/blogs/how-to-build-post-quantum-cryptography/</a></li>
-<li>NIST PQC Migration Strategies: Steps, Standards &amp; Tips - Palo
+<li id="src-49">NIST PQC Migration Strategies: Steps, Standards &amp; Tips - Palo
 Alto Networks - <a
 href="https://www.paloaltonetworks.com/cyberpedia/nist-pqc-migration-strategies-steps-standards-and-tips"
 class="uri">https://www.paloaltonetworks.com/cyberpedia/nist-pqc-migration-strategies-steps-standards-and-tips</a></li>
-<li>Enterprise Migration to Post-Quantum Cryptography: Timeline Analysis
+<li id="src-50">Enterprise Migration to Post-Quantum Cryptography: Timeline Analysis
 and Strategic Frameworks - <a
 href="https://www.mdpi.com/2073-431X/15/1/9"
 class="uri">https://www.mdpi.com/2073-431X/15/1/9</a></li>
-<li>Migration to Post-Quantum Cryptography - Amazon Web Services - <a
+<li id="src-51">Migration to Post-Quantum Cryptography - Amazon Web Services - <a
 href="https://aws.amazon.com/security/post-quantum-cryptography/migrating-to-post-quantum-cryptography/"
 class="uri">https://aws.amazon.com/security/post-quantum-cryptography/migrating-to-post-quantum-cryptography/</a></li>
 </ol>

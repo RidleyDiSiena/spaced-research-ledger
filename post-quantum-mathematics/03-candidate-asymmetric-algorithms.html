@@ -71,23 +71,23 @@ which is not a normal thing to leave open in a deployed cipher.</em></p>
 <h3 id="current-state">Current State</h3>
 <p>BIKE is a code-based key encapsulation mechanism that went through
 NIST’s fourth round alongside Classic McEliece and HQC, and was not the
-selection [1].</p>
+selection <a class="cite" href="#src-1">[1]</a>.</p>
 <p>Its open problem is the decoding failure rate. That rate is currently
 estimated only by extrapolation, with no proven upper bound established,
 and this bears directly on its security claim against adaptive attacks
-[2]. A scheme that occasionally fails to decrypt can leak information
+<a class="cite" href="#src-2">[2]</a>. A scheme that occasionally fails to decrypt can leak information
 through those failures, so an unproven bound is a real gap rather than a
 technicality.</p>
 <p>A 2026 multi-instance analysis found a further weakness. For one BIKE
 parameter set, security drops below the target of 143 bits once an
-attacker targets M ≥ 2⁸ session keys at once [2]. This is a degradation
+attacker targets M ≥ 2⁸ session keys at once <a class="cite" href="#src-2">[2]</a>. This is a degradation
 under multiple simultaneous targets rather than a single-instance break,
 but the multi-target setting is the realistic one for anything
 protecting many connections.</p>
 <p>Researchers have proposed standardizing two configurations going
 forward: a reduced-cost variant for forward-secrecy uses, or a version
 with a proven security guarantee obtained through an improved decoder
-[3].</p>
+<a class="cite" href="#src-3">[3]</a>.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="classic-mceliece">2. Classic McEliece</h2>
 <p><em>Classic McEliece has resisted attack for roughly 45 years, was
 rejected by NIST, and was then standardized by ISO. Two papers published
@@ -95,14 +95,14 @@ within three days of each other in August 2026 eroded its security
 margin without breaking it.</em></p>
 <h3 id="recent-developments">Recent Developments</h3>
 <p>A paper dated 24 August 2026 costs the best-known key-recovery
-attacks against all Classic McEliece parameter sets [14]. It reports
+attacks against all Classic McEliece parameter sets <a class="cite" href="#src-14">[14]</a>. It reports
 conditional bit-operation estimates below the NIST classical reference
 level for each one, for example 2¹²⁶·⁷⁷ for the smallest parameter set.
 These are conditional asymptotic cost estimates, not demonstrated
 practical attacks.</p>
 <p>A second paper, submitted 7 August 2026 and revised on the 27th,
 presents a classical distinguisher running in quasipolynomial time,
-n^O(log n) [6]. It applies to every Classic McEliece parameter set
+n^O(log n) <a class="cite" href="#src-6">[6]</a>. It applies to every Classic McEliece parameter set
 considered in the NIST process, in a particular asymptotic regime. The
 authors describe the result as yielding improved but not yet practical
 concrete attack estimates.</p>
@@ -112,14 +112,14 @@ worth noting, even though neither is a break.</p>
 <p>Against that, the scheme’s record is the strongest in this part. Its
 binary Goppa-code foundation has resisted practical attack across
 roughly 45 years of published cryptanalysis, and its NIST-considered
-parameter sets remain unbroken in practice [5].</p>
+parameter sets remain unbroken in practice <a class="cite" href="#src-5">[5]</a>.</p>
 <p>ISO standardized Classic McEliece under its asymmetric ciphers
-standard, reported as of July 2026 [4]. That is a real standardization
+standard, reported as of July 2026 <a class="cite" href="#src-4">[4]</a>. That is a real standardization
 track for a scheme NIST declined to select, and it is why Germany can
 recommend it while the United States does not.</p>
 <p>The practical drawback is unchanged. Its public keys are far larger
 than most competing schemes, and several compact variants proposed over
-the years to shrink them have subsequently been broken [5]. The large
+the years to shrink them have subsequently been broken <a class="cite" href="#src-5">[5]</a>. The large
 key is doing security work.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="isogeny-based-schemes-after-sike">3. Isogeny-Based Schemes After
 SIKE</h2>
@@ -129,15 +129,15 @@ far smaller than anything else on offer.</em></p>
 <h3 id="current-state-2">Current State</h3>
 <p>SIKE was broken in July 2022 by an attack exploiting auxiliary point
 information in the protocol specification, enabling classical key
-recovery in roughly one hour on standard hardware [7]. A NIST finalist
+recovery in roughly one hour on standard hardware <a class="cite" href="#src-7">[7]</a>. A NIST finalist
 falling to a laptop in an hour is the reference event this whole area is
 defined against.</p>
 <p>Research continued regardless, driven by the compact key sizes the
 family offers, and multiple newer schemes are designed specifically to
-resist the attack that broke SIKE [7].</p>
+resist the attack that broke SIKE <a class="cite" href="#src-7">[7]</a>.</p>
 <p>A June 2026 paper presents isogeny-based signatures with randomizable
 keys, part of a wider trend toward isogeny signatures using
-higher-dimensional constructions for practical efficiency [8].
+higher-dimensional constructions for practical efficiency <a class="cite" href="#src-8">[8]</a>.
 Isogeny-based signatures remain among the most compact post-quantum
 signature constructions known. SQIsign, the one isogeny scheme still in
 NIST’s process, is covered in Parts 1 and 5.</p>
@@ -148,21 +148,21 @@ deliberately throws away the structure that makes ML-KEM fast. Two
 European governments prefer it for exactly that reason.</em></p>
 <h3 id="current-state-3">Current State</h3>
 <p>FrodoKEM was standardized by ISO in June 2026, as an amendment to the
-asymmetric ciphers standard [9].</p>
+asymmetric ciphers standard <a class="cite" href="#src-9">[9]</a>.</p>
 <p>Its ISO track has a documented history. The relevant ISO working
-group agreed in April 2023 to move forward with standardization [10]. In
+group agreed in April 2023 to move forward with standardization <a class="cite" href="#src-10">[10]</a>. In
 March 2025 FrodoKEM was separately submitted to the IETF’s Crypto Forum
 Research Group as an Internet-Draft.</p>
 <p>The design choice is the whole argument. FrodoKEM’s security rests on
 the Learning With Errors problem over generic, algebraically
 unstructured lattices, unlike ML-KEM’s structured ones, specifically to
 minimize exposure to future attacks that exploit algebraic structure
-[9]. The cost is size and speed. The benefit is that an attack on
+<a class="cite" href="#src-9">[9]</a>. The cost is size and speed. The benefit is that an attack on
 structured lattices would not obviously apply.</p>
 <p>One other alternative appears in the record. A scheme from the NTRU
 Prime family is optimized for constrained environments and was an
 alternative candidate in NIST’s original process, though not selected
-[11]. No 2026-specific security or standardization update for it was
+<a class="cite" href="#src-11">[11]</a>. No 2026-specific security or standardization update for it was
 found beyond that background.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="proposals-on-no-standardization-track">5. Proposals on No
 Standardization Track</h2>
@@ -171,13 +171,13 @@ standard. These two are recorded as examples of what independent
 academic work is building on the standards-track primitives.</em></p>
 <h3 id="current-state-4">Current State</h3>
 <p>RingSLIP is a 2026 ring-signature construction built from the Lattice
-Isomorphism Problem, using HAWK as a component [12]. Its signature size
+Isomorphism Problem, using HAWK as a component <a class="cite" href="#src-12">[12]</a>. Its signature size
 grows only logarithmically with the number of members in the ring. It is
 worth noting that HAWK itself was withdrawn from NIST’s process in July
 2026, for reasons Part 5 covers.</p>
 <p>LoTRS is a separate 2026 lattice-based threshold ring signature
 construction, also on no standardization track, aimed at practical
-two-round threshold signing [13].</p>
+two-round threshold signing <a class="cite" href="#src-13">[13]</a>.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
 <p>The Spaced Research Ledger is an automated system that gathers claims
 from live public sources, checks each one against its origin, and
@@ -187,48 +187,48 @@ labs, so no single model both finds a claim and judges it. The Spaced
 Research Ledger is designed and maintained by Ridley DiSiena.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li>HQC and BIKE - <a href="https://asecuritysite.com/hqc_bike"
+<li id="src-1">HQC and BIKE - <a href="https://asecuritysite.com/hqc_bike"
 class="uri">https://asecuritysite.com/hqc_bike</a> (undated)</li>
-<li>Multi-instance security analysis of BIKE - <a
+<li id="src-2">Multi-instance security analysis of BIKE - <a
 href="https://eprint.iacr.org/2026/517.pdf"
 class="uri">https://eprint.iacr.org/2026/517.pdf</a> (undated)</li>
-<li>A Lean BIKE KEM - <a
+<li id="src-3">A Lean BIKE KEM - <a
 href="https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/a-lean-bike-kem.pdf"
 class="uri">https://csrc.nist.gov/csrc/media/Events/2024/fifth-pqc-standardization-conference/documents/papers/a-lean-bike-kem.pdf</a>
 (undated)</li>
-<li>ISO - Classic McEliece (team page on ISO/IEC 18033-2
+<li id="src-4">ISO - Classic McEliece (team page on ISO/IEC 18033-2
 standardization) - <a href="https://classic.mceliece.org/iso.html"
 class="uri">https://classic.mceliece.org/iso.html</a> (as of
 2026-07-15)</li>
-<li>Classic McEliece cryptanalytic history - <a
+<li id="src-5">Classic McEliece cryptanalytic history - <a
 href="https://eprint.iacr.org/2026/1512"
 class="uri">https://eprint.iacr.org/2026/1512</a> (undated)</li>
-<li>Quasipolynomial Cryptanalysis of the McEliece Cryptosystem - <a
+<li id="src-6">Quasipolynomial Cryptanalysis of the McEliece Cryptosystem - <a
 href="https://eprint.iacr.org/2026/1630"
 class="uri">https://eprint.iacr.org/2026/1630</a> (as of
 2026-08-27)</li>
-<li>On the SIKE break and subsequent isogeny work - <a
+<li id="src-7">On the SIKE break and subsequent isogeny work - <a
 href="https://eprint.iacr.org/2026/446.pdf"
 class="uri">https://eprint.iacr.org/2026/446.pdf</a> (undated)</li>
-<li>Isogeny-based signatures with randomizable keys - <a
+<li id="src-8">Isogeny-based signatures with randomizable keys - <a
 href="https://eprint.iacr.org/2026/1169"
 class="uri">https://eprint.iacr.org/2026/1169</a> (undated)</li>
-<li>FrodoKEM - <a href="https://frodokem.org/"
+<li id="src-9">FrodoKEM - <a href="https://frodokem.org/"
 class="uri">https://frodokem.org/</a> (as of 2026-06-01)</li>
-<li>draft-longa-cfrg-frodokem-security-considerations - <a
+<li id="src-10">draft-longa-cfrg-frodokem-security-considerations - <a
 href="https://datatracker.ietf.org/doc/html/draft-longa-cfrg-frodokem-security-considerations/"
 class="uri">https://datatracker.ietf.org/doc/html/draft-longa-cfrg-frodokem-security-considerations/</a>
 (as of 2025-03-01)</li>
-<li>NTRU Prime in constrained environments - <a
+<li id="src-11">NTRU Prime in constrained environments - <a
 href="https://arxiv.org/html/2508.10023v1"
 class="uri">https://arxiv.org/html/2508.10023v1</a> (undated)</li>
-<li>RingSLIP: ring signatures from the Lattice Isomorphism Problem - <a
+<li id="src-12">RingSLIP: ring signatures from the Lattice Isomorphism Problem - <a
 href="https://eprint.iacr.org/2026/889"
 class="uri">https://eprint.iacr.org/2026/889</a> (undated)</li>
-<li>LoTRS: lattice-based structured threshold ring signatures - <a
+<li id="src-13">LoTRS: lattice-based structured threshold ring signatures - <a
 href="https://eprint.iacr.org/2026/974"
 class="uri">https://eprint.iacr.org/2026/974</a> (undated)</li>
-<li>Bit Operation Cost of Holdout Key-Recovery Attacks Against Classic
+<li id="src-14">Bit Operation Cost of Holdout Key-Recovery Attacks Against Classic
 McEliece - <a href="https://eprint.iacr.org/2026/1786"
 class="uri">https://eprint.iacr.org/2026/1786</a> (as of
 2026-08-24)</li>

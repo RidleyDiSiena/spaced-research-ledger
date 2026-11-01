@@ -54,7 +54,7 @@
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [1]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-1">[1]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -69,7 +69,7 @@
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since 3.8.8
-[2]</td>
+<a class="cite" href="#src-2">[2]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -79,7 +79,7 @@
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since 3.8.8
-[2]</td>
+<a class="cite" href="#src-2">[2]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -89,7 +89,7 @@
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since 3.8.9
-[3]</td>
+<a class="cite" href="#src-3">[3]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -107,7 +107,7 @@
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -116,7 +116,7 @@
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -125,7 +125,7 @@
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -133,15 +133,15 @@
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 3.8.9 [5]
-[6]</td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.8.10 [7]
-[8]</td>
-<td data-label="X.509"><span class="st st-available">available</span> since 3.8.9 [9]
-[8]</td>
+<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 3.8.9 <a class="cite" href="#src-5">[5]</a>
+<a class="cite" href="#src-6">[6]</a></td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 3.8.10 <a class="cite" href="#src-7">[7]</a>
+<a class="cite" href="#src-8">[8]</a></td>
+<td data-label="X.509"><span class="st st-available">available</span> since 3.8.9 <a class="cite" href="#src-9">[9]</a>
+<a class="cite" href="#src-8">[8]</a></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [1]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-1">[1]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -150,7 +150,7 @@
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [1]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-1">[1]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
@@ -177,7 +177,7 @@
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [1]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-1">[1]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
@@ -186,7 +186,7 @@
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [1]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-1">[1]</a></td>
 </tr>
 </tbody>
 </table></div>
@@ -247,52 +247,52 @@ were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>3.8.13, 2026-04-29 [6] [10] [11]</li>
-<li>3.8.9, 2025-02-07 [5]</li>
+<li>3.8.13, 2026-04-29 <a class="cite" href="#src-6">[6]</a> <a class="cite" href="#src-10">[10]</a> <a class="cite" href="#src-11">[11]</a></li>
+<li>3.8.9, 2025-02-07 <a class="cite" href="#src-5">[5]</a></li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a
+<li id="src-1"><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
 class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
 (date not recorded; checked 2026-09-12)</li>
-<li><a
+<li id="src-2"><a
 href="https://patchwork.ipfire.org/project/ipfire/patch/20241109173814.1058040-4-adolf.belka@ipfire.org/"
 class="uri">https://patchwork.ipfire.org/project/ipfire/patch/20241109173814.1058040-4-adolf.belka@ipfire.org/</a>
 (date not recorded; ledger claim
 pqc/embedded-alternative-libraries/d0001:17)</li>
-<li><a
+<li id="src-3"><a
 href="https://lists.gnupg.org/pipermail/gnutls-help/2025-February/004875.html"
 class="uri">https://lists.gnupg.org/pipermail/gnutls-help/2025-February/004875.html</a>
 (as of 2025-02-07; checked 2026-09-26)</li>
-<li><a
+<li id="src-4"><a
 href="https://gitlab.com/gnutls/gnutls/-/blob/master/lib/algorithms/groups.c"
 class="uri">https://gitlab.com/gnutls/gnutls/-/blob/master/lib/algorithms/groups.c</a>
 (date not recorded; checked 2026-10-08)</li>
-<li><a
+<li id="src-5"><a
 href="https://patchwork.yoctoproject.org/project/oe-core/patch/20250217192141.1383722-1-peter.marko@siemens.com/"
 class="uri">https://patchwork.yoctoproject.org/project/oe-core/patch/20250217192141.1383722-1-peter.marko@siemens.com/</a>
 (as of 2025-02-07; ledger claim
 pqc/embedded-alternative-libraries/d0001:18)</li>
-<li><a href="https://gitlab.com/gnutls/gnutls/-/blame/master/NEWS"
+<li id="src-6"><a href="https://gitlab.com/gnutls/gnutls/-/blame/master/NEWS"
 class="uri">https://gitlab.com/gnutls/gnutls/-/blame/master/NEWS</a> (as
 of 2026-04-29; ledger claim
 pqc/embedded-alternative-libraries/d0004:5)</li>
-<li><a
+<li id="src-7"><a
 href="https://lists.gnupg.org/pipermail/gnutls-help/2025-July/004883.html"
 class="uri">https://lists.gnupg.org/pipermail/gnutls-help/2025-July/004883.html</a>
 (as of 2025-07-08; checked 2026-09-26)</li>
-<li><a href="https://gitlab.com/gnutls/gnutls/-/raw/master/NEWS"
+<li id="src-8"><a href="https://gitlab.com/gnutls/gnutls/-/raw/master/NEWS"
 class="uri">https://gitlab.com/gnutls/gnutls/-/raw/master/NEWS</a> (date
 not recorded; checked 2026-09-12)</li>
-<li><a
+<li id="src-9"><a
 href="https://lists.gnupg.org/pipermail/gnutls-help/2025-February/004875.html"
 class="uri">https://lists.gnupg.org/pipermail/gnutls-help/2025-February/004875.html</a>
 (as of 2025-02-07; checked 2026-09-26)</li>
-<li><a href="https://www.gnutls.org/news.html"
+<li id="src-10"><a href="https://www.gnutls.org/news.html"
 class="uri">https://www.gnutls.org/news.html</a> (as of 2026-10-25;
 checked 2026-10-25)</li>
-<li><a
+<li id="src-11"><a
 href="https://gitlab.com/api/v4/projects/gnutls%2Fgnutls/repository/tags"
 class="uri">https://gitlab.com/api/v4/projects/gnutls%2Fgnutls/repository/tags</a>
 (as of 2026-04-29; checked 2026-11-01)</li>

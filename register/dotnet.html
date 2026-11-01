@@ -52,7 +52,7 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 10 [1]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 10 <a class="cite" href="#src-1">[1]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -115,20 +115,20 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 10 [2]
-[1] [3] [4]</td>
+<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 10 <a class="cite" href="#src-2">[2]</a>
+<a class="cite" href="#src-1">[1]</a> <a class="cite" href="#src-3">[3]</a> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-experimental">experimental</span> since 10
-[5]</td>
+<a class="cite" href="#src-5">[5]</a></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 10 [2]
-[1]</td>
+<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 10 <a class="cite" href="#src-2">[2]</a>
+<a class="cite" href="#src-1">[1]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-experimental">experimental</span> since 10
-[5]</td>
+<a class="cite" href="#src-5">[5]</a></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -140,11 +140,11 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>Composite ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 10 [2]
-[1]</td>
+<td data-label="Primitive"><span class="st st-experimental">experimental</span> since 10 <a class="cite" href="#src-2">[2]</a>
+<a class="cite" href="#src-1">[1]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- The composite drafts register X.509 and CMS algorithm identifiers. TLS has no SignatureScheme codepoint for a composite, so nothing can offer one in a handshake; a composite certificate inside a verified chain is the x509 cell, not this one.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-experimental">experimental</span> since 10
-[5]</td>
+<a class="cite" href="#src-5">[5]</a></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- No composite scheme appears in a FIPS standard. CMVP validates the ML-DSA and the ECDSA or RSA component separately, which the signature rows already carry.">n/a</abbr></td>
 </tr>
 <tr>
@@ -177,7 +177,7 @@ if the OS libraries are FIPS-validated, and that Linux requires OpenSSL
 and macOS is neither – the same document records that OpenSSL support on
 macOS was removed, and .NET’s post-quantum APIs need CNG or an OpenSSL
 that has the algorithms, so macOS has no recorded post-quantum path at
-all. [6]</li>
+all. <a class="cite" href="#src-6">[6]</a></li>
 <li><strong><a href="windows-cng.html">Windows CNG</a></strong> –
 platform. Inherits: Primitive, X.509, FIPS 140-3. The Windows half of
 the same document: .NET’s cryptography on Windows is CNG’s, and its
@@ -185,7 +185,7 @@ post-quantum APIs require a Windows whose CNG has the algorithms.
 PROMOTED from an <code>external</code> edge the same day the platform
 pass made Windows CNG a component – which is what the promotion
 invariant in the validator exists to force, and it did: the check fired
-on this edge before anyone remembered it was here. [7]</li>
+on this edge before anyone remembered it was here. <a class="cite" href="#src-7">[7]</a></li>
 </ul>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>.NET holds no FIPS 140-3 certificate of its own, and there is no
@@ -250,10 +250,10 @@ in the register with composite certificates at all.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>11.0.0-rc.3, 2026-10-25 [8]</li>
-<li>10.0.14, 2026-10-25 [9]</li>
-<li>11.0.0-rc.2, 2026-10-13 [10]</li>
-<li>10.0.13, 2026-10-13 [11]</li>
+<li>11.0.0-rc.3, 2026-10-25 <a class="cite" href="#src-8">[8]</a></li>
+<li>10.0.14, 2026-10-25 <a class="cite" href="#src-9">[9]</a></li>
+<li>11.0.0-rc.2, 2026-10-13 <a class="cite" href="#src-10">[10]</a></li>
+<li>10.0.13, 2026-10-13 <a class="cite" href="#src-11">[11]</a></li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -297,49 +297,49 @@ dotnet/runtime#132239.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a
+<li id="src-1"><a
 href="https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10"
 class="uri">https://duendesoftware.com/blog/20260514-post-quantum-cryptography-in-dotnet-10</a>
 (as of 2026-05-14; ledger claim
 pqc/language-native-crypto-stacks/d0001:18)</li>
-<li><a
+<li id="src-2"><a
 href="https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/libraries"
 class="uri">https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/libraries</a>
 (date not recorded; checked 2026-09-12)</li>
-<li><a
+<li id="src-3"><a
 href="https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptography/10.0/mldsa-slhdsa-secretkey-to-privatekey"
 class="uri">https://learn.microsoft.com/en-us/dotnet/core/compatibility/cryptography/10.0/mldsa-slhdsa-secretkey-to-privatekey</a>
 (as of 2026-07-31; ledger claim
 pqc/language-native-crypto-stacks/d0004:2)</li>
-<li><a
+<li id="src-4"><a
 href="https://github.com/dotnet/runtime/blob/release/11.0-rc2/src/libraries/Common/src/System/Experimentals.cs"
 class="uri">https://github.com/dotnet/runtime/blob/release/11.0-rc2/src/libraries/Common/src/System/Experimentals.cs</a>
 (as of 2026-10-13; checked 2026-10-15)</li>
-<li><a
+<li id="src-5"><a
 href="https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.certificaterequest.-ctor?view=net-10.0"
 class="uri">https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.certificaterequest.-ctor?view=net-10.0</a>
 (date not recorded; checked 2026-09-12)</li>
-<li><a
+<li id="src-6"><a
 href="https://learn.microsoft.com/en-us/dotnet/standard/security/cross-platform-cryptography"
 class="uri">https://learn.microsoft.com/en-us/dotnet/standard/security/cross-platform-cryptography</a>
 (date not recorded; checked 2026-09-13)</li>
-<li><a
+<li id="src-7"><a
 href="https://learn.microsoft.com/en-us/dotnet/standard/security/cross-platform-cryptography"
 class="uri">https://learn.microsoft.com/en-us/dotnet/standard/security/cross-platform-cryptography</a>
 (date not recorded; checked 2026-09-13)</li>
-<li><a
+<li id="src-8"><a
 href="https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc3/11.0.0-rc.3.md"
 class="uri">https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc3/11.0.0-rc.3.md</a>
 (as of 2026-10-25; checked 2026-11-01)</li>
-<li><a
+<li id="src-9"><a
 href="https://github.com/dotnet/core/blob/main/release-notes/10.0/10.0.14/10.0.14.md"
 class="uri">https://github.com/dotnet/core/blob/main/release-notes/10.0/10.0.14/10.0.14.md</a>
 (as of 2026-10-25; checked 2026-11-01)</li>
-<li><a
+<li id="src-10"><a
 href="https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc2/libraries.md"
 class="uri">https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc2/libraries.md</a>
 (as of 2026-10-13; checked 2026-10-15)</li>
-<li><a
+<li id="src-11"><a
 href="https://github.com/dotnet/core/blob/main/release-notes/10.0/10.0.13/10.0.13.md"
 class="uri">https://github.com/dotnet/core/blob/main/release-notes/10.0/10.0.13/10.0.13.md</a>
 (as of 2026-10-13; checked 2026-10-15)</li>

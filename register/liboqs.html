@@ -49,13 +49,13 @@
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 0.11.0 [1] [2]
-[3] [4]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 0.11.0 <a class="cite" href="#src-1">[1]</a> <a class="cite" href="#src-2">[2]</a>
+<a class="cite" href="#src-3">[3]</a> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-5">[5]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -105,7 +105,7 @@
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [6]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-6">[6]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -114,7 +114,7 @@
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [6]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-6">[6]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -123,7 +123,7 @@
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [6]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-6">[6]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -131,23 +131,23 @@
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 0.12.0 [7]
-[8]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 0.12.0 <a class="cite" href="#src-7">[7]</a>
+<a class="cite" href="#src-8">[8]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-5">[5]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 0.15.0 [9]
-[10]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 0.15.0 <a class="cite" href="#src-9">[9]</a>
+<a class="cite" href="#src-10">[10]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-5">[5]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
@@ -170,22 +170,22 @@
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
 <td data-label="Primitive"><span class="st st-experimental">experimental</span> since 0.11.0,
-off by default [11] [12]</td>
+off by default <a class="cite" href="#src-11">[11]</a> <a class="cite" href="#src-12">[12]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-5">[5]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
 <td data-label="Primitive"><span class="st st-experimental">experimental</span> since 0.11.0,
-off by default [11] [13] [14]</td>
+off by default <a class="cite" href="#src-11">[11]</a> <a class="cite" href="#src-13">[13]</a> <a class="cite" href="#src-14">[14]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-5">[5]</a></td>
 </tr>
 </tbody>
 </table></div>
@@ -240,75 +240,75 @@ were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>0.16.0, 2026-07-09 [10] [15] [16]</li>
-<li>0.15.0, 2025-11-14 [9]</li>
-<li>0.14.0, 2025-07-10 [2]</li>
+<li>0.16.0, 2026-07-09 <a class="cite" href="#src-10">[10]</a> <a class="cite" href="#src-15">[15]</a> <a class="cite" href="#src-16">[16]</a></li>
+<li>0.15.0, 2025-11-14 <a class="cite" href="#src-9">[9]</a></li>
+<li>0.14.0, 2025-07-10 <a class="cite" href="#src-2">[2]</a></li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a
+<li id="src-1"><a
 href="https://github.com/open-quantum-safe/liboqs/releases/tag/0.11.0"
 class="uri">https://github.com/open-quantum-safe/liboqs/releases/tag/0.11.0</a>
 (as of 2024-09-26; checked 2026-09-26)</li>
-<li><a
+<li id="src-2"><a
 href="https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/"
 class="uri">https://pqca.org/blog/2025/pqca-announces-release-of-liboqs-version-0-14-0-from-open-quantum-safe-project/</a>
 (as of 2025-07-10; ledger claim
 pqc/pq-reference-implementations/d0001:3)</li>
-<li><a
+<li id="src-3"><a
 href="https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md"
 class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md</a>
 (as of 2026-07-09; ledger claim
 pqc/pq-reference-implementations/d0002:4)</li>
-<li><a href="https://github.com/open-quantum-safe/liboqs/releases"
+<li id="src-4"><a href="https://github.com/open-quantum-safe/liboqs/releases"
 class="uri">https://github.com/open-quantum-safe/liboqs/releases</a>
 (date not recorded; ledger claim
 pqc/pq-reference-implementations/d0001:17)</li>
-<li><a
+<li id="src-5"><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
 class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
 (date not recorded; checked 2026-09-12)</li>
-<li><a href="https://openquantumsafe.org/applications/tls.html"
+<li id="src-6"><a href="https://openquantumsafe.org/applications/tls.html"
 class="uri">https://openquantumsafe.org/applications/tls.html</a> (date
 not recorded; checked 2026-10-08)</li>
-<li><a
+<li id="src-7"><a
 href="https://github.com/open-quantum-safe/liboqs/releases/tag/0.12.0"
 class="uri">https://github.com/open-quantum-safe/liboqs/releases/tag/0.12.0</a>
 (as of 2024-12-09; checked 2026-09-26)</li>
-<li><a
+<li id="src-8"><a
 href="https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md"
 class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md</a>
 (as of 2026-07-09; ledger claim
 pqc/pq-reference-implementations/d0002:3)</li>
-<li><a
+<li id="src-9"><a
 href="https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md"
 class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/RELEASE.md</a>
 (as of 2025-11-14; ledger claim
 pqc/pq-reference-implementations/d0001:2)</li>
-<li><a href="https://github.com/open-quantum-safe/liboqs/releases"
+<li id="src-10"><a href="https://github.com/open-quantum-safe/liboqs/releases"
 class="uri">https://github.com/open-quantum-safe/liboqs/releases</a> (as
 of 2026-07-09; ledger claim
 pqc/pq-reference-implementations/d0001:1)</li>
-<li><a
+<li id="src-11"><a
 href="https://github.com/open-quantum-safe/liboqs/releases/tag/0.11.0"
 class="uri">https://github.com/open-quantum-safe/liboqs/releases/tag/0.11.0</a>
 (as of 2024-09-26; checked 2026-09-26)</li>
-<li><a
+<li id="src-12"><a
 href="https://github.com/open-quantum-safe/liboqs/blob/main/CONFIGURE.md"
 class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/CONFIGURE.md</a>
 (date not recorded; checked 2026-09-26)</li>
-<li><a
+<li id="src-13"><a
 href="https://github.com/open-quantum-safe/liboqs/blob/main/CONFIGURE.md"
 class="uri">https://github.com/open-quantum-safe/liboqs/blob/main/CONFIGURE.md</a>
 (date not recorded; checked 2026-09-26)</li>
-<li><a href="https://github.com/open-quantum-safe/liboqs/releases"
+<li id="src-14"><a href="https://github.com/open-quantum-safe/liboqs/releases"
 class="uri">https://github.com/open-quantum-safe/liboqs/releases</a> (as
 of 2026-07-09; ledger claim
 pqc/pq-reference-implementations/d0001:4)</li>
-<li><a href="https://github.com/open-quantum-safe/liboqs/tags"
+<li id="src-15"><a href="https://github.com/open-quantum-safe/liboqs/tags"
 class="uri">https://github.com/open-quantum-safe/liboqs/tags</a> (as of
 2026-07-09; checked 2026-10-25)</li>
-<li><a href="https://github.com/open-quantum-safe/liboqs/releases.atom"
+<li id="src-16"><a href="https://github.com/open-quantum-safe/liboqs/releases.atom"
 class="uri">https://github.com/open-quantum-safe/liboqs/releases.atom</a>
 (as of 2026-07-09; checked 2026-11-01)</li>
 </ol>

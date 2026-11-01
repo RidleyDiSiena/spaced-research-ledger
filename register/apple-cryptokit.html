@@ -49,7 +49,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since iOS 26, iPadOS
-26, macOS 26, tvOS 26 and watchOS 26 [1]</td>
+26, macOS 26, tvOS 26 and watchOS 26 <a class="cite" href="#src-1">[1]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-searching">searching, 1 of 2 passes</span></td>
@@ -57,7 +57,7 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since iOS 26, iPadOS
-26, macOS 26, tvOS 26 and watchOS 26 [2]</td>
+26, macOS 26, tvOS 26 and watchOS 26 <a class="cite" href="#src-2">[2]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><abbr class="st-na" title="Not a real question -- X-Wing is a CFRG draft construction, not a FIPS standard, so there is nothing for CMVP to validate it against. The ML-KEM inside it can be and is validated -- that is the ml-kem row&#x27;s cell, not this one.">n/a</abbr></td>
@@ -114,14 +114,14 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since iOS 26, iPadOS
-26, macOS 26, tvOS 26 and watchOS 26 [3]</td>
+26, macOS 26, tvOS 26 and watchOS 26 <a class="cite" href="#src-3">[3]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-searching">searching, 1 of 2 passes</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-none">none</span> [2] [4] [5] [6] [7]</td>
+<td data-label="Primitive"><span class="st st-none">none</span> <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-4">[4]</a> <a class="cite" href="#src-5">[5]</a> <a class="cite" href="#src-6">[6]</a> <a class="cite" href="#src-7">[7]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -142,7 +142,7 @@ Unknowns</a></li>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
-<td data-label="Primitive"><span class="st st-none">none</span> [2] [4] [5] [8] [9]</td>
+<td data-label="Primitive"><span class="st st-none">none</span> <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-4">[4]</a> <a class="cite" href="#src-5">[5]</a> <a class="cite" href="#src-8">[8]</a> <a class="cite" href="#src-9">[9]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -233,37 +233,37 @@ list (four OS 26 rows on 2026-10-18).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a
+<li id="src-1"><a
 href="https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web"
 class="uri">https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web</a>
 (date not recorded; checked 2026-09-13)</li>
-<li><a
+<li id="src-2"><a
 href="https://developer.apple.com/tutorials/data/documentation/cryptokit.json"
 class="uri">https://developer.apple.com/tutorials/data/documentation/cryptokit.json</a>
 (date not recorded; checked 2026-09-13)</li>
-<li><a
+<li id="src-3"><a
 href="https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web"
 class="uri">https://support.apple.com/guide/security/quantum-secure-cryptography-apple-devices-secc7c82e533/web</a>
 (date not recorded; checked 2026-09-13)</li>
-<li><a
+<li id="src-4"><a
 href="https://developer.apple.com/tutorials/data/documentation/cryptokit.json"
 class="uri">https://developer.apple.com/tutorials/data/documentation/cryptokit.json</a>
 (date not recorded; checked 2026-10-04)</li>
-<li><a
+<li id="src-5"><a
 href="https://developer.apple.com/tutorials/data/documentation/cryptokit.json"
 class="uri">https://developer.apple.com/tutorials/data/documentation/cryptokit.json</a>
 (date not recorded; checked 2026-10-18)</li>
-<li><a href="https://support.apple.com/en-us/100100"
+<li id="src-6"><a href="https://support.apple.com/en-us/100100"
 class="uri">https://support.apple.com/en-us/100100</a> (as of
 2026-10-23; checked 2026-10-25)</li>
-<li><a href="https://support.apple.com/en-us/149230"
+<li id="src-7"><a href="https://support.apple.com/en-us/149230"
 class="uri">https://support.apple.com/en-us/149230</a> (as of
 2026-10-26; checked 2026-11-01)</li>
-<li><a
+<li id="src-8"><a
 href="https://developer.apple.com/tutorials/data/documentation/cryptokit.json"
 class="uri">https://developer.apple.com/tutorials/data/documentation/cryptokit.json</a>
 (date not recorded; checked 2026-10-25)</li>
-<li><a
+<li id="src-9"><a
 href="https://developer.apple.com/tutorials/data/documentation/cryptokit.json"
 class="uri">https://developer.apple.com/tutorials/data/documentation/cryptokit.json</a>
 (date not recorded; checked 2026-11-01)</li>

@@ -71,26 +71,26 @@ signatures.</em></p>
 <p>The proposal keeps changing after its merge. The merged text carries
 version 0.12.1, dated 24 July 2026, meaning it has been revised in the
 repository for over five months since the February merge. Merged should
-not be read as frozen.[1]</p>
+not be read as frozen.<a class="cite" href="#src-1">[1]</a></p>
 <h3 id="current-state">Current State</h3>
 <p>BIP-360’s current title in the bitcoin/bips master copy is
 Pay-to-Merkle-Root, P2MR for short. Its status is Draft, and its authors
-are Hunter Beast, Ethan Heilman and Isabel Foxen Duke.[1] The output
+are Hunter Beast, Ethan Heilman and Isabel Foxen Duke.<a class="cite" href="#src-1">[1]</a> The output
 type has been renamed twice, from P2QRH to P2TSH to P2MR. The middle
 rename came in a clean-sheet rewrite announced in December 2025, which
 also moved post-quantum signatures out to a future proposal and added
-Python and Rust test vectors.[2]</p>
+Python and Rust test vectors.<a class="cite" href="#src-2">[2]</a></p>
 <p>The design commits solely to the Merkle root of a script tree rather
 than to an internal public key, which removes Taproot’s
 quantum-vulnerable key-path spend entirely. The draft specifies SegWit
-version 2, producing addresses that begin with bc1z.[1] It supports
+version 2, producing addresses that begin with bc1z.<a class="cite" href="#src-1">[1]</a> It supports
 multisig, timelocks, conditional payments, inheritance schemes and
 advanced custody. The cost is slightly larger transactions, since every
-spend carries more witness data than a Taproot key-path spend.[3]</p>
+spend carries more witness data than a Taproot key-path spend.<a class="cite" href="#src-3">[3]</a></p>
 <p>The proposal explicitly does not introduce post-quantum signatures.
 Its own text defers them, saying protection against more sophisticated
 quantum attacks may need post-quantum signatures in the future, and it
-mandates no scheme.[1]</p>
+mandates no scheme.<a class="cite" href="#src-1">[1]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="bip-361-the-legacy-sunset">2. BIP-361: The Legacy Sunset</h2>
 <p><em>The more radical proposal would eventually make old signatures
 unspendable, on a timetable measured in years. It is a draft, not a plan
@@ -99,25 +99,25 @@ the network has accepted.</em></p>
 <p>BIP-361, titled Post Quantum Migration and Legacy Signature Sunset,
 sits in the bitcoin/bips repository as a consensus soft fork with status
 Draft. Its authors are Jameson Lopp, Christian Papathanasiou, Ian Smith,
-Joe Ross, Steve Vaile and Pierre-Luc Dallaire-Demers.[4] Its
+Joe Ross, Steve Vaile and Pierre-Luc Dallaire-Demers.<a class="cite" href="#src-4">[4]</a> Its
 requirements point at a post-quantum signature proposal that has not
-been written yet.[4]</p>
+been written yet.<a class="cite" href="#src-4">[4]</a></p>
 <p>The sunset runs in phases. Phase A forbids sending funds to
 quantum-vulnerable address types, permitting only transfers from legacy
 to post-quantum addresses. It activates about 160,000 blocks, roughly
-three years, after BIP-361 itself does.[4] Phase B tightens signature
+three years, after BIP-361 itself does.<a class="cite" href="#src-4">[4]</a> Phase B tightens signature
 validation at a predetermined block height roughly two years after Phase
 A, encumbering legacy signatures and requiring wallets to have upgraded
-by then.[4]</p>
+by then.<a class="cite" href="#src-4">[4]</a></p>
 <p>After Phase B, holders of old coins could spend only through rescue
 protocols built on asymmetric knowledge, such as hardened key
 derivation. The intent is that a genuine owner can prove ownership where
-an attacker holding only the public key cannot.[4]</p>
+an attacker holding only the public key cannot.<a class="cite" href="#src-4">[4]</a></p>
 <h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
 <p>The proposal’s own record disagrees about its date. The repository
-preamble says it was assigned on 11 February 2026.[4] Press coverage
+preamble says it was assigned on 11 February 2026.<a class="cite" href="#src-4">[4]</a> Press coverage
 dates the public submission to 14 April 2026, when Lopp and five
-co-researchers submitted the draft.[5] The gap may be the difference
+co-researchers submitted the draft.<a class="cite" href="#src-5">[5]</a> The gap may be the difference
 between assigning a number and publishing the draft, but no source on
 record confirms that reading, so both dates stand.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-freeze-or-burn-debate">3. The Freeze-or-Burn Debate</h2>
@@ -127,17 +127,17 @@ engineering.</em></p>
 <h3 id="current-state-2">Current State</h3>
 <p>Jameson Lopp’s position is that freezing dormant coins beats letting
 a future attacker recover and sell them, and he calls an attacker
-sweeping dormant coins theft from everyone.[5] Michael Saylor argues
+sweeping dormant coins theft from everyone.<a class="cite" href="#src-5">[5]</a> Michael Saylor argues
 quantum computing will not break Bitcoin but harden it. In his words the
 network upgrades, active coins migrate, lost coins stay frozen, security
-goes up and supply comes down.[6] Charles Hoskinson argues Bitcoin’s
+goes up and supply comes down.<a class="cite" href="#src-6">[6]</a> Charles Hoskinson argues Bitcoin’s
 quantum fix amounts to a hard fork and cannot save Satoshi-era coins. He
 is a rival ecosystem’s principal commenting on Bitcoin, not a neutral
-assessor.[7]</p>
+assessor.<a class="cite" href="#src-7">[7]</a></p>
 <p>The objection to all of these positions is governance-shaped rather
 than technical. Critics dispute who decides which coins are lost rather
 than merely dormant, and argue that any freeze is inconsistent with
-self-custody and a fixed supply.[6]</p>
+self-custody and a fixed supply.<a class="cite" href="#src-6">[6]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="choosing-a-signature-scheme">4. Choosing a Signature Scheme</h2>
 <p><em>Whatever Bitcoin eventually activates will need a post-quantum
 signature scheme, and every candidate costs block space. No choice has
@@ -146,15 +146,15 @@ been made.</em></p>
 <p>A new proposal for SHRINCS, a hash-based post-quantum signature
 scheme optimised for Bitcoin, was published in late August 2026. Its
 signatures start at 548 bytes, plus a 48-byte public key, with security
-resting on the SHA-256 hash function.[8]</p>
+resting on the SHA-256 hash function.<a class="cite" href="#src-8">[8]</a></p>
 <h3 id="current-state-3">Current State</h3>
 <p>The choice is a three-way trade, and BIP-360’s deferral means nobody
-has to make it yet.[9] ML-DSA has been standardised since August 2024
+has to make it yet.<a class="cite" href="#src-9">[9]</a> ML-DSA has been standardised since August 2024
 and is well studied, but takes the most block space. FN-DSA-512 would
 cut the on-chain footprint by roughly three times, but its standard,
 FIPS 206, is not yet published. SLH-DSA rests on hash-function security
 rather than newer mathematical assumptions, making it the conservative
-backstop at a still larger signature size.[9]</p>
+backstop at a still larger signature size.<a class="cite" href="#src-9">[9]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="activation-politics">5. Activation Politics</h2>
 <p><em>Bitcoin changes by consensus among miners, developers and users,
 and nothing quantum-related has entered that process yet. The one
@@ -164,21 +164,21 @@ contested change that has entered it is failing.</em></p>
 storage, opened its mandatory signaling window at block 961,632 around 9
 August 2026, running through block 963,647. It has nothing to do with
 quantum risk, but it is the current working example of how a contested
-soft fork actually fares.[10] As of 30 July it had reached about 2%
+soft fork actually fares.<a class="cite" href="#src-10">[10]</a> As of 30 July it had reached about 2%
 signaling against a 55% early lock-in threshold, with no major mining
 pool committed. The expected outcome was a small breakaway chain rather
-than a network-wide change.[10]</p>
+than a network-wide change.<a class="cite" href="#src-10">[10]</a></p>
 <h3 id="current-state-4">Current State</h3>
 <p>The covenant proposals sometimes linked to quantum migration run on
 their own timelines. OP_CAT reached complete specification status in
 March 2026 but has no proposed mainnet activation parameters. OP_CTV has
 a published activation client specifying a 90% miner threshold and a
-minimum activation height around May 2027.[10] Neither the covenants nor
+minimum activation height around May 2027.<a class="cite" href="#src-10">[10]</a> Neither the covenants nor
 any quantum-resistant spending path has activation consensus, and their
 schedules are not aligned to each other. The migration itself is
 characterised as a multi-year programme, the largest coordinated key
 rotation Bitcoin has ever attempted, and one that has not properly
-started.[10]</p>
+started.<a class="cite" href="#src-10">[10]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-no-fork-workaround">6. The No-Fork Workaround</h2>
 <p><em>One team decided not to wait for consensus. The result works
 today, costs about two hundred dollars per transaction, and proves a
@@ -186,19 +186,19 @@ point rather than solving the problem.</em></p>
 <h3 id="recent-developments-3">Recent Developments</h3>
 <p>The first QSB spend was mined on Bitcoin mainnet in block 964,199,
 reported on 27 August 2026. Producing it cost between $150 and $200 in
-computation and took hours.[11] The transaction was nonstandard and
+computation and took hours.<a class="cite" href="#src-11">[11]</a> The transaction was nonstandard and
 could not propagate through normal node relay, so it had to be submitted
 directly through MARA Pool’s Slipstream service. StarkWare characterises
 the technique as a last-resort measure for individual transactions, not
-a network-wide upgrade.[11]</p>
+a network-wide upgrade.<a class="cite" href="#src-11">[11]</a></p>
 <h3 id="current-state-5">Current State</h3>
 <p>QSB, short for Quantum Safe Bitcoin, was published on 9 April 2026 by
 Avihu Levy of StarkWare. It embeds a hash-based one-time signature
 scheme in Bitcoin Script, working under existing consensus rules with no
-protocol change, no miner signaling and no activation timeline.[12] The
+protocol change, no miner signaling and no activation timeline.<a class="cite" href="#src-12">[12]</a> The
 cost is the point of the design rather than a footnote. It requires
 substantial off-chain GPU computation, with estimated costs of roughly
-$75 to $200 per transaction.[13]</p>
+$75 to $200 per transaction.<a class="cite" href="#src-13">[13]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
 <p>The Spaced Research Ledger is an automated system that gathers claims
 from live public sources, checks each one against its origin, and
@@ -208,61 +208,61 @@ labs, so no single model both finds a claim and judges it. The Spaced
 Research Ledger is designed and maintained by Ridley DiSiena.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li>github.com — bip 0360.mediawiki - <a
+<li id="src-1">github.com — bip 0360.mediawiki - <a
 href="https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki"
 class="uri">https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki</a>
 (as of 2026-07-24)</li>
-<li>groups.google.com — 3JWQwnMUetg - <a
+<li id="src-2">groups.google.com — 3JWQwnMUetg - <a
 href="https://groups.google.com/g/bitcoindev/c/3JWQwnMUetg"
 class="uri">https://groups.google.com/g/bitcoindev/c/3JWQwnMUetg</a> (as
 of 2025-12-19)</li>
-<li>cointelegraph.com — bitcoin s quantum upgrade path what bip 360
+<li id="src-3">cointelegraph.com — bitcoin s quantum upgrade path what bip 360
 changes and what it does not - <a
 href="https://cointelegraph.com/features/bitcoin-s-quantum-upgrade-path-what-bip-360-changes-and-what-it-does-not"
 class="uri">https://cointelegraph.com/features/bitcoin-s-quantum-upgrade-path-what-bip-360-changes-and-what-it-does-not</a>
 (undated)</li>
-<li>github.com — bip 0361.mediawiki - <a
+<li id="src-4">github.com — bip 0361.mediawiki - <a
 href="https://github.com/bitcoin/bips/blob/master/bip-0361.mediawiki"
 class="uri">https://github.com/bitcoin/bips/blob/master/bip-0361.mediawiki</a>
 (undated)</li>
-<li>theblock.co — bitcoin researchers propose phased sunset of legacy
+<li id="src-5">theblock.co — bitcoin researchers propose phased sunset of legacy
 signatures to address quantum risks - <a
 href="https://www.theblock.co/post/397556/bitcoin-researchers-propose-phased-sunset-of-legacy-signatures-to-address-quantum-risks"
 class="uri">https://www.theblock.co/post/397556/bitcoin-researchers-propose-phased-sunset-of-legacy-signatures-to-address-quantum-risks</a>
 (as of 2026-04-14)</li>
-<li>bitcoinist.com — saylor lost bitcoin freeze quantum risk - <a
+<li id="src-6">bitcoinist.com — saylor lost bitcoin freeze quantum risk - <a
 href="https://bitcoinist.com/saylor-lost-bitcoin-freeze-quantum-risk/"
 class="uri">https://bitcoinist.com/saylor-lost-bitcoin-freeze-quantum-risk/</a>
 (as of 2025-12-17)</li>
-<li>coindesk.com — cardano s hoskinson says bitcoin s quantum fix is a
+<li id="src-7">coindesk.com — cardano s hoskinson says bitcoin s quantum fix is a
 hard fork that can t save satoshi s coins - <a
 href="https://www.coindesk.com/tech/2026/04/16/cardano-s-hoskinson-says-bitcoin-s-quantum-fix-is-a-hard-fork-that-can-t-save-satoshi-s-coins"
 class="uri">https://www.coindesk.com/tech/2026/04/16/cardano-s-hoskinson-says-bitcoin-s-quantum-fix-is-a-hard-fork-that-can-t-save-satoshi-s-coins</a>
 (as of 2026-04-16)</li>
-<li>SHRINCS BIP Published: Quantum-Secure Bitcoin Comes With A Catch -
+<li id="src-8">SHRINCS BIP Published: Quantum-Secure Bitcoin Comes With A Catch -
 <a
 href="https://cointelegraph.com/magazine/shrincs-bip-is-published-quantum-secure-bitcoin-comes-with-a-catch"
 class="uri">https://cointelegraph.com/magazine/shrincs-bip-is-published-quantum-secure-bitcoin-comes-with-a-catch</a>
 (as of 2026-08-27)</li>
-<li>postquantum.com — fixing bitcoin pqc migration - <a
+<li id="src-9">postquantum.com — fixing bitcoin pqc migration - <a
 href="https://postquantum.com/quantum-threat-crypto/fixing-bitcoin-pqc-migration/"
 class="uri">https://postquantum.com/quantum-threat-crypto/fixing-bitcoin-pqc-migration/</a>
 (undated)</li>
-<li>aminagroup.com — bitcoin fork august 2026 bip 110 ecash covenants
+<li id="src-10">aminagroup.com — bitcoin fork august 2026 bip 110 ecash covenants
 and the quantum clock - <a
 href="https://aminagroup.com/research/bitcoin-fork-august-2026-bip-110-ecash-covenants-and-the-quantum-clock/"
 class="uri">https://aminagroup.com/research/bitcoin-fork-august-2026-bip-110-ecash-covenants-and-the-quantum-clock/</a>
 (as of 2026-08-09)</li>
-<li>cointelegraph.com — starkware quantum resistant bitcoin transaction
+<li id="src-11">cointelegraph.com — starkware quantum resistant bitcoin transaction
 mainnet - <a
 href="https://cointelegraph.com/news/starkware-quantum-resistant-bitcoin-transaction-mainnet"
 class="uri">https://cointelegraph.com/news/starkware-quantum-resistant-bitcoin-transaction-mainnet</a>
 (as of 2026-08-27)</li>
-<li>theblock.co — starkware quantum safe bitcoin - <a
+<li id="src-12">theblock.co — starkware quantum safe bitcoin - <a
 href="https://www.theblock.co/post/396987/starkware-quantum-safe-bitcoin"
 class="uri">https://www.theblock.co/post/396987/starkware-quantum-safe-bitcoin</a>
 (as of 2026-04-09)</li>
-<li>coindesk.com — quantum safe bitcoin now possible without a soft fork
+<li id="src-13">coindesk.com — quantum safe bitcoin now possible without a soft fork
 but costs usd200 a pop - <a
 href="https://www.coindesk.com/markets/2026/04/10/quantum-safe-bitcoin-now-possible-without-a-soft-fork-but-costs-usd200-a-pop"
 class="uri">https://www.coindesk.com/markets/2026/04/10/quantum-safe-bitcoin-now-possible-without-a-soft-fork-but-costs-usd200-a-pop</a>

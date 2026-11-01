@@ -48,11 +48,11 @@
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 24 [1]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 24 <a class="cite" href="#src-1">[1]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-available">available</span> since not recorded
-[2]</td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<a class="cite" href="#src-2">[2]</a></td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -64,23 +64,23 @@
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-default">default</span> since 27 [4] [5] [6]
-[7]</td>
+<td data-label="TLS 1.3"><span class="st st-default">default</span> since 27 <a class="cite" href="#src-4">[4]</a> <a class="cite" href="#src-5">[5]</a> <a class="cite" href="#src-6">[6]</a>
+<a class="cite" href="#src-7">[7]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 27 [8] [9]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 27 <a class="cite" href="#src-8">[8]</a> <a class="cite" href="#src-9">[9]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 27 [8]
-[10]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 27 <a class="cite" href="#src-8">[8]</a>
+<a class="cite" href="#src-10">[10]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -94,39 +94,39 @@
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [11] [12]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-11">[11]</a> <a class="cite" href="#src-12">[12]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [11] [12]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-11">[11]</a> <a class="cite" href="#src-12">[12]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [11] [12]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-11">[11]</a> <a class="cite" href="#src-12">[12]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 24 [1]
-[13]</td>
+<td data-label="Primitive"><span class="st st-available">available</span> since 24 <a class="cite" href="#src-1">[1]</a>
+<a class="cite" href="#src-13">[13]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-available">available</span> since 24 (JEP 497)
-[14]</td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<a class="cite" href="#src-14">[14]</a></td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
@@ -147,14 +147,14 @@
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 </tbody>
 </table></div>
@@ -238,114 +238,114 @@ were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>25.0.5, 2026-10-20, LTS [15] [16] [17]</li>
-<li>27.0.1, 2026-10-20 [18]</li>
-<li>27, 2026-09-15 [19] [20]</li>
-<li>26, 2026-03-17 [13]</li>
+<li>25.0.5, 2026-10-20, LTS <a class="cite" href="#src-15">[15]</a> <a class="cite" href="#src-16">[16]</a> <a class="cite" href="#src-17">[17]</a></li>
+<li>27.0.1, 2026-10-20 <a class="cite" href="#src-18">[18]</a></li>
+<li>27, 2026-09-15 <a class="cite" href="#src-19">[19]</a> <a class="cite" href="#src-20">[20]</a></li>
+<li>26, 2026-03-17 <a class="cite" href="#src-13">[13]</a></li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="also-tracked">Also Tracked</h2>
 <ul>
 <li><strong>LTS backports of ML-KEM, ML-DSA and hybrid TLS</strong>: JDK
 25 in October 2026; JDK 21 and 17 in H1 2027; JDK 11 and 8 in H2 2027
-[21] [22] [23] [24] [25]</li>
+<a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-23">[23]</a> <a class="cite" href="#src-24">[24]</a> <a class="cite" href="#src-25">[25]</a></li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a href="https://www.baeldung.com/jdk-security-enhancements"
+<li id="src-1"><a href="https://www.baeldung.com/jdk-security-enhancements"
 class="uri">https://www.baeldung.com/jdk-security-enhancements</a> (as
 of 2026-06-05; ledger claim
 pqc/language-native-crypto-stacks/d0001:9)</li>
-<li><a
+<li id="src-2"><a
 href="https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quantum-cryptography/"
 class="uri">https://neatguycoding.com/posts/2026-05-18-javaone-2026-java-and-post-quantum-cryptography/</a>
 (as of 2026-05-18; ledger claim
 pqc/language-native-crypto-stacks/d0001:10)</li>
-<li><a
+<li id="src-3"><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
 class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
 (date not recorded; checked 2026-09-12)</li>
-<li><a href="https://openjdk.org/jeps/527"
+<li id="src-4"><a href="https://openjdk.org/jeps/527"
 class="uri">https://openjdk.org/jeps/527</a> (date not recorded; checked
 2026-09-26)</li>
-<li><a href="https://openjdk.org/jeps/527"
+<li id="src-5"><a href="https://openjdk.org/jeps/527"
 class="uri">https://openjdk.org/jeps/527</a> (as of 2026-08-17; ledger
 claim pqc/language-runtime-tls-surfaces/d0002:2)</li>
-<li><a
+<li id="src-6"><a
 href="https://inside.java/2026/09/03/java-acceleration-curve25519-field-operations"
 class="uri">https://inside.java/2026/09/03/java-acceleration-curve25519-field-operations</a>
 (as of 2026-09-03; ledger claim
 pqc/language-native-crypto-stacks/d0005:2)</li>
-<li><a
+<li id="src-7"><a
 href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java"
 class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java</a>
 (as of 2026-10-20; checked 2026-10-25)</li>
-<li><a href="https://openjdk.org/jeps/527"
+<li id="src-8"><a href="https://openjdk.org/jeps/527"
 class="uri">https://openjdk.org/jeps/527</a> (date not recorded; checked
 2026-09-26)</li>
-<li><a
+<li id="src-9"><a
 href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java"
 class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java</a>
 (as of 2026-10-20; checked 2026-10-25)</li>
-<li><a
+<li id="src-10"><a
 href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java"
 class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java</a>
 (as of 2026-10-20; checked 2026-10-25)</li>
-<li><a href="https://openjdk.org/jeps/527"
+<li id="src-11"><a href="https://openjdk.org/jeps/527"
 class="uri">https://openjdk.org/jeps/527</a> (date not recorded; checked
 2026-10-08)</li>
-<li><a
+<li id="src-12"><a
 href="https://bugs.openjdk.org/rest/api/2/issue/JDK-8371736?fields=summary,status,fixVersions,updated,resolution"
 class="uri">https://bugs.openjdk.org/rest/api/2/issue/JDK-8371736?fields=summary,status,fixVersions,updated,resolution</a>
 (as of 2026-10-29; checked 2026-11-01)</li>
-<li><a href="https://seanjmullan.org/blog/2026/03/16/jdk26"
+<li id="src-13"><a href="https://seanjmullan.org/blog/2026/03/16/jdk26"
 class="uri">https://seanjmullan.org/blog/2026/03/16/jdk26</a> (as of
 2026-03-16; ledger claim
 pqc/language-native-crypto-stacks/d0001:11)</li>
-<li><a href="https://openjdk.org/jeps/497"
+<li id="src-14"><a href="https://openjdk.org/jeps/497"
 class="uri">https://openjdk.org/jeps/497</a> (date not recorded; checked
 2026-09-12)</li>
-<li><a
+<li id="src-15"><a
 href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/make/conf/version-numbers.conf"
 class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/make/conf/version-numbers.conf</a>
 (as of 2026-10-20; checked 2026-10-25)</li>
-<li><a href="https://github.com/openjdk/jdk25u/compare/jdk-25.0.5-ga"
+<li id="src-16"><a href="https://github.com/openjdk/jdk25u/compare/jdk-25.0.5-ga"
 class="uri">https://github.com/openjdk/jdk25u/compare/jdk-25.0.5-ga</a>…jdk-25.0.5.0.3-ga
 (as of 2026-10-27; checked 2026-11-01)</li>
-<li><a
+<li id="src-17"><a
 href="https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java"
 class="uri">https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5-ga/src/java.base/share/classes/sun/security/ssl/NamedGroup.java</a>
 (as of 2026-10-20; checked 2026-10-25)</li>
-<li><a
+<li id="src-18"><a
 href="https://raw.githubusercontent.com/openjdk/jdk27u/jdk-27.0.1-ga/make/conf/version-numbers.conf"
 class="uri">https://raw.githubusercontent.com/openjdk/jdk27u/jdk-27.0.1-ga/make/conf/version-numbers.conf</a>
 (as of 2026-10-20; checked 2026-10-25)</li>
-<li><a href="https://openjdk.org/projects/jdk/27/"
+<li id="src-19"><a href="https://openjdk.org/projects/jdk/27/"
 class="uri">https://openjdk.org/projects/jdk/27/</a> (as of 2026-09-15;
 checked 2026-09-26)</li>
-<li><a
+<li id="src-20"><a
 href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
 class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
 (as of 2026-08-06; ledger claim
 pqc/language-native-crypto-stacks/d0002:2)</li>
-<li><a
+<li id="src-21"><a
 href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
 class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
 (as of 2026-08-06; ledger claim
 pqc/language-native-crypto-stacks/d0003:3)</li>
-<li><a
+<li id="src-22"><a
 href="https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases"
 class="uri">https://blogs.oracle.com/java/post-quantum-cryptography-in-long-term-support-jdk-releases</a>
 (as of 2026-08-06; ledger claim
 pqc/language-runtime-tls-surfaces/d0001:1)</li>
-<li><a
+<li id="src-23"><a
 href="https://github.com/openjdk/jdk25u-dev/commit/83e90e7d76e9ca804384d47a4d529e91f79d8981"
 class="uri">https://github.com/openjdk/jdk25u-dev/commit/83e90e7d76e9ca804384d47a4d529e91f79d8981</a>
 (as of 2026-08-03; checked 2026-10-18)</li>
-<li><a
+<li id="src-24"><a
 href="https://bugs.openjdk.org/rest/api/2/issue/JDK-8314323?fields=summary,fixVersions,issuelinks,resolutiondate"
 class="uri">https://bugs.openjdk.org/rest/api/2/issue/JDK-8314323?fields=summary,fixVersions,issuelinks,resolutiondate</a>
 (as of 2026-10-25; checked 2026-10-25)</li>
-<li><a
+<li id="src-25"><a
 href="https://bugs.openjdk.org/rest/api/2/issue/JDK-8390362?fields=summary,status,fixVersions,updated,resolution,resolutiondate"
 class="uri">https://bugs.openjdk.org/rest/api/2/issue/JDK-8390362?fields=summary,status,fixVersions,updated,resolution,resolutiondate</a>
 (as of 2026-10-05; checked 2026-11-01)</li>

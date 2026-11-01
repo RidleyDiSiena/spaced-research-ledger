@@ -62,20 +62,20 @@ From</a></li>
 <tr>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-default">default</span> since 0.23.22 (core
-crate) [1] [2] [3]</td>
+crate) <a class="cite" href="#src-1">[1]</a> <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-3">[3]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since documented in
-0.23.44 [1]</td>
+0.23.44 <a class="cite" href="#src-1">[1]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [1]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-1">[1]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
@@ -87,29 +87,29 @@ crate) [1] [2] [3]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since 0.23.22
-[4]</td>
+<a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since 0.23.37
-[5]</td>
+<a class="cite" href="#src-5">[5]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
-<td data-label="X.509"><span class="st st-default">default</span> since 0.23.44 [6]
-[7]</td>
+<td data-label="X.509"><span class="st st-default">default</span> since 0.23.44 <a class="cite" href="#src-6">[6]</a>
+<a class="cite" href="#src-7">[7]</a></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -154,7 +154,7 @@ pinned at aws-lc-rs ^1.18 (rustls 0.23.44). Inherits: FIPS 140-3. rustls
 does no cryptography itself; it takes a provider crate, and aws-lc-rs is
 the default. It is one of two providers – the other is recorded as the
 <code>ring</code> edge below rather than left in this sentence, so the
-page cannot read as though rustls had a single backend. [8] [9]</li>
+page cannot read as though rustls had a single backend. <a class="cite" href="#src-8">[8]</a> <a class="cite" href="#src-9">[9]</a></li>
 <li><strong>ring, not tracked in this register</strong> – provider.
 Inherits: FIPS 140-3. The other provider crate rustls can be built on,
 listed beside aws-lc-rs as an optional dependency of rustls 0.23.44.
@@ -162,7 +162,7 @@ ring is NOT a component in this register, so a rustls built on ring
 inherits nothing recorded here – and that is a gap in this register’s
 coverage, not a finding about ring. Recorded as an edge rather than a
 remark so the count of backends is right and the promotion to a real
-component is a one-line change if ring is ever tracked. [10]</li>
+component is a one-line change if ring is ever tracked. <a class="cite" href="#src-10">[10]</a></li>
 </ul>
 <h3 id="fips-140-3">FIPS 140-3</h3>
 <p>rustls holds no FIPS 140-3 certificate of its own, and there is no
@@ -221,63 +221,63 @@ the lxer entry is kept only as the ledger claim’s trace.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>0.23.46, 2026-10-14 [11] [12] [13] [14]</li>
-<li>0.23.45, 2026-09-14 [15]</li>
-<li>0.23.44, 2026-09-07 [16] [7]</li>
+<li>0.23.46, 2026-10-14 <a class="cite" href="#src-11">[11]</a> <a class="cite" href="#src-12">[12]</a> <a class="cite" href="#src-13">[13]</a> <a class="cite" href="#src-14">[14]</a></li>
+<li>0.23.45, 2026-09-14 <a class="cite" href="#src-15">[15]</a></li>
+<li>0.23.44, 2026-09-07 <a class="cite" href="#src-16">[16]</a> <a class="cite" href="#src-7">[7]</a></li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a
+<li id="src-1"><a
 href="https://docs.rs/rustls/latest/rustls/crypto/aws_lc_rs/kx_group/index.html"
 class="uri">https://docs.rs/rustls/latest/rustls/crypto/aws_lc_rs/kx_group/index.html</a>
 (date not recorded; checked 2026-09-12)</li>
-<li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.22"
+<li id="src-2"><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.22"
 class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.22</a>
 (as of 2025-01-30; checked 2026-10-15)</li>
-<li><a
+<li id="src-3"><a
 href="https://github.com/rustls/rustls/blob/v/0.23.46/rustls/src/crypto/aws_lc_rs/mod.rs"
 class="uri">https://github.com/rustls/rustls/blob/v/0.23.46/rustls/src/crypto/aws_lc_rs/mod.rs</a>
 (as of 2026-10-14; checked 2026-10-15)</li>
-<li><a
+<li id="src-4"><a
 href="https://github.com/rustls/rustls/blob/rel-0.23/rustls/src/crypto/aws_lc_rs/mod.rs"
 class="uri">https://github.com/rustls/rustls/blob/rel-0.23/rustls/src/crypto/aws_lc_rs/mod.rs</a>
 (date not recorded; checked 2026-10-08)</li>
-<li><a
+<li id="src-5"><a
 href="https://github.com/rustls/rustls/blob/rel-0.23/rustls/src/crypto/aws_lc_rs/mod.rs"
 class="uri">https://github.com/rustls/rustls/blob/rel-0.23/rustls/src/crypto/aws_lc_rs/mod.rs</a>
 (as of 2026-02-24; checked 2026-10-08)</li>
-<li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.44"
+<li id="src-6"><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.44"
 class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.44</a>
 (as of 2026-09-07; checked 2026-10-04)</li>
-<li><a href="https://lxer.com/module/newswire/ext_link.php?rid=367325"
+<li id="src-7"><a href="https://lxer.com/module/newswire/ext_link.php?rid=367325"
 class="uri">https://lxer.com/module/newswire/ext_link.php?rid=367325</a>
 (as of 2026-09-07; ledger claim
 pqc/language-runtime-tls-surfaces/d0004:1)</li>
-<li><a href="https://docs.rs/rustls/latest/rustls/crypto/index.html"
+<li id="src-8"><a href="https://docs.rs/rustls/latest/rustls/crypto/index.html"
 class="uri">https://docs.rs/rustls/latest/rustls/crypto/index.html</a>
 (date not recorded; checked 2026-09-13)</li>
-<li><a href="https://github.com/rustls/rustls/blob/v/0.23.46/Cargo.toml"
+<li id="src-9"><a href="https://github.com/rustls/rustls/blob/v/0.23.46/Cargo.toml"
 class="uri">https://github.com/rustls/rustls/blob/v/0.23.46/Cargo.toml</a>
 (date not recorded; checked 2026-10-15)</li>
-<li><a href="https://docs.rs/rustls/latest/rustls/crypto/index.html"
+<li id="src-10"><a href="https://docs.rs/rustls/latest/rustls/crypto/index.html"
 class="uri">https://docs.rs/rustls/latest/rustls/crypto/index.html</a>
 (date not recorded; checked 2026-09-13)</li>
-<li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.46"
+<li id="src-11"><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.46"
 class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.46</a>
 (as of 2026-10-14; checked 2026-10-15)</li>
-<li><a href="https://api.github.com/repos/rustls/rustls/releases"
+<li id="src-12"><a href="https://api.github.com/repos/rustls/rustls/releases"
 class="uri">https://api.github.com/repos/rustls/rustls/releases</a> (as
 of 2026-10-14; checked 2026-10-18)</li>
-<li><a href="https://crates.io/api/v1/crates/rustls"
+<li id="src-13"><a href="https://crates.io/api/v1/crates/rustls"
 class="uri">https://crates.io/api/v1/crates/rustls</a> (as of
 2026-10-14; checked 2026-10-25)</li>
-<li><a href="https://github.com/rustls/rustls/commits/main"
+<li id="src-14"><a href="https://github.com/rustls/rustls/commits/main"
 class="uri">https://github.com/rustls/rustls/commits/main</a> (as of
 2026-10-14; checked 2026-11-01)</li>
-<li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.45"
+<li id="src-15"><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.45"
 class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.45</a>
 (as of 2026-09-14; checked 2026-10-04)</li>
-<li><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.44"
+<li id="src-16"><a href="https://github.com/rustls/rustls/releases/tag/v%2F0.23.44"
 class="uri">https://github.com/rustls/rustls/releases/tag/v%2F0.23.44</a>
 (as of 2026-09-07; checked 2026-10-04)</li>
 </ol>

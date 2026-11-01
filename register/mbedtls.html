@@ -51,12 +51,12 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-planned">planned</span> since roadmap:
-unscheduled Future [1] [2]</td>
+unscheduled Future <a class="cite" href="#src-1">[1]</a> <a class="cite" href="#src-2">[2]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -106,7 +106,7 @@ unscheduled Future [1] [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -115,7 +115,7 @@ unscheduled Future [1] [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -124,7 +124,7 @@ unscheduled Future [1] [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
-<td data-label="TLS 1.3"><span class="st st-none">none</span> [4]</td>
+<td data-label="TLS 1.3"><span class="st st-none">none</span> <a class="cite" href="#src-4">[4]</a></td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -133,12 +133,12 @@ unscheduled Future [1] [2]</td>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-planned">planned</span> since roadmap: initial
-support 2026 CQ2 [1] [5] [6] [7] [8] [9]</td>
+support 2026 CQ2 <a class="cite" href="#src-1">[1]</a> <a class="cite" href="#src-5">[5]</a> <a class="cite" href="#src-6">[6]</a> <a class="cite" href="#src-7">[7]</a> <a class="cite" href="#src-8">[8]</a> <a class="cite" href="#src-9">[9]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
@@ -147,7 +147,7 @@ support 2026 CQ2 [1] [5] [6] [7] [8] [9]</td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>FN-DSA (Falcon)</strong></td>
@@ -170,12 +170,12 @@ support 2026 CQ2 [1] [5] [6] [7] [8] [9]</td>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since about 3.2
-[2]</td>
+<a class="cite" href="#src-2">[2]</a></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
@@ -184,7 +184,7 @@ support 2026 CQ2 [1] [5] [6] [7] [8] [9]</td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [3]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
 </tr>
 </tbody>
 </table></div>
@@ -257,37 +257,37 @@ mbed-tls mailing list thread on quantum-safe algorithms.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li><a href="https://mbed-tls.readthedocs.io/en/latest/project/roadmap/"
+<li id="src-1"><a href="https://mbed-tls.readthedocs.io/en/latest/project/roadmap/"
 class="uri">https://mbed-tls.readthedocs.io/en/latest/project/roadmap/</a>
 (date not recorded; ledger claim
 pqc/embedded-alternative-libraries/d0001:8)</li>
-<li><a href="https://arxiv.org/html/2508.16078v1"
+<li id="src-2"><a href="https://arxiv.org/html/2508.16078v1"
 class="uri">https://arxiv.org/html/2508.16078v1</a> (as of 2025-08-22;
 ledger claim pqc/embedded-alternative-libraries/d0001:7)</li>
-<li><a
+<li id="src-3"><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
 class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
 (date not recorded; checked 2026-09-12)</li>
-<li><a
+<li id="src-4"><a
 href="https://github.com/Mbed-TLS/mbedtls/blob/development/include/mbedtls/ssl.h"
 class="uri">https://github.com/Mbed-TLS/mbedtls/blob/development/include/mbedtls/ssl.h</a>
 (date not recorded; checked 2026-10-08)</li>
-<li><a
+<li id="src-5"><a
 href="https://lists.trustedfirmware.org/archives/list/mbed-tls@lists.trustedfirmware.org/thread/D73QWEQBW5LHMFMG35S3IPV62NTKR4SO/"
 class="uri">https://lists.trustedfirmware.org/archives/list/mbed-tls@lists.trustedfirmware.org/thread/D73QWEQBW5LHMFMG35S3IPV62NTKR4SO/</a>
 (date not recorded; ledger claim
 pqc/embedded-alternative-libraries/d0001:9)</li>
-<li><a
+<li id="src-6"><a
 href="https://github.com/Mbed-TLS/TF-PSA-Crypto/blob/development/ChangeLog.d/mldsa.txt"
 class="uri">https://github.com/Mbed-TLS/TF-PSA-Crypto/blob/development/ChangeLog.d/mldsa.txt</a>
 (date not recorded; checked 2026-10-15)</li>
-<li><a href="https://mbed-tls.readthedocs.io/en/latest/project/roadmap/"
+<li id="src-7"><a href="https://mbed-tls.readthedocs.io/en/latest/project/roadmap/"
 class="uri">https://mbed-tls.readthedocs.io/en/latest/project/roadmap/</a>
 (date not recorded; checked 2026-10-15)</li>
-<li><a href="https://github.com/Mbed-TLS/TF-PSA-Crypto/releases"
+<li id="src-8"><a href="https://github.com/Mbed-TLS/TF-PSA-Crypto/releases"
 class="uri">https://github.com/Mbed-TLS/TF-PSA-Crypto/releases</a> (as
 of 2026-07-07; checked 2026-10-25)</li>
-<li><a href="https://github.com/Mbed-TLS/TF-PSA-Crypto/pull/912"
+<li id="src-9"><a href="https://github.com/Mbed-TLS/TF-PSA-Crypto/pull/912"
 class="uri">https://github.com/Mbed-TLS/TF-PSA-Crypto/pull/912</a> (as
 of 2026-10-30; checked 2026-11-01)</li>
 </ol>

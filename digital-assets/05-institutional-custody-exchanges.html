@@ -60,34 +60,34 @@ regulators, questionnaires and pilots applying the pressure.</p>
 clients, and the first to simulate a post-quantum transaction with its
 core signing technology.</em></p>
 <h3 id="recent-developments">Recent Developments</h3>
-<p>BitGo launched four Bitcoin quantum-risk tools on 9 July 2026.[1]
+<p>BitGo launched four Bitcoin quantum-risk tools on 9 July 2026.<a class="cite" href="#src-1">[1]</a>
 They are a Quantum Risk Score, a Fix Exposed Addresses workflow, a
 coin-selection method that prioritises coins by address risk, and
-updated default address-type controls.[1] The migration workflow guides
+updated default address-type controls.<a class="cite" href="#src-1">[1]</a> The migration workflow guides
 clients through moving funds from elevated-risk addresses into new
 addresses with stronger key hygiene. That is address-reuse remediation,
-the category dominating the exposure numbers in Part 2.[1]</p>
+the category dominating the exposure numbers in Part 2.<a class="cite" href="#src-1">[1]</a></p>
 <p>The tools have clear limits. They do not cover Taproot or P2PK
 addresses, which expose public keys from creation, and BitGo frames the
 tooling as a bridge pending protocol-level upgrades rather than a
-permanent solution.[1] No client adoption metrics have been disclosed,
+permanent solution.<a class="cite" href="#src-1">[1]</a> No client adoption metrics have been disclosed,
 and adoption is the variable that determines whether this work
-matters.[1]</p>
+matters.<a class="cite" href="#src-1">[1]</a></p>
 <h3 id="current-state">Current State</h3>
 <p>BitGo and Silence Laboratories announced on 26 May 2026 the
 completion of what they describe as the first post-quantum MPC
-transaction simulation by a regulated custodian.[2] MPC, or multi-party
+transaction simulation by a regulated custodian.<a class="cite" href="#src-2">[2]</a> MPC, or multi-party
 computation, splits a signing key so no single machine ever holds it,
 and is the technology most institutional custody is built on. The
 simulation used Silence Laboratories’ protocol built on ML-DSA, the
 NIST-standardised post-quantum signature. It was a simulation rather
-than production, and no specific blockchain was named.[2]</p>
+than production, and no specific blockchain was named.<a class="cite" href="#src-2">[2]</a></p>
 <p>BitGo’s chief executive Mike Belshe framed the move as a
 planning-horizon shift, saying quantum computing has moved from
 theoretical discussion to an infrastructure planning priority for the
-industry.[2] No production rollout date was given. The companies said
+industry.<a class="cite" href="#src-2">[2]</a> No production rollout date was given. The companies said
 only that they plan to continue developing and testing with select
-customers.[2]</p>
+customers.<a class="cite" href="#src-2">[2]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="coinbase">2. Coinbase</h2>
 <p><em>The largest custodian has an expert board, a self-imposed
 deadline, and cold wallets that its own report counts among the
@@ -96,25 +96,25 @@ exposed.</em></p>
 <p>Coinbase plans to deliver an automated quantum-safe signing pipeline
 within a year of July 2026, using secure enclaves and threshold
 cryptography, while coordinating with Bitcoin core developers on
-migration.[3] Its Independent Advisory Board on Quantum Computing and
-Blockchain published its report on 13 June 2026.[4] Named participants
+migration.<a class="cite" href="#src-3">[3]</a> Its Independent Advisory Board on Quantum Computing and
+Blockchain published its report on 13 June 2026.<a class="cite" href="#src-4">[4]</a> Named participants
 include Yehuda Lindell, Dan Boneh, Scott Aaronson, Justin Drake, Sreeram
-Kannan and Dahlia Malkhi.[4]</p>
+Kannan and Dahlia Malkhi.<a class="cite" href="#src-4">[4]</a></p>
 <p>The report’s most pointed observation concerns exchanges themselves.
 Of the roughly 5 million BTC exposed through address reuse, large
 amounts sit in the cold wallets of known exchanges, though no exchange
-is named.[4] The board distinguishes those reuse-exposed active funds
+is named.<a class="cite" href="#src-4">[4]</a> The board distinguishes those reuse-exposed active funds
 from the 1.7 million BTC in Satoshi-era addresses, because active funds
-can be moved by their owners today.[4] Its two recommendations are to
+can be moved by their owners today.<a class="cite" href="#src-4">[4]</a> Its two recommendations are to
 begin technical migration work immediately without waiting for the
 governance debate, and to communicate more clearly on timelines. It
-declines to endorse any specific solution.[4]</p>
+declines to endorse any specific solution.<a class="cite" href="#src-4">[4]</a></p>
 <p>Coinbase’s documented cold-storage practice already includes key
 hygiene relevant to quantum exposure. Vault keys are single-use or
 reusable, depending on whether the private key was ever fully
-reconstituted online.[5] Remaining funds move to a new key after
-reconstitution.[5] Coinbase may also move assets between cold addresses
-for security maintenance, without client consent.[5]</p>
+reconstituted online.<a class="cite" href="#src-5">[5]</a> Remaining funds move to a new key after
+reconstitution.<a class="cite" href="#src-5">[5]</a> Coinbase may also move assets between cold addresses
+for security maintenance, without client consent.<a class="cite" href="#src-5">[5]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="fireblocks-and-the-wider-provider-field">3. Fireblocks and the
 Wider Provider Field</h2>
 <p><em>Most custody technology providers have published positions rather
@@ -123,46 +123,46 @@ roadmap.</em></p>
 <h3 id="current-state-2">Current State</h3>
 <p>Fireblocks’ chief executive Michael Shaulov describes migrating
 Bitcoin to post-quantum signatures as mostly a coordination issue rather
-than a technical challenge.[6] The company states that post-quantum
+than a technical challenge.<a class="cite" href="#src-6">[6]</a> The company states that post-quantum
 cryptography is a strategic priority and that it is researching MPC
-protocol adaptations for the NIST signature schemes.[7] Its public
+protocol adaptations for the NIST signature schemes.<a class="cite" href="#src-7">[7]</a> Its public
 position is that the threat is real but distant, likely over a decade
-away absent a material shift in progress.[8] It organises its
+away absent a material shift in progress.<a class="cite" href="#src-8">[8]</a> It organises its
 preparation around cryptographic agility, threat modelling and standards
 engagement, and recommends the industry target quantum readiness by
-2030.[8] Its guidance to institutions is framed as questions to
+2030.<a class="cite" href="#src-8">[8]</a> Its guidance to institutions is framed as questions to
 understand rather than concrete steps, and it has not disclosed a
-roadmap with named algorithms for its own platform.[8]</p>
+roadmap with named algorithms for its own platform.<a class="cite" href="#src-8">[8]</a></p>
 <p>The provider field is wider than the famous names. The institutional
 digital-asset security platform market in 2026 is led by Fireblocks,
 BitGo, Anchorage Digital, DFNS, Copper, Ripple Custody, Ledger
-Enterprise, Fordefi, Safe and Hex Trust.[9] Copper combines MPC custody
-with optical air-gapping and off-exchange settlement.[9] It has no
+Enterprise, Fordefi, Safe and Hex Trust.<a class="cite" href="#src-9">[9]</a> Copper combines MPC custody
+with optical air-gapping and off-exchange settlement.<a class="cite" href="#src-9">[9]</a> It has no
 active custody licence in the US or UK, and faced a July 2026 deadline
-for European authorisation.[9] That is a licensing constraint rather
-than a quantum one, but material to counterparty assessment.[9]</p>
+for European authorisation.<a class="cite" href="#src-9">[9]</a> That is a licensing constraint rather
+than a quantum one, but material to counterparty assessment.<a class="cite" href="#src-9">[9]</a></p>
 <p>On the supply side, Silence Laboratories, BitGo’s post-quantum
 partner, has launched a quantum-safe vault product of its own, meaning
 custodian capability is beginning to productise independently of the
-custodians.[10]</p>
+custodians.<a class="cite" href="#src-10">[10]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="etf-custody-concentration">4. ETF Custody Concentration</h2>
 <p><em>Most spot Bitcoin ETFs keep their coins with one custodian. That
 turns one company’s quantum posture into a systemic question.</em></p>
 <h3 id="current-state-3">Current State</h3>
 <p>BlackRock’s iShares Bitcoin Trust held 734,762 BTC, worth about $48
-billion, as of 15 July 2026.[11] BlackRock broadened the fund’s
+billion, as of 15 July 2026.<a class="cite" href="#src-11">[11]</a> BlackRock broadened the fund’s
 quantum-computing risk disclosure in a May 2025 prospectus revision,
 expanding a brief mention into a detailed section on how quantum
 advances could undermine digital-asset security. The filing notes that
 implementing defences would need broad consensus across a decentralised
-network.[12]</p>
+network.<a class="cite" href="#src-12">[12]</a></p>
 <p>The custody itself concentrates. BlackRock appointed Coinbase as
 custodian for the trust and added Anchorage as a second custodian in
-April 2025 as the fund grew.[13] Coinbase serves as custodian and prime
+April 2025 as the fund grew.<a class="cite" href="#src-13">[13]</a> Coinbase serves as custodian and prime
 execution agent for several competing bitcoin funds as well,
-concentrating custody for most spot ETFs in one provider.[14] Morgan
+concentrating custody for most spot ETFs in one provider.<a class="cite" href="#src-14">[14]</a> Morgan
 Stanley extended the pattern, selecting Coinbase and BNY as custodians
-for its planned bitcoin product.[15]</p>
+for its planned bitcoin product.<a class="cite" href="#src-15">[15]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="regulators-questionnaires-and-pilots">5. Regulators,
 Questionnaires and Pilots</h2>
 <p><em>Nobody has ordered a custodian to go post-quantum. What exists
@@ -171,30 +171,30 @@ insurance pricing.</em></p>
 <h3 id="recent-developments-1">Recent Developments</h3>
 <p>The US Treasury launched a Quantum-Readiness Task Force on 24 August
 2026, with a dedicated digital-assets workstream to coordinate with
-crypto custodians and infrastructure providers on migration.[16]
+crypto custodians and infrastructure providers on migration.<a class="cite" href="#src-16">[16]</a>
 Singapore’s Cyber Security Agency released a Quantum-Safe Migration
-Handbook and a readiness self-assessment questionnaire in July 2026.[17]
+Handbook and a readiness self-assessment questionnaire in July 2026.<a class="cite" href="#src-17">[17]</a>
 And a cross-regional pilot launched in August 2026 is testing
 quantum-resistant wallets and transfers, using MPC with ML-DSA
-signatures on a test network.[18] It involves Bison Bank and DK Bank,
-with regulators from Abu Dhabi, Bhutan and Malta observing.[18]</p>
+signatures on a test network.<a class="cite" href="#src-18">[18]</a> It involves Bison Bank and DK Bank,
+with regulators from Abu Dhabi, Bhutan and Malta observing.<a class="cite" href="#src-18">[18]</a></p>
 <h3 id="current-state-4">Current State</h3>
 <p>In the US, proposed regulatory frameworks for digital-asset custody
 reference the NIST post-quantum algorithms and government compatibility
 requirements as security considerations. That is descriptive rather than
 prescriptive: no named SEC rule or deadline for digital-asset custodians
-was found.[19] The G7 Cyber Expert Group’s January 2026 financial-sector
+was found.<a class="cite" href="#src-19">[19]</a> The G7 Cyber Expert Group’s January 2026 financial-sector
 roadmap places 2026 and 2027 as the awareness and planning phase, with
-cryptographic inventory work in 2027 and 2028.[20]</p>
+cryptographic inventory work in 2027 and 2028.<a class="cite" href="#src-20">[20]</a></p>
 <p>The commercial pressure is further along than the regulatory kind.
 Cyber-insurance underwriters are increasingly incorporating quantum
 readiness into risk questionnaires at policy renewal, and organisations
 without a coherent transition plan may face higher premiums. That is the
-clearest documented pressure mechanism found in this material.[19]</p>
+clearest documented pressure mechanism found in this material.<a class="cite" href="#src-19">[19]</a></p>
 <p>One gap is worth recording. The Alternative Investment Management
 Association publishes a due-diligence questionnaire for digital-asset
-funds covering custody.[21] No evidence was found that it currently
-contains a post-quantum section.[21]</p>
+funds covering custody.<a class="cite" href="#src-21">[21]</a> No evidence was found that it currently
+contains a post-quantum section.<a class="cite" href="#src-21">[21]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
 <p>The Spaced Research Ledger is an automated system that gathers claims
 from live public sources, checks each one against its origin, and
@@ -204,99 +204,99 @@ labs, so no single model both finds a claim and judges it. The Spaced
 Research Ledger is designed and maintained by Ridley DiSiena.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li>tftc.io — bitgo quantum risk controls bitcoin custody - <a
+<li id="src-1">tftc.io — bitgo quantum risk controls bitcoin custody - <a
 href="https://www.tftc.io/bitgo-quantum-risk-controls-bitcoin-custody"
 class="uri">https://www.tftc.io/bitgo-quantum-risk-controls-bitcoin-custody</a>
 (as of 2026-07-09)</li>
-<li>investors.bitgo.com — default - <a
+<li id="src-2">investors.bitgo.com — default - <a
 href="https://investors.bitgo.com/news/news-details/2026/BitGo-and-Silence-Laboratories-Complete-First-Post-Quantum-MPC-Transaction-Simulation-by-a-Regulated-Custodian/default.aspx"
 class="uri">https://investors.bitgo.com/news/news-details/2026/BitGo-and-Silence-Laboratories-Complete-First-Post-Quantum-MPC-Transaction-Simulation-by-a-Regulated-Custodian/default.aspx</a>
 (as of 2026-05-26)</li>
-<li>Coinbase Builds Post-Quantum Custody System, Funds Bitcoin’s Crypto
+<li id="src-3">Coinbase Builds Post-Quantum Custody System, Funds Bitcoin’s Crypto
 Upgrade - <a
 href="https://cryptorank.io/news/feed/d18dd-coinbase-building-post-quantum-solutions"
 class="uri">https://cryptorank.io/news/feed/d18dd-coinbase-building-post-quantum-solutions</a>
 (as of 2026-07-23)</li>
-<li>theblock.co — coinbase quantum report flags exchange cold wallets
+<li id="src-4">theblock.co — coinbase quantum report flags exchange cold wallets
 among millions of bitcoin exposed by address reuse - <a
 href="https://www.theblock.co/post/404685/coinbase-quantum-report-flags-exchange-cold-wallets-among-millions-of-bitcoin-exposed-by-address-reuse"
 class="uri">https://www.theblock.co/post/404685/coinbase-quantum-report-flags-exchange-cold-wallets-among-millions-of-bitcoin-exposed-by-address-reuse</a>
 (as of 2026-06-13)</li>
-<li>sec.gov — tm2534140d8 ex10 4 - <a
+<li id="src-5">sec.gov — tm2534140d8 ex10 4 - <a
 href="https://www.sec.gov/Archives/edgar/data/2103612/000110465926029738/tm2534140d8_ex10-4.htm"
 class="uri">https://www.sec.gov/Archives/edgar/data/2103612/000110465926029738/tm2534140d8_ex10-4.htm</a>
 (undated)</li>
-<li>Quantum Computing Threat ‘Mostly a Coordination Issue’ for Bitcoin:
+<li id="src-6">Quantum Computing Threat ‘Mostly a Coordination Issue’ for Bitcoin:
 Fireblocks CEO - Decrypt - <a
 href="https://decrypt.co/367714/quantum-computing-threat-coordination-issue-bitcoin-fireblocks-ceo"
 class="uri">https://decrypt.co/367714/quantum-computing-threat-coordination-issue-bitcoin-fireblocks-ceo</a>
 (as of 2026-05-13)</li>
-<li>What Google’s New Quantum Research Means for Institutional Crypto
+<li id="src-7">What Google’s New Quantum Research Means for Institutional Crypto
 Security | Fireblocks - <a
 href="https://www.fireblocks.com/blog/google-quantum-research-institutional-crypto-security"
 class="uri">https://www.fireblocks.com/blog/google-quantum-research-institutional-crypto-security</a>
 (as of 2026-04-01)</li>
-<li>fireblocks.com — quantum risk in crypto what institutions need to
+<li id="src-8">fireblocks.com — quantum risk in crypto what institutions need to
 know - <a
 href="https://www.fireblocks.com/blog/quantum-risk-in-crypto-what-institutions-need-to-know"
 class="uri">https://www.fireblocks.com/blog/quantum-risk-in-crypto-what-institutions-need-to-know</a>
 (undated)</li>
-<li>ridgewayfs.com — digital asset security platforms - <a
+<li id="src-9">ridgewayfs.com — digital asset security platforms - <a
 href="https://www.ridgewayfs.com/digital-asset-security-platforms/"
 class="uri">https://www.ridgewayfs.com/digital-asset-security-platforms/</a>
 (undated)</li>
-<li>news.bitcoin.com — silence labs launches quantum safe vault to
+<li id="src-10">news.bitcoin.com — silence labs launches quantum safe vault to
 secure crypto custody - <a
 href="https://news.bitcoin.com/silence-labs-launches-quantum-safe-vault-to-secure-crypto-custody/"
 class="uri">https://news.bitcoin.com/silence-labs-launches-quantum-safe-vault-to-secure-crypto-custody/</a>
 (undated)</li>
-<li>ledn.io — top spot bitcoin etfs - <a
+<li id="src-11">ledn.io — top spot bitcoin etfs - <a
 href="https://www.ledn.io/post/top-spot-bitcoin-etfs"
 class="uri">https://www.ledn.io/post/top-spot-bitcoin-etfs</a> (as of
 2026-07-15)</li>
-<li>dlnews.com — blackrock beefs up quantum compute threats bitcoin
+<li id="src-12">dlnews.com — blackrock beefs up quantum compute threats bitcoin
 investors - <a
 href="https://www.dlnews.com/articles/people-culture/blackrock-beefs-up-quantum-compute-threats-bitcoin-investors/"
 class="uri">https://www.dlnews.com/articles/people-culture/blackrock-beefs-up-quantum-compute-threats-bitcoin-investors/</a>
 (as of 2025-05-09)</li>
-<li>finance.yahoo.com — blackrock bitcoin custodian besides coinbase
+<li id="src-13">finance.yahoo.com — blackrock bitcoin custodian besides coinbase
 160000659 - <a
 href="https://finance.yahoo.com/news/blackrock-bitcoin-custodian-besides-coinbase-160000659.html"
 class="uri">https://finance.yahoo.com/news/blackrock-bitcoin-custodian-besides-coinbase-160000659.html</a>
 (undated)</li>
-<li>outlookindia.com — blackrock coinbase and the systemic custodian
+<li id="src-14">outlookindia.com — blackrock coinbase and the systemic custodian
 question is bitcoin safe in the post etf market - <a
 href="https://www.outlookindia.com/xhub/blockchain-insights/blackrock-coinbase-and-the-systemic-custodian-question-is-bitcoin-safe-in-the-post-etf-market"
 class="uri">https://www.outlookindia.com/xhub/blockchain-insights/blackrock-coinbase-and-the-systemic-custodian-question-is-bitcoin-safe-in-the-post-etf-market</a>
 (undated)</li>
-<li>finance.yahoo.com — morgan stanley picks coinbase bny 185219374 - <a
+<li id="src-15">finance.yahoo.com — morgan stanley picks coinbase bny 185219374 - <a
 href="https://finance.yahoo.com/news/morgan-stanley-picks-coinbase-bny-185219374.html"
 class="uri">https://finance.yahoo.com/news/morgan-stanley-picks-coinbase-bny-185219374.html</a>
 (undated)</li>
-<li>Banks Can Finish Post-Quantum Migration and Still Be Exposed:
+<li id="src-16">Banks Can Finish Post-Quantum Migration and Still Be Exposed:
 Treasury Targets Vendors - <a
 href="https://www.techtimes.com/articles/325690/20260826/banks-can-finish-post-quantum-migration-still-exposed-treasury-targets-vendors.htm"
 class="uri">https://www.techtimes.com/articles/325690/20260826/banks-can-finish-post-quantum-migration-still-exposed-treasury-targets-vendors.htm</a>
 (as of 2026-08-26)</li>
-<li>Quantum-Safe Migration Handbook and Quantum Readiness Index | Cyber
+<li id="src-17">Quantum-Safe Migration Handbook and Quantum Readiness Index | Cyber
 Security Agency of Singapore - <a
 href="https://www.csa.gov.sg/resources/publications/quantum-safe-handbook-and-quantum-readiness-index/"
 class="uri">https://www.csa.gov.sg/resources/publications/quantum-safe-handbook-and-quantum-readiness-index/</a>
 (as of 2026-07-16)</li>
-<li>Banks and regulators launch quantum safe crypto pilot - <a
+<li id="src-18">Banks and regulators launch quantum safe crypto pilot - <a
 href="https://crypto.news/banks-and-regulators-launch-quantum-safe-crypto-pilot/"
 class="uri">https://crypto.news/banks-and-regulators-launch-quantum-safe-crypto-pilot/</a>
 (as of 2026-08-24)</li>
-<li>postquantum.com — us pqc regulatory framework 2026 - <a
+<li id="src-19">postquantum.com — us pqc regulatory framework 2026 - <a
 href="https://postquantum.com/security-pqc/us-pqc-regulatory-framework-2026/"
 class="uri">https://postquantum.com/security-pqc/us-pqc-regulatory-framework-2026/</a>
 (as of 2026-02-01)</li>
-<li>G7 Cyber Expert Group Releases Roadmap for the Transition to
+<li id="src-20">G7 Cyber Expert Group Releases Roadmap for the Transition to
 Post-Quantum Cryptography (Treasury) - <a
 href="https://home.treasury.gov/news/press-releases/sb0355"
 class="uri">https://home.treasury.gov/news/press-releases/sb0355</a> (as
 of 2026-01-01)</li>
-<li>aima.org — press release aima publishes due diligence questionnaire
+<li id="src-21">aima.org — press release aima publishes due diligence questionnaire
 for digital asset funds - <a
 href="https://www.aima.org/article/press-release-aima-publishes-due-diligence-questionnaire-for-digital-asset-funds.html"
 class="uri">https://www.aima.org/article/press-release-aima-publishes-due-diligence-questionnaire-for-digital-asset-funds.html</a>

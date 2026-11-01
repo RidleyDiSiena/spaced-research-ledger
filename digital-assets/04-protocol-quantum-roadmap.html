@@ -69,34 +69,34 @@ project with named teams, not a mailing-list debate.</em></p>
 <h3 id="current-state">Current State</h3>
 <p>The Ethereum Foundation established its Post-Quantum Security team in
 January 2026, and the roadmap, called the Strawmap, was published at
-strawmap.org after a workshop that month.[1] Vitalik Buterin publicly
-confirmed the roadmap and its timeline in late February 2026.[1] The
+strawmap.org after a workshop that month.<a class="cite" href="#src-1">[1]</a> Vitalik Buterin publicly
+confirmed the roadmap and its timeline in late February 2026.<a class="cite" href="#src-1">[1]</a> The
 work sits with the Post-Quantum team inside the Foundation’s Protocol
 cluster, with a parallel Protocol Snarkification team under Alex Hicks
-focused on formal verification.[2]</p>
+focused on formal verification.<a class="cite" href="#src-2">[2]</a></p>
 <p>The work spans three protocol layers. The execution layer gets
 account abstraction, explicitly without a disruptive flag day. The
 consensus layer replaces its BLS signatures with post-quantum
 alternatives. The data layer secures data availability with post-quantum
-cryptography.[2] The plan unfolds in three phases: readiness and
+cryptography.<a class="cite" href="#src-2">[2]</a> The plan unfolds in three phases: readiness and
 infrastructure, gradual adoption, and protocol-level
-consolidation.[2]</p>
+consolidation.<a class="cite" href="#src-2">[2]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="what-needs-replacing">2. What Needs Replacing</h2>
 <p><em>Four separate cryptographic systems inside Ethereum are
 quantum-vulnerable, and each gets a different replacement.</em></p>
 <h3 id="current-state-1">Current State</h3>
-<p>The official roadmap identifies four systems needing replacement.[3]
+<p>The official roadmap identifies four systems needing replacement.<a class="cite" href="#src-3">[3]</a>
 Consensus-layer BLS signatures carry validator votes and rely on
 elliptic-curve pairings. KZG commitments provide data availability for
 rollups and are also pairing-based. ECDSA account signatures on the
 secp256k1 curve expose their public keys once a transaction is sent. And
 application-layer zero-knowledge proofs are built on pairing-based
-SNARKs.[3]</p>
+SNARKs.<a class="cite" href="#src-3">[3]</a></p>
 <p>The planned replacements follow the same order. BLS gets leanXMSS
 plus leanVM, and KZG gets STARK-based or lattice-based commitment
-schemes.[3] Accounts reach post-quantum schemes through account
-abstraction.[3] The proofs migrate through natural ecosystem adoption of
-STARKs, which are already quantum-resistant.[3]</p>
+schemes.<a class="cite" href="#src-3">[3]</a> Accounts reach post-quantum schemes through account
+abstraction.<a class="cite" href="#src-3">[3]</a> The proofs migrate through natural ecosystem adoption of
+STARKs, which are already quantum-resistant.<a class="cite" href="#src-3">[3]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-aggregation-problem-and-the-lean-stack">3. The Aggregation
 Problem and the Lean Stack</h2>
 <p><em>Quantum-safe signatures exist. A quantum-safe way to combine half
@@ -107,27 +107,27 @@ of the project.</em></p>
 aggregation. BLS can combine hundreds of thousands of validator
 signatures into one, and no post-quantum scheme has an obvious
 equivalent, while post-quantum signatures are far larger to begin
-with.[4] The size gap is roughly 3,000 bytes for a hash-based validator
+with.<a class="cite" href="#src-4">[4]</a> The size gap is roughly 3,000 bytes for a hash-based validator
 signature against 96 bytes for BLS. The answer to that gap is leanVM, a
 minimal virtual machine acting as a proof-based aggregation engine,
-compressing by about 250 times.[3] The signature scheme itself,
+compressing by about 250 times.<a class="cite" href="#src-3">[3]</a> The signature scheme itself,
 leanXMSS, is quantum-safe because it depends only on hash-function
-security, which quantum computers weaken but do not break.[3]</p>
+security, which quantum computers weaken but do not break.<a class="cite" href="#src-3">[3]</a></p>
 <p>The component set has five named pieces. leanXMSS provides hash-based
-validator signatures and leanVM the aggregation engine.[2] leanSig is a
-Rust implementation of the signing scheme.[2] leanSpec is an executable
+validator signatures and leanVM the aggregation engine.<a class="cite" href="#src-2">[2]</a> leanSig is a
+Rust implementation of the signing scheme.<a class="cite" href="#src-2">[2]</a> leanSpec is an executable
 Python specification in use by about ten client teams, and leanMultisig
-implements the aggregation.[2]</p>
+implements the aggregation.<a class="cite" href="#src-2">[2]</a></p>
 <p>Status varies by piece. leanSig is integrated, with verification
 running at 39% of its target performance. leanMultisig is in testing at
 about 97% of target efficiency on recent Apple hardware. leanVM remains
-in development.[5]</p>
+in development.<a class="cite" href="#src-5">[5]</a></p>
 <p>Test networks are running now. The sequence began with pq-devnet-0 in
 October 2025 and reached pq-devnet-4, active as of March 2026, which
 performs recursive post-quantum signature aggregation using leanVM. A
 fifth devnet is planned to move aggregation proofs to the block
-level.[5] Weekly interoperability devnets run with more than ten client
-teams.[2]</p>
+level.<a class="cite" href="#src-5">[5]</a> Weekly interoperability devnets run with more than ten client
+teams.<a class="cite" href="#src-2">[2]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="milestones-and-the-2029-question">4. Milestones and the 2029
 Question</h2>
 <p><em>The roadmap targets protocol-level completion around 2029. That
@@ -136,18 +136,18 @@ says so.</em></p>
 <h3 id="current-state-3">Current State</h3>
 <p>Reported scope of the migration includes six quantum-resistant
 signature schemes and 13 virtual-machine precompiles, with full
-activation planned before 2030.[1] The structured milestones target
+activation planned before 2030.<a class="cite" href="#src-1">[1]</a> The structured milestones target
 completion of core post-quantum infrastructure by about 2029. Milestone
 I is a post-quantum key registry for validators, and Milestone J is
-signature verification precompiles.[3] Milestone L is consensus
+signature verification precompiles.<a class="cite" href="#src-3">[3]</a> Milestone L is consensus
 attestations through leanVM, and Milestone M is full aggregation plus
-safe blob commitments.[3] The roadmap page gives rough markers rather
-than fixed dates for these.[2]</p>
+safe blob commitments.<a class="cite" href="#src-3">[3]</a> The roadmap page gives rough markers rather
+than fixed dates for these.<a class="cite" href="#src-2">[2]</a></p>
 <p>The team’s own words bound the claim. Protocol upgrades at the base
 layer could be completed by 2029, with full execution-layer migration
-taking additional years beyond that.[2] The nearest-term carrier is the
+taking additional years beyond that.<a class="cite" href="#src-2">[2]</a> The nearest-term carrier is the
 Hegotá fork, scheduled for the second half of 2026, which implements
-EIP-8141.[3]</p>
+EIP-8141.<a class="cite" href="#src-3">[3]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="eip-8141-and-signature-agility">5. EIP-8141 and Signature
 Agility</h2>
 <p><em>The account-abstraction change closest to shipping is also the
@@ -156,31 +156,31 @@ migration, account by account.</em></p>
 <h3 id="recent-developments">Recent Developments</h3>
 <p>EIP-8141 is targeted for the Hegotá fork as Considered for Inclusion,
 and was formally added to the fork’s coordinating document in a change
-merged on 30 April 2026.[6] A dedicated tracking site, eip8141.io,
+merged on 30 April 2026.<a class="cite" href="#src-6">[6]</a> A dedicated tracking site, eip8141.io,
 documents the divergence between the original January specification and
-the evolved current one.[6] It also lays out a seven-stage post-quantum
+the evolved current one.<a class="cite" href="#src-6">[6]</a> It also lays out a seven-stage post-quantum
 roadmap, running from decoupling ECDSA to private base-layer
-settlement.[6] A late-August research proposal would extend the
-ecrecover opcode, the instruction contracts use to check signatures.[7]
+settlement.<a class="cite" href="#src-6">[6]</a> A late-August research proposal would extend the
+ecrecover opcode, the instruction contracts use to check signatures.<a class="cite" href="#src-7">[7]</a>
 It would recognise post-quantum signatures from frame transactions
-through reserved sentinel values, without disabling the opcode.[7]</p>
+through reserved sentinel values, without disabling the opcode.<a class="cite" href="#src-7">[7]</a></p>
 <h3 id="current-state-4">Current State</h3>
 <p>EIP-8141, titled Frame Transaction, is a draft core-protocol change
 created on 29 January 2026. Its ten authors include Vitalik Buterin and
-several account-abstraction researchers.[8] It introduces a transaction
+several account-abstraction researchers.<a class="cite" href="#src-8">[8]</a> It introduces a transaction
 type that abstracts validation, execution and gas payment through a
 frame system. Transactions decompose into contract calls that determine
 their own validity and payment, rather than relying on fixed ECDSA
-keys.[8]</p>
+keys.<a class="cite" href="#src-8">[8]</a></p>
 <p>The stated purpose is explicit. The proposal provides a native
 off-ramp from today’s elliptic-curve authentication to post-quantum
 systems, and unlinking accounts from specific keys enables native key
-rotation.[8] The document itself does not name the fork that will carry
-it, even though the roadmap page assigns it to Hegotá.[8] The wider
+rotation.<a class="cite" href="#src-8">[8]</a> The document itself does not name the fork that will carry
+it, even though the roadmap page assigns it to Hegotá.<a class="cite" href="#src-8">[8]</a> The wider
 strategy is signature agility through account abstraction rather than a
 protocol-wide forced migration. Individual accounts adopt post-quantum
 signatures independently, a deliberate architectural contrast with the
-deadline-and-sunset approach proposed for Bitcoin.[3]</p>
+deadline-and-sunset approach proposed for Bitcoin.<a class="cite" href="#src-3">[3]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="open-research">6. Open Research</h2>
 <p><em>The parts of the problem without settled answers live on the
 research forum, and they are aggregation-shaped.</em></p>
@@ -188,14 +188,14 @@ research forum, and they are aggregation-shaped.</em></p>
 <p>A June 2026 research post explores the design space for a
 post-quantum public key registry for Ethereum validators. It proposes a
 phased rollout, registry fork first and signature switch later, using
-leanVM-style proof systems for aggregation.[9]</p>
+leanVM-style proof systems for aggregation.<a class="cite" href="#src-9">[9]</a></p>
 <h3 id="current-state-5">Current State</h3>
 <p>Post-quantum attestation aggregation remains an open research area
 with live proposals, including separator-based participation commitments
-and a folding-based approach to signature aggregation.[10] The academic
+and a folding-based approach to signature aggregation.<a class="cite" href="#src-10">[10]</a> The academic
 side is working the same problem. A 2026 cryptology preprint, titled
 Transient Quantum Resistance, with Application to Ethereum Consensus,
-addresses the consensus layer directly.[11]</p>
+addresses the consensus layer directly.<a class="cite" href="#src-11">[11]</a></p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="about-this-report">About This Report</h2>
 <p>The Spaced Research Ledger is an automated system that gathers claims
 from live public sources, checks each one against its origin, and
@@ -205,46 +205,46 @@ labs, so no single model both finds a claim and judges it. The Spaced
 Research Ledger is designed and maintained by Ridley DiSiena.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
-<li>coindesk.com — vitalik buterin unveils ethereum roadmap to counter
+<li id="src-1">coindesk.com — vitalik buterin unveils ethereum roadmap to counter
 quantum computing threat - <a
 href="https://www.coindesk.com/tech/2026/02/26/vitalik-buterin-unveils-ethereum-roadmap-to-counter-quantum-computing-threat"
 class="uri">https://www.coindesk.com/tech/2026/02/26/vitalik-buterin-unveils-ethereum-roadmap-to-counter-quantum-computing-threat</a>
 (as of 2026-02-26)</li>
-<li>pq.ethereum.org - <a href="https://pq.ethereum.org/"
+<li id="src-2">pq.ethereum.org - <a href="https://pq.ethereum.org/"
 class="uri">https://pq.ethereum.org/</a> (undated)</li>
-<li>ethereum.org — quantum resistance - <a
+<li id="src-3">ethereum.org — quantum resistance - <a
 href="https://ethereum.org/roadmap/security/quantum-resistance/"
 class="uri">https://ethereum.org/roadmap/security/quantum-resistance/</a>
 (undated)</li>
-<li>blog.lambdaclass.com — ethereum signature schemes explained ecdsa
+<li id="src-4">blog.lambdaclass.com — ethereum signature schemes explained ecdsa
 bls xmss and post quantum leansig with rust code examples - <a
 href="https://blog.lambdaclass.com/ethereum-signature-schemes-explained-ecdsa-bls-xmss-and-post-quantum-leansig-with-rust-code-examples/"
 class="uri">https://blog.lambdaclass.com/ethereum-signature-schemes-explained-ecdsa-bls-xmss-and-post-quantum-leansig-with-rust-code-examples/</a>
 (undated)</li>
-<li>leanroadmap.org - <a href="https://leanroadmap.org/"
+<li id="src-5">leanroadmap.org - <a href="https://leanroadmap.org/"
 class="uri">https://leanroadmap.org/</a> (as of 2026-03-01)</li>
-<li>Post-Quantum Roadmap | EIP-8141 - <a
+<li id="src-6">Post-Quantum Roadmap | EIP-8141 - <a
 href="https://eip8141.io/pq-roadmap"
 class="uri">https://eip8141.io/pq-roadmap</a> (as of 2026-08-31)</li>
-<li>Proposed PQ upgrade for ecrecover - Cryptography - Ethereum Research
+<li id="src-7">Proposed PQ upgrade for ecrecover - Cryptography - Ethereum Research
 - <a
 href="https://ethresear.ch/t/proposed-pq-upgrade-for-ecrecover/25844"
 class="uri">https://ethresear.ch/t/proposed-pq-upgrade-for-ecrecover/25844</a>
 (as of 2026-08-28)</li>
-<li>eips.ethereum.org — eip 8141 - <a
+<li id="src-8">eips.ethereum.org — eip 8141 - <a
 href="https://eips.ethereum.org/EIPS/eip-8141"
 class="uri">https://eips.ethereum.org/EIPS/eip-8141</a> (as of
 2026-01-29)</li>
-<li>Exploring the Design Space for a Post-Quantum Public Key Registry
+<li id="src-9">Exploring the Design Space for a Post-Quantum Public Key Registry
 for Ethereum Validators - Cryptography - Ethereum Research - <a
 href="https://ethresear.ch/t/exploring-the-design-space-for-a-post-quantum-public-key-registry-for-ethereum-validators/25040"
 class="uri">https://ethresear.ch/t/exploring-the-design-space-for-a-post-quantum-public-key-registry-for-ethereum-validators/25040</a>
 (as of 2026-06-01)</li>
-<li>ethresear.ch — 23639 - <a
+<li id="src-10">ethresear.ch — 23639 - <a
 href="https://ethresear.ch/t/post-quantum-signature-aggregation-a-folding-approach/23639"
 class="uri">https://ethresear.ch/t/post-quantum-signature-aggregation-a-folding-approach/23639</a>
 (undated)</li>
-<li>eprint.iacr.org — 1660 - <a href="https://eprint.iacr.org/2026/1660"
+<li id="src-11">eprint.iacr.org — 1660 - <a href="https://eprint.iacr.org/2026/1660"
 class="uri">https://eprint.iacr.org/2026/1660</a> (undated)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
