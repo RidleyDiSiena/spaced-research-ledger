@@ -53,7 +53,7 @@ Unknowns</a></li>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- Since 2026-10-08 pure ML-KEM in a TLS handshake is recorded per NAMED GROUP in the pure-kex rows (MLKEM512, MLKEM768, MLKEM1024), as hybrids are in the hybrid-kex rows. A source that says only &quot;ML-KEM in TLS&quot; without naming a group is a gap on the group rows, not a cell here -- several cells filed here before the split were hybrid evidence of exactly that kind. X-Wing keeps its tls cell as a question: it is not a pure group.">n/a</abbr></td>
-<td data-label="X.509"><span class="st st-absent">none found 2026-10-25</span></td>
+<td data-label="X.509"><span class="st st-absent">none found 2026-11-01</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -215,7 +215,7 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-kem / x509 – <strong>none found 2026-10-25</strong>: Second pass
+<li>ml-kem / x509 – <strong>none found 2026-11-01</strong>: Second pass
 done and it found nothing either way, which is the answer: no Microsoft
 document states whether the Windows certificate functions can handle a
 certificate carrying an ML-KEM key. What the second pass DID establish
@@ -246,15 +246,29 @@ identifiers page (updated_at 2026-05-30) and the AD CS page (updated_at
 2026-05-20) are unchanged. The one Windows cryptography document edited
 in the window, Schannel’s TLS Supported Groups page (2026-10-20), is
 about key exchange groups and says nothing about certificates. The gap
-stands. Examined: Microsoft PQC GA announcement, 2025-11-18, KB5127648
-and KB5126646 (2026-10-13), AD CS post-quantum overview (ML-KEM:
-Planned, Phase 2), New Windows Features to Secure Today’s Data in a
-Post-Quantum World, 2026-06-02 with the 2026-07-14 update, CNG algorithm
-identifiers reference (wincrypt/BCrypt identifier table – ML-KEM present
-as a CNG primitive, no certificate-side identifier), CertEnroll portal
-and Certificate Request Functions reference, Windows 11 and Windows
-Server 2025 update histories and release-health pages, Windows message
-center, Windows Insider blog (2026-10-25 read).</li>
+stands. Sixth pass 2026-11-01: the window’s Windows updates are the
+out-of-band KB5134133 (Windows 11 24H2/25H2/26H2, 2026-10-26) and
+KB5134137 (Server 2025, 2026-10-26) – both “an updated trusted root
+certificate payload” for devices without CTL updates, linked to
+Microsoft’s response to compromised eMudhra CA keys: trust-store
+content, not a new key type – and the 2026-10-28 previews KB5127936
+(25H2/26H2) and KB5127653 (26H1), whose certificate items are TPM AIK
+enrollment with non-Microsoft CNG providers, .rdp publisher thumbprints
+and RSA-3072 PIV smart cards. None names ML-KEM. The CNG identifiers
+page (updated_at 2026-05-30) and the AD CS page (updated_at 2026-05-20)
+are unchanged; the PQC blog’s 2026-10-28 post gives ML-DSA-65
+certificate sizes but no ML-KEM certificate. The gap stands. Examined:
+Microsoft PQC GA announcement, 2025-11-18, KB5127648 and KB5126646
+(2026-10-13), AD CS post-quantum overview (ML-KEM: Planned, Phase 2),
+New Windows Features to Secure Today’s Data in a Post-Quantum World,
+2026-06-02 with the 2026-07-14 update, CNG algorithm identifiers
+reference (wincrypt/BCrypt identifier table – ML-KEM present as a CNG
+primitive, no certificate-side identifier), CertEnroll portal and
+Certificate Request Functions reference, Windows 11 and Windows Server
+2025 update histories and release-health pages, Windows message center,
+Windows Insider blog (2026-10-25 read), KB5134133 and KB5134137
+(out-of-band, 2026-10-26), KB5127936 and KB5127653 (previews,
+2026-10-28), PQC tech blog feed (2026-11-01 read).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">

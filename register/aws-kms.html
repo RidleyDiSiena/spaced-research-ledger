@@ -47,8 +47,8 @@ Unknowns</a></li>
 <tbody>
 <tr>
 <td data-label="Algorithm"><strong>ML-KEM</strong></td>
-<td data-label="Primitive"><span class="st st-none">none</span> [1] [2] [3] [4]</td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="Primitive"><span class="st st-none">none</span> [1] [2] [3] [4] [5] [6]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [7] [8]</td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -102,15 +102,15 @@ Unknowns</a></li>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since generally
-available from June 2025, Region by Region [6] [7]</td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5] [8]</td>
+available from June 2025, Region by Region [9] [10]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [7] [11]</td>
 <td data-label="PKCS#11"><span class="st st-absent">no public answer, checked
 2026-09-13</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [7]</td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
@@ -128,30 +128,37 @@ available from June 2025, Region by Region [6] [7]</td>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [7]</td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
-<td data-label="FIPS 140-3"><span class="st st-none">none</span> [5]</td>
+<td data-label="FIPS 140-3"><span class="st st-none">none</span> [7]</td>
 <td data-label="PKCS#11"><span class="st st-unknown">unknown</span></td>
 </tr>
 </tbody>
 </table></div>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="notes">Notes</h2>
 <ul>
-<li><strong>ML-KEM, Primitive</strong>: SETTLED BY AN ENUMERATION, which
-is what the gap asked for. The Key spec reference lists every key spec a
-KMS key can have – SYMMETRIC_DEFAULT, the RSA specs, the elliptic curve
-specs, the HMAC specs, SM2, and ML_DSA_44, ML_DSA_65 and ML_DSA_87 – and
-there is no ML-KEM spec among them. AWS KMS will not create or hold an
-ML-KEM key. THE CONFUSION THIS RESOLVES IS WORTH KEEPING: AWS does
-support ML-KEM for KMS, but for the TRANSPORT – hybrid post-quantum TLS
-to the KMS endpoints, on non-FIPS endpoints across the aws partition. A
-reader who sees ‘AWS KMS supports ML-KEM’ in an announcement is being
-told about the connection to the service, not about a key the service
-will hold. The two are one word apart and a migration plan away.</li>
+<li><strong>ML-KEM, Primitive</strong>: PATROL 2026-11-01: SUPERSEDED.
+AWS KMS added ML-KEM key specs (ML_KEM_512, ML_KEM_768, ML_KEM_1024)
+with Encapsulate and Decapsulate operations – document history dated
+2026-10-23, announcement posted 2026-10-26 – so the sentence below that
+KMS ‘will not create or hold an ML-KEM key’ is no longer true; see the
+evidence. The status is left for the user’s ruling. The rest of this
+note is the 2026-09-13 reading, kept as written. SETTLED BY AN
+ENUMERATION, which is what the gap asked for. The Key spec reference
+lists every key spec a KMS key can have – SYMMETRIC_DEFAULT, the RSA
+specs, the elliptic curve specs, the HMAC specs, SM2, and ML_DSA_44,
+ML_DSA_65 and ML_DSA_87 – and there is no ML-KEM spec among them. AWS
+KMS will not create or hold an ML-KEM key. THE CONFUSION THIS RESOLVES
+IS WORTH KEEPING: AWS does support ML-KEM for KMS, but for the TRANSPORT
+– hybrid post-quantum TLS to the KMS endpoints, on non-FIPS endpoints
+across the aws partition. A reader who sees ‘AWS KMS supports ML-KEM’ in
+an announcement is being told about the connection to the service, not
+about a key the service will hold. The two are one word apart and a
+migration plan away.</li>
 <li><strong>ML-KEM, FIPS 140-3</strong>: Not in any module of this
 project: the CMVP validated list and the Modules In Process list were
 scanned on 2026-09-13 and name none carrying it.</li>
@@ -234,9 +241,21 @@ href="https://docs.aws.amazon.com/kms/latest/developerguide/aws-kms-document-his
 class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/aws-kms-document-history.rss</a>
 (as of 2026-09-29; checked 2026-10-25)</li>
 <li><a
+href="https://docs.aws.amazon.com/kms/latest/developerguide/aws-kms-document-history.rss"
+class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/aws-kms-document-history.rss</a>
+(as of 2026-10-23; checked 2026-11-01)</li>
+<li><a
+href="https://aws.amazon.com/about-aws/whats-new/2026/10/kms-ml-kem-post-quantum/"
+class="uri">https://aws.amazon.com/about-aws/whats-new/2026/10/kms-ml-kem-post-quantum/</a>
+(as of 2026-10-26; checked 2026-11-01)</li>
+<li><a
 href="https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List"
 class="uri">https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List</a>
 (date not recorded; checked 2026-09-13)</li>
+<li><a
+href="https://docs.aws.amazon.com/kms/latest/developerguide/pqkeys.html"
+class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/pqkeys.html</a>
+(as of 2026-10-23; checked 2026-11-01)</li>
 <li><a
 href="https://docs.aws.amazon.com/kms/latest/developerguide/mldsa.html"
 class="uri">https://docs.aws.amazon.com/kms/latest/developerguide/mldsa.html</a>

@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 5</p>
     <h1>Revocation and Transparency</h1>
-    <p class="updated">Last updated: 2026-10-25</p>
+    <p class="updated">Last updated: 2026-11-01</p>
     <p class="actions"><a class="pdf" href="latest/05-revocation-and-transparency.pdf">Download PDF</a></p>
   </div>
 
@@ -53,12 +53,13 @@ that the public record shows a change.</p>
 certificate that should not exist. Revocation withdraws trust from a
 certificate already issued. Transparency makes every issued certificate
 public, so that a bad one can be found at all.</p>
-<p>Both were tested hard in the eight weeks to 25 October, and hardest
-in the last one. Section 1 covers revocation, where a key compromise at
-eMudhra and GoDaddy’s finished mass revocation of more than 400,000
-certificates both landed in the same week. Section 2 covers Certificate
-Transparency, where a flood of proof-of-concept certificates forced one
-operator to close its logs and Let’s Encrypt admitted a policy breach.
+<p>Both were tested hard in the nine weeks to 1 November, and hardest in
+the last two. Section 1 covers revocation, where a key compromise at
+eMudhra and GoDaddy’s mass revocation of more than 400,000 certificates
+were followed by a new cluster of bugs. The new bugs concern authorities
+blocking the tools that fetch their revocation lists. Section 2 covers
+Certificate Transparency, where Chrome changed its policy on 1 November
+and an argument over how fresh a log’s checkpoint must be is still open.
 Section 3 covers Merkle Tree Certificates, a design that folds
 transparency into issuance itself.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="revocation-mechanisms-and-timelines">1. Revocation Mechanisms
@@ -79,99 +80,140 @@ Sectigo revoked its cross-certificates for them on 19 October [1].</p>
 <p>The compromise exposed the limits of the authority’s own revocation.
 eMudhra admitted that its revocation lists had been re-signed with the
 flawed keys, so an attacker holding the keys could have issued a clean
-list [1]. By 25 October its revocation and status servers were refusing
-requests from common command-line tools, which became a separate bug [4]
-[5]. Mozilla then removed the root above the eight on 20 October, and
-Chrome follows on 27 October, as Part 4 records [1] [2]. Let’s Encrypt’s
-issuance software gained a check for small ECDSA scalars on 20 October,
-the first authority-side code response [6].</p>
-<p>The largest event by count ended the same week. On 15 October GoDaddy
-found that 404,607 certificates from its GoDaddy and Starfield
+list [1]. A second list, for emSign Root TLS CA - G3, was also affected.
+The reporter said on 1 November that the preliminary report on the
+lists, due 29 October, had not been filed [1].</p>
+<p>Mozilla removed the root above the eight on 20 October, and Part 4
+records the other root program responses [1]. Let’s Encrypt’s issuance
+software gained a check for small ECDSA scalars on 20 October, the first
+authority-side code response [4].</p>
+<p>The largest event by count ended the week after. On 15 October
+GoDaddy found that 404,607 certificates from its GoDaddy and Starfield
 hierarchies carried policy information that did not match its own
-practice statement [7]. The Baseline Requirements gave it five days, to
+practice statement [5]. The Baseline Requirements gave it five days, to
 18 October at 23:45 UTC, and it said on 16 October that it would not
-make that deadline [8]. By the deadline it had revoked 170,566
-certificates and by early on 19 October 227,422 [8]. On 22 October it
-reported the work complete, with a corrected total of 403,643
-certificates, 378,067 revoked and 25,576 expired, leaving none valid
-[8].</p>
-<p>The revocation infrastructure kept drawing problem reports. DigiCert
-reported a revocation list whose sequence number went backwards and a
-list published three minutes late, and is moving its schedule to twenty
-hours [9]. Telekom’s DFN and SwissSign reported lists whose validity ran
-one second long, a defect the common linters accept [10]. SHECA reported
-status responder keys with a public exponent of three, which HARICA
-called practically unrevocable, and revoked every authority under four
-roots that browsers do not trust [11]. Seven bugs in one week concerned
-status responder certificate profiles, which looks like one third
-party’s sweep [10].</p>
+make that deadline [6]. On 22 October it reported the work complete,
+with a corrected total of 403,643 certificates, 378,067 revoked and
+25,576 expired, leaving none valid [6]. Its full incident report
+followed on 29 October and confirmed those counts [5].</p>
+<p>A new cluster of bugs this week concerns authorities blocking the
+tools that fetch their revocation data.</p>
+<p>eMudhra’s firewall rule, in place since September 2022 and removed on
+26 October, blocked curl, Wget and similar tools on its list, status and
+repository hosts [7]. Izenpe fixed the same fault on its status host on
+26 October [8]. Microsoft found that the revocation list for its Azure
+TLS issuing authority on www.microsoft.com refused Wget, under a
+protection rule in place for over two years. Thirty authorities publish
+lists on that host [9]. Microsoft targets an exception for 3 November
+[9].</p>
+<p>Sectigo’s case is disputed. Its China list hosts, 180 list addresses
+in all, refused some tools because a content network’s browser check was
+on, until a fix on 27 October [10]. Sectigo says user-agent blocking
+does not breach the Baseline Requirements wording on publishing lists,
+though it agrees it should not happen, and it wants Forum discussion
+[10].</p>
+<p>Other list and status bugs kept arriving. HARICA published two
+truncated lists after a disk filled on 29 October, with a full report
+due 11 November [8]. KIR issued lists whose next-update time was exactly
+twelve months after the issue time, and Let’s Encrypt argued that this
+is a point in time, not a validity period [11]. certSIGN reported lists
+one second or slightly more over the twelve-month limit [11]. Atos and
+FNMT reported status responder certificate profile faults, which joins
+seven earlier bugs on the same theme [11] [12].</p>
+<p>DigiCert’s earlier report of a revocation list whose sequence number
+went backwards now has a full report, which traces it to two partitioned
+lists for one Cisco Meraki authority [13]. DigiCert’s commitment to a
+twenty-hour regeneration schedule sat in a comment it says went to the
+wrong incident, so that commitment is unconfirmed [13]. Telekom’s DFN
+and SwissSign had earlier reported lists whose validity ran one second
+long, a defect the common linters accept [12]. SHECA reported status
+responder keys with a public exponent of three, which HARICA called
+practically unrevocable, and revoked every authority under four roots
+that browsers do not trust [14].</p>
+<p>Revocation work also finished elsewhere. ACCV revoked its
+dual-purpose subordinate certificate on 29 October, two days ahead of
+its promise [15]. eMudhra revoked 8,288 unexpired certificates from 19
+October, with the last batch about two minutes late [16].</p>
 <p>Missed deadlines were already a theme in September. The SHA-1 sunset
 required unexpired subordinate certificates with SHA-1 signatures to be
-revoked by 15 September [12]. Within three days, GoDaddy,
+revoked by 15 September [17]. Within three days, GoDaddy,
 Firmaprofesional, FNMT and DigiCert each had a delayed revocation report
-open [12] [13]. October then brought thirteen bugs about faulty online
-status responses between 8 and 13 October [14].</p>
+open [17] [18]. October then brought thirteen bugs about faulty online
+status responses between 8 and 13 October [19].</p>
 <p>The country-code registry hijacks of early October showed
 browser-side revocation at work. Chrome blocked the unauthorized
 certificates for Google properties through CRLSets at once, then worked
-with the issuers to revoke them for other clients [15]. A community
+with the issuers to revoke them for other clients [20]. A community
 count found 102 certificates from the hijacks, all present in a CRLSet
-of 10,823 entries [16]. Chrome warned that browser-side blocking may not
-cover every domain [15].</p>
+of 10,823 entries [21]. Chrome warned that browser-side blocking may not
+cover every domain [20].</p>
 <p>Let’s Encrypt moved its own lifetimes ahead of the Forum’s schedule.
 On 7 October it announced that its default certificates will last 64
-days from 10 February 2027, down from 90 [17]. Subscribers may choose 45
+days from 10 February 2027, down from 90 [22]. Subscribers may choose 45
 or six days instead, and no valid certificate will be revoked in the
-change [17]. Staging switched to 64-day certificates on 14 October
-[18].</p>
+change [22]. Staging switched to 64-day certificates on 14 October [23].
+The 10 February date was not re-verified this week, because the
+announcement page returned an error, and no newer schedule has appeared
+[24].</p>
+<p>Let’s Encrypt is also adding validation vantage points. Its staging
+environment has used six remote network perspectives since 27 October,
+and production follows on Tuesday 10 November, assuming staging goes
+well [25]. The Baseline Requirements require at least five remote
+perspectives from 15 December 2026 [25].</p>
 <h3 id="current-state">Current State</h3>
 <p>The online status protocol is being retired rather than repaired.
 Let’s Encrypt ended its responder service in August 2025, citing
 privacy, because the protocol tells the responder which site a user is
-visiting [19]. HARICA stopped putting responder addresses in new web
+visiting [26]. HARICA stopped putting responder addresses in new web
 certificates in March 2026 and expects to shut down its web responders
-by 4 May 2027 [20]. The IETF published a lightweight status protocol
-profile for high-volume environments, RFC 9919, in July 2026 [21].</p>
+by 4 May 2027 [27]. The IETF published a lightweight status protocol
+profile for high-volume environments, RFC 9919, in July 2026 [28].</p>
 <p>Short lifetimes are the replacement. Let’s Encrypt issued its first
 six-day certificate in February 2025, and those certificates carry no
-revocation addresses at all [22]. Renewal is steered by the ACME renewal
+revocation addresses at all [29]. Renewal is steered by the ACME renewal
 information protocol, published as RFC 9773 in June 2025, which lets an
-authority tell clients when to renew [23]. Part 1 covers the Forum’s own
+authority tell clients when to renew [30]. Part 1 covers the Forum’s own
 lifetime schedule.</p>
 <p>Browser revocation summaries differ widely in coverage. Firefox’s
 CRLite has covered 99.84% of certificates visible in transparency logs
 since August 2025, with about 300 kB of daily updates checked locally
-[24]. Chrome’s CRLSets carry about 1% of all revocations, aimed at
-high-impact and emergency cases [24]. The eMudhra response used both,
+[31]. Chrome’s CRLSets carry about 1% of all revocations, aimed at
+high-impact and emergency cases [31]. The eMudhra response used both,
 and the compromised keys were blocked in every current Firefox and
-Chrome before the authority had revoked anything [2] [3].</p>
+Chrome before the authority had revoked anything [2] [3]. No CRLite bug
+changed this week, though that rests on a single search [32].</p>
 <p>Mass revocation now has a written template. Mozilla merged an
 illustrative plan template on 23 September for the mass revocation plans
-its policy requires [25]. It defines a mass revocation event as at least
-100 certificates or 1% of an authority’s active web certificates [26].
-Plans must be tested at least every 12 months [26]. GoDaddy’s 403,643
+its policy requires [33]. It defines a mass revocation event as at least
+100 certificates or 1% of an authority’s active web certificates [34].
+Plans must be tested at least every 12 months [34]. GoDaddy’s 403,643
 certificates and HARICA’s 63,525 in July 2026 are the two largest such
-events of the year [8] [27].</p>
+events of the year [6] [35].</p>
 <p>The meaning of revocation itself is under discussion. SC-107 would
 count a certificate as revoked once its serial number appears in a
 revocation list or draws a revoked status response, from 15 February
-2027 [28]. It would also set how quickly an authority must judge a
-problem report [28]. The ballot was still in discussion on 25 October,
-past its scheduled end, and Part 1 follows it [28].</p>
+2027 [36]. It would also set how quickly an authority must judge a
+problem report [36]. The ballot was still in discussion on 25 October,
+past its scheduled end, and Part 1 follows it [36].</p>
 <h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
-<p>Two questions sit open. The first is when Mozilla’s mass revocation
-testing became auditable. One Mozilla policy change describes annual
-tests that revoke 30 random certificates within five days, with audit
-attestation after 15 April 2026 [29]. Mozilla’s template and its earlier
-guidance date third-party assessment from the audit cycle beginning June
-2025 [26] [30]. The current text of the policy’s revocation section
-would settle it.</p>
-<p>The second is whether the Forum’s revocation deadlines will split.
+<p>Three questions sit open. The first is whether blocking tools by name
+on list and status hosts breaches the Baseline Requirements. Sectigo
+says its wording on publishing does not forbid it, while Izenpe and
+Microsoft fixed or planned to fix it [10] [8]. A ruling from a root
+program, or a Forum ballot that names the practice, would settle it.</p>
+<p>The second is when Mozilla’s mass revocation testing became
+auditable. One Mozilla policy change describes annual tests that revoke
+30 random certificates within five days, with audit attestation after 15
+April 2026 [37]. Mozilla’s template and its earlier guidance date
+third-party assessment from the audit cycle beginning June 2025 [34]
+[38]. The current text of the policy’s revocation section would settle
+it.</p>
+<p>The third is whether the Forum’s revocation deadlines will split.
 Working group discussions in 2025 proposed separate tracks for breaches
 of the Baseline Requirements and for deviations from an authority’s own
-policy, with 90 days for the latter [31]. GoDaddy’s mismatch with its
+policy, with 90 days for the latter [39]. GoDaddy’s mismatch with its
 own practice statement ran on the five-day clock under the current
-rules, and took nine [7] [8]. A ballot on the split entering discussion
+rules, and took nine [5] [6]. A ballot on the split entering discussion
 would settle the question.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="certificate-transparency">2. Certificate Transparency</h2>
 <p><em>Every publicly trusted web certificate must appear in public
@@ -179,98 +221,143 @@ logs, and the browsers admit, monitor and retire the logs themselves.
 The system is midway through a move from its original design to a
 static, tiled one that can be served from ordinary storage.</em></p>
 <h3 id="recent-developments-1">Recent Developments</h3>
+<p>Chrome changed its policy on 1 November. Announced on 30 October, the
+change lets logs of the original design refuse final certificates at one
+submission point while still accepting precertificates, to cut load
+during the migration [40]. A checkpoint older than 60 seconds now counts
+as a failed request in Chrome’s availability figures, and it becomes an
+incident only if older than an hour [40]. From 1 January 2027 Chrome
+will accept no new logs of the original design, including replacement
+shards [40].</p>
 <p>The eMudhra compromise turned the logs into a target. Once the keys
 were public, people used them to mint certificates and submit them to
-logs as proofs of concept [4]. By 25 October 107,107 such certificates
+logs as proofs of concept [41]. By 25 October 107,107 such certificates
 had been logged on 20 and 21 October, 106,050 of them carrying a Google
-name [4]. On 20 October Cloudflare closed the submission interfaces of
+name [41]. On 20 October Cloudflare closed the submission interfaces of
 its Raio logs of the original design “to mitigate the eMudhra DoS
-vector” and asked Apple to reject the three affected shards [32]. Chrome
-had already moved them from pending to rejected [32].</p>
+vector” and asked Apple to reject the three affected shards [42]. Chrome
+had already moved them from pending to rejected, and nothing newer has
+appeared [42].</p>
 <p>Let’s Encrypt reported a policy breach of its own. Three of its logs,
 Twig, Sycamore and Willow, served stale checkpoints during six instance
-replacements of about 2.5 minutes each on 19 and 20 October [33]. One of
+replacements of about 2.5 minutes each on 19 and 20 October [43]. One of
 those replacements deployed the Sunlight log software version that
-blocks the eMudhra keys [33]. The Chrome transparency team said on 21
-October that Chrome policy had been violated [33]. The software’s author
-replied on 23 October that one-minute merge delays “are simply a
-mistake” and proposed a 24-hour limit with a rule that each checkpoint
-must include everything accepted before it [33].</p>
-<p>Chrome’s log list reached version 95.11 on 24 October with no change
-to any log’s state since 14 October [34]. Its earlier movement was all
-growth. GoDaddy became a log operator when its five Aquamarine tiled
-logs qualified on 30 September, and sixteen more logs qualified on 13
-and 14 October, from HARICA, Sectigo and Let’s Encrypt [34]. Apple’s
-list rejected fifteen shards covering the first half of 2026 on 5
-October and has not changed since [35].</p>
+blocks the eMudhra keys [43]. The Chrome transparency team said on 21
+October that Chrome policy had been violated [43]. Let’s Encrypt
+announced a further short outage of its logs for kernel updates on 29
+October [44].</p>
+<p>Chrome’s log list reached version 95.19 on 1 November, holding 84
+logs from 11 operators [45]. Of these, 43 are usable, 36 qualified, 3
+retired and 2 read-only [45]. No log has changed state since 14 October,
+and the list’s earlier movement was all growth [45]. GoDaddy became a
+log operator when its five Aquamarine tiled logs qualified on 30
+September, and sixteen more logs qualified on 13 and 14 October, from
+HARICA, Sectigo and Let’s Encrypt [45]. Apple’s list rejected fifteen
+shards covering the first half of 2026 on 5 October and was not re-read
+this week [46].</p>
+<p>A new operator is arriving. On 30 October SwissSign launched two logs
+on the Tessera software, Eiger as its production log and Rotstock as a
+test log [47]. SwissSign says it plans to apply to the Chrome and Apple
+programs, and it is not yet on Chrome’s list [47] [45].</p>
 <p>TrustAsia answered the complaints about its logs. On 18 October it
-hard-coded its block size [36]. On 24 October it said it will run no
+hard-coded its block size [48]. On 24 October it said it will launch no
 logs of the original design after its 2027 shards, keeping the current
-ones on security updates only [36]. The request that its logs say when a
-rejected client may retry was never addressed [36].</p>
+ones on security updates only [48]. The request that its logs say when a
+rejected client may retry was never addressed [48].</p>
 <p>The most serious operational incident is still HARICA’s. Its new
 Selene logs missed their maximum merge delay on 12 October and again on
-14 October [37]. Its preliminary report of 15 October does not identify
-the crash cause, because the server logs were missing [37]. The only
-reply since suggested dropping the scaling group that replaced the
-instance [37]. Earlier in the autumn Geomys, IPng Networks, GoDaddy and
-Microsec each reported shorter outages [38] [39] [40] [41].</p>
+14 October [49]. Its preliminary report of 15 October does not identify
+the crash cause, because the server logs were missing [49].</p>
+<p>A new incident began on 27 October at about 19:15 UTC, with error
+responses and failures to upload checkpoints, during a traffic surge
+[50]. HARICA applied per-address rate limits and said service stabilized
+by the next morning [50]. Earlier in the autumn Geomys, IPng Networks,
+GoDaddy and Microsec each reported shorter outages, and IPng’s static
+logs were unreachable again for about 12 minutes on 27 October [51] [52]
+[53] [54] [55].</p>
 <h3 id="current-state-1">Current State</h3>
-<p>Both log designs are accepted, and neither is retired. Chrome admits
-logs built to the original RFC 6962 design or to the static
-specification [42] [43]. Since 15 April 2026 a certificate may carry
-timestamps from static logs alone [44]. Chrome will also stop accepting
-timestamps delivered through status responses in Chrome 148 [45].</p>
-<p>Apple now states its terms for both designs. Its log program page,
+<p>Both log designs are accepted, and neither is retired, though the
+original design is now closed to new logs from 2027. Chrome admits logs
+built to the original RFC 6962 design or to the static specification
+[56] [57]. Since 15 April 2026 a certificate may carry timestamps from
+static logs alone [58]. Chrome will also stop accepting timestamps
+delivered through status responses in Chrome 148 [59].</p>
+<p>The static logs carry a new obligation. From 1 January 2027 they must
+let a well-behaved client on a single address read entries at least 1.5
+times the log’s growth rate [40]. Existing logs of the original design
+that Chrome already recognizes are unaffected [40].</p>
+<p>Apple states its terms for both designs. Its log program page,
 published 3 September 2026, accepts logs built to version 1.0.0 of the
-static specification as well as the original design [46]. Both kinds
-must meet 99% uptime [46]. An original-design log may take up to 24
+static specification as well as the original design [60]. Both kinds
+must meet 99% uptime [60]. An original-design log may take up to 24
 hours to merge a certificate, while a static log may take at most one
-minute [46]. A question of 19 October on when Apple will publish a
-revised policy that drops the original design’s timestamps has drawn no
-reply [47].</p>
+minute [60]. Apple’s repository has no commit after 16 October and no
+revised policy, and a question of 19 October on when one will appear has
+drawn no reply [61] [62].</p>
 <p>Obligations on both sides are tightening. Chrome’s root program has
 required authorities to log every web server precertificate since 15
-June 2026 [48]. From 1 November, every newly added log must publish a
+June 2026 [63]. From 1 November, every newly added log must publish a
 machine-readable record of its operational state, referenced from its
-operator’s record [42]. Chrome’s policy runs each log through the states
-pending, qualified, usable, read-only, retired and rejected [49].</p>
-<p>Two operational questions are open. HARICA’s Selene logs remain
-qualified after their merge delay misses, and Chrome has posted no
-decision on the incident [34] [37]. Whether the static logs’ one-minute
-merge delay survives the Let’s Encrypt incident is now a live policy
-question, raised by the software’s own author [33].</p>
+operator’s record [56]. Chrome’s policy runs each log through the states
+pending, qualified, usable, read-only, retired and rejected [64].</p>
+<h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
+<p>The sharpest dispute is how fresh a static log’s checkpoint must be.
+Let’s Encrypt argued that Apple’s and Chrome’s one-minute merge delay,
+read with the original log specification, means a static log can never
+be down for more than 60 consecutive seconds. That would override the
+99% uptime figure, and Let’s Encrypt asked whether that is intended
+[43]. The software’s author replied that one-minute merge delays “are
+simply a mistake” and proposed a 24-hour limit, with a rule that each
+checkpoint must include everything accepted before it [43].</p>
+<p>Others disagree with the author. Andrew Ayer opposed a 24-hour limit
+because it would allow delays like those of a content network, and
+proposed treating any checkpoint older than the limit as downtime [43].
+Chrome’s 30 October change is the only policy response so far, and it
+treats a 60-second-old checkpoint as a failed request without calling it
+an incident [40]. Apple has not replied [43]. A joint statement from
+Apple and Chrome on the merge delay would settle it.</p>
+<p>One operational question is also open. HARICA’s Selene logs remain
+qualified after their merge delay misses and a second incident, and
+Chrome has posted no decision on them [45] [49] [50].</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="merkle-tree-certificates">3. Merkle Tree Certificates</h2>
 <p><em>A Merkle Tree Certificate replaces the usual chain of signatures
 with a proof that the certificate appears in a signed public log.
 Transparency stops being a check after issuance and becomes part of
 issuance itself.</em></p>
 <h3 id="recent-developments-2">Recent Developments</h3>
-<p>The design’s specifications moved quickly. Version 06 of the IETF
-draft appeared on 21 September, with authors from Google, Apple,
-Cloudflare and Geomys [50]. Version 07 followed on 7 October, and no
-newer revision had appeared by 25 October [50]. The same day, the C2SP
-project tagged the family of log specifications the design rests on,
-with the Merkle certificate log specification at version 0.1.0 [51].
+<p>The design’s specifications moved quickly in the autumn. Version 06
+of the IETF draft appeared on 21 September, with authors from Google,
+Apple, Cloudflare and Geomys [65]. Version 07 followed on 7 October, and
+no newer revision had appeared by 1 November [66]. The same day, the
+C2SP project tagged the family of log specifications the design rests
+on, with the Merkle certificate log specification at version 0.1.0 [67].
 That family covers tiles, mirrors, cosignatures, checkpoints and
-witnesses [51].</p>
-<p>Chrome pinned its testing program to the new text on 16 October [52].
-New requests to act as a cosigner must follow version 07 [52]. Chrome
-keeps version 05 working for a time, drops version 06, and fixes the
-tiles and mirror specifications at version 0.1.0 [52].</p>
-<p>Issuers are building to it. Let’s Encrypt’s issuance software is
-landing code for Merkle certificate trees, including reading checkpoints
-from tiles and, on 24 October, the use of relative object identifiers
-[6]. Cloudflare says its planned authority will run mirroring cosigners
-and a new family of static transparency logs [53]. Chrome’s testing
-program already requires every participant to operate both a log and a
-mirror [54].</p>
+witnesses [67].</p>
+<p>Chrome has now published a new draft of its quantum-resistant root
+program, version 0.4.0, last updated 28 October and aligned with
+revision 07 [68]. It specifies three to six ML-DSA-44 cosigner keys per
+authority, subscriber certificates valid for 7 or 47 days, and reuse of
+domain validation for no more than 10 days [68]. It exempts authorities
+issuing these certificates from the annual Baseline Requirements audits,
+though Chrome may ask for operational artifacts instead [68]. Before
+that, on 16 October, Chrome pinned its testing program to revision 07,
+so new cosigner requests must follow it [69].</p>
+<p>Apple’s own draft policy for these certificates has slipped. Apple
+wrote on 30 October that a WebPKI incident shifted the team’s focus. The
+draft will not appear by the end of October and will come as soon as
+possible, with no new date [70].</p>
+<p>Issuers are building to it. As of 25 October, Let’s Encrypt’s
+issuance software was landing code for Merkle certificate trees,
+including reading checkpoints from tiles and the use of relative object
+identifiers [4]. Cloudflare says its planned authority will run
+mirroring cosigners and a new family of static transparency logs [71].
+Chrome’s testing program already requires every participant to operate
+both a log and a mirror [72].</p>
 <h3 id="current-state-2">Current State</h3>
 <p>None of this is yet a production requirement. Chrome plans the
-production phase of its quantum-resistant program for 2027 [54].
-Cloudflare has published nothing newer on Merkle certificates since its
-29 September announcement [53]. Part 4 covers the root program policies
-that will decide which of these authorities browsers trust.</p>
+production phase of its quantum-resistant program for 2027 [72]. Part 4
+covers the root program policies that will decide which of these
+authorities browsers trust.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
 <li>Bug 2083449, eMudhra intermediate CA private key compromise -
@@ -288,16 +375,6 @@ intermediate certificates - Mozilla Security Blog - <a
 href="https://blog.mozilla.org/security/2026/10/20/protecting-firefox-users-following-the-compromise-of-emudhra-intermediate-certificates/"
 class="uri">https://blog.mozilla.org/security/2026/10/20/protecting-firefox-users-following-the-compromise-of-emudhra-intermediate-certificates/</a>
 - as of 2026-10-25</li>
-<li>eMudhra compromised intermediate CA private keys - mozilla
-dev-security-policy - <a
-href="https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE"
-class="uri">https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE</a>
-- as of 2026-10-25</li>
-<li>Bug 2085612, eMudhra CRL and OCSP endpoints refusing common user
-agents - Mozilla Bugzilla - <a
-href="https://bugzilla.mozilla.org/show_bug.cgi?id=2085612"
-class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2085612</a> -
-as of 2026-10-25</li>
 <li>Boulder commits - letsencrypt/boulder - <a
 href="https://github.com/letsencrypt/boulder/commits/main.atom"
 class="uri">https://github.com/letsencrypt/boulder/commits/main.atom</a>
@@ -311,21 +388,55 @@ as of 2026-10-25</li>
 href="https://bugzilla.mozilla.org/show_bug.cgi?id=2083191"
 class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2083191</a> -
 as of 2026-10-25</li>
-<li>Bug 2083502, DigiCert CRL number decreasing and late CRL publication
-- Mozilla Bugzilla - <a
-href="https://bugzilla.mozilla.org/show_bug.cgi?id=2083502"
-class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2083502</a> -
+<li>Bug 2085612, eMudhra CRL and OCSP endpoints refusing common user
+agents - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2085612"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2085612</a> -
 as of 2026-10-25</li>
+<li>Bugs 2086195, 2086490, 2087789, 2085787, 2086949 and 2085769,
+comments - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?id=2086195,2086490,2087789,2085787,2086949,2085769&amp;include_fields=id,summary,comments"
+class="uri">https://bugzilla.mozilla.org/rest/bug?id=2086195,2086490,2087789,2085787,2086949,2085769&amp;include_fields=id,summary,comments</a>
+- as of 2026-10-31</li>
+<li>Bug 2086195, Microsoft Azure TLS issuing CRLs refusing common user
+agents - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2086195"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2086195</a> -
+as of 2026-10-29</li>
+<li>Bug 2086490, Sectigo China CRL hosts refusing some user agents -
+Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2086490"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2086490</a> -
+as of 2026-10-30</li>
+<li>Bugs 2085436, 2086743, 2085712, 2085962, 2086471, 2086575 and
+2087542, comments - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?id=2085436,2086743,2085712,2085962,2086471,2086575,2087542&amp;include_fields=id,summary,comments"
+class="uri">https://bugzilla.mozilla.org/rest/bug?id=2085436,2086743,2085712,2085962,2086471,2086575,2087542&amp;include_fields=id,summary,comments</a>
+- as of 2026-10-30</li>
 <li>CA Certificate Compliance bugs opened from 17 October 2026 - Mozilla
 Bugzilla - <a
 href="https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;creation_time=2026-10-17&amp;include_fields=id,summary,creation_time,status,whiteboard,creator"
 class="uri">https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;creation_time=2026-10-17&amp;include_fields=id,summary,creation_time,status,whiteboard,creator</a>
 - as of 2026-10-25</li>
+<li>Bug 2083502, DigiCert CRL number decreasing and late CRL publication
+- Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2083502"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2083502</a> -
+as of 2026-10-25</li>
 <li>Bug 2084097, SHECA OCSP responder keys with public exponent 3 -
 Mozilla Bugzilla - <a
 href="https://bugzilla.mozilla.org/show_bug.cgi?id=2084097"
 class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2084097</a> -
 as of 2026-10-25</li>
+<li>Bug 2082818, ACCV dual-EKU subordinate CA, comments - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug/2082818/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2082818/comment</a> -
+as of 2026-10-30</li>
+<li>Bugs 2082782, 2082872 and 2080742, comments - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?id=2082782,2082872,2080742&amp;include_fields=id,summary,comments"
+class="uri">https://bugzilla.mozilla.org/rest/bug?id=2082782,2082872,2080742&amp;include_fields=id,summary,comments</a>
+- as of 2026-10-30</li>
 <li>Bug 2072663, GoDaddy delayed revocation of SHA-1 signed subordinate
 CA certificates - Mozilla Bugzilla - <a
 href="https://bugzilla.mozilla.org/show_bug.cgi?id=2072663"
@@ -360,6 +471,15 @@ Encrypt community API announcements - <a
 href="https://community.letsencrypt.org/t/252148"
 class="uri">https://community.letsencrypt.org/t/252148</a> - as of
 2026-10-14</li>
+<li>Let’s Encrypt community API announcements - Let’s Encrypt - <a
+href="https://community.letsencrypt.org/c/api-announcements/18.json"
+class="uri">https://community.letsencrypt.org/c/api-announcements/18.json</a>
+- as of 2026-10-14</li>
+<li>Let’s Encrypt is adding two additional remote perspectives for
+domain validation - Let’s Encrypt community - <a
+href="https://community.letsencrypt.org/t/lets-encrypt-is-adding-two-additional-remote-perspectives-for-domain-validation/252166"
+class="uri">https://community.letsencrypt.org/t/lets-encrypt-is-adding-two-additional-remote-perspectives-for-domain-validation/252166</a>
+- as of 2026-10-27</li>
 <li>OCSP Service Has Reached End of Life - Let’s Encrypt - <a
 href="https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life"
 class="uri">https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life</a>
@@ -384,6 +504,10 @@ class="uri">https://datatracker.ietf.org/doc/rfc9773/</a> - as of
 href="https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/"
 class="uri">https://hacks.mozilla.org/2025/08/crlite-fast-private-and-comprehensive-certificate-revocation-checking-in-firefox/</a>
 - as of 2025-08-19</li>
+<li>CRLite bugs changed since 24 October 2026 - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?quicksearch=CRLite&amp;last_change_time=2026-10-24&amp;include_fields=id,summary,status,last_change_time,product,component"
+class="uri">https://bugzilla.mozilla.org/rest/bug?quicksearch=CRLite&amp;last_change_time=2026-10-24&amp;include_fields=id,summary,status,last_change_time,product,component</a>
+- as of 2026-11-01</li>
 <li>Pull request 288, Mass Revocation Template - mozilla/pkipolicy - <a
 href="https://github.com/mozilla/pkipolicy/pull/288"
 class="uri">https://github.com/mozilla/pkipolicy/pull/288</a> - as of
@@ -415,6 +539,15 @@ CA/Browser Forum - <a
 href="https://cabforum.org/2025/06/11/minutes-of-the-f2f-65-meeting-in-toronto-canada-scwg-june-11-2025/"
 class="uri">https://cabforum.org/2025/06/11/minutes-of-the-f2f-65-meeting-in-toronto-canada-scwg-june-11-2025/</a>
 - as of 2025-06-11</li>
+<li>Changes to Chrome’s CT Policy - chromium ct-policy list - <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/X6O0F4XY-dY"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/X6O0F4XY-dY</a>
+- as of 2026-10-30</li>
+<li>eMudhra compromised intermediate CA private keys - mozilla
+dev-security-policy - <a
+href="https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE"
+class="uri">https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/0R3XLJL6FuE</a>
+- as of 2026-10-25</li>
 <li>Raio RFC 6962 log shards closed to submissions - chromium ct-policy
 list - <a
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/Xr0OqtDQplQ"
@@ -425,14 +558,23 @@ ct-policy list - <a
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/fEm84uwtg9Y"
 class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/fEm84uwtg9Y</a>
 - as of 2026-10-25</li>
+<li>Let’s Encrypt CT log maintenance notice - chromium ct-policy list -
+<a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/Ipl5XS89LYQ"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/Ipl5XS89LYQ</a>
+- as of 2026-10-29</li>
 <li>Chrome Certificate Transparency log list, v3 - Google - <a
 href="https://www.gstatic.com/ct/log_list/v3/log_list.json"
 class="uri">https://www.gstatic.com/ct/log_list/v3/log_list.json</a> -
-as of 2026-10-25</li>
+as of 2026-11-01</li>
 <li>Apple Certificate Transparency log list - Apple - <a
 href="https://valid.apple.com/ct/log_list/current_log_list.json"
 class="uri">https://valid.apple.com/ct/log_list/current_log_list.json</a>
 - as of 2026-10-25</li>
+<li>SwissSign Eiger and Rotstock logs - chromium ct-policy list - <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/268Y0LEgCrY"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/268Y0LEgCrY</a>
+- as of 2026-10-30</li>
 <li>TrustAsia log get-entries limits - chromium ct-policy list - <a
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/glxX0b492wE"
 class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/glxX0b492wE</a>
@@ -441,6 +583,10 @@ class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/glxX0b492wE</
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/vzYtSU2EKdQ"
 class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/vzYtSU2EKdQ</a>
 - as of 2026-10-25</li>
+<li>HARICA Selene incident of 27 October - chromium ct-policy list - <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/qz_wHw_E6t4"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/qz_wHw_E6t4</a>
+- as of 2026-10-28</li>
 <li>Tuscolo2026h2 write-path degradation - chromium ct-policy list - <a
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/RcKh1_LxoB0"
 class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/RcKh1_LxoB0</a>
@@ -458,6 +604,10 @@ class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/H2NA8-htebE</
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/w5Z-qWPIZj0"
 class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/w5Z-qWPIZj0</a>
 - as of 2026-10-02</li>
+<li>IPng static log outage of 27 October - chromium ct-policy list - <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/mG85BdY2yjE"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/mG85BdY2yjE</a>
+- as of 2026-10-27</li>
 <li>Certificate Transparency Log Policy - Google Chrome - <a
 href="https://googlechrome.github.io/CertificateTransparency/log_policy.html"
 class="uri">https://googlechrome.github.io/CertificateTransparency/log_policy.html</a>
@@ -481,6 +631,10 @@ class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/6ewCgspeyZE</
 href="https://support.apple.com/en-us/103703"
 class="uri">https://support.apple.com/en-us/103703</a> - as of
 2026-10-19</li>
+<li>Apple root program commits - GitHub - <a
+href="https://github.com/apple/apple-root-program/commits/main.atom"
+class="uri">https://github.com/apple/apple-root-program/commits/main.atom</a>
+- as of 2026-11-01</li>
 <li>Question on the revised Apple CT policy - chromium ct-policy list -
 <a
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/9SMrMvEF1NM"
@@ -499,15 +653,28 @@ class="uri">https://github.com/GoogleChrome/CertificateTransparency/blob/main/lo
 href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/"
 class="uri">https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/</a>
 - as of 2026-10-25</li>
+<li>draft-ietf-plants-merkle-tree-certs, history - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/history/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/history/</a>
+- as of 2026-11-01</li>
 <li>C2SP commits from 2 October 2026 - GitHub - <a
 href="https://api.github.com/repos/C2SP/C2SP/commits?since=2026-10-02T00:00:00Z"
 class="uri">https://api.github.com/repos/C2SP/C2SP/commits?since=2026-10-02T00:00:00Z</a>
 - as of 2026-10-07</li>
+<li>Chrome Quantum-resistant Root Program draft policy - Google Chrome -
+<a
+href="https://raw.githubusercontent.com/GoogleChrome/chromerootprogram/main/content/cqrp/draft-policy.md"
+class="uri">https://raw.githubusercontent.com/GoogleChrome/chromerootprogram/main/content/cqrp/draft-policy.md</a>
+- as of 2026-10-28</li>
 <li>Chrome Root Program commit 5f8d529, quantum-resistant root program
 testing FAQ - GitHub - <a
 href="https://api.github.com/repos/GoogleChrome/chromerootprogram/commits/5f8d529"
 class="uri">https://api.github.com/repos/GoogleChrome/chromerootprogram/commits/5f8d529</a>
 - as of 2026-10-16</li>
+<li>Apple draft MTC policy timing - chromium ct-policy list - <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy/c/QGZw2ADMXvk"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/QGZw2ADMXvk</a>
+- as of 2026-10-30</li>
 <li>Building a post-quantum certificate authority with Merkle Tree
 Certificates - Cloudflare Blog - <a
 href="https://blog.cloudflare.com/pq-ca-with-mtcs/"

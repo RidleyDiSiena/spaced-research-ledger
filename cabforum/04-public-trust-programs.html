@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 4</p>
     <h1>Public Trust Programs</h1>
-    <p class="updated">Last updated: 2026-10-25</p>
+    <p class="updated">Last updated: 2026-11-01</p>
     <p class="actions"><a class="pdf" href="latest/04-public-trust-programs.pdf">Download PDF</a></p>
   </div>
 
@@ -59,19 +59,21 @@ that the public record shows a change.</p>
 <p>The Forum writes the rules, and the root programs decide who is
 trusted. A root program can and does demand more than the Baseline
 Requirements, often a year or more ahead of them. This part covers that
-enforcement layer as it stood on 25 October 2026.</p>
+enforcement layer as it stood on 1 November 2026.</p>
 <p>Section 1 covers the four root store policies. Section 2 follows the
 separate post-quantum trust path that Chrome and Apple are designing.
 Section 3 covers which authorities are entering and leaving the stores,
-and Section 4 covers the incident record. Section 5 covers the week’s
-defining event, the compromise of eight eMudhra intermediate keys and
-the emergency removal of the root above them. Section 6 covers GoDaddy’s
-revocation of more than 400,000 certificates, now complete.</p>
+and Section 4 covers the incident record. Section 5 covers the defining
+event of the autumn, the compromise of eight eMudhra intermediate keys
+and the removal of the root above them by three programs. Section 6
+covers GoDaddy’s revocation of more than 400,000 certificates, which is
+complete and now has its full incident report.</p>
 <p>Two kinds of trust removal appear below and should not be confused.
 One follows a pattern of misconduct or a compromise and is protective.
 The other follows the age of a root and is routine housekeeping. Between
-September and 19 October no program took either kind of action. On 20
-October Mozilla took the first kind, and Chrome followed.</p>
+September and 19 October no program took either kind of action.</p>
+<p>On 20 October Mozilla took the first kind. Chrome and Microsoft
+followed, and by 1 November all three had removed the same root.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="root-store-policies">1. Root Store Policies</h2>
 <p><em>Four organisations run root programs that matter for the public
 web, and their policies are converging on dedicated hierarchies, bounded
@@ -115,11 +117,12 @@ requires hierarchies in its store to serve website authentication alone
 [4].</p>
 <p>The policy texts themselves have been quiet since September. The
 Mozilla, Chrome, Apple and Microsoft policy repositories had no policy
-commits between 2 October and 25 October [9] [10]. On 16 October Chrome
-changed only the testing rules for its quantum-resistant programme,
-covered in Section 2 [11]. Apple’s one change in the period touched only
-the questionnaire for subordinate authorities run by other companies
-[10].</p>
+commits between 2 October and 25 October [9] [10]. Chrome Root Program
+Policy is still version 1.8, and Apple’s newest commit is still from 16
+October, with the policy at version 2.0 [55] [57]. The Mozilla,
+Microsoft and CCADB repository paths could not be read in the latest
+check. For those three, unchanged rests on the absence of any
+announcement on the public lists [36].</p>
 <p>Chrome also publishes a statement of direction called Moving Forward,
 Together [12]. It names automation, term limits for roots, linting,
 stronger domain validation and shorter lifetimes as goals [12]. It
@@ -146,18 +149,27 @@ keeps large post-quantum signatures out of most connections.</em></p>
 <h3 id="recent-developments-1">Recent Developments</h3>
 <p>Chrome and Apple are each designing a separate trust path for
 post-quantum certificates. Chrome’s draft quantum-resistant root program
-policy, version 0.3.0 from 14 August, describes a root store made up
-entirely of Merkle Tree Certificate authorities and mirroring operators
-[15]. Cosigner keys must be ML-DSA-44, held in hardware validated to
-FIPS 140-3 Level 3 or Common Criteria EAL 4+ [15]. Subscriber
-certificates may last at most seven days [15].</p>
-<p>One clause decides who can issue first. The draft limits initial
-eligibility to organisations that ran a usable Certificate Transparency
-log before 1 February 2026 [15]. Chrome opened applications to its
-testing programme on 31 July, with production planned for 2027 [11]. On
-16 October it ruled that new cosigner requests must follow revision 07
-of the IETF draft [11]. Revision 05 will keep working for a while, and
-revision 06 is dropped [11].</p>
+policy reached version 0.4.0 on 28 October and is designated the release
+candidate, labelled RC 1.0.0 [56]. It aligns with revision 07 of the
+IETF Merkle Tree Certificate draft [56]. The draft describes a root
+store made up entirely of Merkle Tree Certificate authorities and
+mirroring operators [15].</p>
+<p>The new draft sets concrete limits. Each authority holds three to six
+ML-DSA-44 cosigner keys, one online and two offline in reserve [56].
+Subscriber certificates last at most 7 or 47 days, depending on the
+issuing key, and reuse of domain validation is limited to 10 days [56].
+These authorities may not issue subordinate certificates, and they are
+exempt from the annual audits under section 8 of the Baseline
+Requirements, though Chrome may ask for operational records instead
+[56].</p>
+<p>One clause in the earlier 0.3.0 draft decided who could issue first.
+It limited initial eligibility to organisations that ran a usable
+Certificate Transparency log before 1 February 2026 [15]. The 0.4.0 text
+was read here only for the limits above, so whether that clause survived
+is not confirmed. Chrome opened applications to its testing programme on
+31 July, with production planned for 2027 [11]. On 16 October it ruled
+that new cosigner requests must follow revision 07 of the IETF draft
+[11].</p>
 <p>Apple announced its own Merkle Tree Certificate policy on 21
 September, with a draft due by the end of October [16]. Each certificate
 would carry three cosignatures, one with ML-DSA and one with ECDSA from
@@ -177,14 +189,17 @@ applied to the Chrome, Apple, Microsoft and Mozilla programs [19]. It
 aims for inclusion in Chrome’s quantum-resistant store by early 2027, a
 store that does not yet exist in production [19] [11].</p>
 <h3 id="current-state-1">Current State</h3>
-<p>None of these plans is a published rule. Chrome’s draft remains at
-version 0.3.0, and its 16 October change touched only the testing rules
-[11]. Apple’s draft policy had still not appeared on 25 October, with
-its end-of-October target one week away [10].</p>
+<p>None of these plans is a published rule. Chrome’s draft is a release
+candidate, not a policy [56]. Apple’s date has slipped. On 30 October
+Apple wrote that “a WebPKI incident shifted the team’s focus”, so the
+draft will not appear by the end of October [16]. It will come “as soon
+as possible”, with no new date [16].</p>
 <p>The debate has begun anyway. On 29 September a participant on the
 transparency policy list argued that a seven-day lifetime cap is too
 large a change to bring in alongside Merkle certificates [16]. In that
-view it should be announced separately [16].</p>
+view it should be announced separately [16]. Chrome’s 0.4.0 draft now
+allows 47 days for some keys, but the record does not say whether that
+answers the objection [56].</p>
 <p>Chrome has already tied the programme to its security case. After the
 registries for three country-code domains were hijacked in early
 October, Chrome named shorter lifetimes, shorter validation reuse and
@@ -196,13 +211,15 @@ Parts 1 and 3.</p>
 the stores and who is leaving, and each one is argued in public before
 it happens.</em></p>
 <h3 id="recent-developments-2">Recent Developments</h3>
-<p>The first removal of the autumn was an emergency one. On 20 October
-Mozilla removed emSign ECC Root CA - G3, an eMudhra root, from its root
-store after the private keys of eight intermediate authorities beneath
-it were found recoverable [21]. Chrome removes the same root from its
-store on 27 October [22]. Section 5 tells the story. eMudhra said on 25
-October that it has decided to leave the public website certificate
-business [23].</p>
+<p>The first removal of the autumn was an emergency one.</p>
+<p>On 20 October Mozilla removed emSign ECC Root CA - G3, an eMudhra
+root, from its root store after the private keys of eight intermediate
+authorities beneath it were found recoverable [21]. Chrome announced the
+same removal for 27 October, and its root store file now lists only one
+emSign root, which shows the removal shipped [22] [58]. Microsoft
+removed six eMudhra roots on 26 October [59]. Section 5 tells the story.
+eMudhra said on 25 October that it has decided to leave the public
+website certificate business [23].</p>
 <p>The removal lands on an authority that was about to be admitted.
 eMudhra’s four email and web roots had reached Mozilla’s intent to
 approve on 2 October, with last call to 9 October [24]. One participant
@@ -210,7 +227,7 @@ had questioned eMudhra’s recent incident performance [24]. A separate
 bug had found seven undisclosed subordinate authorities run by a United
 Arab Emirates provider under one of eMudhra’s roots [25]. The inclusion
 request still shows as pending approval, and no program has posted a
-decision on it [26].</p>
+decision on it [26] [76].</p>
 <p>GoDaddy’s two new web roots cleared public discussion on 29 September
 with no objections [27]. Mozilla posted its intent to approve on 2
 October, then deferred approval until seven days after GoDaddy filed an
@@ -231,56 +248,88 @@ for its websites trust bit to be removed [33]. Amazon Trust Services
 asked the same day for the Extended Validation trust bit to be removed
 from five of its roots [34].</p>
 <h3 id="current-state-2">Current State</h3>
-<p>No authority was admitted to any root store between September and 25
-October, and one was removed. GoDaddy’s application is waiting on its
-incident report [35]. The IdenTrust discussion has drawn no posts on the
-shared list since 9 October, and the list has been silent since 13
-October [36].</p>
-<p>Chrome’s remaining decision on eMudhra is the one to watch. Chrome
-said it is “closely investigating the ongoing inclusion of eMudhra’s
-remaining CA certificates” and promised updates on the CCADB public
-list, where none had appeared by 25 October [22] [36]. Mozilla removed
-only the one root, and emSign Root CA - G1 stays in its store [21].</p>
+<p>No authority was admitted to any root store between September and 1
+November, and one authority’s root was removed. GoDaddy filed its full
+incident report on 29 October, but its inclusion request has not changed
+since 19 October and has no decision [66] [76]. The IdenTrust discussion
+has drawn no posts on the shared list since 9 October, and it is open
+until 20 November [36]. IdenTrust’s bug on its two off-profile
+subordinate authorities has no comment after 23 October, so no
+revocation plan has been posted [75]. ISRG’s two-root request and
+Amazon’s Extended Validation request are unchanged [76].</p>
+<p>The remaining eMudhra root is the one to watch. Chrome said it is
+“closely investigating the ongoing inclusion of eMudhra’s remaining CA
+certificates” and promised updates on the CCADB public list, where none
+had appeared by 1 November [22] [36]. Mozilla removed only the one root,
+and emSign Root CA - G1 stays in its store [21] [60]. No program has
+decided on G1 [60].</p>
 <p>One older question is open. In September a participant asked Mozilla
 what action it considers appropriate over NETLOCK’s incident handling
 [37]. Mozilla replied on 5 October that it is weighing the concerns in
 its assessment of NETLOCK’s continued inclusion, and will follow up
-publicly [37]. No action has followed.</p>
+publicly [37]. No later action was found.</p>
 <p>The precedents are older. In April 2026 Mozilla and Chrome removed
 DigiCert’s three G1 roots for age, not misconduct [38]. The punitive
 precedent remains the 2024 distrust of Entrust, which Chrome applied by
 issuance date rather than by revoking existing certificates [39]. The
 eMudhra removal is of a third kind, a protective removal after a
-compromise, and it took three days.</p>
+compromise. Mozilla acted three days after the report, and Chrome and
+Microsoft within ten.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-incident-record">4. The Incident Record</h2>
 <p><em>Every failure to follow the rules is recorded as a public bug,
 and the quality of an authority’s report is itself part of what the root
 programs judge.</em></p>
 <h3 id="recent-developments-3">Recent Developments</h3>
-<p>Thirty-three compliance bugs opened between 18 and 25 October, the
-busiest week of the autumn [40]. The largest by count is TrustAsia’s. It
-issued 19,237 certificates without honouring the domain owners’
-authorization records, and revoked all of them [40]. SHECA reported
-status responder keys with a public exponent of three, which HARICA
-called practically unrevocable [41]. SHECA revoked every authority under
-four of its roots that browsers do not trust and plans to destroy the
-keys [41].</p>
+<p>Twenty-one compliance bugs were opened between 24 October and 1
+November, a quieter week than the 33 before it [61] [40]. Thirteen are
+unconfirmed and eight are assigned [61]. One theme runs through them,
+which is authorities blocking tools from fetching their revocation data
+by user agent. The first case was eMudhra’s, and the pattern has since
+spread to others.</p>
+<p>eMudhra’s bug 2085612 got its full report on 29 October [52] [65]. A
+generic bot-protection profile, deployed on 28 September 2022, had
+blocked four common clients, and eMudhra removed the filter on 26
+October [65]. Izenpe’s firewall returned a refusal to curl and Wget on
+its status responder, and Izenpe fixed it on 26 October [62]. Microsoft
+PKI Services reported that the Azure TLS issuing CA revocation list on
+www.microsoft.com returned a refusal to Wget [62]. Thirty authorities
+publish lists there, and Microsoft said a rule in place for over two
+years caused it, with an exception targeted for 3 November [62]
+[63].</p>
+<p>Sectigo reported the same behaviour on 180 list addresses on its
+China hosts, fixed on 27 October [62]. Sectigo disputes that this
+breaches the Baseline Requirements wording on revocation lists [62].
+Whether a refusal to common tools breaches the rules is therefore
+contested, and the user-agent bugs have not yet drawn a root program
+ruling.</p>
+<p>Security and key handling produced three reports. TWCA self-reported
+on 29 October that indicators of unauthorized access were found on a
+Registration Authority server [64]. It isolated the server and said no
+mis-issuance has been identified to date [64]. TWCA also reported
+certificate serial numbers with fewer than 64 bits of random output, and
+Certigna reported a cross-signed root whose serial number came from an
+unseeded random generator [62].</p>
+<p>Revocation list profile errors continue. HARICA published two
+truncated lists around 29 October and fixed them the next morning, with
+its full report due 11 November [62]. KIR’s root list has a next-update
+time of exactly 12 months, which Let’s Encrypt disputes as one second
+over the limit [62]. certSIGN also reported a list validity above the
+limit [62].</p>
+<p>The week before had been heavier. Thirty-three bugs opened between 18
+and 25 October, and the largest by count was TrustAsia’s, with 19,237
+certificates issued without honouring the domain owners’ authorization
+records [40]. SHECA reported status responder keys with a public
+exponent of three, which HARICA called practically unrevocable [41].
+SHECA revoked every authority under four of its roots that browsers do
+not trust and plans to destroy the keys [41].</p>
 <p>DigiCert reported a revocation list whose sequence number went
-backwards and a list published three minutes late, and is moving its
-publication schedule to twenty hours [42]. It also reported unauthorised
-access to a business system, saying “No certificate operations were
-impacted” [40]. Two authorities, Telekom’s DFN and SwissSign, reported
-lists whose validity ran one second long, a defect the common linters
-accept [40]. Seven bugs in one week concern status responder certificate
-profiles, at certSIGN, Disig, IZENPE, Telia and SHECA, which looks like
-one third party’s sweep [40].</p>
-<p>Sectigo filed two reports against the network security requirements,
-on account reviews and the removal of an account from a retired VPN
-[40]. SECOM reported a duplicate issuer and serial number, NETLOCK a
-precertificate issued after a ballot’s deadline, and certSIGN a delayed
-revocation of 26 certificates [40]. D-Trust reported the loss of
-archived email registration records at a customer’s registration
-authority [40].</p>
+backwards and a list published three minutes late [42]. It also reported
+unauthorised access to a business system, saying “No certificate
+operations were impacted” [40]. Two authorities, Telekom’s DFN and
+SwissSign, reported lists whose validity ran one second long, a defect
+the common linters accept [40]. Seven bugs in one week concern status
+responder certificate profiles, which looks like one third party’s sweep
+[40].</p>
 <p>September and early October had already been heavy. From 15 September
 the CCADB Policy required every authority’s policy documents to state
 adherence to it, and the SHA-1 sunset required the revocation of SHA-1
@@ -289,17 +338,34 @@ that SHA-1 deadline [45] [46]. Thirty-eight bugs opened between 5 and 15
 October, thirteen of them about failing status services, and ten more on
 15 and 16 October [47] [48].</p>
 <h3 id="current-state-3">Current State</h3>
-<p>The late-audit bugs have begun to move. On 21 October CCADB staff
-asked Mozilla to review MULTICERT’s records, while the three companion
-bugs against ITI Brazil, Consorci AOC and Entrust stayed untouched [40].
-D-Trust’s two bugs from its 2026 ETSI audit were assigned the same day
-[40]. ACCV issued a replacement subordinate authority on 22 October and
-must disclose it by 28 October and revoke the old one by 31 October
-[40].</p>
-<p>Mozilla’s public policy list carried one subject in the week, the
-eMudhra compromise, after no posts between 8 and 18 October [49]. The
-incident volume is high, and for the first time this autumn one incident
-has moved two root programs to act against an authority.</p>
+<p>Follow-through on earlier bugs is uneven. TrustAsia’s full report
+says a code change on 29 July let a record check for a parent domain be
+stored under a subdomain [69]. Of the 19,237 certificates, 194 were for
+domains whose records prohibited TrustAsia, and all were revoked by 18
+October [69]. ACCV disclosed its replacement subordinate authority on 27
+October and revoked the old dual-purpose certificate on 29 October [68].
+Distribution of the new hierarchy slipped from 31 October to 5 November
+[68].</p>
+<p>DigiCert’s full report on the Cisco Meraki list defect arrived on 30
+October [70]. It does not mention the 20-hour publication schedule
+DigiCert had promised, which DigiCert says was posted to the wrong
+incident, so that commitment is unconfirmed [70]. D-Trust filed a full
+report on 30 October on a finding that critical vulnerabilities were not
+patched within 48 hours between 30 June and 23 October [72]. It traces
+the cause to a ticketing workflow that was not updated and a departed
+security coordinator, and one action is due on 2 November [72]. For its
+second finding, on backup recovery testing, D-Trust asked for more time
+and promised an update on 6 November [73].</p>
+<p>The late-audit bugs have not moved since CCADB staff acted on 21
+October. The MULTICERT bug is assigned to Mozilla, and the three
+companion bugs against ITI Brazil, Consorci AOC and Entrust are
+untouched [71]. No new audit-related bug was filed in the latest week
+[71].</p>
+<p>Mozilla’s public policy list carried the eMudhra compromise in
+October, with later threads on DNSSEC and on a proposed field for the
+domain validation method [49] [60]. The incident volume is high, and for
+the first time this autumn one incident has moved three root programs to
+act against an authority.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-emudhra-key-compromise">5. The eMudhra Key Compromise</h2>
 <p><em>A certificate authority’s intermediate keys are the keys that
 sign the certificates websites present, and if anyone else holds them,
@@ -327,31 +393,66 @@ cross-certificates for the same authorities on 19 October [21].</p>
 <p>Then came the removals. On 20 October Mozilla wrote that “the
 circumstances warrant the emergency removal of trust in emSign ECC Root
 CA - G3”, the root that signed the eight [21]. Its reason was that the
-keys had by then been recovered publicly by several people [21].</p>
-<p>NSS 3.131.1 removed that root the same day, along with two older
-eMudhra roots already scheduled to go, and Firefox 158.0.1 and two
-extended support releases carried it [51] [50]. Chrome’s removal of the
-same root reaches devices on Tuesday 27 October [22]. About 30,000
-unexpired certificates chain to it, almost all issued through ACME, and
-eMudhra stopped issuing under it that afternoon [23].</p>
+keys had by then been recovered publicly by several people [21]. NSS
+3.131.1 removed that root the same day, along with two older eMudhra
+roots already scheduled to go, and Firefox 158.0.1 and two extended
+support releases carried it [51] [50].</p>
+<p>Chrome scheduled its removal of the same root for Tuesday 27 October
+[22]. Its root store file is now at version 44 and lists only emSign
+Root CA - G1 among the emSign roots [58]. The file carries no date or
+changelog, so the 27 October date is an inference from the root’s
+absence. About 30,000 unexpired certificates chained to the root, almost
+all issued through ACME, and eMudhra stopped issuing under it that
+afternoon [23].</p>
+<p>Microsoft published its own response on 26 October, revised the next
+day [59]. It covers the same eight subordinate authorities, six for
+websites and two for code signing, and it calls the event a third-party
+incident, not a compromise of Microsoft systems [59]. On 20 October a
+Windows out-of-band update blocked the eight keys, and Edge received an
+emergency revocation list update [59]. On 26 October another Windows
+update removed six emSign G3 roots and Sectigo’s AAA Certificate
+Services cross-signature from the trust list [59]. Edge removed the same
+seven certificates on 27 October [59].</p>
 <p>Chrome said it had “reviewed and confirmed that no other keys
 included in our root stores share the same failure mode with weak
-entropy” [22]. No transparency log held a website certificate from the
-affected authorities before the block, so no forged certificate could
-have worked against clients that enforce logging [22].</p>
+entropy” [22]. On 27 October it added that a scan of all Chrome-trusted
+certificates found no further weak keys [60]. It also filed a change to
+the CCADB tools that would gate disclosure on weak-key checks [60]. No
+transparency log held a website certificate from the affected
+authorities before the block, so no forged certificate could have worked
+against clients that enforce logging [22].</p>
 <h3 id="current-state-4">Current State</h3>
 <p>eMudhra is leaving. At 03:53 UTC on 25 October its representative
 wrote that the company “has decided to exit public TLS”, with a full
-report to follow within the 14-day window [23]. Thirty minutes later a
-reply counted 107,107 certificates logged to transparency logs on 20 and
-21 October under the revoked keys, 106,050 of them proofs of concept
-carrying a Google name [23]. The same reply reported that eMudhra’s
-revocation and status servers refuse requests from common command-line
-tools, which became a separate bug [23] [52].</p>
-<p>The questions are outstanding. Chrome posted twelve on 21 October,
-and on 23 October rejected public scrutiny as a reason for delay [23].
-Mozilla’s written questions of 20 October were unanswered on 23 October
-[23]. Neither Apple nor Microsoft has published a statement [21] [23].
+report to follow within the 14-day window [23]. That window ends about 1
+November, and the full report on the key compromise had not been posted
+by then [60]. A reporter also wrote that a preliminary report on the
+affected revocation list, due 29 October, was never filed, and that a
+second list was affected [60].</p>
+<p>Thirty minutes after that statement a reply counted 107,107
+certificates logged on 20 and 21 October under the revoked keys [23]. Of
+these, 106,050 were proofs of concept carrying a Google name [23].
+eMudhra’s side bugs have moved. It posted full reports on 8,288
+certificates missing its certificate-type identifier, on four outdated
+practice statements, and on 41 revoked status responder certificates
+[74]. The refusal of common command-line tools by its status servers
+became the separate bug covered in Section 4 [65].</p>
+<p>The questions about the compromise itself are outstanding. Chrome
+posted twelve on 21 October, and eMudhra attached a written response on
+29 October that it says it also shared directly with the browser
+programs [60]. That response was not read here. Mozilla’s written
+questions of 20 October were unanswered on 23 October [23]. Mozilla’s
+only later action was to mark two bugs as duplicates [60].</p>
+<p>The open decision is emSign Root CA - G1, which stays in Chrome’s and
+Mozilla’s stores. No program has decided on it [60]. eMudhra says its G1
+roots “remain active and continue to be fully supported” and that it
+will stop issuing website certificates from G1 once a federation’s
+transition is complete [60]. One commenter wrote that there is no basis
+for relying parties to keep trusting G1 [60]. Apple has made no
+statement that could be found.</p>
+<p>Java is an unverified lead. A search points to an Oracle security
+alert dated 21 October that distrusts the compromised intermediates, but
+all three Oracle hosts refused access, so it is not stated as fact [77].
 Part 5 covers what the flood of proof-of-concept certificates did to the
 transparency logs, and Part 1 covers the draft rule on small private
 scalars that followed within five days.</p>
@@ -385,10 +486,18 @@ certificates, and by 05:29 UTC on 19 October the total was 227,422
 revocation was complete as of 22:50 UTC that day [54]. Its corrected
 total was 403,643 certificates, of which 378,067 were revoked and 25,576
 had expired on their own, leaving none valid [54].</p>
-<p>No root program has commented on either GoDaddy bug, and the full
-incident report is still outstanding [54]. The CCADB staff confirmed the
-original mis-issuance bug on 21 October [53]. GoDaddy’s root inclusion
-application remains open and unchanged [35].</p>
+<p>The full incident report arrived on 29 October [66]. It dates the
+non-compliance from 28 February 2025 to 14 October 2026 and confirms
+403,643 affected certificates, none valid after 22 October [66]. The
+cause was incorrect profile information introduced in two practice
+statement updates, versions 5.02 and 5.03, with no check before
+publication and no automated linting against the stated profiles [66].
+Action items run from 4 December 2026 to 15 January 2027 [66].</p>
+<p>No root program has commented on either GoDaddy bug, and the delayed
+revocation bug has no comment after 22 October [67]. CCADB staff
+confirmed the original mis-issuance bug on 21 October [53]. GoDaddy’s
+root inclusion application remains open and unchanged since 19 October
+[35] [76].</p>
 <h3 id="unresolved-conflicts-2">Unresolved Conflicts</h3>
 <p>How Mozilla weighs the delay against the pending inclusion is open. A
 decision posted on the inclusion request, or a root program comment on
@@ -464,7 +573,7 @@ class="uri">https://googlechrome.github.io/chromerootprogram/cqrp/draft-policy</
 <li>Apple Root Program PQC Announcement - chromium ct-policy list - <a
 href="https://groups.google.com/a/chromium.org/g/ct-policy/c/QGZw2ADMXvk"
 class="uri">https://groups.google.com/a/chromium.org/g/ct-policy/c/QGZw2ADMXvk</a>
-- as of 2026-09-29</li>
+- as of 2026-10-30</li>
 <li>Microsoft Trusted Root Program announcements, PQC TLS pilot roots -
 TrustedRootProgram - <a
 href="https://github.com/TrustedRootProgram/Program-Requirements/blob/main/Announcements.md"
@@ -558,7 +667,7 @@ as of 2026-10-25</li>
 <li>CCADB public list - CCADB - <a
 href="https://groups.google.com/a/ccadb.org/g/public"
 class="uri">https://groups.google.com/a/ccadb.org/g/public</a> - as of
-2026-10-25</li>
+2026-11-01</li>
 <li>Netlock inclusion in MRSP - mozilla dev-security-policy - <a
 href="https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/a7d2tppkX-A"
 class="uri">https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/a7d2tppkX-A</a>
@@ -642,6 +751,117 @@ as of 2026-10-25</li>
 href="https://bugzilla.mozilla.org/show_bug.cgi?id=2083191"
 class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2083191</a> -
 as of 2026-10-25</li>
+<li>Chrome Root Program configuration, current policy version - GitHub -
+<a
+href="https://raw.githubusercontent.com/GoogleChrome/chromerootprogram/main/config.yaml"
+class="uri">https://raw.githubusercontent.com/GoogleChrome/chromerootprogram/main/config.yaml</a>
+- as of 2026-10-28</li>
+<li>[DRAFT] Chrome Quantum-resistant Root Program Policy, Version 0.4.0
+(RC 1.0.0) - GitHub - <a
+href="https://raw.githubusercontent.com/GoogleChrome/chromerootprogram/main/content/cqrp/draft-policy.md"
+class="uri">https://raw.githubusercontent.com/GoogleChrome/chromerootprogram/main/content/cqrp/draft-policy.md</a>
+- as of 2026-10-28</li>
+<li>Commits, apple/apple-root-program - GitHub - <a
+href="https://github.com/apple/apple-root-program/commits/main.atom"
+class="uri">https://github.com/apple/apple-root-program/commits/main.atom</a>
+- as of 2026-10-16</li>
+<li>Chrome Root Store, root_store.md - Chromium source - <a
+href="https://chromium.googlesource.com/chromium/src/+show/main/net/data/ssl/chrome_root_store/root_store.md"
+class="uri">https://chromium.googlesource.com/chromium/src/+show/main/net/data/ssl/chrome_root_store/root_store.md</a>
+- as of 2026-11-01</li>
+<li>Microsoft Response to eMudhra Certificate Authority Key Compromise -
+TrustedRootProgram announcements - <a
+href="https://raw.githubusercontent.com/TrustedRootProgram/Program-Requirements/main/Announcements.md"
+class="uri">https://raw.githubusercontent.com/TrustedRootProgram/Program-Requirements/main/Announcements.md</a>
+- as of 2026-10-27</li>
+<li>Bug 2083449 comments, eMudhra intermediate CA private key compromise
+- Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug/2083449/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2083449/comment</a> -
+as of 2026-11-01</li>
+<li>CA Certificate Compliance bugs opened from 24 October 2026 - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;creation_time=2026-10-24&amp;include_fields=id,summary,creation_time,status,whiteboard,creator"
+class="uri">https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;creation_time=2026-10-24&amp;include_fields=id,summary,creation_time,status,whiteboard,creator</a>
+- as of 2026-11-01</li>
+<li>Bugs 2086195, 2086490, 2087789, 2085787, 2086949 and 2085769,
+comments - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?id=2086195,2086490,2087789,2085787,2086949,2085769&amp;include_fields=id,summary,comments"
+class="uri">https://bugzilla.mozilla.org/rest/bug?id=2086195,2086490,2087789,2085787,2086949,2085769&amp;include_fields=id,summary,comments</a>
+- as of 2026-10-30</li>
+<li>Bug 2086195, Microsoft CRL access blocked by user agent - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2086195"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2086195</a> -
+as of 2026-11-01</li>
+<li>Bug 2086949, TWCA unauthorized access to a Registration Authority
+server - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2086949"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2086949</a> -
+as of 2026-10-29</li>
+<li>Bug 2085612 comments, eMudhra CRL and OCSP endpoints refusing common
+user agents - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug/2085612/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2085612/comment</a> -
+as of 2026-11-01</li>
+<li>Bug 2082703 comments, GoDaddy full incident report - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug/2082703/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2082703/comment</a> -
+as of 2026-10-29</li>
+<li>Bug 2083191 comments, GoDaddy delayed revocation - Mozilla Bugzilla
+- <a href="https://bugzilla.mozilla.org/rest/bug/2083191/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2083191/comment</a> -
+as of 2026-10-30</li>
+<li>Bug 2082818 comments, ACCV subordinate CA replacement - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug/2082818/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2082818/comment</a> -
+as of 2026-10-30</li>
+<li>Bug 2083471 comments, TrustAsia CAA check failure - Mozilla Bugzilla
+- <a href="https://bugzilla.mozilla.org/rest/bug/2083471/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2083471/comment</a> -
+as of 2026-10-28</li>
+<li>Bug 2083502 comments, DigiCert Cisco Meraki CA3 CRL defect - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug/2083502/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2083502/comment</a> -
+as of 2026-10-30</li>
+<li>Late-audit bugs 2083075 to 2083078, 2082644 and 2082645, status -
+Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?id=2083075,2083076,2083077,2083078,2082644,2082645&amp;include_fields=id,summary,status,resolution,whiteboard,creation_time,last_change_time,assigned_to,comment_count"
+class="uri">https://bugzilla.mozilla.org/rest/bug?id=2083075,2083076,2083077,2083078,2082644,2082645&amp;include_fields=id,summary,status,resolution,whiteboard,creation_time,last_change_time,assigned_to,comment_count</a>
+- as of 2026-11-01</li>
+<li>Bug 2082644 comments, D-Trust vulnerability management audit finding
+- Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug/2082644/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2082644/comment</a> -
+as of 2026-10-30</li>
+<li>Bug 2082645 comments, D-Trust backup recovery testing audit finding
+- Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug/2082645/comment"
+class="uri">https://bugzilla.mozilla.org/rest/bug/2082645/comment</a> -
+as of 2026-10-30</li>
+<li>Bugs 2082782, 2082872 and 2080742, eMudhra full incident reports -
+Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?id=2082782,2082872,2080742&amp;include_fields=id,summary,comments"
+class="uri">https://bugzilla.mozilla.org/rest/bug?id=2082782,2082872,2080742&amp;include_fields=id,summary,comments</a>
+- as of 2026-10-30</li>
+<li>Bugs 2085436, 2086743, 2085712, 2085962, 2086471, 2086575 and
+2087542, comments - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?id=2085436,2086743,2085712,2085962,2086471,2086575,2087542&amp;include_fields=id,summary,comments"
+class="uri">https://bugzilla.mozilla.org/rest/bug?id=2085436,2086743,2085712,2085962,2086471,2086575,2087542&amp;include_fields=id,summary,comments</a>
+- as of 2026-10-23</li>
+<li>CA Program bug status, inclusion and removal requests - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?id=2083449,2085612,1889859,2083191,2082703,2035858,2082818,1960408,2083471,2081248,2081415,2018979,2074675&amp;include_fields=id,summary,status,resolution,whiteboard,last_change_time"
+class="uri">https://bugzilla.mozilla.org/rest/bug?id=2083449,2085612,1889859,2083191,2082703,2035858,2082818,1960408,2083471,2081248,2081415,2018979,2074675&amp;include_fields=id,summary,status,resolution,whiteboard,last_change_time</a>
+- as of 2026-11-01</li>
+<li>Oracle Security Alert CVE-2026-91403, unverified lead, access
+refused - Oracle - <a
+href="https://www.oracle.com/security-alerts/alert-CVE-2026-91403.html"
+class="uri">https://www.oracle.com/security-alerts/alert-CVE-2026-91403.html</a>
+- as of 2026-10-21</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

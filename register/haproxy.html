@@ -164,7 +164,7 @@ means CNSA-aligned and federal deployments.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>3.4.7, 2026-10-14, LTS [5] [6] [7]</li>
+<li>3.4.7, 2026-10-14, LTS [5] [6] [7] [8]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="known-unknowns">Known Unknowns</h2>
 <p>Cells an engineer would ask about that no cited source has settled
@@ -185,7 +185,7 @@ answer to find. This is the third shape of gap that
 the <code>inherited</code> outcome, added the same day. Examined: the
 component’s own derives_from edge and the upstream’s ml-dsa/tls
 cell.</li>
-<li>mlkem512 / tls – <strong>none found 2026-10-15</strong>: HAProxy
+<li>mlkem512 / tls – <strong>none found 2026-11-01</strong>: HAProxy
 documents no pure group: its blog (modified 2026-09-14) names
 X25519MLKEM768 and SecP256r1MLKEM768 for its own AWS-LC builds, and the
 3.5 configuration manual (2026-10-01) passes <code>curves</code> to the
@@ -200,8 +200,10 @@ Not in 3.4.7 (checked at the v3.4.7 tag). Still a gap: the names are a
 lookup table, a dev-only one, and no HAProxy document says a pure group
 negotiates. Examined: haproxy.com PQC blog (2026-07-01, modified
 2026-09-14), HAProxy 3.5 configuration manual (2026-10-01),
-haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7.</li>
-<li>mlkem768 / tls – <strong>none found 2026-10-15</strong>: HAProxy
+haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7,
+HAProxy 3.5 CHANGELOG, 3.5-dev10 section (2026-10-28; no group or curve
+line).</li>
+<li>mlkem768 / tls – <strong>none found 2026-11-01</strong>: HAProxy
 documents no pure group: its blog (modified 2026-09-14) names
 X25519MLKEM768 and SecP256r1MLKEM768 for its own AWS-LC builds, and the
 3.5 configuration manual (2026-10-01) passes <code>curves</code> to the
@@ -216,8 +218,10 @@ Not in 3.4.7 (checked at the v3.4.7 tag). Still a gap: the names are a
 lookup table, a dev-only one, and no HAProxy document says a pure group
 negotiates. Examined: haproxy.com PQC blog (2026-07-01, modified
 2026-09-14), HAProxy 3.5 configuration manual (2026-10-01),
-haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7.</li>
-<li>mlkem1024 / tls – <strong>none found 2026-10-15</strong>: HAProxy
+haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7,
+HAProxy 3.5 CHANGELOG, 3.5-dev10 section (2026-10-28; no group or curve
+line).</li>
+<li>mlkem1024 / tls – <strong>none found 2026-11-01</strong>: HAProxy
 documents no pure group: its blog (modified 2026-09-14) names
 X25519MLKEM768 and SecP256r1MLKEM768 for its own AWS-LC builds, and the
 3.5 configuration manual (2026-10-01) passes <code>curves</code> to the
@@ -232,7 +236,9 @@ Not in 3.4.7 (checked at the v3.4.7 tag). Still a gap: the names are a
 lookup table, a dev-only one, and no HAProxy document says a pure group
 negotiates. Examined: haproxy.com PQC blog (2026-07-01, modified
 2026-09-14), HAProxy 3.5 configuration manual (2026-10-01),
-haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7.</li>
+haproxy/haproxy src/ssl_utils.c on master (3.5-dev9) and at v3.4.7,
+HAProxy 3.5 CHANGELOG, 3.5-dev10 section (2026-10-28; no group or curve
+line).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -261,6 +267,9 @@ class="uri">https://www.haproxy.org/</a> (as of 2026-10-14; checked
 <li><a href="https://github.com/haproxy/haproxy/commits/master"
 class="uri">https://github.com/haproxy/haproxy/commits/master</a> (as of
 2026-10-23; checked 2026-10-25)</li>
+<li><a href="https://www.haproxy.org/download/3.5/src/CHANGELOG"
+class="uri">https://www.haproxy.org/download/3.5/src/CHANGELOG</a> (as
+of 2026-10-28; checked 2026-11-01)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

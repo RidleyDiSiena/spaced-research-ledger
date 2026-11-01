@@ -56,7 +56,8 @@
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-planned">planned</span> since PQC-enabled
-wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]</td>
+wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]
+[7]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>X-Wing</strong></td>
@@ -71,7 +72,7 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]</td>
 <td data-label="Algorithm"><strong>X25519MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><span class="st st-default">default</span> since v5.9.2 or earlier
-[7] [8]</td>
+[8] [9]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -81,7 +82,7 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]</td>
 <td data-label="Algorithm"><strong>SecP256r1MLKEM768</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><span class="st st-default">default</span> since v5.9.2 or earlier
-[9]</td>
+[10]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -91,7 +92,7 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]</td>
 <td data-label="Algorithm"><strong>SecP384r1MLKEM1024</strong></td>
 <td data-label="Primitive"><span class="st st-unknown">unknown</span></td>
 <td data-label="TLS 1.3"><span class="st st-default">default</span> since v5.9.2 or earlier
-[9]</td>
+[10]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- These rows are named TLS groups: an IANA TLS codepoint negotiated in a handshake, never a certificate key type. A certificate holding an ML-KEM key is the kem row.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- SSH names its own hybrid key exchanges (mlkem768x25519-sha256 and kin) rather than borrowing the TLS groups these rows hold, so an SSH hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- RFC 9370 composes additional key exchanges from single transforms rather than negotiating a TLS group, so an IKEv2 hybrid is recorded against the KEM row it is built from.">n/a</abbr></td>
@@ -110,7 +111,7 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]</td>
 <td data-label="Algorithm"><strong>MLKEM512</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
 <td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since v5.9.1
-(build flag) [10]</td>
+(build flag) [11]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -120,7 +121,7 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]</td>
 <td data-label="Algorithm"><strong>MLKEM768</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
 <td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since v5.9.1
-(build flag) [10]</td>
+(build flag) [11]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -130,7 +131,7 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]</td>
 <td data-label="Algorithm"><strong>MLKEM1024</strong></td>
 <td data-label="Primitive"><abbr class="st-na" title="Not a real question -- A pure ML-KEM group has no combiner: the primitive under it is ML-KEM itself, which the ml-kem row&#x27;s primitive cell already carries. The hybrid rows stay a question here because a hybrid has a combiner of its own to ship or not.">n/a</abbr></td>
 <td data-label="TLS 1.3"><span class="st st-experimental">experimental</span> since v5.9.1
-(build flag) [10]</td>
+(build flag) [11]</td>
 <td data-label="X.509"><abbr class="st-na" title="Not a real question -- As for hybrid-kex: these rows are TLS group codepoints. A certificate holding an ML-KEM key is the ml-kem row&#x27;s x509 cell.">n/a</abbr></td>
 <td data-label="SSH"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. SSH names its own key exchanges, so any SSH method built on ML-KEM is recorded against the ml-kem row.">n/a</abbr></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- These rows are TLS group codepoints. IKEv2 negotiates ML-KEM as its own key exchange transform, recorded against the ml-kem row.">n/a</abbr></td>
@@ -139,22 +140,22 @@ wolfCrypt FIPS 140-3 module announced 2026-08-04 [3] [4] [5] [6]</td>
 <tr>
 <td data-label="Algorithm"><strong>ML-DSA</strong></td>
 <td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 under the
-ML-DSA name [11] [2]</td>
+ML-DSA name [12] [2]</td>
 <td data-label="TLS 1.3"><span class="st st-available">available</span> since not recorded
-[12]</td>
+[13]</td>
 <td data-label="X.509"><span class="st st-unknown">unknown</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-planned">planned</span> since as ML-KEM [3] [4]
-[13]</td>
+[14]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>SLH-DSA</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [11]</td>
-<td data-label="TLS 1.3"><span class="st st-available">available</span> since 5.9.4 [14]
-[15]</td>
-<td data-label="X.509"><span class="st st-available">available</span> since 5.9.4 [14]
+<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [12]</td>
+<td data-label="TLS 1.3"><span class="st st-available">available</span> since 5.9.4 [15]
 [16]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 5.9.4 [15]
+[17]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -179,20 +180,20 @@ ML-DSA name [11] [2]</td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>LMS / HSS</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [17]
+<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [18]
 [2]</td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
-<td data-label="X.509"><span class="st st-available">available</span> since 5.9.2 [11]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 5.9.2 [12]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
 </tr>
 <tr>
 <td data-label="Algorithm"><strong>XMSS / XMSS^MT</strong></td>
-<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [17]
+<td data-label="Primitive"><span class="st st-available">available</span> since 5.9.2 [18]
 [2]</td>
 <td data-label="TLS 1.3"><abbr class="st-na" title="Not a real question -- TLS registers no SignatureScheme for LMS or XMSS, and an online handshake signer -- one key, many signatures, no shared state -- is precisely the use SP 800-208 excludes.">n/a</abbr></td>
-<td data-label="X.509"><span class="st st-available">available</span> since 5.9.2 [11]</td>
+<td data-label="X.509"><span class="st st-available">available</span> since 5.9.2 [12]</td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><abbr class="st-na" title="Not a real question -- IKEv2 registers no LMS or XMSS authentication method.">n/a</abbr></td>
 <td data-label="FIPS 140-3"><span class="st st-unknown">unknown</span></td>
@@ -267,8 +268,8 @@ certificate and CSR generation.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>5.9.4, 2026-09-25 [18] [19] [20] [21]</li>
-<li>5.9.2, 2026-06-30 [11]</li>
+<li>5.9.4, 2026-09-25 [19] [20] [21] [22] [23]</li>
+<li>5.9.2, 2026-06-30 [12]</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -299,6 +300,9 @@ class="uri">https://www.wolfssl.com/wolfssl-advances-embedded-security-with-wolf
 href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5548"
 class="uri">https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5548</a>
 (as of 2026-10-09; checked 2026-10-15)</li>
+<li><a href="https://github.com/wolfSSL/wolfssl/pull/11434"
+class="uri">https://github.com/wolfSSL/wolfssl/pull/11434</a> (as of
+2026-10-29; checked 2026-11-01)</li>
 <li><a
 href="https://www.wolfssl.com/hybrid-post-quantum-key-exchange-in-wolfssl-5-8-0/"
 class="uri">https://www.wolfssl.com/hybrid-post-quantum-key-exchange-in-wolfssl-5-8-0/</a>
@@ -357,6 +361,9 @@ class="uri">https://github.com/wolfSSL/wolfssl/releases</a> (as of
 <li><a href="https://api.github.com/repos/wolfSSL/wolfssl/releases"
 class="uri">https://api.github.com/repos/wolfSSL/wolfssl/releases</a>
 (as of 2026-09-27; checked 2026-10-25)</li>
+<li><a href="https://github.com/wolfSSL/wolfssl/tags"
+class="uri">https://github.com/wolfSSL/wolfssl/tags</a> (as of
+2026-09-25; checked 2026-11-01)</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

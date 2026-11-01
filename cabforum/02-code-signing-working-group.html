@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 2</p>
     <h1>Code Signing Working Group</h1>
-    <p class="updated">Last updated: 2026-10-25</p>
+    <p class="updated">Last updated: 2026-11-01</p>
     <p class="actions"><a class="pdf" href="latest/02-code-signing-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -53,7 +53,7 @@ that the public record shows a change.</p>
 that sign software. It is a smaller and slower group than the one
 governing web server certificates. Section 1 covers the published
 requirements and the ballots that produced them. Section 2 covers the
-ballots now open, and Section 3 covers the one software platform that
+ballots in progress, and Section 3 covers the one software platform that
 sits in the group as a certificate consumer.</p>
 <p>A warning about sourcing belongs at the front of this part. The Forum
 publishes two pages for this group, one listing ballots and one listing
@@ -67,13 +67,14 @@ Requirements and the Ballots Behind Them</h2>
 comes from a ballot. The version history is the record of what the group
 has actually agreed, as distinct from what it has debated.</em></p>
 <h3 id="recent-developments">Recent Developments</h3>
-<p>The current version is 3.11.0, adopted through Ballot CSC-32 [2]. Its
-intellectual property review ended without objections on 16 June 2026
-[3]. It makes a Reserved Policy OID mandatory in subscriber certificates
-[2]. That rule has been in force since its effective date of 15
-September 2026 [2].</p>
+<p>The current version is 3.11.0, adopted through Ballot CSC-32 [2].
+Version 3.12.0 is next, and Section 2 explains why it cannot publish
+before late November [3]. Its intellectual property review ended without
+objections on 16 June 2026 [4]. It makes a Reserved Policy OID mandatory
+in subscriber certificates [2]. That rule has been in force since its
+effective date of 15 September 2026 [2].</p>
 <p>Version 3.10 came from Ballot CSC-31, titled Maximum Validity
-Reduction, which passed on 17 November 2025 [4] [2]. The group is
+Reduction, which passed on 17 November 2025 [5] [2]. The group is
 following the same direction as the server certificate rules, shortening
 the time a signing certificate stays valid. Version 3.9 came from Ballot
 CSC-26 and covered timestamping private key protection [2]. Version 3.8
@@ -82,64 +83,75 @@ Guidelines into the Baseline Requirements [2].</p>
 <h3 id="current-state">Current State</h3>
 <p>The Forum’s software repository does not match its website either.
 Its releases page lists version 3.8 as the newest release, and versions
-3.9, 3.10 and 3.11 were never tagged there [5]. The requirements page is
+3.9, 3.10 and 3.11 were never tagged there [6]. The requirements page is
 the record to read for the version in force [2].</p>
 <p>The group has twice rejected wholesale alignment with the server
 certificate rules. Ballot CSC-030, the June 2025 alignment ballot,
-failed [6]. Ballot CSC-029, the March 2025 alignment ballot, failed
-before it [7]. Two failures on the same kind of proposal say something
+failed [7]. Ballot CSC-029, the March 2025 alignment ballot, failed
+before it [8]. Two failures on the same kind of proposal say something
 about this group’s appetite for importing another group’s changes as a
 block.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="ballots-now-open">2. Ballots Now Open</h2>
-<p><em>Two ballots are open, one that has closed its vote and awaits its
-result, and one that has not moved since June. Neither has yet changed
-the published text.</em></p>
+<p><em>Two ballots are in progress, one that has passed and sits in
+intellectual property review, and one that has not moved since June.
+Neither has yet changed the published text.</em></p>
 <h3 id="recent-developments-1">Recent Developments</h3>
-<p>Ballot CSC-034 has finished its vote. It clarifies how the
+<p>Ballot CSC-034 passed on 27 October. It clarifies how the
 organization name field is used when the certificate subject is a
-natural person [8]. Dimitris Zacharopoulos of HARICA proposed it on 6
-October, with endorsements from eMudhra and Sectigo [8]. Its draft first
-appeared as a pull request on 24 September [9].</p>
-<p>Voting ran from 14 October to 21 October at 17:00 UTC [10]. The
-readable votes were all in favour, from HARICA, eMudhra, Certum, Sectigo
-and Actalis among the issuers, and from SHECA and one more on the
-closing day [10]. Microsoft, the group’s only certificate consumer,
-voted in favour on 20 October after the chair reminded the list that a
-consumer vote was needed [10]. No vote against or abstention was visible
-[10].</p>
+natural person [9]. Dimitris Zacharopoulos of HARICA proposed it on 6
+October, with endorsements from eMudhra and Sectigo [9]. Its draft first
+appeared as a pull request on 24 September [10].</p>
+<p>Voting ran from 14 October to 21 October at 17:00 UTC [11].
+Microsoft, the group’s only certificate consumer, voted in favour on 20
+October after the chair reminded the list that a consumer vote was
+needed [11].</p>
+<p>The chair posted the result on 27 October. All seven voting
+certificate issuers were in favour, namely Actalis, Certum, eMudhra,
+HARICA, IdenTrust, Sectigo and SSL.com [12]. Microsoft’s vote was the
+one consumer vote, also in favour [12]. No vote was against and none
+abstained, and the quorum for the ballot was four [12].</p>
 <h3 id="current-state-1">Current State</h3>
-<p>No result has been posted. As of 25 October there was no results
-message, no notice of a review period, and no entry for the ballot on
-the group’s ballots page [10] [1]. The ballot therefore stays in its
-voting stage in this collection until the chair reports. If it passes, a
-30-day intellectual property review follows before any new version.</p>
+<p>The ballot is in intellectual property review, and it is not yet a
+requirement. The review notice, posted the same day, runs from 27
+October at 09:00 UTC to 26 November at 09:00 UTC [3]. It attaches the
+redline for version 3.12.0 of the requirements [3]. Version 3.12.0
+therefore cannot publish before the review ends, and version 3.11.0
+stays current until then [3] [2].</p>
+<p>The group’s ballots page lists the ballot under its review stage [1].
+No exclusion notice had appeared by 1 November [13].</p>
+<p>Two small oddities are on the record. SHECA appeared as a yes vote in
+the voting thread but is not in the counted list, and the results post
+gives no reason [12]. The review notice cites version 1.3 of the
+intellectual property policy, while the notices for two other ballots of
+the Forum cite version 1.4 [3]. The pull request carrying the change is
+still open and unmerged [10].</p>
 <p>One drafting slip is visible in the text. The ballot’s purpose
 section cites version 3.11 of the requirements, while its motion says
-the changes are based on version 3.10 [8].</p>
+the changes are based on version 3.10 [9].</p>
 <p>Ballot CSC-033 is a third attempt at alignment with the server
 certificate rules, and it is stalled. DigiCert proposed it with
 endorsements from HARICA and Sectigo, and its discussion period opened
-on 26 May 2026 [11]. It would import three server certificate rules with
-future dates [11]. These are a recommendation to lint certificates
+on 26 May 2026 [14]. It would import three server certificate rules with
+future dates [14]. These are a recommendation to lint certificates
 before issuance, a requirement to check for weak private keys, and a
-requirement to refresh status responses on a set schedule [11].</p>
+requirement to refresh status responses on a set schedule [14].</p>
 <p>Discussion was due to end no earlier than 2 June, and no vote has
-been called since [11]. The last public replies, on 8 June, raised a
-cross-reference typo, a broken link and syntax fixes [12]. No result or
+been called since [14]. The last public replies, on 8 June, raised a
+cross-reference typo, a broken link and syntax fixes [15]. No result or
 withdrawal has been posted, and its pull request has not changed since
-26 May [12].</p>
+26 May [15].</p>
 <p>The group’s earlier minutes point the same way as CSC-033. In May the
 group agreed on 15 March 2027 as the effective date for both a linting
-requirement and weekly weak-key checks [13]. A ballot raising the
+requirement and weekly weak-key checks [16]. A ballot raising the
 minimum RSA key size for root and subordinate certificates was also
-under way then [13]. It mirrors a change the S/MIME group has already
+under way then [16]. It mirrors a change the S/MIME group has already
 published, which Part 3 describes.</p>
 <h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
 <p>The record of post-quantum signing in this group is thin. A draft to
 add ML-DSA to the code signing rules was closed without being merged on
-29 June 2026, and no replacement has been opened [14]. The group’s web
+29 June 2026, and no replacement has been opened [17]. The group’s web
 pages and its repository both show no post-quantum ballot at any stage
-[1] [14]. A new pull request or a ballot announcement would show that
+[1] [17]. A new pull request or a ballot announcement would show that
 the question has returned.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="the-certificate-consumer">3. The Certificate Consumer</h2>
 <p><em>A certificate consumer is the software maker whose platform
@@ -149,52 +161,76 @@ Microsoft alone.</em></p>
 <p>The week’s key compromise reached code signing. Two of the eight
 eMudhra intermediate authorities whose private keys were found
 recoverable on 17 October issue code signing certificates and are
-trusted by Microsoft [15]. The other six issue website certificates, and
-Part 4 tells the whole story [15]. Microsoft has published no statement
-of its own on the compromise, and the two code signing authorities were
-revoked by eMudhra with the rest on 18 October [15].</p>
+trusted by Microsoft [18]. The other six issue website certificates, and
+Part 4 tells the whole story [18]. The two code signing authorities were
+revoked by eMudhra with the rest on 18 October [18].</p>
+<p>Microsoft has since published its own response, dated 26 October and
+revised on 27 October [19]. It confirms eight compromised subordinate
+authorities, six for websites and two for code signing, and calls it a
+third-party incident, not a compromise of Microsoft systems [19]. The
+two code signing authorities are the G3B and G3C intermediates under
+emSign Root CS CA - G3, each also cross-signed under Sectigo’s AAA
+Certificate Services, and eMudhra and Sectigo have revoked them
+[19].</p>
+<p>A Windows update on 20 October blocked the eight keys [19]. On 26
+October another update removed six emSign G3 roots from the Windows
+trust list, among them the code signing root and the time stamping root,
+together with the AAA Certificate Services cross-sign [19]. Edge removed
+the same seven certificates on 27 October [19]. Customers are told not
+to restore trust in an affected hierarchy without understanding the risk
+[19].</p>
 <h3 id="current-state-2">Current State</h3>
 <p>The group has 14 certificate authorities as members, with Microsoft
-as the only certificate consumer [16]. The chair is Martijn Katerbarg of
-Sectigo, who stays in the role for the term from 1 December [16] [17].
+as the only certificate consumer [20]. The chair is Martijn Katerbarg of
+Sectigo, who stays in the role for the term from 1 December [20] [21].
 Dean Coclin of DigiCert was confirmed as the incoming vice-chair in
-October [17]. Part 6 covers the wider Forum elections.</p>
+October [21]. Tim Callan left Sectigo for Microsoft PKI Services on 1
+November and will stay in the Forum as a Microsoft representative [22].
+Part 6 covers the wider Forum elections.</p>
 <p>Microsoft’s rules sit in its Trusted Root Program repository, which
-it names as the official source over its older documentation pages [18].
-The newest change there is from 28 August 2026 and concerned its
-post-quantum pilot, and nothing has been added since [19]. For roots
-submitted from 1 July 2026, code signing must have its own root,
-separate from server and email roots [20]. Such a root may also cover
-client authentication and time stamping [20].</p>
+it names as the official source over its older documentation pages [23].
+The newest changes there are the eMudhra announcements of 26 and 27
+October, and before them a 28 August change that concerned its
+post-quantum pilot [24] [25]. For roots submitted from 1 July 2026, code
+signing must have its own root, separate from server and email roots
+[26]. Such a root may also cover client authentication and time stamping
+[26].</p>
 <p>The older documentation page still carries the specific code signing
-rules [21]. New code signing and time-stamping roots must use 4096-bit
+rules [27]. New code signing and time-stamping roots must use 4096-bit
 RSA keys, and elliptic curve keys are not accepted for code signing
-[21]. Extended Validation code signing stopped being recognised in
-February 2024 [21]. An authority that issues code signing certificates
-must also run a time-stamping service [21].</p>
+[27]. Extended Validation code signing stopped being recognised in
+February 2024 [27]. An authority that issues code signing certificates
+must also run a time-stamping service [27].</p>
 <p>The Extended Validation change shows up for developers. An Extended
 Validation certificate no longer bypasses Windows reputation checks, so
-both kinds of certificate must build reputation through downloads [22].
+both kinds of certificate must build reputation through downloads [28].
 Store packages are re-signed by Microsoft and get full reputation, while
-ordinary installers need a signature chaining to a program member [22].
+ordinary installers need a signature chaining to a program member [28].
 Microsoft recommends its Artifact Signing service, formerly Trusted
-Signing, for software outside the Store [22]. Its documentation for that
-service was revised on 20 October, changing only the support options
-[23].</p>
-<p>Signing rules for other platforms, such as Java and Adobe, were not
-checked for this edition. Their absence here is a gap, not a
-finding.</p>
+Signing, for software outside the Store [28]. Its documentation for that
+service was revised again on 27 October, apparently to add
+troubleshooting for identity validation errors, and its program
+statements are unchanged [29] [30].</p>
+<p>Signing rules for other platforms, such as Java and Adobe, are not
+covered in this edition. Adobe’s trust list page refused access again,
+and the Java position could not be verified from a primary source. Their
+absence here is a gap, not a finding.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
 <li>Code Signing Certificate Working Group Ballots - CA/Browser Forum -
 <a href="https://cabforum.org/working-groups/code-signing/ballots/"
 class="uri">https://cabforum.org/working-groups/code-signing/ballots/</a>
-- as of 2026-10-25</li>
+- as of 2026-11-01</li>
 <li>Code Signing Baseline Requirements, current version and history -
 CA/Browser Forum - <a
 href="https://cabforum.org/working-groups/code-signing/requirements/"
 class="uri">https://cabforum.org/working-groups/code-signing/requirements/</a>
-- as of 2026-10-25</li>
+- as of 2026-11-01</li>
+<li>IPR Review Period: CSC-034, Clarify Certificate Profile for
+Individuals - cscwg-public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/VfzL8AxLjuE"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/VfzL8AxLjuE</a>
+- as of 2026-10-27</li>
 <li>Results of Review Period, Ballot CSC-32 - cscwg-public list - <a
 href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public</a>
@@ -224,11 +260,19 @@ class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/ZaQ
 - cabforum/code-signing - <a
 href="https://github.com/cabforum/code-signing/pull/59"
 class="uri">https://github.com/cabforum/code-signing/pull/59</a> - as of
-2026-09-24</li>
+2026-10-27</li>
 <li>Ballot CSC-034 voting period - cscwg-public list - <a
 href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/OnTH2Kbm-l0"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/OnTH2Kbm-l0</a>
 - as of 2026-10-25</li>
+<li>Voting Results: Ballot CSC-034 - cscwg-public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/NXLM388exQI"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/NXLM388exQI</a>
+- as of 2026-10-27</li>
+<li>cscwg-public list index - CA/Browser Forum - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public</a>
+- as of 2026-11-01</li>
 <li>Ballot CSC-033, 2026-05 SCWG alignment ballot - cscwg-public list -
 <a
 href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/erLQwy_gM8w"
@@ -237,7 +281,7 @@ class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/c/erL
 <li>Ballot CSC-033 threads - cscwg-public list - <a
 href="https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/search?q=CSC-033"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/cscwg-public/search?q=CSC-033</a>
-- as of 2026-10-25</li>
+- as of 2026-11-01</li>
 <li>Minutes of the Code Signing Certificate Working Group, 14 May 2026 -
 CA/Browser Forum - <a
 href="https://cabforum.org/2026/05/14/2026-05-14-minutes-of-the-code-signing-certificate-working-group/"
@@ -252,6 +296,11 @@ Mozilla Bugzilla - <a
 href="https://bugzilla.mozilla.org/show_bug.cgi?id=2083449"
 class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2083449</a> -
 as of 2026-10-25</li>
+<li>Microsoft Response to eMudhra Certificate Authority Key Compromise,
+Announcements - TrustedRootProgram - <a
+href="https://raw.githubusercontent.com/TrustedRootProgram/Program-Requirements/main/Announcements.md"
+class="uri">https://raw.githubusercontent.com/TrustedRootProgram/Program-Requirements/main/Announcements.md</a>
+- as of 2026-10-27</li>
 <li>Code Signing Certificate Working Group - CA/Browser Forum - <a
 href="https://cabforum.org/working-groups/code-signing/"
 class="uri">https://cabforum.org/working-groups/code-signing/</a> - as
@@ -261,10 +310,19 @@ CA/Browser Forum public list - <a
 href="https://groups.google.com/a/groups.cabforum.org/g/public/c/2ObYpN5OY6k"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/public/c/2ObYpN5OY6k</a>
 - as of 2026-10-15</li>
+<li>Departure from Sectigo, Forum public list - CA/Browser Forum public
+list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/public/c/oHUjzMvuOVM"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/public/c/oHUjzMvuOVM</a>
+- as of 2026-10-26</li>
 <li>TrustedRootProgram Program-Requirements repository - GitHub - <a
 href="https://github.com/TrustedRootProgram/Program-Requirements"
 class="uri">https://github.com/TrustedRootProgram/Program-Requirements</a>
 - as of 2025-10-01</li>
+<li>TrustedRootProgram Program-Requirements commit history - GitHub - <a
+href="https://github.com/TrustedRootProgram/Program-Requirements/commits/main"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements/commits/main</a>
+- as of 2026-10-27</li>
 <li>TrustedRootProgram Program-Requirements commits - GitHub - <a
 href="https://api.github.com/repos/TrustedRootProgram/Program-Requirements/commits?per_page=5"
 class="uri">https://api.github.com/repos/TrustedRootProgram/Program-Requirements/commits?per_page=5</a>
@@ -283,6 +341,11 @@ class="uri">https://learn.microsoft.com/en-us/security/trusted-root/program-requ
 href="https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/code-signing-options"
 class="uri">https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/code-signing-options</a>
 - as of 2026-08-29</li>
+<li>Artifact Signing documentation commits - MicrosoftDocs/azure-docs -
+<a
+href="https://github.com/MicrosoftDocs/azure-docs/commits/main/articles/artifact-signing.atom"
+class="uri">https://github.com/MicrosoftDocs/azure-docs/commits/main/articles/artifact-signing.atom</a>
+- as of 2026-10-27</li>
 <li>Artifact Signing FAQ - Microsoft Learn - <a
 href="https://learn.microsoft.com/en-us/azure/artifact-signing/faq"
 class="uri">https://learn.microsoft.com/en-us/azure/artifact-signing/faq</a>
