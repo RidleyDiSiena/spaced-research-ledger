@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 3</p>
     <h1>S/MIME Working Group</h1>
-    <p class="updated">Last updated: 2026-11-01</p>
+    <p class="updated">Last updated: 2026-11-08</p>
     <p class="actions"><a class="pdf" href="latest/03-smime-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -65,9 +65,10 @@ intellectual property review. Section 4 covers the group’s post-quantum
 work, where it remains ahead of the larger server certificate group.</p>
 <p>The group’s pace picked up after a quiet summer. One ballot was
 published, one passed its vote, a post-quantum draft appeared, and the
-group’s leadership is changing hands. The week to 1 November brought no
-new move. Every ballot below is given with its stage, because a ballot
-that has passed its vote is not yet a rule.</p>
+group’s leadership is changing hands. The week to 8 November brought two
+pull requests and the group’s minutes and agenda, and no change to any
+ballot’s stage. Every ballot below is given with its stage, because a
+ballot that has passed its vote is not yet a rule.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="requirements-and-version-history">1. Requirements and Version
 History</h2>
 <p><em>The version table is the record of what this group has agreed.
@@ -144,12 +145,14 @@ quorum of six was met <a class="cite" href="#src-10">[10]</a>.</p>
 <h3 id="current-state-2">Current State</h3>
 <p>SMC020 is adopted and in its intellectual property review, which runs
 from 20 October at 12:00 UTC to 19 November at 12:00 UTC <a class="cite" href="#src-10">[10]</a>. No
-exclusion notice had appeared by 1 November, and the pull request still
-carries the ballot and review labels <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-22">[22]</a>. The redline attached to
-the result is labelled version 1.0.17 of the requirements, which is the
-version the ballot will publish into if no exclusion notice arrives
-<a class="cite" href="#src-10">[10]</a>. The group’s ballots page lists it under the review period, with
-nothing under voting or discussion <a class="cite" href="#src-13">[13]</a> <a class="cite" href="#src-14">[14]</a>.</p>
+exclusion notice had appeared by 8 November, and the pull request still
+carries the ballot and review labels <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-22">[22]</a>. The group’s 4 November
+agenda still lists SMC020 in review, with the next call on 18 November
+<a class="cite" href="#src-24">[24]</a>. The redline attached to the result is labelled version 1.0.17 of
+the requirements, which is the version the ballot will publish into if
+no exclusion notice arrives <a class="cite" href="#src-10">[10]</a>. The group’s ballots page lists it
+under the review period, with nothing under voting or discussion <a class="cite" href="#src-13">[13]</a>
+<a class="cite" href="#src-14">[14]</a>.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="post-quantum-email">4. Post-Quantum Email</h2>
 <p><em>The S/MIME group admitted post-quantum algorithms a year before
 any other Forum group, and its next step is the hybrid kind.</em></p>
@@ -161,18 +164,22 @@ pairs a post-quantum signature with a traditional one in a single
 certificate. The draft builds on the standalone ML-DSA and ML-KEM
 support that SMC013 already published <a class="cite" href="#src-15">[15]</a>.</p>
 <p>The draft has been narrowed once. A change on 28 September removed
-the composite pairings with Ed25519 and Ed448 <a class="cite" href="#src-16">[16]</a>. It has not changed
-since, and the pull request is still open with no labels <a class="cite" href="#src-22">[22]</a>. It
-reached the group’s agenda for the first time on 21 October, listed as a
-draft for discussion <a class="cite" href="#src-17">[17]</a>.</p>
+the composite pairings with Ed25519 and Ed448 <a class="cite" href="#src-16">[16]</a>. On 3 November the
+pull request was updated and retitled to add ML-KEM, and it is still
+open with no labels <a class="cite" href="#src-22">[22]</a>. It reached the group’s agenda for the first
+time on 21 October, listed as a draft for discussion <a class="cite" href="#src-17">[17]</a>.</p>
 <p>That agenda also recorded a change of leadership. It lists a handover
 to Rebecca Kelley and Scott Rea, the chair and vice-chair confirmed for
-the term from 1 December <a class="cite" href="#src-17">[17]</a>. The same agenda carries discussions of
-name constraints in S/MIME authorities and an experiment with
-machine-readable certificate profiles <a class="cite" href="#src-17">[17]</a>. The group’s next meeting is
-on 4 November, and neither minutes of the 21 October call nor an agenda
-for the next had been posted by 1 November <a class="cite" href="#src-17">[17]</a> <a class="cite" href="#src-23">[23]</a>. The handover is
-known only from the agenda line, with no post confirming it <a class="cite" href="#src-17">[17]</a>.</p>
+the term from 1 December <a class="cite" href="#src-17">[17]</a>.</p>
+<p>The same agenda carries discussions of name constraints in S/MIME
+authorities and an experiment with machine-readable certificate profiles
+<a class="cite" href="#src-17">[17]</a>. Draft minutes of the 21 October call and an agenda for the 4
+November meeting were posted on 4 November <a class="cite" href="#src-17">[17]</a> <a class="cite" href="#src-24">[24]</a>. The next meeting
+is on 18 November <a class="cite" href="#src-24">[24]</a>. The handover is known only from the agenda line,
+with no post confirming it <a class="cite" href="#src-17">[17]</a>. The 4 November agenda also lists an
+open ballot to confirm Sarah Sherrard of Sectigo as vice chair, which
+the Forum’s leadership page does not match, so the changeover is not
+settled <a class="cite" href="#src-24">[24]</a> <a class="cite" href="#src-23">[23]</a>.</p>
 <p>A root program has already said it will trust composite certificates.
 Apple announced on 21 September that it will accept composite roots that
 pair ML-DSA with ECDSA or RSA for S/MIME email <a class="cite" href="#src-18">[18]</a>. Part 4 covers the
@@ -181,14 +188,17 @@ rest of that announcement, which concerns web certificates.</p>
 <p>SMC019 is a draft and has not entered any stage of the ballot
 lifecycle. No discussion period has been announced, and a search of the
 group’s public list for the ballot still returns only the agenda <a class="cite" href="#src-19">[19]</a>.
-No newer S/MIME pull request has been opened <a class="cite" href="#src-22">[22]</a>. It does not appear on
-the group’s ballots page <a class="cite" href="#src-13">[13]</a>.</p>
+The only newer S/MIME pull request, PR 311, opened on 3 November to
+clarify scope <a class="cite" href="#src-22">[22]</a>. It does not appear on the group’s ballots page
+<a class="cite" href="#src-13">[13]</a>.</p>
 <p>The draft also waits on the IETF. It cites Internet-Drafts for the
 composite algorithms, with a note to update the references once RFC
 numbers are assigned <a class="cite" href="#src-15">[15]</a>. The composite signatures draft for X.509
 reached final review at the RFC Production Center on 14 October 2026 and
-moved on 19 October to a blocked state awaiting final approval <a class="cite" href="#src-20">[20]</a>. It
-had no RFC number as of 1 November <a class="cite" href="#src-20">[20]</a>.</p>
+moved on 19 October to a blocked state awaiting final approval <a class="cite" href="#src-20">[20]</a>. The
+datatracker history records its publication as RFC 10073 on 6 November,
+and the CMS companion draft became RFC 10082 on 7 November <a class="cite" href="#src-20">[20]</a>
+<a class="cite" href="#src-25">[25]</a>.</p>
 <h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
 <p>Two questions are open here. The first is why SMC019 is missing from
 the group’s ballots page, while SMC020 was listed there as a draft
@@ -304,6 +314,15 @@ class="uri">https://github.com/cabforum/smime/pulls?q=is%3Apr+sort%3Aupdated-des
 href="https://groups.google.com/a/groups.cabforum.org/g/smcwg-public"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/smcwg-public</a>
 - as of 2026-11-01</li>
+<li id="src-24">S/MIME working group draft minutes of 21 October and agenda for 4
+November 2026 - smcwg-public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/smcwg-public"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/smcwg-public</a>
+- as of 2026-11-04</li>
+<li id="src-25">draft-ietf-lamps-cms-composite-sigs, history - IETF Datatracker - <a
+href="https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-composite-sigs/history/"
+class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-composite-sigs/history/</a>
+- as of 2026-11-07</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

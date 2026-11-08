@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "register": "PQC Readiness Register",
-  "generated": "2026-11-01",
-  "commit": "d2540ae",
+  "generated": "2026-11-08",
+  "commit": "2464345",
   "statuses": [
     "none",
     "planned",
@@ -788,7 +788,7 @@
         "rustls": "yes",
         "s2n-tls": "yes",
         "strongswan": "not-applicable",
-        "swift-nio-ssl": "no",
+        "swift-nio-ssl": "yes",
         "thales-luna": "not-applicable",
         "utimaco-hsm": "not-applicable",
         "windows-adcs": "not-applicable",
@@ -1094,7 +1094,7 @@
         {
           "algorithm": "ml-kem",
           "capability": "fips",
-          "why": "The same shape as Windows, from the same scan. Apple held 32 corecrypto certificates on 2026-09-13 (29 active on 2026-10-15, the FIPS 140-2 ones having gone historical) and the one read in detail (5387, Apple corecrypto Module 18.3 [Apple silicon, Kernel, Software, SL1]) lists 52 approved algorithms, none post-quantum. The OS 26 submissions in the queue are FOUR rows, all in Review (read 2026-10-18): two Apple corecrypto Module OS 26 Software SL1, in Review since 30 and 31 July 2026, and two Secure Key Store Hardware SL2/PHY3, in Review since 2026-10-09 and since 2026-10-16 (Pending Review since 2026-09-17 until then). OS 26 is exactly the release that shipped ML-KEM to CryptoKit -- so the pending modules are the ones that would carry it, and calling this absent would be wrong. Second pass: those certificates when they issue.",
+          "why": "The same shape as Windows, from the same scan. Apple held 32 corecrypto certificates on 2026-09-13 (29 active on 2026-10-15, the FIPS 140-2 ones having gone historical) and the one read in detail (5387, Apple corecrypto Module 18.3 [Apple silicon, Kernel, Software, SL1]) lists 52 approved algorithms, none post-quantum. The OS 26 submissions in the queue are FOUR rows, all in Review (read 2026-10-18): two Apple corecrypto Module OS 26 Software SL1, in Review since 30 and 31 July 2026, and two Secure Key Store Hardware SL2/PHY3, in Review since 2026-10-09 and since 2026-10-16 (Pending Review since 2026-09-17 until then). OS 26 is exactly the release that shipped ML-KEM to CryptoKit -- so the pending modules are the ones that would carry it, and calling this absent would be wrong. Second pass: those certificates when they issue. Patrol 2026-11-08 (queue read): the two OS 26 Software SL1 rows moved from Review to Comment Resolution - Lab on 2026-10-26; the two Secure Key Store Hardware rows are still in Review (2026-10-09 and 2026-10-16). Nothing issued and no algorithm list, so the gap stands.",
           "passes": 1,
           "checked": "2026-10-15",
           "sources": [
@@ -1107,7 +1107,7 @@
         {
           "algorithm": "ml-dsa",
           "capability": "fips",
-          "why": "As ML-KEM, and for the same reason: shipped in CryptoKit with the 26 releases, absent from every issued corecrypto certificate, and blocked from absence by the OS 26 modules still in the queue (four rows on 2026-10-18, all in Review: two Software SL1 since July, two Secure Key Store Hardware SL2/PHY3 since 2026-10-09 and 2026-10-16).",
+          "why": "As ML-KEM, and for the same reason: shipped in CryptoKit with the 26 releases, absent from every issued corecrypto certificate, and blocked from absence by the OS 26 modules still in the queue (four rows on 2026-10-18, all in Review: two Software SL1 since July, two Secure Key Store Hardware SL2/PHY3 since 2026-10-09 and 2026-10-16). Patrol 2026-11-08: the two Software SL1 rows moved to Comment Resolution - Lab on 2026-10-26; the Secure Key Store rows are unchanged.",
           "passes": 1,
           "checked": "2026-10-15",
           "sources": [
@@ -1371,6 +1371,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Patrol 2026-10-15 (reverse lookup): three \"AWS Key Management Service HSM\" rows are now in process -- one in Review since 2026-10-06, two in Pending Review since 2026-10-15. The queue names no algorithms, so whether any carries ML-DSA is unpublished."
+            },
+            {
+              "claim": null,
+              "source": "https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List",
+              "url": null,
+              "as_of": "2026-11-02",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08 (queue read, Modules In Process list, 189 of 203 rows visible): the two AWS Key Management Service HSM rows that were Pending Review since 2026-10-15 now read Pending Resubmission since 2026-11-02; the third row, in Review since 2026-10-06, is unchanged. Still no algorithm list. A resubmission is the lab's comments going back to the vendor, not a certificate, so the cell stays none."
             }
           ],
           "note": "THE FINDING OF THE HARDWARE PASS, and it is a distinction rather than a contradiction. PATROL 2026-10-15: the sentence below that nothing is pending is no longer true -- three AWS KMS HSM submissions are in the CMVP queue (see the evidence); the cell stays `none` because no issued certificate names ML-DSA and the queue names no algorithms, and whether a pending submission should turn a `none` into a gap is for the user. The rest of this note is the 2026-09-13 reading, kept as written. The AWS KMS developer guide says: \"AWS KMS creates and protects all ML-DSA keys and signature operations in FIPS 140-3 Security Level 3 validated hardware security modules.\" That is true. The 2026-09-13 CMVP scan then read the certificate those modules hold -- AWS Key Management Service HSM, certificate 4884, issued 2024-11-18 -- and its approved-algorithm list has thirty entries, not one of them post-quantum. Both facts stand together: the MODULE is validated, and ML-DSA is not a validated ALGORITHM within it, so using it means using a non-approved algorithm inside a validated boundary. Nothing is pending either: no AWS KMS HSM appears on the Modules In Process list, which is why this is `none` and not a gap. This is the same class of claim as the aws-lc-rs one resolved on 2026-09-13 -- a FIPS build is not a FIPS validation -- wearing different clothes: a validated module is not a validated algorithm. Expect the phrasing again; check the approved list every time."
@@ -1822,6 +1831,15 @@
             "confidence": null,
             "checked_on": "2026-11-01",
             "note": "Patrol 2026-11-01: 1.19.0 (2026-10-28) newest, then 1.18.2 (2026-10-12), 1.18.1 and 1.17.4 (both 2026-09-01); no 1.17.5. The GitHub releases list agrees (v1.19.0 published 2026-10-28)."
+          },
+          {
+            "claim": null,
+            "source": "https://github.com/aws/aws-lc-rs/releases",
+            "url": null,
+            "as_of": null,
+            "confidence": null,
+            "checked_on": "2026-11-08",
+            "note": "Patrol 2026-11-08: no release after v1.19.0 (2026-10-28) on the GitHub releases list or crates.io (created_at 2026-10-28, not yanked). The newest AWS-LC release, v5.13.0 (2026-11-06), is not yet in any crate release. Nothing post-quantum to record; the ml-kem/fips gap and the pin question stand as written."
           }
         ],
         "note": "Newest release tag on 2026-11-01: v1.19.0 (2026-10-28), with aws-lc-sys 0.47.0 (AWS-LC v5.12.0) and aws-lc-fips-sys 0.14.4 (AWS-LC FIPS 4.2.0 snapshot); nothing post-quantum (see `releases`). The 1.17 line still stays at 1.17.4. The rest of this note is the 2026-10-15 reading. Newest release tag on 2026-10-15: v1.18.2 (2026-10-12), with aws-lc-sys 0.46.0 (AWS-LC v5.11.0) and aws-lc-fips-sys 0.14.3 (AWS-LC FIPS 4.2.0 snapshot). Two lines are maintained in parallel; the 1.17 line stays at 1.17.4 (2026-09-01), so a downstream on ^1.17 is supported rather than stale. Earlier: v1.18.1 and v1.17.4 (both 2026-09-01) were newest from 2026-09-14 to 2026-10-04."
@@ -1868,6 +1886,22 @@
       ],
       "version_pattern": "AWS-LC(?: FIPS)?\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
       "releases": [
+        {
+          "version": "5.13.0",
+          "date": "2026-11-06",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/aws/aws-lc/releases/tag/v5.13.0",
+              "url": null,
+              "as_of": "2026-11-06",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08. v5.13.0 (released 06 Nov, 34 changes, read in full on the tag page and the v5.12.0...v5.13.0 release list): security and correctness fixes (ChaCha20-Poly1305 state, AES key-wrap use-after-free, SHAKE and Ed25519 ACVP validation, AES-CCM update rejection, CN fallback and name constraints), tool-openssl additions, and a raw EVP_chacha20. None names ML-KEM, ML-DSA, SLH-DSA, a hybrid, a group or a default. ssl/extensions.cc at v5.13.0: kDefaultGroups is still {X25519_MLKEM768, SECP256R1_MLKEM768, SECP384R1_MLKEM1024, X25519, SECP256R1, SECP384R1}, so the hybrid `default` cells and the pure-group `available` cells stand."
+            }
+          ]
+        },
         {
           "version": "5.12.0",
           "date": "2026-10-23",
@@ -2135,7 +2169,7 @@
         {
           "algorithm": "ml-dsa",
           "capability": "fips",
-          "why": "Settled as far as the lists can settle it, by the CMVP reverse scan the previous pass asked for: no AWS-LC module with an issued certificate names ML-DSA in its approved-algorithm list, and the two AWS-LC 4 modules in the queue since 2026-08-14 have no published algorithm list at all. So ML-DSA is not inside a validated boundary today, and whether it is inside the pending submission is unpublished -- which is why this stays a gap rather than becoming a none cell. Patrol 2026-10-04, a strong pointer but still not a published algorithm list: the source of BOTH pending lines carries an ML-DSA power-on self-test. crypto/fipsmodule/self_check/self_check.c on fips-2025-09-12-lts (4.2.0, the AWS-LC 4 modules in the queue) and on fips-2026-06-26-snapshot (5.1.0, the AWS-LC 5 modules that entered the queue on 2026-10-02) both define boringssl_self_test_ml_dsa beside boringssl_self_test_ml_kem, and the v5 FIPS.md lists MLDSA_PWCT among the module's pairwise-consistency break tests. A module self-tests what is inside its boundary, so ML-DSA is very likely in both submissions; it is not in any ISSUED certificate, and no SLH-DSA self-test exists on either branch. Patrol 2026-10-15 (queue read the same day): both AWS-LC 5 rows moved from Cost Recovery to Pending Review since 2026-10-05; the AWS-LC 4 rows are unchanged. Still no published algorithm list for any of the four.",
+          "why": "Settled as far as the lists can settle it, by the CMVP reverse scan the previous pass asked for: no AWS-LC module with an issued certificate names ML-DSA in its approved-algorithm list, and the two AWS-LC 4 modules in the queue since 2026-08-14 have no published algorithm list at all. So ML-DSA is not inside a validated boundary today, and whether it is inside the pending submission is unpublished -- which is why this stays a gap rather than becoming a none cell. Patrol 2026-10-04, a strong pointer but still not a published algorithm list: the source of BOTH pending lines carries an ML-DSA power-on self-test. crypto/fipsmodule/self_check/self_check.c on fips-2025-09-12-lts (4.2.0, the AWS-LC 4 modules in the queue) and on fips-2026-06-26-snapshot (5.1.0, the AWS-LC 5 modules that entered the queue on 2026-10-02) both define boringssl_self_test_ml_dsa beside boringssl_self_test_ml_kem, and the v5 FIPS.md lists MLDSA_PWCT among the module's pairwise-consistency break tests. A module self-tests what is inside its boundary, so ML-DSA is very likely in both submissions; it is not in any ISSUED certificate, and no SLH-DSA self-test exists on either branch. Patrol 2026-10-15 (queue read the same day): both AWS-LC 5 rows moved from Cost Recovery to Pending Review since 2026-10-05; the AWS-LC 4 rows are unchanged. Still no published algorithm list for any of the four. Patrol 2026-11-08 (CMVP Modules In Process list, read the same day): the AWS-LC 4 dynamic and static rows moved to Comment Resolution - CMVP on 2026-11-03 and 2026-11-05; the AWS-LC 5 rows now read Review (dynamic 2026-10-28, static 2026-10-29), where the 2026-10-15 reading above had Pending Review. Neither row names an algorithm list; the self-test argument stands.",
           "passes": 4,
           "checked": "2026-10-15",
           "sources": [
@@ -2152,8 +2186,8 @@
       "rejected": [],
       "derives_from": [],
       "current": {
-        "version": "v5.12.0",
-        "as_of": "2026-10-23",
+        "version": "v5.13.0",
+        "as_of": "2026-11-06",
         "evidence": [
           {
             "claim": null,
@@ -2201,7 +2235,7 @@
             "note": "AWSLC_VERSION_NUMBER_STRING \"5.1.0\" and AWSLC_FIPS_VERSION_NUMBER 5 on the fips-2026-06-26-snapshot branch; commit history shows \"Bump AWSLC_FIPS_VERSION to 5 for next FIPS branch (#3316)\" (2026-06-25) and \"Prepare v5.1.0 release (#3321)\" (2026-06-26)."
           }
         ],
-        "note": "Newest release tag on 2026-10-25: v5.12.0 (2026-10-23), security and correctness fixes plus FIPS support in the aws-lc-provider (an OpenSSL provider wrapper); nothing post-quantum, and kDefaultGroups is unchanged (see `releases`). Earlier: v5.11.0 was newest from 2026-10-01 to 2026-10-22; the note below is the 2026-10-04 reading, kept as written. v5.11.0 (2026-10-01) is maintenance with one post-quantum line, \"fix(ml_kem): Gate ML-KEM x86-64 on BMI2 in addition to AVX2\" (#3596), plus \"Seed groups and signature algorithms from the system crypto policy\" (#3504) and \"Extend FIPS 3.x EOS to February 2030\" (#3539). Earlier: v5.9.0 (2026-09-15) ML-KEM in HPKE per draft-ietf-hpke-pq-05 and OpenSSL-compatible ML-DSA OID long names; v5.10.0 (2026-09-23) EVP_PKEY_check for KEMs and an ML-DSA ACVP context-length guard. The FIPS module versions run on their own numbering and are NOT this field: a library release and a validated module are different artifacts, which is the distinction the aws-lc-rs ml-kem/fips gap turns on. FIPS branch lines as read on 2026-10-04: fips-2024-09-27 is version 3.6.0 (the AWS-LC 3 line; 3.1.0 is the certified one), fips-2025-09-12-lts is 4.2.0 (AWS-LC 4, in the CMVP queue), and fips-2026-06-26-snapshot is 5.1.0 with AWSLC_FIPS_VERSION_NUMBER 5 -- the source of the 'AWS-LC 5 Cryptographic Module' (dynamic and static) that entered the queue on 2026-10-02."
+        "note": "Newest release tag on 2026-11-08: v5.13.0 (2026-11-06), 34 changes, none post-quantum, kDefaultGroups unchanged (see `releases`). Earlier: v5.12.0 (2026-10-23), security and correctness fixes plus FIPS support in the aws-lc-provider (an OpenSSL provider wrapper); nothing post-quantum, and kDefaultGroups is unchanged (see `releases`). Earlier: v5.11.0 was newest from 2026-10-01 to 2026-10-22; the note below is the 2026-10-04 reading, kept as written. v5.11.0 (2026-10-01) is maintenance with one post-quantum line, \"fix(ml_kem): Gate ML-KEM x86-64 on BMI2 in addition to AVX2\" (#3596), plus \"Seed groups and signature algorithms from the system crypto policy\" (#3504) and \"Extend FIPS 3.x EOS to February 2030\" (#3539). Earlier: v5.9.0 (2026-09-15) ML-KEM in HPKE per draft-ietf-hpke-pq-05 and OpenSSL-compatible ML-DSA OID long names; v5.10.0 (2026-09-23) EVP_PKEY_check for KEMs and an ML-DSA ACVP context-length guard. The FIPS module versions run on their own numbering and are NOT this field: a library release and a validated module are different artifacts, which is the distinction the aws-lc-rs ml-kem/fips gap turns on. FIPS branch lines as read on 2026-10-04: fips-2024-09-27 is version 3.6.0 (the AWS-LC 3 line; 3.1.0 is the certified one), fips-2025-09-12-lts is 4.2.0 (AWS-LC 4, in the CMVP queue), and fips-2026-06-26-snapshot is 5.1.0 with AWSLC_FIPS_VERSION_NUMBER 5 -- the source of the 'AWS-LC 5 Cryptographic Module' (dynamic and static) that entered the queue on 2026-10-02."
       },
       "roll_up": {
         "kem": "available",
@@ -2295,6 +2329,15 @@
               "confidence": null,
               "checked_on": "2026-11-01",
               "note": "Patrol 2026-11-01, two passes (GitHub mirror commit log, 34 commits 2026-10-20 to 2026-10-30; ssl_key_share.cc on main). DefaultSupportedGroupIds is still {SSL_GROUP_X25519_MLKEM768, SSL_GROUP_X25519, SSL_GROUP_SECP256R1, SSL_GROUP_SECP384R1} and kNamedGroups still P-256, P-384, P-521, X25519, X25519MLKEM768, MLKEM1024, so every tls cell stands. One group-selection change in the window, not a table change: commit e651545 (2026-10-26) 'Make SSL_OP_CIPHER_SERVER_PREFERENCE behavior default for TLS curves' -- 'setting the SSL_OP_CIPHER_SERVER_PREFERENCE option is now a no-op for TLS curves (supported_groups)'; tls1_get_shared_group now always treats the server's group list as the preference list ('Callers that want the old default behavior for TLS curves can use SSL_CTX_set1_group_ids_with_flags'). With the default list above, a BoringSSL server now picks X25519MLKEM768 whenever the client offers it, whatever the client's order. Status stays `default`."
+            },
+            {
+              "claim": null,
+              "source": "https://raw.githubusercontent.com/google/boringssl/main/ssl/ssl_key_share.cc",
+              "url": null,
+              "as_of": "2026-11-06",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08, group table re-read in source on main: DefaultSupportedGroupIds is still {SSL_GROUP_X25519_MLKEM768, SSL_GROUP_X25519, SSL_GROUP_SECP256R1, SSL_GROUP_SECP384R1}, and kNamedGroups still holds P-256, P-384, P-521, X25519, X25519MLKEM768 and MLKEM1024. The commit log from 2026-10-30 to 2026-11-06 (20 commits) has no group, key-share, ML-KEM or ML-DSA title. Status stays `default`."
             }
           ],
           "note": "In the default supported groups since 2026-07-09 (was `available`, corrected 2026-10-08). Chrome shipped it by default from 131 with the standard codepoint; whether BoringSSL's own default group list carries it is a conflict in the ledger (d0001:23). Patrol 2026-09-27: commit ba26b4cb (2026-09-09, https://boringssl-review.googlesource.com/c/boringssl/+/102587) adds ssl_compliance_policy_fips_202609, which puts X25519MLKEM768 and ML-KEM-1024 at the front of the group list -- an OPT-IN compliance policy, not the default list, so the status stays available."
@@ -2457,6 +2500,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "Patrol 2026-10-15 (reverse lookup), re-verifying the `planned` cell: still three BoringCrypto rows. The first entered Comment Resolution - Lab on 18 May 2026 (not 6 May, as the 2026-09-12 note has it) and moved to Comment Resolution - CMVP since 2026-10-10; the 5 June and 6 July rows are unchanged. No algorithm list published for any of them, and nothing on the BoringSSL side (no FIPS-related commit touching ML-KEM between 2026-10-02 and 2026-10-15)."
+            },
+            {
+              "claim": null,
+              "source": "https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/Modules-In-Process-List",
+              "url": null,
+              "as_of": "2026-11-08",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08 (queue read, 189 of 203 rows visible): still the three BoringCrypto rows, unchanged dates (Comment Resolution - CMVP since 2026-10-10; Comment Resolution - Lab since 2026-06-05 and 2026-07-06). No algorithm list published for any of them. BoringSSL main has no FIPS-related ML-KEM commit in the 2026-10-30 to 2026-11-06 log."
             }
           ],
           "note": "A queue position, not a shipped capability. CORRECTED by the 2026-09-12 CMVP reverse scan: Google DOES validate BoringCrypto and holds seven certificates for it (5296, 5244, 5104, 4735, 4444, 4407, 4156), so the earlier reading that BoringSSL had never pursued validation was wrong. What is true is narrower: not one of those seven approved-algorithm lists names a post-quantum algorithm, and the three BoringCrypto modules now in the queue have no published algorithm list, so nothing public says whether ML-KEM is in them. SafeLogic's CryptoComply BoringCrypto, also in the queue, is a third-party packaging and says nothing about Google's own module either way."
@@ -2589,6 +2641,38 @@
       ],
       "version_pattern": "Botan\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
       "releases": [
+        {
+          "version": "3.14.1",
+          "date": "2026-11-06",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/randombit/botan/tags",
+              "url": null,
+              "as_of": "2026-11-06",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08, two passes (GitHub tags: 3.14.1 'Nov 6, 2026', 3.14.0 'Nov 4, 2026', 3.13.0 'Aug 13, 2026'; botan.randombit.net/news.html). News entry for 3.14.1: an FFI version-number bump and a build fix for legacy_ec_point. No post-quantum, TLS group or X.509 item. No cell moves."
+            }
+          ]
+        },
+        {
+          "version": "3.14.0",
+          "date": "2026-11-04",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://botan.randombit.net/news.html",
+              "url": null,
+              "as_of": "2026-11-04",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08, two passes (news.html; GitHub tag 3.14.0 src/lib/tls/tls_policy.cpp). Post-quantum items: ML-DSA signatures take the FIPS 204 context string via PK_Signature_Options::with_context (GH #5531); ML-DSA and ML-KEM PKCS #8 private-key encoding updated to RFC 9881 and RFC 9935 (old formats still decode); ML-KEM and ML-DSA key validation tightened (GH #6083); AVX2 ML-KEM code path (GH #5964 #6032 #6033). X.509: path validation verifies signatures from the trust anchor down; CRL signatures checked against the trusted-hashes policy. Default key_exchange_groups() at tag 3.14.0: the three hybrids and classical curves, no pure ML-KEM group, unchanged. No cell moves."
+            }
+          ]
+        },
         {
           "version": "3.13.0",
           "date": "2026-08-13",
@@ -2978,14 +3062,15 @@
         {
           "algorithm": "ml-dsa",
           "capability": "x509",
-          "why": "Searched twice on 2026-09-12 and found nothing: Botan has ML-DSA as a primitive from 3.6.0 and names every TLS key-exchange addition release by release, but no entry says an ML-DSA key may sit in an X.509 certificate or authenticate a TLS handshake. An open issue asks for ML-DSA certificates in TLS, which is consistent with the absence. Botan is one of the widest post-quantum primitive sets in the register and one of the narrowest in PKI. Re-checked 2026-10-25 against the unreleased 3.14.0 notes on master: they add a create_cert_for_key CLI command for \"certificates for KEM keys such as ML-KEM\" (GH #5529) and the FIPS 204 context string for ML-DSA signatures (GH #5531), and say nothing about ML-DSA certificates or ML-DSA in TLS authentication. The gap stands. Re-checked 2026-11-01: 3.14.0 still untagged; master's unreleased notes add X.509 path-validation and CRL changes but still nothing on ML-DSA certificates or ML-DSA TLS authentication. The gap stands.",
-          "passes": 4,
-          "checked": "2026-11-01",
+          "why": "Searched twice on 2026-09-12 and found nothing: Botan has ML-DSA as a primitive from 3.6.0 and names every TLS key-exchange addition release by release, but no entry says an ML-DSA key may sit in an X.509 certificate or authenticate a TLS handshake. An open issue asks for ML-DSA certificates in TLS, which is consistent with the absence. Botan is one of the widest post-quantum primitive sets in the register and one of the narrowest in PKI. Re-checked 2026-10-25 against the unreleased 3.14.0 notes on master: they add a create_cert_for_key CLI command for \"certificates for KEM keys such as ML-KEM\" (GH #5529) and the FIPS 204 context string for ML-DSA signatures (GH #5531), and say nothing about ML-DSA certificates or ML-DSA in TLS authentication. The gap stands. Re-checked 2026-11-01: 3.14.0 still untagged; master's unreleased notes add X.509 path-validation and CRL changes but still nothing on ML-DSA certificates or ML-DSA TLS authentication. Re-checked 2026-11-08: 3.14.0 is tagged (2026-11-04) and 3.14.1 is tagged (2026-11-06); the released notes add PKCS #8 encoding for ML-DSA and ML-KEM, key validation and X.509 path-validation and CRL changes, and mention neither ML-DSA certificates nor ML-DSA TLS authentication. The gap stands.",
+          "passes": 5,
+          "checked": "2026-11-08",
           "sources": [
-            "Botan release notes, 3.6.0 through 3.13.0",
+            "Botan release notes, 3.6.0 through 3.14.1",
             "randombit/botan issue 4719, ML-DSA certificates in TLS",
             "randombit/botan master news.rst, Version 3.14.0 Not Yet Released (2026-10-25)",
-            "randombit/botan tags and master news.rst (2026-11-01)"
+            "randombit/botan tags and master news.rst (2026-11-01)",
+            "randombit/botan tags and news.html (2026-11-08)"
           ],
           "outcome": null
         }
@@ -9187,6 +9272,22 @@
       "version_pattern": "NSS\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
       "releases": [
         {
+          "version": "3.133",
+          "date": "2026-11-04",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_133.html",
+              "url": null,
+              "as_of": "2026-11-04",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08. \"Network Security Services (NSS) 3.133 was released on 4 November 2026\". The only post-quantum line in the release notes is \"Bug 2086058 - Reject not empty parameters in ML-KEM && ML-DSA AlgorithmIdentifiers\", the stricter parser already seen on master on 2026-10-28. No key-exchange group (sslt.h), signature-scheme or policy-default change named; no cell changed. Still the newest release per the release notes page; the releases index lists 3.133 as RTM."
+            }
+          ]
+        },
+        {
           "version": "3.132",
           "date": "2026-10-21",
           "lts": false,
@@ -9644,6 +9745,22 @@
       "version_pattern": null,
       "releases": [
         {
+          "version": "10.6p2",
+          "date": "2026-11-05",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://www.openssh.org/txt/release-10.6p2",
+              "url": null,
+              "as_of": "2026-11-05",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08. Release notes dated 2026-11-05. Post-quantum line, Bugfixes: \"sshd(8), ssh(1): enable the post-quantum hybrid signature scheme ssh-mldsa44-ed25519 as an allowed CA signature algorithm.\" No key-exchange line: no change to the default mlkem768x25519-sha256 list, no WarnWeakCrypto change. Other bugfixes are a CPU spin fix in ChannelTimeout, portability fixes and a seccomp allowance. The openssh-portable tags feed still tops out at V_10_6_P1 (checked in the same pass); the openssh.org release notes page lists 10.6p2 as the newest entry."
+            }
+          ]
+        },
+        {
           "version": "10.6",
           "date": "2026-10-06",
           "lts": false,
@@ -9790,6 +9907,15 @@
               "confidence": null,
               "checked_on": "2026-10-15",
               "note": "sshd's default HostKey set adds _PATH_HOST_MLDSA44_ED25519_KEY_FILE (/etc/ssh/ssh_host_mldsa44_ed25519_key) after the ed25519 key, and ssh-keygen -A generates an mldsa44-ed25519 host key in builds with USE_MLDSA."
+            },
+            {
+              "claim": null,
+              "source": "https://www.openssh.org/txt/release-10.6p2",
+              "url": null,
+              "as_of": "2026-11-05",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08: 10.6p2 adds the composite ssh-mldsa44-ed25519 as an allowed CA signature algorithm (certificate signing), on top of the 10.6 default acceptance. Status stays `default`; the CA-signing extension is the same composite, not a pure ML-DSA type."
             },
             {
               "claim": null,
@@ -12053,6 +12179,22 @@
       "version_pattern": "swift-nio-ssl\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
       "releases": [
         {
+          "version": "2.37.6",
+          "date": "2026-11-02",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/apple/swift-nio-ssl/releases/tag/2.37.6",
+              "url": null,
+              "as_of": "2026-11-02",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Patrol 2026-11-08, two passes (releases page and tag page; Package.swift at the tag). Newest release on 2026-11-08. Its BoringSSL change is the re-vendor to 8eb25be6fa18d475291122887a7bccd3762ff236 (PR 607, merged 2026-10-09), so the tag's Package.swift reads \"// BoringSSL Commit: 8eb25be6...\". Other notes: PR 610 (buffered writes on closed TLS channels) and PR 608 (code of conduct). No NIOTLSCurve case was added: at the tag the struct still names only x25519_MLKEM768 (0x11EC). The vendored header on main defines SSL_GROUP_MLKEM1024 (0x0202) and no SecP*MLKEM* group (read 2026-10-15)."
+            }
+          ]
+        },
+        {
           "version": "2.37.5",
           "date": "2026-09-17",
           "lts": false,
@@ -12179,8 +12321,8 @@
         {
           "algorithm": "mlkem1024",
           "capability": "tls",
-          "status": "none",
-          "since": null,
+          "status": "available",
+          "since": "2.37.6",
           "evidence": [
             {
               "claim": null,
@@ -12192,7 +12334,7 @@
               "note": ""
             }
           ],
-          "note": "The vendored BoringSSL (817ab07, release 2.37.5) defines SSL_GROUP_SECP224R1/256R1/384R1/521R1, X25519, X25519_MLKEM768 and X25519_KYBER768_DRAFT00 only; NIOTLSCurve stops at x25519_MLKEM768. Open PR 607 (2026-09-25) would vendor a BoringSSL with SSL_GROUP_MLKEM1024, reachable as NIOTLSCurve(rawValue: 0x0202); a vendoring refresh, not an ML-KEM plan, so not `planned`. UPDATE 2026-10-15: PR 607 MERGED on 2026-10-09; CNIOBoringSSL_ssl.h on main now defines SSL_GROUP_MLKEM1024 0x0202 (read 2026-10-15), while NIOTLSCurve on main still stops at x25519_MLKEM768 (raw 0x11EC). No release contains it yet (2.37.5 is still newest), so `none` stands for what a downstream can link today; the next release makes this cell `available` by raw value only, and whether that counts without a named NIOTLSCurve constant is for the user."
+          "note": "The vendored BoringSSL (817ab07, release 2.37.5) defines SSL_GROUP_SECP224R1/256R1/384R1/521R1, X25519, X25519_MLKEM768 and X25519_KYBER768_DRAFT00 only; NIOTLSCurve stops at x25519_MLKEM768. Open PR 607 (2026-09-25) would vendor a BoringSSL with SSL_GROUP_MLKEM1024, reachable as NIOTLSCurve(rawValue: 0x0202); a vendoring refresh, not an ML-KEM plan, so not `planned`. UPDATE 2026-10-15: PR 607 MERGED on 2026-10-09; CNIOBoringSSL_ssl.h on main now defines SSL_GROUP_MLKEM1024 0x0202 (read 2026-10-15), while NIOTLSCurve on main still stops at x25519_MLKEM768 (raw 0x11EC). No release contains it yet (2.37.5 is still newest), so `none` stands for what a downstream can link today; the next release makes this cell `available` by raw value only, and whether that counts without a named NIOTLSCurve constant is for the user. UPDATE 2026-11-08: release 2.37.6 (2026-11-02) carries that re-vendor (BoringSSL 8eb25be6), so the cell is now `available` by raw value only (0x0202); NIOTLSCurve still has no mlkem1024 constant at the tag, so the named-constant question stays open for the user."
         },
         {
           "algorithm": "secp256r1mlkem768",
@@ -12282,7 +12424,7 @@
       "roll_up": {
         "kem": null,
         "hybrid-kex": "default",
-        "pure-kex": "none",
+        "pure-kex": "available",
         "signature": null,
         "composite": null,
         "stateful-hbs": null
@@ -12319,6 +12461,38 @@
       ],
       "version_pattern": null,
       "releases": [
+        {
+          "version": "Luna HSM Client 10.9.5",
+          "date": null,
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/client/10-9-5.htm",
+              "url": null,
+              "as_of": "2026-11-05",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Found by the 2026-11-08 patrol (forward lookup; the newer client was on the navigation of the 7.9.3 firmware page). Thales's own page: 'Luna HSM Client 10.9.5 was released in November 2026. It includes bug fixes and security updates.' Post-quantum content of its own: 'The Luna Key Storage Provider (KSP) adds support for the ML-DSA and ML-KEM post-quantum algorithms', 'aligning with the PQC updates in Microsoft CNG', with the example 'you can create a Microsoft certification authority and enroll certificates using ML-DSA keys'. Requires Luna Appliance Software 7.9.2 and Luna HSM Firmware 7.10.0. Page last updated 2026-11-05. NO CELL CHANGED: the register's Luna cells are the primitive, pkcs11, fips and firmware columns, and none of them is the Windows CNG/KSP route, so the KSP support has no column yet (see the review). No third-party page confirmed it on the 2026-11-08 search, so it rests on the vendor's page alone."
+            }
+          ]
+        },
+        {
+          "version": "Luna HSM Firmware 7.10.0",
+          "date": null,
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://thalesdocs.com/gphsm/luna/7/docs/network/Content/CRN/Luna/firmware/7-10-0.htm",
+              "url": null,
+              "as_of": "2026-11-05",
+              "confidence": null,
+              "checked_on": "2026-11-08",
+              "note": "Found by the 2026-11-08 patrol. Thales's own page: 'Luna HSM firmware 7.10.0 was released in November 2026. It includes bug fixes and improvements.' No new-features list. The only post-quantum text is in the backup-and-restore constraints (HSS/LMS private keys cannot be cloned or included in encrypted SKS blobs; ML-KEM, ML-DSA and HSS/LMS public keys are not backed up from V0 partitions). Nothing on SLH-DSA or XMSS. NO CELL CHANGED: the firmware line already carries the ML-KEM, ML-DSA and LMS/HSS cells. Page last updated 2026-11-05."
+            }
+          ]
+        },
         {
           "version": "Luna HSM Client 10.9.4",
           "date": null,

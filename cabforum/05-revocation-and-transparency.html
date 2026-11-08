@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 5</p>
     <h1>Revocation and Transparency</h1>
-    <p class="updated">Last updated: 2026-11-01</p>
+    <p class="updated">Last updated: 2026-11-08</p>
     <p class="actions"><a class="pdf" href="latest/05-revocation-and-transparency.pdf">Download PDF</a></p>
   </div>
 
@@ -53,8 +53,8 @@ that the public record shows a change.</p>
 certificate that should not exist. Revocation withdraws trust from a
 certificate already issued. Transparency makes every issued certificate
 public, so that a bad one can be found at all.</p>
-<p>Both were tested hard in the nine weeks to 1 November, and hardest in
-the last two. Section 1 covers revocation, where a key compromise at
+<p>Both were tested hard in the nine weeks to 8 November, and hardest in
+the last three. Section 1 covers revocation, where a key compromise at
 eMudhra and GoDaddy’s mass revocation of more than 400,000 certificates
 were followed by a new cluster of bugs. The new bugs concern authorities
 blocking the tools that fetch their revocation lists. Section 2 covers
@@ -81,8 +81,8 @@ Sectigo revoked its cross-certificates for them on 19 October <a class="cite" hr
 eMudhra admitted that its revocation lists had been re-signed with the
 flawed keys, so an attacker holding the keys could have issued a clean
 list <a class="cite" href="#src-1">[1]</a>. A second list, for emSign Root TLS CA - G3, was also affected.
-The reporter said on 1 November that the preliminary report on the
-lists, due 29 October, had not been filed <a class="cite" href="#src-1">[1]</a>.</p>
+The reporter said that the preliminary report on the lists, due 29
+October, was never filed <a class="cite" href="#src-1">[1]</a>.</p>
 <p>Mozilla removed the root above the eight on 20 October, and Part 4
 records the other root program responses <a class="cite" href="#src-1">[1]</a>. Let’s Encrypt’s issuance
 software gained a check for small ECDSA scalars on 20 October, the first
@@ -193,8 +193,10 @@ events of the year <a class="cite" href="#src-6">[6]</a> <a class="cite" href="#
 count a certificate as revoked once its serial number appears in a
 revocation list or draws a revoked status response, from 15 February
 2027 <a class="cite" href="#src-36">[36]</a>. It would also set how quickly an authority must judge a
-problem report <a class="cite" href="#src-36">[36]</a>. The ballot was still in discussion on 25 October,
-past its scheduled end, and Part 1 follows it <a class="cite" href="#src-36">[36]</a>.</p>
+problem report <a class="cite" href="#src-36">[36]</a>.</p>
+<p>The ballot’s first discussion period ended on 1 October with no vote.
+A second version opened for discussion on 5 November, and no vote date
+has been set <a class="cite" href="#src-73">[73]</a>. Part 1 follows it.</p>
 <h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
 <p>Three questions sit open. The first is whether blocking tools by name
 on list and status hosts breaches the Baseline Requirements. Sectigo
@@ -246,15 +248,22 @@ blocks the eMudhra keys <a class="cite" href="#src-43">[43]</a>. The Chrome tran
 October that Chrome policy had been violated <a class="cite" href="#src-43">[43]</a>. Let’s Encrypt
 announced a further short outage of its logs for kernel updates on 29
 October <a class="cite" href="#src-44">[44]</a>.</p>
+<p>On 6 November a post on the transparency policy list announced that
+Google is deprecating its RFC 6962 logs <a class="cite" href="#src-75">[75]</a>. The preview says the logs
+“are now requiring an increasing level of manual intervention to keep up
+with growing traffic” <a class="cite" href="#src-75">[75]</a>. The body of that post was not readable, so
+the preview is the only source for it <a class="cite" href="#src-75">[75]</a>.</p>
 <p>Chrome’s log list reached version 95.19 on 1 November, holding 84
 logs from 11 operators <a class="cite" href="#src-45">[45]</a>. Of these, 43 are usable, 36 qualified, 3
-retired and 2 read-only <a class="cite" href="#src-45">[45]</a>. No log has changed state since 14 October,
-and the list’s earlier movement was all growth <a class="cite" href="#src-45">[45]</a>. GoDaddy became a
-log operator when its five Aquamarine tiled logs qualified on 30
-September, and sixteen more logs qualified on 13 and 14 October, from
-HARICA, Sectigo and Let’s Encrypt <a class="cite" href="#src-45">[45]</a>. Apple’s list rejected fifteen
-shards covering the first half of 2026 on 5 October and was not re-read
-this week <a class="cite" href="#src-46">[46]</a>.</p>
+retired and 2 read-only <a class="cite" href="#src-45">[45]</a>.</p>
+<p>On 7 November the list moved to version 96.3, with 89 logs from 11
+operators, and four TrustAsia logs marked qualified on 3 November <a class="cite" href="#src-45">[45]</a>.
+No log has changed state since 14 October, and the list’s earlier
+movement was all growth <a class="cite" href="#src-45">[45]</a>. GoDaddy became a log operator when its
+five Aquamarine tiled logs qualified on 30 September, and sixteen more
+logs qualified on 13 and 14 October, from HARICA, Sectigo and Let’s
+Encrypt <a class="cite" href="#src-45">[45]</a>. Apple’s list rejected fifteen shards covering the first
+half of 2026 on 5 October and was not re-read this week <a class="cite" href="#src-46">[46]</a>.</p>
 <p>A new operator is arriving. On 30 October SwissSign launched two logs
 on the Tessera software, Eiger as its production log and Rotstock as a
 test log <a class="cite" href="#src-47">[47]</a>. SwissSign says it plans to apply to the Chrome and Apple
@@ -291,9 +300,14 @@ published 3 September 2026, accepts logs built to version 1.0.0 of the
 static specification as well as the original design <a class="cite" href="#src-60">[60]</a>. Both kinds
 must meet 99% uptime <a class="cite" href="#src-60">[60]</a>. An original-design log may take up to 24
 hours to merge a certificate, while a static log may take at most one
-minute <a class="cite" href="#src-60">[60]</a>. Apple’s repository has no commit after 16 October and no
-revised policy, and a question of 19 October on when one will appear has
-drawn no reply <a class="cite" href="#src-61">[61]</a> <a class="cite" href="#src-62">[62]</a>.</p>
+minute <a class="cite" href="#src-60">[60]</a>.</p>
+<p>Apple’s repository has no commit after 16 October and no revised
+policy, and a question of 19 October on when one will appear has drawn
+no reply <a class="cite" href="#src-61">[61]</a> <a class="cite" href="#src-62">[62]</a>. On 5 November a post on the transparency policy list
+announced Apple CT Policy 1.1 and CT Log Program 1.1 <a class="cite" href="#src-74">[74]</a>. Apple’s own
+pages did not yet show a version 1.1 on 8 November, and the thread body
+was not readable, so the announcement is recorded as unconfirmed <a class="cite" href="#src-60">[60]</a>
+<a class="cite" href="#src-74">[74]</a>.</p>
 <p>Obligations on both sides are tightening. Chrome’s root program has
 required authorities to log every web server precertificate since 15
 June 2026 <a class="cite" href="#src-63">[63]</a>. From 1 November, every newly added log must publish a
@@ -345,7 +359,8 @@ so new cosigner requests must follow it <a class="cite" href="#src-69">[69]</a>.
 <p>Apple’s own draft policy for these certificates has slipped. Apple
 wrote on 30 October that a WebPKI incident shifted the team’s focus. The
 draft will not appear by the end of October and will come as soon as
-possible, with no new date <a class="cite" href="#src-70">[70]</a>.</p>
+possible, with no new date <a class="cite" href="#src-70">[70]</a>. As of 8 November no draft had appeared
+<a class="cite" href="#src-70">[70]</a>.</p>
 <p>Issuers are building to it. As of 25 October, Let’s Encrypt’s
 issuance software was landing code for Merkle certificate trees,
 including reading checkpoints from tiles and the use of relative object
@@ -684,6 +699,19 @@ class="uri">https://blog.cloudflare.com/pq-ca-with-mtcs/</a> - as of
 <a href="https://googlechrome.github.io/chromerootprogram/cqrp/testing"
 class="uri">https://googlechrome.github.io/chromerootprogram/cqrp/testing</a>
 - as of 2026-09-26</li>
+<li id="src-73">Discussion Period Starts: SC-107 (v2) - servercert-wg list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/Rxu_hNwCI9w/m/Q0Wx3rljAwAJ"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/Rxu_hNwCI9w/m/Q0Wx3rljAwAJ</a>
+- as of 2026-11-05</li>
+<li id="src-74">Apple CT Policy 1.1 and CT Log Program 1.1 announcement - chromium
+ct-policy list - <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy</a> -
+as of 2026-11-05</li>
+<li id="src-75">Deprecation of Google’s RFC 6962 logs - chromium ct-policy list - <a
+href="https://groups.google.com/a/chromium.org/g/ct-policy"
+class="uri">https://groups.google.com/a/chromium.org/g/ct-policy</a> -
+as of 2026-11-06</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

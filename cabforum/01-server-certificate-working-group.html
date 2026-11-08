@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 1</p>
     <h1>Server Certificate Working Group</h1>
-    <p class="updated">Last updated: 2026-11-01</p>
+    <p class="updated">Last updated: 2026-11-08</p>
     <p class="actions"><a class="pdf" href="latest/01-server-certificate-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -89,11 +89,13 @@ names only 25 of the 27 issuers, so two yes votes are unnamed here <a class="cit
 The concept the ballot removes came from the Validation Subcommittee,
 which judged it subjective and outdated in July <a class="cite" href="#src-5">[5]</a>.</p>
 <p>The ballot now enters its 30-day intellectual property review. The
-post says the dates will come in a separate email, and that email had
-not appeared by 1 November <a class="cite" href="#src-2">[2]</a>. Section 3.2.2.12.1 of the Extended
-Validation Guidelines goes away once the review clears, and until then
-version 2.0.4 stands <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-6">[6]</a>. The Forum’s ballots page has not caught up
-and still shows SC104 as the newest passed ballot <a class="cite" href="#src-7">[7]</a>.</p>
+review notice, posted on 2 November, gives the dates: the review runs
+from 2 November at 11:00 UTC to 2 December at 11:00 UTC <a class="cite" href="#src-48">[48]</a>. The 5
+November agenda gives the same end date <a class="cite" href="#src-49">[49]</a>. Section 3.2.2.12.1 of the
+Extended Validation Guidelines goes away once the review clears, and
+until then version 2.0.4 stands <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-6">[6]</a>. The Forum’s ballots page now
+lists SC105 under its review period, though it still shows SC104 as the
+newest passed ballot <a class="cite" href="#src-7">[7]</a>.</p>
 <p>The group published the minutes of its September face-to-face meeting
 on 23 October <a class="cite" href="#src-8">[8]</a>. The chair’s report lists four ballots under
 consideration, a proposal to issue formal revisions of the Baseline
@@ -112,13 +114,17 @@ with two requests <a class="cite" href="#src-10">[10]</a>. He asked how the chan
 avoid forcing revocation of certificates issued before the cut-off dates
 <a class="cite" href="#src-10">[10]</a>. He also proposed a further requirement, effective 15 March 2027,
 that the RSA public exponent be 65537 or greater <a class="cite" href="#src-10">[10]</a>.</p>
+<p>That proposal has had no reply since. On 5 November Aaron Gable
+answered in the same review that retroactive revocation would not be
+required under the new version <a class="cite" href="#src-10">[10]</a>.</p>
 <p>A second unnumbered draft, pull request 682, clarifies the allowances
 for the country name field <a class="cite" href="#src-11">[11]</a>. It has five commits, the newest on 20
 October, and it now also changes the country name rules in the Extended
-Validation Guidelines <a class="cite" href="#src-12">[12]</a>. On 28 October Martijn Katerbarg pointed the
-list’s “Definition of Country” thread to the revised draft, saying he
-had made a few changes after the Validation Subcommittee discussion
-<a class="cite" href="#src-12">[12]</a>.</p>
+Validation Guidelines <a class="cite" href="#src-12">[12]</a>. A reviewer noted a typo in the Baseline
+Requirements text on 5 November <a class="cite" href="#src-11">[11]</a>. On 28 October Martijn Katerbarg
+pointed the list’s “Definition of Country” thread to the revised draft,
+saying he had made a few changes after the Validation Subcommittee
+discussion <a class="cite" href="#src-12">[12]</a>.</p>
 <p>Two ballots published into the Baseline Requirements in the past
 eight weeks. Version 2.3.0 took effect on 7 September 2026, carrying
 Ballot SC100 on DNSSEC clarification and consolidation <a class="cite" href="#src-13">[13]</a>. Version
@@ -144,31 +150,33 @@ forwarded the message for the group’s consideration <a class="cite" href="#src
 that the 47-day maximum does not apply until 15 March 2029 and asked for
 an assessment of operational impact <a class="cite" href="#src-17">[17]</a>.</p>
 <h3 id="current-state">Current State</h3>
-<p>The ballot with the widest reach is stuck in discussion. SC-107,
-proposed by Sectigo and endorsed by Google and DigiCert, would tighten
-certificate problem reports and define what revocation means <a class="cite" href="#src-18">[18]</a>. A
-report would need at least a serial number or hash, plus a described
-violation or a revocation reason, and the authority would have 24 hours
-to judge it actionable <a class="cite" href="#src-18">[18]</a>.</p>
+<p>The ballot with the widest reach is in its second discussion period.
+SC-107, proposed by Sectigo and endorsed by Google and DigiCert, would
+tighten certificate problem reports and define what revocation means
+<a class="cite" href="#src-18">[18]</a>. A report would need at least a serial number or hash, plus a
+described violation or a revocation reason, and the authority would have
+24 hours to judge it actionable <a class="cite" href="#src-18">[18]</a>.</p>
 <p>The same ballot defines a certificate as revoked once its serial
 number appears in a revocation list or draws a revoked status response,
 from 15 February 2027 <a class="cite" href="#src-18">[18]</a>. Its redline adds a 120-hour window to check
 the rest of an authority’s certificates for the same fault <a class="cite" href="#src-19">[19]</a>. Its
-discussion period was due to end on 1 October <a class="cite" href="#src-18">[18]</a>.</p>
-<p>By 15 October the thread held 22 messages and no vote had been called
-<a class="cite" href="#src-18">[18]</a>. The newest concerned limiting that 120-hour check to certificates
-from authorities whose keys the certificate owner controls <a class="cite" href="#src-18">[18]</a>. Nothing
-has been posted since, and a search on 1 November still found no voting
-thread, no second version and no withdrawal <a class="cite" href="#src-20">[20]</a>. The Validation
-Subcommittee’s 29 October agenda lists the ballot as still in discussion
-<a class="cite" href="#src-21">[21]</a>. The Forum’s ballots page lists it under its discussion period
-<a class="cite" href="#src-7">[7]</a>.</p>
+first discussion period closed on 1 October with no vote <a class="cite" href="#src-18">[18]</a>.</p>
+<p>A second version was posted on 5 November. Its discussion period
+opened at 12:00 UTC that day and may not close before 16 November at
+15:00 UTC, and the vote dates are still to be set <a class="cite" href="#src-50">[50]</a>.</p>
+<p>The redline has 65 commits and no approvals <a class="cite" href="#src-19">[19]</a>. One reply on the
+thread says the sender cannot support the ballot in its current state,
+though the snippet is partial <a class="cite" href="#src-50">[50]</a>. No voting thread or withdrawal has
+been posted <a class="cite" href="#src-20">[20]</a>. The Validation Subcommittee’s 29 October agenda lists
+the ballot as still in discussion <a class="cite" href="#src-21">[21]</a>. The Forum’s ballots page lists
+it under its discussion period <a class="cite" href="#src-7">[7]</a>.</p>
 <p>Two other server ballots sit short of a vote. SC103, which would
 require Extended Key Usage extensions on cross-certified subordinate
-authorities, remains in its discussion period <a class="cite" href="#src-7">[7]</a>. The face-to-face
-minutes record it as “pending Aaron Gable’s availability”, and its
-thread has had no post since June <a class="cite" href="#src-8">[8]</a>. SC-106, the post-quantum ballot
-covered in Section 3, has no live draft text <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-23">[23]</a>.</p>
+authorities, remains in its discussion period <a class="cite" href="#src-7">[7]</a>. The minutes of the 22
+October call record that Aaron Gable reported no progress because of
+travel <a class="cite" href="#src-51">[51]</a>, and it was still in its discussion period on the 5 November
+agenda <a class="cite" href="#src-49">[49]</a>. SC-106, the post-quantum ballot covered in Section 3, has
+no live draft text <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-23">[23]</a>.</p>
 <p>A draft omnibus ballot would reshape the extended validation rules.
 It moves the EV certificate profile from the Extended Validation
 Guidelines into the Baseline Requirements and turns the guidelines into
@@ -182,9 +190,8 @@ Guidelines <a class="cite" href="#src-6">[6]</a>.</p>
 face-to-face meeting, with one Chrome representative absent and the
 agenda saying the group hopes to resume those discussions shortly <a class="cite" href="#src-26">[26]</a>.
 It added a new item on ECDSA key size requirements <a class="cite" href="#src-26">[26]</a>. The minutes of
-neither the 8 October nor the 22 October call had been posted by 1
-November <a class="cite" href="#src-27">[27]</a>. The next call is on 4 November, and no agenda for it had
-appeared <a class="cite" href="#src-26">[26]</a> <a class="cite" href="#src-27">[27]</a>.</p>
+the 22 October call were posted on 5 November <a class="cite" href="#src-51">[51]</a> <a class="cite" href="#src-27">[27]</a>, and the group’s
+final agenda for its 5 November call followed the same day <a class="cite" href="#src-49">[49]</a>.</p>
 <h3 id="unresolved-conflicts">Unresolved Conflicts</h3>
 <p>The Forum’s own records disagree about version 2.3.1. The
 requirements page lists it as current and dated 4 October <a class="cite" href="#src-1">[1]</a>. The
@@ -221,8 +228,8 @@ code item produced the draft noted in Section 1 <a class="cite" href="#src-11">[
 quiet after 13 October and came back on 27 October with the agenda for
 29 October <a class="cite" href="#src-33">[33]</a> <a class="cite" href="#src-21">[21]</a>.</p>
 <p>The agenda lists the minutes of the face-to-face session and of the 1
-October and 15 October meetings as pending approval <a class="cite" href="#src-21">[21]</a>. The newest
-published minutes are still those of the July meeting <a class="cite" href="#src-33">[33]</a>.</p>
+October and 15 October meetings as pending approval <a class="cite" href="#src-21">[21]</a>. No minutes
+have been posted since those of July, as of 8 November <a class="cite" href="#src-33">[33]</a>.</p>
 <p>The reliable data source discussion became a thread on 29 October.
 Ben Wilson proposed combining the Baseline Requirements’ definition of a
 Reliable Data Source with the Extended Validation Guidelines’ QIIS and
@@ -235,13 +242,13 @@ validation <a class="cite" href="#src-34">[34]</a>.</p>
 Baseline Requirements come first, with the Extended Validation
 Guidelines then referring to them <a class="cite" href="#src-34">[34]</a>. Inigo Barreira suggested
 aligning with the eIDAS and ETSI term “authentic sources” <a class="cite" href="#src-34">[34]</a>. The
-thread has six messages, all from that day, and no pull request or
-ballot is linked <a class="cite" href="#src-34">[34]</a>.</p>
+thread has seven messages, the last from 5 November, and no pull request
+or ballot is linked <a class="cite" href="#src-34">[34]</a>.</p>
 <p>Let’s Encrypt is moving ahead of the rules on network perspectives.
 It announced two more remote perspectives, bringing its total to six,
 ahead of the Forum’s requirement of five from 15 December <a class="cite" href="#src-35">[35]</a>. Staging
-began on 27 October with six perspectives, and production follows on 10
-November if staging goes well <a class="cite" href="#src-35">[35]</a>.</p>
+began on 27 October with six perspectives. Production is planned for 10
+November if staging goes well, and no delay has been posted <a class="cite" href="#src-35">[35]</a>.</p>
 <h3 id="current-state-1">Current State</h3>
 <p>Multi-Perspective Issuance Corroboration has been mandatory since 15
 September 2025 under Ballot SC-067 <a class="cite" href="#src-36">[36]</a>. It requires that domain
@@ -329,11 +336,13 @@ that passing it would not require any root store to trust ML-DSA <a class="cite"
 The draft required pure post-quantum chains, so an ML-DSA key had to be
 certified by an ML-DSA signature, and Mozilla and Chrome representatives
 objected to that restriction in August <a class="cite" href="#src-45">[45]</a>.</p>
-<p>The ballot has a named successor and no text. The group’s 22 October
-agenda still lists SC-106 as a draft, with Amazon Trust Services taking
-over from Google Trust Services and an update expected <a class="cite" href="#src-26">[26]</a>. No pull
-request or discussion thread has appeared since the closure <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-46">[46]</a>.
-SC-106 does not appear on the group’s ballots page <a class="cite" href="#src-7">[7]</a>.</p>
+<p>The ballot has a named successor and no text. The 22 October minutes,
+posted on 5 November, say the draft will be removed from the working
+group’s tracking list <a class="cite" href="#src-51">[51]</a>. Discussion may move to the Client
+Authentication working group instead <a class="cite" href="#src-51">[51]</a>. SC-106 does not appear on the
+group’s ballots page <a class="cite" href="#src-7">[7]</a> or on the 5 November agenda <a class="cite" href="#src-49">[49]</a>. No pull
+request or discussion thread has appeared since the closure <a class="cite" href="#src-22">[22]</a>
+<a class="cite" href="#src-46">[46]</a>.</p>
 <p>The group recorded in May that post-quantum certificates have two
 blocking dependencies, and only one belongs to the Forum <a class="cite" href="#src-47">[47]</a>. The
 Baseline Requirements must permit ML-DSA, and the IETF must finish the
@@ -341,12 +350,11 @@ encoding standards for post-quantum algorithms in certificates <a class="cite" h
 Part 6 follows the IETF side, where the composite signature draft is one
 step from publication.</p>
 <h3 id="unresolved-conflicts-1">Unresolved Conflicts</h3>
-<p>The status of SC-106 is unclear. Its pull request is closed, the fork
-pull request the agendas cite is closed too, and no successor text
-exists, which in the repository looks like withdrawal <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-23">[23]</a>. The
-group’s agenda lists it as a live draft with a new proposer <a class="cite" href="#src-26">[26]</a>. The
-minutes of the 22 October call, when posted, or a new redline from
-Amazon Trust Services, would settle which reading is right.</p>
+<p>The status of SC-106 is now stated in the working group’s own
+minutes, which say the draft is removed from its tracking list <a class="cite" href="#src-51">[51]</a>. Its
+pull request is closed, and the fork pull request that the earlier
+agendas cited is closed too <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-23">[23]</a>. What remains open is whether any
+successor text appears in another working group.</p>
 <p>The Forum’s working groups are not moving together on post-quantum
 algorithms. The server group has no draft text and no ballot in any
 formal stage <a class="cite" href="#src-7">[7]</a> <a class="cite" href="#src-22">[22]</a>. The S/MIME group published post-quantum
@@ -576,6 +584,24 @@ CA/Browser Forum - <a
 href="https://cabforum.org/2026/05/21/2026-05-21-minutes-of-the-server-certificate-working-group/"
 class="uri">https://cabforum.org/2026/05/21/2026-05-21-minutes-of-the-server-certificate-working-group/</a>
 - as of 2026-05-21</li>
+<li id="src-48">Ballot SC105 IPR review period notice - servercert-wg list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/fW3m9KLTjU4/m/xVZP_dg7BQAJ"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/fW3m9KLTjU4/m/xVZP_dg7BQAJ</a>
+- as of 2026-11-02</li>
+<li id="src-49">Final agenda, Server Certificate Working Group teleconference of 5
+November 2026 - servercert-wg list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/A115AfdaCuI/m/m6RBH8U6AwAJ"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/A115AfdaCuI/m/m6RBH8U6AwAJ</a>
+- as of 2026-11-05</li>
+<li id="src-50">Discussion Period Starts: SC-107 (v2) - servercert-wg list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/Rxu_hNwCI9w/m/Q0Wx3rljAwAJ"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/Rxu_hNwCI9w/m/Q0Wx3rljAwAJ</a>
+- as of 2026-11-05</li>
+<li id="src-51">Final minutes of the Server Certificate Working Group teleconference
+of 22 October 2026 - servercert-wg list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/4lwou5oz2Oc/m/eAMX2GFeAwAJ"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/servercert-wg/c/4lwou5oz2Oc/m/eAMX2GFeAwAJ</a>
+- as of 2026-11-05</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

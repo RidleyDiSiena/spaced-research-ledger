@@ -19,14 +19,14 @@
     <p class="kicker">PQC Readiness Register &middot; Question</p>
     <h1>Which components can negotiate a pure ML-KEM TLS group?</h1>
     <p class="standfirst">Any one of the pure ML-KEM key exchange groups -- MLKEM512, MLKEM768 or MLKEM1024, from draft-ietf-tls-mlkem -- usable in a TLS 1.3 handshake in a general release. Pure rather than hybrid: the whole key exchange rests on ML-KEM, with no…</p>
-    <p class="updated">13 yes &middot; 9 no &middot; 9 not checked</p>
+    <p class="updated">14 yes &middot; 8 no &middot; 9 not checked</p>
   </div>
 
   <nav class="contents" id="page-contents" aria-label="Contents">
     <h2 class="contents-heading">Contents</h2>
 <ul>
-<li><a href="#yes" id="toc-yes">Yes (13)</a></li>
-<li><a href="#no" id="toc-no">No (9)</a></li>
+<li><a href="#yes" id="toc-yes">Yes (14)</a></li>
+<li><a href="#no" id="toc-no">No (8)</a></li>
 <li><a href="#not-checked" id="toc-not-checked">Not checked (9)</a></li>
 <li><a href="#not-applicable" id="toc-not-applicable">Not
 applicable</a></li>
@@ -42,9 +42,9 @@ pure-post-quantum mandate asks for, and it is also why IANA lists all
 three as Recommended N where X25519MLKEM768 is Y. The bar is
 <code>available</code>; a preview channel or build flag does not count.
 Added 2026-10-08, when the draft was in the RFC Editor queue.</p>
-<h2 id="yes">Yes (13)</h2>
+<h2 id="yes">Yes (14)</h2>
 <p>At or above the bar the question sets, with the cell it rests on.</p>
-<div class="tablewrap" role="region" tabindex="0" aria-label="Yes (13), scrollable table"><table>
+<div class="tablewrap" role="region" tabindex="0" aria-label="Yes (14), scrollable table"><table>
 <thead>
 <tr>
 <th>Component</th>
@@ -122,13 +122,18 @@ builds (22.20, 24.9.0, as the hybrid cell); not separately verified</td>
 <td data-label="Standing"><span class="st st-available">available</span> since Windows 11
 24H2/25H2, KB5120998 (preview 2026-08-27); KB5124008 (2026-09-08)</td>
 </tr>
+<tr>
+<td data-label="Component"><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
+<td data-label="Kind">tls-stack</td>
+<td data-label="Standing"><span class="st st-available">available</span> since 2.37.6</td>
+</tr>
 </tbody>
 </table></div>
-<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="no">No (9)</h2>
+<p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="no">No (8)</h2>
 <p>A cited cell that falls short. The status is shown rather than
 flattened: <code>planned</code> and <code>none</code> are different
 answers to the same question.</p>
-<div class="tablewrap" role="region" tabindex="0" aria-label="No (9), scrollable table"><table>
+<div class="tablewrap" role="region" tabindex="0" aria-label="No (8), scrollable table"><table>
 <thead>
 <tr>
 <th>Component</th>
@@ -173,11 +178,6 @@ crypto-policies</a></td>
 <td data-label="Kind">os</td>
 <td data-label="Standing"><span class="st st-experimental">experimental</span> since RHEL 10
 (TEST-PQ)</td>
-</tr>
-<tr>
-<td data-label="Component"><a href="swift-nio-ssl.html">swift-nio-ssl</a></td>
-<td data-label="Kind">tls-stack</td>
-<td data-label="Standing"><span class="st st-none">none</span></td>
 </tr>
 <tr>
 <td data-label="Component"><a href="wolfssl.html">wolfSSL / wolfCrypt</a></td>

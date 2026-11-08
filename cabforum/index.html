@@ -18,33 +18,33 @@
     <p class="kicker">Research Topic</p>
     <h1>CA/Browser Forum Tracker</h1>
     <p class="standfirst">A five-part survey of the body that decides what a publicly trusted certificate may contain and how long it may live: the ballots of each working group, the browser root programs that enforce them, and the revocation and transparency mechanisms underneath. Tracks the five states a rule passes through, because a ballot that passes its vote is not yet a requirement.</p>
-    <p class="updated">Last updated: 2026-11-01</p>
+    <p class="updated">Last updated: 2026-11-08</p>
   </div>
 
 <ul class="cards">
   <li class="card">
     <p class="card-title"><a href="01-server-certificate-working-group.html">Part 1 &mdash; Server Certificate Working Group</a></p>
-    <p class="card-meta"><a href="latest/01-server-certificate-working-group.pdf">PDF</a> <span>Last updated: 2026-11-01</span></p>
+    <p class="card-meta"><a href="latest/01-server-certificate-working-group.pdf">PDF</a> <span>Last updated: 2026-11-08</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="02-code-signing-working-group.html">Part 2 &mdash; Code Signing Working Group</a></p>
-    <p class="card-meta"><a href="latest/02-code-signing-working-group.pdf">PDF</a> <span>Last updated: 2026-11-01</span></p>
+    <p class="card-meta"><a href="latest/02-code-signing-working-group.pdf">PDF</a> <span>Last updated: 2026-11-08</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="03-smime-working-group.html">Part 3 &mdash; S/MIME Working Group</a></p>
-    <p class="card-meta"><a href="latest/03-smime-working-group.pdf">PDF</a> <span>Last updated: 2026-11-01</span></p>
+    <p class="card-meta"><a href="latest/03-smime-working-group.pdf">PDF</a> <span>Last updated: 2026-11-08</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="04-public-trust-programs.html">Part 4 &mdash; Public Trust Programs</a></p>
-    <p class="card-meta"><a href="latest/04-public-trust-programs.pdf">PDF</a> <span>Last updated: 2026-11-01</span></p>
+    <p class="card-meta"><a href="latest/04-public-trust-programs.pdf">PDF</a> <span>Last updated: 2026-11-08</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="05-revocation-and-transparency.html">Part 5 &mdash; Revocation and Transparency</a></p>
-    <p class="card-meta"><a href="latest/05-revocation-and-transparency.pdf">PDF</a> <span>Last updated: 2026-11-01</span></p>
+    <p class="card-meta"><a href="latest/05-revocation-and-transparency.pdf">PDF</a> <span>Last updated: 2026-11-08</span></p>
   </li>
   <li class="card">
     <p class="card-title"><a href="06-governance-security-and-standards.html">Part 6 &mdash; Governance, Network Security and Standards</a></p>
-    <p class="card-meta"><a href="latest/06-governance-security-and-standards.pdf">PDF</a> <span>Last updated: 2026-11-01</span></p>
+    <p class="card-meta"><a href="latest/06-governance-security-and-standards.pdf">PDF</a> <span>Last updated: 2026-11-08</span></p>
   </li>
 </ul>
 
@@ -69,19 +69,21 @@ its rules <a class="cite" href="#src-1">[1]</a>.</p>
 <p>The collection has six parts. Every part stands on its own, and every
 statement carries a numbered citation to a public source. Where two
 sources disagree, the disagreement is reported rather than resolved.
-This edition replaces the one of 25 October, and it is refreshed each
+This edition replaces the one of 1 November, and it is refreshed each
 week that the Forum’s public record shows a change.</p>
 <p>The eMudhra key compromise is still the thread that runs through this
 edition. A certificate authority’s intermediate keys turned out to be
 recoverable, three programs have now removed one of its roots, and the
 authority has announced its exit from public website certificates. Its
-full incident report was still not posted on 1 November. Parts 4 and 5
-carry that story, and Part 1 carries the first draft rule written in
-response to it.</p>
-<p>The week to 1 November also saw two more ballots pass their votes.
-Chrome’s change to its transparency policy took effect on 1 November. A
-new cluster of bugs concerns authorities blocking the tools that fetch
-their revocation lists.</p>
+full incident report was still not posted on 8 November, and the company
+has promised it for 9 November. Parts 4 and 5 carry that story, and Part
+1 carries the first draft rule written in response to it.</p>
+<p>The week to 8 November brought no new ballot votes, but one ballot
+entered its intellectual property review and a new working group was
+proposed. Chrome has announced that TLS certificates from one eMudhra
+root will lose default trust from 16 November. The composite
+post-quantum signature standards were published as RFCs in the same
+week.</p>
 <h2 id="how-to-read-a-forum-decision">1. How To Read a Forum
 Decision</h2>
 <p><em>One distinction governs this whole subject, and getting it wrong
@@ -114,19 +116,21 @@ busiest group, governing the certificates that secure websites. It
 covers the ballots and document versions, domain control validation, and
 certificate profiles, including the schedule that is cutting certificate
 lifetimes toward 47 days by 2029. One ballot, on removing high-risk
-language, passed its vote on 28 October and awaits its review. The
-post-quantum draft has no live text, and a new draft on key quality
-answers the compromise. This is the part to read first if you only read
-one.</p>
+language, passed its vote on 28 October and entered its review on 2
+November, which runs to 2 December. The post-quantum draft has been
+taken off the working group’s list, and a second version of the
+problem-report ballot opened for discussion on 5 November. This is the
+part to read first if you only read one.</p>
 <p><strong>Part 2, Code Signing Working Group.</strong> The rules for
 certificates that sign software. A smaller group, with one ballot that
-passed its vote on 27 October and is now in review, and one that has not
-moved since spring.</p>
+passed its vote on 27 October and is in review until 26 November, and
+one that has no public stage since spring.</p>
 <p><strong>Part 3, S/MIME Working Group.</strong> The rules for
 certificates that sign and encrypt email. It is the one place in the
 Forum where post-quantum algorithms are already permitted in published
 requirements. Its newest ballot passed unanimously and is still in
-review, and it is working on composite signatures.</p>
+review. The IETF has now published the composite-signature standards
+that its work relies on, RFC 10073 and RFC 10082.</p>
 <p><strong>Part 4, Public Trust Programs.</strong> The enforcement
 layer. Mozilla, Google, Microsoft and Apple each decide who is actually
 trusted, and their policies routinely demand more than the Forum does,
@@ -139,14 +143,17 @@ mechanisms for recovering from a certificate that should not exist. Both
 were exercised hard this autumn, revocation by a key compromise and a
 400,000-certificate clean-up, and transparency by a flood of
 proof-of-concept certificates that forced one operator to close its
-logs. This edition adds Chrome’s new transparency policy, an open
-argument over how fresh a log’s checkpoint must be, and authorities
-found blocking the tools that fetch their revocation lists.</p>
+logs. This edition adds Chrome’s log-checkpoint rules, now in force, and
+an open argument over how fresh a log’s checkpoint must be. It also
+records the authorities whose bugs turned on blocking the tools that
+fetch their revocation lists, and the Let’s Encrypt production run
+planned for 10 November.</p>
 <p><strong>Part 6, Governance, Network Security and Standards.</strong>
 It covers the Forum’s officers and new members, the network security
 requirements, and the IETF standards and audit regimes the guidelines
-depend on. No post-quantum IETF draft has yet received an RFC number,
-and the network security ballot is still in its review.</p>
+depend on. Two composite-signature drafts have now received RFC numbers,
+RFC 10073 and RFC 10082, and the network security ballot is still in its
+review.</p>
 <h2 id="what-this-collection-does-not-cover">3. What This Collection
 Does Not Cover</h2>
 <p><em>Scope boundaries, stated so that an absence is not read as a

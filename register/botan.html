@@ -138,7 +138,7 @@ Unknowns</a></li>
 <td data-label="Primitive"><span class="st st-available">available</span> since 3.6.0 <a class="cite" href="#src-1">[1]</a>
 <a class="cite" href="#src-2">[2]</a></td>
 <td data-label="TLS 1.3"><span class="st st-unknown">unknown</span></td>
-<td data-label="X.509"><span class="st st-absent">none found 2026-11-01</span></td>
+<td data-label="X.509"><span class="st st-absent">none found 2026-11-08</span></td>
 <td data-label="SSH"><span class="st st-unknown">unknown</span></td>
 <td data-label="IPsec / IKEv2"><span class="st st-unknown">unknown</span></td>
 <td data-label="FIPS 140-3"><span class="st st-none">none</span> <a class="cite" href="#src-3">[3]</a></td>
@@ -236,7 +236,9 @@ were scanned on 2026-09-12 and name none carrying it.</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="releases">Releases</h2>
 <ul>
-<li>3.13.0, 2026-08-13 <a class="cite" href="#src-10">[10]</a> <a class="cite" href="#src-11">[11]</a> <a class="cite" href="#src-12">[12]</a></li>
+<li>3.14.1, 2026-11-06 <a class="cite" href="#src-10">[10]</a></li>
+<li>3.14.0, 2026-11-04 <a class="cite" href="#src-11">[11]</a></li>
+<li>3.13.0, 2026-08-13 <a class="cite" href="#src-12">[12]</a> <a class="cite" href="#src-13">[13]</a> <a class="cite" href="#src-14">[14]</a></li>
 <li>3.7.0, 2025-02-04 <a class="cite" href="#src-4">[4]</a></li>
 <li>3.6.0, 2024-10-21 <a class="cite" href="#src-1">[1]</a></li>
 </ul>
@@ -248,7 +250,7 @@ yet. <strong>not checked</strong> means nobody has searched.
 empty, and the artifacts examined are named; a result older than 90 days
 is marked for recheck.</p>
 <ul>
-<li>ml-dsa / x509 – <strong>none found 2026-11-01</strong>: Searched
+<li>ml-dsa / x509 – <strong>none found 2026-11-08</strong>: Searched
 twice on 2026-09-12 and found nothing: Botan has ML-DSA as a primitive
 from 3.6.0 and names every TLS key-exchange addition release by release,
 but no entry says an ML-DSA key may sit in an X.509 certificate or
@@ -262,11 +264,15 @@ ML-DSA signatures (GH #5531), and say nothing about ML-DSA certificates
 or ML-DSA in TLS authentication. The gap stands. Re-checked 2026-11-01:
 3.14.0 still untagged; master’s unreleased notes add X.509
 path-validation and CRL changes but still nothing on ML-DSA certificates
-or ML-DSA TLS authentication. The gap stands. Examined: Botan release
-notes, 3.6.0 through 3.13.0, randombit/botan issue 4719, ML-DSA
+or ML-DSA TLS authentication. Re-checked 2026-11-08: 3.14.0 is tagged
+(2026-11-04) and 3.14.1 is tagged (2026-11-06); the released notes add
+PKCS #8 encoding for ML-DSA and ML-KEM, key validation and X.509
+path-validation and CRL changes, and mention neither ML-DSA certificates
+nor ML-DSA TLS authentication. The gap stands. Examined: Botan release
+notes, 3.6.0 through 3.14.1, randombit/botan issue 4719, ML-DSA
 certificates in TLS, randombit/botan master news.rst, Version 3.14.0 Not
 Yet Released (2026-10-25), randombit/botan tags and master news.rst
-(2026-11-01).</li>
+(2026-11-01), randombit/botan tags and news.html (2026-11-08).</li>
 </ul>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="sources">Sources</h2>
 <ol type="1">
@@ -303,13 +309,19 @@ href="https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informati
 class="uri">https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Kryptografie/Kryptobibliothek-Botan/kryptobibliothek-botan_dvl.html</a>
 (as of 2025-06-02; ledger claim
 pqc/embedded-alternative-libraries/d0001:12)</li>
-<li id="src-10"><a href="https://botan.randombit.net/"
+<li id="src-10"><a href="https://github.com/randombit/botan/tags"
+class="uri">https://github.com/randombit/botan/tags</a> (as of
+2026-11-06; checked 2026-11-08)</li>
+<li id="src-11"><a href="https://botan.randombit.net/news.html"
+class="uri">https://botan.randombit.net/news.html</a> (as of 2026-11-04;
+checked 2026-11-08)</li>
+<li id="src-12"><a href="https://botan.randombit.net/"
 class="uri">https://botan.randombit.net/</a> (as of 2026-08-13; ledger
 claim pqc/embedded-alternative-libraries/d0002:4)</li>
-<li id="src-11"><a href="https://botan.randombit.net/news.html"
+<li id="src-13"><a href="https://botan.randombit.net/news.html"
 class="uri">https://botan.randombit.net/news.html</a> (as of 2026-10-25;
 checked 2026-10-25)</li>
-<li id="src-12"><a href="https://github.com/randombit/botan/tags"
+<li id="src-14"><a href="https://github.com/randombit/botan/tags"
 class="uri">https://github.com/randombit/botan/tags</a> (as of
 2026-08-13; checked 2026-11-01)</li>
 </ol>
