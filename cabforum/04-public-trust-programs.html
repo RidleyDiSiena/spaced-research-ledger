@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 4</p>
     <h1>Public Trust Programs</h1>
-    <p class="updated">Last updated: 2026-11-08</p>
+    <p class="updated">Last updated: 2026-11-15</p>
     <p class="actions"><a class="pdf" href="latest/04-public-trust-programs.pdf">Download PDF</a></p>
   </div>
 
@@ -59,7 +59,7 @@ that the public record shows a change.</p>
 <p>The Forum writes the rules, and the root programs decide who is
 trusted. A root program can and does demand more than the Baseline
 Requirements, often a year or more ahead of them. This part covers that
-enforcement layer as it stood on 8 November 2026.</p>
+enforcement layer as it stood on 15 November 2026.</p>
 <p>Section 1 covers the four root store policies. Section 2 follows the
 separate post-quantum trust path that Chrome and Apple are designing.
 Section 3 covers which authorities are entering and leaving the stores,
@@ -73,7 +73,9 @@ One follows a pattern of misconduct or a compromise and is protective.
 The other follows the age of a root and is routine housekeeping. Between
 September and 19 October no program took either kind of action.</p>
 <p>On 20 October Mozilla took the first kind. Chrome and Microsoft
-followed, and by 1 November all three had removed the same root.</p>
+followed, and by 1 November all three had removed the same root. Apple
+removed five roots from macOS on 9 November, including emSign Root CA -
+G1 <a class="cite" href="#src-82">[82]</a>.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="root-store-policies">1. Root Store Policies</h2>
 <p><em>Four organisations run root programs that matter for the public
 web, and their policies are converging on dedicated hierarchies, bounded
@@ -266,9 +268,14 @@ certificates” and promised updates on the CCADB public list, where none
 had appeared by 8 November <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-36">[36]</a>. Mozilla removed only the one root,
 and emSign Root CA - G1 stays in its store <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-60">[60]</a>. On 4 November
 Chrome announced that G1 certificates chaining to it lose default trust
-from 16 November, as set out in the open decision below <a class="cite" href="#src-78">[78]</a>. Mozilla,
-Apple and Microsoft have made no decision on G1 that could be found
-<a class="cite" href="#src-60">[60]</a>.</p>
+from 16 November, as set out in the open decision below <a class="cite" href="#src-78">[78]</a>.</p>
+<p>Apple removed G1 from the macOS system trust file on 9 November, in a
+macOS update that also removes four other eMudhra and AAA roots <a class="cite" href="#src-82">[82]</a>. It
+is one vendor’s system store, not a Mozilla or Chrome decision.
+Microsoft has announced the removal of ten remaining eMudhra roots from
+Windows and Edge. Its heading gives 10 November and its body 16
+November, so the dates conflict <a class="cite" href="#src-84">[84]</a> <a class="cite" href="#src-85">[85]</a>. Mozilla made no G1 decision
+in the window <a class="cite" href="#src-81">[81]</a>.</p>
 <p>One older question is open. In September a participant asked Mozilla
 what action it considers appropriate over NETLOCK’s incident handling
 <a class="cite" href="#src-37">[37]</a>. Mozilla replied on 5 October that it is weighing the concerns in
@@ -276,7 +283,10 @@ its assessment of NETLOCK’s continued inclusion, and will follow up
 publicly <a class="cite" href="#src-37">[37]</a>. No later action was found.</p>
 <p>In the week to 8 November a proposal to remove NETLOCK from the
 Mozilla root store was posted, and the thread was last active on 7
-November <a class="cite" href="#src-79">[79]</a>. It is a proposal, not a decision.</p>
+November <a class="cite" href="#src-79">[79]</a>. It is a proposal, not a decision. Two more NETLOCK bugs
+changed on 13 November. Bug 2092715 concerns 2026 audit statements that
+were not filed on time, and bug 2092773 concerns two Gold subordinate
+CAs that were not disclosed <a class="cite" href="#src-89">[89]</a>.</p>
 <p>The precedents are older. In April 2026 Mozilla and Chrome removed
 DigiCert’s three G1 roots for age, not misconduct <a class="cite" href="#src-38">[38]</a>. The punitive
 precedent remains the 2024 distrust of Entrust, which Chrome applied by
@@ -320,10 +330,11 @@ Certigna reported a cross-signed root whose serial number came from an
 unseeded random generator <a class="cite" href="#src-62">[62]</a>.</p>
 <p>Revocation list profile errors continue. HARICA published two
 truncated lists around 29 October and fixed them the next morning, with
-its full report due 11 November <a class="cite" href="#src-62">[62]</a>. KIR’s root list has a next-update
-time of exactly 12 months, which Let’s Encrypt disputes as one second
-over the limit <a class="cite" href="#src-62">[62]</a>. certSIGN also reported a list validity above the
-limit <a class="cite" href="#src-62">[62]</a>.</p>
+its full report due 11 November <a class="cite" href="#src-62">[62]</a>. The bug was updated on 14
+November, with its next update due on 20 November <a class="cite" href="#src-88">[88]</a>. KIR’s root list
+has a next-update time of exactly 12 months, which Let’s Encrypt
+disputes as one second over the limit <a class="cite" href="#src-62">[62]</a>. certSIGN also reported a
+list validity above the limit <a class="cite" href="#src-62">[62]</a>.</p>
 <p>The week before had been heavier. Thirty-three bugs opened between 18
 and 25 October, and the largest by count was TrustAsia’s, with 19,237
 certificates issued without honouring the domain owners’ authorization
@@ -349,6 +360,14 @@ October, thirteen of them about failing status services, and ten more on
 <h3 id="current-state-3">Current State</h3>
 <p>Thirteen more compliance bugs were filed between 31 October and 8
 November. Nine are assigned and four are unconfirmed <a class="cite" href="#src-80">[80]</a>.</p>
+<p>In the window to 15 November, 142 CA Certificate Compliance bugs
+changed, from 7 to 14 November <a class="cite" href="#src-89">[89]</a>. Most are open CRL, OCSP,
+revocation-timing and disclosure bugs for individual authorities. Only
+the bugs named here were read in full, and the rest were classified by
+title. Three bugs were closed in the window: Chunghwa Telecom’s delayed
+audit seals (2067968, 9 November), D-Trust’s delayed attestation letters
+(2011430, 12 November) and eMudhra’s invalid CRL bug (1970728, 11
+November) <a class="cite" href="#src-89">[89]</a>.</p>
 <p>Follow-through on earlier bugs is uneven. TrustAsia’s full report
 says a code change on 29 July let a record check for a parent domain be
 stored under a subdomain <a class="cite" href="#src-69">[69]</a>. Of the 19,237 certificates, 194 were for
@@ -366,12 +385,18 @@ patched within 48 hours between 30 June and 23 October <a class="cite" href="#sr
 the cause to a ticketing workflow that was not updated and a departed
 security coordinator, and one action is due on 2 November <a class="cite" href="#src-72">[72]</a>. On 4
 November D-Trust posted its full report on the backup recovery testing
-finding <a class="cite" href="#src-73">[73]</a>, and the vulnerability-management item’s next update moved
-to 9 November <a class="cite" href="#src-72">[72]</a>.</p>
+finding <a class="cite" href="#src-73">[73]</a>.</p>
+<p>On 9 November D-Trust sent a shared vulnerability-management
+procedure to its audit body for approval, with a further update promised
+by 16 November <a class="cite" href="#src-86">[86]</a>. On 10 November the backup and recovery finding
+moved, with its guideline revision still open and its 31 December due
+date unchanged <a class="cite" href="#src-87">[87]</a>.</p>
 <p>On 3 November the three companion late-audit bugs against ITI Brazil,
 Consorci AOC and Entrust were reassigned to CCADB incident reporting
 <a class="cite" href="#src-71">[71]</a>. The MULTICERT bug is unchanged and still assigned to Mozilla <a class="cite" href="#src-71">[71]</a>.
-No new audit-related bug was filed in the latest week <a class="cite" href="#src-71">[71]</a>.</p>
+No new audit-related bug was filed in the latest week <a class="cite" href="#src-71">[71]</a>. NETLOCK bug
+2092715, on 2026 audit statements not filed on time, was changed on 13
+November <a class="cite" href="#src-89">[89]</a>.</p>
 <p>Mozilla’s public policy list carried the eMudhra compromise in
 October, with later threads on DNSSEC and on a proposed field for the
 domain validation method <a class="cite" href="#src-49">[49]</a> <a class="cite" href="#src-60">[60]</a>. The incident volume is high, and for
@@ -436,10 +461,17 @@ against clients that enforce logging <a class="cite" href="#src-22">[22]</a>.</p
 <p>eMudhra is leaving. At 03:53 UTC on 25 October its representative
 wrote that the company “has decided to exit public TLS”, with a full
 report to follow within the 14-day window <a class="cite" href="#src-23">[23]</a>. That window has passed.
-The full report had not been posted by 8 November, and eMudhra has since
-promised it for 9 November <a class="cite" href="#src-60">[60]</a>. A reporter also wrote that a
-preliminary report on the affected revocation list, due 29 October, was
-never filed, and that a second list was affected <a class="cite" href="#src-60">[60]</a>.</p>
+It posted its full report on 10 November, one day after the 9 November
+date it had promised <a class="cite" href="#src-81">[81]</a>. A reporter also wrote that a preliminary
+report on the affected revocation list, due 29 October, was never filed,
+and that a second list was affected <a class="cite" href="#src-60">[60]</a>.</p>
+<p>The 10 November report covers the 30 April 2025 key ceremony, an
+ECDSA scalar truncation and an RSA key-handling concern <a class="cite" href="#src-81">[81]</a>. It also
+covers revocations on 18 October and 7 November, and it ends G1 issuance
+by 16 November <a class="cite" href="#src-81">[81]</a>. Commenters have challenged its review scope, why
+the keys were extractable, and whether it matches the 2 November
+statements. These are commenters’ assertions, not root program findings.
+The bug was still assigned on 13 November <a class="cite" href="#src-81">[81]</a>.</p>
 <p>Thirty minutes after that statement a reply counted 107,107
 certificates logged on 20 and 21 October under the revoked keys <a class="cite" href="#src-23">[23]</a>. Of
 these, 106,050 were proofs of concept carrying a Google name <a class="cite" href="#src-23">[23]</a>.
@@ -458,14 +490,15 @@ only later action was to mark two bugs as duplicates <a class="cite" href="#src-
 store. On 4 November Chrome announced that TLS certificates chaining to
 it will lose default trust in Chrome 153 and later, for certificates
 whose earliest timestamp falls after 16 November 2026 <a class="cite" href="#src-78">[78]</a>.</p>
-<p>The notice aims to coincide with Chrome 158 on 17 November, and its
-two version numbers are not reconciled <a class="cite" href="#src-78">[78]</a>. Mozilla, Apple and
-Microsoft have made no decision that could be found <a class="cite" href="#src-60">[60]</a>. eMudhra says
-its G1 roots “remain active and continue to be fully supported” and that
-it will stop issuing website certificates from G1 once a federation’s
-transition is complete <a class="cite" href="#src-60">[60]</a>. One commenter wrote that there is no basis
-for relying parties to keep trusting G1 <a class="cite" href="#src-60">[60]</a>. Apple has made no
-statement that could be found.</p>
+<p>The CCADB notice aims to coincide with Chrome 158 on 17 November
+<a class="cite" href="#src-78">[78]</a>. Chrome’s 4 November notice still names only Chrome 153 <a class="cite" href="#src-83">[83]</a>, so
+the two version numbers remain unreconciled. Mozilla made no G1 decision
+in the window <a class="cite" href="#src-81">[81]</a>. Apple’s macOS removal of 9 November is the first
+vendor action on G1 <a class="cite" href="#src-82">[82]</a>.</p>
+<p>Before its full report, eMudhra had said its G1 roots “remain active
+and continue to be fully supported” <a class="cite" href="#src-60">[60]</a>. The 10 November report says G1
+issuance ends by 16 November <a class="cite" href="#src-81">[81]</a>. One commenter wrote that there is no
+basis for relying parties to keep trusting G1 <a class="cite" href="#src-60">[60]</a>.</p>
 <p>Java is an unverified lead. A search points to an Oracle security
 alert dated 21 October that distrusts the compromised intermediates, but
 all three Oracle hosts refused access, so it is not stated as fact <a class="cite" href="#src-77">[77]</a>.
@@ -892,6 +925,47 @@ Bugzilla - <a
 href="https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;creation_time=2026-10-31T00:00:00Z&amp;include_fields=id,summary,status,creation_time,whiteboard"
 class="uri">https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;creation_time=2026-10-31T00:00:00Z&amp;include_fields=id,summary,status,creation_time,whiteboard</a>
 - as of 2026-11-08</li>
+<li id="src-81">Bug 2083449, eMudhra intermediate CA private key compromise, full
+report and comments - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2083449"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2083449</a> -
+as of 2026-11-15</li>
+<li id="src-82">Apple support document 149555, macOS root certificate update - Apple
+- <a href="https://support.apple.com/en-us/149555"
+class="uri">https://support.apple.com/en-us/149555</a> - as of
+2026-11-09</li>
+<li id="src-83">Chrome Security, eMudhra intermediate CA update - Google - <a
+href="https://blog.google/security/protecting-chrome-and-android-users-from-compromised-emudhra-intermediate-ca-certificates/"
+class="uri">https://blog.google/security/protecting-chrome-and-android-users-from-compromised-emudhra-intermediate-ca-certificates/</a>
+- as of 2026-11-04</li>
+<li id="src-84">Trusted Root Program commit 87e1355, eMudhra removal heading -
+GitHub - <a
+href="https://github.com/TrustedRootProgram/Program-Requirements/commit/87e1355"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements/commit/87e1355</a>
+- as of 2026-11-11</li>
+<li id="src-85">Trusted Root Program requirements repository commits - GitHub - <a
+href="https://github.com/TrustedRootProgram/Program-Requirements/commits/main"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements/commits/main</a>
+- as of 2026-11-15</li>
+<li id="src-86">Bug 2082644, D-Trust vulnerability management audit finding -
+Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2082644"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2082644</a> -
+as of 2026-11-09</li>
+<li id="src-87">Bug 2082645, D-Trust backup recovery testing audit finding - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2082645"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2082645</a> -
+as of 2026-11-10</li>
+<li id="src-88">Bug 2087789, HARICA two truncated CRLs - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2087789"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2087789</a> -
+as of 2026-11-14</li>
+<li id="src-89">CA Certificate Compliance bugs changed 7 to 14 November - Mozilla
+Bugzilla - <a
+href="https://bugzilla.mozilla.org/buglist.cgi?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;chfieldfrom=2026-11-07&amp;chfieldto=2026-11-15&amp;order=changeddate%20DESC"
+class="uri">https://bugzilla.mozilla.org/buglist.cgi?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;chfieldfrom=2026-11-07&amp;chfieldto=2026-11-15&amp;order=changeddate%20DESC</a>
+- as of 2026-11-15</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

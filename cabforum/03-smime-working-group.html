@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 3</p>
     <h1>S/MIME Working Group</h1>
-    <p class="updated">Last updated: 2026-11-08</p>
+    <p class="updated">Last updated: 2026-11-15</p>
     <p class="actions"><a class="pdf" href="latest/03-smime-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -65,10 +65,11 @@ intellectual property review. Section 4 covers the group’s post-quantum
 work, where it remains ahead of the larger server certificate group.</p>
 <p>The group’s pace picked up after a quiet summer. One ballot was
 published, one passed its vote, a post-quantum draft appeared, and the
-group’s leadership is changing hands. The week to 8 November brought two
-pull requests and the group’s minutes and agenda, and no change to any
-ballot’s stage. Every ballot below is given with its stage, because a
-ballot that has passed its vote is not yet a rule.</p>
+group’s leadership is changing hands. The week to 15 November brought no
+ballot into voting or adoption <a class="cite" href="#src-26">[26]</a>. The S/MIME commit feed stops at 29
+September in the reads made, so commits in the window are unconfirmed
+<a class="cite" href="#src-27">[27]</a>. Every ballot below is given with its stage, because a ballot that
+has passed its vote is not yet a rule.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="requirements-and-version-history">1. Requirements and Version
 History</h2>
 <p><em>The version table is the record of what this group has agreed.
@@ -98,7 +99,9 @@ decisions by explicit ballot. Version 1.0.15 came from Ballot SMC017 on
 authorities <a class="cite" href="#src-4">[4]</a>. Version 1.0.14 came from Ballot SMC016 on 5 May 2026
 and imported the server group’s DNSSEC logging carve-out and SHA-1
 sunset <a class="cite" href="#src-4">[4]</a>. Version 1.0.13 allowed a mobile driving licence to
-authenticate an individual’s identity <a class="cite" href="#src-5">[5]</a>.</p>
+authenticate an individual’s identity <a class="cite" href="#src-5">[5]</a>. The ballots page now lists
+SMC017 as cancelled, and SMC017v2 as dated 16 June with no stage, so the
+two records differ <a class="cite" href="#src-26">[26]</a> <a class="cite" href="#src-4">[4]</a>.</p>
 <p>Post-quantum algorithms have been permitted here for over a year.
 Ballot SMC013, titled Introduction of PQC Algorithms, was published on
 22 August 2025 as version 1.0.11 <a class="cite" href="#src-6">[6]</a>. Section 4 describes what has been
@@ -112,7 +115,8 @@ subordinate certificate authority RSA key created from that date must be
 at least 4096 bits <a class="cite" href="#src-7">[7]</a>. The version table gives both version 1.0.14 and
 version 1.0.15 a compliance date of 15 September 2026, and both dates
 have now been reached <a class="cite" href="#src-7">[7]</a>. The date passed quietly, with no guidance
-post on the group’s public list or the Forum’s site <a class="cite" href="#src-8">[8]</a>.</p>
+post on the group’s public list or the Forum’s site <a class="cite" href="#src-8">[8]</a>. The S/MIME
+ballots page does not restate these dates <a class="cite" href="#src-26">[26]</a>.</p>
 <p>The increase applies to certificate authority keys only. The minimum
 for subscriber certificates stays at 2048 bits <a class="cite" href="#src-4">[4]</a>.</p>
 <p>The second stage closes the path for legacy keys without forcing
@@ -143,16 +147,18 @@ three voting certificate consumers, Apple, Mozilla and rundQuadrat,
 voted in favour, and no member voted against or abstained <a class="cite" href="#src-10">[10]</a>. The
 quorum of six was met <a class="cite" href="#src-10">[10]</a>.</p>
 <h3 id="current-state-2">Current State</h3>
-<p>SMC020 is adopted and in its intellectual property review, which runs
-from 20 October at 12:00 UTC to 19 November at 12:00 UTC <a class="cite" href="#src-10">[10]</a>. No
-exclusion notice had appeared by 8 November, and the pull request still
-carries the ballot and review labels <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-22">[22]</a>. The group’s 4 November
-agenda still lists SMC020 in review, with the next call on 18 November
-<a class="cite" href="#src-24">[24]</a>. The redline attached to the result is labelled version 1.0.17 of
-the requirements, which is the version the ballot will publish into if
-no exclusion notice arrives <a class="cite" href="#src-10">[10]</a>. The group’s ballots page lists it
-under the review period, with nothing under voting or discussion <a class="cite" href="#src-13">[13]</a>
-<a class="cite" href="#src-14">[14]</a>.</p>
+<p>SMC020 is adopted and in its intellectual property review, which
+began on 20 October <a class="cite" href="#src-10">[10]</a>. The S/MIME ballots page lists it under the
+review period, with no review end date given <a class="cite" href="#src-26">[26]</a>. The 19 November end
+date from earlier updates is not confirmed by any source read this week
+<a class="cite" href="#src-26">[26]</a>. No exclusion notice had appeared by 8 November, and the pull
+request still carries the ballot and review labels <a class="cite" href="#src-14">[14]</a> <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-22">[22]</a>. The
+group’s 4 November agenda still lists SMC020 in review, with the next
+call on 18 November <a class="cite" href="#src-24">[24]</a>.</p>
+<p>The redline attached to the result is labelled version 1.0.17 of the
+requirements, which is the version the ballot will publish into if no
+exclusion notice arrives <a class="cite" href="#src-10">[10]</a>. The ballots page lists no S/MIME ballot
+in a voting period, and none was adopted in the window <a class="cite" href="#src-26">[26]</a>.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="post-quantum-email">4. Post-Quantum Email</h2>
 <p><em>The S/MIME group admitted post-quantum algorithms a year before
 any other Forum group, and its next step is the hybrid kind.</em></p>
@@ -175,11 +181,12 @@ the term from 1 December <a class="cite" href="#src-17">[17]</a>.</p>
 authorities and an experiment with machine-readable certificate profiles
 <a class="cite" href="#src-17">[17]</a>. Draft minutes of the 21 October call and an agenda for the 4
 November meeting were posted on 4 November <a class="cite" href="#src-17">[17]</a> <a class="cite" href="#src-24">[24]</a>. The next meeting
-is on 18 November <a class="cite" href="#src-24">[24]</a>. The handover is known only from the agenda line,
-with no post confirming it <a class="cite" href="#src-17">[17]</a>. The 4 November agenda also lists an
+is on 18 November, and the handover is known only from the agenda line,
+with no post confirming it <a class="cite" href="#src-24">[24]</a> <a class="cite" href="#src-17">[17]</a>. The 4 November agenda lists an
 open ballot to confirm Sarah Sherrard of Sectigo as vice chair, which
-the Forum’s leadership page does not match, so the changeover is not
-settled <a class="cite" href="#src-24">[24]</a> <a class="cite" href="#src-23">[23]</a>.</p>
+the leadership page does not match <a class="cite" href="#src-24">[24]</a> <a class="cite" href="#src-23">[23]</a>. That vice-chair conflict
+is unchanged since 8 November, so the changeover is not settled <a class="cite" href="#src-24">[24]</a>
+<a class="cite" href="#src-23">[23]</a>.</p>
 <p>A root program has already said it will trust composite certificates.
 Apple announced on 21 September that it will accept composite roots that
 pair ML-DSA with ECDSA or RSA for S/MIME email <a class="cite" href="#src-18">[18]</a>. Part 4 covers the
@@ -323,6 +330,14 @@ class="uri">https://groups.google.com/a/groups.cabforum.org/g/smcwg-public</a>
 href="https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-composite-sigs/history/"
 class="uri">https://datatracker.ietf.org/doc/draft-ietf-lamps-cms-composite-sigs/history/</a>
 - as of 2026-11-07</li>
+<li id="src-26">S/MIME Certificate Working Group Ballots - CA/Browser Forum - <a
+href="https://cabforum.org/working-groups/smime/ballots/"
+class="uri">https://cabforum.org/working-groups/smime/ballots/</a> - as
+of 2026-11-15</li>
+<li id="src-27">S/MIME commit feed, cabforum/smime main branch - GitHub - <a
+href="https://github.com/cabforum/smime/commits/main.atom"
+class="uri">https://github.com/cabforum/smime/commits/main.atom</a> - as
+of 2026-11-15</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 
