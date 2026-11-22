@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 2</p>
     <h1>Code Signing Working Group</h1>
-    <p class="updated">Last updated: 2026-11-15</p>
+    <p class="updated">Last updated: 2026-11-22</p>
     <p class="actions"><a class="pdf" href="latest/02-code-signing-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -59,8 +59,12 @@ sits in the group as a certificate consumer.</p>
 publishes two pages for this group, one listing ballots and one listing
 requirements, and they still disagree about which version is current.
 The ballots page presents version 3.8 from August 2024 as the latest
-release <a class="cite" href="#src-1">[1]</a>. The requirements page correctly shows version 3.11.0 <a class="cite" href="#src-2">[2]</a>.
-Anyone reading only the first page would be wrong by three releases.</p>
+release <a class="cite" href="#src-1">[1]</a>. The requirements page correctly shows version 3.11.0
+<a class="cite" href="#src-2">[2]</a>.</p>
+<p>Reads on 22 November found the same version 3.8 on the Forum’s
+latest-releases panel <a class="cite" href="#src-35">[35]</a>, so the version 3.11 requirements page is
+still the one to read <a class="cite" href="#src-2">[2]</a>. Anyone reading only the first page would be
+wrong by three releases.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="published-requirements-and-the-ballots-behind-them">1. Published
 Requirements and the Ballots Behind Them</h2>
 <p><em>Every numbered version of the Code Signing Baseline Requirements
@@ -139,13 +143,16 @@ on 26 May 2026 <a class="cite" href="#src-14">[14]</a>. It would import three se
 future dates <a class="cite" href="#src-14">[14]</a>. These are a recommendation to lint certificates
 before issuance, a requirement to check for weak private keys, and a
 requirement to refresh status responses on a set schedule <a class="cite" href="#src-14">[14]</a>. The
-window to 15 November found no public stage for it either <a class="cite" href="#src-31">[31]</a>.</p>
-<p>The tracker’s discussion end date of 2 June does not match the public
-archive, where the discussion thread is dated 8 June <a class="cite" href="#src-15">[15]</a>. The ballot no
-longer appears on the ballots page at any stage, and no vote, result or
-withdrawal has been posted <a class="cite" href="#src-1">[1]</a>. The last public replies, also on 8 June,
-raised a cross-reference typo, a broken link and syntax fixes <a class="cite" href="#src-15">[15]</a>. Its
-pull request has not changed since 26 May <a class="cite" href="#src-15">[15]</a>.</p>
+window to 22 November found no public stage for it either, and two
+searches found no record of it, so its absence was checked twice <a class="cite" href="#src-36">[36]</a>
+<a class="cite" href="#src-15">[15]</a>.</p>
+<p>The record of the ballot’s dates gives a discussion end of 2 June,
+which does not match the public archive, where the discussion thread is
+dated 8 June <a class="cite" href="#src-15">[15]</a>. The ballot is absent from the ballots page at every
+stage as read on 22 November, and no vote, result or withdrawal has been
+posted <a class="cite" href="#src-36">[36]</a>. The last public replies, also on 8 June, raised a
+cross-reference typo, a broken link and syntax fixes <a class="cite" href="#src-15">[15]</a>. Its pull
+request has not changed since 26 May <a class="cite" href="#src-15">[15]</a>.</p>
 <p>The group’s earlier minutes point the same way as CSC-033. In May the
 group agreed on 15 March 2027 as the effective date for both a linting
 requirement and weekly weak-key checks <a class="cite" href="#src-16">[16]</a>. A ballot raising the
@@ -205,9 +212,13 @@ email roots <a class="cite" href="#src-26">[26]</a>. Such a root may also cover 
 time stamping <a class="cite" href="#src-26">[26]</a>.</p>
 <p>The removal covers ten remaining eMudhra roots from the Windows and
 Edge trusted root lists <a class="cite" href="#src-33">[33]</a>. Its heading gives 10 November, but its
-body gives 16 November, and the text does not say whether code signing
-is in scope <a class="cite" href="#src-33">[33]</a>. The code-signing scope of the removal is therefore not
-stated, and the date conflict is open <a class="cite" href="#src-33">[33]</a>.</p>
+body gives 16 November, as does the announcement commit 4b65c4c <a class="cite" href="#src-37">[37]</a>.
+The text does not say whether code signing is in scope <a class="cite" href="#src-33">[33]</a>. The 16
+November date has passed with completion not recorded, and two searches
+found no source confirming that the step happened <a class="cite" href="#src-33">[33]</a> <a class="cite" href="#src-37">[37]</a>.</p>
+<p>The code-signing scope of the removal is therefore not stated, and
+the date conflict is open <a class="cite" href="#src-33">[33]</a>. Microsoft’s Announcements file also
+states the 16 November date, dated 10 November on the page <a class="cite" href="#src-38">[38]</a>.</p>
 <p>The older documentation page still carries the specific code signing
 rules <a class="cite" href="#src-27">[27]</a>. New code signing and time-stamping roots must use 4096-bit
 RSA keys, and elliptic curve keys are not accepted for code signing
@@ -380,6 +391,25 @@ class="uri">https://github.com/TrustedRootProgram/Program-Requirements/commit/87
 href="https://github.com/TrustedRootProgram/Program-Requirements/commits/main"
 class="uri">https://github.com/TrustedRootProgram/Program-Requirements/commits/main</a>
 - as of 2026-11-15</li>
+<li id="src-35">Extended Validation Guidelines, latest releases panel - CA/Browser
+Forum - <a
+href="https://cabforum.org/working-groups/server/extended-validation/"
+class="uri">https://cabforum.org/working-groups/server/extended-validation/</a>
+- as of 2026-11-22</li>
+<li id="src-36">Code Signing Certificate Working Group Ballots - CA/Browser Forum -
+<a href="https://cabforum.org/working-groups/code-signing/ballots/"
+class="uri">https://cabforum.org/working-groups/code-signing/ballots/</a>
+- as of 2026-11-22</li>
+<li id="src-37">Microsoft eMudhra root removal announcement, commit 4b65c4c -
+TrustedRootProgram - <a
+href="https://github.com/TrustedRootProgram/Program-Requirements/commit/4b65c4c"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements/commit/4b65c4c</a>
+- as of 2026-11-22</li>
+<li id="src-38">Microsoft Trusted Root Program Announcements - TrustedRootProgram -
+<a
+href="https://github.com/TrustedRootProgram/Program-Requirements/blob/main/Announcements.md"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements/blob/main/Announcements.md</a>
+- as of 2026-11-22</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

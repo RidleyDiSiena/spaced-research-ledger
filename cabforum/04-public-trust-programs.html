@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 4</p>
     <h1>Public Trust Programs</h1>
-    <p class="updated">Last updated: 2026-11-15</p>
+    <p class="updated">Last updated: 2026-11-22</p>
     <p class="actions"><a class="pdf" href="latest/04-public-trust-programs.pdf">Download PDF</a></p>
   </div>
 
@@ -59,7 +59,7 @@ that the public record shows a change.</p>
 <p>The Forum writes the rules, and the root programs decide who is
 trusted. A root program can and does demand more than the Baseline
 Requirements, often a year or more ahead of them. This part covers that
-enforcement layer as it stood on 15 November 2026.</p>
+enforcement layer as it stood on 22 November 2026.</p>
 <p>Section 1 covers the four root store policies. Section 2 follows the
 separate post-quantum trust path that Chrome and Apple are designing.
 Section 3 covers which authorities are entering and leaving the stores,
@@ -265,17 +265,19 @@ Amazon’s Extended Validation request are unchanged <a class="cite" href="#src-
 <p>The remaining eMudhra root is the one to watch. Chrome said it is
 “closely investigating the ongoing inclusion of eMudhra’s remaining CA
 certificates” and promised updates on the CCADB public list, where none
-had appeared by 8 November <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-36">[36]</a>. Mozilla removed only the one root,
-and emSign Root CA - G1 stays in its store <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-60">[60]</a>. On 4 November
-Chrome announced that G1 certificates chaining to it lose default trust
-from 16 November, as set out in the open decision below <a class="cite" href="#src-78">[78]</a>.</p>
+had appeared by 8 November <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-36">[36]</a>. Mozilla removed only the one root
+<a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-60">[60]</a>, and has set a TLS distrust date of 16 November 2026 for
+emSign Root CA - G1 <a class="cite" href="#src-90">[90]</a>. On 4 November Chrome announced that G1
+certificates chaining to it lose default trust from 16 November, as set
+out in the open decision below <a class="cite" href="#src-78">[78]</a>.</p>
 <p>Apple removed G1 from the macOS system trust file on 9 November, in a
 macOS update that also removes four other eMudhra and AAA roots <a class="cite" href="#src-82">[82]</a>. It
 is one vendor’s system store, not a Mozilla or Chrome decision.
 Microsoft has announced the removal of ten remaining eMudhra roots from
 Windows and Edge. Its heading gives 10 November and its body 16
-November, so the dates conflict <a class="cite" href="#src-84">[84]</a> <a class="cite" href="#src-85">[85]</a>. Mozilla made no G1 decision
-in the window <a class="cite" href="#src-81">[81]</a>.</p>
+November, so the dates conflict <a class="cite" href="#src-84">[84]</a> <a class="cite" href="#src-85">[85]</a>. That 16 November date has now
+passed with no recorded completion, and two searches found no source
+confirming the removal <a class="cite" href="#src-91">[91]</a>.</p>
 <p>One older question is open. In September a participant asked Mozilla
 what action it considers appropriate over NETLOCK’s incident handling
 <a class="cite" href="#src-37">[37]</a>. Mozilla replied on 5 October that it is weighing the concerns in
@@ -283,10 +285,13 @@ its assessment of NETLOCK’s continued inclusion, and will follow up
 publicly <a class="cite" href="#src-37">[37]</a>. No later action was found.</p>
 <p>In the week to 8 November a proposal to remove NETLOCK from the
 Mozilla root store was posted, and the thread was last active on 7
-November <a class="cite" href="#src-79">[79]</a>. It is a proposal, not a decision. Two more NETLOCK bugs
-changed on 13 November. Bug 2092715 concerns 2026 audit statements that
-were not filed on time, and bug 2092773 concerns two Gold subordinate
-CAs that were not disclosed <a class="cite" href="#src-89">[89]</a>.</p>
+November <a class="cite" href="#src-79">[79]</a>. A thread titled “Netlock Issues List: Near-Final Draft
+and Proposed Removal from the Mozilla Root Store” was posted on 14
+November <a class="cite" href="#src-92">[92]</a>. It is a proposal, not a decision, and no Mozilla decision
+is visible. Two more NETLOCK bugs changed on 13 November. Bug 2092715
+concerns 2026 audit statements that were not filed on time, and bug
+2092773 concerns two Gold subordinate CAs that were not disclosed
+<a class="cite" href="#src-89">[89]</a>.</p>
 <p>The precedents are older. In April 2026 Mozilla and Chrome removed
 DigiCert’s three G1 roots for age, not misconduct <a class="cite" href="#src-38">[38]</a>. The punitive
 precedent remains the 2024 distrust of Entrust, which Chrome applied by
@@ -299,6 +304,17 @@ Microsoft within ten.</p>
 and the quality of an authority’s report is itself part of what the root
 programs judge.</em></p>
 <h3 id="recent-developments-3">Recent Developments</h3>
+<p>The CA Certificate Compliance component recorded 196 bugs with a
+change on or after 14 November, a changes feed rather than a count of
+new filings <a class="cite" href="#src-94">[94]</a>. BJCA’s bug 2096163 concerns serial numbers drawn from
+a random number generator seeded with insufficient entropy, and it is
+unconfirmed <a class="cite" href="#src-94">[94]</a>. DigiCert’s bugs 2092247 and 2078824 are both assigned,
+one on a certificate issued with a previously compromised key and the
+other on certificates for sanctioned entities <a class="cite" href="#src-94">[94]</a>. Four others were
+resolved in the window. They are the Government of Korea’s KLID bug
+2032478 (22 November), GoDaddy’s 2066489 and Let’s Encrypt’s 2074944 (20
+November), and eMudhra’s InCommon IGTF SSL CPS bug 2073583 (20 November)
+<a class="cite" href="#src-94">[94]</a>.</p>
 <p>Twenty-one compliance bugs were opened between 24 October and 1
 November, a quieter week than the 33 before it <a class="cite" href="#src-61">[61]</a> <a class="cite" href="#src-40">[40]</a>. Thirteen are
 unconfirmed and eight are assigned <a class="cite" href="#src-61">[61]</a>. One theme runs through them,
@@ -367,7 +383,9 @@ the bugs named here were read in full, and the rest were classified by
 title. Three bugs were closed in the window: Chunghwa Telecom’s delayed
 audit seals (2067968, 9 November), D-Trust’s delayed attestation letters
 (2011430, 12 November) and eMudhra’s invalid CRL bug (1970728, 11
-November) <a class="cite" href="#src-89">[89]</a>.</p>
+November) <a class="cite" href="#src-89">[89]</a>. CCADB’s incident report page lists no incident report,
+distrust or removal item dated 7 to 22 November, and two checks found
+none <a class="cite" href="#src-93">[93]</a>.</p>
 <p>Follow-through on earlier bugs is uneven. TrustAsia’s full report
 says a code change on 29 July let a record check for a parent domain be
 stored under a subdomain <a class="cite" href="#src-69">[69]</a>. Of the 19,237 certificates, 194 were for
@@ -471,7 +489,9 @@ covers revocations on 18 October and 7 November, and it ends G1 issuance
 by 16 November <a class="cite" href="#src-81">[81]</a>. Commenters have challenged its review scope, why
 the keys were extractable, and whether it matches the 2 November
 statements. These are commenters’ assertions, not root program findings.
-The bug was still assigned on 13 November <a class="cite" href="#src-81">[81]</a>.</p>
+The bug was last changed on 19 November and is still assigned, though
+its comment feed could not be read past 29 October in this pass
+<a class="cite" href="#src-21">[21]</a>.</p>
 <p>Thirty minutes after that statement a reply counted 107,107
 certificates logged on 20 and 21 October under the revoked keys <a class="cite" href="#src-23">[23]</a>. Of
 these, 106,050 were proofs of concept carrying a Google name <a class="cite" href="#src-23">[23]</a>.
@@ -486,15 +506,20 @@ posted twelve on 21 October, and eMudhra attached a written response on
 programs <a class="cite" href="#src-60">[60]</a>. That response was not read here. Mozilla’s written
 questions of 20 October were unanswered on 23 October <a class="cite" href="#src-23">[23]</a>. Mozilla’s
 only later action was to mark two bugs as duplicates <a class="cite" href="#src-60">[60]</a>.</p>
-<p>The open decision is emSign Root CA - G1. Mozilla keeps it in its
-store. On 4 November Chrome announced that TLS certificates chaining to
-it will lose default trust in Chrome 153 and later, for certificates
-whose earliest timestamp falls after 16 November 2026 <a class="cite" href="#src-78">[78]</a>.</p>
+<p>The open decision is emSign Root CA - G1. Mozilla’s bug on it is
+resolved, with a TLS distrust date of 16 November 2026, and it closed on
+or about 6 November, before the window <a class="cite" href="#src-90">[90]</a>. On 4 November Chrome
+announced that TLS certificates chaining to it will lose default trust
+in Chrome 153 and later, for certificates whose earliest timestamp falls
+after 16 November 2026 <a class="cite" href="#src-78">[78]</a>.</p>
 <p>The CCADB notice aims to coincide with Chrome 158 on 17 November
 <a class="cite" href="#src-78">[78]</a>. Chrome’s 4 November notice still names only Chrome 153 <a class="cite" href="#src-83">[83]</a>, so
-the two version numbers remain unreconciled. Mozilla made no G1 decision
-in the window <a class="cite" href="#src-81">[81]</a>. Apple’s macOS removal of 9 November is the first
-vendor action on G1 <a class="cite" href="#src-82">[82]</a>.</p>
+the two version numbers remain unreconciled, and the window brought no
+change to it. Microsoft’s removal of the remaining ten eMudhra roots
+from Windows and Edge gives 16 November in its body <a class="cite" href="#src-84">[84]</a> <a class="cite" href="#src-85">[85]</a>, and that
+date has passed without a recorded completion <a class="cite" href="#src-91">[91]</a>. Apple’s macOS
+removal of 9 November is the first recorded vendor removal of G1, and
+its removal page is unchanged in the window <a class="cite" href="#src-82">[82]</a>.</p>
 <p>Before its full report, eMudhra had said its G1 roots “remain active
 and continue to be fully supported” <a class="cite" href="#src-60">[60]</a>. The 10 November report says G1
 issuance ends by 16 November <a class="cite" href="#src-81">[81]</a>. One commenter wrote that there is no
@@ -966,6 +991,29 @@ Bugzilla - <a
 href="https://bugzilla.mozilla.org/buglist.cgi?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;chfieldfrom=2026-11-07&amp;chfieldto=2026-11-15&amp;order=changeddate%20DESC"
 class="uri">https://bugzilla.mozilla.org/buglist.cgi?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;chfieldfrom=2026-11-07&amp;chfieldto=2026-11-15&amp;order=changeddate%20DESC</a>
 - as of 2026-11-15</li>
+<li id="src-90">Bug 2089115, distrust of emSign Root CA - G1 - Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/show_bug.cgi?id=2089115"
+class="uri">https://bugzilla.mozilla.org/show_bug.cgi?id=2089115</a> -
+as of 2026-11-22</li>
+<li id="src-91">Trusted Root Program commit 4b65c4c, eMudhra removal announcement -
+GitHub - <a
+href="https://github.com/TrustedRootProgram/Program-Requirements/commit/4b65c4c"
+class="uri">https://github.com/TrustedRootProgram/Program-Requirements/commit/4b65c4c</a>
+- as of 2026-11-22</li>
+<li id="src-92">Netlock Issues List: Near-Final Draft and Proposed Removal from the
+Mozilla Root Store - mozilla dev-security-policy - <a
+href="https://groups.google.com/a/mozilla.org/g/dev-security-policy"
+class="uri">https://groups.google.com/a/mozilla.org/g/dev-security-policy</a>
+- as of 2026-11-22</li>
+<li id="src-93">CCADB incident report - CCADB - <a
+href="https://www.ccadb.org/cas/incident-report"
+class="uri">https://www.ccadb.org/cas/incident-report</a> - as of
+2026-11-22</li>
+<li id="src-94">CA Certificate Compliance bugs changed from 14 November 2026 -
+Mozilla Bugzilla - <a
+href="https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;chfieldfrom=2026-11-14&amp;include_fields=id,summary,status,whiteboard,last_change_time"
+class="uri">https://bugzilla.mozilla.org/rest/bug?product=CA%20Program&amp;component=CA%20Certificate%20Compliance&amp;chfieldfrom=2026-11-14&amp;include_fields=id,summary,status,whiteboard,last_change_time</a>
+- as of 2026-11-22</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

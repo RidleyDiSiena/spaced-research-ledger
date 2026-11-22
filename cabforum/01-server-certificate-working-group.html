@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 1</p>
     <h1>Server Certificate Working Group</h1>
-    <p class="updated">Last updated: 2026-11-15</p>
+    <p class="updated">Last updated: 2026-11-22</p>
     <p class="actions"><a class="pdf" href="latest/01-server-certificate-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -56,13 +56,13 @@ Forum’s groups. Its Baseline Requirements reached version 2.3.1 on 4
 October 2026, the second new version since the start of September
 <a class="cite" href="#src-1">[1]</a>.</p>
 <p>This part covers three strands of its work. Section 1 follows the
-ballots and the document versions they produce, where one ballot’s stage
-is disputed between sources, and it may be awaiting its intellectual
-property review. Section 2 covers domain control validation, where the
-next hard deadline falls in December. Section 3 covers certificate
-profiles and cryptography, including the shrinking validity schedule,
-the closed post-quantum draft, and a new draft on key quality written in
-response to a key compromise.</p>
+ballots and the document versions they produce, including the
+intellectual property review of SC105, which removes High Risk language.
+Section 2 covers domain control validation, where the next hard deadline
+falls in December. Section 3 covers certificate profiles and
+cryptography, including the shrinking validity schedule, the closed
+post-quantum draft, and a new draft on key quality written in response
+to a key compromise.</p>
 <p>One distinction governs everything below. A ballot that passes its
 vote is not yet a requirement. It enters a 30-day intellectual property
 review, and only after that does the text publish into a numbered
@@ -78,27 +78,24 @@ table is the authoritative record of what is in force.</em></p>
 <h3 id="recent-developments">Recent Developments</h3>
 <p>Ballot SC105 removes the High Risk Certificate Request language from
 both the Baseline Requirements and the Extended Validation Guidelines,
-and is written against version 2.3.1 <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-3">[3]</a>. Its results post is dated
-28 October, but the sources disagree on whether the ballot has passed,
-as the later sentences set out. Voting ran from 21 October at 16:00 UTC
-to 28 October at 16:00 UTC, after a discussion period with no replies
-<a class="cite" href="#src-3">[3]</a>. The chair’s agenda update of 22 October had asked members to vote
-<a class="cite" href="#src-4">[4]</a>.</p>
+and is written against version 2.3.1 <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-3">[3]</a>. Its results post, dated 28
+October, records that the ballot passed <a class="cite" href="#src-56">[56]</a>. Voting ran from 21 October
+at 16:00 UTC to 28 October at 16:00 UTC, after a discussion period with
+no replies <a class="cite" href="#src-3">[3]</a>. The chair’s agenda update of 22 October had asked
+members to vote <a class="cite" href="#src-4">[4]</a>.</p>
 <p>The results post counted 27 certificate issuers in favour and two
 certificate consumers, Apple and Mozilla, with no votes against and no
 abstentions <a class="cite" href="#src-2">[2]</a>. The quorum of 11 was met <a class="cite" href="#src-2">[2]</a>. The mirror of the post
 names only 25 of the 27 issuers, so two yes votes are unnamed here <a class="cite" href="#src-2">[2]</a>.
 The concept the ballot removes came from the Validation Subcommittee,
 which judged it subjective and outdated in July <a class="cite" href="#src-5">[5]</a>.</p>
-<p>The ballot now enters its 30-day intellectual property review, though
-the sources disagree on when it began. The review notice, posted on 2
-November, gives the dates: the review runs from 2 November at 11:00 UTC
-to 2 December at 11:00 UTC <a class="cite" href="#src-48">[48]</a>. The 5 November agenda gives the same
-end date <a class="cite" href="#src-49">[49]</a>, but the 2 December end was not re-read in the week to 15
-November. Section 3.2.2.12.1 of the Extended Validation Guidelines goes
-away once the review clears, and until then version 2.0.4 stands <a class="cite" href="#src-2">[2]</a>
-<a class="cite" href="#src-6">[6]</a>. The ballots page, read on 15 November, dates the IPR review from 28
-October instead <a class="cite" href="#src-52">[52]</a>.</p>
+<p>The ballot is now in its 30-day intellectual property review, which
+runs from 2 November at 11:00 UTC to 2 December at 11:00 UTC <a class="cite" href="#src-56">[56]</a> <a class="cite" href="#src-48">[48]</a>.
+The 5 November agenda gives the same end date <a class="cite" href="#src-49">[49]</a>. Section 3.2.2.12.1
+of the Extended Validation Guidelines goes away once the review clears,
+and until then version 2.0.4 stands <a class="cite" href="#src-2">[2]</a> <a class="cite" href="#src-6">[6]</a>. The ballots page’s 28
+October date is the date of the results post, not the start of the
+review <a class="cite" href="#src-56">[56]</a> <a class="cite" href="#src-52">[52]</a>.</p>
 <p>The group published the minutes of its September face-to-face meeting
 on 23 October <a class="cite" href="#src-8">[8]</a>. The chair’s report lists four ballots under
 consideration, a proposal to issue formal revisions of the Baseline
@@ -165,22 +162,27 @@ from 15 February 2027 <a class="cite" href="#src-18">[18]</a>. Its redline adds 
 the rest of an authority’s certificates for the same fault <a class="cite" href="#src-19">[19]</a>. Its
 first discussion period closed on 1 October with no vote <a class="cite" href="#src-18">[18]</a>.</p>
 <p>A second version was posted on 5 November <a class="cite" href="#src-50">[50]</a>. The 8 November update
-gave its discussion period as opening at 12:00 UTC that day, with no
-close before 16 November <a class="cite" href="#src-50">[50]</a>. The ballots page gives no discussion end,
-and those dates are not re-confirmed this week <a class="cite" href="#src-52">[52]</a>.</p>
+gave its discussion period as opening at 12:00 UTC that day <a class="cite" href="#src-50">[50]</a>. The 5
+November minutes say SC-107v2 has been opened for comments. Martijn
+Katerbarg is to address the latest comments before a new discussion
+period of about a week and a half <a class="cite" href="#src-57">[57]</a>. The sources do not give the same
+timing, and the ballots page, read on 22 November, still shows no
+discussion end date <a class="cite" href="#src-58">[58]</a>.</p>
 <p>The redline has 65 commits and no approvals <a class="cite" href="#src-19">[19]</a>. One reply on the
 thread says the sender cannot support the ballot in its current state,
 though the snippet is partial <a class="cite" href="#src-50">[50]</a>. No voting thread or withdrawal has
 been posted <a class="cite" href="#src-20">[20]</a>. The Validation Subcommittee’s 29 October agenda lists
-the ballot as still in discussion <a class="cite" href="#src-21">[21]</a>. The ballots page read this week
-gives no discussion end for it <a class="cite" href="#src-52">[52]</a>.</p>
+the ballot as still in discussion <a class="cite" href="#src-21">[21]</a>.</p>
 <p>Two other server ballots sit short of a vote. SC103, which would
 require Extended Key Usage extensions on cross-certified subordinate
-authorities, has no progress on record since the 22 October call <a class="cite" href="#src-51">[51]</a>.
-The minutes of that call record that Aaron Gable reported no progress
-because of travel <a class="cite" href="#src-51">[51]</a>, and it was still in its discussion period on the
-5 November agenda <a class="cite" href="#src-49">[49]</a>. SC-106, the post-quantum ballot covered in
-Section 3, has no live draft text <a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-23">[23]</a>.</p>
+authorities, has had a revision in preparation since the 22 October
+call. The 5 November minutes say it requires further revision, and Aaron
+Gable is preparing SC103v2 with the intention of updating the text
+within about one to two weeks <a class="cite" href="#src-57">[57]</a>. The minutes of that call record that
+Aaron Gable reported no progress because of travel <a class="cite" href="#src-51">[51]</a>, and it was
+still in its discussion period on the 5 November agenda <a class="cite" href="#src-49">[49]</a>. SC-106,
+the post-quantum ballot covered in Section 3, has no live draft text
+<a class="cite" href="#src-22">[22]</a> <a class="cite" href="#src-23">[23]</a>.</p>
 <p>A draft omnibus ballot would reshape the extended validation rules.
 It moves the EV certificate profile from the Extended Validation
 Guidelines into the Baseline Requirements and turns the guidelines into
@@ -202,12 +204,13 @@ requirements page lists it as current and dated 4 October <a class="cite" href="
 Forum’s GitHub repository has no release or tag for it, and its newest
 tag is still 2.3.0 <a class="cite" href="#src-28">[28]</a>. The requirements page is the authoritative
 record, and a release tag would close the gap.</p>
-<p>SC105 is the clearest stage conflict in this part. The 22 October
-minutes say it was in voting, and the ballots page dates its IPR review
-from 28 October <a class="cite" href="#src-52">[52]</a> <a class="cite" href="#src-53">[53]</a>. The posts index shows a 28 October
-voting-results header with 27 votes but no tally or outcome <a class="cite" href="#src-54">[54]</a>. The 2
-December end of its review was not re-read this week, so this part does
-not pick a stage.</p>
+<p>The SC105 stage conflict is now explained. The 22 October minutes
+describe it as in voting, which was true while the vote ran to 28
+October <a class="cite" href="#src-53">[53]</a>. The ballots page dated its IPR review from 28 October
+<a class="cite" href="#src-52">[52]</a>. That is the results post’s date, and the post records the passed
+vote and the review window from 2 November <a class="cite" href="#src-56">[56]</a>. The posts index shows a
+28 October voting-results header with 27 votes but no tally or outcome
+<a class="cite" href="#src-54">[54]</a>.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="domain-control-validation">2. Domain Control Validation</h2>
 <p><em>Domain control validation is how a certificate authority
 satisfies itself that the applicant controls the name being certified.
@@ -217,6 +220,11 @@ single network path insufficient to obtain a certificate.</em></p>
 <p>No validation method ballot has entered any stage since September
 <a class="cite" href="#src-7">[7]</a>. The work instead moved through drafts, guidance and one large
 issuer’s own schedule.</p>
+<p>At the 5 November call, Ryan Dickson of Google Chrome raised under
+Any Other Business a proposal to bar reuse of domain validation data
+after revocation <a class="cite" href="#src-57">[57]</a>. Stephen Davidson of DigiCert said the Validation
+Subcommittee would take it up at its next agenda, so this is a referral,
+not a ballot <a class="cite" href="#src-57">[57]</a>.</p>
 <p>A revised ACME persistent DNS method was posted to the Validation
 Subcommittee on 26 September <a class="cite" href="#src-29">[29]</a>. Its second draft replaces the account
 address in the DNS record with a hash over the account’s public key and
@@ -630,6 +638,19 @@ class="uri">https://cabforum.org/posts</a> - as of 2026-11-15</li>
 href="https://groups.google.com/a/groups.cabforum.org/g/public"
 class="uri">https://groups.google.com/a/groups.cabforum.org/g/public</a>
 - as of 2026-11-15</li>
+<li id="src-56">Ballot SC105 results - CA/Browser Forum - <a
+href="https://cabforum.org/2026/10/28/ballot-sc105-remove-high-risk-language-from-tls-br-and-evg/"
+class="uri">https://cabforum.org/2026/10/28/ballot-sc105-remove-high-risk-language-from-tls-br-and-evg/</a>
+- as of 2026-11-22</li>
+<li id="src-57">Minutes of the Server Certificate Working Group, 5 November 2026 -
+CA/Browser Forum - <a
+href="https://cabforum.org/2026/11/05/2026-11-05-minutes-of-the-server-certificate-working-group/"
+class="uri">https://cabforum.org/2026/11/05/2026-11-05-minutes-of-the-server-certificate-working-group/</a>
+- as of 2026-11-22</li>
+<li id="src-58">Server certificate ballots page - CA/Browser Forum - <a
+href="https://cabforum.org/working-groups/server/ballots/"
+class="uri">https://cabforum.org/working-groups/server/ballots/</a> - as
+of 2026-11-22</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

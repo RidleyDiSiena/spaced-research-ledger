@@ -17,7 +17,7 @@
   <div class="titleblock">
     <p class="kicker">CA/Browser Forum Tracker &middot; Part 3</p>
     <h1>S/MIME Working Group</h1>
-    <p class="updated">Last updated: 2026-11-15</p>
+    <p class="updated">Last updated: 2026-11-22</p>
     <p class="actions"><a class="pdf" href="latest/03-smime-working-group.pdf">Download PDF</a></p>
   </div>
 
@@ -55,21 +55,24 @@ that the public record shows a change.</p>
 <p>The S/MIME Working Group writes the rules for certificates that sign
 and encrypt email. Its Baseline Requirements are the youngest of the
 Forum’s documents, adopted at the start of 2023. The current version is
-1.0.16, published on 28 September 2026, and a version 1.0.17 is now in
-review <a class="cite" href="#src-1">[1]</a>.</p>
+1.0.16, published on 28 September 2026, and a version 1.0.17 is now
+shown with a placeholder date of 20 November <a class="cite" href="#src-1">[1]</a> <a class="cite" href="#src-28">[28]</a>.</p>
 <p>This part has four sections. Section 1 covers the requirements and
 the version history behind them. Section 2 covers the RSA key size
 transition, whose first deadline arrived on 15 September. Section 3
-follows the ballot that passed its vote in October and is still in
-intellectual property review. Section 4 covers the group’s post-quantum
-work, where it remains ahead of the larger server certificate group.</p>
+follows the ballot that passed its vote in October and is shown as
+Passed, with its review due to end on 19 November. Section 4 covers the
+group’s post-quantum work, where it remains ahead of the larger server
+certificate group.</p>
 <p>The group’s pace picked up after a quiet summer. One ballot was
 published, one passed its vote, a post-quantum draft appeared, and the
-group’s leadership is changing hands. The week to 15 November brought no
-ballot into voting or adoption <a class="cite" href="#src-26">[26]</a>. The S/MIME commit feed stops at 29
-September in the reads made, so commits in the window are unconfirmed
-<a class="cite" href="#src-27">[27]</a>. Every ballot below is given with its stage, because a ballot that
-has passed its vote is not yet a rule.</p>
+group’s leadership is changing hands. The week to 22 November brought no
+ballot into voting or adoption. The one change in the window is the
+SMC020 release, dated 20 November <a class="cite" href="#src-28">[28]</a>.</p>
+<p>Apart from the SMC020 commit of 20 November <a class="cite" href="#src-29">[29]</a>, the S/MIME commit
+feed read earlier stopped at 29 September, so other commits in the
+window are unconfirmed <a class="cite" href="#src-27">[27]</a>. Every ballot below is given with its stage,
+because a ballot that has passed its vote is not yet a rule.</p>
 <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p><h2 id="requirements-and-version-history">1. Requirements and Version
 History</h2>
 <p><em>The version table is the record of what this group has agreed.
@@ -147,14 +150,21 @@ three voting certificate consumers, Apple, Mozilla and rundQuadrat,
 voted in favour, and no member voted against or abstained <a class="cite" href="#src-10">[10]</a>. The
 quorum of six was met <a class="cite" href="#src-10">[10]</a>.</p>
 <h3 id="current-state-2">Current State</h3>
-<p>SMC020 is adopted and in its intellectual property review, which
-began on 20 October <a class="cite" href="#src-10">[10]</a>. The S/MIME ballots page lists it under the
-review period, with no review end date given <a class="cite" href="#src-26">[26]</a>. The 19 November end
-date from earlier updates is not confirmed by any source read this week
-<a class="cite" href="#src-26">[26]</a>. No exclusion notice had appeared by 8 November, and the pull
-request still carries the ballot and review labels <a class="cite" href="#src-14">[14]</a> <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-22">[22]</a>. The
-group’s 4 November agenda still lists SMC020 in review, with the next
-call on 18 November <a class="cite" href="#src-24">[24]</a>.</p>
+<p>SMC020 is shown as Passed on the S/MIME ballots page, read on 22
+November, where its release v1.0.17 is dated 20 November 2026 <a class="cite" href="#src-28">[28]</a>. The
+release note says the ballot number and publication date are
+placeholders <a class="cite" href="#src-28">[28]</a>. The sources do not settle a status beyond shown as
+Passed, with a placeholder release date of 20 November <a class="cite" href="#src-28">[28]</a>.</p>
+<p>The review began on 20 October and was due to end on 19 November, per
+the 20 October adoption record <a class="cite" href="#src-10">[10]</a>. The review notice itself was not
+re-read, and a search summary still describes an IPR review with a 5
+October notice <a class="cite" href="#src-21">[21]</a>. The 5 November plenary minutes, posted on 19
+November, list an IPR ballot on SMC020 <a class="cite" href="#src-30">[30]</a>.</p>
+<p>The commit that removes the BR version requirement is dated 20
+November <a class="cite" href="#src-29">[29]</a>. No exclusion notice had appeared by 8 November, and the
+pull request still carries the ballot and review labels <a class="cite" href="#src-14">[14]</a> <a class="cite" href="#src-21">[21]</a> <a class="cite" href="#src-22">[22]</a>.
+The group’s 4 November agenda still lists SMC020 in review, with the
+next call on 18 November <a class="cite" href="#src-24">[24]</a>.</p>
 <p>The redline attached to the result is labelled version 1.0.17 of the
 requirements, which is the version the ballot will publish into if no
 exclusion notice arrives <a class="cite" href="#src-10">[10]</a>. The ballots page lists no S/MIME ballot
@@ -338,6 +348,22 @@ of 2026-11-15</li>
 href="https://github.com/cabforum/smime/commits/main.atom"
 class="uri">https://github.com/cabforum/smime/commits/main.atom</a> - as
 of 2026-11-15</li>
+<li id="src-28">S/MIME Certificate Working Group Ballots, release v1.0.17 -
+CA/Browser Forum - <a
+href="https://cabforum.org/working-groups/smime/ballots/"
+class="uri">https://cabforum.org/working-groups/smime/ballots/</a> - as
+of 2026-11-22</li>
+<li id="src-29">Commit 86ed93eab8dccb16b74d0d1f85d14459932a2848, Ballot SMC020:
+Remove requirement to record BR version of validation method (#309) -
+cabforum/smime - <a
+href="https://github.com/cabforum/smime/commit/86ed93eab8dccb16b74d0d1f85d14459932a2848"
+class="uri">https://github.com/cabforum/smime/commit/86ed93eab8dccb16b74d0d1f85d14459932a2848</a>
+- as of 2026-11-22</li>
+<li id="src-30">Minutes of the S/MIME Certificate Working Group, 5 November 2026,
+posted 19 November - smcwg-public list - <a
+href="https://groups.google.com/a/groups.cabforum.org/g/public/c/hrrX_9jIy1U"
+class="uri">https://groups.google.com/a/groups.cabforum.org/g/public/c/hrrX_9jIy1U</a>
+- as of 2026-11-22</li>
 </ol>
   <p class="backtotop"><a href="#page-contents">&uarr; Contents</a></p></article>
 

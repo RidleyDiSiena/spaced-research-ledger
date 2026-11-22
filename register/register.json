@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "register": "PQC Readiness Register",
-  "generated": "2026-11-15",
-  "commit": "fea4906",
+  "generated": "2026-11-22",
+  "commit": "4d25ce9",
   "statuses": [
     "none",
     "planned",
@@ -1887,6 +1887,22 @@
       "version_pattern": "AWS-LC(?: FIPS)?\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
       "releases": [
         {
+          "version": "5.15.0",
+          "date": "2026-11-16",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/aws/aws-lc/releases/tag/v5.15.0",
+              "url": null,
+              "as_of": "2026-11-16",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22 (R1). v5.15.0 (published 16 Nov 2026, 19:14 UTC, 20 change lines, read on the tag page): parser overflow checks, RSA and EVP hardening, CI and tooling, CN name constraints, and 'Rename SHAKE128_Init_x4, expose batched SHAKE256 and add into MLDSA' (#2917, an internal SHAKE batching change, not a capability change). No line names ML-KEM, ML-DSA as a new capability, SLH-DSA, a hybrid, a group or a default. ssl/extensions.cc at main (read 2026-11-22): kDefaultGroups is still {X25519_MLKEM768, SECP256R1_MLKEM768, SECP384R1_MLKEM1024, X25519, SECP256R1, SECP384R1}, so the hybrid `default` cells and the pure-group `available` cells stand. The FIPS module lines are not this library's releases and are not read here."
+            }
+          ]
+        },
+        {
           "version": "5.14.0",
           "date": "2026-11-10",
           "lts": false,
@@ -2202,8 +2218,8 @@
       "rejected": [],
       "derives_from": [],
       "current": {
-        "version": "v5.14.0",
-        "as_of": "2026-11-10",
+        "version": "v5.15.0",
+        "as_of": "2026-11-16",
         "evidence": [
           {
             "claim": null,
@@ -2251,7 +2267,7 @@
             "note": "AWSLC_VERSION_NUMBER_STRING \"5.1.0\" and AWSLC_FIPS_VERSION_NUMBER 5 on the fips-2026-06-26-snapshot branch; commit history shows \"Bump AWSLC_FIPS_VERSION to 5 for next FIPS branch (#3316)\" (2026-06-25) and \"Prepare v5.1.0 release (#3321)\" (2026-06-26)."
           }
         ],
-        "note": "Newest release tag on 2026-11-15: v5.14.0 (2026-11-10), 13 change lines, none naming ML-KEM, a hybrid, a group or a default (ML-DSA SHAKE context wipe only); kDefaultGroups unchanged (see `releases`). Earlier: v5.13.0 (2026-11-06), 34 changes, none post-quantum, kDefaultGroups unchanged (see `releases`). Earlier: v5.12.0 (2026-10-23), security and correctness fixes plus FIPS support in the aws-lc-provider (an OpenSSL provider wrapper); nothing post-quantum, and kDefaultGroups is unchanged (see `releases`). Earlier: v5.11.0 was newest from 2026-10-01 to 2026-10-22; the note below is the 2026-10-04 reading, kept as written. v5.11.0 (2026-10-01) is maintenance with one post-quantum line, \"fix(ml_kem): Gate ML-KEM x86-64 on BMI2 in addition to AVX2\" (#3596), plus \"Seed groups and signature algorithms from the system crypto policy\" (#3504) and \"Extend FIPS 3.x EOS to February 2030\" (#3539). Earlier: v5.9.0 (2026-09-15) ML-KEM in HPKE per draft-ietf-hpke-pq-05 and OpenSSL-compatible ML-DSA OID long names; v5.10.0 (2026-09-23) EVP_PKEY_check for KEMs and an ML-DSA ACVP context-length guard. The FIPS module versions run on their own numbering and are NOT this field: a library release and a validated module are different artifacts, which is the distinction the aws-lc-rs ml-kem/fips gap turns on. FIPS branch lines as read on 2026-10-04: fips-2024-09-27 is version 3.6.0 (the AWS-LC 3 line; 3.1.0 is the certified one), fips-2025-09-12-lts is 4.2.0 (AWS-LC 4, in the CMVP queue), and fips-2026-06-26-snapshot is 5.1.0 with AWSLC_FIPS_VERSION_NUMBER 5 -- the source of the 'AWS-LC 5 Cryptographic Module' (dynamic and static) that entered the queue on 2026-10-02."
+        "note": "Newest release tag on 2026-11-22: v5.15.0 (2026-11-16), 20 change lines, none naming ML-KEM, a hybrid, a group or a default (a SHAKE batching rename into MLDSA is the only ML-DSA line); kDefaultGroups unchanged (see `releases`). Earlier: v5.14.0 (2026-11-10), 13 change lines, none naming ML-KEM, a hybrid, a group or a default (ML-DSA SHAKE context wipe only); kDefaultGroups unchanged (see `releases`). Earlier: v5.13.0 (2026-11-06), 34 changes, none post-quantum, kDefaultGroups unchanged (see `releases`). Earlier: v5.12.0 (2026-10-23), security and correctness fixes plus FIPS support in the aws-lc-provider (an OpenSSL provider wrapper); nothing post-quantum, and kDefaultGroups is unchanged (see `releases`). Earlier: v5.11.0 was newest from 2026-10-01 to 2026-10-22; the note below is the 2026-10-04 reading, kept as written. v5.11.0 (2026-10-01) is maintenance with one post-quantum line, \"fix(ml_kem): Gate ML-KEM x86-64 on BMI2 in addition to AVX2\" (#3596), plus \"Seed groups and signature algorithms from the system crypto policy\" (#3504) and \"Extend FIPS 3.x EOS to February 2030\" (#3539). Earlier: v5.9.0 (2026-09-15) ML-KEM in HPKE per draft-ietf-hpke-pq-05 and OpenSSL-compatible ML-DSA OID long names; v5.10.0 (2026-09-23) EVP_PKEY_check for KEMs and an ML-DSA ACVP context-length guard. The FIPS module versions run on their own numbering and are NOT this field: a library release and a validated module are different artifacts, which is the distinction the aws-lc-rs ml-kem/fips gap turns on. FIPS branch lines as read on 2026-10-04: fips-2024-09-27 is version 3.6.0 (the AWS-LC 3 line; 3.1.0 is the certified one), fips-2025-09-12-lts is 4.2.0 (AWS-LC 4, in the CMVP queue), and fips-2026-06-26-snapshot is 5.1.0 with AWSLC_FIPS_VERSION_NUMBER 5 -- the source of the 'AWS-LC 5 Cryptographic Module' (dynamic and static) that entered the queue on 2026-10-02."
       },
       "roll_up": {
         "kem": "available",
@@ -4828,6 +4844,22 @@
       "version_pattern": "GnuTLS\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
       "releases": [
         {
+          "version": "3.8.14",
+          "date": "2026-11-18",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://openwall.com/lists/oss-security/2026/11/19/3",
+              "url": null,
+              "as_of": "2026-11-18",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22. Announcement line \"Version 3.8.14 (released 2026-11-18)\". Build change: --with-nettle-mini removed, GMP now required. New API gnutls_pubkey_{import,export}_mldsa_raw() for raw FIPS 204 ML-DSA public keys. No ML-KEM, hybrid-group or FIPS-validation item in the announcement. Cells unchanged."
+            }
+          ]
+        },
+        {
           "version": "3.8.13",
           "date": "2026-04-29",
           "lts": false,
@@ -5644,8 +5676,8 @@
       "rejected": [],
       "derives_from": [],
       "current": {
-        "version": "1.27.3",
-        "as_of": "2026-10-19",
+        "version": "1.27.4",
+        "as_of": "2026-11-10",
         "evidence": [
           {
             "claim": null,
@@ -5693,7 +5725,7 @@
             "note": "Unchanged: \"Go Cryptographic Module v1.26.0 ... As of 2026-04-28, it is Pending Review in the CMVP Modules In Process List. It is covered by CAVP Certificate A8028. Changes from v1.0.0: Implemented ML-DSA.\""
           }
         ],
-        "note": "Newest stable on 2026-10-25: go1.27.3 and go1.26.10 (both 2026-10-19, crypto/x509 security fix CVE-2026-111943, nothing post-quantum; see `releases`); go.dev/dl JSON still shows no go1.28 beta or rc. The rest of this note is the 2026-10-15 reading. Newest stable on 2026-10-15 (go.dev/dl lists go1.27.2 and go1.26.9, both 2026-10-08, as the current stables; the newest pre-release is go1.27rc3, so no 1.28 cycle has started). Go's FIPS 140 page still says the Go Cryptographic Module v1.26.0 (the ML-DSA one) is \"Pending Review\" as of 2026-04-28; the queue itself is the validations sheet's business. Patrol 2026-10-18, two passes: go.dev/dl JSON still lists go1.27.2 first (then go1.27.1, go1.27.0, go1.27rc3...; no go1.28 beta or rc) and go.dev/doc/devel/release has nothing dated after 2026-10-08."
+        "note": "Newest stable on 2026-11-22: go1.27.4 and go1.26.11 (both 2026-11-10, 12 security fixes led by a cmd/go issue, CVE-2026-97037; announcement lists no crypto/tls, mlkem, mldsa or key-exchange item). Patrol 2026-11-22 found no later stable and no go1.28 pre-release in the search results. Earlier reading, kept: newest stable on 2026-10-25: go1.27.3 and go1.26.10 (both 2026-10-19, crypto/x509 security fix CVE-2026-111943, nothing post-quantum; see `releases`); go.dev/dl JSON still shows no go1.28 beta or rc. The rest of this note is the 2026-10-15 reading. Newest stable on 2026-10-15 (go.dev/dl lists go1.27.2 and go1.26.9, both 2026-10-08, as the current stables; the newest pre-release is go1.27rc3, so no 1.28 cycle has started). Go's FIPS 140 page still says the Go Cryptographic Module v1.26.0 (the ML-DSA one) is \"Pending Review\" as of 2026-04-28; the queue itself is the validations sheet's business. Patrol 2026-10-18, two passes: go.dev/dl JSON still lists go1.27.2 first (then go1.27.1, go1.27.0, go1.27rc3...; no go1.28 beta or rc) and go.dev/doc/devel/release has nothing dated after 2026-10-08."
       },
       "roll_up": {
         "kem": "available",
@@ -6005,6 +6037,22 @@
       ],
       "version_pattern": null,
       "releases": [
+        {
+          "version": "3.4.8",
+          "date": "2026-11-18",
+          "lts": true,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://www.haproxy.org/download/3.4/src/CHANGELOG",
+              "url": null,
+              "as_of": "2026-11-18",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22. Maintenance release 2026-11-18 (3.3.18 the same day on the 3.3 branch). Ssl fixes only: AWS-LC SCTL support, curves/sigalgs copy and free in server settings, kTLS and OCSP fixes, a DOC line on AWS-LC compatibility. Nothing adds or changes a post-quantum group (no ML-KEM, MLKEM or hybrid codepoint in the log). The 3.5-dev PQC group table from 2026-10-14 is not confirmed in 3.4.8. Cells unchanged."
+            }
+          ]
+        },
         {
           "version": "3.4.7",
           "date": "2026-10-14",
@@ -7622,6 +7670,22 @@
       "version_pattern": null,
       "releases": [
         {
+          "version": "5.4.2",
+          "date": "2026-11-17",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/libreswan/libreswan/releases/tag/v5.4.2",
+              "url": null,
+              "as_of": "2026-11-17",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22 (R4). Security release, marked Latest, not prerelease. Date conflict: the release heading reads \"v5.4.2 (Nov 16, 2026)\" while the GitHub publish stamp reads 17 Nov 15:14; the GitHub stamp is used. Items: CVE-2026-110339 (NPE, empty PKCS#7 payload), CVE-2026-115846 (IKE_INTERMEDIATE addkey bypass), a non-PSK INTERMEDIATE auth calculation fix, INTERNAL_IP6_DNS 16-byte fix, and a passwordless pkcs12 import fix. Nothing post-quantum: no ML-KEM, ML-DSA or NSS-version line. The ml-kem cell (v5.4) is unchanged."
+            }
+          ]
+        },
+        {
           "version": "5.4.1",
           "date": "2026-10-05",
           "lts": false,
@@ -8151,9 +8215,27 @@
         {
           "algorithm": "ml-dsa",
           "capability": "primitive",
-          "status": "planned",
-          "since": "roadmap: initial support 2026 CQ2",
+          "status": "experimental",
+          "since": "TF-PSA-Crypto 1.3.0 (2026-11-16)",
           "evidence": [
+            {
+              "claim": null,
+              "source": "https://github.com/Mbed-TLS/TF-PSA-Crypto/releases/tag/tf-psa-crypto-1.3.0",
+              "url": null,
+              "as_of": "2026-11-16",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22 (R4): first release carrying the ML-DSA driver-layer code, published 16 Nov 17:31, marked Latest, not prerelease. Notes: \"A limited, experimental ML-DSA subset is available from the driver dispatch layer\" (key generation, public key export, one-shot and multipart sign and verify); \"Only pure ML-DSA-87 is supported.\"; \"This interface is experimental and may change without notice.\"; \"ML-DSA is not yet exposed to applications.\" Status moved to experimental on the project's own word. The application-facing mbedtls-4.3.0 release (16 Nov) carries no ML-DSA line, so the since value names the TF-PSA-Crypto release. tf-psa-crypto-1.1.2 shipped the same minute; its notes were not read and it is not cited here."
+            },
+            {
+              "claim": null,
+              "source": "https://github.com/Mbed-TLS/TF-PSA-Crypto/pull/912",
+              "url": null,
+              "as_of": "2026-11-18",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22 (R4): PR #912 'ML-DSA-87 public key support' still Open; most recent event 18 Nov 2026, a cross-reference from Mbed-TLS/mbedtls#11083."
+            },
             {
               "claim": "pqc/embedded-alternative-libraries/d0001:8",
               "source": null,
@@ -8218,7 +8300,7 @@
               "note": "Patrol 2026-11-15 (R4): PR #912 'ML-DSA-87 public key support' still Open; last event a force-push 2026-11-10 11:39 (no time zone shown). Release feeds of Mbed-TLS/mbedtls and TF-PSA-Crypto unchanged: newest mbedtls-4.2.0 / 4.1.1 / 3.6.7 and tf-psa-crypto-1.2.0 / 1.1.1, all 2026-07-07. Still unreleased; `planned` stands."
             }
           ],
-          "note": "Roadmap items only; a 2026 mailing-list thread shows users still asking. Patrol 2026-10-15: the `planned` cell is re-verified and stays `planned` -- code has landed on TF-PSA-Crypto's development branch (ML-DSA-87 only, driver layer, 'not yet exposed to applications'), which is the scale's 'nothing a user can run yet' until a release carries it. When one does, the honest first status is `experimental` on the project's own word ('experimental and may change without notice'), and the parameter set is 87 alone."
+          "note": "Patrol 2026-11-22: moved from planned to experimental on the release of TF-PSA-Crypto 1.3.0 (2026-11-16), see the evidence. Before that, roadmap items only; a 2026 mailing-list thread shows users still asking. Patrol 2026-10-15: the cell was re-verified as planned -- code has landed on TF-PSA-Crypto's development branch (ML-DSA-87 only, driver layer, 'not yet exposed to applications'), which is the scale's 'nothing a user can run yet' until a release carries it. The release that carried it (2026-11-16) set the status to `experimental`, on the project's own word ('experimental and may change without notice'), and the parameter set is 87 alone."
         },
         {
           "algorithm": "ml-kem",
@@ -8432,7 +8514,7 @@
         "kem": "planned",
         "hybrid-kex": null,
         "pure-kex": "none",
-        "signature": "planned",
+        "signature": "experimental",
         "composite": null,
         "stateful-hbs": "available"
       },
@@ -8767,6 +8849,31 @@
       ],
       "version_pattern": null,
       "releases": [
+        {
+          "version": "1.31.9",
+          "date": "2026-11-18",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://nginx.org/en/CHANGES",
+              "url": null,
+              "as_of": "2026-11-18",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22. Mainline release, \"Changes with nginx 1.31.9 ... 18 Nov 2026\" (tag release-1.31.9 on the nginx/nginx tags feed the same day, 15:54 UTC). Security entries: stream-module client certificate verification under the wrong server block after synchronous SSL handshake (CVE-2026-120967), worker segfault with PROXY protocol v2 and dynamic SSL certificate loading (CVE-2026-120993), ssl_preread ClientHello parsing differences (CVE-2026-123640), endless loop reading request body over SSL (CVE-2026-118899); one OCSP cache bugfix. Nothing post-quantum: no change to ssl_ecdh_curve or to the OpenSSL the binary links. The stable branch shipped 1.30.7 the same day (tags feed, release-1.30.7 2026-11-18); not recorded here because the register records mainline only."
+            },
+            {
+              "claim": null,
+              "source": "https://github.com/nginx/nginx/tags.atom",
+              "url": null,
+              "as_of": "2026-11-18",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22: release-1.30.7 (15:56 UTC) and release-1.31.9 (15:54 UTC) both 2026-11-18; release-1.31.8 2026-10-21 is the prior mainline. Newest mainline is 1.31.9."
+            }
+          ]
+        },
         {
           "version": "1.31.8",
           "date": "2026-10-21",
@@ -9410,6 +9517,31 @@
       ],
       "version_pattern": "NSS\\s+(\\d+\\.\\d+(?:\\.\\d+)?)",
       "releases": [
+        {
+          "version": "3.134",
+          "date": "2026-11-18",
+          "lts": false,
+          "evidence": [
+            {
+              "claim": null,
+              "source": "https://firefox-source-docs.mozilla.org/security/nss/releases/nss_3_134.html",
+              "url": null,
+              "as_of": "2026-11-18",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22. \"Network Security Services (NSS) 3.134 was released on 18 November 2026\", HG tag NSS_3_134_RTM. Post-quantum lines, verbatim: \"Bug 2079584 - ML-KEM certificates can only assert keyEncipherment\"; \"Bug 2079584 - support ML-KEM end-entity keys in certutil\"; \"Bug 2068282 - Enable ML-DSA signature verification for certificate chain validation\" (mozilla::pkix, with per-parameter-set ML-DSA algorithms); \"Bug 2092801 - expose MLKEM1024 in tstclnt and selfserv\". No key-exchange group, sslt.h or policy-default line on the page. No cell status changed: ML-KEM and ML-DSA primitive and the TLS hybrid cells are already available or default; the certificate-side changes are a capability the register does not carry as a cell for this component."
+            },
+            {
+              "claim": null,
+              "source": "https://firefox-source-docs.mozilla.org/security/nss/releases/index.html",
+              "url": null,
+              "as_of": "2026-11-18",
+              "confidence": null,
+              "checked_on": "2026-11-22",
+              "note": "Patrol 2026-11-22: the releases index names 3.134 as latest and 3.125.1 as ESR. No 3.134.x point release listed. The 3.133 entry below is superseded as newest."
+            }
+          ]
+        },
         {
           "version": "3.133",
           "date": "2026-11-04",
